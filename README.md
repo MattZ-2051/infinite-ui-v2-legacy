@@ -20,9 +20,7 @@ To start a development build (e.g. with file watching and live-reload) run `pnpm
 
 To enforce a common style guide we use [Prettier](https://prettier.io).
 
-To only check for un-formatted files, run `pnpm format:check`.
-
-In order, to formats all files, run `pnpm format`.
+In order to format all files, run `pnpm format`.
 
 ### Linting
 
