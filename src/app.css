@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .text-gradient {
+    @apply text-transparent bg-clip-text;
+  }
+}
+
+.gradient-primary {
+  @apply text-gradient bg-gradient-to-tr;
+  --tw-gradient-to: #e81cff;
+  --tw-gradient-from: #40c9ff;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 114, 182, 0));
+}
