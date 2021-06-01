@@ -19,7 +19,7 @@ const config = {
       resolve: {
         alias: {
           $ui: path.resolve('./src/ui'),
-          $utils: path.resolve('./src/utils'),
+          $util: path.resolve('./src/util'),
         },
       },
     },

@@ -1,5 +1,7 @@
 <script context="module" lang="ts">
-  export function load({ error, status }) {
+  import type { LoadOutput } from '@sveltejs/kit/types/page';
+
+  export function load({ error, status }: LoadOutput): { props: Partial<LoadOutput> } {
     return {
       props: {
         status,

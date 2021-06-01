@@ -1,11 +1,9 @@
 export function styles(obj: { [key: string]: string | number }): string {
-  const style = '';
   return Object.entries(obj)
+    .filter(([nameAndUnit, value]) => {
+      return nameAndUnit && value !== null;
+    })
     .map(([nameAndUnit, value]) => {
-      if (value === null) {
-        return '';
-      }
-
       const [name, unit] = nameAndUnit.split('.');
 
       if (unit) {
@@ -14,6 +12,5 @@ export function styles(obj: { [key: string]: string | number }): string {
 
       return `${name}: ${value};`;
     })
-    .concat([style])
     .join(' ');
 }

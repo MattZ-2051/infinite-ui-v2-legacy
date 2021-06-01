@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { styles } from '$utils/styles';
+  import { styles } from '$util/styles';
 
   export let path: string; // https://materialdesignicons.com
   export let size: number | string = 1;

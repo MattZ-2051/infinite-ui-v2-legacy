@@ -26,6 +26,12 @@ In order to format all files, run `pnpm format`.
 
 To check your code, run `pnpm lint` and `pnpm check`.
 
+### Testing
+
+To test your code and generate coverage reports in `/coverage` directory, run `pnpm test`.
+
+To run tests in watch mode, , run `pnpm tdd`.
+
 ### Production build
 
 To build the project for production, run `pnpm build`.
