@@ -14,6 +14,7 @@ specifiers:
   cssnano: ^5.0.1
   eslint: ^7.22.0
   eslint-config-prettier: ^8.1.0
+  eslint-plugin-jest-dom: ^3.9.0
   eslint-plugin-svelte3: ^3.2.0
   husky: ^6.0.0
   jest: ~26.6.3
@@ -37,7 +38,7 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 12.1.4
   '@commitlint/config-conventional': 12.1.4
-  '@sveltejs/kit': 1.0.0-next.111_svelte@3.38.2
+  '@sveltejs/kit': 1.0.0-next.112_svelte@3.38.2
   '@testing-library/jest-dom': 5.12.0
   '@testing-library/svelte': 3.0.3_svelte@3.38.2
   '@typescript-eslint/eslint-plugin': 4.26.0_025fc50e542c8e957dec903a5ef525ba
@@ -46,6 +47,7 @@ devDependencies:
   cssnano: 5.0.5_postcss@8.3.0
   eslint: 7.27.0
   eslint-config-prettier: 8.3.0_eslint@7.27.0
+  eslint-plugin-jest-dom: 3.9.0_eslint@7.27.0
   eslint-plugin-svelte3: 3.2.0_eslint@7.27.0+svelte@3.38.2
   husky: 6.0.0
   jest: 26.6.3
@@ -808,8 +810,8 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.111_svelte@3.38.2:
-    resolution: {integrity: sha512-w3irGw6nqK78YBzSi37MvH67EZJxoACUOnihp1nVOGOJjcHSKysjNeF8qB5/jK7It1TJwxYeu+KrK3mBAg7jqQ==}
+  /@sveltejs/kit/1.0.0-next.112_svelte@3.38.2:
+    resolution: {integrity: sha512-n+GyrDB7j4CJTazRAnwZolsoRp76g38x7+8msEul6DctghtNBRtW1eIyCcIuUn0nQMVQdseZUmifrbQ9NTEvJQ==}
     engines: {node: ^12.20 || ^14.13.1 || >= 16}
     hasBin: true
     peerDependencies:
@@ -2244,6 +2246,18 @@ packages:
       eslint: '>=7.0.0'
     dependencies:
       eslint: 7.27.0
+    dev: true
+
+  /eslint-plugin-jest-dom/3.9.0_eslint@7.27.0:
+    resolution: {integrity: sha512-Ou3cuAAY9s6pYZv+KKPa9XquSzUAWW2CgE5al7cQ0yew25w/kp5kNsUJgESb3Pj00Y6pzvznepppL2sk7UOQKg==}
+    engines: {node: ^10.12.0 || >=12.0.0, npm: '>=6', yarn: '>=1'}
+    peerDependencies:
+      eslint: '>=6.8'
+    dependencies:
+      '@babel/runtime': 7.14.0
+      '@testing-library/dom': 7.31.0
+      eslint: 7.27.0
+      requireindex: 1.2.0
     dev: true
 
   /eslint-plugin-svelte3/3.2.0_eslint@7.27.0+svelte@3.38.2:
@@ -4931,6 +4945,11 @@ packages:
 
   /require-relative/0.8.7:
     resolution: {integrity: sha1-eZlTn8ngR6N5KPoZb44VY9q9Nt4=}
+    dev: true
+
+  /requireindex/1.2.0:
+    resolution: {integrity: sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==}
+    engines: {node: '>=0.10.5'}
     dev: true
 
   /resolve-cwd/3.0.0:
