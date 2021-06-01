@@ -14,7 +14,7 @@
   // export let error: any = null;
 </script>
 
-<div class="bg-black text-white flex w-full items-center justify-center">
+<div class="bg-black text-white flex flex-grow items-center justify-center">
   <div class="flex flex-col gap-2 items-center text-center">
     <div class="text-6xl font-extrabold text-gradient-primary">Oh,no!</div>
     {#if status === 404}

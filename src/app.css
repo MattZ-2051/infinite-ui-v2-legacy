@@ -8,7 +8,7 @@
   }
 }
 
-.gradient-primary {
+.text-gradient-primary {
   @apply text-gradient bg-gradient-to-tr;
   --tw-gradient-to: #e81cff;
   --tw-gradient-from: #40c9ff;

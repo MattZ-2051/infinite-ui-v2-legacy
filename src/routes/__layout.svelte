@@ -6,7 +6,7 @@
 <div class="flex flex-col min-h-screen">
   <Header />
 
-  <main class="flex flex-1">
+  <main class="flex flex-col flex-grow">
     <slot />
   </main>
 </div>
