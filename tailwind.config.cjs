@@ -1,13 +1,10 @@
 module.exports = {
   mode: 'aot', // jit
   purge: ['./src/**/*.{html,js,svelte,ts}'],
+  corePlugins: {
+    container: false,
+  },
   theme: {
-    container: {
-      center: true,
-      padding: {
-        DEFAULT: '1rem',
-      },
-    },
     extend: {},
   },
   plugins: [],

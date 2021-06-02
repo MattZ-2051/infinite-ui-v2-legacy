@@ -15,6 +15,7 @@
   import Icon from '$ui/icon/Icon.svelte';
 
   export let selectedTabId: string = null;
+  export let itemClass: string = null;
 
   let selectedTabStore = writable<string>(selectedTabId);
   let selfEl: HTMLElement;
@@ -56,23 +57,20 @@
   });
 </script>
 
-<nav class="flex justify-between">
+<nav {...$$restProps}>
   <ul class="flex gap-10">
     {#each headers as { id, title, icon } (id)}
       <li
+        on:click={() => ($selectedTabStore = id)}
         class:active={$selectedTabStore === id}
-        class="whitespace-nowrap transition-all ease-out duration-300"
+        class="cursor-pointer whitespace-nowrap transition-all ease-out duration-300 {itemClass}"
       >
-        <button
-          type="button"
-          on:click={() => ($selectedTabStore = id)}
-          class="py-1 w-full h-full flex items-center justify-center focus:outline-none focus-visible:underline"
-        >
+        <span class="flex items-center justify-center">
           {#if icon}
             <Icon path={icon} class="h-6 w-6 mr-2 " />
           {/if}
-          <span class="">{title}</span>
-        </button>
+          <span>{title}</span>
+        </span>
       </li>
     {/each}
   </ul>
@@ -85,6 +83,8 @@
 
 <style>
   nav {
+    @apply flex;
+    @apply justify-between;
     box-shadow: inset 0 -2px var(--tab-border-color, #ebebeb);
   }
 
