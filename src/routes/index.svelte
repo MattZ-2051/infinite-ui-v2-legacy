@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
+  import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
 </script>
 
 <div class="hero relative bg-cover bg-center" style="height: min(50vw, 50vh);">
@@ -43,7 +44,9 @@
   <div class="container mt-10 lg:mt-24">
     <TabsVariantDark>
       <Tabs class="text-xl xl md:text-2xl lg:text-3xl font-light" itemClass={'pb-4 md:pb-8'}>
-        <Tab title="Latest Releases">Tab 1!!!!!</Tab>
+        <Tab title="Latest Releases"
+          ><div><SkuItemVariantDark><SkuItemGrid class="mt-4" /></SkuItemVariantDark></div></Tab
+        >
         <Tab title="All Collections">Tab 2!!!!!</Tab>
         <!-- <div slot="extra">extra data!!!</div> -->
       </Tabs>
