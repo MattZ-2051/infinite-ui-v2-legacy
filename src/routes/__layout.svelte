@@ -1,5 +1,6 @@
 <script lang="ts">
   import Header from '$lib/header/Header.svelte';
+  import Footer from '$lib/footer/Footer.svelte';
   import Toast from '$lib/toast/Toast.svelte';
 
   import '../app.css';
@@ -15,4 +16,5 @@
 
     <slot />
   </main>
+  <Footer />
 </div>
