@@ -43,7 +43,7 @@
 
   <div class="container mt-10 lg:mt-24">
     <TabsVariantDark>
-      <Tabs class="text-xl xl md:text-2xl lg:text-3xl font-light" itemClass={'pb-4 md:pb-8'}>
+      <Tabs class="text-xl md:text-2xl lg:text-3xl font-light" itemClass={'pb-4 md:pb-8'}>
         <Tab title="Latest Releases"
           ><div><SkuItemVariantDark><SkuItemGrid class="mt-4" /></SkuItemVariantDark></div></Tab
         >
