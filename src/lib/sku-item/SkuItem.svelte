@@ -1,5 +1,7 @@
 <script lang="ts">
+  import Rarity from '$lib/rarity/Rarity.svelte';
   import TimeDifference from './TimeDifference.svelte';
+
   export let img;
   export let name;
   export let rarity;
@@ -10,7 +12,7 @@
   export let marked = true;
 </script>
 
-<div data-style="container" class="flex flex-col">
+<div class="flex flex-col">
   <div class="w-full h-72 bg-cover card-img relative" style="background-image:url({img})">
     {#if marked}
       <div
@@ -23,21 +25,7 @@
   <div class="px-5 pt-3 pb-10 bottom-half-container rounded-b-3xl">
     <div class="flex justify-between ">
       <span class=" card-name ">{name}</span>
-      <div class="flex">
-        <div
-          class="w-4 h-4  rounded-full mr-2 mt-1"
-          class:legendary-badge-color={rarity === 'Legendary'}
-          class:epic-badge-color={rarity === 'Epic'}
-          class:rare-badge-color={rarity === 'Rare'}
-          class:uncommon-badge-color={rarity === 'Uncommon'}
-        />
-        <span
-          class:legendary-text-color={rarity === 'Legendary'}
-          class:epic-text={rarity === 'Epic'}
-          class:rare-text={rarity === 'Rare'}
-          class:uncommon-text={rarity === 'Uncommon'}>{rarity}</span
-        >
-      </div>
+      <Rarity {rarity} />
     </div>
     <div class="my-5">
       <span class=" text-3xl font-light card-title">{title}</span>
@@ -65,16 +53,6 @@
 </div>
 
 <style>
-  [data-style='container'] {
-    --uncommon-start: #777777;
-    --uncommon-end: #171717;
-    --rare-start: #11d6ec;
-    --rare-end: #00eb7c;
-    --epic-start: #e81cff;
-    --epic-end: #40c9ff;
-    --legendary-start: #fff72d;
-    --legendary-end: #ff9412;
-  }
   .bottom-half-container {
     background-color: var(--card-container-color, #ffffff);
     border: var(--bottom-border, 1px solid #ededed);
@@ -106,41 +84,5 @@
   }
   .card-time-color {
     color: #ffffff;
-  }
-  .uncommon-badge-color {
-    background: linear-gradient(45deg, #171717 0%, #777777 100%);
-  }
-  .uncommon-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-tr;
-    --tw-gradient-to: var(--uncommon-start);
-    --tw-gradient-from: var(--uncommon-end);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 114, 182, 0));
-  }
-  .rare-badge-color {
-    background: linear-gradient(41.72deg, #00eb7c -14.01%, #11d6ec 90.62%);
-  }
-  .rare-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-tr;
-    --tw-gradient-to: var(--rare-start);
-    --tw-gradient-from: var(--rare-end);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 114, 182, 0));
-  }
-  .epic-badge-color {
-    background: linear-gradient(45deg, var(--epic-end) 0%, var(--epic-start) 100%);
-  }
-  .epic-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-tr;
-    --tw-gradient-to: var(--epic-start);
-    --tw-gradient-from: var(--epic-end);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 114, 182, 0));
-  }
-  .legendary-badge-color {
-    background: linear-gradient(45deg, #ff9412 0%, #fff72d 98.96%);
-  }
-  .legendary-text-color {
-    @apply text-transparent bg-clip-text bg-gradient-to-tr;
-    --tw-gradient-to: var(--legendary-start);
-    --tw-gradient-from: var(--legendary-end);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 114, 182, 0));
   }
 </style>
