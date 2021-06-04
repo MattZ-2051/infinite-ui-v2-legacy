@@ -1,10 +1,10 @@
 <script lang="ts">
-  export let rarity;
+  export let rarity: 'Legendary' | 'Epic' | 'Rare' | 'Uncommon';
 </script>
 
-<div data-style="container" class="flex">
+<div data-style="container" {...$$restProps}>
   <div
-    class="w-4 h-4  rounded-full mr-2 mt-1"
+    class="w-4 h-4 rounded-full mr-2"
     class:legendary-badge-color={rarity === 'Legendary'}
     class:epic-badge-color={rarity === 'Epic'}
     class:rare-badge-color={rarity === 'Rare'}
@@ -22,6 +22,8 @@
 
 <style>
   [data-style='container'] {
+    display: inline-flex;
+    align-items: center;
     --uncommon-start: #777777;
     --uncommon-end: #171717;
     --rare-start: #11d6ec;

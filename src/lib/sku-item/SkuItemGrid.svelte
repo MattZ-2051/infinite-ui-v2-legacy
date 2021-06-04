@@ -1,9 +1,11 @@
 <script lang="ts">
   import SkuItem from './SkuItem.svelte';
 
-  const information = [
+  export let max = 0;
+
+  const data = [
     {
-      img: 'jordan.jpg',
+      img: '/jordan.jpg',
       name: 'Jordan',
       rarity: 'Legendary',
       title: 'Long Walk',
@@ -12,7 +14,7 @@
       date: new Date(2021, 8, 23),
     },
     {
-      img: 'cars_traffic.jpg',
+      img: '/cars_traffic.jpg',
       name: 'Car',
       rarity: 'Rare',
       title: 'Futuristic Car',
@@ -21,7 +23,7 @@
       date: new Date(2021, 10, 23),
     },
     {
-      img: 'graffiti.jpg',
+      img: '/graffiti.jpg',
       name: 'Street Art',
       rarity: 'Epic',
       title: 'Graffiti Girl',
@@ -30,7 +32,7 @@
       date: new Date(2021, 7, 13),
     },
     {
-      img: 'koko.jpg',
+      img: '/koko.jpg',
       name: 'Koko',
       rarity: 'Uncommon',
       title: 'Observe',
@@ -39,7 +41,7 @@
       date: new Date(2021, 7, 23),
     },
     {
-      img: 'cars_traffic.jpg',
+      img: '/cars_traffic.jpg',
       name: 'Car',
       rarity: 'Rare',
       title: 'Futuristic Car',
@@ -48,7 +50,7 @@
       date: new Date(2021, 10, 23),
     },
     {
-      img: 'graffiti.jpg',
+      img: '/graffiti.jpg',
       name: 'Street Art',
       rarity: 'Epic',
       title: 'Graffiti Girl',
@@ -57,7 +59,7 @@
       date: new Date(2021, 7, 13),
     },
     {
-      img: 'koko.jpg',
+      img: '/koko.jpg',
       name: 'Koko',
       rarity: 'Uncommon',
       title: 'Observe',
@@ -66,7 +68,7 @@
       date: new Date(2021, 7, 23),
     },
     {
-      img: 'jordan.jpg',
+      img: '/jordan.jpg',
       name: 'Jordan',
       rarity: 'Legendary',
       title: 'Long Walk',
@@ -75,7 +77,7 @@
       date: new Date(2021, 8, 23),
     },
     {
-      img: 'cars_traffic.jpg',
+      img: '/cars_traffic.jpg',
       name: 'Car',
       rarity: 'Rare',
       title: 'Futuristic Car',
@@ -84,7 +86,7 @@
       date: new Date(2021, 10, 23),
     },
     {
-      img: 'graffiti.jpg',
+      img: '/graffiti.jpg',
       name: 'Street Art',
       rarity: 'Epic',
       title: 'Graffiti Girl',
@@ -93,7 +95,7 @@
       date: new Date(2021, 7, 13),
     },
     {
-      img: 'koko.jpg',
+      img: '/koko.jpg',
       name: 'Koko',
       rarity: 'Uncommon',
       title: 'Observe',
@@ -102,6 +104,8 @@
       date: new Date(2021, 7, 23),
     },
   ];
+
+  $: information = max > 0 ? data.slice(0, max) : data;
 </script>
 
 <div

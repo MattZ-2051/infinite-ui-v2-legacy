@@ -34,7 +34,7 @@
       <span class="card-series">{series}</span>
       <div class=" flex items-center">
         {#if serial === 'Unique item!'}
-          <img class="w-5 h-5 mr-1 " src="fire.png" alt="fire" />
+          <img class="w-5 h-5 mr-1 " src="/fire.png" alt="fire" loading="lazy" />
         {:else}
           <span class="card-serial">Serial:</span>
         {/if}

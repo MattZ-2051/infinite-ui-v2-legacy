@@ -62,7 +62,7 @@
     {#each headers as { id, title, icon } (id)}
       <li
         on:click={() => ($selectedTabStore = id)}
-        class:active={$selectedTabStore === id}
+        class:active={headers.length > 1 && $selectedTabStore === id}
         class="cursor-pointer whitespace-nowrap transition-all ease-out duration-300 {itemClass}"
       >
         <span class="flex items-center justify-center">
