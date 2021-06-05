@@ -21,7 +21,7 @@
         </div>
         <div class="flex justify-between mt-12 md:mt-16">
           <div class="text-xl text-gray-400">KareemAbdulJabbar</div>
-          <Rarity rarity="Legendary" class="font-bold text-lg" />
+          <Rarity rarity="legendary" class="font-bold text-lg" />
         </div>
         <div class="text-5xl mt-4">TheCaptain — Retro</div>
 

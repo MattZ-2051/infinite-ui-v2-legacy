@@ -5,7 +5,11 @@ module.exports = {
     container: false,
   },
   theme: {
-    extend: {},
+    extend: {
+      zIndex: {
+        '-1': '-1',
+      },
+    },
   },
   plugins: [],
 };

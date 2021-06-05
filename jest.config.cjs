@@ -8,6 +8,7 @@ module.exports = {
     '\\$lib/(.+)$': '<rootDir>/src/lib/$1',
     '\\$ui/(.+)$': '<rootDir>/src/ui/$1',
     '\\$util/(.+)$': '<rootDir>/src/util/$1',
+    '\\$static/(.+)$': '<rootDir>/static/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/scripts/test/setup.ts'],
 };

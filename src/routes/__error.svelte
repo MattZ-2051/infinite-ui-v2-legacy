@@ -12,8 +12,10 @@
 </script>
 
 <script lang="ts">
+  import { dev } from '$app/env';
+
   export let status: number = null;
-  // export let error: any = null;
+  export let error: string | Error = null;
 </script>
 
 <div class="bg-black text-white flex flex-grow items-center justify-center">
@@ -37,5 +39,8 @@
         >Go to homepage</a
       >
     </div>
+    {#if dev}
+      <pre class="m-4 p-4 border">{error}</pre>
+    {/if}
   </div>
 </div>

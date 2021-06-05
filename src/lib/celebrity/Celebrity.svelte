@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
+  import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
 </script>
 
 <div
@@ -56,8 +57,6 @@
       </TabsVariantDark>
     </div>
 
-    <div class="flex justify-end py-12 px-4">
-      <img src="/aria-logo-comp.png" alt="" />
-    </div>
+    <AriaLogoComp />
   </div>
 </div>

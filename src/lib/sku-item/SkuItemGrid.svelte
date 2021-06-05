@@ -7,7 +7,7 @@
     {
       img: '/jordan.jpg',
       name: 'Jordan',
-      rarity: 'Legendary',
+      rarity: 'legendary',
       title: 'Long Walk',
       series: '# Series 3',
       serial: 'Unique item!',
@@ -16,7 +16,7 @@
     {
       img: '/cars_traffic.jpg',
       name: 'Car',
-      rarity: 'Rare',
+      rarity: 'rare',
       title: 'Futuristic Car',
       series: '# Series 10',
       serial: 'XY786',
@@ -25,7 +25,7 @@
     {
       img: '/graffiti.jpg',
       name: 'Street Art',
-      rarity: 'Epic',
+      rarity: 'epic',
       title: 'Graffiti Girl',
       series: '# Series 18',
       serial: 'HT542',
@@ -34,7 +34,7 @@
     {
       img: '/koko.jpg',
       name: 'Koko',
-      rarity: 'Uncommon',
+      rarity: 'uncommon',
       title: 'Observe',
       series: '# Series 33',
       serial: 'FB432',
@@ -43,7 +43,7 @@
     {
       img: '/cars_traffic.jpg',
       name: 'Car',
-      rarity: 'Rare',
+      rarity: 'rare',
       title: 'Futuristic Car',
       series: '# Series 10',
       serial: 'XY786',
@@ -52,7 +52,7 @@
     {
       img: '/graffiti.jpg',
       name: 'Street Art',
-      rarity: 'Epic',
+      rarity: 'epic',
       title: 'Graffiti Girl',
       series: '# Series 18',
       serial: 'HT542',
@@ -61,7 +61,7 @@
     {
       img: '/koko.jpg',
       name: 'Koko',
-      rarity: 'Uncommon',
+      rarity: 'uncommon',
       title: 'Observe',
       series: '# Series 33',
       serial: 'FB432',
@@ -70,7 +70,7 @@
     {
       img: '/jordan.jpg',
       name: 'Jordan',
-      rarity: 'Legendary',
+      rarity: 'legendary',
       title: 'Long Walk',
       series: '# Series 3',
       serial: 'Unique item!',
@@ -79,7 +79,7 @@
     {
       img: '/cars_traffic.jpg',
       name: 'Car',
-      rarity: 'Rare',
+      rarity: 'rare',
       title: 'Futuristic Car',
       series: '# Series 10',
       serial: 'XY786',
@@ -88,7 +88,7 @@
     {
       img: '/graffiti.jpg',
       name: 'Street Art',
-      rarity: 'Epic',
+      rarity: 'epic',
       title: 'Graffiti Girl',
       series: '# Series 18',
       serial: 'HT542',
@@ -97,7 +97,7 @@
     {
       img: '/koko.jpg',
       name: 'Koko',
-      rarity: 'Uncommon',
+      rarity: 'uncommon',
       title: 'Observe',
       series: '# Series 33',
       serial: 'FB432',

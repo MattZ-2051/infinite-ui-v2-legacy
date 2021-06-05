@@ -1,18 +1,22 @@
 <script lang="ts">
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
-  import Wallet from './wallet.svelte';
+
+  import Image from '$ui/image/Image.svelte';
+  import intro from '$static/landing.png?format=webp;avif;png';
+  import weAreDisruption from '$static/we_are_disruption.png?format=webp;avif;png';
+  import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?format=webp;avif;png';
+  import digital_bg from '$static/digital_bg.png?format=webp;avif;png';
+
+  import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
 </script>
 
-<div class="hero relative bg-cover bg-center" style="height: min(50vw, 50vh);">
-  <img
-    src="/we_are_disruption.png"
-    alt=""
-    class="absolute top-0 right-0"
-    style="height: min(90vw, 90vh);"
-  />
+<div class="relative" style="height: min(50vw, 50vh);">
+  <Image src={intro} loading="eager" class="absolute w-full h-full object-cover" />
+  <Image src={weAreDisruption} class="absolute top-0 right-0" style="height: min(90vw, 90vh);" />
 </div>
-<div class="flex-grow bg-cover text-white" style="background-image: url('/digital_bg.png');">
+<div class="relative flex-grow text-white">
+  <Image src={digital_bg} class="absolute w-full h-full object-cover -z-1" />
   <div class="hero-text container flex flex-col mt-8">
     <div
       class="flex flex-col text-right font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
@@ -21,10 +25,11 @@
       <div>THE ARIA EXCHANGE.</div>
     </div>
     <div class="flex justify-between">
-      <img
-        src="/Travis-Scott-iHeart-Radio.png"
+      <Image
+        src={TravisScott}
         alt="Travis Scott"
         class="w-1/3 mt-40 hidden xl:block"
+        style="width: 500px;"
       />
       <div
         class="flex justify-end text-right text-lg md:text-2xl lg:text-5xl mt-12 w-full xl:w-2/3 "
@@ -53,19 +58,13 @@
       </Tabs>
     </TabsVariantDark>
 
-    <div class="flex justify-end py-12 px-4">
-      <img src="/aria-logo-comp.png" alt="" />
-    </div>
+    <AriaLogoComp />
   </div>
 </div>
 
 <style>
   .hero-text {
     padding-right: calc(0.16 * min(90vw, 90vh));
-  }
-
-  .hero {
-    background-image: url('/landing.png');
   }
 
   .highlight-text {

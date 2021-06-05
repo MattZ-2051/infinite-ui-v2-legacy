@@ -1,5 +1,6 @@
 import path from 'path';
 import preprocess from 'svelte-preprocess';
+import { imagetools } from 'vite-imagetools';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -20,8 +21,10 @@ const config = {
         alias: {
           $ui: path.resolve('./src/ui'),
           $util: path.resolve('./src/util'),
+          $static: path.resolve('./static'),
         },
       },
+      plugins: [imagetools()],
     },
   },
 };

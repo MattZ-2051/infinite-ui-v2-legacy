@@ -1,22 +1,22 @@
 <script lang="ts">
-  export let rarity: 'Legendary' | 'Epic' | 'Rare' | 'Uncommon';
+  export let rarity: 'legendary' | 'epic' | 'rare' | 'uncommon' | 'common';
 </script>
 
 <div data-style="container" {...$$restProps}>
   <div
     class="w-4 h-4 rounded-full mr-2"
-    class:legendary-badge-color={rarity === 'Legendary'}
-    class:epic-badge-color={rarity === 'Epic'}
-    class:rare-badge-color={rarity === 'Rare'}
-    class:uncommon-badge-color={rarity === 'Uncommon'}
+    class:legendary-badge-color={rarity === 'legendary'}
+    class:epic-badge-color={rarity === 'epic'}
+    class:rare-badge-color={rarity === 'rare'}
+    class:uncommon-badge-color={rarity === 'uncommon'}
   />
   <span
-    class:legendary-text-color={rarity === 'Legendary'}
-    class:epic-text={rarity === 'Epic'}
-    class:rare-text={rarity === 'Rare'}
-    class:uncommon-text={rarity === 'Uncommon'}
+    class:legendary-text-color={rarity === 'legendary'}
+    class:epic-text={rarity === 'epic'}
+    class:rare-text={rarity === 'rare'}
+    class:uncommon-text={rarity === 'uncommon'}
   >
-    {rarity}
+    {rarity.charAt(0).toUpperCase() + rarity.slice(1)}
   </span>
 </div>
 
@@ -25,7 +25,7 @@
     display: inline-flex;
     align-items: center;
     --uncommon-start: #777777;
-    --uncommon-end: #171717;
+    --uncommon-end: #777777;
     --rare-start: #11d6ec;
     --rare-end: #00eb7c;
     --epic-start: #e81cff;

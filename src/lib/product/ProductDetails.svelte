@@ -14,7 +14,7 @@
     <div class="flex flex-col py-7 border-b border-gray-200 text-black gap-4">
       <div class="flex flex-wrap justify-between text-2xl">
         <span class="text-gray-400"> Globetrotters </span>
-        <Rarity rarity="Legendary" />
+        <Rarity rarity="legendary" />
       </div>
       <span class="text-5xl lg:mb-12">TheOriginal - Retro</span>
       <span class="text-lg">MasterSeries</span>
