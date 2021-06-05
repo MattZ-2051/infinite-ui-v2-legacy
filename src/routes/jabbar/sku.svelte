@@ -1,4 +1,6 @@
 <script lang="ts">
+  import notifications from '$lib/toast/toast.store';
+
   import Rarity from '$lib/rarity/Rarity.svelte';
   import { Tabs, Tab } from '$ui/tabs';
   import { SkuItemGrid } from '$lib/sku-item';
@@ -42,10 +44,12 @@
             <div class="text-sm">(11 left)</div>
           </div>
           <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
-            <a
-              href="/"
+            <button
+              type="button"
               class="w-full max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full font-bold text-base px-10 py-3 mb-12 md:mb-0"
-              >Buy Now</a
+              on:click={() =>
+                notifications.danger('You need to be <b>logged in</b> to complete your purchase!')}
+              >Buy Now</button
             >
           </div>
 

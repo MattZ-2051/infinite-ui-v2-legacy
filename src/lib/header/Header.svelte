@@ -13,9 +13,7 @@
       <a sveltekit:prefetch href="/marketplace" class:active={$page.path === '/marketplace'}
         >Marketplace</a
       >
-      <a sveltekit:prefetch href="/collection" class:active={$page.path === '/about'}
-        >My Collection</a
-      >
+      <a sveltekit:prefetch href="/jabbar" class:active={$page.path === '/about'}>My Collection</a>
       <a sveltekit:prefetch href="/account" class="flex" class:active={$page.path === '/account'}
         ><Icon path={mdiAccountCircleOutline} class="mr-1" />@mrbrowniee</a
       >
