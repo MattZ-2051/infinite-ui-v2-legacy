@@ -1,108 +1,109 @@
 <script lang="ts">
   import SkuItem from './SkuItem.svelte';
+  import type { Sku } from './types';
 
   export let max = 0;
 
-  const data = [
+  const data: Sku[] = [
     {
-      img: '/jordan.jpg',
-      name: 'Jordan',
+      graphicUrl: '/jordan.jpg',
+      issuerName: 'Jordan',
       rarity: 'legendary',
-      title: 'Long Walk',
-      series: '# Series 3',
-      serial: 'Unique item!',
-      date: new Date(2021, 8, 23),
-    },
+      name: 'Long Walk',
+      series: { name: '# Series 3' } as any,
+      totalSupply: 1,
+      startDate: new Date(2021, 8, 23),
+    } as Sku,
     {
-      img: '/cars_traffic.jpg',
-      name: 'Car',
+      graphicUrl: '/cars_traffic.jpg',
+      issuerName: 'Car',
       rarity: 'rare',
-      title: 'Futuristic Car',
-      series: '# Series 10',
-      serial: 'XY786',
-      date: new Date(2021, 10, 23),
-    },
+      name: 'Futuristic Car',
+      series: { name: '# Series 10' } as any,
+      totalSupply: 786,
+      startDate: new Date(2021, 10, 23),
+    } as Sku,
     {
-      img: '/graffiti.jpg',
-      name: 'Street Art',
+      graphicUrl: '/graffiti.jpg',
+      issuerName: 'Street Art',
       rarity: 'epic',
-      title: 'Graffiti Girl',
-      series: '# Series 18',
-      serial: 'HT542',
-      date: new Date(2021, 7, 13),
-    },
+      name: 'Graffiti Girl',
+      series: { name: '# Series 18' } as any,
+      totalSupply: 542,
+      startDate: new Date(2021, 7, 13),
+    } as Sku,
     {
-      img: '/koko.jpg',
-      name: 'Koko',
+      graphicUrl: '/koko.jpg',
+      issuerName: 'Koko',
       rarity: 'uncommon',
-      title: 'Observe',
-      series: '# Series 33',
-      serial: 'FB432',
-      date: new Date(2021, 7, 23),
-    },
+      name: 'Observe',
+      series: { name: '# Series 33' } as any,
+      totalSupply: 432,
+      startDate: new Date(2021, 7, 23),
+    } as Sku,
     {
-      img: '/cars_traffic.jpg',
-      name: 'Car',
+      graphicUrl: '/cars_traffic.jpg',
+      issuerName: 'Car',
       rarity: 'rare',
-      title: 'Futuristic Car',
-      series: '# Series 10',
-      serial: 'XY786',
-      date: new Date(2021, 10, 23),
-    },
+      name: 'Futuristic Car',
+      series: { name: '# Series 10' } as any,
+      totalSupply: 786,
+      startDate: new Date(2021, 10, 23),
+    } as Sku,
     {
-      img: '/graffiti.jpg',
-      name: 'Street Art',
+      graphicUrl: '/graffiti.jpg',
+      issuerName: 'Street Art',
       rarity: 'epic',
-      title: 'Graffiti Girl',
-      series: '# Series 18',
-      serial: 'HT542',
-      date: new Date(2021, 7, 13),
-    },
+      name: 'Graffiti Girl',
+      series: { name: '# Series 18' } as any,
+      totalSupply: 542,
+      startDate: new Date(2021, 7, 13),
+    } as Sku,
     {
-      img: '/koko.jpg',
-      name: 'Koko',
+      graphicUrl: '/koko.jpg',
+      issuerName: 'Koko',
       rarity: 'uncommon',
-      title: 'Observe',
-      series: '# Series 33',
-      serial: 'FB432',
-      date: new Date(2021, 7, 23),
-    },
+      name: 'Observe',
+      series: { name: '# Series 33' } as any,
+      totalSupply: 432,
+      startDate: new Date(2021, 7, 23),
+    } as Sku,
     {
-      img: '/jordan.jpg',
-      name: 'Jordan',
+      graphicUrl: '/jordan.jpg',
+      issuerName: 'Jordan',
       rarity: 'legendary',
-      title: 'Long Walk',
-      series: '# Series 3',
-      serial: 'Unique item!',
-      date: new Date(2021, 8, 23),
-    },
+      name: 'Long Walk',
+      series: { name: '# Series 3' } as any,
+      totalSupply: 1,
+      startDate: new Date(2021, 8, 23),
+    } as Sku,
     {
-      img: '/cars_traffic.jpg',
-      name: 'Car',
+      graphicUrl: '/cars_traffic.jpg',
+      issuerName: 'Car',
       rarity: 'rare',
-      title: 'Futuristic Car',
-      series: '# Series 10',
-      serial: 'XY786',
-      date: new Date(2021, 10, 23),
-    },
+      name: 'Futuristic Car',
+      series: { name: '# Series 10' } as any,
+      totalSupply: 786,
+      startDate: new Date(2021, 10, 23),
+    } as Sku,
     {
-      img: '/graffiti.jpg',
-      name: 'Street Art',
+      graphicUrl: '/graffiti.jpg',
+      issuerName: 'Street Art',
       rarity: 'epic',
-      title: 'Graffiti Girl',
-      series: '# Series 18',
-      serial: 'HT542',
-      date: new Date(2021, 7, 13),
-    },
+      name: 'Graffiti Girl',
+      series: { name: '# Series 18' } as any,
+      totalSupply: 542,
+      startDate: new Date(2021, 7, 13),
+    } as Sku,
     {
-      img: '/koko.jpg',
-      name: 'Koko',
+      graphicUrl: '/koko.jpg',
+      issuerName: 'Koko',
       rarity: 'uncommon',
-      title: 'Observe',
-      series: '# Series 33',
-      serial: 'FB432',
-      date: new Date(2021, 7, 23),
-    },
+      name: 'Observe',
+      series: { name: '# Series 33' } as any,
+      totalSupply: 432,
+      startDate: new Date(2021, 7, 23),
+    } as Sku,
   ];
 
   $: information = max > 0 ? data.slice(0, max) : data;
@@ -111,15 +112,7 @@
 <div
   class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 {$$props.class}"
 >
-  {#each information as info}
-    <SkuItem
-      img={info.img}
-      name={info.name}
-      rarity={info.rarity}
-      title={info.title}
-      series={info.series}
-      serial={info.serial}
-      date={info.date}
-    />
+  {#each information as item}
+    <SkuItem {item} />
   {/each}
 </div>

@@ -1,20 +1,19 @@
 <script lang="ts">
   import Rarity from '$lib/rarity/Rarity.svelte';
+  import type { Sku } from './types';
   import TimeDifference from './TimeDifference.svelte';
 
-  export let img;
-  export let name;
-  export let rarity;
-  export let title;
-  export let series;
-  export let serial;
-  export let date;
-  export let marked = true;
+  export let item: Sku;
+
+  $: isUnique = item?.totalSupply === 1;
 </script>
 
 <div class="flex flex-col">
-  <div class="w-full h-72 bg-cover card-img relative" style="background-image:url({img})">
-    {#if marked}
+  <div
+    class="w-full h-72 bg-cover card-img relative"
+    style="background-image:url({item.graphicUrl})"
+  >
+    {#if item.redeemable}
       <div
         class="w-8 h-8 bg-white absolute top-6 right-4 rounded-full flex shadow-md hover:opacity-60 p-1.5"
       >
@@ -24,23 +23,22 @@
   </div>
   <div class="px-5 pt-3 pb-10 bottom-half-container rounded-b-3xl">
     <div class="flex justify-between ">
-      <span class=" card-name ">{name}</span>
-      <Rarity {rarity} />
+      <span class=" card-name ">{item.issuerName}</span>
+      <Rarity rarity={item.rarity} />
     </div>
     <div class="my-5">
-      <span class=" text-3xl font-light card-title">{title}</span>
+      <span class=" text-3xl font-light card-title">{item.name}</span>
     </div>
     <div class="flex justify-between mt-12 ">
-      <span class="card-series">{series}</span>
+      <span class="card-series">{item.series.name}</span>
       <div class=" flex items-center">
-        {#if serial === 'Unique item!'}
+        {#if isUnique}
           <img class="w-5 h-5 mr-1 " src="/fire.png" alt="fire" loading="lazy" />
+          <span class="card-uniqueitem">Unique item!</span>
         {:else}
-          <span class="card-serial">Serial:</span>
+          <span class="card-serial-number">{item.totalSupply}</span>
+          <span class="card-serial ml-1">total</span>
         {/if}
-        <span class={serial === 'Unique item!' ? 'card-uniqueitem' : 'card-serial-number'}
-          >{serial}</span
-        >
       </div>
     </div>
   </div>
@@ -48,7 +46,9 @@
     class="flex justify-between card-status rounded-full py-3 transform -translate-y-2/4 mx-3 whitespace-nowrap px-6 items-center"
   >
     <span class="card-status-text">Upcoming in:</span>
-    <span class="text-2xl card-time-color font-light"><TimeDifference {date} /></span>
+    <span class="text-2xl card-time-color font-light"
+      ><TimeDifference date={item.startDate || new Date(2022)} /></span
+    >
   </div>
 </div>
 
