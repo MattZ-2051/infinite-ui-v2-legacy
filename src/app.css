@@ -1,11 +1,9 @@
-@import '@fontsource/plus-jakarta-sans';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: 'Plus Jakarta Sans';
+  font-family: 'Graphik';
 }
 
 ::-webkit-scrollbar {

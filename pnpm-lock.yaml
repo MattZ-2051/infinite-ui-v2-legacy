@@ -3,7 +3,6 @@ lockfileVersion: 5.3
 specifiers:
   '@commitlint/cli': ^12.1.4
   '@commitlint/config-conventional': ^12.1.4
-  '@fontsource/plus-jakarta-sans': ^4.4.2
   '@mdi/js': ^5.9.55
   '@sveltejs/kit': next
   '@testing-library/jest-dom': ^5.12.0
@@ -33,7 +32,6 @@ specifiers:
   vite-imagetools: ^3.6.8
 
 dependencies:
-  '@fontsource/plus-jakarta-sans': 4.4.2
   '@mdi/js': 5.9.55
 
 devDependencies:
@@ -551,10 +549,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /@fontsource/plus-jakarta-sans/4.4.2:
-    resolution: {integrity: sha512-XrFh7jmkA711LH/MoUAiOnArY0ITSC3immqSIbIM9qULEPCKdgGhtNBcE2+QN0E5SZLB7LmheleuRVQKyYQSRQ==}
-    dev: false
 
   /@fullhuman/postcss-purgecss/3.1.3:
     resolution: {integrity: sha512-kwOXw8fZ0Lt1QmeOOrd+o4Ibvp4UTEBFQbzvWldjlKv5n+G9sXfIPn1hh63IQIL8K8vbvv1oYMJiIUbuy9bGaA==}

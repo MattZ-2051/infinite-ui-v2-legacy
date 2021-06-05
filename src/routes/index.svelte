@@ -13,7 +13,11 @@
 
 <div class="relative" style="height: min(50vw, 50vh);">
   <Image src={intro} loading="eager" class="absolute w-full h-full object-cover" />
-  <Image src={weAreDisruption} class="absolute top-0 right-0" style="height: min(90vw, 90vh);" />
+  <Image
+    src={weAreDisruption}
+    class="absolute top-0 right-0"
+    style="height: min(90vw, 90vh); aspect-ratio: 0.16;"
+  />
 </div>
 <div class="relative flex-grow text-white">
   <Image src={digital_bg} class="absolute w-full h-full object-cover -z-1" />
