@@ -48,4 +48,5 @@ export type Sku = {
   royaltyFeePercentage: number;
   resaleSellersFeePercentage: number;
   sellerTransactionFeePercentage: number;
+  type: string;
 };

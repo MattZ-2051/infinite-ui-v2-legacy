@@ -4,7 +4,7 @@
 
   export let max = 0;
 
-  const data: Sku[] = [
+  export let items: Sku[] = [
     {
       graphicUrl: '/jordan.jpg',
       issuerName: 'Jordan',
@@ -106,7 +106,7 @@
     } as Sku,
   ];
 
-  $: information = max > 0 ? data.slice(0, max) : data;
+  $: information = max > 0 ? items.slice(0, max) : items;
 </script>
 
 <div

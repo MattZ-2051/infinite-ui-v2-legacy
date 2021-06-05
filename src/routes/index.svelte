@@ -1,6 +1,20 @@
+<script context="module">
+  export async function load({ fetch }) {
+    const res = await fetch(
+      `https://api.goinfinite.io/skus/tiles/?page=1&per_page=50&sortBy=startDate:1`
+    );
+    return {
+      props: {
+        items: await res.json(),
+      },
+    };
+  }
+</script>
+
 <script lang="ts">
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
+  import type { Sku } from '$lib/sku-item/types';
 
   import Image from '$ui/image/Image.svelte';
   import intro from '$static/landing.png?format=webp;avif;png';
@@ -9,6 +23,8 @@
   import digital_bg from '$static/digital_bg.png?format=webp;avif;png';
 
   import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
+
+  export let items: Sku[];
 </script>
 
 <div class="relative" style="height: min(50vw, 50vh);">
@@ -55,7 +71,9 @@
     <TabsVariantDark>
       <Tabs class="text-xl md:text-2xl lg:text-3xl font-light" itemClass={'pb-4 md:pb-8'}>
         <Tab title="Latest Releases"
-          ><div><SkuItemVariantDark><SkuItemGrid class="mt-4" /></SkuItemVariantDark></div></Tab
+          ><div>
+            <SkuItemVariantDark><SkuItemGrid {items} class="mt-4" /></SkuItemVariantDark>
+          </div></Tab
         >
         <Tab title="All Collections">Tab 2!!!!!</Tab>
         <!-- <div slot="extra">extra data!!!</div> -->

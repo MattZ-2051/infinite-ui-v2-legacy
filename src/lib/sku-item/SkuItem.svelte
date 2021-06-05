@@ -9,10 +9,20 @@
 </script>
 
 <div class="flex flex-col">
-  <div
-    class="w-full h-72 bg-cover card-img relative"
-    style="background-image:url({item.graphicUrl})"
-  >
+  <div class="w-full h-72 card-img relative">
+    {#if item.type === 'Video' || item.graphicUrl.endsWith('mov') || item.graphicUrl.endsWith('mp4')}
+      <video
+        src={item.graphicUrl}
+        playsinline
+        autoplay
+        loop
+        muted
+        style="height: 100%; width: 100%; object-fit: cover;"
+      />
+    {:else}
+      <img src={item.graphicUrl} alt="" style="height: 100%; width: 100%; object-fit: cover;" />
+    {/if}
+
     {#if item.redeemable}
       <div
         class="w-8 h-8 bg-white absolute top-6 right-4 rounded-full flex shadow-md hover:opacity-60 p-1.5"
