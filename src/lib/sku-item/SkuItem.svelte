@@ -2,23 +2,36 @@
   import Rarity from '$lib/rarity/Rarity.svelte';
   import type { Sku } from './types';
   import TimeDifference from './TimeDifference.svelte';
+  import IntersectionObserver from 'svelte-intersection-observer';
 
   export let item: Sku;
 
   $: isUnique = item?.totalSupply === 1;
+
+  let videoElement: HTMLVideoElement;
 </script>
 
 <div class="flex flex-col">
   <div class="w-full h-72 card-img relative">
     {#if item.type === 'Video' || item.graphicUrl.endsWith('mov') || item.graphicUrl.endsWith('mp4')}
-      <video
-        src={item.graphicUrl}
-        playsinline
-        autoplay
-        loop
-        muted
-        style="height: 100%; width: 100%; object-fit: cover;"
-      />
+      <IntersectionObserver
+        element={videoElement}
+        once
+        rootMargin={'150px'}
+        on:intersect={(e) => {
+          videoElement.src = videoElement.dataset.src;
+        }}
+      >
+        <video
+          bind:this={videoElement}
+          data-src={item.graphicUrl}
+          playsinline
+          autoplay
+          loop
+          muted
+          style="height: 100%; width: 100%; object-fit: cover;"
+        />
+      </IntersectionObserver>
     {:else}
       <img src={item.graphicUrl} alt="" style="height: 100%; width: 100%; object-fit: cover;" />
     {/if}
