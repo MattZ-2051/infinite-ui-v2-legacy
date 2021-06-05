@@ -31,7 +31,7 @@
   ];
 </script>
 
-<div class="bg-black text-gray-500">
+<div class="text-gray-500">
   {#each history as item}
     <div
       class="grid-container group grid items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
