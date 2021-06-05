@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
+  import Wallet from './wallet.svelte';
 </script>
 
 <div class="hero relative bg-cover bg-center" style="height: min(50vw, 50vh);">
