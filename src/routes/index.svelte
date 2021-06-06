@@ -17,10 +17,11 @@
   import type { Sku } from '$lib/sku-item/types';
 
   import Image from '$ui/image/Image.svelte';
-  import intro from '$static/landing.png?format=webp;avif;png';
-  import weAreDisruption from '$static/we_are_disruption.png?format=webp;avif;png';
-  import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?format=webp;avif;png';
-  import digital_bg from '$static/digital_bg.png?format=webp;avif;png';
+
+  import landing from '$static/landing.png?w=400;800;1200&format=avif;webp;png&metadata';
+  import weAreDisruption from '$static/we_are_disruption.png?w=50&format=avif;webp;png&metadata';
+  import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?w=400;500&format=avif;webp;png&metadata';
+  import digital_bg from '$static/digital_bg.png?w=400;800;1200&format=avif;webp;png&metadata';
 
   import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
 
@@ -28,7 +29,7 @@
 </script>
 
 <div class="relative" style="height: min(50vw, 50vh);">
-  <Image src={intro} loading="eager" class="absolute w-full h-full object-cover" />
+  <Image src={landing} loading="eager" class="absolute w-full h-full object-cover" />
   <Image
     src={weAreDisruption}
     class="absolute top-0 right-0"

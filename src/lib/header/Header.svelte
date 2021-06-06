@@ -5,7 +5,7 @@
   import { mdiAccountCircleOutline } from '@mdi/js';
 
   import Image from '$ui/image/Image.svelte';
-  import aria from '$static/aria-white.png?format=webp;avif;png';
+  import aria from '$static/aria-white.png?w=200&format=avif;webp;png&metadata';
 </script>
 
 <div class="bg-black text-gray-300 w-full h-20 flex">
