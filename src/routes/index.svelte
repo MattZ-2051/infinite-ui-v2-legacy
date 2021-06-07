@@ -28,8 +28,16 @@
   export let items: Sku[];
 </script>
 
-<div class="relative" style="height: min(50vw, 50vh);">
-  <Image src={landing} loading="eager" class="absolute w-full h-full object-cover" />
+<div class="relative" style="height: min(60vw, 60vh);">
+  <!-- <Image src={landing} loading="eager" class="absolute w-full h-full object-cover" /> -->
+  <video
+    src="/aria_preview.mp4"
+    class="absolute w-full h-full object-cover"
+    playsinline
+    autoplay
+    loop
+    muted
+  />
   <Image
     src={weAreDisruption}
     class="absolute top-0 right-0 z-10"
