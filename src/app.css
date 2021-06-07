@@ -30,6 +30,19 @@ body {
 }
 
 @layer utilities {
+  @variants responsive {
+    .-container-none {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .-container-x {
+      margin-left: -1rem;
+      margin-right: -1rem;
+    }
+  }
+}
+
+@layer utilities {
   .text-gradient {
     @apply text-transparent bg-clip-text;
   }
