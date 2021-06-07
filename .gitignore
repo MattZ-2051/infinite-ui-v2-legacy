@@ -3,5 +3,7 @@ node_modules
 /.svelte-kit
 /package
 /coverage
+/build
+/dist
 *.log
 *:Zone.Identifier
