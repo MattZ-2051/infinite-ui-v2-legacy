@@ -19,8 +19,8 @@
   import Image from '$ui/image/Image.svelte';
 
   import landing from '$static/landing.png?w=400;800;1200&format=avif;webp;png&metadata';
-  import weAreDisruption from '$static/we_are_disruption.png?w=50&format=avif;webp;png&metadata';
-  import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?w=400;500&format=avif;webp;png&metadata';
+  import weAreDisruption from '$static/we_are_disruption.png?format=avif;webp;png&metadata';
+  import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?w=350;500&format=avif;webp;png&metadata';
   import digital_bg from '$static/digital_bg.png?w=400;800;1200&format=avif;webp;png&metadata';
 
   import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
@@ -33,7 +33,8 @@
   <Image
     src={weAreDisruption}
     class="absolute top-0 right-0"
-    style="height: min(90vw, 90vh); aspect-ratio: 0.16;"
+    style="height: min(90vw, 90vh); width: auto;"
+    setDimensions={false}
   />
 </div>
 <div class="relative flex-grow text-white">

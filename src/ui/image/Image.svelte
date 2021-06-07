@@ -27,6 +27,7 @@
   type ImageMetadata = {
     format: EXT;
     width: number;
+    height: number;
     src: string;
   };
 
@@ -35,6 +36,7 @@
   export let alt = '';
   export let loading: 'eager' | 'lazy' | 'auto' = 'lazy';
   export let decoding: 'async' | 'sync' | 'auto' = 'async';
+  export let setDimensions = true;
 
   let images: {
     fallback: EXT;
@@ -65,10 +67,7 @@
       type: KNOWN_EXTENSIONS[format].type,
     };
   });
-  $: fallbackSource = {
-    srcset: getSrcset(images.byFormatGroups[images.fallback]),
-    type: KNOWN_EXTENSIONS[images.fallback].type,
-  };
+  $: fallbackAttrs = getFallbackAttrs(images.byFormatGroups[images.fallback]);
 
   function getSrcset(images: ImageMetadata[]) {
     return images
@@ -79,8 +78,18 @@
       .join(', ');
   }
 
-  function getFallbackImage(srcset: string) {
-    return srcset.split(' ')[0];
+  function getFallbackAttrs(fallbackImages: ImageMetadata[]) {
+    const image = fallbackImages.sort((a, b) => a.width - b.width).reverse()[0];
+    const attrs: { srcset: string; src: string; width?: number; height?: number } = {
+      srcset: getSrcset(fallbackImages),
+      src: image.src,
+    };
+
+    if (setDimensions) {
+      attrs.width = image.width;
+      attrs.height = image.height;
+    }
+    return attrs;
   }
 </script>
 
@@ -88,13 +97,5 @@
   {#each sources as source}
     <source srcset={source.srcset} type={source.type} />
   {/each}
-  <img
-    srcset={fallbackSource.srcset}
-    src={getFallbackImage(fallbackSource.srcset)}
-    {alt}
-    {loading}
-    {decoding}
-    {sizes}
-    {...$$restProps}
-  />
+  <img {...fallbackAttrs} {alt} {loading} {decoding} {sizes} {...$$restProps} />
 </picture>
