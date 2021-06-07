@@ -10,8 +10,8 @@
   <Header />
 
   <main class="relative flex flex-col flex-grow">
-    <div class="absolute top-0 w-full">
-      <Toast class="fixed left-0 right-0 text-xl italic font-extrabold" />
+    <div class="fixed top-0 left-0 right-0 text-xl italic font-extrabold z-50">
+      <Toast />
     </div>
 
     <slot />
