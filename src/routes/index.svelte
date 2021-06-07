@@ -21,7 +21,7 @@
   import landing from '$static/landing.png?w=400;800;1200&format=avif;webp;png&metadata';
   import weAreDisruption from '$static/we_are_disruption.png?format=avif;webp;png&metadata';
   import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?w=350;500&format=avif;webp;png&metadata';
-  import digital_bg from '$static/digital_bg.png?w=400;800;1200&format=avif;webp;png&metadata';
+  // import digital_bg from '$static/digital_bg.png?w=400;800;1200&format=avif;webp;png&metadata';
 
   import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
 
@@ -32,13 +32,13 @@
   <Image src={landing} loading="eager" class="absolute w-full h-full object-cover" />
   <Image
     src={weAreDisruption}
-    class="absolute top-0 right-0"
-    style="height: min(90vw, 90vh); width: auto;"
-    setDimensions={false}
+    class="absolute top-0 right-0 z-10"
+    style="width: min(90vw, 90vh); transform: rotate(-90deg) translateY(-100%); transform-origin: top right;"
+    setDimensions={true}
   />
 </div>
-<div class="relative flex-grow text-white">
-  <Image src={digital_bg} class="absolute w-full h-full object-cover -z-1" />
+<div class="relative flex-grow text-white" style="background-color: #0d0a0d">
+  <!-- <Image src={digital_bg} class="absolute w-full h-full object-cover -z-1" /> -->
   <div class="hero-text container flex flex-col mt-8">
     <div
       class="flex flex-col text-right font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"

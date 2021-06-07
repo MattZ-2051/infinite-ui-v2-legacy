@@ -9,7 +9,6 @@
   $: isUnique = item?.totalSupply === 1;
 
   let videoElement: HTMLVideoElement;
-
 </script>
 
 <div class="flex flex-col">
@@ -115,5 +114,4 @@
   .card-time-color {
     color: #ffffff;
   }
-
 </style>

@@ -5,12 +5,12 @@
   import { mdiAccountCircleOutline } from '@mdi/js';
 
   import Image from '$ui/image/Image.svelte';
-  import aria from '$static/aria-white.png?format=avif;webp;png&metadata';
+  import aria from '$static/aria-white.png?w=199format=avif;webp;png&metadata';
 </script>
 
 <div class="bg-black text-gray-300 w-full h-20 flex">
   <div class="container flex justify-between items-end py-2">
-    <Image src={aria} alt="ARIA" width="199" height="65" />
+    <Image src={aria} alt="ARIA" />
 
     <div class="hidden md:flex gap-1 md:gap-6 lg:gap-12">
       <a sveltekit:prefetch href="/marketplace" class:active={$page.path === '/marketplace'}
