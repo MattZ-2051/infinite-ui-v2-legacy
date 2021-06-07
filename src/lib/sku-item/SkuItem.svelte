@@ -56,7 +56,7 @@
         <span class=" text-3xl font-light card-title">{item.name}</span>
       </div>
     </div>
-    <div class="flex justify-between mt-12 gap-1">
+    <div class="flex justify-between mt-8 gap-1">
       <span class="card-series">{item.series.name}</span>
       <div class=" flex items-end">
         {#if isUnique}
