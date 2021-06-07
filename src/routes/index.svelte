@@ -19,7 +19,7 @@
   import Image from '$ui/image/Image.svelte';
 
   import landing from '$static/landing.png?w=400;800;1200&format=avif;webp;png&metadata';
-  import weAreDisruption from '$static/we_are_disruption.png?w=400;1000;format=avif;webp;png&metadata';
+  import weAreDisruption from '$static/we_are_disruption.png?w=400;1000;&format=avif;webp;png&metadata';
   import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?w=350;500&format=avif;webp;png&metadata';
   // import digital_bg from '$static/digital_bg.png?w=400;800;1200&format=avif;webp;png&metadata';
 
