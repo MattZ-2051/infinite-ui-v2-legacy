@@ -7,11 +7,11 @@
   export let items: Sku[];
 </script>
 
-<div
-  class="bg-cover xl:bg-contain bg-no-repeat bg-black bg-center"
-  style="background-image: url(/jabbar.png); height: 65vh;"
->
-  <div class="container flex relative h-full ">
+<div class="bg-black" style=" height: 65vh;">
+  <div
+    class="container flex relative h-full bg-cover bg-no-repeat  bg-center"
+    style="background-image: url(/jabbar.png); background-position-y: 15%;"
+  >
     <div
       class="absolute left-1/2 transform -translate-x-1/2 md:transform-none md:left-16 bottom-5 md:bottom-12 flex flex-col items-center gap-4"
     >

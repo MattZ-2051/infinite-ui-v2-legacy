@@ -10,7 +10,7 @@
 
 <div class="bg-black text-gray-300 w-full h-20 flex">
   <div class="container flex justify-between items-end py-2">
-    <Image src={aria} alt="ARIA" />
+    <a href="/"><Image src={aria} alt="ARIA" /></a>
 
     <div class="hidden md:flex gap-1 md:gap-6 lg:gap-12">
       <a sveltekit:prefetch href="/marketplace" class:active={$page.path === '/marketplace'}

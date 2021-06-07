@@ -26,16 +26,23 @@
   import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
 
   export let items: Sku[];
+
+  let introVideoElement: HTMLVideoElement;
 </script>
 
 <div class="relative" style="height: min(60vw, 60vh);">
   <!-- <Image src={landing} loading="eager" class="absolute w-full h-full object-cover" /> -->
   <video
+    bind:this={introVideoElement}
+    on:timeupdate={() => {
+      if (introVideoElement.currentTime > introVideoElement.duration - 1) {
+        introVideoElement.pause();
+      }
+    }}
     src="/aria_preview.mp4"
     class="absolute w-full h-full object-cover"
     playsinline
     autoplay
-    loop
     muted
   />
   <Image
