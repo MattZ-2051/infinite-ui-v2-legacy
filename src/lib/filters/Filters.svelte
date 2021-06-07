@@ -24,6 +24,8 @@
   const removeAllFilters = (): void => {
     filters = [];
   };
+
+  export let categories: { id: string; name: string }[];
 </script>
 
 <div class="flex flex-col text-gray-400 gap-8 md:gap-9">
@@ -128,6 +130,14 @@
     >
       Category
       <Icon path={mdiChevronDown} color="black" class="justify-self-end" />
+    </div>
+    <div class="flex flex-col px-3 gap-2 italic font-semibold">
+      {#each categories as category (category.id)}
+        <div class="flex items-center gap-2">
+          <div class="rounded-full h-4 w-4 bg-gray-300" />
+          {category.name}
+        </div>
+      {/each}
     </div>
     <div
       class="grid grid-cols-2 items-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"

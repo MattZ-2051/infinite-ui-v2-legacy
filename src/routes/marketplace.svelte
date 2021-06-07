@@ -1,12 +1,13 @@
 <script context="module">
   export async function load({ fetch }) {
-    const res = await fetch(
-      `https://api.goinfinite.io/skus/tiles/?page=1&per_page=50&sortBy=startDate:1`
-    );
+    const [items, categories] = await Promise.all([
+      fetch(
+        `https://api.goinfinite.io/skus/tiles/?page=1&per_page=50&sortBy=startDate:1`
+      ).then((r) => r.json()),
+      fetch(`https://api.goinfinite.io/categories/`).then((r) => r.json()),
+    ]);
     return {
-      props: {
-        items: await res.json(),
-      },
+      props: { categories, items },
     };
   }
 </script>
@@ -20,13 +21,14 @@
 
   let showFilters = false;
   export let items: Sku[];
+  export let categories: { id: string; name: string }[];
 
   const closeFilters = (): void => {
     showFilters = false;
   };
 </script>
 
-<div class="container flex gap-8 flex-col p-6 md:grid md:grid-cols-4">
+<div class="container flex gap-8 flex-col pt-6 md:grid md:grid-cols-4">
   <div class={`${showFilters ? 'hidden' : 'flex'} md:flex`}>
     <h1 class="self-start flex-auto text-5xl">MarketPlace</h1>
     <div
@@ -46,7 +48,7 @@
     <Search />
   </div>
   <div class={`md:inline ${!showFilters ? 'hidden' : 'inline'}`}>
-    <Filters on:close={closeFilters} />
+    <Filters {categories} on:close={closeFilters} />
   </div>
   <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`}>
     <SkuItemGrid {items} maxCols={3} />
