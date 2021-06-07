@@ -9,6 +9,7 @@
   $: isUnique = item?.totalSupply === 1;
 
   let videoElement: HTMLVideoElement;
+
 </script>
 
 <div class="flex flex-col">
@@ -44,20 +45,26 @@
       </div>
     {/if}
   </div>
-  <div class="px-5 pt-3 pb-10 bottom-half-container rounded-b-3xl">
-    <div class="flex justify-between ">
-      <span class=" card-name ">{item.issuerName}</span>
-      <Rarity rarity={item.rarity} />
+  <div
+    class="px-5 pt-3 pb-10 bottom-half-container rounded-b-3xl flex flex-col flex-grow justify-between"
+  >
+    <div>
+      <div class="flex justify-between ">
+        <span class=" card-name ">{item.issuerName}</span>
+        <Rarity rarity={item.rarity} />
+      </div>
+      <div class="mt-5 mb-2">
+        <span class=" text-3xl font-light card-title">{item.name}</span>
+      </div>
     </div>
-    <div class="my-5">
-      <span class=" text-3xl font-light card-title">{item.name}</span>
-    </div>
-    <div class="flex justify-between mt-12 ">
+    <div class="flex justify-between mt-12 gap-1">
       <span class="card-series">{item.series.name}</span>
-      <div class=" flex items-center">
+      <div class=" flex items-end">
         {#if isUnique}
-          <img class="w-5 h-5 mr-1 " src="/fire.png" alt="fire" loading="lazy" />
-          <span class="card-uniqueitem">Unique item!</span>
+          <div class="flex items-center">
+            <img class="w-5 h-5 mr-1 " src="/fire.png" alt="fire" loading="lazy" />
+            <span class="card-uniqueitem">Unique item!</span>
+          </div>
         {:else}
           <span class="card-serial-number">{item.totalSupply}</span>
           <span class="card-serial ml-1">total</span>
@@ -108,4 +115,5 @@
   .card-time-color {
     color: #ffffff;
   }
+
 </style>
