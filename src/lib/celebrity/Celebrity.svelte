@@ -2,6 +2,9 @@
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
   import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
+  import type { Sku } from '$lib/sku-item/types';
+
+  export let items: Sku[];
 </script>
 
 <div
@@ -49,7 +52,9 @@
       <TabsVariantDark>
         <Tabs class="text-xl md:text-2xl lg:text-3xl font-light" itemClass={'pb-4 md:pb-8'}>
           <Tab title="Latest Releases"
-            ><div><SkuItemVariantDark><SkuItemGrid class="mt-4" /></SkuItemVariantDark></div></Tab
+            ><div>
+              <SkuItemVariantDark><SkuItemGrid {items} class="mt-4" /></SkuItemVariantDark>
+            </div></Tab
           >
           <Tab title="All Collections">Tab 2!!!!!</Tab>
           <!-- <div slot="extra">extra data!!!</div> -->

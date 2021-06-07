@@ -1,10 +1,17 @@
 <script lang="ts">
+  import { navigating } from '$app/stores';
+
+  import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$lib/header/Header.svelte';
   import Footer from '$lib/footer/Footer.svelte';
   import Toast from '$lib/toast/Toast.svelte';
 
   import '../app.css';
 </script>
+
+{#if $navigating}
+  <PreloadIndicator />
+{/if}
 
 <div class="flex flex-col min-h-screen">
   <Header />
