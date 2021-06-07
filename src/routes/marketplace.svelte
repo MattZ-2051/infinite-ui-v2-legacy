@@ -49,6 +49,6 @@
     <Filters on:close={closeFilters} />
   </div>
   <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`}>
-    <SkuItemGrid {items} />
+    <SkuItemGrid {items} maxCols={3} />
   </div>
 </div>

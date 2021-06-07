@@ -3,6 +3,22 @@
   import type { Sku } from './types';
 
   export let max = 0;
+  export let maxCols = 4;
+
+  $: gridResponsiveClass = getGridResponsiveClasses(maxCols);
+
+  function getGridResponsiveClasses(cols: number): string {
+    switch (cols) {
+      case 3:
+        return 'md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3';
+
+      case 4:
+        return 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+
+      default:
+        return '';
+    }
+  }
 
   export let items: Sku[] = [
     {
@@ -110,7 +126,7 @@
 </script>
 
 <div
-  class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 {$$props.class}"
+  class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 {gridResponsiveClass} {$$props.class}"
 >
   {#each information as item}
     <SkuItem {item} />
