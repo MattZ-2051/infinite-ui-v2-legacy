@@ -51,7 +51,7 @@
   $: style = getStyles(size, color, flip, rotate);
 </script>
 
-<svg viewBox="0 0 24 24" {style} {...$$restProps}>
+<svg viewBox="0 0 24 24" {style} {...$$restProps} on:click>
   {#if title}<title>{title}</title>{/if}
   {#if spin !== false}
     {#if inverse}
