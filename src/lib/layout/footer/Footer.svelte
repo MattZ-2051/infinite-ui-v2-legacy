@@ -1,9 +1,6 @@
 <script lang="ts">
   import Icon from '$ui/icon/Icon.svelte';
-  import { mdiTwitter } from '@mdi/js';
-  import { mdiYoutube } from '@mdi/js';
-  import { mdiInstagram } from '@mdi/js';
-  import { mdiDiscord } from '@mdi/js';
+  import { mdiTwitter, mdiYoutube, mdiInstagram, mdiDiscord } from '@mdi/js';
 </script>
 
 <div class="bg-black py-6 md:py-3">
@@ -47,7 +44,7 @@
         /><span class="sr-only">Discord</span></a
       >
     </div>
-    <div class="flex items-center justify-center text-center gap-x-8 gap-y-4 md:gap-5">
+    <div class="flex flex-wrap items-center justify-center text-center gap-x-8 gap-y-4 md:gap-5">
       <a sveltekit:prefetch href="/faq" class="hover:text-white">FAQ</a>
       <a sveltekit:prefetch href="/help" class="hover:text-white">Help</a>
       <a sveltekit:prefetch href="/privacy" class="hover:text-white">Privacy Policy</a>
