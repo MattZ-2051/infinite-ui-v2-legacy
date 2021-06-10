@@ -22,7 +22,7 @@
       <div class="text-gray-400 text-2xl">@kaj33</div>
       <a
         sveltekit:prefetch
-        href="/jabbar/sku"
+        href="/celebrity/sku"
         class="bg-gray-600 text-white hover:bg-gray-800 rounded-full text-sm px-5 py-2">Following</a
       >
     </div>
