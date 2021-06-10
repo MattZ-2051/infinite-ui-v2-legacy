@@ -12,8 +12,8 @@
 <script lang="ts">
   import Marketplace from '$lib/features/marketplace/Marketplace.svelte';
 
-  export let items: Sku[];
+  export let skus: Sku[];
   export let categories: { id: string; name: string }[];
 </script>
 
-<Marketplace {items} {categories} />
+<Marketplace {skus} {categories} />

@@ -5,7 +5,7 @@
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
 
-  export let items: Sku[];
+  export let skus: Sku[];
   export let categories: { id: string; name: string }[];
 
   let showFilters = false;
@@ -38,6 +38,6 @@
     <Filters {categories} on:close={closeFilters} />
   </div>
   <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`}>
-    <SkuItemGrid {items} maxCols={3} />
+    <SkuItemGrid {skus} maxCols={3} />
   </div>
 </div>

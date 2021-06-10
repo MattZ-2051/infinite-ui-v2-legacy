@@ -1,10 +1,14 @@
-<script>
+<script lang="ts">
+  import type { Sku, Product } from '$lib/sku-item/types';
   import { Tabs, Tab } from '$ui/tabs';
   import Modal from '$ui/modal/Modal.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
   import Button from '$lib/components/Button.svelte';
   import Input from '$lib/components/Input.svelte';
   import AccountHeader from './AccountHeader.svelte';
+
+  export let skus: Sku[];
+  export let products: Product[];
 
   let showDialog = false;
 
@@ -28,9 +32,12 @@
 </Modal>
 
 <div class="container mt-8 lg:mt-12">
-  <Tabs class="text-xl md:text-2xl font-light" itemClass={'pb-4 md:pb-8'}>
-    <Tab title="My Releases"><div><SkuItemGrid class="mt-4" /></div></Tab>
-    <Tab title="Items">Tab 2!!!!!</Tab>
-    <!-- <div slot="extra">extra data!!!</div> -->
+  <Tabs class="text-xl md:text-2xl font-light mb-4" itemClass={'pb-4 md:pb-8'}>
+    <Tab title="My Releases">
+      <SkuItemGrid {skus} />
+    </Tab>
+    <Tab title="Items">
+      <SkuItemGrid {products} />
+    </Tab>
   </Tabs>
 </div>

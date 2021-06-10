@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
-  import { loadItems } from '$lib/features/celebrity/celebrity.api';
+  import type { Sku, Product } from '$lib/sku-item/types';
+  import { loadReleases } from '$lib/features/celebrity/celebrity.api';
 
   export async function load({ fetch }) {
     return {
-      props: await loadItems({ fetch }),
+      props: await loadReleases({ fetch }),
     };
   }
 </script>
@@ -12,7 +12,8 @@
 <script lang="ts">
   import Celebrity from '$lib/features/celebrity/Celebrity.svelte';
 
-  export let items: Sku[];
+  export let skus: Sku[];
+  export let products: Product[];
 </script>
 
-<Celebrity {items} />
+<Celebrity {skus} {products} />

@@ -49,4 +49,31 @@ export type Sku = {
   resaleSellersFeePercentage: number;
   sellerTransactionFeePercentage: number;
   type: string;
+  productListings: Listing[];
+  skuListings: Listing[];
+  activeSkuListings: Listing[];
+  upcomingProductListings: Listing[];
+  upcomingSkuListings: Listing[];
 };
+
+export type Listing = {
+  canceled?: boolean;
+  price: number;
+  product: string;
+  saleType: string;
+  startDate: Date;
+  status: string;
+  supply: number;
+  supplyLeft: number;
+  type: string;
+  _id: string;
+};
+
+export type Product = {
+  serialNumber?: string;
+  activeProductListings?: Listing[];
+  upcomingProductListings?: Listing[];
+  sku: Sku;
+};
+
+export type Status = 'upcoming' | 'upcoming-soon' | 'no-sale' | 'active' | undefined;

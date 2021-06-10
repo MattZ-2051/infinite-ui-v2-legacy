@@ -1,6 +1,9 @@
 <script lang="ts">
-  import type { Sku } from './types';
+  import type { Sku, Product } from './types';
+  import SkuStatus from './SkuStatus.svelte';
+  import SkuStatusInfo from './SkuStatusInfo.svelte';
   import SkuItem from './SkuItem.svelte';
+  import { skuStatus, productStatus } from './status';
 
   export let max = 0;
   export let maxCols = 4;
@@ -20,7 +23,9 @@
     }
   }
 
-  export let items: Sku[] = [
+  export let products: Product[] = [];
+
+  export let skus: Sku[] = [
     {
       graphicUrl: '/jordan.jpg',
       issuerName: 'Jordan',
@@ -122,13 +127,50 @@
     } as Sku,
   ];
 
-  $: information = max > 0 ? items.slice(0, max) : items;
+  $: productList = max > 0 ? (products || []).slice(0, max) : products || [];
+  $: information = max > 0 ? skus.slice(0, max) : skus;
 </script>
 
 <div
   class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 {gridResponsiveClass} {$$props.class}"
 >
-  {#each information as item}
-    <SkuItem {item} />
-  {/each}
+  {#if productList.length}
+    {#each productList as item}
+      <SkuItem item={item.sku}>
+        <SkuStatusInfo
+          slot="info"
+          unique={item?.sku?.maxSupply === 1}
+          serialNumber={item.serialNumber}
+        />
+        <SkuStatus
+          slot="status"
+          type="product"
+          startDate={item?.upcomingProductListings[0]?.startDate}
+          status={productStatus(item)}
+          price={item?.activeProductListings[0]?.price}
+        />
+      </SkuItem>
+    {/each}
+  {:else}
+    {#each information as item}
+      <SkuItem {item}>
+        <SkuStatusInfo
+          slot="info"
+          unique={item.maxSupply === 1}
+          status={skuStatus(item)}
+          supplyType={item.supplyType}
+          circulatingSupply={item.circulatingSupply}
+          totalSupply={item.totalSupply}
+          totalSupplyLeft={item.totalSupplyLeft}
+        />
+        <SkuStatus
+          slot="status"
+          type="sku"
+          startDate={item.startDate}
+          status={skuStatus(item)}
+          price={item.minPrice}
+        />
+      </SkuItem>
+    {/each}
+  {/if}
 </div>

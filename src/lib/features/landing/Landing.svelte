@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
+  import type { Sku, Product } from '$lib/sku-item/types';
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
   import Image from '$ui/image/Image.svelte';
@@ -10,7 +10,8 @@
   import Logo from '$lib/components/Logo.svelte';
   import LandingHero from './LandingHero.svelte';
 
-  export let items: Sku[];
+  export let skus: Sku[];
+  export let products: Product[];
 </script>
 
 <LandingHero />
@@ -49,14 +50,13 @@
 
   <div class="container mt-10 lg:mt-24">
     <TabsVariantDark>
-      <Tabs class="text-xl md:text-2xl lg:text-3xl font-light" itemClass={'pb-4 md:pb-8'}>
-        <Tab title="Latest Releases"
-          ><div>
-            <SkuItemVariantDark><SkuItemGrid {items} class="mt-4" /></SkuItemVariantDark>
-          </div></Tab
-        >
-        <Tab title="All Collections">Tab 2!!!!!</Tab>
-        <!-- <div slot="extra">extra data!!!</div> -->
+      <Tabs class="text-xl md:text-2xl lg:text-3xl font-light mb-4" itemClass={'pb-4 md:pb-8'}>
+        <Tab title="Latest Releases">
+          <SkuItemVariantDark><SkuItemGrid {skus} /></SkuItemVariantDark>
+        </Tab>
+        <Tab title="All Collections">
+          <SkuItemVariantDark><SkuItemGrid {products} /></SkuItemVariantDark>
+        </Tab>
       </Tabs>
     </TabsVariantDark>
 
