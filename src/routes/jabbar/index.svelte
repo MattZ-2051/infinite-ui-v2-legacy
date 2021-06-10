@@ -1,19 +1,16 @@
-<script context="module" type="ts">
+<script context="module">
+  import { loadItems } from '$lib/features/celebrity/celebrity.api';
+
   export async function load({ fetch }) {
-    const res = await fetch(
-      `https://api.goinfinite.io/skus/tiles/?page=1&per_page=50&sortBy=startDate:1`
-    );
     return {
-      props: {
-        items: await res.json(),
-      },
+      props: await loadItems({ fetch }),
     };
   }
 </script>
 
 <script lang="ts">
-  import Celebrity from '$lib/celebrity/Celebrity.svelte';
   import type { Sku } from '$lib/sku-item/types';
+  import Celebrity from '$lib/features/celebrity/Celebrity.svelte';
 
   export let items: Sku[];
 </script>

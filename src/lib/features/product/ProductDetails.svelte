@@ -1,12 +1,13 @@
 <script lang="ts">
-  import Rarity from '$lib/rarity/Rarity.svelte';
   import Icon from '$ui/icon/Icon.svelte';
-  import Gallery from '$lib/gallery/Gallery.svelte';
   import { mdiChevronLeft } from '@mdi/js';
+  import Rarity from '$lib/rarity/Rarity.svelte';
+
+  import ProductGallery from './ProductGallery.svelte';
 </script>
 
 <div class="flex flex-col bg-white">
-  <Gallery
+  <ProductGallery
     featuredImage="/gobleTrottles.png"
     images={['/gobleTrottles.png', '/cut.png', '/gobleTrottles.png']}
   />

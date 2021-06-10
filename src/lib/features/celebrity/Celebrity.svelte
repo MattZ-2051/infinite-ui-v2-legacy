@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
-  import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
+  import Logo from '$lib/components/Logo.svelte';
   import type { Sku } from '$lib/sku-item/types';
 
   export let items: Sku[];
@@ -62,6 +62,6 @@
       </TabsVariantDark>
     </div>
 
-    <AriaLogoComp />
+    <Logo />
   </div>
 </div>

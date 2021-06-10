@@ -18,12 +18,11 @@
 
   import Image from '$ui/image/Image.svelte';
 
-  import landing from '$static/landing.png?w=400;800;1200&format=avif;webp;png&metadata';
   import weAreDisruption from '$static/we_are_disruption.png?w=400;1000;&format=avif;webp;png&metadata';
   import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?w=350;500&format=avif;webp;png&metadata';
   // import digital_bg from '$static/digital_bg.png?w=400;800;1200&format=avif;webp;png&metadata';
 
-  import AriaLogoComp from '$lib/shared/AriaLogoComp.svelte';
+  import Logo from '$lib/components/Logo.svelte';
 
   export let items: Sku[];
 
@@ -31,7 +30,6 @@
 </script>
 
 <div class="relative" style="height: min(60vw, 60vh);">
-  <!-- <Image src={landing} loading="eager" class="absolute w-full h-full object-cover" /> -->
   <video
     bind:this={introVideoElement}
     on:timeupdate={() => {
@@ -97,7 +95,7 @@
       </Tabs>
     </TabsVariantDark>
 
-    <AriaLogoComp />
+    <Logo />
   </div>
 </div>
 

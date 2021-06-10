@@ -1,7 +1,8 @@
 <script lang="ts">
-  import History from '$lib/product/History.svelte';
   import TabsVariantDark from '$ui/tabs/variants/TabsVariantDark.svelte';
   import { Tabs, Tab } from '$ui/tabs';
+
+  import History from './ProductHistory.svelte';
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">

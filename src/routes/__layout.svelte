@@ -2,8 +2,8 @@
   import { navigating } from '$app/stores';
 
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
-  import Header from '$lib/header/Header.svelte';
-  import Footer from '$lib/footer/Footer.svelte';
+  import Header from '$lib/layout/header/Header.svelte';
+  import Footer from '$lib/layout/footer/Footer.svelte';
   import Toast from '$lib/toast/Toast.svelte';
 
   import '../app.css';

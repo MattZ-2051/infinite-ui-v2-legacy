@@ -40,7 +40,7 @@
       >
     </div>
     {#if dev}
-      <pre class="m-4 p-4 border">{error}</pre>
+      <pre class="m-4 p-4 border">{JSON.stringify(error)}</pre>
     {/if}
   </div>
 </div>
