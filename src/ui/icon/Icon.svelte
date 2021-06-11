@@ -1,5 +1,8 @@
 <script lang="ts">
+  import useActions from '$util/useActions';
   import { styles } from '$util/styles';
+
+  export let actions = [];
 
   export let path: string; // https://materialdesignicons.com
   export let size: number | string = 1;
@@ -51,7 +54,7 @@
   $: style = getStyles(size, color, flip, rotate);
 </script>
 
-<svg viewBox="0 0 24 24" {style} {...$$restProps} on:click>
+<svg viewBox="0 0 24 24" {style} {...$$restProps} on:click use:useActions={actions}>
   {#if title}<title>{title}</title>{/if}
   {#if spin !== false}
     {#if inverse}
