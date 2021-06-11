@@ -1,11 +1,12 @@
 <script lang="ts">
   import Icon from '$ui/icon/Icon.svelte';
+  import tooltip from '$ui/tooltip';
   import { mdiLinkVariant } from '@mdi/js';
 
   let history = [
     {
       username: '@alessandroveronezi',
-      price: '$1200',
+      price: '$900',
       date: 'April 14, 2021 at 7:34 am',
     },
     {
@@ -25,7 +26,7 @@
     },
     {
       username: '@katowns',
-      price: '$1200',
+      price: '$200',
       date: 'April 14, 2021 at 7:34 am',
     },
   ];
@@ -44,6 +45,7 @@
         <span class="text-white">{item.price}</span>
       </div>
       <Icon
+        actions={[[tooltip, { content: `my tooltip: ${item.price}`, theme: 'white' }]]}
         path={mdiLinkVariant}
         class="row-span-2 w-6 justify-self-center group-hover:text-white"
       />

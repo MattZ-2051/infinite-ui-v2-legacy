@@ -1,0 +1,23 @@
+.tippy-box {
+  --tooltip-bg: #000000;
+  --tooltip-color: #ffffff;
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-color);
+  font-weight: 700;
+  font-style: italic;
+  border-radius: 1.5rem;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: medium;
+}
+
+.tippy-box > .tippy-arrow::before {
+  color: var(--tooltip-bg);
+}
+
+.tippy-box[data-theme~='white'] {
+  --tooltip-bg: #ffffff;
+  --tooltip-color: #000000;
+}
