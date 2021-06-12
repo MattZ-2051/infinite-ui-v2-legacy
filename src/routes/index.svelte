@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module" lang="ts">
   import { loadFeatured } from '$lib/features/landing/landing.api';
 
   export async function load({ fetch }) {
