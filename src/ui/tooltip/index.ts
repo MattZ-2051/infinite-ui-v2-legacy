@@ -2,18 +2,24 @@ import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 import './themes.css';
 
-function setTippy(userInput, instance) {
+type UserInput = string | { [key: string]: unknown };
+
+function setTippy(userInput: UserInput, instance) {
   if (!userInput) {
     instance.disable();
     return;
   }
 
-  const props = Object.assign({}, userInput, { content: userInput.content || userInput });
-  instance.setProps(props);
+  if (typeof userInput === 'string') {
+    userInput = { content: userInput };
+  }
+
+  const properties = Object.assign({}, userInput);
+  instance.setProps(properties);
   instance.enable();
 }
 
-export default function tooltip(node: HTMLElement, userInput: string | { [key: string]: unknown }) {
+export default function tooltip(node: HTMLElement, userInput: UserInput) {
   const instance = tippy(node, {});
   setTippy(userInput, instance);
   return {

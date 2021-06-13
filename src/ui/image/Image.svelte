@@ -14,16 +14,13 @@
     const A = a.split('.').pop() as EXT;
     const B = b.split('.').pop() as EXT;
 
-    if (order.indexOf(A) > order.indexOf(B)) {
-      return -1;
-    } else {
-      return 1;
-    }
+    return order.indexOf(A) > order.indexOf(B) ? -1 : 1;
   };
 </script>
 
 <script lang="ts">
   import { KNOWN_EXTENSIONS } from './types';
+
   type ImageMetadata = {
     format: EXT;
     width: number;
@@ -31,6 +28,7 @@
     src: string;
   };
 
+  // eslint-disable-next-line unicorn/prevent-abbreviations
   export let src: ImageMetadata[] = [];
   export let sizes = '(max-width: 1000px) 100vw, 1000px';
   export let alt = '';
@@ -38,17 +36,10 @@
   export let decoding: 'async' | 'sync' | 'auto' = 'async';
   export let setDimensions = true;
 
-  let images: {
-    fallback: EXT;
-    formats: EXT[];
-    sizes: number[];
-    byFormatGroups: { [key: string]: ImageMetadata[] };
-  };
-
-  function getSources(images: ImageMetadata[]) {
-    const formatMap = groupBy<ImageMetadata>(images, 'format');
+  function getSources(imagesMetadata: ImageMetadata[]) {
+    const formatMap = groupBy<ImageMetadata>(imagesMetadata, 'format');
     let [_fallback, ..._formats] = Object.keys(formatMap).sort(sortByExtension) as EXT[];
-    const _sizes = formatMap[_fallback].map((e) => e.width).sort((a, b) => a - b);
+    const _sizes = formatMap[_fallback].map((image) => image.width).sort((a, b) => a - b);
 
     return {
       fallback: _fallback,
@@ -58,6 +49,12 @@
     };
   }
 
+  let images: {
+    fallback: EXT;
+    formats: EXT[];
+    sizes: number[];
+    byFormatGroups: { [key: string]: ImageMetadata[] };
+  };
   $: images = getSources(src);
 
   let sources: { srcset: string; type: string }[];
@@ -67,10 +64,10 @@
       type: KNOWN_EXTENSIONS[format].type,
     };
   });
-  $: fallbackAttrs = getFallbackAttrs(images.byFormatGroups[images.fallback]);
+  $: fallbackAttrs = getFallbackAttributes(images.byFormatGroups[images.fallback]);
 
-  function getSrcset(images: ImageMetadata[]) {
-    return images
+  function getSrcset(imagesMetadata: ImageMetadata[]) {
+    return imagesMetadata
       .sort((a, b) => a.width - b.width)
       .map((image) => {
         return `${image.src} ${image.width}w`;
@@ -78,18 +75,18 @@
       .join(', ');
   }
 
-  function getFallbackAttrs(fallbackImages: ImageMetadata[]) {
+  function getFallbackAttributes(fallbackImages: ImageMetadata[]) {
     const image = fallbackImages.sort((a, b) => a.width - b.width).reverse()[0];
-    const attrs: { srcset: string; src: string; width?: number; height?: number } = {
+    const attributes: { srcset: string; src: string; width?: number; height?: number } = {
       srcset: getSrcset(fallbackImages),
       src: image.src,
     };
 
     if (setDimensions) {
-      attrs.width = image.width;
-      attrs.height = image.height;
+      attributes.width = image.width;
+      attributes.height = image.height;
     }
-    return attrs;
+    return attributes;
   }
 </script>
 

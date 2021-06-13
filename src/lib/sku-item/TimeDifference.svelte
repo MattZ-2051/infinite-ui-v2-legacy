@@ -1,10 +1,8 @@
-<script lang="ts" context="module">
-  import { time } from './clock';
-</script>
-
 <script lang="ts">
-  import { timeRemaining } from './clock';
+  import { time, timeRemaining } from './clock';
+
   export let date: Date;
+
   $: difference = timeRemaining(date, $time);
 </script>
 

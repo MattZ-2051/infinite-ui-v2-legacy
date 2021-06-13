@@ -2,11 +2,11 @@ export default function useActions(node: HTMLElement | SVGSVGElement, actions) {
   const objects = [];
 
   if (actions) {
-    for (let i = 0; i < actions.length; i++) {
-      const isArray = Array.isArray(actions[i]);
-      const action = isArray ? actions[i][0] : actions[i];
-      if (isArray && actions[i].length > 1) {
-        objects.push(action(node, actions[i][1]));
+    for (const action_ of actions) {
+      const isArray = Array.isArray(action_);
+      const action = isArray ? action_[0] : action_;
+      if (isArray && action_.length > 1) {
+        objects.push(action(node, action_[1]));
       } else {
         objects.push(action(node));
       }
@@ -14,19 +14,19 @@ export default function useActions(node: HTMLElement | SVGSVGElement, actions) {
   }
 
   return {
-    update(actions) {
-      if (((actions && actions.length) || 0) != objects.length) {
+    update(newActions) {
+      if (((newActions && newActions.length > 0) || 0) !== objects.length) {
         throw new Error('You must not change the length of an actions array.');
       }
 
-      if (actions) {
-        for (let i = 0; i < actions.length; i++) {
-          if (objects[i] && 'update' in objects[i]) {
-            const isArray = Array.isArray(actions[i]);
-            if (isArray && actions[i].length > 1) {
-              objects[i].update(actions[i][1]);
+      if (newActions) {
+        for (const [index, newAction] of newActions.entries()) {
+          if (objects[index] && 'update' in objects[index]) {
+            const isArray = Array.isArray(newAction);
+            if (isArray && newAction.length > 1) {
+              objects[index].update(newAction[1]);
             } else {
-              objects[i].update();
+              objects[index].update();
             }
           }
         }
@@ -34,9 +34,9 @@ export default function useActions(node: HTMLElement | SVGSVGElement, actions) {
     },
 
     destroy() {
-      for (let i = 0; i < objects.length; i++) {
-        if (objects[i] && 'destroy' in objects[i]) {
-          objects[i].destroy();
+      for (const object of objects) {
+        if (object && 'destroy' in object) {
+          object.destroy();
         }
       }
     },

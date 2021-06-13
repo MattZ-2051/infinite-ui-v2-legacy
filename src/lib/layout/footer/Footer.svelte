@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Icon from '$ui/icon/Icon.svelte';
   import { mdiTwitter, mdiYoutube, mdiInstagram, mdiDiscord } from '@mdi/js';
+  import Icon from '$ui/icon/Icon.svelte';
 </script>
 
 <div class="bg-black py-6 md:py-3">

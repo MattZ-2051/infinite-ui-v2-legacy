@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Image from '$ui/image/Image.svelte';
   import aria from '$static/aria-white.png?w=199&format=avif;webp;png&metadata';
+  import Image from '$ui/image/Image.svelte';
   import Sidebar from './Sidebar.svelte';
   import Links from './Links.svelte';
   import SidebarToggle from './SidebarToggle.svelte';

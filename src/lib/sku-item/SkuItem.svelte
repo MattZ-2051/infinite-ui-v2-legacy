@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Rarity from '$lib/rarity/Rarity.svelte';
   import type { Sku } from './types';
-  import TimeDifference from './TimeDifference.svelte';
   import IntersectionObserver from 'svelte-intersection-observer';
+  import Rarity from '$lib/rarity/Rarity.svelte';
+  import TimeDifference from './TimeDifference.svelte';
 
   export let item: Sku;
 
@@ -18,9 +18,7 @@
         element={videoElement}
         once
         rootMargin={'150px'}
-        on:intersect={(e) => {
-          videoElement.src = videoElement.dataset.src;
-        }}
+        on:intersect={() => (videoElement.src = videoElement.dataset.src)}
       >
         <video
           bind:this={videoElement}

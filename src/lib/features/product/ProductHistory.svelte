@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { mdiLinkVariant } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import tooltip from '$ui/tooltip';
-  import { mdiLinkVariant } from '@mdi/js';
 
   let history = [
     {

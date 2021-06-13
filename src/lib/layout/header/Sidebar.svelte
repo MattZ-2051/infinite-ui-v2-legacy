@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
-  import Links from './Links.svelte';
-  import { createEventDispatcher } from 'svelte';
   import { browser } from '$app/env';
+  import Links from './Links.svelte';
+
   const dispatch = createEventDispatcher();
   function onClose() {
     dispatch('close');

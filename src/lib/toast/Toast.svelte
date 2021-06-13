@@ -1,26 +1,9 @@
-<script context="module" lang="ts">
-  import type { ToastType } from './toast.store';
-  import { styles } from '$util/styles';
-
-  const themes = {
-    danger: 'linear-gradient(89.89deg, #FB5543 0%, #F24C66 100%), #FC5746;',
-    success: 'linear-gradient(89.89deg, #00EB7C 0%, #11D6EC 100%);',
-    warning: 'linear-gradient(45deg,#ffae12,#f0da16 98.96%)',
-    info: '#5bc0de',
-  };
-
-  function getThemeStyle(key: ToastType) {
-    return styles({ background: themes[key] });
-  }
-</script>
-
 <script lang="ts">
   import { fly } from 'svelte/transition';
-
-  import Icon from '$ui/icon/Icon.svelte';
   import { mdiClose } from '@mdi/js';
-
+  import Icon from '$ui/icon/Icon.svelte';
   import toast from './toast.store';
+  import { getThemeStyle } from './themes';
 
   function remove(id: string) {
     toast.remove(id);
@@ -36,9 +19,8 @@
           <button
             type="button"
             on:click={() => remove(item.id)}
-            data-style="close"
             title="Close"
-            class="rounded-full p-1 inline-flex items-center justify-center"
+            class="bg-black bg-opacity-30 text-gray-100 hover:bg-opacity-60 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-600 rounded-full p-1 inline-flex items-center justify-center"
             ><Icon path={mdiClose} /></button
           >
         {/if}
@@ -47,21 +29,9 @@
   {/each}
 </div>
 
-<style>
+<style lang="postcss">
   [data-style='toast-container'] {
     display: flex;
     flex-direction: column;
-  }
-
-  [data-style='close'] {
-    @apply bg-black;
-    @apply bg-opacity-30;
-    @apply text-gray-100;
-    @apply hover:bg-opacity-60;
-    @apply hover:text-white;
-    @apply focus:outline-none;
-    @apply focus:ring-2;
-    @apply focus:ring-inset;
-    @apply focus:ring-gray-600;
   }
 </style>

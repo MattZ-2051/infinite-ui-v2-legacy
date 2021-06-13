@@ -28,7 +28,7 @@
     >YouTuber, Geek, Consumer Electronics and Tech Head</span
   >
   <div class="py-3 px-5 mb-11 divide-x-2 bg-black bg-opacity-70 rounded-full text-white">
-    <a href="#" class="pr-3">Account settings</a>
+    <a href="/account/settings" class="pr-3">Account settings</a>
     <a href="/wallet" class="pl-4" style="border-color: #4f4f4f">My wallet</a>
   </div>
 </div>

@@ -8,9 +8,9 @@
 
   export let id = `tab-id-${uid++}`;
   export let title: string;
-  export let icon = null;
+  export let icon = undefined;
 
-  let selfEl: HTMLElement;
+  let selfElement: HTMLElement;
   let selectedTab: ISelectedTab = getContext('selectedTab');
   const tabs: ITabTitles = getContext('tabTitles');
 
@@ -21,7 +21,7 @@
   $: updateHeader(title, icon);
 
   onMount(() => {
-    tabs.registerTab(id, selfEl);
+    tabs.registerTab(id, selfElement);
     updateHeader(title, icon);
   });
 
@@ -30,7 +30,7 @@
   });
 </script>
 
-<div bind:this={selfEl}>
+<div bind:this={selfElement}>
   {#if $selectedTab === id}
     <slot />
   {/if}

@@ -1,7 +1,5 @@
 import { styles } from './styles';
 
-// {'max-width.px': widthExp}
-
 describe('styles', () => {
   it('format the styles correctly from object', () => {
     expect(
@@ -23,11 +21,12 @@ describe('styles', () => {
     ).toEqual('width: 5px; height: 50%; max-height: 200px;');
   });
 
-  it('will ignore null values', () => {
+  it('will ignore falsy values', () => {
     expect(
       styles({
-        'width.px': null,
+        'width.px': undefined,
         'height.%': '50',
+        // eslint-disable-next-line unicorn/no-null
         'max-height.px': null,
       })
     ).toEqual('height: 50%;');

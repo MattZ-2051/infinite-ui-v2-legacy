@@ -1,8 +1,7 @@
 <script lang="ts">
-  import Icon from '$ui/icon/Icon.svelte';
   import { mdiChevronLeft } from '@mdi/js';
+  import Icon from '$ui/icon/Icon.svelte';
   import Rarity from '$lib/rarity/Rarity.svelte';
-
   import ProductGallery from './ProductGallery.svelte';
 </script>
 

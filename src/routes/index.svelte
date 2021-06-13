@@ -1,4 +1,5 @@
 <script context="module" lang="ts">
+  import type { Sku } from '$lib/sku-item/types';
   import { loadFeatured } from '$lib/features/landing/landing.api';
 
   export async function load({ fetch }) {
@@ -9,7 +10,6 @@
 </script>
 
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
   import Landing from '$lib/features/landing/Landing.svelte';
 
   export let items: Sku[];

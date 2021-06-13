@@ -8,28 +8,28 @@ async function send<T>(
   }: { method: 'GET' | 'POST' | 'PUT' | 'DELETE'; path: string; data?: unknown },
   f = fetch
 ): Promise<T> {
-  const opts: RequestInit = { method, headers: {} };
+  const options: RequestInit = { method, headers: {} };
 
   if (data) {
-    opts.headers['Content-Type'] = 'application/json';
-    opts.body = JSON.stringify(data);
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(data);
   }
 
-  return f(`${baseUrl}/${path}`, opts).then((r) => r.json());
+  return f(`${baseUrl}/${path}`, options).then((r) => r.json());
 }
 
-export function get<T>(path, f): Promise<T> {
+export function get<T>(path: string, f): Promise<T> {
   return send({ method: 'GET', path }, f);
 }
 
-export function del<T>(path, f): Promise<T> {
+export function del<T>(path: string, f): Promise<T> {
   return send({ method: 'DELETE', path }, f);
 }
 
-export function post<T>(path, data, f): Promise<T> {
+export function post<T>(path: string, data, f): Promise<T> {
   return send({ method: 'POST', path, data }, f);
 }
 
-export function put<T>(path, data, f): Promise<T> {
+export function put<T>(path: string, data, f): Promise<T> {
   return send({ method: 'PUT', path, data }, f);
 }

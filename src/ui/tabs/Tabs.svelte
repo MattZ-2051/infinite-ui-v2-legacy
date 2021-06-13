@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   export type ISelectedTab = Writable<string>;
   export type ITabTitles = {
-    registerTab(id: string, el: HTMLElement): void;
+    registerTab(id: string, element: HTMLElement): void;
     updateHeader(id: string, data: unknown): void;
     unregisterTab(id: string): void;
   };
@@ -11,29 +11,29 @@
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
   import type { Writable } from 'svelte/store';
-
   import Icon from '$ui/icon/Icon.svelte';
 
-  export let selectedTabId: string = null;
-  export let itemClass: string = null;
+  export let selectedTabId: string = undefined;
+  export let itemClass: string = undefined;
   export let deactivateSignle = true;
 
   let selectedTabStore = writable<string>(selectedTabId);
-  let selfEl: HTMLElement;
+  let selfElement: HTMLElement;
   let headers = [];
 
   $: $selectedTabStore = selectedTabId;
-  $: updateProps($selectedTabStore);
+  $: updateProperties($selectedTabStore);
 
-  function updateProps(value: string) {
+  function updateProperties(value: string) {
     selectedTabId = value;
   }
 
   setContext('selectedTab', selectedTabStore);
 
   setContext('tabTitles', <ITabTitles>{
-    registerTab(id, tabEl) {
-      const index = Array.from(selfEl.children).indexOf(tabEl);
+    registerTab(id, tabElement) {
+      // eslint-disable-next-line unicorn/prefer-spread
+      const index = Array.from(selfElement.children).indexOf(tabElement);
       headers.splice(index, 0, { id });
       headers = headers;
 
@@ -42,7 +42,7 @@
       }
     },
     updateHeader(id, { title, icon }) {
-      const tabIndex = headers.findIndex((title) => title.id === id);
+      const tabIndex = headers.findIndex((header) => header.id === id);
       if (tabIndex > -1) {
         headers[tabIndex].title = title;
         headers[tabIndex].icon = icon;
@@ -78,7 +78,7 @@
   <div><slot name="extra" /></div>
 </nav>
 
-<div bind:this={selfEl}>
+<div bind:this={selfElement}>
   <slot {selectedTabId} />
 </div>
 

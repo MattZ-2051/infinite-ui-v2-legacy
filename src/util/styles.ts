@@ -1,7 +1,7 @@
-export function styles(obj: { [key: string]: string | number }): string {
-  return Object.entries(obj)
+export function styles(object: { [key: string]: string | number }): string {
+  return Object.entries(object)
     .filter(([nameAndUnit, value]) => {
-      return nameAndUnit && value !== null;
+      return nameAndUnit && value !== null && value !== undefined;
     })
     .map(([nameAndUnit, value]) => {
       const [name, unit] = nameAndUnit.split('.');

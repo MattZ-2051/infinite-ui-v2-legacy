@@ -1,8 +1,8 @@
 <script lang="ts">
-  export let images = [];
-  export let featuredImage;
+  export let images: string[] = [];
+  export let featuredImage: string;
 
-  const setFeaturedImage = (image) => {
+  const setFeaturedImage = (image: string) => {
     featuredImage = image;
   };
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts">
+  import type { Sku } from '$lib/sku-item/types';
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
-  import type { Sku } from '$lib/sku-item/types';
   import Image from '$ui/image/Image.svelte';
 
   import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?w=350;500&format=avif;webp;png&metadata';

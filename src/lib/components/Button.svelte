@@ -1,7 +1,7 @@
 <script lang="ts">
   export let type = 'button';
 
-  let _class = null;
+  let _class = undefined;
   export { _class as class };
 </script>
 

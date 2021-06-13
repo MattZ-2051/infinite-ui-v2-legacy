@@ -1,17 +1,15 @@
 <script lang="ts">
   import { scale } from 'svelte/transition';
   import { quadIn } from 'svelte/easing';
-  import { browser } from '$app/env';
-
   import { mdiClose } from '@mdi/js';
+  import { browser } from '$app/env';
   import Icon from '$ui/icon/Icon.svelte';
   import Scrim from '$ui/scrim/Scrim.svelte';
 
   export let value = true;
-
   export let title = '';
   export let persistent = false;
-  export let transitionProps = { duration: 150, easing: quadIn, delay: 150 };
+  export let transition = { duration: 150, easing: quadIn, delay: 150 };
 
   $: browser && document.body.classList.toggle('overflow-hidden', value);
 </script>
@@ -20,10 +18,7 @@
   <div class="fixed w-full h-full top-0 left-0 z-40">
     <Scrim on:click={() => !persistent && (value = false)} />
     <div class="h-full w-full absolute flex items-center justify-center z-20">
-      <div
-        in:scale={transitionProps}
-        class="relative rounded-3xl bg-white p-10 shadow text-black mx-4"
-      >
+      <div in:scale={transition} class="relative rounded-3xl bg-white p-10 shadow text-black mx-4">
         {#if !persistent}
           <button
             type="button"

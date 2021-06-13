@@ -6,8 +6,8 @@
 
   export let path: string; // https://materialdesignicons.com
   export let size: number | string = 1;
-  export let color: string = null;
-  export let flip: boolean | string = null;
+  export let color: string = undefined;
+  export let flip: boolean | string = undefined;
   export let rotate = 0;
   export let spin: boolean | number = false;
   export let title = '';
@@ -26,12 +26,12 @@
     _rotate: number
   ) => {
     const _styles: { [key: string]: string | number } = {};
-    if (_size !== null) {
+    if (_size) {
       const width = typeof _size === 'string' ? _size : `${_size * 1.5}rem`;
       _styles.width = width;
       _styles.height = width;
     }
-    _styles.fill = _color !== null ? _color : 'currentColor';
+    _styles.fill = _color ? _color : 'currentColor';
 
     const transform = [];
     if (_flip === true || _flip === 'h') {
@@ -40,7 +40,7 @@
     if (_flip === true || _flip === 'v') {
       transform.push('scaleY(-1)');
     }
-    if (_rotate != 0) {
+    if (_rotate !== 0) {
       transform.push(`rotate(${_rotate}deg)`);
     }
     if (transform.length > 0) {

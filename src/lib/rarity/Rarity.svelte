@@ -20,7 +20,7 @@
   </span>
 </div>
 
-<style>
+<style lang="postcss">
   [data-style='container'] {
     display: inline-flex;
     align-items: center;

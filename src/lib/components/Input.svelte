@@ -3,7 +3,7 @@
   export let before = '';
   export let after = '';
 
-  let _class = null;
+  let _class = undefined;
   export { _class as class };
 
   $: cols = +($$slots.before || before) + 1 + +($$slots.after || after);

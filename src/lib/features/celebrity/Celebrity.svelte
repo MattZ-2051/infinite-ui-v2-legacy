@@ -1,8 +1,8 @@
 <script lang="ts">
+  import type { Sku } from '$lib/sku-item/types';
   import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
   import Logo from '$lib/components/Logo.svelte';
-  import type { Sku } from '$lib/sku-item/types';
 
   export let items: Sku[];
 </script>

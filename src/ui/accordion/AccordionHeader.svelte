@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Icon from '$ui/icon/Icon.svelte';
   import { mdiChevronDown } from '@mdi/js';
+  import Icon from '$ui/icon/Icon.svelte';
 
   export let open: boolean;
   export let collapsible: boolean;

@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { mdiAccountCircleOutline } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
-  import { mdiAccountCircleOutline } from '@mdi/js';
 </script>
 
 <a sveltekit:prefetch href="/marketplace" class:active={$page.path === '/marketplace'}

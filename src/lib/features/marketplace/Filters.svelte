@@ -1,19 +1,18 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+  import { mdiChevronDown, mdiWindowClose } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
-  import { mdiChevronDown } from '@mdi/js';
-  import { mdiWindowClose } from '@mdi/js';
 
   const dispatch = createEventDispatcher();
 
-  let nrOfItems = 12244;
+  let nrOfItems = 12_244;
   let nrOfReleased = 75;
   let nrOfUpcoming: number | undefined;
   let nrOfSoldOut: number | undefined;
   let active = 'All';
-  let filters = ['Art', 'Sports', '4/20 to 5/26', 'test', 'adf asdfasd', 'asdfsad'];
+  let filters: string[] = ['Art', 'Sports', '4/20 to 5/26', 'test', 'adf asdfasd', 'asdfsad'];
 
-  const removeFilter = (filter) => {
+  const removeFilter = (filter: string) => {
     filters = filters.filter((item) => item !== filter);
   };
 
@@ -155,7 +154,7 @@
   <div
     class="self-center w-full py-3 max-w-xl bg-black text-white text-2xl text-center rounded-3xl md:hidden"
   >
-    Update Filters {filters.length ? `(${filters.length})` : ''}
+    Update Filters {filters.length > 0 ? `(${filters.length})` : ''}
   </div>
 </div>
 

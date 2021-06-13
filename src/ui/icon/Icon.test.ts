@@ -1,5 +1,5 @@
-import Icon from './Icon.svelte';
 import { render, screen } from '@testing-library/svelte';
+import Icon from './Icon.svelte';
 
 describe('Icon', () => {
   it('render & update props correctly', async () => {

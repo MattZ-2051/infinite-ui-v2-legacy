@@ -1,7 +1,6 @@
 <script lang="ts">
   import TabsVariantDark from '$ui/tabs/variants/TabsVariantDark.svelte';
   import { Tabs, Tab } from '$ui/tabs';
-
   import History from './ProductHistory.svelte';
 </script>
 

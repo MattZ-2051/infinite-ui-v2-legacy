@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import preprocess from 'svelte-preprocess';
 import { imagetools } from 'vite-imagetools';
 import tailwindConfig from './scripts/tailwind/fullConfig.js';

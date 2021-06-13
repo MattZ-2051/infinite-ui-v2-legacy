@@ -1,6 +1,6 @@
-<script>
-  import Icon from '$ui/icon/Icon.svelte';
+<script lang="ts">
   import { mdiChevronLeft } from '@mdi/js';
+  import Icon from '$ui/icon/Icon.svelte';
 </script>
 
 <div class="header">

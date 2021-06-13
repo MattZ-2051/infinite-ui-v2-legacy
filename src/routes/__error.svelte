@@ -14,8 +14,8 @@
 <script lang="ts">
   import { dev } from '$app/env';
 
-  export let status: number = null;
-  export let error: string | Error = null;
+  export let status: number = undefined;
+  export let error: string | Error = undefined;
 </script>
 
 <div class="bg-black text-white flex flex-grow items-center justify-center">

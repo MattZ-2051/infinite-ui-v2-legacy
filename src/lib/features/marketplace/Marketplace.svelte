@@ -2,13 +2,13 @@
   import type { Sku } from '$lib/sku-item/types';
   import { SkuItemGrid } from '$lib/sku-item';
   import filters from '$static/filters.svg';
-
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
 
-  let showFilters = false;
   export let items: Sku[];
   export let categories: { id: string; name: string }[];
+
+  let showFilters = false;
 
   const closeFilters = (): void => {
     showFilters = false;
@@ -22,7 +22,7 @@
       on:click={() => (showFilters = true)}
       class="relative w-10 h-10 self-end bg-gray-200 rounded-2xl md:hidden"
     >
-      <img src={filters} class="absolute top-2 left-2" />
+      <img src={filters} alt="Filters" class="absolute top-2 left-2" />
     </div>
   </div>
   {#if !showFilters}

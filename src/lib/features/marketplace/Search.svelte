@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Icon from '$ui/icon/Icon.svelte';
   import { mdiMagnify } from '@mdi/js';
+  import Icon from '$ui/icon/Icon.svelte';
 </script>
 
 <div class="relative w-40">

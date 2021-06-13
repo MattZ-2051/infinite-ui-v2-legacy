@@ -1,4 +1,5 @@
-<script context="module">
+<script context="module" lang="ts">
+  import type { Sku } from '$lib/sku-item/types';
   import { loadCategoriesItems } from '$lib/features/marketplace/marketplace.api';
 
   export async function load({ fetch }) {
@@ -9,7 +10,6 @@
 </script>
 
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
   import Marketplace from '$lib/features/marketplace/Marketplace.svelte';
 
   export let items: Sku[];
