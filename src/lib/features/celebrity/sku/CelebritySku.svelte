@@ -2,6 +2,7 @@
   import notifications from '$lib/toast/toast.store';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import { Tabs, Tab } from '$ui/tabs';
+  import Accordion from '$ui/accordion/Accordion.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
 </script>
 
@@ -76,35 +77,33 @@
 <div class="mt-8">
   <div class="container grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
-      <Tabs class="text-xl md:text-2xl lg:text-2xl font-light" itemClass={'pb-4 md:pb-8'}>
-        <Tab title="Description">
-          <div class="mt-4">
-            <div>The Perception Shoe is now a Reality.</div>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at purus facilisis,
-              varius tortor eget, cursus massa. Sed purus ipsum, sollicitudin sed viverra eget,
-              porttitor eget velit.
-            </div>
-            <div>Upper:</div>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at purus facilisis,
-              varius tortor eget, cursus massa. Sed purus ipsum, sollicitudin sed viverra eget,
-              porttitor eget velit. Morbi sit amet vehicula ligula. Maecenas mattis.
-            </div>
-            <div>Cushioning:</div>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at purus facilisis,
-              varius tortor eget, cursus massa. Sed purus ipsum, sollicitudin sed viverra eget,
-              porttitor eget velit. Morbi sit amet vehicula ligula.
-            </div>
+      <Accordion title={'Description'} collapsible={false}>
+        <div class="mt-4">
+          <div>The Perception Shoe is now a Reality.</div>
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at purus facilisis, varius
+            tortor eget, cursus massa. Sed purus ipsum, sollicitudin sed viverra eget, porttitor
+            eget velit.
           </div>
-        </Tab>
-      </Tabs>
+          <div>Upper:</div>
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at purus facilisis, varius
+            tortor eget, cursus massa. Sed purus ipsum, sollicitudin sed viverra eget, porttitor
+            eget velit. Morbi sit amet vehicula ligula. Maecenas mattis.
+          </div>
+          <div>Cushioning:</div>
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at purus facilisis, varius
+            tortor eget, cursus massa. Sed purus ipsum, sollicitudin sed viverra eget, porttitor
+            eget velit. Morbi sit amet vehicula ligula.
+          </div>
+        </div>
+      </Accordion>
     </div>
     <div>
-      <Tabs class="text-xl md:text-2xl lg:text-2xl font-light" itemClass={'pb-4 md:pb-8'}>
-        <Tab title="Collector Auctions"><div class="mt-4" /></Tab>
-      </Tabs>
+      <Accordion title={'Collector Auctions'} open={true}>
+        <div>TBD</div>
+      </Accordion>
     </div>
   </div>
 </div>
