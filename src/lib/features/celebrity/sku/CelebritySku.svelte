@@ -4,6 +4,7 @@
   import { Tabs, Tab } from '$ui/tabs';
   import Accordion from '$ui/accordion/Accordion.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
+  import { media } from '$lib/media-query.store';
 </script>
 
 <div
@@ -77,7 +78,7 @@
 <div class="mt-8">
   <div class="container grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
-      <Accordion title={'Description'} collapsible={false}>
+      <Accordion title={'Description'} open={true} collapsible={!$media.md}>
         <div class="mt-4">
           <div>The Perception Shoe is now a Reality.</div>
           <div>
@@ -101,7 +102,7 @@
       </Accordion>
     </div>
     <div>
-      <Accordion title={'Collector Auctions'} open={true}>
+      <Accordion title={'Collector Auctions'} open={true} collapsible={!$media.md}>
         <div>TBD</div>
       </Accordion>
     </div>

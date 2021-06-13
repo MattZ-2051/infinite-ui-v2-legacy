@@ -15,7 +15,8 @@
     "tdd": "jest --watch"
   },
   "dependencies": {
-    "@mdi/js": "^5.9.55"
+    "@mdi/js": "^5.9.55",
+    "svelte-media": "^0.1.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",

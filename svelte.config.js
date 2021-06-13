@@ -1,6 +1,7 @@
 import path from 'path';
 import preprocess from 'svelte-preprocess';
 import { imagetools } from 'vite-imagetools';
+import tailwindConfig from './scripts/tailwind/fullConfig.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -25,6 +26,10 @@ const config = {
         },
       },
       plugins: [imagetools()],
+
+      define: {
+        'process.env.tw': JSON.stringify({ screens: tailwindConfig.theme.screens }),
+      },
     },
   },
 };
