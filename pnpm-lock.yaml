@@ -32,6 +32,7 @@ specifiers:
   svelte-jester: ~1.7.0
   svelte-media: ^0.1.4
   svelte-preprocess: ^4.7.1
+  svelte-range-slider-pips: ^1.7.0
   tailwindcss: ^2.1.1
   tippy.js: ^6.3.1
   ts-jest: ~26.5.6
@@ -73,6 +74,7 @@ devDependencies:
   svelte-intersection-observer: 0.7.0
   svelte-jester: 1.7.0_jest@26.6.3+svelte@3.38.2
   svelte-preprocess: 4.7.3_ddfd8490a44ef0de606159ff3aef985a
+  svelte-range-slider-pips: 1.7.0
   tailwindcss: 2.1.2_6daa0ece57b4377652e73c9c66c3b94c
   tippy.js: 6.3.1
   ts-jest: 26.5.6_jest@26.6.3+typescript@4.3.2
@@ -5677,8 +5679,8 @@ packages:
       source-map-js: 0.6.2
     dev: true
 
-  /postcss/8.3.2:
-    resolution: {integrity: sha512-y1FK/AWdZlBF5lusS5j5l4/vF67+vQZt1SXPVJ32y1kRGDQyrs1zk32hG1cInRTu14P0V+orPz+ifwW/7rR4bg==}
+  /postcss/8.3.3:
+    resolution: {integrity: sha512-gnXd9C4bGKevvlNFd80I8WfxHX+g6MR+W2h19PlDNHUuT9248rHTvCIDeZI3Hvs5mB3gzXiNDwVK3S153WJbZA==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       colorette: 1.2.2
@@ -6610,6 +6612,10 @@ packages:
       typescript: 4.3.2
     dev: true
 
+  /svelte-range-slider-pips/1.7.0:
+    resolution: {integrity: sha512-9DXq55eD4yacKEh4LUL6T8Ij8Mxp9z68cO7EyzIIn+rbDPz0uWA2jebbeYyl58YdpsRKQTFZJKfyNHURzXBtYQ==}
+    dev: true
+
   /svelte/3.38.2:
     resolution: {integrity: sha512-q5Dq0/QHh4BLJyEVWGe7Cej5NWs040LWjMbicBGZ+3qpFWJ1YObRmUDZKbbovddLC9WW7THTj3kYbTOFmU9fbg==}
     engines: {node: '>= 8'}
@@ -7047,7 +7053,7 @@ packages:
     hasBin: true
     dependencies:
       esbuild: 0.12.8
-      postcss: 8.3.2
+      postcss: 8.3.3
       resolve: 1.20.0
       rollup: 2.51.2
     optionalDependencies:

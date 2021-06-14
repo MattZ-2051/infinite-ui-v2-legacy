@@ -1,0 +1,36 @@
+.rangeSlider.range {
+  --range-handle-inactive: white;
+  --range-handle: #000000;
+  --range-handle-focus: #000000;
+  --range-handle-border: #000000;
+  --range-range-inactive: #000000;
+  --range-range: #000000;
+  --range-float-inactive: transparent;
+  --range-float: transparent;
+  --range-float-text: #000000;
+  --range-slider-height: 2px;
+
+  height: var(--range-slider-height);
+}
+
+.rangeSlider > .rangeHandle > .rangeFloat {
+  font-style: italic;
+  font-weight: 700;
+  margin-top: 58px;
+  border: none;
+}
+
+.rangeSlider.range:not(.min):not(.max) .rangeNub {
+  border-radius: 10em;
+  border: 2px solid var(--range-handle);
+  transform: translateY(calc(-1 * var(--range-slider-height)));
+}
+
+.rangeSlider .rangeBar {
+  height: var(--range-slider-height);
+}
+
+.rangeSlider .rangeNub,
+.rangeSlider .rangeHandle:before {
+  transform: translateY(calc(-1 * var(--range-slider-height)));
+}

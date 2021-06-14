@@ -49,6 +49,7 @@
     "svelte-intersection-observer": "^0.7.0",
     "svelte-jester": "~1.7.0",
     "svelte-preprocess": "^4.7.1",
+    "svelte-range-slider-pips": "^1.7.0",
     "tailwindcss": "^2.1.1",
     "tippy.js": "^6.3.1",
     "ts-jest": "~26.5.6",

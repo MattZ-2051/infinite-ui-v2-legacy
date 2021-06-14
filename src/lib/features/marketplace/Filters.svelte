@@ -2,6 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { mdiChevronDown, mdiWindowClose } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
+  import RangeSlider from '$ui/rangeslider/RangeSlider.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -25,6 +26,7 @@
   };
 
   export let categories: { id: string; name: string }[];
+  let sliderInfo: [number, number] = [0, 2000];
 </script>
 
 <div class="flex flex-col text-gray-400 gap-8 md:gap-9">
@@ -121,9 +123,15 @@
     <div
       class="grid grid-cols-2 items-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
     >
-      Price Range
-      <Icon path={mdiChevronDown} color="black" class="justify-self-end" />
+      <span>Price Range</span>
+      <div class="flex flex-row ">
+        <p class="text-sm font-bold text-black italic whitespace-nowrap">
+          From ${sliderInfo[0]} to ${sliderInfo[1]}
+        </p>
+        <Icon path={mdiChevronDown} color="black" class="justify-self-end transform -rotate-90" />
+      </div>
     </div>
+    <div><RangeSlider min={0} max={1000} bind:values={sliderInfo} /></div>
     <div
       class="grid grid-cols-2 items-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
     >
