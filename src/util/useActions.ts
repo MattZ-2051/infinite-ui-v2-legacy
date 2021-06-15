@@ -15,7 +15,7 @@ export default function useActions(node: HTMLElement | SVGSVGElement, actions) {
 
   return {
     update(newActions) {
-      if (((newActions && newActions.length > 0) || 0) !== objects.length) {
+      if (newActions && newActions.length !== actions.length) {
         throw new Error('You must not change the length of an actions array.');
       }
 
