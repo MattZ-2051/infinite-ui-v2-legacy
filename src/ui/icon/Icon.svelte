@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { TooltipInput } from '$ui/tooltip';
+  import useTooltip from '$ui/tooltip';
   import useActions from '$util/useActions';
   import { styles } from '$util/styles';
 
@@ -11,6 +13,7 @@
   export let rotate = 0;
   export let spin: boolean | number = false;
   export let title = '';
+  export let tooltip: TooltipInput = undefined;
 
   // SPIN properties
   $: inverse = typeof spin !== 'boolean' && spin < 0 ? true : false;
@@ -52,9 +55,10 @@
   };
 
   $: style = getStyles(size, color, flip, rotate);
+  $: _actions = [...actions, tooltip ? [useTooltip, tooltip] : undefined];
 </script>
 
-<svg viewBox="0 0 24 24" {style} {...$$restProps} on:click use:useActions={actions}>
+<svg viewBox="0 0 24 24" {style} {...$$restProps} on:click use:useActions={_actions}>
   {#if title}<title>{title}</title>{/if}
   {#if spin !== false}
     {#if inverse}

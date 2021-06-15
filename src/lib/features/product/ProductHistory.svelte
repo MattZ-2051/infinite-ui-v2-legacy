@@ -1,7 +1,6 @@
 <script lang="ts">
   import { mdiLinkVariant } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
-  import tooltip from '$ui/tooltip';
 
   let history = [
     {
@@ -45,7 +44,7 @@
         <span class="text-white">{item.price}</span>
       </div>
       <Icon
-        actions={[[tooltip, { content: `my tooltip: ${item.price}`, theme: 'white' }]]}
+        tooltip={{ content: `my tooltip: ${item.price}`, theme: 'white' }}
         path={mdiLinkVariant}
         class="row-span-2 w-6 justify-self-center group-hover:text-white"
       />
