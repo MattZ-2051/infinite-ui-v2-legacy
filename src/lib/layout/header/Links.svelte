@@ -2,18 +2,31 @@
   import { mdiAccountCircleOutline } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
+  import AccountMenu from '$lib/layout/header/AccountMenu.svelte';
+
+  let showAccountMenu = false;
+  let accountMenuTrigger: HTMLElement;
 </script>
 
 <a sveltekit:prefetch href="/marketplace" class:active={$page.path === '/marketplace'}
   >Marketplace</a
 >
 <a sveltekit:prefetch href="/celebrity" class:active={$page.path === '/celebrity'}>My Collection</a>
-<a sveltekit:prefetch href="/account" class="flex" class:active={$page.path === '/account'}
-  ><Icon path={mdiAccountCircleOutline} class="mr-1" />@mrbrowniee</a
->
+<button
+  class="flex focus:outline-none"
+  class:active={$page.path === '/account'}
+  on:click={() => (showAccountMenu = !showAccountMenu)}
+  bind:this={accountMenuTrigger}
+  ><Icon path={mdiAccountCircleOutline} class="mr-1" /> mrbrowniee
+</button>
+
+{#if showAccountMenu}
+  <AccountMenu trigger={accountMenuTrigger} on:close={() => (showAccountMenu = false)} />
+{/if}
 
 <style>
   a:hover,
+  button:hover,
   .active {
     @apply text-white;
   }

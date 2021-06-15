@@ -13,7 +13,8 @@
     "format": "prettier --plugin-search-dir=. --write .",
     "format:check": "prettier --plugin-search-dir=. --check .",
     "test": "jest --coverage",
-    "tdd": "jest --watch"
+    "tdd": "jest --watch",
+    "fclt": "pnpm format && pnpm check && pnpm lint && pnpm test"
   },
   "dependencies": {
     "@mdi/js": "^5.9.55",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@popperjs/core": "^2.9.2",
     "@sveltejs/kit": "next",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/svelte": "^3.0.3",
