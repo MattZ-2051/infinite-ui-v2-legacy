@@ -2,6 +2,8 @@
 
 interface ImportMetaEnv {
   VITE_API_URL: string;
+  VITE_KYC_PERSONA_TEMPLATE: string;
+  VITE_KYC_PERSONA_ENVIRONMENT: string;
 }
 
 declare module '*format=avif;webp;png&metadata';
