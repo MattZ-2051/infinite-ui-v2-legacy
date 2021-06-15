@@ -2,6 +2,7 @@
   import type { Sku } from '$lib/sku-item/types';
   import { SkuItemGrid } from '$lib/sku-item';
   import filters from '$static/filters.svg';
+  import Pagination from '$ui/pagination/Pagination.svelte';
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
 
@@ -39,5 +40,6 @@
   </div>
   <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`}>
     <SkuItemGrid {skus} maxCols={3} />
+    <Pagination total={94} class="flex justify-end" />
   </div>
 </div>
