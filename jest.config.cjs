@@ -5,6 +5,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'ts', 'svelte'],
   moduleNameMapper: {
+    '\\.css$': '<rootDir>/scripts/test/css-stub.js',
     '\\$lib/(.+)$': '<rootDir>/src/lib/$1',
     '\\$ui/(.+)$': '<rootDir>/src/ui/$1',
     '\\$util/(.+)$': '<rootDir>/src/util/$1',

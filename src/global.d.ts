@@ -6,3 +6,10 @@ interface ImportMetaEnv {
 
 declare module '*format=avif;webp;png&metadata';
 declare module '*format=avif;webp;jpeg&metadata';
+
+type SvelteAction = (node: HTMLElement | SVGSVGElement, parameters?: unknown) => SvelteActionReturn;
+
+type SvelteActionReturn = {
+  update?: (updateParameters?: unknown) => void;
+  destroy?: () => void;
+} | void;
