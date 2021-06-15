@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Status } from './types';
-  import TimeDifference from './TimeDifference.svelte';
+  import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
 
   export let startDate: Date;
   export let price = 0;

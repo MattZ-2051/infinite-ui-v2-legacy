@@ -13,6 +13,7 @@ export type Sku = {
   startDate?: Date;
   endDate?: Date;
   issuerName: string;
+  issuer: Owner;
   minStartDate: Date;
   maxEndDate?: Date;
   minSkuPrice: number;
@@ -54,6 +55,13 @@ export type Sku = {
   activeSkuListings: Listing[];
   upcomingProductListings: Listing[];
   upcomingSkuListings: Listing[];
+  expiredSkuListings?: Listing[];
+  activeProductListings: Listing[];
+};
+
+export type Owner = {
+  _id: string;
+  username: string;
 };
 
 export type Listing = {
@@ -67,6 +75,8 @@ export type Listing = {
   supplyLeft: number;
   type: string;
   _id: string;
+  endDate?: Date;
+  minBid?: number;
 };
 
 export type Product = {
@@ -76,4 +86,16 @@ export type Product = {
   sku: Sku;
 };
 
+export type Collector = {
+  _id: string;
+  serialNumber: string;
+  createdAt: Date;
+  owner: Owner;
+  activeProductListing?: Listing;
+  listings?: Listing[];
+  upcomingProductListing?: Listing;
+};
+
 export type Status = 'upcoming' | 'upcoming-soon' | 'no-sale' | 'active' | undefined;
+
+export type Media = 'video' | 'image' | 'audio' | 'vector' | undefined;

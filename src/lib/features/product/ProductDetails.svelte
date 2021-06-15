@@ -2,13 +2,13 @@
   import { mdiChevronLeft } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import Rarity from '$lib/rarity/Rarity.svelte';
-  import ProductGallery from './ProductGallery.svelte';
+  import Gallery from '$ui/gallery/Gallery.svelte';
 </script>
 
 <div class="flex flex-col bg-white">
-  <ProductGallery
-    featuredImage="/gobleTrottles.png"
-    images={['/gobleTrottles.png', '/cut.png', '/gobleTrottles.png']}
+  <Gallery
+    featuredItem="/gobleTrottles.png"
+    items={['/gobleTrottles.png', '/cut.png', '/gobleTrottles.png']}
   />
   <div class="px-6 lg:px-8 flex-grow">
     <div class="flex flex-col py-7 border-b border-gray-200 text-black gap-4">
