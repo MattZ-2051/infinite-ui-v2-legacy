@@ -12,12 +12,9 @@
   </div>
 {/if}
 
-<style>
+<style lang="postcss">
   .menu-item {
-    @apply flex-grow;
-    @apply font-medium;
-    @apply p-2;
-    @apply px-4;
+    @apply flex-grow font-medium p-2 px-4;
     color: var(--menu-item-color);
   }
 

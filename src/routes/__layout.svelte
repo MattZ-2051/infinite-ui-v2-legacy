@@ -1,15 +1,20 @@
 <script lang="ts">
   import { navigating } from '$app/stores';
-
+  import { browser } from '$app/env';
+  import { isLoading, updateAuth } from '$lib/auth';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$lib/layout/header/Header.svelte';
   import Footer from '$lib/layout/footer/Footer.svelte';
   import Toast from '$lib/toast/Toast.svelte';
 
   import '../app.css';
+
+  if (browser) {
+    updateAuth();
+  }
 </script>
 
-{#if $navigating}
+{#if $navigating || $isLoading}
   <PreloadIndicator />
 {/if}
 
