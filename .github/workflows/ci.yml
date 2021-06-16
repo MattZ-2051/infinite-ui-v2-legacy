@@ -15,6 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Use Node.js ${{ env.node-version }}
         uses: actions/setup-node@v2
@@ -26,6 +28,9 @@ jobs:
         with:
           version: latest
           run_install: true
+
+      - name: Check commit message
+        run: pnpx commitlint --from HEAD~1
 
       - name: Check format
         run: pnpm format:check

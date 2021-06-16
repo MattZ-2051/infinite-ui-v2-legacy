@@ -37,3 +37,23 @@ To run tests in watch mode, , run `pnpm tdd`.
 To build the project for production, run `pnpm build`.
 
 > You can preview the built app with `pnpm preview`.
+
+### Commit Message Guidelines
+
+We follow the [Conventional Commits specification](https://www.conventionalcommits.org).
+
+In general, the commit message should follow the following format:
+
+```
+type(scope): summary
+BLANK LINE
+body (optional)
+BLANK LINE
+Closes #ISSUE_NUMBER
+```
+
+Use the "summary" field to provide a succinct description of the change:
+
+- use the imperative, present tense: "change" not "changed" nor "changes"
+- don't capitalize the first letter
+- no dot (.) at the end
