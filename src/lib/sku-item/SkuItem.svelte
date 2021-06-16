@@ -5,12 +5,10 @@
 
   export let item: Sku;
 
-  $: isUnique = item?.totalSupply === 1;
-
   let videoElement: HTMLVideoElement;
 </script>
 
-<div class="flex flex-col">
+<a sveltekit:prefetch href={`/marketplace/${item._id}`} class="flex flex-col">
   <div class="w-full h-72 card-img relative">
     {#if item.type === 'Video' || item.graphicUrl.endsWith('mov') || item.graphicUrl.endsWith('mp4')}
       <IntersectionObserver
@@ -61,7 +59,7 @@
     </div>
   </div>
   <slot name="status" />
-</div>
+</a>
 
 <style>
   .bottom-half-container {

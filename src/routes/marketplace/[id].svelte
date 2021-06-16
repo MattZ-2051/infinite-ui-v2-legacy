@@ -1,10 +1,12 @@
 <script context="module" lang="ts">
+  import type { LoadInput } from '@sveltejs/kit';
   import type { Sku, Collector } from '$lib/sku-item/types';
   import { loadSku } from '$lib/features/celebrity/sku/celebritySku.api';
 
-  export async function load({ fetch }) {
+  export async function load({ page, fetch }: LoadInput) {
+    const { id } = page.params;
     return {
-      props: await loadSku({ fetch }),
+      props: await loadSku({ id, fetch }),
     };
   }
 </script>
