@@ -12,7 +12,7 @@
   $: activeSale = collector?.activeProductListing?.saleType !== 'auction';
 </script>
 
-<a href={`product/${collector._id}`} class="flex justify-between">
+<a href={`/product/${collector._id}`} class="flex justify-between">
   <div class="flex gap-6">
     <img src={avatar} alt="Collectors avatar" />
     <div>

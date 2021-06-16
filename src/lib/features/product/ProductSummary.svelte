@@ -1,7 +1,11 @@
 <script lang="ts">
+  import type { Transaction, Product } from '$lib/sku-item/types';
   import TabsVariantDark from '$ui/tabs/variants/TabsVariantDark.svelte';
   import { Tabs, Tab } from '$ui/tabs';
   import History from './ProductHistory.svelte';
+
+  export let product: Product;
+  export let transactions: Transaction[];
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
@@ -9,20 +13,20 @@
     <a class="lg:hidden" href="/marketplace">...</a>
     <a class="hidden lg:inline" href="/marketplace">Marketplace</a>
     <span class="mx-2 text-gray-500">/</span>
-    <a href="/marketplace">TheOriginal - Retro</a>
+    <a href="/marketplace">{product.sku.name}</a>
     <span class="mx-2 text-gray-500">/</span>
-    <span class="text-gray-500">#XY271</span>
+    <span class="text-gray-500">#{product.serialNumber}</span>
   </div>
   <div class="flex flex-wrap gap-7 sm:gap-0">
     <span class="text-5xl">#2</span>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="flex flex-col">
       <span class="text-gray-500">Owner</span>
-      <span class="font-black">@alessandroveronezi</span>
+      <span class="font-black">{product.sku.issuerName}</span>
     </div>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="self-center flex">
-      {#if false}
+      {#if product.sku.redeemable}
         <div class="bg-white rounded-2xl mr-2 p-1">
           <img src="/redeemable.svg" alt="redeemed" />
         </div>
@@ -39,7 +43,9 @@
 <TabsVariantDark>
   <Tabs class="text-lg" itemClass={'pb-4'}>
     <Tab id="1" title="Auctions" />
-    <Tab id="2" title="History"><History /></Tab>
+    <Tab id="2" title="History">
+      <History {transactions} />
+    </Tab>
   </Tabs>
 </TabsVariantDark>
 
