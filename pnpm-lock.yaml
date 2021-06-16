@@ -13,6 +13,7 @@ specifiers:
   autoprefixer: ^10.2.5
   clsx: ^1.1.1
   cssnano: ^5.0.1
+  date-fns: ^2.22.1
   eslint: ^7.22.0
   eslint-config-prettier: ^8.1.0
   eslint-plugin-import: ^2.23.4
@@ -43,6 +44,7 @@ specifiers:
 
 dependencies:
   '@mdi/js': 5.9.55
+  date-fns: 2.22.1
   svelte-media: 0.1.4_svelte@3.38.2
 
 devDependencies:
@@ -2404,6 +2406,11 @@ packages:
       whatwg-url: 8.5.0
     dev: true
 
+  /date-fns/2.22.1:
+    resolution: {integrity: sha512-yUFPQjrxEmIsMqlHhAhmxkuH769baF21Kk+nZwZGyrMoyLA+LugaQtC0+Tqf9CBUUULWwUJt6Q5ySI3LJDDCGg==}
+    engines: {node: '>=0.11'}
+    dev: false
+
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
     dependencies:
@@ -2695,8 +2702,8 @@ packages:
       is-symbol: 1.0.4
     dev: true
 
-  /esbuild/0.12.8:
-    resolution: {integrity: sha512-sx/LwlP/SWTGsd9G4RlOPrXnIihAJ2xwBUmzoqe2nWwbXORMQWtAGNJNYLBJJqa3e9PWvVzxdrtyFZJcr7D87g==}
+  /esbuild/0.12.9:
+    resolution: {integrity: sha512-MWRhAbMOJ9RJygCrt778rz/qNYgA4ZVj6aXnNPxFjs7PmIpb0fuB9Gmg5uWrr6n++XKwwm/RmSz6RR5JL2Ocsw==}
     hasBin: true
     requiresBuild: true
     dev: true
@@ -5681,8 +5688,8 @@ packages:
       source-map-js: 0.6.2
     dev: true
 
-  /postcss/8.3.3:
-    resolution: {integrity: sha512-gnXd9C4bGKevvlNFd80I8WfxHX+g6MR+W2h19PlDNHUuT9248rHTvCIDeZI3Hvs5mB3gzXiNDwVK3S153WJbZA==}
+  /postcss/8.3.4:
+    resolution: {integrity: sha512-/tZY0PXExXXnNhKv3TOvZAOUYRyuqcCbBm2c17YMDK0PlVII3K7/LKdt3ScHL+hhouddjUWi+1sKDf9xXW+8YA==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       colorette: 1.2.2
@@ -6030,8 +6037,8 @@ packages:
       glob: 7.1.7
     dev: true
 
-  /rollup/2.51.2:
-    resolution: {integrity: sha512-ReV2eGEadA7hmXSzjxdDKs10neqH2QURf2RxJ6ayAlq93ugy6qIvXMmbc5cWMGCDh1h5T4thuWO1e2VNbMq8FA==}
+  /rollup/2.52.0:
+    resolution: {integrity: sha512-lSkBDGsVoXjqaBf7dsHwxBJz+p+hJEP72P+LOitA0yVs+Nzxj76FidkZE2thrmhjwGqLYiJo39opi7mAfaQ/Vg==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
@@ -7054,10 +7061,10 @@ packages:
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
-      esbuild: 0.12.8
-      postcss: 8.3.3
+      esbuild: 0.12.9
+      postcss: 8.3.4
       resolve: 1.20.0
-      rollup: 2.51.2
+      rollup: 2.52.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true

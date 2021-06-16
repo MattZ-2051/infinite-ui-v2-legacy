@@ -12,4 +12,5 @@ module.exports = {
     '\\$static/(.+)$': '<rootDir>/static/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/scripts/test/setup.ts'],
+  globalSetup: '<rootDir>/scripts/test/global-setup.cjs',
 };

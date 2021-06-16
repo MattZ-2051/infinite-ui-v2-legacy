@@ -2,6 +2,7 @@
   import type { Transaction } from '$lib/sku-item/types';
   import { mdiLinkVariant } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
+  import DateFormat from '$ui/date/DateFormat.svelte';
 
   export let transactions: Transaction[];
   $: filteredTransactions = transactions
@@ -57,7 +58,7 @@
         class="row-span-2 w-6 justify-self-center group-hover:text-white"
       />
       <span class="col-span-2 justify-self-end self-start font-black italic text-sm">
-        {transaction.updatedAt}
+        <DateFormat value={transaction.updatedAt} />
       </span>
     </div>
   {/each}
