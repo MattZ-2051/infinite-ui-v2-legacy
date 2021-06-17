@@ -33,8 +33,12 @@
       <div class="flex gap-3 text-sm text-gray-400 font-black">
         <div class="font-normal">
           Created by
-          <a href="/account" class="text-black ml-1 font-black">
-            @{product.sku.issuer.username}
+          <a
+            sveltekit:prefetch
+            href={`/collection/${product.sku.issuer.username}`}
+            class="text-black ml-1 font-black"
+          >
+            @{product.sku.issuerName}
           </a>
         </div>
         <span>/</span>
@@ -44,7 +48,7 @@
     </div>
     <a class="flex-grow flex justify-items-start my-5 text-lg" href="/marketplace">
       <Icon path={mdiChevronLeft} size="1.125" />
-      <span>View release details</span>
+      <a sveltekit:prefetch href={`/marketplace/${product.sku._id}`}>View release details</a>
     </a>
   </div>
 </div>

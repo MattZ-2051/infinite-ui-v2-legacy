@@ -13,16 +13,18 @@
     <a class="lg:hidden" href="/marketplace">...</a>
     <a class="hidden lg:inline" href="/marketplace">Marketplace</a>
     <span class="mx-2 text-gray-500">/</span>
-    <a href="/marketplace">{product.sku.name}</a>
+    <a sveltekit:prefetch href={`/marketplace/${product.sku._id}`}>{product.sku.name}</a>
     <span class="mx-2 text-gray-500">/</span>
     <span class="text-gray-500">#{product.serialNumber}</span>
   </div>
   <div class="flex flex-wrap gap-7 sm:gap-0">
-    <span class="text-5xl">#2</span>
+    <span class="text-5xl">#{product.serialNumber}</span>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="flex flex-col">
       <span class="text-gray-500">Owner</span>
-      <span class="font-black">{product.sku.issuerName}</span>
+      <a sveltekit:prefetch href={`/collection/${product.sku.issuer.username}`}
+        ><span class="font-black">{product.sku.issuerName}</span></a
+      >
     </div>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="self-center flex">
