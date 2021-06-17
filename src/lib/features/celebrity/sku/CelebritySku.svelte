@@ -28,11 +28,13 @@
     <div class="container flex flex-col justify-between py-5 md:py-12">
       <div class="text-white">
         <div class="text-sm">
-          <a href={`/celebrity`}>{sku.issuerName}</a>
+          <a href={`/collection/${sku.issuer.username}`}>{sku.issuerName}</a>
           <span class="text-gray-300 ml-2">{sku.name}</span>
         </div>
         <div class="flex justify-between mt-12 md:mt-16">
-          <a class="text-xl text-gray-400" href={`/celebrity`}>{sku.issuerName}</a>
+          <a class="text-xl text-gray-400" href={`/collection/${sku.issuer.username}`}
+            >{sku.issuerName}</a
+          >
           <Rarity rarity={sku?.rarity} class="font-bold text-lg" />
         </div>
         <div class="text-5xl mt-4">{sku.name}</div>

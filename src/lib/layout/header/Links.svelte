@@ -11,7 +11,9 @@
 <a sveltekit:prefetch href="/marketplace" class:active={$page.path === '/marketplace'}
   >Marketplace</a
 >
-<a sveltekit:prefetch href="/celebrity" class:active={$page.path === '/celebrity'}>My Collection</a>
+<a sveltekit:prefetch href="/collection/Mache" class:active={$page.path === '/collection'}
+  >My Collection</a
+>
 <button
   class="flex focus:outline-none"
   class:active={$page.path === '/account'}

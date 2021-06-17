@@ -137,39 +137,40 @@
   {#if productList.length}
     {#each productList as item}
       <SkuItem item={item.sku}>
-        <SkuStatusInfo
-          slot="info"
-          unique={item?.sku?.maxSupply === 1}
-          serialNumber={item.serialNumber}
-        />
-        <SkuStatus
-          slot="status"
-          type="product"
-          startDate={item?.upcomingProductListings[0]?.startDate}
-          status={productStatus(item)}
-          price={item?.activeProductListings[0]?.price}
-        />
+        <svelte:fragment slot="info">
+          <SkuStatusInfo unique={item?.sku?.maxSupply === 1} serialNumber={item.serialNumber} />
+        </svelte:fragment>
+        <svelte:fragment slot="status">
+          <SkuStatus
+            type="product"
+            startDate={item?.upcomingProductListings[0]?.startDate}
+            status={productStatus(item)}
+            price={item?.activeProductListings[0]?.price}
+          />
+        </svelte:fragment>
       </SkuItem>
     {/each}
   {:else}
     {#each information as item}
       <SkuItem {item}>
-        <SkuStatusInfo
-          slot="info"
-          unique={item.maxSupply === 1}
-          status={skuStatus(item)}
-          supplyType={item.supplyType}
-          circulatingSupply={item.circulatingSupply}
-          totalSupply={item.totalSupply}
-          totalSupplyLeft={item.totalSupplyLeft}
-        />
-        <SkuStatus
-          slot="status"
-          type="sku"
-          startDate={item.startDate}
-          status={skuStatus(item)}
-          price={item.minPrice}
-        />
+        <svelte:fragment slot="info">
+          <SkuStatusInfo
+            unique={item.maxSupply === 1}
+            status={skuStatus(item)}
+            supplyType={item.supplyType}
+            circulatingSupply={item.circulatingSupply}
+            totalSupply={item.totalSupply}
+            totalSupplyLeft={item.totalSupplyLeft}
+          />
+        </svelte:fragment>
+        <svelte:fragment slot="status">
+          <SkuStatus
+            type="sku"
+            startDate={item.startDate}
+            status={skuStatus(item)}
+            price={item.minPrice}
+          />
+        </svelte:fragment>
       </SkuItem>
     {/each}
   {/if}

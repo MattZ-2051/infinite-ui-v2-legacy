@@ -4,7 +4,7 @@
 
   export async function load({ fetch }) {
     return {
-      props: await loadReleases({ fetch }),
+      props: await loadReleases({ username: 'MayPang', fetch }),
     };
   }
 </script>

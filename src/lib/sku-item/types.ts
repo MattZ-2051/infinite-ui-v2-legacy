@@ -13,7 +13,7 @@ export type Sku = {
   startDate?: Date;
   endDate?: Date;
   issuerName: string;
-  issuer: Owner;
+  issuer: Profile;
   minStartDate: Date;
   maxEndDate?: Date;
   minSkuPrice: number;
@@ -59,9 +59,22 @@ export type Sku = {
   activeProductListings: Listing[];
 };
 
-export type Owner = {
+export type Profile = {
   _id: string;
+  createdAt: Date;
+  externalId: string;
+  hederaAccount: string;
+  role: string;
+  updatedAt: Date;
   username: string;
+  profilePhotoUrl: string;
+  bannerPhotoUrl: string;
+  midPhotoUrl: string;
+  descriptionIcon: string;
+  descriptionHeader: string;
+  descriptionBody: string;
+  footerPhotoUrl: string;
+  tagline: string;
 };
 
 export type Listing = {
@@ -172,7 +185,7 @@ type TransactionData = {
 
 export type Transaction = {
   _id: string;
-  owner: Owner;
+  owner: Profile;
   type:
     | 'deposit'
     | 'transfer'
@@ -198,7 +211,7 @@ export type Collector = {
   _id: string;
   serialNumber: string;
   createdAt: Date;
-  owner: Owner;
+  owner: Profile;
   activeProductListing?: Listing;
   listings?: Listing[];
   upcomingProductListing?: Listing;

@@ -38,7 +38,10 @@
     <div
       class="grid-container group grid items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
     >
-      <a href="/" class="self-end font-black italic group-hover:text-white">
+      <a
+        href="/collection/{transaction.owner?.username}"
+        class="self-end font-black italic group-hover:text-white"
+      >
         {transaction.owner?.username}
       </a>
       <div class="justify-self-end">
