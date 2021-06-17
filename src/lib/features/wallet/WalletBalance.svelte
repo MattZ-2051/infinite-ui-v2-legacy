@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import { Tabs, Tab } from '$ui/tabs';
   import { user } from '$lib/user';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <div>
@@ -34,10 +37,14 @@
     </p>
   </div>
   <div class="flex flex-col mt-10">
-    <button class="mb-8 rounded-full py-4 text-white deposit text-xl tracking-tight "
-      >Deposit</button
+    <button
+      class="mb-8 rounded-full py-4 text-white deposit text-xl tracking-tight "
+      on:click={() => dispatch('deposit')}>Deposit</button
     >
-    <button class="rounded-full withdrawal py-4 text-xl tracking-tight">Withdrawal</button>
+    <button
+      class="rounded-full withdrawal py-4 text-xl tracking-tight"
+      on:click={() => dispatch('withdraw')}>Withdrawal</button
+    >
   </div>
 </div>
 

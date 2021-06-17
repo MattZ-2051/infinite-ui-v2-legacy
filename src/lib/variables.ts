@@ -9,4 +9,7 @@ export const variables = {
     templateId: import.meta.env.VITE_KYC_PERSONA_TEMPLATE,
     environment: import.meta.env.VITE_KYC_PERSONA_ENVIRONMENT,
   },
+  coinbase: {
+    checkoutId: import.meta.env.VITE_COINBASE_CHECKOUT_ID,
+  },
 };
