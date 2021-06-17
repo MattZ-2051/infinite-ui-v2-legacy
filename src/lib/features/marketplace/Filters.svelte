@@ -3,6 +3,7 @@
   import { mdiChevronDown, mdiWindowClose } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import RangeSlider from '$ui/rangeslider/RangeSlider.svelte';
+  import { datePicker } from '$ui/datepicker/datepicker';
 
   const dispatch = createEventDispatcher();
 
@@ -27,6 +28,9 @@
 
   export let categories: { id: string; name: string }[];
   let sliderInfo: [number, number] = [0, 2000];
+
+  let startDate: string;
+  let endDate: string;
 </script>
 
 <div class="flex flex-col text-gray-400 gap-8 md:gap-9">
@@ -106,17 +110,33 @@
   <div class="w-10 border border-b-2 border-gray-300 md:order-2" />
   <div class="flex flex-col md:order-4">
     <div
-      class="grid grid-cols-3 px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
+      class="lg:grid lg:grid-cols-3 flex flex-col justify-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
     >
-      <div class="flex flex-1 items-center">
-        Start Date
+      <div
+        class="flex flex-1 items-center"
+        use:datePicker={{
+          maxDate: endDate,
+          onChange: (selectedDates, dateString) => {
+            startDate = dateString;
+          },
+        }}
+      >
+        <div class="whitespace-nowrap ">{startDate || 'Start Date'}</div>
         <Icon path={mdiChevronDown} color="black" />
       </div>
       <div
         class="w-4 flex-shrink justify-self-center border boder-b-2 border-gray-300 self-center"
       />
-      <div class="flex flex-1 items-center justify-self-end">
-        End Date
+      <div
+        class="flex flex-1 items-center justify-self-end"
+        use:datePicker={{
+          minDate: startDate,
+          onChange: (selectedDates, dateString) => {
+            endDate = dateString;
+          },
+        }}
+      >
+        <div class="whitespace-nowrap ">{endDate || 'End Date'}</div>
         <Icon path={mdiChevronDown} color="black" />
       </div>
     </div>

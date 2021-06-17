@@ -19,6 +19,7 @@
   "dependencies": {
     "@mdi/js": "^5.9.55",
     "date-fns": "^2.22.1",
+    "flatpickr": "^4.6.9",
     "svelte-media": "^0.1.4"
   },
   "devDependencies": {
