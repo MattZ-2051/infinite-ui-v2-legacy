@@ -11,7 +11,7 @@ export async function updateAuth() {
 
   const client = await getClient();
   const authenticated = await client.isAuthenticated();
-  const data = isAuthenticated ? await getUserData() : undefined;
+  const data = authenticated ? await getUserData() : undefined;
 
   isLoading.set(false);
   isAuthenticated.set(authenticated);

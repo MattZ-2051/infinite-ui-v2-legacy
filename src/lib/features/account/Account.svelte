@@ -22,7 +22,7 @@
       Lorem ipsum dolor sit amet, adipiscing elit.
     </div>
     <div class="mt-2">
-      <Input placeholder={$user.nicknamee} aria-label="Full name" class="font-black">
+      <Input placeholder={$user.nickname} aria-label="Full name" class="font-black">
         <div slot="before" class="text-gray-400">@</div>
       </Input>
     </div>
