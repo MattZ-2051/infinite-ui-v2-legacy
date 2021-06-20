@@ -1,4 +1,6 @@
-const baseUrl = import.meta.env.VITE_API_URL;
+import { variables } from '$lib/variables';
+
+const baseUrl = variables.apiUrl;
 
 async function send<T>(
   {

@@ -1,3 +1,5 @@
+import { variables } from '$lib/variables';
+
 export interface PersonaClientOptions {
   referenceId: string;
   onLoadError: (unknown) => unknown;
@@ -14,8 +16,8 @@ export function getPersonaClient({
   onEvent,
 }: PersonaClientOptions): Persona.Client {
   const client = new Persona.Client({
-    templateId: import.meta.env.VITE_KYC_PERSONA_TEMPLATE,
-    environment: import.meta.env.VITE_KYC_PERSONA_ENVIRONMENT,
+    templateId: variables.persona.templateId,
+    environment: variables.persona.environment,
     referenceId,
     onLoad: (error) => {
       onLoadError(error);
