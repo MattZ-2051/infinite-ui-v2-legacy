@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import {
     mdiChevronDoubleLeft,
     mdiChevronDoubleRight,
@@ -54,8 +55,11 @@
   $: isFirstPage = page === 1;
   $: isLastPage = page === pages;
 
+  const dispatch = createEventDispatcher();
+
   function go(pageNumber: number) {
     page = pageNumber;
+    dispatch('change', { value: pageNumber });
   }
 </script>
 
