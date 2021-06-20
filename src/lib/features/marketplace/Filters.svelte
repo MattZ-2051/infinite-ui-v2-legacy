@@ -1,9 +1,12 @@
 <script lang="ts">
+  import type { Profile, Series } from '$lib/sku-item/types';
   import { createEventDispatcher } from 'svelte';
   import { mdiChevronDown, mdiWindowClose } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import RangeSlider from '$ui/rangeslider/RangeSlider.svelte';
   import { datePicker } from '$ui/datepicker/datepicker';
+  import Checkbox from '$ui/checkbox/Checkbox.svelte';
+  import Accordion from '$ui/accordion/Accordion.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -12,25 +15,53 @@
   let nrOfUpcoming: number | undefined;
   let nrOfSoldOut: number | undefined;
   let active = 'All';
-  let filters: string[] = ['Art', 'Sports', '4/20 to 5/26', 'test', 'adf asdfasd', 'asdfsad'];
-
-  const removeFilter = (filter: string) => {
-    filters = filters.filter((item) => item !== filter);
+  $: filters = [
+    ...categorySelected.map((v) => ({ type: 'category', value: v })),
+    ...seriesSelected.map((v) => ({ type: 'series', value: v })),
+    ...creatorsSelected.map((v) => ({ type: 'creators', value: v })),
+    ...(priceSelected ? [{ type: 'price', value: priceSelected }] : []),
+  ];
+  const removeFilter = (filter: { type: string; value: string }) => {
+    if (filter.type === 'category') {
+      categorySelected = categorySelected.filter((item) => item !== filter.value);
+    }
+    if (filter.type === 'series') {
+      seriesSelected = seriesSelected.filter((item) => item !== filter.value);
+    }
+    if (filter.type === 'creators') {
+      creatorsSelected = creatorsSelected.filter((item) => item !== filter.value);
+    }
+    if (filter.type === 'price') {
+      sliderInfo = [0, 5000];
+    }
   };
-
   const close = (): void => {
     dispatch('close');
   };
 
   const removeAllFilters = (): void => {
-    filters = [];
+    categorySelected = [];
+    seriesSelected = [];
+    creatorsSelected = [];
+    sliderInfo = [0, 5000];
   };
 
   export let categories: { id: string; name: string }[];
-  let sliderInfo: [number, number] = [0, 2000];
+  export let creators: Profile[];
+  export let series: Series[];
 
   let startDate: string;
   let endDate: string;
+
+  let sliderInfo: [number, number] = [0, 5000];
+
+  let categorySelected = [];
+  let seriesSelected = [];
+  let creatorsSelected = [];
+  $: priceSelected =
+    sliderInfo[0] !== 0 || sliderInfo[1] !== 5000
+      ? `$${sliderInfo[0]} to ${sliderInfo[1]}`
+      : undefined;
 </script>
 
 <div class="flex flex-col text-gray-400 gap-8 md:gap-9">
@@ -43,18 +74,20 @@
         size="1.66"
         class="bg-gray-200 rounded-2xl p-1 md:hidden"
       />
-      <div
-        on:click={removeAllFilters}
-        class="hidden gap-1 text-base text-black font-black italic cursor-pointer md:flex"
-      >
-        Clear All
-        <Icon path={mdiWindowClose} size="0.8" class="self-center cursor-pointer" />
-      </div>
+      {#if filters.length > 0}
+        <div
+          on:click={removeAllFilters}
+          class="hidden gap-1 text-base text-black font-black italic cursor-pointer md:flex"
+        >
+          Clear All
+          <Icon path={mdiWindowClose} size="0.8" class="self-center cursor-pointer" />
+        </div>
+      {/if}
     </div>
     <div class="flex flex-wrap gap-1">
       {#each filters as filter}
         <div class="flex font-black bg-black text-white italic rounded-xl px-2 py-1">
-          <span>{filter}</span>
+          <span>{filter.value}</span>
           <Icon
             path={mdiWindowClose}
             size="0.8"
@@ -108,7 +141,7 @@
     </div>
   </div>
   <div class="w-10 border border-b-2 border-gray-300 md:order-2" />
-  <div class="flex flex-col md:order-4">
+  <div class="flex flex-col gap-4 md:order-4">
     <div
       class="lg:grid lg:grid-cols-3 flex flex-col justify-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
     >
@@ -151,34 +184,30 @@
         <Icon path={mdiChevronDown} color="black" class="justify-self-end transform -rotate-90" />
       </div>
     </div>
-    <div><RangeSlider min={0} max={1000} bind:values={sliderInfo} /></div>
-    <div
-      class="grid grid-cols-2 items-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
-    >
-      Category
-      <Icon path={mdiChevronDown} color="black" class="justify-self-end" />
-    </div>
-    <div class="flex flex-col px-3 gap-2 italic font-semibold">
+    <RangeSlider min={0} max={5000} bind:values={sliderInfo} />
+    <Accordion title={'Category'}>
       {#each categories as category (category.id)}
-        <div class="flex items-center gap-2">
-          <div class="rounded-full h-4 w-4 bg-gray-300" />
-          {category.name}
-        </div>
+        <Checkbox bind:group={categorySelected} value={category.name}>
+          <span class="font-black italic">{category.name}</span>
+        </Checkbox>
       {/each}
-    </div>
-    <div
-      class="grid grid-cols-2 items-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
-    >
-      Brand
-      <Icon path={mdiChevronDown} color="black" class="justify-self-end" />
-    </div>
-    <div
-      class="grid grid-cols-2 items-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
-    >
-      Series
-      <Icon path={mdiChevronDown} color="black" class="justify-self-end" />
-    </div>
+    </Accordion>
+    <Accordion title={'Series'}>
+      {#each series as serie}
+        <Checkbox bind:group={seriesSelected} value={serie.name}>
+          <span class="font-black italic">{serie.name}</span>
+        </Checkbox>
+      {/each}
+    </Accordion>
+    <Accordion title={'Creators'}>
+      {#each creators as creator}
+        <Checkbox bind:group={creatorsSelected} value={creator.username}>
+          <span class="font-black italic">{creator.username}</span>
+        </Checkbox>
+      {/each}
+    </Accordion>
   </div>
+
   <div
     class="self-center w-full py-3 max-w-xl bg-black text-white text-2xl text-center rounded-3xl md:hidden"
   >

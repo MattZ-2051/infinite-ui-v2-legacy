@@ -30,14 +30,7 @@ export type Sku = {
   countSkuListings: number;
   countAllSkuListings: number;
   countProductListings: number;
-  series: {
-    _id: string;
-    name: string;
-    description: string;
-    issuerId: string;
-    createdAt?: Date;
-    updatedAt?: Date;
-  };
+  series: Series;
   category: {
     _id: string;
     name: string;
@@ -215,6 +208,15 @@ export type Collector = {
   activeProductListing?: Listing;
   listings?: Listing[];
   upcomingProductListing?: Listing;
+};
+
+export type Series = {
+  _id: string;
+  name: string;
+  description: string;
+  issuerId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type Status = 'upcoming' | 'upcoming-soon' | 'no-sale' | 'active' | undefined;

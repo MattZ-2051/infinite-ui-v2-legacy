@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
+  import type { Sku, Profile, Series } from '$lib/sku-item/types';
   import { loadCategoriesItems } from '$lib/features/marketplace/marketplace.api';
 
   export async function load({ fetch }) {
@@ -14,6 +14,8 @@
 
   export let skus: Sku[];
   export let categories: { id: string; name: string }[];
+  export let creators: Profile[];
+  export let series: Series[];
 </script>
 
-<Marketplace {skus} {categories} />
+<Marketplace {skus} {categories} {creators} {series} />

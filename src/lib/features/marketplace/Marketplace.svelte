@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
+  import type { Sku, Profile, Series } from '$lib/sku-item/types';
   import { SkuItemGrid } from '$lib/sku-item';
   import filters from '$static/filters.svg';
   import Pagination from '$ui/pagination/Pagination.svelte';
@@ -8,6 +8,8 @@
 
   export let skus: Sku[];
   export let categories: { id: string; name: string }[];
+  export let creators: Profile[];
+  export let series: Series[];
 
   let showFilters = false;
 
@@ -36,7 +38,7 @@
     <Search />
   </div>
   <div class={`md:inline ${!showFilters ? 'hidden' : 'inline'}`}>
-    <Filters {categories} on:close={closeFilters} />
+    <Filters {categories} {creators} {series} on:close={closeFilters} />
   </div>
   <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`}>
     <SkuItemGrid {skus} maxCols={3} />
