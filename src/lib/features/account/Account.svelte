@@ -5,7 +5,7 @@
   import { SkuItemGrid } from '$lib/sku-item';
   import Button from '$lib/components/Button.svelte';
   import Input from '$lib/components/Input.svelte';
-  import { user, isAuthenticated } from '$lib/auth';
+  import { user } from '$lib/user';
   import AccountHeader from './AccountHeader.svelte';
 
   export let skus: Sku[];
@@ -14,15 +14,15 @@
   let showDialog = false;
 </script>
 
-{#if $isAuthenticated}
-  <AccountHeader userHandle={$user.nickname} on:edit={() => (showDialog = true)} />
+{#if $user}
+  <AccountHeader userHandle={$user.username} on:edit={() => (showDialog = true)} />
 
   <Modal bind:value={showDialog} title="Edit Profile">
     <div class="text-gray-500 italic font-extrabold">
       Lorem ipsum dolor sit amet, adipiscing elit.
     </div>
     <div class="mt-2">
-      <Input placeholder={$user.nickname} aria-label="Full name" class="font-black">
+      <Input placeholder={$user.username} aria-label="Full name" class="font-black">
         <div slot="before" class="text-gray-400">@</div>
       </Input>
     </div>

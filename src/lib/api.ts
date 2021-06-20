@@ -1,4 +1,6 @@
+import { get as getStoreValue } from 'svelte/store';
 import { variables } from '$lib/variables';
+import { authToken } from '$lib/auth';
 
 const baseUrl = variables.apiUrl;
 
@@ -10,6 +12,11 @@ async function send<T>(path: string, _options: ApiOptions): Promise<T> {
   if (options.body) {
     options.headers = { ...options.headers, 'Content-Type': 'application/json' };
     options.body = JSON.stringify(options.body);
+  }
+
+  const bearer = getStoreValue(authToken);
+  if (bearer) {
+    options.headers = { ...options.headers, Authorization: `Bearer ${bearer}` };
   }
 
   return (f || fetch)(`${baseUrl}/${path}`, options).then((r) => r.json());

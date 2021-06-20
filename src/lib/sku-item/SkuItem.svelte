@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="flex justify-between mt-8 gap-1">
-      <span class="card-series">{item.series.name}</span>
+      <span class="card-series">{item.series?.name}</span>
       <div class=" flex items-end">
         <slot name="info" />
       </div>

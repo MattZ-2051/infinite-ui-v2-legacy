@@ -1,8 +1,10 @@
 <script lang="ts">
   import { Tabs, Tab } from '$ui/tabs';
+  import { user } from '$lib/user';
+  import DualRingLoader from '$lib/components/DualRingLoader.svelte';
 </script>
 
-<div class="">
+<div>
   <div>
     <Tabs
       class="text-xl md:text-2xl"
@@ -10,14 +12,25 @@
       deactivateSignle={false}
     >
       <Tab title="Total Balance">
-        <p class="text-5xl py-4 tracking-tight">$4500</p>
+        <p class="text-5xl py-4 tracking-tight lds-big">
+          {#if $user}
+            ${$user.balance}
+          {:else}
+            <DualRingLoader />
+          {/if}
+        </p>
       </Tab>
     </Tabs>
   </div>
   <div class="mt-4">
     <p class="available">Available:</p>
-    <p class="money">
-      $3750<span class="text-sm explanation">(Excludes pending transactions)</span>
+    <p class="money lds-small">
+      {#if $user}
+        ${$user.availableBalance}
+        <span class="text-sm explanation">(Excludes pending transactions)</span>
+      {:else}
+        <DualRingLoader />
+      {/if}
     </p>
   </div>
   <div class="flex flex-col mt-10">
@@ -29,6 +42,18 @@
 </div>
 
 <style>
+  div {
+    --lds-color: #000;
+  }
+
+  .lds-big {
+    --lds-size: 3rem;
+  }
+
+  .lds-small {
+    --lds-size: 1.2rem;
+  }
+
   .available {
     color: #9e9e9e;
   }

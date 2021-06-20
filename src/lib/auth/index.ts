@@ -1,21 +1,20 @@
-import type { Auth0User } from './auth0';
 import { writable } from 'svelte/store';
 import { getClient } from './auth0';
 
-export const user = writable<Auth0User>({});
 export const isAuthenticated = writable<boolean>(false);
 export const isLoading = writable<boolean>(true);
+export const authToken = writable<string>(<string>undefined);
 
 export async function updateAuth() {
   isLoading.set(true);
 
   const client = await getClient();
   const authenticated = await client.isAuthenticated();
-  const data = authenticated ? await getUserData() : undefined;
+  const _authToken = authenticated ? await getAuthToken() : undefined;
 
   isLoading.set(false);
+  authToken.set(_authToken);
   isAuthenticated.set(authenticated);
-  user.set(data);
 }
 
 export async function login(redirectURI = window.location.origin) {
@@ -45,9 +44,4 @@ export async function logout(redirectURI: string) {
 export async function getAuthToken() {
   const client = await getClient();
   return await client.getTokenSilently();
-}
-
-async function getUserData() {
-  const client = await getClient();
-  return await client.getUser();
 }

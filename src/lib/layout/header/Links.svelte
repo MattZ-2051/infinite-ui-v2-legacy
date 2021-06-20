@@ -3,7 +3,8 @@
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
   import AccountMenu from '$lib/layout/header/AccountMenu.svelte';
-  import { login, user, isAuthenticated, isLoading } from '$lib/auth';
+  import { login, isLoading } from '$lib/auth';
+  import { user } from '$lib/user';
 
   let showAccountMenu = false;
   let accountMenuTrigger: HTMLElement;
@@ -13,7 +14,7 @@
   >Marketplace</a
 >
 
-{#if $isAuthenticated}
+{#if $user}
   <a sveltekit:prefetch href="/collection/Mache" class:active={$page.path === '/collection/Mache'}
     >My Collection</a
   >
@@ -23,7 +24,7 @@
     class:active={$page.path === '/account'}
     on:click={() => (showAccountMenu = !showAccountMenu)}
     bind:this={accountMenuTrigger}
-    ><Icon path={mdiAccountCircleOutline} class="mr-1" /> {$user.nickname}
+    ><Icon path={mdiAccountCircleOutline} class="mr-1" /> {$user.username}
   </button>
 {:else}
   <button
