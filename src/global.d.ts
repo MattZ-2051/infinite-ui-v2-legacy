@@ -18,3 +18,5 @@ type SvelteActionReturn = {
   update?: (updateParameters?: unknown) => void;
   destroy?: () => void;
 } | void;
+
+type Fetch = (info: RequestInfo, init?: RequestInit) => Promise<Response>;

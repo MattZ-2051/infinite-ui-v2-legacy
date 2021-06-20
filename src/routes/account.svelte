@@ -1,8 +1,9 @@
 <script context="module" lang="ts">
+  import type { LoadInput } from '@sveltejs/kit';
   import type { Sku, Product } from '$lib/sku-item/types';
   import { loadReleases } from '$lib/features/celebrity/celebrity.api';
 
-  export async function load({ fetch }) {
+  export async function load({ fetch }: LoadInput) {
     return {
       props: await loadReleases({ username: 'MayPang', fetch }),
     };

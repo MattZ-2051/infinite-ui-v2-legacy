@@ -2,36 +2,31 @@ import { variables } from '$lib/variables';
 
 const baseUrl = variables.apiUrl;
 
-async function send<T>(
-  {
-    method,
-    path,
-    data,
-  }: { method: 'GET' | 'POST' | 'PUT' | 'DELETE'; path: string; data?: unknown },
-  f = fetch
-): Promise<T> {
-  const options: RequestInit = { method, headers: {} };
+type ApiOptions = RequestInit & { fetch?: Fetch };
 
-  if (data) {
-    options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(data);
+async function send<T>(path: string, _options: ApiOptions): Promise<T> {
+  const { fetch: f, ...options } = _options;
+
+  if (options.body) {
+    options.headers = { ...options.headers, 'Content-Type': 'application/json' };
+    options.body = JSON.stringify(options.body);
   }
 
-  return f(`${baseUrl}/${path}`, options).then((r) => r.json());
+  return (f || fetch)(`${baseUrl}/${path}`, options).then((r) => r.json());
 }
 
-export function get<T>(path: string, f): Promise<T> {
-  return send({ method: 'GET', path }, f);
+export function get<T>(path: string, options?: ApiOptions): Promise<T> {
+  return send(path, { ...options, method: 'GET' });
 }
 
-export function del<T>(path: string, f): Promise<T> {
-  return send({ method: 'DELETE', path }, f);
+export function del<T>(path: string, options?: ApiOptions): Promise<T> {
+  return send(path, { ...options, method: 'DELETE' });
 }
 
-export function post<T>(path: string, data, f): Promise<T> {
-  return send({ method: 'POST', path, data }, f);
+export function post<T>(path: string, body, options?: ApiOptions): Promise<T> {
+  return send(path, { ...options, method: 'POST', body });
 }
 
-export function put<T>(path: string, data, f): Promise<T> {
-  return send({ method: 'PUT', path, data }, f);
+export function put<T>(path: string, body, options?: ApiOptions): Promise<T> {
+  return send(path, { ...options, method: 'PUT', body });
 }
