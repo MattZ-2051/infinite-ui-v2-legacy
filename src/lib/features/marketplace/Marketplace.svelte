@@ -1,5 +1,7 @@
 <script lang="ts">
   import type { Sku, Profile, Series } from '$lib/sku-item/types';
+  import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
   import { SkuItemGrid } from '$lib/sku-item';
   import filters from '$static/filters.svg';
   import Pagination from '$ui/pagination/Pagination.svelte';
@@ -7,6 +9,7 @@
   import Filters from './Filters.svelte';
 
   export let skus: Sku[];
+  export let total: number;
   export let categories: { id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
@@ -16,6 +19,12 @@
   const closeFilters = (): void => {
     showFilters = false;
   };
+
+  function gotoPage(event: CustomEvent) {
+    goto(`/marketplace?page=${event.detail.value}`);
+  }
+
+  $: p = +$page.query.get('page') || 1;
 </script>
 
 <div class="container flex gap-8 flex-col pt-6 md:grid md:grid-cols-4">
@@ -42,6 +51,6 @@
   </div>
   <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`}>
     <SkuItemGrid {skus} maxCols={3} />
-    <Pagination total={94} class="flex justify-end" />
+    <Pagination page={p} {total} perPage={6} class="flex justify-end" on:change={gotoPage} />
   </div>
 </div>
