@@ -1,26 +1,57 @@
 import { render, fireEvent } from '@testing-library/svelte';
 import Pagination from './Pagination.svelte';
+import PaginationSlotTest from './test/PaginationSlotTest.svelte';
+
+function getStatus(element: HTMLElement): string[] {
+  const pages = Array.prototype.slice.call(element.querySelectorAll('li'));
+
+  const response = [];
+  // eslint-disable-next-line unicorn/no-array-for-each
+  pages.forEach((li: HTMLElement) => {
+    let text = li.textContent.trim();
+
+    if (li.classList.contains('active')) {
+      text = '+' + text;
+    }
+    if (li.classList.contains('disabled')) {
+      text = '-' + text;
+    }
+    response.push(text);
+  });
+
+  return response;
+}
 
 describe('Pagination', () => {
   it('renders correctly', async () => {
-    const { component, container } = render(Pagination, {
-      props: { total: 46 },
+    const { container, component } = render(PaginationSlotTest, {
+      props: { component: Pagination, total: 46 },
+    });
+    expect(getStatus(container)).toEqual(['-Previous', '+1', '2', '3', '4', '5', 'Next']);
+
+    await component.$set({ total: 15, perPage: 6 });
+    expect(getStatus(container)).toEqual(['-Previous', '+1', '2', '3', 'Next']);
+
+    await component.$set({ total: 100, perPage: 10, page: 9 });
+    // prettier-ignore
+    expect(getStatus(container)).toEqual(['Previous', '1', '...', '6', '7', '8', '+9', '10', 'Next']);
+  });
+
+  it('keeps the same amount of links', async () => {
+    const { container, component } = render(PaginationSlotTest, {
+      props: { component: Pagination, total: 96 },
     });
 
-    let pages = container.querySelectorAll('li');
+    // prettier-ignore
+    expect(getStatus(container)).toEqual(['-Previous', '+1', '2', '3', '4', '5', '...', '10', 'Next']);
 
-    expect(pages).toHaveLength(7);
+    await component.$set({ page: 5 });
+    // prettier-ignore
+    expect(getStatus(container)).toEqual(['Previous', '1', '...', '4', '+5', '6', '...', '10', 'Next']);
 
-    expect(pages[0]).toHaveClass('disabled');
-    expect(pages[1]).toHaveClass('active');
-    expect(pages[1]).not.toHaveClass('disabled');
-    expect(pages[1]).toHaveTextContent('1');
-    expect(pages[2]).toHaveTextContent('2');
-
-    await component.$set({ total: 100, page: 9 });
-
-    pages = document.querySelectorAll('li');
-    expect(pages[2]).toHaveTextContent('...');
+    await component.$set({ page: 10 });
+    // prettier-ignore
+    expect(getStatus(container)).toEqual(['Previous', '1', '...', '6', '7', '8', '9', '+10', '-Next']);
   });
 
   it('emits event on change', async () => {

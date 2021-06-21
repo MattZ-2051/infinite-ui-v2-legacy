@@ -85,14 +85,12 @@
       {/each}
 
       <!-- dots start -->
-      {#if siblingPages[0] - (boundaryCount + 1) === 1}
-        <PaginationItem
-          active={siblingPages[0] - 1 === page}
-          on:click={() => go(siblingPages[0] - 1)}
-          >{siblingPages[0] - 1}
-        </PaginationItem>
-      {:else if siblingPages[0] - (boundaryCount + 1) > 1}
+      {#if siblingsStart > boundaryCount + 2}
         <PaginationEllipsis />
+      {:else if boundaryCount + 1 < pages - boundaryCount}
+        <PaginationItem active={boundaryCount + 1 === page} on:click={() => go(boundaryCount + 1)}
+          >{boundaryCount + 1}
+        </PaginationItem>
       {/if}
 
       <!-- current and siblings -->
@@ -103,14 +101,14 @@
       {/each}
 
       <!-- dots end -->
-      {#if pages - boundaryCount - siblingPages[siblingPages.length - 1] === 1}
-        <PaginationItem
-          active={siblingPages[siblingPages.length - 1] + 1 === page}
-          on:click={() => go(siblingPages[siblingPages.length - 1] + 1)}
-          >{siblingPages[siblingPages.length - 1] + 1}
-        </PaginationItem>
-      {:else if pages - boundaryCount - siblingPages[siblingPages.length - 1] > 1}
+      {#if siblingsEnd < pages - boundaryCount - 1}
         <PaginationEllipsis />
+      {:else if pages - boundaryCount > boundaryCount}
+        <PaginationItem
+          active={pages - boundaryCount === page}
+          on:click={() => go(pages - boundaryCount)}
+          >{pages - boundaryCount}
+        </PaginationItem>
       {/if}
 
       <!-- Last pages -->
