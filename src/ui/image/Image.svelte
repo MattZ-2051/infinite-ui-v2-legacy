@@ -1,6 +1,13 @@
 <script context="module" lang="ts">
   import type { EXT } from './types';
 
+  export type ImageMetadata = {
+    format: EXT;
+    width: number;
+    height: number;
+    src: string;
+  };
+
   const order: EXT[] = ['avif', 'webp', 'jpeg', 'jpg', 'png'];
 
   const groupBy: { <T>(xs: T[], key: string): { [key: string]: T[] } } = function (xs, key) {
@@ -20,13 +27,6 @@
 
 <script lang="ts">
   import { KNOWN_EXTENSIONS } from './types';
-
-  type ImageMetadata = {
-    format: EXT;
-    width: number;
-    height: number;
-    src: string;
-  };
 
   // eslint-disable-next-line unicorn/prevent-abbreviations
   export let src: ImageMetadata[] = [];
