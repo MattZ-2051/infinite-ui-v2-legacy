@@ -19,7 +19,7 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
     options.headers = { ...options.headers, Authorization: `Bearer ${bearer}` };
   }
 
-  return (f || fetch)(`${baseUrl}/${path}`, options).then((r) => {
+  return (f || fetch)(buildFullPath(baseUrl, path), options).then((r) => {
     const { status, statusText } = r;
     if (status < 200 || status > 299) {
       throw new Error(statusText);
@@ -42,4 +42,23 @@ export function post<T>(path: string, body, options?: ApiOptions): Promise<T> {
 
 export function put<T>(path: string, body, options?: ApiOptions): Promise<T> {
   return send(path, { ...options, method: 'PUT', body }).then((r) => r.json());
+}
+
+function isAbsoluteURL(url: string): boolean {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][\d+.a-z-]*:)?\/\//i.test(url);
+}
+
+function combineURLs(baseURL: string, relativeURL: string) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+}
+
+function buildFullPath(baseURL: string, requestedURL: string): string {
+  return baseURL && !isAbsoluteURL(requestedURL)
+    ? combineURLs(baseURL, requestedURL)
+    : requestedURL;
 }

@@ -38,6 +38,16 @@ describe('API', () => {
       );
     });
 
+    it('should not prepend base `apiUrl` if absolute', async () => {
+      await send('http://my-absolute.path', { fetch: mockFetch });
+      expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', {});
+    });
+
+    it('should handle extra slashes at the start of url', async () => {
+      await send('/my/path', { fetch: mockFetch });
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {});
+    });
+
     it('throw based on response status', async () => {
       mockFetch.mockReturnValueOnce(Promise.resolve({ status: 404, statusText: 'Not found!' }));
       expect.assertions(1);
