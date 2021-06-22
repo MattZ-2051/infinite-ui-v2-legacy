@@ -1,3 +1,4 @@
+import { authToken } from '$lib/auth';
 import { send, get, post, del, put } from './api';
 
 jest.mock('$lib/variables', () => ({ variables: { apiUrl: 'http://api' } }));
@@ -46,6 +47,45 @@ describe('API', () => {
     it('should handle extra slashes at the start of url', async () => {
       await send('/my/path', { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {});
+    });
+
+    describe('authorizatiion', () => {
+      const bearer =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFudG9uaXMtS29zdGlzLUV1aSIsImlhdCI6MTUxNjIzOTAyMn0.yhRrCOv0rIag7bT5gT1h58vcx1RuvDVjF_r0WvhLWkc';
+      const authorizationHeader = { Authorization: `Bearer ${bearer}` };
+      afterEach(() => authToken.set(''));
+
+      it('should send authorization headers if exist', async () => {
+        const headers = { 'my-header': 'h123' };
+        authToken.set(bearer);
+        await send('/my/path', { fetch: mockFetch, headers });
+        expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {
+          headers: { ...headers, ...authorizationHeader },
+        });
+      });
+
+      it('should opt-out from sending authorization headers even if exist', async () => {
+        const headers = { 'my-header': 'h123' };
+        authToken.set(bearer);
+        await send('/my/path', { fetch: mockFetch, headers, authorization: false });
+        expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', { headers });
+      });
+
+      it('should not send authorization headers for absolute url', async () => {
+        const headers = { 'my-header': 'h123' };
+        authToken.set(bearer);
+        await send('http://my-absolute.path', { fetch: mockFetch, headers });
+        expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', { headers });
+      });
+
+      it('should opt-in to send authorization headers for absolute url', async () => {
+        const headers = { 'my-header': 'h123' };
+        authToken.set(bearer);
+        await send('http://my-absolute.path', { fetch: mockFetch, headers, authorization: true });
+        expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', {
+          headers: { ...headers, ...authorizationHeader },
+        });
+      });
     });
 
     it('throw based on response status', async () => {

@@ -4,19 +4,22 @@ import { authToken } from '$lib/auth';
 
 const baseUrl = variables.apiUrl;
 
-type ApiOptions = RequestInit & { fetch?: Fetch };
+type ApiOptions = RequestInit & { fetch?: Fetch; authorization?: boolean };
 
 export async function send(path: string, _options: ApiOptions): Promise<Response> {
-  const { fetch: f, ...options } = _options;
+  const isAbsolute = isAbsoluteURL(path);
+  const { fetch: f, authorization = !isAbsolute, ...options } = _options;
 
   if (options.body) {
     options.headers = { ...options.headers, 'Content-Type': 'application/json' };
     options.body = JSON.stringify(options.body);
   }
 
-  const bearer = getStoreValue(authToken);
-  if (bearer) {
-    options.headers = { ...options.headers, Authorization: `Bearer ${bearer}` };
+  if (authorization) {
+    const bearer = getStoreValue(authToken);
+    if (bearer) {
+      options.headers = { ...options.headers, Authorization: `Bearer ${bearer}` };
+    }
   }
 
   return (f || fetch)(buildFullPath(baseUrl, path), options).then((r) => {
