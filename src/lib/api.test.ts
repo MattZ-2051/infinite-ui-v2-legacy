@@ -44,6 +44,23 @@ describe('API', () => {
       expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', {});
     });
 
+    it('should add url parameters', async () => {
+      // eslint-disable-next-line unicorn/prevent-abbreviations
+      const params = { a: 'k', e: '123' };
+
+      await send('my/path', {
+        fetch: mockFetch,
+        params,
+      });
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?a=k&e=123', {});
+
+      await send('my/path?existing=true', {
+        fetch: mockFetch,
+        params,
+      });
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?existing=true&a=k&e=123', {});
+    });
+
     it('should handle extra slashes at the start of url', async () => {
       await send('/my/path', { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {});

@@ -4,11 +4,15 @@ import { authToken } from '$lib/auth';
 
 const baseUrl = variables.apiUrl;
 
-type ApiOptions = RequestInit & { fetch?: Fetch; authorization?: boolean };
+type ApiOptions = RequestInit & {
+  fetch?: Fetch;
+  authorization?: boolean;
+  params?: string | string[][] | Record<string, string> | URLSearchParams;
+};
 
 export async function send(path: string, _options: ApiOptions): Promise<Response> {
   const isAbsolute = isAbsoluteURL(path);
-  const { fetch: f, authorization = !isAbsolute, ...options } = _options;
+  const { fetch: f, authorization = !isAbsolute, params, ...options } = _options;
 
   if (options.body) {
     options.headers = { ...options.headers, 'Content-Type': 'application/json' };
@@ -22,7 +26,12 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
     }
   }
 
-  return (f || fetch)(buildFullPath(baseUrl, path), options).then((r) => {
+  let url = buildFullPath(baseUrl, path);
+  if (params) {
+    url += (url.includes('?') ? '&' : '?') + new URLSearchParams(params).toString();
+  }
+
+  return (f || fetch)(url, options).then((r) => {
     const { status, statusText } = r;
     if (status < 200 || status > 299) {
       throw new Error(statusText);
