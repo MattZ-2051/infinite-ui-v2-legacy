@@ -30,9 +30,7 @@
   <div class="w-full md:w-4/5"><WalletList /></div>
 </div>
 
-{#if showDepositModal}
-  <WalletDepositModal on:select={onDepositSelect} />
-{/if}
+<WalletDepositModal on:select={onDepositSelect} bind:show={showDepositModal} />
 
 {#if selectedDepositMethod === 'coinbase'}
   <DepositCoinbase on:checkout-modal-closed={() => (selectedDepositMethod = undefined)} />

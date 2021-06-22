@@ -12,6 +12,8 @@
   import USDCoin from './usdcoin-avatar.png?w=48&format=avif;webp;png&metadata';
   import Suku from './suku-avatar.png?w=48&format=avif;webp;png&metadata';
 
+  export let show: boolean;
+
   type DepositOption = {
     id: string;
     title: string;
@@ -36,7 +38,7 @@
   }
 </script>
 
-<Modal title="Select a payment to deposit">
+<Modal title="Select a payment to deposit" bind:value={show}>
   <div class="flex flex-col gap-2 mt-2 text-base">
     {#each options as option (option.id)}
       <div
