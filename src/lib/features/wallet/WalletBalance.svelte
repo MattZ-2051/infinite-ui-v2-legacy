@@ -3,6 +3,7 @@
   import { Tabs, Tab } from '$ui/tabs';
   import { user } from '$lib/user';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
+  import { formatCurrency } from '$util/format';
 
   const dispatch = createEventDispatcher();
 </script>
@@ -17,7 +18,7 @@
       <Tab title="Total Balance">
         <p class="text-5xl py-4 tracking-tight lds-big">
           {#if $user}
-            ${$user.balance}
+            {formatCurrency($user.balance)}
           {:else}
             <DualRingLoader />
           {/if}
@@ -29,7 +30,7 @@
     <p class="available">Available:</p>
     <p class="money lds-small">
       {#if $user}
-        ${$user.availableBalance}
+        {formatCurrency($user.availableBalance)}
         <span class="text-sm explanation">(Excludes pending transactions)</span>
       {:else}
         <DualRingLoader />
