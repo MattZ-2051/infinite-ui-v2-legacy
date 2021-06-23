@@ -56,6 +56,10 @@ export function put<T>(path: string, body, options?: ApiOptions): Promise<T> {
   return send(path, { ...options, method: 'PUT', body }).then((r) => r.json());
 }
 
+export function patch<T>(path: string, body, options?: ApiOptions): Promise<T> {
+  return send(path, { ...options, method: 'PATCH', body }).then((r) => r.json());
+}
+
 function isAbsoluteURL(url: string): boolean {
   // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
   // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
