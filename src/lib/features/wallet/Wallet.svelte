@@ -1,5 +1,6 @@
 <script lang="ts">
   import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
+  import USDC from '$lib/payment/usdc/USDC.svelte';
   import WalletHead from './WalletHead.svelte';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
@@ -35,6 +36,11 @@
 {#if selectedDepositMethod === 'coinbase'}
   <DepositCoinbase on:checkout-modal-closed={() => (selectedDepositMethod = undefined)} />
 {/if}
+
+<USDC
+  open={selectedDepositMethod === 'usdc'}
+  on:close={() => (selectedDepositMethod = undefined)}
+/>
 
 <style>
   .section-divider {

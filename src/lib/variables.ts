@@ -12,4 +12,10 @@ export const variables = {
   coinbase: {
     checkoutId: import.meta.env.VITE_COINBASE_CHECKOUT_ID,
   },
+  usdc: {
+    address: import.meta.env.VITE_USDC_ADDRESS,
+    apiUrl: import.meta.env.VITE_USDC_API_URL,
+    apiKey: import.meta.env.VITE_USDC_API_KEY,
+    txUrl: import.meta.env.VITE_USDC_TX_URL,
+  },
 };

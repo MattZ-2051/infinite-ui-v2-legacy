@@ -26,18 +26,18 @@ export async function login(redirectURI = window.location.origin) {
   });
 }
 
-export async function handleRedirectCallback(callbackURL: string) {
+export async function handleRedirectCallback(callbackUrl: string) {
   const client = await getClient();
-  await client.handleRedirectCallback(callbackURL);
+  await client.handleRedirectCallback(callbackUrl);
 }
 
-export async function logout(redirectURI: string) {
+export async function logout(redirectUri: string) {
   isLoading.set(true);
 
   const client = await getClient();
 
   client.logout({
-    returnTo: redirectURI,
+    returnTo: redirectUri,
   });
 }
 

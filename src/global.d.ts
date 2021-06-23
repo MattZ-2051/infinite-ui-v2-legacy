@@ -8,6 +8,10 @@ interface ImportMetaEnv {
   VITE_AUTH0_CLIENT_ID: string;
   VITE_AUTH0_AUDIENCE: string;
   VITE_COINBASE_CHECKOUT_ID: string;
+  VITE_USDC_ADDRESS: string;
+  VITE_USDC_API_URL: string;
+  VITE_USDC_API_KEY: string;
+  VITE_USDC_TX_URL: string;
 }
 
 declare module '*format=avif;webp;png&metadata';
