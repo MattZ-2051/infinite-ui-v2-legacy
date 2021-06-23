@@ -33,18 +33,29 @@
 {#if $user}
   <AccountHeader {profile} on:edit={() => (showDialog = true)} />
 
-  <Modal bind:open={showDialog} title="Edit Profile" on:close={() => editableUsername = profile?.username}>
+  <Modal
+    bind:open={showDialog}
+    title="Edit Profile"
+    on:close={() => (editableUsername = profile?.username)}
+  >
     <div class="text-gray-500 italic font-extrabold">
       Lorem ipsum dolor sit amet, adipiscing elit.
     </div>
     <div class="mt-2">
       <Input let:klass>
         <div slot="before" class="text-gray-400">@</div>
-        <input bind:value={editableUsername} placeholder={$user.username} aria-label="Full name" class="{klass} font-black" />
+        <input
+          bind:value={editableUsername}
+          placeholder={$user.username}
+          aria-label="Full name"
+          class="{klass} font-black"
+        />
       </Input>
     </div>
     <div slot="actions">
-      <Button on:click={handleUpdate} disabled={editableUsername.length === 0}>Update username</Button>
+      <Button on:click={handleUpdate} disabled={editableUsername.length === 0}
+        >Update username</Button
+      >
     </div>
   </Modal>
 
