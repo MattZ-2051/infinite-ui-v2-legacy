@@ -1,6 +1,9 @@
 import path from 'node:path';
+import process from 'node:process';
 import preprocess from 'svelte-preprocess';
 import { imagetools } from 'vite-imagetools';
+import nodeAdapter from '@sveltejs/adapter-node';
+import staticAdapter from '@sveltejs/adapter-static';
 import tailwindConfig from './scripts/tailwind/fullConfig.js';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -33,5 +36,17 @@ const config = {
     },
   },
 };
+
+const { SVELTEKIT_ADAPTER: adapter } = process.env;
+
+if (adapter === 'node') {
+  config.kit.adapter = nodeAdapter();
+} else if (adapter === 'static') {
+  config.kit.ssr = false;
+  config.kit.prerender = { pages: ['/'] };
+  config.kit.adapter = staticAdapter({ fallback: '/index.html' });
+} else if (adapter !== undefined) {
+  throw new Error(`Adapter "${adapter}" is not supported.`);
+}
 
 export default config;
