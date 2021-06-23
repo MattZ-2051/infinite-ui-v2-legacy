@@ -22,8 +22,9 @@
       Lorem ipsum dolor sit amet, adipiscing elit.
     </div>
     <div class="mt-2">
-      <Input placeholder={$user.username} aria-label="Full name" class="font-black">
+      <Input let:klass>
         <div slot="before" class="text-gray-400">@</div>
+        <input placeholder={$user.username} aria-label="Full name" class="{klass} font-black" />
       </Input>
     </div>
     <div slot="actions">
