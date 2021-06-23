@@ -34,6 +34,6 @@ describe('Button', () => {
 
     expect(mock).not.toHaveBeenCalled();
     fireEvent.click(button);
-    expect(mock).toHaveBeenCalled();
+    expect(mock).toHaveBeenCalledTimes(1);
   });
 });

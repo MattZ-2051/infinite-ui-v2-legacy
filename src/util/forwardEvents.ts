@@ -96,7 +96,7 @@ export function forwardEventsBuilder(component) {
       destructors.push(destructor);
 
       // Forward the event from Svelte.
-      if (!(eventType in forwardDestructors)) {
+      if (eventType in forwardDestructors) {
         forwardDestructors[eventType] = listen(node, eventType, forward);
       }
 
