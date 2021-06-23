@@ -38,7 +38,7 @@
   }
 </script>
 
-<Modal title="Select a payment to deposit" bind:value={show}>
+<Modal title="Select a payment to deposit" bind:open={show}>
   <div class="flex flex-col gap-2 mt-2 text-base">
     {#each options as option (option.id)}
       <div

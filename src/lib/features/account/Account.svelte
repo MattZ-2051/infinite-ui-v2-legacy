@@ -17,7 +17,7 @@
 {#if $user}
   <AccountHeader userHandle={$user.username} on:edit={() => (showDialog = true)} />
 
-  <Modal bind:value={showDialog} title="Edit Profile">
+  <Modal bind:open={showDialog} title="Edit Profile">
     <div class="text-gray-500 italic font-extrabold">
       Lorem ipsum dolor sit amet, adipiscing elit.
     </div>
