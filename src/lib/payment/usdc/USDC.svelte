@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Unsubscriber, Writable } from 'svelte/store';
 
-  import { onDestroy, onMount } from 'svelte';
+  import { createEventDispatcher, onDestroy, onMount } from 'svelte';
   import { get as getStoreValue, writable } from 'svelte/store';
   import Modal from '$ui/modal/Modal.svelte';
   import Button from '$lib/components/Button.svelte';
@@ -11,6 +11,7 @@
   import { generateUSDCAddress } from './usdc.api';
   import { address } from './usdc.store';
 
+  const dispatch = createEventDispatcher();
   const txUrl = variables.usdc.txUrl;
   let txLink: string;
   let txLinkUnsubscriber: Unsubscriber;
@@ -18,18 +19,6 @@
 
   onMount(() => {
     pollingTimeoutStore = writable(<ReturnType<typeof setTimeout>>undefined);
-  });
-
-  onDestroy(() => {
-    if (txLinkUnsubscriber) {
-      txLinkUnsubscriber();
-    }
-
-    const timeout: ReturnType<typeof setTimeout> = getStoreValue(pollingTimeoutStore);
-
-    if (timeout) {
-      clearTimeout(timeout);
-    }
   });
 
   async function onGenerateUSDCAddress() {
@@ -41,10 +30,34 @@
     await waitForTx($address, txLinkReceivedStore, pollingTimeoutStore);
   }
 
+  function resetState() {
+    if (txLinkUnsubscriber) {
+      txLinkUnsubscriber();
+    }
+
+    const timeout: ReturnType<typeof setTimeout> = getStoreValue(pollingTimeoutStore);
+
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    $address = undefined;
+  }
+
+  function onClose() {
+    resetState();
+
+    dispatch('close');
+  }
+
+  onDestroy(() => {
+    resetState();
+  });
+
   export let open: boolean;
 </script>
 
-<Modal bind:open on:close>
+<Modal bind:open on:close={onClose}>
   <p slot="title" class="font-medium text-3xl">USDC Deposit</p>
   <p>Funds sent to the following address will be credited to your wallet:</p>
   {#if $address}
