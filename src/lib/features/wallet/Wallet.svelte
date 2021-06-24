@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
   import USDC from '$lib/payment/usdc/USDC.svelte';
   import WalletHead from './WalletHead.svelte';
@@ -10,9 +11,14 @@
   let showDepositModal = false;
 
   let selectedDepositMethod: string;
-  function onDepositSelect(event: CustomEvent) {
+  function onDepositSelect({ detail: { id } }: CustomEvent) {
+    if (id === 'circle') {
+      goto('/wallet/add-card');
+      return;
+    }
+
     showDepositModal = false;
-    selectedDepositMethod = event.detail.id;
+    selectedDepositMethod = id;
   }
 </script>
 
