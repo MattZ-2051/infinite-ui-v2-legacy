@@ -22,11 +22,9 @@
         style="background-image: url({profile.midPhotoUrl});"
       />
       <div class="text-gray-400 text-2xl">@{profile.username}</div>
-      <a
-        sveltekit:prefetch
-        href="/celebrity/sku"
-        class="bg-gray-600 text-white hover:bg-gray-800 rounded-full text-sm px-5 py-2">Following</a
-      >
+      <!-- <div class="bg-gray-600 text-white hover:bg-gray-800 rounded-full text-sm px-5 py-2">
+        Following
+      </div> -->
     </div>
   </div>
 </div>

@@ -10,10 +10,10 @@
       <SocialLinks />
     </div>
     <div class="flex flex-wrap items-center justify-center text-center gap-x-8 gap-y-4 md:gap-5">
-      <a sveltekit:prefetch href="/faq" class="hover:text-white">FAQ</a>
-      <a sveltekit:prefetch href="/help" class="hover:text-white">Help</a>
-      <a sveltekit:prefetch href="/privacy" class="hover:text-white">Privacy Policy</a>
-      <a sveltekit:prefetch href="/terms" class="hover:text-white">Terms & Conditions</a>
+      <a href="/faq" class="hover:text-white">FAQ</a>
+      <a href="/help" class="hover:text-white">Help</a>
+      <a href="/privacy" class="hover:text-white">Privacy Policy</a>
+      <a href="/terms" class="hover:text-white">Terms & Conditions</a>
     </div>
     <span class="text-sm px-4 flex flex-wrap gap-1 justify-center"
       ><span>ARIA© 2021</span><span>All rights reserved.</span></span
