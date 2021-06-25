@@ -58,6 +58,9 @@
   const dispatch = createEventDispatcher();
 
   function go(pageNumber: number) {
+    if (pageNumber === page) {
+      return;
+    }
     page = pageNumber;
     dispatch('change', { value: pageNumber });
   }

@@ -63,7 +63,20 @@ describe('Pagination', () => {
     const onChange = jest.fn();
     component.$on('change', onChange);
 
+    await fireEvent.click(pages[2].querySelector('button'));
+    expect(onChange.mock.calls[0][0].detail.value).toEqual(2);
+  });
+
+  it('does not click the active page', async () => {
+    const { component, container } = render(Pagination, {
+      props: { total: 46 },
+    });
+    const pages = container.querySelectorAll('li');
+
+    const onChange = jest.fn();
+    component.$on('change', onChange);
+
     await fireEvent.click(pages[1].querySelector('button'));
-    expect(onChange.mock.calls[0][0].detail.value).toEqual(1);
+    expect(onChange).not.toHaveBeenCalled();
   });
 });
