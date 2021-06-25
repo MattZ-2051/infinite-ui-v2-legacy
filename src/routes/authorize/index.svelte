@@ -26,7 +26,7 @@
   import { browser } from '$app/env';
   import { goto } from '$app/navigation';
   import { handleRedirectCallback } from '$lib/auth';
-  import DualRingLoader from '$lib/components/DualRingLoader.svelte';
+  import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
 
   export let url: string;
 
@@ -40,13 +40,6 @@
   }
 </script>
 
-<div class="flex items-center justify-center h-screen w-full bg-black text-white text-6xl">
-  <DualRingLoader />
-</div>
-
-<style>
-  div {
-    --lds-size: 3.75rem;
-    --lds-color: #fff;
-  }
-</style>
+<FullScreenLoader class="h-screen w-full bg-black text-white" --lds-size="3.75rem"
+  ><span class="text-2xl">Authorizing...</span>
+</FullScreenLoader>

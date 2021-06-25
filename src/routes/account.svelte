@@ -1,14 +1,13 @@
 <script lang="ts">
   import type { Sku, Product, Profile } from '$lib/sku-item/types';
   import Account from '$lib/features/account/Account.svelte';
-  import { loadReleases } from '$lib/features/account/account.api';
+  import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
+  import { getProfile, loadReleases } from '$lib/features/account/account.api';
   import { user } from '$lib/user';
 
   async function load() {
-    const response = await loadReleases({ username: $user.username, fetch });
-    skus = response.skus;
-    profile = response.profile;
-    products = response.products;
+    profile = await getProfile({ username: $user.username });
+    ({ skus, products } = await loadReleases({ id: profile._id }));
   }
   $: $user && load();
   let skus: Sku[];
@@ -16,4 +15,8 @@
   let profile: Profile;
 </script>
 
-<Account {skus} {products} {profile} />
+{#if profile}
+  <Account {skus} {products} {profile} />
+{:else}
+  <FullScreenLoader class="text-black" />
+{/if}

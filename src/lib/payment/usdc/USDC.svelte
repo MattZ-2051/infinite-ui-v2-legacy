@@ -83,9 +83,7 @@
           </div>
         </div>
       {:else}
-        <div class="lds mt-4">
-          <DualRingLoader />
-        </div>
+        <DualRingLoader class="mt-4" />
       {/if}
     </div>
   {:else}
@@ -102,10 +100,5 @@
 <style>
   input {
     color: rgba(0, 0, 0, 0.38);
-  }
-
-  .lds {
-    --lds-color: #000;
-    --lds-size: 3rem;
   }
 </style>

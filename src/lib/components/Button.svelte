@@ -5,7 +5,7 @@
   export let type = 'button';
   export let disabled = false;
 
-  let _class = undefined;
+  let _class = '';
   export { _class as class };
 
   const forwardEvents = forwardEventsBuilder(get_current_component());

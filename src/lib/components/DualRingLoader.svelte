@@ -1,21 +1,25 @@
-<div class="lds-dual-ring" />
+<script lang="ts"></script>
+
+<div {...$$restProps} />
 
 <style>
-  .lds-dual-ring {
+  div {
+    --_lds-color: var(--lds-color, currentColor);
+    --_lds-size: var(--lds-size, 3rem);
     display: inline-block;
-    width: var(--lds-size);
-    height: var(--lds-size);
+    width: var(--_lds-size);
+    height: var(--_lds-size);
   }
 
-  .lds-dual-ring:after {
+  div:after {
     content: ' ';
     display: block;
-    width: calc(var(--lds-size) * 0.8);
-    height: calc(var(--lds-size) * 0.8);
-    margin: calc(var(--lds-size) / 10);
+    width: calc(var(--_lds-size) * 0.8);
+    height: calc(var(--_lds-size) * 0.8);
+    margin: calc(var(--_lds-size) / 10);
     border-radius: 50%;
-    border: calc(var(--lds-size) * 0.075) solid var(--lds-color);
-    border-color: var(--lds-color) transparent var(--lds-color) transparent;
+    border: calc(var(--_lds-size) * 0.075) solid var(--_lds-color);
+    border-color: var(--_lds-color) transparent var(--_lds-color) transparent;
     animation: lds-dual-ring 1.2s linear infinite;
   }
 
