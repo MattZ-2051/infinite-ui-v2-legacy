@@ -13,7 +13,7 @@
   let selectedDepositMethod: string;
   function onDepositSelect({ detail: { id } }: CustomEvent) {
     if (id === 'circle') {
-      goto('/wallet/add-card');
+      goto('/wallet/deposit');
       return;
     }
 

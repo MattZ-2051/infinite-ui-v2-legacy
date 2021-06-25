@@ -8,17 +8,26 @@ export interface Country {
   iso2: string;
   states?: Array<District>;
 }
-
-export interface Card {
-  id: string;
-  status: string;
-  last4: string;
-  network: string;
-  expYear: number;
+export interface NewCreditCard extends Record<string, unknown> {
+  cardNumber: string;
+  cvv: number;
   expMonth: number;
+  expYear: number;
   metadata: {
-    phoneNumber: string;
     email: string;
   };
-  fingerprint: string;
+  billingDetails: {
+    name: string;
+    city: string;
+    country: string;
+    line1: string;
+    line2: string;
+    district: string;
+    postalCode: string;
+  };
+}
+
+export interface AddFundsRequest {
+  email: string;
+  amount: string;
 }

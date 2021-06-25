@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Card } from './types';
+  import type { NewCreditCard } from './types';
+  import type { CreditCard } from '../wallet/types';
   import { setContext } from 'svelte';
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
@@ -31,9 +32,9 @@
     }),
   });
 
-  let saving: Promise<Card>;
+  let saving: Promise<CreditCard>;
 
-  const { form, errors, reset } = createForm({
+  const { form, errors, reset } = createForm<NewCreditCard>({
     // initialValues: {
     //   cardNumber: '4757140000000001',
     //   expMonth: '01',
@@ -51,10 +52,13 @@
     // },
     onSubmit: async (values) => {
       try {
-        await (saving = addCreditCard(
-          { ...values, expMonth: +values.expMonth, expYear: +values.expYear, cvv: +values.cvv },
-          { email: $user.email }
-        ));
+        await (saving = addCreditCard({
+          ...values,
+          expMonth: +values.expMonth,
+          expYear: +values.expYear,
+          cvv: +values.cvv,
+          metadata: { email: $user.email },
+        }));
         notifications.success('Card added successfully.');
         reset();
       } catch {
@@ -74,7 +78,7 @@
     <div class="flex items-center gap-2 text-xl border-b-2 border-black pb-3">
       <Image src={Circle} class="flex-none w-8 h-8" /> Circle Payments
     </div>
-    <div class="text-gray-500 font-extrabold italic mt-6">Enter the card details below</div>
+    <div class="text-gray-500 font-extrabold italic mt-4">Enter the card details below</div>
     <form use:form class="mt-6 flex flex-col gap-3">
       <CardFormInput name="cardNumber" label="Credit card number" />
       <CardFormInput name="expMonth" label="Exp month" />
