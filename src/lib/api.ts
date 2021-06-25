@@ -41,23 +41,32 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
 }
 
 export function get<T>(path: string, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'GET' }).then((r) => r.json());
+  return send(path, { ...options, method: 'GET' }).then(responseHandler);
 }
 
 export function del<T>(path: string, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'DELETE' }).then((r) => r.json());
+  return send(path, { ...options, method: 'DELETE' }).then(responseHandler);
 }
 
 export function post<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'POST', body }).then((r) => r.json());
+  return send(path, { ...options, method: 'POST', body }).then(responseHandler);
 }
 
 export function put<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'PUT', body }).then((r) => r.json());
+  return send(path, { ...options, method: 'PUT', body }).then(responseHandler);
 }
 
 export function patch<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'PATCH', body }).then((r) => r.json());
+  return send(path, { ...options, method: 'PATCH', body }).then(responseHandler);
+}
+
+function responseHandler(response: Response) {
+  const { headers } = response;
+  if (headers.has('content-length') && +headers.get('content-length') === 0) {
+    return;
+  }
+
+  return response.json();
 }
 
 function isAbsoluteURL(url: string): boolean {

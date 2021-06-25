@@ -4,9 +4,12 @@ import { send, get, post, del, put } from './api';
 jest.mock('$lib/variables', () => ({ variables: { apiUrl: 'http://api' } }));
 
 describe('API', () => {
-  const mockFetch = jest.fn().mockImplementation(() =>
+  const mockFetch = jest.fn().mockReturnValue(
     Promise.resolve({
       json: () => ({}),
+      headers: {
+        has: () => false,
+      },
     })
   );
 
@@ -153,6 +156,26 @@ describe('API', () => {
 
   describe('`del`', () => {
     it('send the appropriate DELETE request', async () => {
+      await del('my/path', { fetch: mockFetch });
+      expect(mockFetch).toHaveBeenLastCalledWith(
+        'http://api/my/path',
+        expect.objectContaining({ method: 'DELETE' })
+      );
+    });
+
+    it('should not fail if response body is empty', async () => {
+      mockFetch.mockReturnValueOnce(
+        Promise.resolve({
+          json: () => {
+            throw Error;
+          },
+          headers: {
+            has: () => true,
+            get: () => 0, // Content-length
+          },
+        })
+      );
+
       await del('my/path', { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith(
         'http://api/my/path',
