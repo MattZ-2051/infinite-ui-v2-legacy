@@ -5,8 +5,10 @@
   import { SkuItemGrid } from '$lib/sku-item';
   import filters from '$static/filters.svg';
   import Pagination from '$ui/pagination/Pagination.svelte';
+  import { handleQueryParameter } from '$util/queryParameter';
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
+  import { loading } from './marketplace.api';
 
   export let skus: Sku[];
   export let total: number;
@@ -21,7 +23,7 @@
   };
 
   function gotoPage(event: CustomEvent) {
-    goto(`/marketplace?page=${event.detail.value}`);
+    goto(handleQueryParameter({ base: `/marketplace`, params: { page: event.detail.value } }));
   }
 
   $: p = +$page.query.get('page') || 1;
@@ -49,7 +51,10 @@
   <div class={`md:inline ${!showFilters ? 'hidden' : 'inline'}`}>
     <Filters {categories} {creators} {series} on:close={closeFilters} />
   </div>
-  <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`}>
+  <div
+    class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`}
+    class:opacity-40={$loading}
+  >
     <SkuItemGrid {skus} maxCols={3} />
     <Pagination page={p} {total} perPage={6} class="flex justify-end" on:change={gotoPage} />
   </div>

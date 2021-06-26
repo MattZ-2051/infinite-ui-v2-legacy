@@ -2,19 +2,16 @@
   import type { Profile, Series } from '$lib/sku-item/types';
   import { createEventDispatcher } from 'svelte';
   import { mdiChevronDown, mdiWindowClose } from '@mdi/js';
+  import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
   import RangeSlider from '$ui/rangeslider/RangeSlider.svelte';
   import { datePicker } from '$ui/datepicker/datepicker';
   import Checkbox from '$ui/checkbox/Checkbox.svelte';
   import Accordion from '$ui/accordion/Accordion.svelte';
+  import { queryParameter } from '$util/queryParameter';
 
   const dispatch = createEventDispatcher();
 
-  let nrOfItems = 12_244;
-  let nrOfReleased = 75;
-  let nrOfUpcoming: number | undefined;
-  let nrOfSoldOut: number | undefined;
-  let active = 'All';
   $: filters = [
     ...categorySelected.map((v) => ({ type: 'category', value: v })),
     ...seriesSelected.map((v) => ({ type: 'series', value: v })),
@@ -99,46 +96,15 @@
     </div>
   </div>
   <div class="flex flex-col md:order-1">
-    <div
-      on:click={() => (active = 'All')}
-      class="flex gap-2 items-center py-3 cursor-pointer hover:text-gray-500"
-      class:active={active === 'All'}
-    >
-      <span class="label text-2xl">All</span>
-      {#if nrOfItems}
-        <span class="italic font-black">({nrOfItems})</span>
-      {/if}
-    </div>
-    <div
-      on:click={() => (active = 'Released')}
-      class="flex gap-2 items-center py-3 cursor-pointer hover:text-gray-500"
-      class:active={active === 'Released'}
-    >
-      <span class="label text-2xl">Released</span>
-      {#if nrOfReleased}
-        <span class="italic font-black">({nrOfReleased})</span>
-      {/if}
-    </div>
-    <div
-      on:click={() => (active = 'Upcoming')}
-      class="flex gap-2 items-center py-3 cursor-pointer hover:text-gray-500"
-      class:active={active === 'Upcoming'}
-    >
-      <span class="label text-2xl">Upcoming</span>
-      {#if nrOfUpcoming}
-        <span class="italic font-black">({nrOfUpcoming})</span>
-      {/if}
-    </div>
-    <div
-      on:click={() => (active = 'Sold Out')}
-      class="flex gap-2 items-center py-3 cursor-pointer hover:text-gray-500"
-      class:active={active === 'Sold Out'}
-    >
-      <span class="label text-2xl">Sold Out</span>
-      {#if nrOfSoldOut}
-        <span class="italic font-black">({nrOfSoldOut})</span>
-      {/if}
-    </div>
+    {#each [{ label: 'All', status: '' }, { label: 'Released', status: 'released' }, { label: 'Upcoming', status: 'upcoming' }] as { label, status }}
+      <div
+        use:queryParameter={{ base: '/marketplace', params: { status, page: '' } }}
+        class="flex gap-2 items-center py-3 cursor-pointer hover:text-gray-500 text-2xl"
+        class:active={status ? $page.query.get('status') === status : !$page.query.get('status')}
+      >
+        <span class="label">{label}</span>
+      </div>
+    {/each}
   </div>
   <div class="w-10 border border-b-2 border-gray-300 md:order-2" />
   <div class="flex flex-col gap-4 md:order-4">
