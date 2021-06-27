@@ -6,4 +6,9 @@
   $: difference = timeRemaining(date, $time);
 </script>
 
-{difference[1]}h {difference[2]}m {difference[3]}s
+<span class="tabular-nums"
+  >{difference[1]}h {`${difference[2]}`.padStart(2, '0')}m {`${difference[3]}`.padStart(
+    2,
+    '0'
+  )}s</span
+>
