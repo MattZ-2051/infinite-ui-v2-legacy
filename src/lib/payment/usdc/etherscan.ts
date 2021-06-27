@@ -27,18 +27,13 @@ export async function waitForTx(
   }
 
   const usdcTxs = txList.result.filter(
-    (txResponse) =>
-      txResponse.contractAddress === usdcAddress &&
-      Number.parseInt(txResponse.blockNumber) > startBlock
+    (txResponse) => txResponse.contractAddress === usdcAddress && Number.parseInt(txResponse.blockNumber) > startBlock
   );
 
   if (usdcTxs.length > 0) {
     txLinkStore.set(usdcTxs[0].hash);
   } else {
-    const timeout = setTimeout(
-      async () => await waitForTx(address, txLinkStore, timeoutStore, startBlock),
-      5000
-    );
+    const timeout = setTimeout(async () => await waitForTx(address, txLinkStore, timeoutStore, startBlock), 5000);
 
     timeoutStore.set(timeout);
   }

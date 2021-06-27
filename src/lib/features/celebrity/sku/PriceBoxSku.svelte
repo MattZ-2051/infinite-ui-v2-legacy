@@ -5,9 +5,7 @@
 
   export let sku: Sku;
   $: numSkuListings = sku.skuListings.length;
-  $: activeListings = sku.skuListings.filter(
-    (skuListing) => skuListing.status === 'active' && !skuListing.canceled
-  );
+  $: activeListings = sku.skuListings.filter((skuListing) => skuListing.status === 'active' && !skuListing.canceled);
   $: upcomingSkuListings = sku.skuListings.filter(
     (skuListing) => skuListing.status === 'upcoming' && !skuListing.canceled
   );
@@ -45,8 +43,7 @@
         <button
           type="button"
           class="w-full max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3 mb-12 md:mb-0"
-          on:click={() =>
-            notifications.danger('You need to be <b>logged in</b> to complete your purchase!')}
+          on:click={() => notifications.danger('You need to be <b>logged in</b> to complete your purchase!')}
         >
           Buy Now
         </button>

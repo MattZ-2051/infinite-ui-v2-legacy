@@ -48,46 +48,23 @@
   {#if featuredType === 'image'}
     <img src={featuredItem} alt="preview" />
   {:else if featuredType === 'video'}
-    <video
-      class="w-full h-full"
-      autoPlay={true}
-      controls={true}
-      loop={true}
-      muted={true}
-      src={featuredItem}
-    />
+    <video class="w-full h-full" autoPlay={true} controls={true} loop={true} muted={true} src={featuredItem} />
   {:else if featuredType === 'audio'}
     <audio controls autoPlay muted>
       <source src={featuredItem} type="audio/mpeg" />
       Your browser does not support audio elements.
     </audio>
   {:else if featuredType === 'vector'}
-    <iframe
-      id={'3d-ar'}
-      src={featuredItem}
-      frameBorder="0"
-      title="Product preview"
-      class="w-full h-full"
-    />
+    <iframe id={'3d-ar'} src={featuredItem} frameBorder="0" title="Product preview" class="w-full h-full" />
   {:else}
     Unrecognized type
   {/if}
   {#if items.length}
     <div class="absolute gap-2 bottom-3 left-5 hidden lg:flex">
       {#each items as item}
-        <div
-          class="border border-black cursor-pointer w-16 h-16"
-          on:click={() => setFeaturedItem(item)}
-        >
+        <div class="border border-black cursor-pointer w-16 h-16" on:click={() => setFeaturedItem(item)}>
           {#if checkType(item) === 'video'}
-            <video
-              class="w-full"
-              autoPlay={true}
-              controls={false}
-              loop={true}
-              muted={true}
-              src={item}
-            />
+            <video class="w-full" autoPlay={true} controls={false} loop={true} muted={true} src={item} />
           {:else}
             <img src={getSource(item, checkType(item))} alt="thumbnail" />
           {/if}

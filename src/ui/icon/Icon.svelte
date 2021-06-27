@@ -22,12 +22,7 @@
   // size
   if (Number(size)) size = Number(size);
 
-  const getStyles = (
-    _size: string | number,
-    _color: string,
-    _flip: string | boolean,
-    _rotate: number
-  ) => {
+  const getStyles = (_size: string | number, _color: string, _flip: string | boolean, _rotate: number) => {
     const _styles: { [key: string]: string | number } = {};
     if (_size) {
       const width = typeof _size === 'string' ? _size : `${_size * 1.5}rem`;

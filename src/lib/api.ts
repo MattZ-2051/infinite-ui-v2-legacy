@@ -77,13 +77,9 @@ function isAbsoluteURL(url: string): boolean {
 }
 
 function combineURLs(baseURL: string, relativeURL: string) {
-  return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
-    : baseURL;
+  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL;
 }
 
 function buildFullPath(baseURL: string, requestedURL: string): string {
-  return baseURL && !isAbsoluteURL(requestedURL)
-    ? combineURLs(baseURL, requestedURL)
-    : requestedURL;
+  return baseURL && !isAbsoluteURL(requestedURL) ? combineURLs(baseURL, requestedURL) : requestedURL;
 }

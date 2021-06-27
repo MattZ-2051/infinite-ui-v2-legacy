@@ -56,21 +56,14 @@
   let seriesSelected = [];
   let creatorsSelected = [];
   $: priceSelected =
-    sliderInfo[0] !== 0 || sliderInfo[1] !== 5000
-      ? `$${sliderInfo[0]} to ${sliderInfo[1]}`
-      : undefined;
+    sliderInfo[0] !== 0 || sliderInfo[1] !== 5000 ? `$${sliderInfo[0]} to ${sliderInfo[1]}` : undefined;
 </script>
 
 <div class="flex flex-col text-gray-400 gap-8 md:gap-9">
   <div class="flex flex-col md:order-3 gap-4">
     <div class="flex items-center gap-2 text-5xl text-black md:text-2xl md:text-gray-400">
       <span class="flex-auto">Filter by</span>
-      <Icon
-        on:click={close}
-        path={mdiWindowClose}
-        size="1.66"
-        class="bg-gray-200 rounded-2xl p-1 md:hidden"
-      />
+      <Icon on:click={close} path={mdiWindowClose} size="1.66" class="bg-gray-200 rounded-2xl p-1 md:hidden" />
       {#if filters.length > 0}
         <div
           on:click={removeAllFilters}
@@ -123,9 +116,7 @@
         <div class="whitespace-nowrap ">{startDate || 'Start Date'}</div>
         <Icon path={mdiChevronDown} color="black" />
       </div>
-      <div
-        class="w-4 flex-shrink justify-self-center border boder-b-2 border-gray-300 self-center"
-      />
+      <div class="w-4 flex-shrink justify-self-center border boder-b-2 border-gray-300 self-center" />
       <div
         class="flex flex-1 items-center justify-self-end"
         use:datePicker={{
@@ -174,9 +165,7 @@
     </Accordion>
   </div>
 
-  <div
-    class="self-center w-full py-3 max-w-xl bg-black text-white text-2xl text-center rounded-3xl md:hidden"
-  >
+  <div class="self-center w-full py-3 max-w-xl bg-black text-white text-2xl text-center rounded-3xl md:hidden">
     Update Filters {filters.length > 0 ? `(${filters.length})` : ''}
   </div>
 </div>

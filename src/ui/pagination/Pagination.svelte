@@ -1,11 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import {
-    mdiChevronDoubleLeft,
-    mdiChevronDoubleRight,
-    mdiChevronLeft,
-    mdiChevronRight,
-  } from '@mdi/js';
+  import { mdiChevronDoubleLeft, mdiChevronDoubleRight, mdiChevronLeft, mdiChevronRight } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import PaginationItem from './PaginationItem.svelte';
   import PaginationEllipsis from './PaginationEllipsis.svelte';
@@ -107,9 +102,7 @@
       {#if siblingsEnd < pages - boundaryCount - 1}
         <PaginationEllipsis />
       {:else if pages - boundaryCount > boundaryCount}
-        <PaginationItem
-          active={pages - boundaryCount === page}
-          on:click={() => go(pages - boundaryCount)}
+        <PaginationItem active={pages - boundaryCount === page} on:click={() => go(pages - boundaryCount)}
           >{pages - boundaryCount}
         </PaginationItem>
       {/if}

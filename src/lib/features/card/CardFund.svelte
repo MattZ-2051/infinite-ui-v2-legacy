@@ -76,8 +76,8 @@
       <div>
         <span class="text-sm italic">CARD NUMBER</span>
         <div class="flex items-center gap-4 tracking-widest">
-          <span>••••</span><span>••••</span><span>••••</span><span
-            class="text-white text-xl font-normal">{card.last4}</span
+          <span>••••</span><span>••••</span><span>••••</span><span class="text-white text-xl font-normal"
+            >{card.last4}</span
           >
         </div>
       </div>
@@ -114,9 +114,7 @@
 </div>
 
 <Modal bind:open={showSuccessModal}>
-  <div
-    class="flex flex-col justify-center items-center gap-4 mt-2 text-base max-w-sm text-center py-4"
-  >
+  <div class="flex flex-col justify-center items-center gap-4 mt-2 text-base max-w-sm text-center py-4">
     <div class="text-2xl text-black">🤘 Yeah! Funds added.</div>
     <div class="text-gray-500 font-extrabold italic text-base">
       Check your open tabs to refresh your previous screen to see your added funds.<br />
@@ -128,9 +126,7 @@
 </Modal>
 
 <Modal bind:open={showErrorModal}>
-  <div
-    class="flex flex-col justify-center items-center gap-4 mt-2 text-base max-w-sm text-center py-4"
-  >
+  <div class="flex flex-col justify-center items-center gap-4 mt-2 text-base max-w-sm text-center py-4">
     <div class="text-2xl text-black">⚠️ Whoops, something went wrong.</div>
     <div class="text-gray-500 font-extrabold italic text-base">
       We couln’t process your payment and the transaction was cancelled.

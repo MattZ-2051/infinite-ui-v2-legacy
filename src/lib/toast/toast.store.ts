@@ -44,14 +44,10 @@ const createStore = () => {
 
   return {
     subscribe,
-    danger: (text: string, options?: Partial<Toast>) =>
-      add(text, { ...options, type: 'danger' }, update),
-    warning: (text: string, options?: Partial<Toast>) =>
-      add(text, { ...options, type: 'warning' }, update),
-    info: (text: string, options?: Partial<Toast>) =>
-      add(text, { ...options, type: 'info' }, update),
-    success: (text: string, options?: Partial<Toast>) =>
-      add(text, { ...options, type: 'success' }, update),
+    danger: (text: string, options?: Partial<Toast>) => add(text, { ...options, type: 'danger' }, update),
+    warning: (text: string, options?: Partial<Toast>) => add(text, { ...options, type: 'warning' }, update),
+    info: (text: string, options?: Partial<Toast>) => add(text, { ...options, type: 'info' }, update),
+    success: (text: string, options?: Partial<Toast>) => add(text, { ...options, type: 'success' }, update),
     remove: (itemId: string) => remove(itemId, update),
     clear: (): void => clear(set),
   };

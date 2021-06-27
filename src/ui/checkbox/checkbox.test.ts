@@ -53,9 +53,7 @@ describe('Checkbox', () => {
     });
 
     const label3 = Array.prototype.slice.call(container.querySelectorAll('label'))[2];
-    const [input1, input2, input3] = Array.prototype.slice.call(
-      container.querySelectorAll('input')
-    );
+    const [input1, input2, input3] = Array.prototype.slice.call(container.querySelectorAll('input'));
 
     expect(input1).toBeChecked();
     expect(input2).toBeChecked();

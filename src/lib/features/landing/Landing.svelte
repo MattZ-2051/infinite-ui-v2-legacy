@@ -19,22 +19,13 @@
 <div class="relative flex-grow text-white" style="background-color: #0d0a0d">
   <!-- <Image src={digital_bg} class="absolute w-full h-full object-cover -z-1" /> -->
   <div class="hero-text container flex flex-col mt-8">
-    <div
-      class="flex flex-col text-right font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-    >
+    <div class="flex flex-col text-right font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
       <div>WELCOME TO</div>
       <div>THE ARIA EXCHANGE.</div>
     </div>
     <div class="flex justify-between">
-      <Image
-        src={TravisScott}
-        alt="Travis Scott"
-        class="w-1/3 mt-40 hidden xl:block"
-        style="width: 500px;"
-      />
-      <div
-        class="flex justify-end text-right text-lg md:text-2xl lg:text-5xl mt-12 w-full xl:w-2/3 "
-      >
+      <Image src={TravisScott} alt="Travis Scott" class="w-1/3 mt-40 hidden xl:block" style="width: 500px;" />
+      <div class="flex justify-end text-right text-lg md:text-2xl lg:text-5xl mt-12 w-full xl:w-2/3 ">
         <div class="max-w-2xl">
           <div>
             <div><span class="highlight-text">The most</span> dynamic, original,</div>

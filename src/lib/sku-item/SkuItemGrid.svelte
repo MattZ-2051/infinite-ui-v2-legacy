@@ -31,9 +31,7 @@
   $: information = max > 0 ? skus.slice(0, max) : skus;
 </script>
 
-<div
-  class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 {gridResponsiveClass} {$$props.class}"
->
+<div class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 {gridResponsiveClass} {$$props.class}">
   {#if productList.length}
     {#each productList as item}
       <SkuItem item={item.sku}>
@@ -64,12 +62,7 @@
           />
         </svelte:fragment>
         <svelte:fragment slot="status">
-          <SkuStatus
-            type="sku"
-            startDate={item.startDate}
-            status={skuStatus(item)}
-            price={item.minPrice}
-          />
+          <SkuStatus type="sku" startDate={item.startDate} status={skuStatus(item)} price={item.minPrice} />
         </svelte:fragment>
       </SkuItem>
     {/each}

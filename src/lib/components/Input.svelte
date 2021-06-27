@@ -17,9 +17,7 @@
 
 <div>
   {#if label}
-    <label for={id} class="text-sm font-extrabold italic text-gray-500"
-      ><slot name="label">{label}</slot></label
-    >
+    <label for={id} class="text-sm font-extrabold italic text-gray-500"><slot name="label">{label}</slot></label>
   {/if}
   <div
     class="flex flex-cols-{cols} items-center border-b {error

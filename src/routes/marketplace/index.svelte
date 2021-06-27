@@ -1,10 +1,7 @@
 <script context="module" lang="ts">
   import type { LoadInput } from '@sveltejs/kit';
   import type { Sku, Profile, Series } from '$lib/sku-item/types';
-  import {
-    loadMarketplaceFilters,
-    loadMarketplaceItems,
-  } from '$lib/features/marketplace/marketplace.api';
+  import { loadMarketplaceFilters, loadMarketplaceItems } from '$lib/features/marketplace/marketplace.api';
 
   export async function load({ fetch, page }: LoadInput) {
     const [filters, items] = await Promise.all([

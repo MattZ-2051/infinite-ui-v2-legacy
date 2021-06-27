@@ -11,9 +11,7 @@ const fixedSupplyInfo = (sku: Sku) => {
     if (sku?.circulatingSupply === 0) {
       return '';
     }
-    return sku?.circulatingSupply === 1
-      ? '1 of 1 Limited Edition'
-      : `Limited to ${sku.circulatingSupply} editions`;
+    return sku?.circulatingSupply === 1 ? '1 of 1 Limited Edition' : `Limited to ${sku.circulatingSupply} editions`;
   }
   return '';
 };

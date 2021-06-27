@@ -32,10 +32,7 @@
 <div class="container flex gap-8 flex-col pt-6 md:grid md:grid-cols-4">
   <div class={`${showFilters ? 'hidden' : 'flex'} md:flex`}>
     <h1 class="self-start flex-auto text-5xl">MarketPlace</h1>
-    <div
-      on:click={() => (showFilters = true)}
-      class="relative w-10 h-10 self-end bg-gray-200 rounded-2xl md:hidden"
-    >
+    <div on:click={() => (showFilters = true)} class="relative w-10 h-10 self-end bg-gray-200 rounded-2xl md:hidden">
       <img src={filters} alt="Filters" class="absolute top-2 left-2" />
     </div>
   </div>
@@ -51,10 +48,7 @@
   <div class={`md:inline ${!showFilters ? 'hidden' : 'inline'}`}>
     <Filters {categories} {creators} {series} on:close={closeFilters} />
   </div>
-  <div
-    class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`}
-    class:opacity-40={$loading}
-  >
+  <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`} class:opacity-40={$loading}>
     <SkuItemGrid {skus} maxCols={3} />
     <Pagination page={p} {total} perPage={6} class="flex justify-end" on:change={gotoPage} />
   </div>

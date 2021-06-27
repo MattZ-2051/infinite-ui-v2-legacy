@@ -69,17 +69,15 @@
         class="border-b-2 border-dotted bg-transparent outline-none focus:outline-none w-96"
       />
       <div class="mt-4 text-xs max-w-xs mx-auto">
-        This is a USDC (Ethereum mainnet) address. Please do not send any other currencies to this
-        address, it accepts USDC only. Funds sent to this address will be automatically credited to
-        your account.
+        This is a USDC (Ethereum mainnet) address. Please do not send any other currencies to this address, it accepts
+        USDC only. Funds sent to this address will be automatically credited to your account.
       </div>
       {#if txLink}
         <div class="mx-auto mt-8 max-w-xs">
           <p class="font-medium">Success!</p>
           <a href={`${txUrl}/${txLink}`}>{txLink}</a>
           <div class="mt-4 text-xs max-w-xs mx-auto">
-            Your deposit has been received. It will take a moment for it to show up in your
-            transaction history.
+            Your deposit has been received. It will take a moment for it to show up in your transaction history.
           </div>
         </div>
       {:else}

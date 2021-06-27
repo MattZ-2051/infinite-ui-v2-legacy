@@ -118,10 +118,7 @@ describe('API', () => {
   describe('`get`', () => {
     it('send the appropriate GET request', async () => {
       await get('my/path', { fetch: mockFetch });
-      expect(mockFetch).toHaveBeenLastCalledWith(
-        'http://api/my/path',
-        expect.objectContaining({ method: 'GET' })
-      );
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'GET' }));
     });
   });
 
@@ -157,10 +154,7 @@ describe('API', () => {
   describe('`del`', () => {
     it('send the appropriate DELETE request', async () => {
       await del('my/path', { fetch: mockFetch });
-      expect(mockFetch).toHaveBeenLastCalledWith(
-        'http://api/my/path',
-        expect.objectContaining({ method: 'DELETE' })
-      );
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'DELETE' }));
     });
 
     it('should not fail if response body is empty', async () => {
@@ -177,10 +171,7 @@ describe('API', () => {
       );
 
       await del('my/path', { fetch: mockFetch });
-      expect(mockFetch).toHaveBeenLastCalledWith(
-        'http://api/my/path',
-        expect.objectContaining({ method: 'DELETE' })
-      );
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'DELETE' }));
     });
   });
 

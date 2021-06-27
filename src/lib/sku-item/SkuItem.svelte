@@ -32,16 +32,12 @@
     {/if}
 
     {#if item.redeemable}
-      <div
-        class="w-8 h-8 bg-white absolute top-6 right-4 rounded-full flex shadow-md hover:opacity-60 p-1.5"
-      >
+      <div class="w-8 h-8 bg-white absolute top-6 right-4 rounded-full flex shadow-md hover:opacity-60 p-1.5">
         <img class="" src="/redeem.png" alt="marked" />
       </div>
     {/if}
   </div>
-  <div
-    class="px-5 pt-3 pb-10 bottom-half-container rounded-b-3xl flex flex-col flex-grow justify-between"
-  >
+  <div class="px-5 pt-3 pb-10 bottom-half-container rounded-b-3xl flex flex-col flex-grow justify-between">
     <div>
       <div class="flex justify-between ">
         <span class=" card-name ">{item.issuerName}</span>

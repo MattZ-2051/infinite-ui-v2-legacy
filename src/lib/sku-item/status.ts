@@ -17,10 +17,7 @@ export const skuStatus = (sku: Sku): Status => {
 };
 
 export const productStatus = (product: Product): Status => {
-  if (
-    product?.activeProductListings.length === 0 &&
-    product?.upcomingProductListings.length === 0
-  ) {
+  if (product?.activeProductListings.length === 0 && product?.upcomingProductListings.length === 0) {
     return 'no-sale';
   }
   if (product?.activeProductListings.length > 0) {

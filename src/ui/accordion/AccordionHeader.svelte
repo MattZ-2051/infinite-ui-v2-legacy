@@ -7,9 +7,7 @@
 </script>
 
 <div class="flex items-center justify-between pb-4" on:click class:cursor-pointer={collapsible}>
-  <button type="button" class="text-xl md:text-2xl lg:text-2xl font-light" {...$$restProps}
-    ><slot /></button
-  >
+  <button type="button" class="text-xl md:text-2xl lg:text-2xl font-light" {...$$restProps}><slot /></button>
 
   {#if collapsible}
     <Icon path={mdiChevronDown} flip={open} />

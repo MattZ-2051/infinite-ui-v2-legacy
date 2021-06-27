@@ -17,10 +17,7 @@
   $: relatedList = related.filter((item) => item._id !== sku._id);
 </script>
 
-<div
-  class="flex"
-  style="min-height: 70vh; background: linear-gradient(45deg, rgb(2 71 99) 0%, rgb(146 1 162) 100%);"
->
+<div class="flex" style="min-height: 70vh; background: linear-gradient(45deg, rgb(2 71 99) 0%, rgb(146 1 162) 100%);">
   <div class="container p-0 grid gap-x-8 gap-y-2 grid-cols-1 md:grid-cols-2 items-stretch">
     <div class="bg-cover bg-no-repeat" style="height: 700px;">
       <Gallery items={[sku.graphicUrl, ...sku.imageUrls]} featuredItem={sku.graphicUrl} />
@@ -32,9 +29,7 @@
           <span class="text-gray-300 ml-2">{sku.name}</span>
         </div>
         <div class="flex justify-between mt-12 md:mt-16">
-          <a class="text-xl text-gray-400" href={`/collection/${sku.issuer.username}`}
-            >{sku.issuerName}</a
-          >
+          <a class="text-xl text-gray-400" href={`/collection/${sku.issuer.username}`}>{sku.issuerName}</a>
           <Rarity rarity={sku?.rarity} class="font-bold text-lg" />
         </div>
         <div class="text-5xl mt-4">{sku.name}</div>
@@ -60,9 +55,7 @@
           {@html sku?.description}
         </div>
       </Accordion>
-      <div
-        class="flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm"
-      >
+      <div class="flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm">
         <div class="flex items-center ">
           <div class="inline-block bg-black rounded-2xl p-2 mr-4">
             <img src={hedera} alt="Hedera" class="align-middle" />

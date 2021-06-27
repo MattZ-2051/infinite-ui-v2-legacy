@@ -28,29 +28,20 @@
     <div
       class="grid-container group grid gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
     >
-      <a
-        href="/collection/{transaction.owner?.username}"
-        class="self-end font-black italic group-hover:text-white"
-      >
+      <a href="/collection/{transaction.owner?.username}" class="self-end font-black italic group-hover:text-white">
         {transaction.owner?.username}
       </a>
       <div class="justify-self-end">
         {#if transaction.type === 'purchase'}
           Bought for
-          <span class="text-white">${transaction.transactionData?.cost?.totalCost?.toFixed(2)}</span
-          >
+          <span class="text-white">${transaction.transactionData?.cost?.totalCost?.toFixed(2)}</span>
         {:else if transaction.type === 'nft_mint'}
           <span class="text-white">NFT Minted</span>
         {:else}
           <span class="text-white">Received Transfer</span>
         {/if}
       </div>
-      <a
-        href={transaction?.transactionData?.explorerLink}
-        target="_blank"
-        rel="noreferrer"
-        class="row-span-2"
-      >
+      <a href={transaction?.transactionData?.explorerLink} target="_blank" rel="noreferrer" class="row-span-2">
         <Icon
           tooltip={{ content: 'View transaction', theme: 'white' }}
           path={mdiLinkVariant}

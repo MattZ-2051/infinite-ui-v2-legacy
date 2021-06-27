@@ -1,9 +1,4 @@
-import type {
-  EtherscanActions,
-  EtherscanResponse,
-  EtherscanReturnType,
-  USDCAddress,
-} from './types';
+import type { EtherscanActions, EtherscanResponse, EtherscanReturnType, USDCAddress } from './types';
 import { variables } from '$lib/variables';
 import { get } from '$lib/api';
 

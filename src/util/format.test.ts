@@ -6,8 +6,6 @@ describe('format', () => {
   });
 
   it('decimal', () => {
-    expect(
-      formatDecimal(123_456.789, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-    ).toEqual('123,456.79');
+    expect(formatDecimal(123_456.789, { minimumFractionDigits: 2, maximumFractionDigits: 2 })).toEqual('123,456.79');
   });
 });

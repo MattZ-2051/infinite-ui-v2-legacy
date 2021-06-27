@@ -9,11 +9,7 @@
 
 <div>
   <div>
-    <Tabs
-      class="text-xl md:text-2xl"
-      itemClass={'tracking-tighter pb-5 tab-header'}
-      deactivateSignle={false}
-    >
+    <Tabs class="text-xl md:text-2xl" itemClass={'tracking-tighter pb-5 tab-header'} deactivateSignle={false}>
       <Tab title="Total Balance">
         <p class="text-5xl py-4 tracking-tight">
           {#if $user}

@@ -30,11 +30,7 @@
     <div class="flex items-center justify-center gap-2 mb-2.5">
       <span class="text-white	text-2xl">@{profile.username}</span>
       <button type="button" on:click={() => dispatch('edit')} use:tooltip={'Edit'}>
-        <Icon
-          path={mdiPencil}
-          size="1.1"
-          class="text-white bg-gray-800 hover:bg-gray-900 rounded-full p-1"
-        />
+        <Icon path={mdiPencil} size="1.1" class="text-white bg-gray-800 hover:bg-gray-900 rounded-full p-1" />
       </button>
     </div>
     <span class="info italic font-black mb-5 text-center">{profile.tagline}</span>

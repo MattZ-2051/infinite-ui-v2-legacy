@@ -28,9 +28,7 @@
       </div>
     {:else}
       <div class="text-5xl font-bold">There was an unexpected problem.</div>
-      <div class="text-lg max-w-md mt-5 text-gray-300">
-        Please try again in a few minutes or contact us.
-      </div>
+      <div class="text-lg max-w-md mt-5 text-gray-300">Please try again in a few minutes or contact us.</div>
     {/if}
     <div class="mt-10">
       <a

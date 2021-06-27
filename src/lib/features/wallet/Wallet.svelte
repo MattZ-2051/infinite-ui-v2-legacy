@@ -43,10 +43,7 @@
   <DepositCoinbase on:checkout-modal-closed={() => (selectedDepositMethod = undefined)} />
 {/if}
 
-<USDC
-  open={selectedDepositMethod === 'usdc'}
-  on:close={() => (selectedDepositMethod = undefined)}
-/>
+<USDC open={selectedDepositMethod === 'usdc'} on:close={() => (selectedDepositMethod = undefined)} />
 
 <style>
   .section-divider {

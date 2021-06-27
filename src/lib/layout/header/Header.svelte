@@ -16,10 +16,7 @@
   {/if}
   <div class="container flex justify-between items-center md:items-end py-2">
     <a href="/"><Image src={aria} alt="ARIA" /></a>
-    <div
-      class="md:hidden flex justify-center cursor-pointer "
-      on:click={() => (showSidebar = !showSidebar)}
-    >
+    <div class="md:hidden flex justify-center cursor-pointer " on:click={() => (showSidebar = !showSidebar)}>
       <SidebarToggle isOpen={showSidebar} />
     </div>
 
