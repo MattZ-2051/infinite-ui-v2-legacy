@@ -1,10 +1,22 @@
 <script lang="ts">
+  import debounce from 'lodash/debounce';
   import { mdiMagnify } from '@mdi/js';
+  import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
+  import { setFilters } from './marketplace.service';
+
+  // https://github.com/sveltejs/kit/issues/1022 ... if not fixed we have to remove "live" search
+  const handleInput = debounce((event) => setFilters({ params: { search: event.target.value } }), 300);
 </script>
 
 <div class="relative w-40">
-  <input placeholder="Search" class="px-10 bg-gray-100 py-2 rounded-2xl outline-none w-full" />
+  <input
+    type="text"
+    on:input={handleInput}
+    value={$page.query.get('search') || ''}
+    placeholder="Search"
+    class="px-10 bg-gray-100 py-2 rounded-2xl outline-none w-full"
+  />
   <Icon path={mdiMagnify} size="1.2" color="gray" class="absolute top-2 left-2" />
 </div>
 

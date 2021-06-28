@@ -9,54 +9,95 @@
   import Checkbox from '$ui/checkbox/Checkbox.svelte';
   import Accordion from '$ui/accordion/Accordion.svelte';
   import { queryParameter } from '$util/queryParameter';
+  import { setFilters } from './marketplace.service';
 
   const dispatch = createEventDispatcher();
 
-  $: filters = [
-    ...categorySelected.map((v) => ({ type: 'category', value: v })),
-    ...seriesSelected.map((v) => ({ type: 'series', value: v })),
-    ...creatorsSelected.map((v) => ({ type: 'creators', value: v })),
-    ...(priceSelected ? [{ type: 'price', value: priceSelected }] : []),
-  ];
-  const removeFilter = (filter: { type: string; value: string }) => {
-    if (filter.type === 'category') {
-      categorySelected = categorySelected.filter((item) => item !== filter.value);
-    }
-    if (filter.type === 'series') {
-      seriesSelected = seriesSelected.filter((item) => item !== filter.value);
-    }
-    if (filter.type === 'creators') {
-      creatorsSelected = creatorsSelected.filter((item) => item !== filter.value);
-    }
+  type FilterType = {
+    type: 'category' | 'series' | 'creators' | 'price' | 'date' | 'search';
+    label: string;
+    id: string;
+  };
+
+  const removeFilter = (filter: FilterType) => {
+    // eslint-disable-next-line unicorn/prefer-switch
     if (filter.type === 'price') {
-      sliderInfo = [0, 5000];
+      sliderInfo = [0, maxPrice];
+    } else if (filter.type === 'date') {
+      setFilters({
+        params: { startDate: false, endDate: false, page: 1 },
+      });
+    } else if (filter.type === 'search') {
+      setFilters({
+        params: { search: '', page: 1 },
+      });
+    } else {
+      toggleCheckboxFilter(filter.type, filter.id, false);
     }
   };
   const close = (): void => {
     dispatch('close');
   };
 
-  const removeAllFilters = (): void => {
-    categorySelected = [];
-    seriesSelected = [];
-    creatorsSelected = [];
-    sliderInfo = [0, 5000];
-  };
+  function removeAllFilters() {
+    setFilters({
+      params: { page: 1, status: $page.query.get('status') },
+      reset: true,
+    });
+  }
 
   export let categories: { id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
+  export let maxPrice = 5000;
 
-  let startDate: string;
-  let endDate: string;
+  let sliderInfo: [number, number] = [0, +$page.query.get('maxPrice') || maxPrice];
 
-  let sliderInfo: [number, number] = [0, 5000];
+  function toggle(type: 'category' | 'series' | 'creators', id: string, event: Event) {
+    toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
+  }
 
-  let categorySelected = [];
-  let seriesSelected = [];
-  let creatorsSelected = [];
-  $: priceSelected =
-    sliderInfo[0] !== 0 || sliderInfo[1] !== 5000 ? `$${sliderInfo[0]} to ${sliderInfo[1]}` : undefined;
+  function toggleDate(type: 'start' | 'end', value: string) {
+    setFilters({
+      params: { [`${type}Date`]: value, page: 1 },
+    });
+  }
+
+  function toggleCheckboxFilter(type: 'category' | 'series' | 'creators', id: string, value: boolean) {
+    setFilters({
+      params: { [`${type}:${id}`]: value, page: 1 },
+    });
+  }
+
+  $: categorySelected = $page.query.get('category') ? $page.query.get('category').split(',') : [];
+  $: categorySelectedObject = categorySelected.map((id) => categories.find((c) => c.id === id));
+
+  $: seriesSelected = $page.query.get('series') ? $page.query.get('series').split(',') : [];
+  $: seriesSelectedObject = seriesSelected.map((id) => series.find((c) => c._id === id));
+
+  $: creatorsSelected = $page.query.get('creators') ? $page.query.get('creators').split(',') : [];
+  $: creatorsSelectedObject = creatorsSelected.map((id) => creators.find((c) => c._id === id));
+
+  $: startDateSelected = $page.query.get('startDate');
+  $: endDateSelected = $page.query.get('endDate');
+  $: dateFilter =
+    startDateSelected || endDateSelected
+      ? [startDateSelected ? `from ${startDateSelected}` : '', endDateSelected ? `to ${endDateSelected}` : ''].join(' ')
+      : undefined;
+
+  $: priceSelectedObject =
+    sliderInfo[0] > 0 || sliderInfo[1] < maxPrice ? `$${sliderInfo[0]} to ${sliderInfo[1]}` : undefined;
+
+  $: searchFilter = $page.query.get('search') || '';
+
+  $: filters = <FilterType[]>[
+    ...(searchFilter ? [{ type: 'search', label: searchFilter }] : []),
+    ...categorySelectedObject.map((v) => ({ type: 'category', label: v.name, id: v.id })),
+    ...seriesSelectedObject.map((v) => ({ type: 'series', label: v.name, id: v._id })),
+    ...creatorsSelectedObject.map((v) => ({ type: 'creators', label: v.username, id: v._id })),
+    ...(priceSelectedObject ? [{ type: 'price', label: priceSelectedObject }] : []),
+    ...(dateFilter ? [{ type: 'date', label: dateFilter }] : []),
+  ];
 </script>
 
 <div class="flex flex-col text-gray-400 gap-8 md:gap-9">
@@ -77,7 +118,7 @@
     <div class="flex flex-wrap gap-1">
       {#each filters as filter}
         <div class="flex font-black bg-black text-white italic rounded-xl px-2 py-1">
-          <span>{filter.value}</span>
+          <span>{filter.label}</span>
           <Icon
             path={mdiWindowClose}
             size="0.8"
@@ -107,26 +148,22 @@
       <div
         class="flex flex-1 items-center"
         use:datePicker={{
-          maxDate: endDate,
-          onChange: (selectedDates, dateString) => {
-            startDate = dateString;
-          },
+          maxDate: endDateSelected,
+          onChange: (selectedDates, dateString) => toggleDate('start', dateString),
         }}
       >
-        <div class="whitespace-nowrap ">{startDate || 'Start Date'}</div>
+        <div class="whitespace-nowrap ">{startDateSelected || 'Start Date'}</div>
         <Icon path={mdiChevronDown} color="black" />
       </div>
       <div class="w-4 flex-shrink justify-self-center border boder-b-2 border-gray-300 self-center" />
       <div
         class="flex flex-1 items-center justify-self-end"
         use:datePicker={{
-          minDate: startDate,
-          onChange: (selectedDates, dateString) => {
-            endDate = dateString;
-          },
+          minDate: startDateSelected,
+          onChange: (selectedDates, dateString) => toggleDate('end', dateString),
         }}
       >
-        <div class="whitespace-nowrap ">{endDate || 'End Date'}</div>
+        <div class="whitespace-nowrap ">{endDateSelected || 'End Date'}</div>
         <Icon path={mdiChevronDown} color="black" />
       </div>
     </div>
@@ -141,24 +178,32 @@
         <Icon path={mdiChevronDown} color="black" class="justify-self-end transform -rotate-90" />
       </div>
     </div>
-    <RangeSlider min={0} max={5000} bind:values={sliderInfo} />
+    <RangeSlider min={0} max={maxPrice} bind:values={sliderInfo} />
     <Accordion title={'Category'}>
       {#each categories as category (category.id)}
-        <Checkbox bind:group={categorySelected} value={category.name}>
+        <Checkbox
+          value={category.id}
+          group={categorySelected}
+          on:change={(event) => toggle('category', category.id, event)}
+        >
           <span class="font-black italic">{category.name}</span>
         </Checkbox>
       {/each}
     </Accordion>
     <Accordion title={'Series'}>
       {#each series as serie}
-        <Checkbox bind:group={seriesSelected} value={serie.name}>
+        <Checkbox value={serie._id} group={seriesSelected} on:change={(event) => toggle('series', serie._id, event)}>
           <span class="font-black italic">{serie.name}</span>
         </Checkbox>
       {/each}
     </Accordion>
     <Accordion title={'Creators'}>
       {#each creators as creator}
-        <Checkbox bind:group={creatorsSelected} value={creator.username}>
+        <Checkbox
+          value={creator.username}
+          group={creatorsSelected}
+          on:change={(event) => toggle('creators', creator._id, event)}
+        >
           <span class="font-black italic">{creator.username}</span>
         </Checkbox>
       {/each}

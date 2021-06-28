@@ -13,7 +13,7 @@ describe('queryParameter', () => {
   afterEach(() => jest.clearAllMocks());
 
   it('redirects to the correct url with the query parameter added', () => {
-    queryParameter(element, { base: '/path', params: { val1: 'abcd' } });
+    queryParameter(element, { base: '/path', params: { val1: 'abcd', val2: false } });
 
     element.click();
     expect(goto).toHaveBeenLastCalledWith('/path?val1=abcd');
@@ -24,6 +24,13 @@ describe('queryParameter', () => {
 
     element.click();
     expect(goto).toHaveBeenLastCalledWith('/path');
+  });
+
+  it('handles array notation as comma separated', () => {
+    queryParameter(element, { base: '/path', params: { 'arr:123': true, 'arr:456': true, 'arr:789': false } });
+
+    element.click();
+    expect(goto).toHaveBeenLastCalledWith(`/path?arr=${encodeURIComponent('123,456')}`);
   });
 
   it('removes listener on destroy', () => {

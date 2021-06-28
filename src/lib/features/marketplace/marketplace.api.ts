@@ -24,9 +24,30 @@ export async function loadMarketplaceItems({
 
   const page: number = +query.get('page') || 1;
   const status: string = query.get('status');
+  const category: string = query.get('category');
+  const series: string = query.get('series');
+  const issuerId: string = query.get('creators');
+  const minPrice: string = query.get('minPrice');
+  const maxPrice: string = query.get('maxPrice');
+  const startDate: string = query.get('startDate');
+  const endDate: string = query.get('endDate');
+  const search: string = query.get('search');
   const response = await send(`skus/tiles/`, {
     fetch,
-    params: { page: `${page}`, per_page: `6`, sortBy: 'startDate:1', ...(status && { status }) },
+    params: {
+      page: `${page}`,
+      per_page: `6`,
+      sortBy: 'startDate:1',
+      ...(status && { status }),
+      ...(category && { category }),
+      ...(series && { series }),
+      ...(issuerId && { issuerId }),
+      ...(minPrice && { minPrice }),
+      ...(maxPrice && { maxPrice }),
+      ...(startDate && { startDate }),
+      ...(endDate && { endDate }),
+      ...(search && { search }),
+    },
   });
 
   const { headers } = response;

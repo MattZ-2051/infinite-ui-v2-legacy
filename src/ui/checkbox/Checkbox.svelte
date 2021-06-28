@@ -1,5 +1,8 @@
 <script lang="ts">
-  export let group: string[];
+  import { get_current_component } from 'svelte/internal';
+  import { forwardEventsBuilder } from '$util/forwardEvents';
+
+  export let group: string[] = [];
   export let value: string;
 
   let checked: boolean;
@@ -25,10 +28,12 @@
       }
     }
   }
+
+  const forwardEvents = forwardEventsBuilder(get_current_component());
 </script>
 
 <label class="flex gap-2 items-center cursor-pointer select-none">
-  <input class="sr-only" type="checkbox" bind:checked {value} {...$$restProps} />
+  <input class="sr-only" type="checkbox" bind:checked {value} {...$$restProps} use:forwardEvents />
   <span class="flex-none checkmark" />
   <div class="flex-grow"><slot /></div>
 </label>

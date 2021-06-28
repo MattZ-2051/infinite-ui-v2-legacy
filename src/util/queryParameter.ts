@@ -1,12 +1,30 @@
 import { goto } from '$app/navigation';
 
-export type QueryParameterOptions = { base: string; params: { [key: string]: string | number } };
+export type QueryParameterOptions = {
+  base: string;
+  params: { [key: string]: string | number | boolean };
+  reset?: boolean;
+};
 
 export function handleQueryParameter(options: QueryParameterOptions) {
-  const urlSearchParameters = new URLSearchParams(window.location.search);
+  const urlSearchParameters = new URLSearchParams(options.reset ? '' : window.location.search);
 
-  for (const [key, value] of Object.entries(options.params)) {
-    if (value === undefined || value === null || value === '') {
+  for (let [key, value] of Object.entries(options.params)) {
+    let index: string;
+    [key, index] = key.includes(':') ? key.split(':') : [key];
+
+    if (index) {
+      const existing = urlSearchParameters.get(key) || '';
+      const valuesSet = new Set(existing ? existing.split(',') : []);
+      if (value) {
+        valuesSet.add(index);
+      } else {
+        valuesSet.delete(index);
+      }
+      value = [...valuesSet].join(',');
+    }
+
+    if (value === undefined || value === null || value === '' || value === false) {
       urlSearchParameters.delete(key);
     } else {
       urlSearchParameters.set(key, `${value}`);
