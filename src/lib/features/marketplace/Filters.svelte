@@ -6,7 +6,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import RangeSlider from '$ui/rangeslider/RangeSlider.svelte';
   import { datePicker } from '$ui/datepicker/datepicker';
-  import Checkbox from '$ui/checkbox/Checkbox.svelte';
+  import { Checkbox } from '$ui/checkbox';
   import Accordion from '$ui/accordion/Accordion.svelte';
   import { queryParameter } from '$util/queryParameter';
   import { setFilters } from './marketplace.service';
@@ -185,15 +185,21 @@
           value={category.id}
           group={categorySelected}
           on:change={(event) => toggle('category', category.id, event)}
+          let:checked
         >
-          <span class="font-black italic">{category.name}</span>
+          <span class="font-black italic" class:text-black={checked}>{category.name}</span>
         </Checkbox>
       {/each}
     </Accordion>
     <Accordion title={'Series'}>
       {#each series as serie}
-        <Checkbox value={serie._id} group={seriesSelected} on:change={(event) => toggle('series', serie._id, event)}>
-          <span class="font-black italic">{serie.name}</span>
+        <Checkbox
+          value={serie._id}
+          group={seriesSelected}
+          on:change={(event) => toggle('series', serie._id, event)}
+          let:checked
+        >
+          <span class="font-black italic" class:text-black={checked}>{serie.name}</span>
         </Checkbox>
       {/each}
     </Accordion>
@@ -203,8 +209,9 @@
           value={creator.username}
           group={creatorsSelected}
           on:change={(event) => toggle('creators', creator._id, event)}
+          let:checked
         >
-          <span class="font-black italic">{creator.username}</span>
+          <span class="font-black italic" class:text-black={checked}>{creator.username}</span>
         </Checkbox>
       {/each}
     </Accordion>

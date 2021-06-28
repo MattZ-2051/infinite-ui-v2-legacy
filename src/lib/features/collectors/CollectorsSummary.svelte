@@ -6,7 +6,7 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import useTooltip from '$ui/tooltip';
   import Pagination from '$ui/pagination/Pagination.svelte';
-  import Checkbox from '$ui/checkbox/Checkbox.svelte';
+  import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
 
   export let sku: Sku;
   export let collectors: Collector[];
@@ -71,9 +71,11 @@
     </div>
     <div class="flex gap-8">
       <div class="flex gap-2 items-center">
-        <Checkbox value="For sale" on:change={onFilterChange}>
-          <span>For Sale</span>
-        </Checkbox>
+        <CheckboxVariantDark>
+          <Checkbox on:change={onFilterChange}>
+            <span>For Sale</span>
+          </Checkbox>
+        </CheckboxVariantDark>
       </div>
       <div class="flex cursor-pointer gap-2" on:click={toggleSort}>
         <span>Sort by:</span>

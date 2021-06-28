@@ -11,6 +11,16 @@ describe('Checkbox', () => {
     expect(input).not.toBeChecked();
   });
 
+  it('should handle `checked` binding', async () => {
+    const { container, component } = render(Checkbox, { checked: true });
+
+    const input = container.querySelector('input');
+    expect(input).toBeChecked();
+
+    await component.$set({ checked: false });
+    expect(input).not.toBeChecked();
+  });
+
   it('should be checked if value inside group', async () => {
     const { container } = render(Checkbox, {
       props: { group: ['abc', 'def'], value: 'abc' },

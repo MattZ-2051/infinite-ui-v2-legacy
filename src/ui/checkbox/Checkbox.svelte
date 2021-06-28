@@ -2,13 +2,15 @@
   import { get_current_component } from 'svelte/internal';
   import { forwardEventsBuilder } from '$util/forwardEvents';
 
-  export let group: string[] = [];
-  export let value: string;
+  export let group: string[] | undefined = undefined;
+  export let value = 'on';
+  export let checked = false;
 
-  let checked: boolean;
+  let _class = '';
+  export { _class as class };
 
-  $: updateChekbox(group);
-  $: updateGroup(checked);
+  $: Array.isArray(group) && updateChekbox(group);
+  $: Array.isArray(group) && updateGroup(checked);
 
   function updateChekbox(_group) {
     checked = _group.includes(value);
@@ -32,10 +34,10 @@
   const forwardEvents = forwardEventsBuilder(get_current_component());
 </script>
 
-<label class="flex gap-2 items-center cursor-pointer select-none">
-  <input class="sr-only" type="checkbox" bind:checked {value} {...$$restProps} use:forwardEvents />
+<label class="flex gap-2 items-center cursor-pointer select-none {_class || ''}" {...$$restProps}>
+  <input class="sr-only" type="checkbox" bind:checked {value} use:forwardEvents />
   <span class="flex-none checkmark" />
-  <div class="flex-grow"><slot /></div>
+  <div class="flex-grow"><slot {checked} /></div>
 </label>
 
 <style>
@@ -43,7 +45,7 @@
     position: relative;
     height: 16px;
     width: 16px;
-    background-color: #d6d6d6;
+    background-color: var(--checkbox-bg, #d6d6d6);
     border-radius: 50%;
   }
   input:checked ~ .checkmark:after {
@@ -55,18 +57,14 @@
     width: 9px;
     height: 15px;
     border-radius: 0.125rem;
-    border: solid black;
+    border: 1px solid var(--checkbox-color, #000000);
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
     content: '';
     position: absolute;
     display: none;
   }
-  label:hover input ~ .checkmark {
-    background-color: #ccc;
-  }
-
-  input[type='checkbox']:checked ~ div {
-    color: #000000;
+  label:hover .checkmark {
+    background-color: var(--checkbox-hover-bg, #cccccc);
   }
 </style>
