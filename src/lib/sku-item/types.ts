@@ -1,6 +1,8 @@
+export type Rarity = 'uncommon' | 'common' | 'rare' | 'epic' | 'legendary';
+
 export type Sku = {
   _id: string;
-  rarity: 'uncommon' | 'common' | 'rare' | 'epic' | 'legendary';
+  rarity: Rarity;
   name: string;
   description: string;
   display: boolean;
@@ -83,6 +85,9 @@ export type Listing = {
   _id: string;
   endDate?: Date;
   minBid?: number;
+  issuer?: Partial<Profile>;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type Product = {
@@ -203,11 +208,13 @@ export type Transaction = {
 export type Collector = {
   _id: string;
   serialNumber: string;
+  redeemedStatus?: string;
   createdAt: Date;
-  owner: Profile;
-  activeProductListing?: Listing;
-  listings?: Listing[];
-  upcomingProductListing?: Listing;
+  owner: Partial<Profile>;
+  activeProductListing?: Partial<Listing>;
+  listings?: Partial<Listing>[];
+  upcomingProductListing?: Partial<Listing>;
+  salesType?: string;
 };
 
 export type Series = {

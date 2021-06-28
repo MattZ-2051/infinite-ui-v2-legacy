@@ -4,6 +4,8 @@
 
   export let collectors: Collector[];
   export let max = 4;
+  export let skuId: string;
+
   $: collectorList = max > 0 ? (collectors || []).slice(0, max) : collectors || [];
 </script>
 
@@ -15,6 +17,8 @@
     {#each collectorList as collector}
       <CollectorItem {collector} />
     {/each}
-    <a href="/" class="self-center text-lg mt-2">View all collectors</a>
+    {#if collectors.length > max}
+      <a href="/{skuId}/collectors" class="self-center text-lg mt-2">View all collectors</a>
+    {/if}
   {/if}
 </div>

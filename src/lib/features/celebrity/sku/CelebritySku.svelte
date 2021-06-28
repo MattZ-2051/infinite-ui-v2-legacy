@@ -67,7 +67,7 @@
     </div>
     <div>
       <Accordion title={'Collector Auctions'} open={true} collapsible={!$media.md}>
-        <Collectors {collectors} />
+        <Collectors {collectors} skuId={sku._id} />
       </Accordion>
     </div>
   </div>

@@ -1,28 +1,30 @@
 <script lang="ts">
   import { mdiChevronLeft } from '@mdi/js';
-  import type { Product } from '$lib/sku-item/types';
+  import type { Sku } from '$lib/sku-item/types';
   import Icon from '$ui/icon/Icon.svelte';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import Gallery from '$ui/gallery/Gallery.svelte';
 
-  export let product: Product;
+  export let sku: Sku;
 </script>
 
-<div class="flex flex-col bg-white">
-  <Gallery featuredItem={product.sku.graphicUrl} items={[product.sku.graphicUrl, ...product.sku.imageUrls]} />
+<div class="flex flex-col bg-white lg:h-full">
+  <Gallery featuredItem={sku.graphicUrl} items={[sku.graphicUrl, ...sku.imageUrls]} />
   <div class="px-6 lg:px-8 flex-grow">
     <div class="flex flex-col py-7 border-b border-gray-200 text-black gap-4">
       <div class="flex flex-wrap justify-between text-2xl">
-        <span class="text-gray-400">{product.sku.issuerName}</span>
-        <Rarity rarity={product.sku.rarity} />
+        <span class="text-gray-400">{sku.issuerName}</span>
+        <Rarity rarity={sku.rarity} />
       </div>
-      <span class="text-5xl lg:mb-12">{product.sku.name}</span>
-      <span class="text-lg">{product.sku.series?.name}</span>
+      <span class="text-5xl lg:mb-12">{sku.name}</span>
+      {#if sku.series?.name}
+        <span class="text-lg">{sku.series?.name}</span>
+      {/if}
       <div class="flex gap-2">
-        {#if product.sku.supplyType === 'fixed'}
-          <span class="text-gray-400">1 of {product.totalSupply}</span>
-        {:else if product.sku.supplyType === 'variable'}
-          <span>{product.circulatingSupply} Released</span>
+        {#if sku.supplyType === 'fixed'}
+          <span class="text-gray-400">1 of {sku.totalSupply}</span>
+        {:else if sku.supplyType === 'variable'}
+          <span>{sku.circulatingSupply} Released</span>
           <div class="border border-black rounded-xl px-2 text-center">LE</div>
           <a href="/marketplace">(See All)</a>
         {/if}
@@ -30,8 +32,8 @@
       <div class="flex gap-3 text-sm text-gray-400 font-black">
         <div class="font-normal">
           Created by
-          <a sveltekit:prefetch href={`/collection/${product.sku.issuer.username}`} class="text-black ml-1 font-black">
-            @{product.sku.issuerName}
+          <a sveltekit:prefetch href={`/collection/${sku.issuer?.username}`} class="text-black ml-1 font-black">
+            @{sku.issuerName}
           </a>
         </div>
         <span>/</span>
@@ -41,7 +43,7 @@
     </div>
     <a class="flex-grow flex justify-items-start my-5 text-lg" href="/marketplace">
       <Icon path={mdiChevronLeft} size="1.125" />
-      <a sveltekit:prefetch href={`/marketplace/${product.sku._id}`}>View release details</a>
+      <a sveltekit:prefetch href={`/marketplace/${sku._id}`}>View release details</a>
     </a>
   </div>
 </div>
