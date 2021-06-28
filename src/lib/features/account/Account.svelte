@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Sku, Product, Profile } from '$lib/sku-item/types';
-  import notifications from '$lib/toast/toast.store';
+  import { toast } from '$ui/toast';
   import { Tabs, Tab } from '$ui/tabs';
   import Modal from '$ui/modal/Modal.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
@@ -21,9 +21,9 @@
     try {
       await editUsername({ username: editableUsername });
       showDialog = false;
-      notifications.success('Your username was successfully updated!');
+      toast.success('Your username was successfully updated!');
     } catch (error) {
-      notifications.danger(error || 'There was an error submitting your request. Please try again.');
+      toast.danger(error || 'There was an error submitting your request. Please try again.');
     }
   }
 </script>

@@ -10,7 +10,7 @@
   import { user } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import Modal from '$ui/modal/Modal.svelte';
-  import notifications from '$lib/toast/toast.store';
+  import { toast } from '$ui/toast';
   import Image from '$ui/image/Image.svelte';
   import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
   import Button from '$lib/components/Button.svelte';
@@ -51,10 +51,10 @@
   async function removeCard() {
     try {
       await (removing = deleteCreditCard(card.id));
-      notifications.success('Card was removed successfully.');
+      toast.success('Card was removed successfully.');
       goto(`/wallet`);
     } catch {
-      notifications.danger(`There was a problem removing your card ending on ${card.last4}.`);
+      toast.danger(`There was a problem removing your card ending on ${card.last4}.`);
     } finally {
       removing = undefined;
     }

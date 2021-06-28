@@ -7,7 +7,7 @@
   import * as yup from 'yup';
 
   import { user } from '$lib/user';
-  import notifications from '$lib/toast/toast.store';
+  import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import Image from '$ui/image/Image.svelte';
   import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
@@ -59,10 +59,10 @@
           cvv: +values.cvv,
           metadata: { email: $user.email },
         }));
-        notifications.success('Card added successfully.');
+        toast.success('Card added successfully.');
         reset();
       } catch {
-        notifications.danger(`There was a problem adding your card.`);
+        toast.danger(`There was a problem adding your card.`);
       } finally {
         saving = undefined;
       }

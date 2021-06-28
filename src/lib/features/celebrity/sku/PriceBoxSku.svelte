@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
-  import notifications from '$lib/toast/toast.store';
+  import { toast } from '$ui/toast';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
 
   export let sku: Sku;
@@ -43,7 +43,7 @@
         <button
           type="button"
           class="w-full max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3 mb-12 md:mb-0"
-          on:click={() => notifications.danger('You need to be <b>logged in</b> to complete your purchase!')}
+          on:click={() => toast.danger('You need to be <b>logged in</b> to complete your purchase!')}
         >
           Buy Now
         </button>

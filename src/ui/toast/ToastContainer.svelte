@@ -1,0 +1,14 @@
+<script lang="ts">
+  import Toast from './Toast.svelte';
+  import toast from './toast.store';
+
+  function handleOnClose({ detail }: CustomEvent<string>) {
+    toast.remove(detail);
+  }
+</script>
+
+<div class="flex flex-col" {...$$restProps}>
+  {#each $toast as item (item.toastId)}
+    <Toast on:close={handleOnClose} {...item} />
+  {/each}
+</div>

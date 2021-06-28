@@ -1,4 +1,4 @@
-import type { ToastType } from './toast.store';
+import type { ToastSeverity } from './types';
 import { styles } from '$util/styles';
 
 const themes = {
@@ -8,6 +8,6 @@ const themes = {
   info: '#5bc0de',
 };
 
-export function getThemeStyle(key: ToastType) {
+export function getThemeStyle(key: ToastSeverity) {
   return styles({ background: themes[key] });
 }
