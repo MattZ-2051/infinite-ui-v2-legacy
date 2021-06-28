@@ -1,3 +1,5 @@
+import type { User } from '$lib/user/types';
+
 export type Rarity = 'uncommon' | 'common' | 'rare' | 'epic' | 'legendary';
 
 export type Sku = {
@@ -90,6 +92,17 @@ export type Listing = {
   updatedAt: Date;
 };
 
+export type ListingSalePayload = {
+  price: number;
+  product: string;
+  startDate: Date;
+  type: string;
+  saleType: string;
+  supply: number;
+  sku: Sku;
+  issuer: string;
+};
+
 export type Product = {
   serialNumber?: string;
   activeProductListings?: Listing[];
@@ -98,6 +111,11 @@ export type Product = {
   totalSupply?: number;
   circulatingSupply?: number;
   _id: string;
+  owner: Partial<User>;
+  resale?: boolean;
+  resaleSellersFeePercentage?: number;
+  initialSellersFeePercentage?: number;
+  royaltyFeePercentage?: number;
 };
 
 type Cost = {

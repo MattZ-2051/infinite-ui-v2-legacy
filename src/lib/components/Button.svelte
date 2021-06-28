@@ -16,7 +16,7 @@
   use:forwardEvents
   {disabled}
   class="bg-black {disabled
-    ? 'opacity-50'
+    ? 'opacity-50 cursor-default'
     : 'hover:bg-gray-900'} text-white text-xl text-center rounded-full p-4 w-full disabled:opacity-50 {_class || ''}"
   {...$$restProps}><slot /></button
 >

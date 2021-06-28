@@ -2,10 +2,19 @@
   import type { Transaction, Product } from '$lib/sku-item/types';
   import TabsVariantDark from '$ui/tabs/variants/TabsVariantDark.svelte';
   import { Tabs, Tab } from '$ui/tabs';
+  import { user } from '$lib/user';
   import History from './ProductHistory.svelte';
+  import CreateSaleModal from './CreateSaleModal.svelte';
 
   export let product: Product;
   export let transactions: Transaction[];
+  let showCreateSale = false;
+
+  $: canSale =
+    $user &&
+    $user._id === product.owner._id &&
+    product.activeProductListings.length === 0 &&
+    product.upcomingProductListings.length === 0;
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
@@ -17,7 +26,7 @@
     <span class="mx-2 text-gray-500">/</span>
     <span class="text-gray-500">#{product.serialNumber}</span>
   </div>
-  <div class="flex flex-wrap gap-7 sm:gap-0">
+  <div class="flex flex-wrap gap-7 w-full sm:gap-0">
     <span class="text-5xl">#{product.serialNumber}</span>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="flex flex-col">
@@ -27,7 +36,7 @@
       >
     </div>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
-    <div class="self-center flex">
+    <div class="self-center flex flex-grow">
       {#if product.sku.redeemable}
         <div class="bg-white rounded-2xl mr-2 p-1">
           <img src="/redeemable.svg" alt="redeemed" />
@@ -40,6 +49,14 @@
         <span class="text-gray-600 self-center">Redeemed</span>
       {/if}
     </div>
+    {#if canSale}
+      <button
+        on:click={() => (showCreateSale = true)}
+        class="rounded-3xl bg-black text-gray-400 font-black px-2 justify-self-end"
+        >Create Sale
+      </button>
+      <CreateSaleModal bind:show={showCreateSale} {product} />
+    {/if}
   </div>
 </div>
 <TabsVariantDark>
