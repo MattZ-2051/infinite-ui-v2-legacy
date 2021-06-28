@@ -75,7 +75,7 @@ export type Profile = {
 export type Listing = {
   canceled?: boolean;
   price: number;
-  product: string;
+  product: Product;
   saleType: string;
   startDate: Date;
   status: string;
@@ -83,11 +83,11 @@ export type Listing = {
   supplyLeft: number;
   type: string;
   _id: string;
-  endDate?: Date;
+  endDate: Date;
   minBid?: number;
-  issuer?: Partial<Profile>;
-  createdAt?: Date;
-  updatedAt?: Date;
+  issuer: Partial<Profile>;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type Product = {
@@ -97,6 +97,7 @@ export type Product = {
   sku: Sku;
   totalSupply?: number;
   circulatingSupply?: number;
+  _id: string;
 };
 
 type Cost = {
@@ -155,30 +156,30 @@ type CircleReceipt = {
 type TransactionData = {
   product: Product[];
   sku: Sku[];
-  listing: string;
-  amount: number;
-  bid: string;
+  listing?: string;
+  amount?: number;
+  bid?: string;
   hederaTransaction?: HederaTransaction;
   circleReceipt?: CircleReceipt;
   buyer: {
     _id: string;
     username: string;
   };
-  seller: {
+  seller?: {
     _id: string;
     username: string;
   };
-  ownerAvailableBalance: number;
+  ownerAvailableBalance?: number;
   cost: Cost;
-  explorerLink: string;
-  status: string;
-  service: string;
+  explorerLink?: string;
+  status?: string;
+  service?: string;
   deposit?: {
     id: string;
     type: string;
     amount: string;
   };
-  transactionHash: string | undefined;
+  transactionHash?: string | undefined;
 };
 
 export type Transaction = {
@@ -201,7 +202,7 @@ export type Transaction = {
     | 'bid';
   transactionData: TransactionData;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt?: Date;
   status: 'success' | 'error' | 'pending';
 };
 
@@ -224,6 +225,16 @@ export type Series = {
   issuerId: string;
   createdAt?: Date;
   updatedAt?: Date;
+};
+
+export type Bid = {
+  _id: string;
+  bidAmt: number;
+  createdAt: Date;
+  updatedAt: Date;
+  listing: Listing;
+  owner: Profile;
+  sku: Sku;
 };
 
 export type Status = 'upcoming' | 'upcoming-soon' | 'no-sale' | 'active' | undefined;

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Transaction, Bid } from '$lib/sku-item/types';
   import { goto } from '$app/navigation';
   import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
   import USDC from '$lib/payment/usdc/USDC.svelte';
@@ -7,6 +8,11 @@
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
+
+  export let transactions: Transaction[];
+  export let total: number;
+  export let tab: 'transactions' | 'bids';
+  export let bids: Bid[] = [];
 
   let showDepositModal = false;
 
@@ -34,7 +40,7 @@
     <div class="mb-2 mx-6">Account Verification Status:</div>
     <AccountVerification status={'unverified'} class="mx-8" />
   </div>
-  <div class="w-full md:w-4/5"><WalletList /></div>
+  <div class="w-full md:w-4/5"><WalletList {transactions} {total} {tab} {bids} /></div>
 </div>
 
 <WalletDepositModal on:select={onDepositSelect} bind:show={showDepositModal} />

@@ -1,5 +1,4 @@
-import Tabs from './Tabs.svelte';
-import Tab from './Tab.svelte';
-import TabsVariantDark from './variants/TabsVariantDark.svelte';
-
-export { Tabs, Tab, TabsVariantDark };
+export { default as Tabs } from './Tabs.svelte';
+export { default as Tab } from './Tab.svelte';
+export { default as TabHeader } from './TabHeader.svelte';
+export { default as TabsVariantDark } from './variants/TabsVariantDark.svelte';

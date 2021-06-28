@@ -1,0 +1,159 @@
+<script lang="ts">
+  import type { Transaction } from '$lib/sku-item/types';
+  import { mdiChevronDown } from '@mdi/js';
+  import { formatDate, formatCurrency } from '$util/format';
+  import Icon from '$ui/icon/Icon.svelte';
+
+  export let transaction: Transaction;
+
+  let isOpen = false;
+
+  $: name = transaction.transactionData.sku[0]?.name || '';
+  $: serialNumber = transaction.transactionData.product[0]?.serialNumber || '';
+  $: sellerUsername = transaction.transactionData.seller?.username || '';
+  $: buyerUsername = transaction.transactionData.buyer?.username || '';
+  $: type = transaction.type;
+  $: status = transaction.status;
+  $: deposit = transaction.transactionData.deposit;
+  $: cost = transaction.transactionData.cost;
+</script>
+
+<div class="grid grid-cols-3 items-center gap-x-4 container-tr py-4 border-b border-gray-200">
+  <div>
+    {#if transaction.type === 'royalty_fee' || transaction.type === 'sale'}
+      <img src="/sold-normal.png" alt="img" />
+    {/if}
+
+    {#if transaction.type === 'purchase'}
+      <img src="/bought-normal.png" alt="img" />
+    {/if}
+
+    {#if transaction.type === 'deposit' && deposit.type === 'cc'}
+      <img src="/added-funds.png" alt="img" />
+    {/if}
+
+    {#if transaction.type === 'deposit' && deposit.type === 'circle'}
+      <img style="width:32px; height:32px" src="/usdcoin.png" alt="img" />
+    {/if}
+
+    {#if transaction.type === 'deposit' && deposit.type === 'coinbase'}
+      <img src="/added-funds-coinbase.png" alt="img" />
+    {/if}
+  </div>
+  <div class="flex-grow">
+    <div class="flex div-style items-center">
+      <div class="container-message grid grid-cols-2  gap-x-10 gap-y-2  w-full items-center">
+        <span class="">
+          {#if type === 'royalty_fee'}
+            <span class="message">You received a royalty payment for the sale of </span>
+            <span class="font-semibold underline hover:no-underline">{name} </span>
+            <span class="font-semibold underline hover:no-underline">#{serialNumber}</span>
+          {/if}
+
+          {#if type === 'purchase' && status === 'success'}
+            <span class="message">You bought</span>
+            <span class="font-semibold underline hover:no-underline">{name} </span>
+            <span class="font-semibold underline hover:no-underline">#{serialNumber}</span>
+            <span class="message">from</span>
+            <span class="font-semibold underline hover:no-underline">@{sellerUsername}</span>
+          {/if}
+
+          {#if type === 'purchase' && status === 'error'}
+            <span class="message">You tried buying</span>
+            <span class="font-semibold underline hover:no-underline">{name} </span>
+            <span class="font-semibold underline hover:no-underline">#{serialNumber}</span>
+            <span class="message">from</span>
+            <span class="font-semibold underline hover:no-underline">@{sellerUsername}</span>
+            <span class="font-semibold text-red-600">(Transaction failed)</span>
+          {/if}
+
+          {#if type === 'sale'}
+            <span class="message">You sold</span>
+            <span class="font-semibold underline hover:no-underline">{name} </span>
+            <span class="font-semibold underline hover:no-underline">#{serialNumber}</span>
+            <span class="message">to</span>
+            <span class="font-semibold underline hover:no-underline">@{buyerUsername}</span>
+          {/if}
+
+          {#if type === 'deposit' && deposit.type === 'cc'}
+            <span class="message">You added funds from your credit card</span>
+          {/if}
+
+          {#if type === 'deposit' && deposit.type === 'circle'}
+            <span class="message">You added funds by depositing </span>
+            <span class="font-medium">USDC</span>
+          {/if}
+
+          {#if type === 'deposit' && deposit.type === 'coinbase'}
+            <span class="message">You added funds by depositing </span>
+            <span class="font-medium"> {formatCurrency(+deposit.amount)} </span>
+            <span class="message ">using </span>
+            <span class="font-medium">Coinbase</span>
+          {/if}
+        </span>
+        <div class="flex justify-between gap-x-3">
+          <span class="message-color font-extrabold italic">{formatDate(transaction.createdAt, 'MMMM do, yyyy ')}</span>
+          <span
+            class="whitespace-nowrap flex items-center {type === 'purchase' && status === 'success'
+              ? 'withdraw-color'
+              : 'deposit-color'}"
+            class:text-black={type === 'purchase' && status === 'error'}
+          >
+            {#if (type === 'royalty_fee' || type === 'sale' || type === 'deposit') && status === 'success'}
+              +
+            {/if}
+            {#if type === 'royalty_fee'}
+              {formatCurrency(cost.royaltyFee)}
+            {/if}
+            {#if type === 'sale'}
+              {formatCurrency(+cost.finalPayout)}
+            {/if}
+            {#if type === 'deposit'}
+              {formatCurrency(+deposit.amount)}
+            {/if}
+            {#if type === 'purchase' && status === 'success'}
+              - {formatCurrency(cost.totalCost)}
+            {/if}
+            {#if type === 'purchase' && status === 'error'}
+              <span class="line-through">{formatCurrency(cost.totalCost)}</span>
+            {/if}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="cursor-pointer"
+    on:click={() => {
+      isOpen = !isOpen;
+    }}
+  >
+    <Icon flip={isOpen ? 'v' : false} path={mdiChevronDown} />
+  </div>
+  {#if isOpen}
+    <div />
+    <div class="py-2"><span class="message">Transaction ID: </span>{transaction._id}</div>
+  {/if}
+</div>
+
+<style>
+  .message-color {
+    color: #9e9e9e;
+  }
+  .message {
+    color: #9e9e9e;
+    font-weight: 500;
+  }
+  .deposit-color {
+    color: #00c44f;
+  }
+  .withdraw-color {
+    color: #da1010;
+  }
+  .container-message {
+    grid-template-columns: 2.6fr 1fr;
+  }
+  .container-tr {
+    grid-template-columns: 32px 9999fr 32px;
+  }
+</style>

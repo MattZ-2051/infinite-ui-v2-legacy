@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Tabs, Tab } from '$ui/tabs';
+  import { TabHeader } from '$ui/tabs';
   import { user } from '$lib/user';
   import { formatCurrency } from '$util/format';
 
@@ -9,17 +9,18 @@
 
 <div>
   <div>
-    <Tabs class="text-xl md:text-2xl" itemClass={'tracking-tighter pb-5 tab-header'} deactivateSignle={false}>
-      <Tab title="Total Balance">
-        <p class="text-5xl py-4 tracking-tight">
-          {#if $user}
-            {formatCurrency($user.balance)}
-          {:else}
-            <div class="animate-pulse bg-gray-300 rounded h-10 w-52" />
-          {/if}
-        </p>
-      </Tab>
-    </Tabs>
+    <nav class="text-2xl">
+      <ul class="flex gap-10">
+        <TabHeader active={true} class="pb-5">Total Balance</TabHeader>
+      </ul>
+    </nav>
+    <div class="text-5xl py-4 tracking-tight">
+      {#if $user}
+        {formatCurrency($user.balance)}
+      {:else}
+        <div class="animate-pulse bg-gray-300 rounded h-10 w-52" />
+      {/if}
+    </div>
   </div>
   <div class="mt-4">
     <p class="available">Available:</p>
@@ -45,6 +46,10 @@
 </div>
 
 <style>
+  nav {
+    box-shadow: inset 0 -2px #ebebeb;
+  }
+
   .available,
   .explanation {
     color: #9e9e9e;
