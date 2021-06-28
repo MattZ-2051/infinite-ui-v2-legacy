@@ -3,8 +3,8 @@ import { get, send } from '$lib/api';
 
 export async function loadCollectors({ id, fetch, query }: { id: string; fetch?: Fetch; query: URLSearchParams }) {
   const page: number = +query.get('page') || 1;
-  const perPage: number = +query.get('per-page') || 6;
-  const forSale = !!query.get('for-sale') && query.get('for-sale') === 'true';
+  const perPage: number = +query.get('perPage') || 6;
+  const forSale = query.has('forSale') && query.get('forSale') === 'true';
   const sort: string = query.get('sort') || 'asc';
   const search: string = query.get('search') || '';
 
@@ -29,10 +29,10 @@ export async function loadCollectors({ id, fetch, query }: { id: string; fetch?:
   return {
     sku,
     collectors,
-    filter: forSale,
-    search: search,
-    page: page,
-    sort: sort,
+    forSale,
+    search,
+    page,
+    sort,
     total,
     perPage,
   };

@@ -7,42 +7,43 @@
   import useTooltip from '$ui/tooltip';
   import Pagination from '$ui/pagination/Pagination.svelte';
   import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
+  import { handleQueryParameter } from '$util/queryParameter';
 
   export let sku: Sku;
   export let collectors: Collector[];
   export let sort: 'asc' | 'desc';
-  export let filter: boolean;
+  export let forSale: boolean;
   export let page: number;
   export let search: string;
   export let total: number;
   export let perPage: number;
 
   const toggleSort = () => {
-    sort = sort === 'asc' ? 'desc' : 'asc';
-    page = 1;
-    navigate();
+    navigate({
+      sort: sort === 'asc' ? 'desc' : 'asc',
+      page,
+    });
   };
 
   const gotoPage = (event: CustomEvent) => {
-    page = +event.detail.value;
-    navigate();
-  };
-
-  const navigate = () => {
-    goto(`/${sku._id}/collectors?page=${page}&search=${search}&per-page=${perPage}&sort=${sort}&for-sale=${filter}`);
+    navigate({ page: +event.detail.value });
   };
 
   const onInputChange = (event) => {
-    search = event.target.value;
-    page = 1;
-    navigate();
+    navigate({ search: event.target.value });
   };
 
   const onFilterChange = () => {
-    filter = !filter;
-    page = 1;
-    navigate();
+    navigate({ forSale: !forSale });
   };
+
+  function navigate(parameters): void {
+    const url = handleQueryParameter({
+      base: `/${sku._id}/collectors`,
+      params: { page: false, ...parameters },
+    });
+    goto(url, { noscroll: true });
+  }
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
@@ -72,7 +73,7 @@
     <div class="flex gap-8">
       <div class="flex gap-2 items-center">
         <CheckboxVariantDark>
-          <Checkbox on:change={onFilterChange}>
+          <Checkbox checked={forSale} on:change={onFilterChange}>
             <span>For Sale</span>
           </Checkbox>
         </CheckboxVariantDark>

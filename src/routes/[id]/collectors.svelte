@@ -15,7 +15,7 @@
 <script lang="ts">
   export let sku: Sku;
   export let collectors: Collector[];
-  export let filter: boolean;
+  export let forSale: boolean;
   export let search: string;
   export let sort: 'asc' | 'desc';
   export let total: number;
@@ -23,4 +23,4 @@
   export let perPage: number;
 </script>
 
-<Collectors {sku} {collectors} {filter} {search} {sort} {total} {page} {perPage} />
+<Collectors {sku} {collectors} {forSale} {search} {sort} {total} {page} {perPage} />
