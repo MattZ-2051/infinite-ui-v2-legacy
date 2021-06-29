@@ -5,7 +5,6 @@
   import Icon from '$ui/icon/Icon.svelte';
   import { setFilters } from './marketplace.service';
 
-  // https://github.com/sveltejs/kit/issues/1022 ... if not fixed we have to remove "live" search
   const handleInput = debounce((event) => setFilters({ params: { search: event.target.value } }), 300);
 </script>
 

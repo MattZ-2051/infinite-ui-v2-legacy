@@ -7,5 +7,5 @@ export function setFilters(options: Pick<QueryParameterOptions, 'params' | 'rese
     base: `/marketplace`,
     ...options,
   });
-  goto(url, { noscroll: true });
+  goto(url, { noscroll: true, keepfocus: true });
 }
