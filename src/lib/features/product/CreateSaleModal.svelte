@@ -6,6 +6,7 @@
   import Button from '$lib/components/Button.svelte';
   import { goto } from '$app/navigation';
   import { formatCurrency } from '$util/format';
+  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import { createSale } from './product.api';
 
   export let product: Partial<Product>;
@@ -53,12 +54,12 @@
       </div>
       <span class="text-xl">{product.sku.name}</span>
       <div class="flex justify-between">
-        <div class="flex flex-wrap flex-grow">
+        <div class="flex items-center flex-wrap flex-grow">
           {#if product.sku?.series?.name}
             <span>{product.sku.series.name}</span>
           {/if}
           {#if product.sku?.redeemable}
-            <img src="/redeemable.svg" alt="marked" class="mr-2" />
+            <IconRedeem size="0.7" class="mr-1" />
             / Redeemable
           {/if}
         </div>

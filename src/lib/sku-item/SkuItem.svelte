@@ -2,6 +2,7 @@
   import type { Sku } from './types';
   import IntersectionObserver from 'svelte-intersection-observer';
   import Rarity from '$lib/rarity/Rarity.svelte';
+  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
 
   export let item: Sku;
 
@@ -32,8 +33,8 @@
     {/if}
 
     {#if item.redeemable}
-      <div class="w-8 h-8 bg-white absolute top-6 right-4 rounded-full flex shadow-md hover:opacity-60 p-1.5">
-        <img class="" src="/redeem.png" alt="marked" />
+      <div class="absolute top-6 right-4">
+        <IconRedeem size="1.3" class="bg-white rounded-full p-1.5 border" />
       </div>
     {/if}
   </div>

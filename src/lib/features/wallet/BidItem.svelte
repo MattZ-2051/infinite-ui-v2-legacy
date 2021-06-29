@@ -4,6 +4,7 @@
   import { formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
+  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
 
   export let bid: Bid;
 </script>
@@ -14,6 +15,7 @@
       {bid.sku.name} | #{bid.listing.product.serialNumber}
       {#if bid.sku.redeemable}
         <img src="/vector.png" alt="vector" class="w-3 h-3" />
+        <IconRedeem size="0.8" class="text-gray-400 p-0.5" />
       {/if}
     </span>
     <span class="message italic text-sm font-black">{bid.listing.issuer.username}</span>

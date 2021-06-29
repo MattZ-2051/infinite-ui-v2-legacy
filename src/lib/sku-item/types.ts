@@ -227,7 +227,7 @@ export type Transaction = {
 export type Collector = {
   _id: string;
   serialNumber: string;
-  redeemedStatus?: string;
+  redeemedStatus?: 'NA' | 'pending' | 'redeemed';
   createdAt: Date;
   owner: Partial<Profile>;
   activeProductListing?: Partial<Listing>;

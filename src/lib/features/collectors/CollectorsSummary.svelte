@@ -4,10 +4,10 @@
   import { goto } from '$app/navigation';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import useTooltip from '$ui/tooltip';
   import Pagination from '$ui/pagination/Pagination.svelte';
   import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
   import { handleQueryParameter } from '$util/queryParameter';
+  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
 
   export let sku: Sku;
   export let collectors: Collector[];
@@ -91,19 +91,18 @@
         class="grid-container group grid gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
       >
         <div>
-          <div class="flex gap-3 ">
+          <div class="flex items-center gap-3 ">
             <span class="text-white font-normal">#{collector.serialNumber}</span>
             {#if sku?.redeemable}
-              <div
-                class="bg-white rounded-2xl mr-2 p-1"
-                class:bg-gray-800={collector.redeemedStatus === 'redeemed'}
-                use:useTooltip={collector.redeemedStatus !== 'redeemed' && {
-                  content: 'Reedemable',
+              <IconRedeem
+                class="text-black {collector.redeemedStatus === 'redeemed'
+                  ? 'bg-gray-800'
+                  : 'bg-white'} rounded-full p-1"
+                tooltip={{
+                  content: collector.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable',
                   theme: 'white',
                 }}
-              >
-                <img src="/redeemable.svg" alt="redeemed" />
-              </div>
+              />
             {/if}
           </div>
           <span class="italic font-black">@{collector.owner?.username}</span>
