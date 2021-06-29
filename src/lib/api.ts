@@ -41,32 +41,41 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
 }
 
 export function get<T>(path: string, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'GET' }).then(responseHandler);
+  return send(path, { ...options, method: 'GET' }).then((r) => parseBody<T>(r));
+}
+
+export function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: T[]; total: number }> {
+  return send(path, { ...options, method: 'GET' }).then(async (response) => {
+    const { headers } = response;
+    const total = +headers.get('content-range').split('/')[1];
+
+    return { data: await parseBody<T[]>(response), total };
+  });
 }
 
 export function del<T>(path: string, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'DELETE' }).then(responseHandler);
+  return send(path, { ...options, method: 'DELETE' }).then((r) => parseBody<T>(r));
 }
 
 export function post<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'POST', body }).then(responseHandler);
+  return send(path, { ...options, method: 'POST', body }).then((r) => parseBody<T>(r));
 }
 
 export function put<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'PUT', body }).then(responseHandler);
+  return send(path, { ...options, method: 'PUT', body }).then((r) => parseBody<T>(r));
 }
 
 export function patch<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'PATCH', body }).then(responseHandler);
+  return send(path, { ...options, method: 'PATCH', body }).then((r) => parseBody<T>(r));
 }
 
-function responseHandler(response: Response) {
+async function parseBody<T>(response: Response): Promise<T> {
   const { headers } = response;
   if (headers.has('content-length') && +headers.get('content-length') === 0) {
     return;
   }
 
-  return response.json();
+  return await response.json();
 }
 
 function isAbsoluteURL(url: string): boolean {

@@ -1,5 +1,5 @@
 import { authToken } from '$lib/auth';
-import { send, get, post, del, put } from './api';
+import { send, get, post, del, put, getPage } from './api';
 
 jest.mock('$lib/variables', () => ({ variables: { apiUrl: 'http://api' } }));
 
@@ -119,6 +119,31 @@ describe('API', () => {
     it('send the appropriate GET request', async () => {
       await get('my/path', { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'GET' }));
+    });
+  });
+
+  describe('`getPage`', () => {
+    it('should parse response for pagination information', async () => {
+      mockFetch.mockReturnValueOnce(
+        Promise.resolve({
+          json: () => {
+            return ['a', 'b', 'c'];
+          },
+          headers: {
+            has: () => true,
+            get: (key) => {
+              return {
+                'content-length': 1,
+                'content-range': '20-2/140',
+              }[key];
+            },
+          },
+        })
+      );
+
+      const response = await getPage('my/path', { fetch: mockFetch });
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'GET' }));
+      expect(response).toEqual({ data: ['a', 'b', 'c'], total: 140 });
     });
   });
 
