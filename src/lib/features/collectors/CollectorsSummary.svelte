@@ -39,7 +39,7 @@
 
   function navigate(parameters): void {
     const url = handleQueryParameter({
-      base: `/${sku._id}/collectors`,
+      base: `/collectors/${sku._id}`,
       params: { page: false, ...parameters },
     });
     goto(url, { noscroll: true });

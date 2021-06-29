@@ -18,7 +18,7 @@
       <CollectorItem {collector} />
     {/each}
     {#if collectors.length > max}
-      <a href="/{skuId}/collectors" class="self-center text-lg mt-2">View all collectors</a>
+      <a href="/collectors/{skuId}" class="self-center text-lg mt-2">View all collectors</a>
     {/if}
   {/if}
 </div>

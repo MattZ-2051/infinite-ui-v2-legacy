@@ -1,5 +1,5 @@
 <script lang="ts">
-  import debounce from 'lodash/debounce';
+  import debounce from 'just-debounce';
   import { mdiMagnify } from '@mdi/js';
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
