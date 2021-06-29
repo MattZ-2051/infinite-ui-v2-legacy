@@ -16,6 +16,8 @@ pnpm install
 
 To start a development build (e.g. with file watching and live-reload) run `pnpm dev`.
 
+Mocking is supported (server side & client side) using [MSW](https://mswjs.io) and can be enabled by using the `API_MOCKING` environment variable.
+
 ### Formatting
 
 To enforce a common style guide we use [Prettier](https://prettier.io).

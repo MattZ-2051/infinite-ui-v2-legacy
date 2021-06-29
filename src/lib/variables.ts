@@ -1,5 +1,6 @@
 export const variables = {
   apiUrl: import.meta.env.VITE_API_URL,
+  apiMocking: import.meta.env.VITE_API_MOCKING === 'enabled',
   auth0: {
     domain: import.meta.env.VITE_AUTH0_DOMAIN,
     client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,

@@ -1,6 +1,22 @@
+<script context="module" lang="ts">
+  import { browser } from '$app/env';
+  import { variables } from '$lib/variables';
+
+  if (variables.apiMocking) {
+    (async () => {
+      if (!browser) {
+        const { default: server } = await import('../../mocks/server');
+        server.listen();
+      } else {
+        const { default: worker } = await import('../../mocks/browser');
+        worker.start();
+      }
+    })();
+  }
+</script>
+
 <script lang="ts">
   import { navigating } from '$app/stores';
-  import { browser } from '$app/env';
   import { isLoading, updateAuth } from '$lib/auth';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$lib/layout/header/Header.svelte';

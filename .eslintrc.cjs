@@ -12,7 +12,7 @@ module.exports = {
     'plugin:unicorn/recommended',
   ],
   plugins: ['svelte3', '@typescript-eslint', 'import'],
-  ignorePatterns: ['*.cjs'],
+  ignorePatterns: ['*.cjs', 'mockServiceWorker.js'],
   rules: {
     eqeqeq: 'error',
     'no-empty': ['error', { allowEmptyCatch: true }],
