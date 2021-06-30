@@ -7,11 +7,13 @@
   import History from './ProductHistory.svelte';
   import CreateSaleModal from './CreateSaleModal.svelte';
   import CancelSaleModal from './CancelSaleModal.svelte';
+  import RedeemModal from './Redeem/RedeemModal.svelte';
 
   export let product: Product;
   export let transactions: Transaction[];
   let showCreateSale = false;
   let showCancelSale = false;
+  let showRedeemModal = false;
 
   $: canSale =
     $user &&
@@ -25,6 +27,14 @@
     product.activeProductListings?.length !== 0 &&
     product.upcomingProductListings?.length === 0 &&
     product.activeProductListings[0].saleType !== 'auction';
+
+  $: canRedeem =
+    product.sku.redeemable &&
+    $user &&
+    $user._id === product?.owner._id &&
+    product.redeemedStatus !== 'redeemed' &&
+    product.activeProductListings.length === 0 &&
+    product.upcomingProductListings.length === 0;
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
@@ -74,6 +84,17 @@
         listingId={product?.activeProductListings[0]?._id}
         productId={product._id}
       />
+    {/if}
+  </div>
+  <div class="flex justify-end">
+    {#if canRedeem}
+      <button
+        class="rounded-full border-white border-2 p-2"
+        on:click={() => {
+          showRedeemModal = true;
+        }}>REDEEM</button
+      >
+      <RedeemModal bind:show={showRedeemModal} {product} />
     {/if}
   </div>
 </div>

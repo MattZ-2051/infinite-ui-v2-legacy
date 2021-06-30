@@ -12,7 +12,7 @@
 
   function redirect(_tab: 'transactions' | 'bids') {
     tab = _tab;
-    goto(`/wallet?tab=${tab}`);
+    goto(`/u/wallet?tab=${tab}`);
   }
 </script>
 

@@ -107,6 +107,7 @@ export type Product = {
   serialNumber?: string;
   activeProductListings?: Listing[];
   upcomingProductListings?: Listing[];
+  redeemedStatus?: 'NA' | 'pending' | 'redeemed';
   sku: Sku;
   totalSupply?: number;
   circulatingSupply?: number;

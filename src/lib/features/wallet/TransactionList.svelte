@@ -9,7 +9,7 @@
   export let total: number;
 
   function gotoPage(event: CustomEvent) {
-    goto(`/wallet?tab=transactions&page=${event.detail.value}`);
+    goto(`/u/wallet?tab=transactions&page=${event.detail.value}`);
   }
 
   $: p = +$page.query.get(`page`) || 1;
