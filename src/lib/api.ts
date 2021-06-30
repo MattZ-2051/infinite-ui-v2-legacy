@@ -34,7 +34,7 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
   return (f || fetch)(url, options).then((r) => {
     const { status, statusText } = r;
     if (status < 200 || status > 299) {
-      throw new Error(statusText);
+      throw new Error(`${statusText} [${url}]`);
     }
     return r;
   });

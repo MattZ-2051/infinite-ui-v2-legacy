@@ -111,7 +111,7 @@ describe('API', () => {
     it('throw based on response status', async () => {
       mockFetch.mockReturnValueOnce(Promise.resolve({ status: 404, statusText: 'Not found!' }));
       expect.assertions(1);
-      await expect(send('my/path', { fetch: mockFetch })).rejects.toEqual(new Error('Not found!'));
+      await expect(send('my/path', { fetch: mockFetch })).rejects.toEqual(new Error('Not found! [http://api/my/path]'));
     });
   });
 
