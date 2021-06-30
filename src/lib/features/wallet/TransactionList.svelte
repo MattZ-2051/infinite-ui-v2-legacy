@@ -2,7 +2,7 @@
   import type { Transaction } from '$lib/sku-item/types';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
-  import Pagination from '$ui/pagination/Pagination.svelte';
+  import { Pagination } from '$ui/pagination';
   import TransactionItem from './TransactionItem.svelte';
 
   export let transactions: Transaction[] = [];

@@ -4,7 +4,7 @@
   import { goto } from '$app/navigation';
   import { SkuItemGrid } from '$lib/sku-item';
   import filters from '$static/filters.svg';
-  import Pagination from '$ui/pagination/Pagination.svelte';
+  import { Pagination } from '$ui/pagination';
   import { handleQueryParameter } from '$util/queryParameter';
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';

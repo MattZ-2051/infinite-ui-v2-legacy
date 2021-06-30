@@ -5,7 +5,7 @@
   import { goto } from '$app/navigation';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import Pagination from '$ui/pagination/Pagination.svelte';
+  import { Pagination, PaginationVariantDark } from '$ui/pagination';
   import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
   import { handleQueryParameter } from '$util/queryParameter';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
@@ -136,7 +136,9 @@
       </div>
     </a>
   {/each}
-  <Pagination {page} {total} {perPage} class="flex justify-end mt-5" on:change={gotoPage} />
+  <PaginationVariantDark>
+    <Pagination {page} {total} {perPage} class="flex justify-end mt-5" on:change={gotoPage} />
+  </PaginationVariantDark>
 </div>
 
 <style>

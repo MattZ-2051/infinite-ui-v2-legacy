@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Bid } from '$lib/sku-item/types';
   import { page } from '$app/stores';
-  import Pagination from '$ui/pagination/Pagination.svelte';
+  import { Pagination } from '$ui/pagination';
   import { goto } from '$app/navigation';
   import BidItem from './BidItem.svelte';
 
