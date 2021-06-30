@@ -6,16 +6,25 @@
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import History from './ProductHistory.svelte';
   import CreateSaleModal from './CreateSaleModal.svelte';
+  import CancelSaleModal from './CancelSaleModal.svelte';
 
   export let product: Product;
   export let transactions: Transaction[];
   let showCreateSale = false;
+  let showCancelSale = false;
 
   $: canSale =
     $user &&
     $user._id === product.owner._id &&
     product.activeProductListings.length === 0 &&
     product.upcomingProductListings.length === 0;
+
+  $: canCancelSale =
+    $user &&
+    $user._id === product.owner._id &&
+    product.activeProductListings?.length !== 0 &&
+    product.upcomingProductListings?.length === 0 &&
+    product.activeProductListings[0].saleType !== 'auction';
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
@@ -53,6 +62,18 @@
         >Create Sale
       </button>
       <CreateSaleModal bind:show={showCreateSale} {product} />
+    {/if}
+    {#if canCancelSale}
+      <button
+        on:click={() => (showCancelSale = true)}
+        class="rounded-3xl bg-black text-gray-400 font-black px-2 justify-self-end"
+        >Cancel Sale
+      </button>
+      <CancelSaleModal
+        bind:show={showCancelSale}
+        listingId={product?.activeProductListings[0]?._id}
+        productId={product._id}
+      />
     {/if}
   </div>
 </div>
