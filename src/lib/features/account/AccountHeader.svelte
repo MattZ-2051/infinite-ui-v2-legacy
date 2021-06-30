@@ -35,8 +35,8 @@
     </div>
     <span class="info italic font-black mb-5 text-center">{profile.tagline}</span>
     <div class="py-3 px-5 divide-x-2 bg-black bg-opacity-70 rounded-full text-white">
-      <a href="/account/settings" class="pr-3">Account settings</a>
-      <a href="/wallet" class="pl-4" style="border-color: #4f4f4f">My wallet</a>
+      <a href="/u/account/settings" class="pr-3">Account settings</a>
+      <a href="/u/wallet" class="pl-4" style="border-color: #4f4f4f">My wallet</a>
     </div>
   </div>
 {/if}

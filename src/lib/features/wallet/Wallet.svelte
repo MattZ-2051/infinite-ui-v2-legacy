@@ -19,7 +19,7 @@
   let selectedDepositMethod: string;
   function onDepositSelect({ detail: { id } }: CustomEvent) {
     if (id === 'circle') {
-      goto('/wallet/deposit');
+      goto('/u/wallet/deposit');
       return;
     }
 

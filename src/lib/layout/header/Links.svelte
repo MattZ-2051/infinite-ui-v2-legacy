@@ -17,16 +17,13 @@
 
   <button
     class="flex focus:outline-none"
-    class:active={$page.path === '/account'}
+    class:active={$page.path === '/u/account'}
     on:click={() => (showAccountMenu = !showAccountMenu)}
     bind:this={accountMenuTrigger}
     ><Icon path={mdiAccountCircleOutline} class="mr-1" /> {$user.username}
   </button>
 {:else}
-  <button
-    class="flex focus:outline-none"
-    on:click={async () => await login(`${window.location.origin}/authorize`)}
-    disabled={$isLoading}
+  <button class="flex focus:outline-none" on:click={async () => await login()} disabled={$isLoading}
     ><Icon path={mdiLogin} class="mr-1" /> Log in
   </button>
 {/if}

@@ -17,6 +17,7 @@
       status: 200,
       props: {
         url,
+        returnUrl: query.get('returnUrl'),
       },
     };
   }
@@ -29,13 +30,14 @@
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
 
   export let url: string;
+  export let returnUrl: string;
 
   if (browser) {
     (async () => {
       if (url) {
         await handleRedirectCallback(url);
       }
-      await goto('/');
+      await goto(returnUrl || '/');
     })();
   }
 </script>

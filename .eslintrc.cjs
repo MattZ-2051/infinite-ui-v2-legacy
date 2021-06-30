@@ -15,6 +15,7 @@ module.exports = {
   ignorePatterns: ['*.cjs'],
   rules: {
     eqeqeq: 'error',
+    'no-empty': ['error', { allowEmptyCatch: true }],
     'no-multiple-empty-lines': 'error',
     'no-shadow': 'error',
     'unicorn/prevent-abbreviations': [

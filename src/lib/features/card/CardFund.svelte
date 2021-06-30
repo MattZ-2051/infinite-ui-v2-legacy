@@ -121,7 +121,7 @@
       or
     </div>
     <Button type="button" on:click={() => goto('/marketplace')}>Go to Marketplace</Button>
-    <a href="/wallet" class="text-black text-xl">View Wallet</a>
+    <a href="/u/wallet" class="text-black text-xl">View Wallet</a>
   </div>
 </Modal>
 
@@ -132,6 +132,6 @@
       We couln’t process your payment and the transaction was cancelled.
     </div>
     <Button type="button" on:click={() => (showErrorModal = false)}>Try again</Button>
-    <a href="/wallet" class="text-black text-xl">Select Another Payment Methood</a>
+    <a href="/u/wallet" class="text-black text-xl">Select Another Payment Methood</a>
   </div>
 </Modal>

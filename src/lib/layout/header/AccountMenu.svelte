@@ -14,7 +14,7 @@
 
   function onLogout(path) {
     // TODO: needs configuration at auth0
-    // const redirectPath = path === "/account" ? "/" : path;
+    // const redirectPath = path === "/u/account" ? "/" : path;
 
     logout(`${window.location.origin}`);
   }
@@ -22,10 +22,10 @@
 
 <MenuVariantDark>
   <Menu {trigger} offset={4} position="bottom-end" on:click={() => dispatch('close')} on:close>
-    <MenuItem href="/account" class={$page.path === '/account' ? 'hidden' : ''}>
+    <MenuItem href="/u/account" class={$page.path === '/u/account' ? 'hidden' : ''}>
       <Icon path={mdiAccountCircleOutline} class="flex-shrink-0 float-left mr-3" /> My account
     </MenuItem>
-    <MenuItem href="/wallet" class={$page.path === '/wallet' ? 'hidden' : ''}>
+    <MenuItem href="/u/wallet" class={$page.path === '/u/wallet' ? 'hidden' : ''}>
       <Icon path={mdiCreditCardOutline} class="flex-shrink-0 float-left mr-3" /> My wallet
     </MenuItem>
     <MenuItem on:click={() => onLogout($page.path)}>

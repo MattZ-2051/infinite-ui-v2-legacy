@@ -17,12 +17,12 @@ export async function updateAuth() {
   isAuthenticated.set(authenticated);
 }
 
-export async function login(redirectURI = window.location.origin) {
+export async function login(returnUrl = window.location.pathname) {
   isLoading.set(true);
 
   const client = await getClient();
   await client.loginWithRedirect({
-    redirect_uri: redirectURI,
+    redirect_uri: `${window.location.origin}/authorize?returnUrl=${returnUrl}`,
   });
 }
 
