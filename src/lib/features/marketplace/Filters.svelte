@@ -70,13 +70,15 @@
   }
 
   $: categorySelected = $page.query.get('category') ? $page.query.get('category').split(',') : [];
-  $: categorySelectedObject = categorySelected.map((id) => categories.find((c) => c.id === id));
+  $: categorySelectedObject = categorySelected.map((id) => categories.find((c) => c.id === id)).filter(Boolean);
 
   $: seriesSelected = $page.query.get('series') ? $page.query.get('series').split(',') : [];
-  $: seriesSelectedObject = seriesSelected.map((id) => series.find((c) => c._id === id));
+  $: seriesSelectedObject = seriesSelected.map((id) => series.find((c) => c._id === id)).filter(Boolean);
 
   $: creatorsSelected = $page.query.get('creators') ? $page.query.get('creators').split(',') : [];
-  $: creatorsSelectedObject = creatorsSelected.map((id) => creators.find((c) => c._id === id));
+  $: creatorsSelectedObject = creatorsSelected
+    .map((username) => creators.find((c) => c.username === username))
+    .filter(Boolean);
 
   $: startDateSelected = $page.query.get('startDate');
   $: endDateSelected = $page.query.get('endDate');
@@ -94,7 +96,7 @@
     ...(searchFilter ? [{ type: 'search', label: searchFilter }] : []),
     ...categorySelectedObject.map((v) => ({ type: 'category', label: v.name, id: v.id })),
     ...seriesSelectedObject.map((v) => ({ type: 'series', label: v.name, id: v._id })),
-    ...creatorsSelectedObject.map((v) => ({ type: 'creators', label: v.username, id: v._id })),
+    ...creatorsSelectedObject.map((v) => ({ type: 'creators', label: v.username, id: v.username })),
     ...(priceSelectedObject ? [{ type: 'price', label: priceSelectedObject }] : []),
     ...(dateFilter ? [{ type: 'date', label: dateFilter }] : []),
   ];
@@ -208,7 +210,7 @@
         <Checkbox
           value={creator.username}
           group={creatorsSelected}
-          on:change={(event) => toggle('creators', creator._id, event)}
+          on:change={(event) => toggle('creators', creator.username, event)}
           let:checked
         >
           <span class="font-black italic" class:text-black={checked}>{creator.username}</span>

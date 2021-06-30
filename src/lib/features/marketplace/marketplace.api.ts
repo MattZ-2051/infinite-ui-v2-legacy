@@ -26,7 +26,7 @@ export async function loadMarketplaceItems({
   const status: string = query.get('status');
   const category: string = query.get('category');
   const series: string = query.get('series');
-  const issuerId: string = query.get('creators');
+  const issuerName: string = query.get('creators');
   const minPrice: string = query.get('minPrice');
   const maxPrice: string = query.get('maxPrice');
   const startDate: string = query.get('startDate');
@@ -41,7 +41,7 @@ export async function loadMarketplaceItems({
       ...(status && { status }),
       ...(category && { category }),
       ...(series && { series }),
-      ...(issuerId && { issuerId }),
+      ...(issuerName && { issuerName }),
       ...(minPrice && { minPrice }),
       ...(maxPrice && { maxPrice }),
       ...(startDate && { startDate }),
