@@ -14,7 +14,6 @@
     <span class="flex items-center gap-1">
       {bid.sku.name} | #{bid.listing.product.serialNumber}
       {#if bid.sku.redeemable}
-        <img src="/vector.png" alt="vector" class="w-3 h-3" />
         <IconRedeem size="0.8" class="text-gray-400 p-0.5" />
       {/if}
     </span>
