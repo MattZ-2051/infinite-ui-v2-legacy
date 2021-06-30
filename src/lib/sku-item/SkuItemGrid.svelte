@@ -33,7 +33,7 @@
 
 <div class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 {gridResponsiveClass} {$$props.class}">
   {#if productList.length}
-    {#each productList as item}
+    {#each productList as item (item._id)}
       <SkuItem item={item.sku}>
         <svelte:fragment slot="info">
           <SkuStatusInfo unique={item?.sku?.maxSupply === 1} serialNumber={item.serialNumber} />
@@ -49,7 +49,7 @@
       </SkuItem>
     {/each}
   {:else}
-    {#each information as item}
+    {#each information as item (item._id)}
       <SkuItem {item}>
         <svelte:fragment slot="info">
           <SkuStatusInfo

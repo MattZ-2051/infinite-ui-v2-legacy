@@ -3,10 +3,14 @@
   import IntersectionObserver from 'svelte-intersection-observer';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import Image from '$ui/image/Image.svelte';
+  import ariaLogo from '$static/aria-logo-comp.png?w=300&format=avif;webp;png&metadata';
 
   export let item: Sku;
 
   let videoElement: HTMLVideoElement;
+
+  let showFallbackImage = false;
 </script>
 
 <a sveltekit:prefetch href={`/marketplace/${item._id}`} class="flex flex-col">
@@ -25,16 +29,24 @@
           autoplay
           loop
           muted
-          style="height: 100%; width: 100%; object-fit: cover;"
+          class="w-full h-full object-cover"
         />
       </IntersectionObserver>
+    {:else if !showFallbackImage}
+      <img
+        src={item.graphicUrl}
+        alt=""
+        class="w-full h-full object-cover"
+        on:error={() => (showFallbackImage = true)}
+        loading="lazy"
+      />
     {:else}
-      <img src={item.graphicUrl} alt="" style="height: 100%; width: 100%; object-fit: cover;" />
+      <Image src={ariaLogo} alt="N/A" class="w-full h-full object-contain" />
     {/if}
 
     {#if item.redeemable}
       <div class="absolute top-6 right-4">
-        <IconRedeem size="1.3" class="bg-white rounded-full p-1.5 border" />
+        <IconRedeem size="1.3" class="bg-white text-black rounded-full p-1.5 border" />
       </div>
     {/if}
   </div>
