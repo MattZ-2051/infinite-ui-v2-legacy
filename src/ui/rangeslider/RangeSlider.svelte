@@ -7,4 +7,4 @@
   export let prefix = '$';
 </script>
 
-<RangeSliderPips range bind:values {float} {prefix} {...$$restProps} />
+<RangeSliderPips range bind:values {float} {prefix} {...$$restProps} on:change />

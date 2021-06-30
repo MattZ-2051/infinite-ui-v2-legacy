@@ -2,6 +2,7 @@
   import type { Profile, Series } from '$lib/sku-item/types';
   import { createEventDispatcher } from 'svelte';
   import { mdiChevronDown, mdiWindowClose } from '@mdi/js';
+  import debounce from 'just-debounce';
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
   import RangeSlider from '$ui/rangeslider/RangeSlider.svelte';
@@ -18,11 +19,15 @@
     label: string;
     id: string;
   };
+  let timer;
 
   const removeFilter = (filter: FilterType) => {
     // eslint-disable-next-line unicorn/prefer-switch
     if (filter.type === 'price') {
       sliderInfo = [0, maxPrice];
+      setFilters({
+        params: { minPrice: false, maxPrice: false, page: 1 },
+      });
     } else if (filter.type === 'date') {
       setFilters({
         params: { startDate: false, endDate: false, page: 1 },
@@ -39,7 +44,13 @@
     dispatch('close');
   };
 
+  const onPriceRangeChange = debounce(
+    () => setFilters({ params: { minPrice: sliderInfo[0], maxPrice: sliderInfo[1], page: 1 } }),
+    1000
+  );
+
   function removeAllFilters() {
+    sliderInfo = [0, maxPrice];
     setFilters({
       params: { page: 1, status: $page.query.get('status') },
       reset: true,
@@ -51,8 +62,7 @@
   export let series: Series[];
   export let maxPrice = 5000;
 
-  let sliderInfo: [number, number] = [0, +$page.query.get('maxPrice') || maxPrice];
-
+  let sliderInfo: [number, number] = [+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice];
   function toggle(type: 'category' | 'series' | 'creators', id: string, event: Event) {
     toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
   }
@@ -180,7 +190,7 @@
         <Icon path={mdiChevronDown} color="black" class="justify-self-end transform -rotate-90" />
       </div>
     </div>
-    <RangeSlider min={0} max={maxPrice} bind:values={sliderInfo} />
+    <RangeSlider min={0} max={maxPrice} bind:values={sliderInfo} on:change={onPriceRangeChange} />
     <Accordion title={'Category'}>
       {#each categories as category (category.id)}
         <Checkbox
