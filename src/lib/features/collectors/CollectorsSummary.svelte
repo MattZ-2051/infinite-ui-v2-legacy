@@ -1,4 +1,5 @@
 <script lang="ts">
+  import debounce from 'just-debounce';
   import type { Collector, Sku } from '$lib/sku-item/types';
   import { mdiChevronRight, mdiChevronDown, mdiChevronUp, mdiMagnify } from '@mdi/js';
   import { goto } from '$app/navigation';
@@ -29,9 +30,7 @@
     navigate({ page: +event.detail.value });
   };
 
-  const onInputChange = (event) => {
-    navigate({ search: event.target.value });
-  };
+  const onInputChange = debounce((event) => navigate({ search: event.target.value }), 300);
 
   const onFilterChange = () => {
     navigate({ forSale: !forSale });
@@ -42,7 +41,7 @@
       base: `/collectors/${sku._id}`,
       params: { page: false, ...parameters },
     });
-    goto(url, { noscroll: true });
+    goto(url, { noscroll: true, keepfocus: true });
   }
 </script>
 
@@ -64,8 +63,9 @@
     <div class="flex flex-grow md:w-1/4 input">
       <Icon path={mdiMagnify} color="gray" class="mr-3" />
       <input
+        type="text"
         value={search}
-        on:change={onInputChange}
+        on:input={onInputChange}
         class="search-input text-white border-none placeholder-gray-700 bg-gray-900 w-full outline-none"
         placeholder="*Select an owner to place a bid"
       />
