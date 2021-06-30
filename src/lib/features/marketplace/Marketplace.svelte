@@ -2,6 +2,7 @@
   import type { Sku, Profile, Series } from '$lib/sku-item/types';
   import { page } from '$app/stores';
   import { SkuItemGrid } from '$lib/sku-item';
+  import NoResults from '$lib/components/NoResults.svelte';
   import filters from '$static/filters.svg';
   import { Pagination } from '$ui/pagination';
   import { formatInteger } from '$util/format';
@@ -63,7 +64,11 @@
     <Filters {categories} {creators} {series} {total} on:close={closeFilters} />
   </div>
   <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`} class:opacity-40={$loading}>
-    <SkuItemGrid {skus} maxCols={3} />
-    <Pagination page={p} {total} perPage={6} class="flex justify-end" on:change={gotoPage} />
+    {#if !$loading && skus.length === 0}
+      <NoResults class="mt-4 md:mt-12 text-gray-400" />
+    {:else}
+      <SkuItemGrid {skus} maxCols={3} />
+      <Pagination page={p} {total} perPage={6} class="flex justify-end" on:change={gotoPage} />
+    {/if}
   </div>
 </div>
