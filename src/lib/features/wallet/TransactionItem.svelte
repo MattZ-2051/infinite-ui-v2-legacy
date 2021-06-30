@@ -92,7 +92,7 @@
           {/if}
         </span>
         <div class="flex justify-between gap-x-3">
-          <span class="message-color font-extrabold italic">{formatDate(transaction.createdAt, 'MMMM do, yyyy ')}</span>
+          <span class="message-color font-extrabold italic">{formatDate(transaction.createdAt, 'MMMM Do, YYYY ')}</span>
           <span
             class="whitespace-nowrap flex items-center {type === 'purchase' && status === 'success'
               ? 'withdraw-color'

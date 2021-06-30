@@ -19,7 +19,7 @@
   "dependencies": {
     "@felte/validator-yup": "^0.2.5",
     "@mdi/js": "^5.9.55",
-    "date-fns": "^2.22.1",
+    "dayjs": "^1.10.5",
     "felte": "^0.7.4",
     "flatpickr": "^4.6.9",
     "just-debounce": "^1.1.0",

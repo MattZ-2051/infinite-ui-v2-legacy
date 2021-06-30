@@ -2,7 +2,7 @@
   import { formatDate } from '$util/format';
 
   export let value: Date | string;
-  export let format = "MMMM do, yyyy 'at' hh:mm a";
+  export let format: string = undefined;
 
   $: date = formatDate(value, format);
 </script>

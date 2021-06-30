@@ -18,7 +18,7 @@ specifiers:
   autoprefixer: ^10.2.5
   clsx: ^1.1.1
   cssnano: ^5.0.1
-  date-fns: ^2.22.1
+  dayjs: ^1.10.5
   eslint: ^7.22.0
   eslint-config-prettier: ^8.1.0
   eslint-plugin-import: ^2.23.4
@@ -54,7 +54,7 @@ specifiers:
 dependencies:
   '@felte/validator-yup': 0.2.5_yup@0.32.9
   '@mdi/js': 5.9.55
-  date-fns: 2.22.1
+  dayjs: 1.10.5
   felte: 0.7.4_svelte@3.38.2
   flatpickr: 4.6.9
   just-debounce: 1.1.0
@@ -2490,9 +2490,8 @@ packages:
       whatwg-url: 8.5.0
     dev: true
 
-  /date-fns/2.22.1:
-    resolution: {integrity: sha512-yUFPQjrxEmIsMqlHhAhmxkuH769baF21Kk+nZwZGyrMoyLA+LugaQtC0+Tqf9CBUUULWwUJt6Q5ySI3LJDDCGg==}
-    engines: {node: '>=0.11'}
+  /dayjs/1.10.5:
+    resolution: {integrity: sha512-BUFis41ikLz+65iH6LHQCDm4YPMj5r1YFLdupPIyM4SGcXMmtiLQ7U37i+hGS8urIuqe7I/ou3IS1jVc4nbN4g==}
     dev: false
 
   /debug/2.6.9:
