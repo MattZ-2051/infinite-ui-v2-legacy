@@ -19,7 +19,6 @@
     label: string;
     id: string;
   };
-  let timer;
 
   const removeFilter = (filter: FilterType) => {
     // eslint-disable-next-line unicorn/prefer-switch

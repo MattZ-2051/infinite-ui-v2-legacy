@@ -20,7 +20,7 @@
     shippingNotes: yup.string(),
   });
 
-  let saving: Promise<any>;
+  let saving: Promise<unknown>;
   export let id: string;
   const dispatch = createEventDispatcher();
 
