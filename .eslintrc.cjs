@@ -18,6 +18,7 @@ module.exports = {
     'no-empty': ['error', { allowEmptyCatch: true }],
     'no-multiple-empty-lines': 'error',
     'no-shadow': 'error',
+    'unicorn/no-useless-undefined': ['error', { checkArguments: false }],
     'unicorn/prevent-abbreviations': [
       'error',
       {

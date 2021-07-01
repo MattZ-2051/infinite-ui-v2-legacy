@@ -9,20 +9,19 @@
   import { goto } from '$app/navigation';
   import { user } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
-  import Modal from '$ui/modal/Modal.svelte';
+  import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import Image from '$ui/image/Image.svelte';
   import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
   import Button from '$lib/components/Button.svelte';
   import CardFormInput from './CardFormInput.svelte';
   import { addCreditCardFunds, deleteCreditCard } from './card.api';
+  import CardFundResult from './CardFundResult.svelte';
 
   export let card: CreditCard;
 
   let saving: Promise<unknown>;
   let removing: Promise<unknown>;
-  let showSuccessModal = false;
-  let showErrorModal = false;
 
   const schema = yup.object({
     amount: yup.number().min(0).required('Amount is required.'),
@@ -33,13 +32,15 @@
       amount: '0',
     },
     onSubmit: async ({ amount }) => {
+      let status: 'success' | 'error';
       try {
         await (saving = addCreditCardFunds(card.id, { amount, email: $user.email }));
-        showSuccessModal = true;
+        status = 'success';
         reset();
       } catch {
-        showErrorModal = true;
+        status = 'error';
       } finally {
+        openModal(CardFundResult, { status });
         saving = undefined;
       }
     },
@@ -112,26 +113,3 @@
     </form>
   </div>
 </div>
-
-<Modal bind:open={showSuccessModal}>
-  <div class="flex flex-col justify-center items-center gap-4 mt-2 text-base max-w-sm text-center py-4">
-    <div class="text-2xl text-black">🤘 Yeah! Funds added.</div>
-    <div class="text-gray-500 font-extrabold italic text-base">
-      Check your open tabs to refresh your previous screen to see your added funds.<br />
-      or
-    </div>
-    <Button type="button" on:click={() => goto('/marketplace')}>Go to Marketplace</Button>
-    <a href="/u/wallet" class="text-black text-xl">View Wallet</a>
-  </div>
-</Modal>
-
-<Modal bind:open={showErrorModal}>
-  <div class="flex flex-col justify-center items-center gap-4 mt-2 text-base max-w-sm text-center py-4">
-    <div class="text-2xl text-black">⚠️ Whoops, something went wrong.</div>
-    <div class="text-gray-500 font-extrabold italic text-base">
-      We couln’t process your payment and the transaction was cancelled.
-    </div>
-    <Button type="button" on:click={() => (showErrorModal = false)}>Try again</Button>
-    <a href="/u/wallet" class="text-black text-xl">Select Another Payment Methood</a>
-  </div>
-</Modal>

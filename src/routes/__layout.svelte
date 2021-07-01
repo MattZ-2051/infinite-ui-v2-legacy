@@ -6,6 +6,7 @@
   import Header from '$lib/layout/header/Header.svelte';
   import Footer from '$lib/layout/footer/Footer.svelte';
   import { ToastContainer } from '$ui/toast';
+  import { Modals } from '$ui/modals';
 
   import '../app.css';
 
@@ -30,3 +31,5 @@
   </main>
   <Footer />
 </div>
+
+<Modals />

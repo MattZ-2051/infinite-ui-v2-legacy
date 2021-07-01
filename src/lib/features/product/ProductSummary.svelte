@@ -2,6 +2,7 @@
   import type { Transaction, Product } from '$lib/sku-item/types';
   import TabsVariantDark from '$ui/tabs/variants/TabsVariantDark.svelte';
   import { Tabs, Tab } from '$ui/tabs';
+  import { openModal } from '$ui/modals';
   import { user } from '$lib/user';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import History from './ProductHistory.svelte';
@@ -11,9 +12,6 @@
 
   export let product: Product;
   export let transactions: Transaction[];
-  let showCreateSale = false;
-  let showCancelSale = false;
-  let showRedeemModal = false;
 
   $: canSale =
     $user &&
@@ -67,34 +65,25 @@
     </div>
     {#if canSale}
       <button
-        on:click={() => (showCreateSale = true)}
+        on:click={() => openModal(CreateSaleModal, { product })}
         class="rounded-3xl bg-black text-gray-400 font-black px-2 justify-self-end"
         >Create Sale
       </button>
-      <CreateSaleModal bind:show={showCreateSale} {product} />
     {/if}
     {#if canCancelSale}
       <button
-        on:click={() => (showCancelSale = true)}
+        on:click={() =>
+          openModal(CancelSaleModal, { listingId: product?.activeProductListings[0]?._id, productId: product._id })}
         class="rounded-3xl bg-black text-gray-400 font-black px-2 justify-self-end"
         >Cancel Sale
       </button>
-      <CancelSaleModal
-        bind:show={showCancelSale}
-        listingId={product?.activeProductListings[0]?._id}
-        productId={product._id}
-      />
     {/if}
   </div>
   <div class="flex justify-end">
     {#if canRedeem}
-      <button
-        class="rounded-full border-white border-2 p-2"
-        on:click={() => {
-          showRedeemModal = true;
-        }}>REDEEM</button
+      <button class="rounded-full border-white border-2 p-2" on:click={() => openModal(RedeemModal, { product })}
+        >REDEEM</button
       >
-      <RedeemModal bind:show={showRedeemModal} {product} />
     {/if}
   </div>
 </div>

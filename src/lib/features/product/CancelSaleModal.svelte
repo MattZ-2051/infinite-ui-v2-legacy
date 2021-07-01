@@ -1,13 +1,13 @@
 <script lang="ts">
   import { mdiCloseThick } from '@mdi/js';
   import { toast } from '$ui/toast';
-  import Modal from '$ui/modal/Modal.svelte';
+  import { closeModal, Modal } from '$ui/modals';
   import { goto } from '$app/navigation';
   import Icon from '$ui/icon/Icon.svelte';
   import Button from '$lib/components/Button.svelte';
   import { cancelSale } from './product.api';
 
-  export let show: boolean;
+  export let isOpen: boolean;
   export let listingId: string;
   export let productId: string;
   let disabled = false;
@@ -16,9 +16,9 @@
     try {
       disabled = true;
       await cancelSale({ id: listingId });
-      goto(`/product/${productId}`);
-      show = false;
       toast.success('Listing successfully cancelled.');
+      closeModal();
+      goto(`/product/${productId}`);
     } catch {
       toast.danger('Whoops, something went wrong - please try again.');
     } finally {
@@ -27,17 +27,18 @@
   }
 </script>
 
-<Modal title="List your NFTs for sale" bind:open={show}>
-  <div class="flex items-center gap-2 justify-center" slot="title">
-    <Icon path={mdiCloseThick} color="red" />
-    <span>Cancel Sale?</span>
-  </div>
-  <div class="flex flex-col w-80 border-t border-gray-200 justify-evenly gap-5 text-center">
-    <span class="text-sm text-gray-500 py-5">
-      By confirming this action you will remove this item from the marketplace and will not be available for other users
-      to buy.
-    </span>
-    <Button {disabled} on:click={submit}>Yes</Button>
-    <Button on:click={() => (show = false)}>Go Back</Button>
-  </div>
-</Modal>
+{#if isOpen}
+  <Modal title="Cancel Sale?" on:close={closeModal}>
+    <Icon path={mdiCloseThick} color="red" slot="icon" />
+    <div class="flex flex-col w-80 border-t border-gray-200 justify-evenly gap-5 text-center px-10 py-6">
+      <span class="text-sm text-gray-500">
+        By confirming this action you will remove this item from the marketplace and will not be available for other
+        users to buy.
+      </span>
+      <div class="flex flex-col gap-4 px-2">
+        <Button {disabled} on:click={submit}>Yes</Button>
+        <Button on:click={closeModal}>Go Back</Button>
+      </div>
+    </div>
+  </Modal>
+{/if}

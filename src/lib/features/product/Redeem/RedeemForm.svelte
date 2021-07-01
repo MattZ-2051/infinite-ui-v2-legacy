@@ -43,27 +43,25 @@
   setContext('errors', errors);
 </script>
 
-<div class="container flex flex-col gap-2 items-center">
-  <div class="w-80">
-    <div class="flex items-center gap-2 text-xl border-b-2 border-black pb-3">Shipping Information</div>
-    <form use:form class="mt-2 flex flex-col gap-3">
-      <CardFormInput name="addressLine1" label="Address Line 1" />
-      <CardFormInput name="addressLine2" label="Address Line 2" />
-      <CardFormInput name="postalCode" label="Postal Code" />
-      <CardFormInput name="city" label="City" />
-      <CardFormCountriesSelect name="country" label="Country" />
-      <CardFormInput name="district" label="State/Province" />
-      <CardFormInput name="shippingNotes" label="Shipping Notes" />
+<div class="flex flex-col gap-2">
+  <div class="flex gap-2 text-xl border-b-2 border-black pb-3 w-full">Shipping Information</div>
+  <form use:form class="mt-2 flex flex-col gap-3">
+    <CardFormInput name="addressLine1" label="Address Line 1" />
+    <CardFormInput name="addressLine2" label="Address Line 2" />
+    <CardFormInput name="postalCode" label="Postal Code" />
+    <CardFormInput name="city" label="City" />
+    <CardFormCountriesSelect name="country" label="Country" />
+    <CardFormInput name="district" label="State/Province" />
+    <CardFormInput name="shippingNotes" label="Shipping Notes" />
 
-      <div style="font-size:12px; line-height:19.2px;" class="gray-text flex flex-col items-center">
-        <span>Redeem this item and receive a copy on the following</span>
-        <span>address.</span>
-        <span>Keep in mind that,by confirming this action,the digital</span>
-        <span>and physical versions may suffer a price decrease.</span>
-      </div>
-      <Button type="submit" disabled={!!saving}>Redeem Now</Button>
-    </form>
-  </div>
+    <div style="font-size:12px; line-height:19.2px;" class="gray-text flex flex-col items-center">
+      <span>Redeem this item and receive a copy on the following</span>
+      <span>address.</span>
+      <span>Keep in mind that,by confirming this action,the digital</span>
+      <span>and physical versions may suffer a price decrease.</span>
+    </div>
+    <Button type="submit" disabled={!!saving} class="mt-2">Redeem Now</Button>
+  </form>
 </div>
 
 <style>

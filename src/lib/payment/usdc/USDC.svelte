@@ -3,7 +3,7 @@
 
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';
   import { get as getStoreValue, writable } from 'svelte/store';
-  import Modal from '$ui/modal/Modal.svelte';
+  import { Modal, closeModal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import { variables } from '$lib/variables';
@@ -33,6 +33,7 @@
   function resetState() {
     if (txLinkUnsubscriber) {
       txLinkUnsubscriber();
+      txLinkUnsubscriber = undefined;
     }
 
     const timeout: ReturnType<typeof setTimeout> = getStoreValue(pollingTimeoutStore);
@@ -45,8 +46,8 @@
   }
 
   function onClose() {
+    closeModal();
     resetState();
-
     dispatch('close');
   }
 
@@ -54,46 +55,50 @@
     resetState();
   });
 
-  export let open: boolean;
+  export let isOpen: boolean;
 </script>
 
-<Modal bind:open on:close={onClose}>
-  <p slot="title" class="font-medium text-3xl">USDC Deposit</p>
-  <p>Funds sent to the following address will be credited to your wallet:</p>
-  {#if $address}
-    <div class="mt-8 text-center">
-      <input
-        type="text"
-        disabled
-        value={$address}
-        class="border-b-2 border-dotted bg-transparent outline-none focus:outline-none w-96"
-      />
-      <div class="mt-4 text-xs max-w-xs mx-auto">
-        This is a USDC (Ethereum mainnet) address. Please do not send any other currencies to this address, it accepts
-        USDC only. Funds sent to this address will be automatically credited to your account.
-      </div>
-      {#if txLink}
-        <div class="mx-auto mt-8 max-w-xs">
-          <p class="font-medium">Success!</p>
-          <a href={`${txUrl}/${txLink}`}>{txLink}</a>
+{#if isOpen}
+  <Modal title="USDC Deposit" on:close={onClose}>
+    <p slot="title" class="font-medium text-3xl text-center px-8 py-6">USDC Deposit</p>
+    <div class="p-10">
+      <p>Funds sent to the following address will be credited to your wallet:</p>
+      {#if $address}
+        <div class="mt-8 text-center">
+          <input
+            type="text"
+            disabled
+            value={$address}
+            class="border-b-2 border-dotted bg-transparent outline-none focus:outline-none w-96"
+          />
           <div class="mt-4 text-xs max-w-xs mx-auto">
-            Your deposit has been received. It will take a moment for it to show up in your transaction history.
+            This is a USDC (Ethereum mainnet) address. Please do not send any other currencies to this address, it
+            accepts USDC only. Funds sent to this address will be automatically credited to your account.
           </div>
+          {#if txLink}
+            <div class="mx-auto mt-8 max-w-xs">
+              <p class="font-medium">Success!</p>
+              <a href={`${txUrl}/${txLink}`}>{txLink}</a>
+              <div class="mt-4 text-xs max-w-xs mx-auto">
+                Your deposit has been received. It will take a moment for it to show up in your transaction history.
+              </div>
+            </div>
+          {:else}
+            <DualRingLoader class="mt-4" />
+          {/if}
         </div>
       {:else}
-        <DualRingLoader class="mt-4" />
+        <div class="flex flex-col items-center my-12">
+          <div class="inline-block">
+            <Button disabled={false} class="focus:outline-none" on:click={onGenerateUSDCAddress}>
+              Generate USDC Address
+            </Button>
+          </div>
+        </div>
       {/if}
     </div>
-  {:else}
-    <div class="flex flex-col items-center mt-8">
-      <div class="inline-block">
-        <Button disabled={false} class="focus:outline-none" on:click={onGenerateUSDCAddress}>
-          Generate USDC Address
-        </Button>
-      </div>
-    </div>
-  {/if}
-</Modal>
+  </Modal>
+{/if}
 
 <style>
   input {
