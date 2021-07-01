@@ -3,22 +3,17 @@
   import CollectorItem from './CollectorItem.svelte';
 
   export let collectors: Collector[];
-  export let max = 4;
   export let skuId: string;
-
-  $: collectorList = max > 0 ? (collectors || []).slice(0, max) : collectors || [];
 </script>
 
 <div class="flex flex-col pt-5 gap-4">
-  {#if collectorList.length === 0}
+  {#if collectors.length === 0}
     <span class="text-gray-400 self-center">No one owns this item yet</span>
     <div class="w-full border-b border-gray-100" />
   {:else}
-    {#each collectorList as collector}
+    {#each collectors as collector}
       <CollectorItem {collector} />
     {/each}
-    {#if collectors.length > max}
-      <a href="/collectors/{skuId}" class="self-center text-lg mt-2">View all collectors</a>
-    {/if}
+    <a href="/collectors/{skuId}" class="self-center text-lg mt-2">View all collectors</a>
   {/if}
 </div>

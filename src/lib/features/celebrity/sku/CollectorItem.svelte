@@ -14,7 +14,14 @@
 
 <a href={`/product/${collector._id}`} class="flex justify-between">
   <div class="flex gap-6">
-    <img src={avatar} alt="Collectors avatar" />
+    <img
+      src={collector?.owner?.profilePhotoUrl || avatar}
+      alt="Collectors avatar"
+      on:error={() => {
+        collector.owner.profilePhotoUrl = undefined;
+      }}
+      loading="lazy"
+    />
     <div>
       <div>
         #{collector.serialNumber}

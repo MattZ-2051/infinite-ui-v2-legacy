@@ -13,6 +13,7 @@
 
   export let sku: Sku;
   export let collectors: Collector[];
+  export let totalCollectors: number;
   export let related: Sku[];
   $: relatedList = related.filter((item) => item._id !== sku._id);
 </script>
@@ -35,9 +36,8 @@
         <div class="text-5xl mt-4">{sku.name}</div>
 
         <div class="mt-12 ">
-          <div>{sku?.series?.name}</div>
+          <div>{sku?.series?.name || ''}</div>
           <div class="text-gray-400 mt-4 flex gap-2">
-            <span>SKU: <span class="text-white">331KJE</span></span> <span>/</span>
             <span>{getSupplyInfo(sku)}</span>
           </div>
         </div>
@@ -54,35 +54,39 @@
         <div class="mt-4 description text-gray-400">
           {@html sku?.description}
         </div>
-      </Accordion>
-      <div class="flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm">
-        <div class="flex items-center ">
-          <div class="inline-block bg-black rounded-2xl p-2 mr-4">
-            <img src={hedera} alt="Hedera" class="align-middle" />
+        <div class="flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm">
+          <div class="flex items-center ">
+            <div class="inline-block bg-black rounded-2xl p-2 mr-4">
+              <img src={hedera} alt="Hedera" class="align-middle" />
+            </div>
+            <span>INFINITE NFTs are minted on the Hedera Hashgraph</span>
           </div>
-          <span>INFINITE NFTs are minted on the Hedera Hashgraph</span>
+          <a class="" href="https://support.suku.world/infinite/hedera-hashgraph-hts">Learn more</a>
         </div>
-        <a class="" href="https://support.suku.world/infinite/hedera-hashgraph-hts">Learn more</a>
-      </div>
+      </Accordion>
     </div>
     <div>
-      <Accordion title={'Collector Auctions'} open={true} collapsible={!$media.md}>
+      <Accordion open={true} collapsible={!$media.md}>
+        <div slot="title" class="flex gap-4 items-end">
+          <span>Collector Auctions</span><span class="text-gray-400 text-xl">{totalCollectors} Total</span>
+        </div>
         <Collectors {collectors} skuId={sku._id} />
       </Accordion>
     </div>
   </div>
 </div>
 
-<div class="mt-8">
-  <div class="container">
-    <Tabs class="text-xl md:text-2xl lg:text-2xl font-light" itemClass={'pb-4 md:pb-8'}>
-      <Tab title="Latest Releases">
-        <SkuItemGrid class="mt-4" max={4} skus={relatedList} />
-      </Tab>
-      <div slot="extra" class="text-lg">View all</div>
-    </Tabs>
+{#if relatedList.length > 0}
+  <div class="mt-8">
+    <div class="container">
+      <Tabs class="text-xl md:text-2xl lg:text-2xl font-light" itemClass={'pb-4 md:pb-8'}>
+        <Tab title="Related Releases">
+          <SkuItemGrid class="mt-4" skus={relatedList} />
+        </Tab>
+      </Tabs>
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   .description :global(h3) {

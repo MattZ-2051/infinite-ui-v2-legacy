@@ -16,7 +16,8 @@
 
   export let sku: Sku;
   export let collectors: Collector[];
+  export let totalCollectors: number;
   export let related: Sku[];
 </script>
 
-<CelebritySku {sku} {collectors} {related} />
+<CelebritySku {sku} {collectors} {totalCollectors} {related} />

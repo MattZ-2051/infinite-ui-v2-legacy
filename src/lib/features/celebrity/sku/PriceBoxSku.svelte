@@ -60,7 +60,7 @@
         </div>
         <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
           <a
-            href="/"
+            href="/collectors/{sku._id}"
             class="w-full max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3"
           >
             See All
