@@ -52,7 +52,7 @@
     try {
       await (removing = deleteCreditCard(card.id));
       toast.success('Card was removed successfully.');
-      goto(`/wallet`);
+      goto(`/u/wallet`);
     } catch {
       toast.danger(`There was a problem removing your card ending on ${card.last4}.`);
     } finally {
