@@ -72,6 +72,7 @@ export type Profile = {
   descriptionBody: string;
   footerPhotoUrl: string;
   tagline: string;
+  showNotifyMe?: boolean;
 };
 
 export type Listing = {

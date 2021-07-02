@@ -4,6 +4,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import Gallery from '$ui/gallery/Gallery.svelte';
+  import NotifyButton from '$lib/notify/NotifyButton.svelte';
 
   export let sku: Sku;
 </script>
@@ -37,8 +38,7 @@
           </a>
         </div>
         <span>/</span>
-        <span class="text-black font-black">Be notified</span>
-        <div class="toggle relative self-end w-8 h-4 bg-gray-400 rounded-lg cursor-pointer" />
+        <NotifyButton profile={sku.issuer} />
       </div>
     </div>
     <a class="flex-grow flex justify-items-start my-5 text-lg" href="/marketplace">

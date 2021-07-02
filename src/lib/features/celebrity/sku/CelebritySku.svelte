@@ -4,6 +4,7 @@
   import { Tabs, Tab } from '$ui/tabs';
   import Accordion from '$ui/accordion/Accordion.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
+  import NotifyButton from '$lib/notify/NotifyButton.svelte';
   import { media } from '$lib/media-query.store';
   import Gallery from '$ui/gallery/Gallery.svelte';
   import hedera from '$static/hedera.svg';
@@ -41,6 +42,15 @@
             <span>{getSupplyInfo(sku)}</span>
           </div>
         </div>
+      </div>
+      <div class="flex items-center gap-1 text-white">
+        <span class="gray-text">Created by</span><span
+          >@<a href="/collection/{sku.issuer.username}">{sku.issuer.username}</a></span
+        >
+        {#if sku.issuer.showNotifyMe}
+          <span>/</span>
+          <NotifyButton profile={sku.issuer} />
+        {/if}
       </div>
       <PriceBoxSku {sku} />
     </div>
@@ -104,5 +114,8 @@
   .description :global(a) {
     @apply underline;
     @apply text-black;
+  }
+  .gray-text {
+    color: #9e9e9e;
   }
 </style>
