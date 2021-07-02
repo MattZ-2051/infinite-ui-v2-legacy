@@ -14,6 +14,7 @@
   import Image from '$ui/image/Image.svelte';
   import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
   import Button from '$lib/components/Button.svelte';
+  import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import CardFormInput from './CardFormInput.svelte';
   import { addCreditCardFunds, deleteCreditCard } from './card.api';
   import CardFundResult from './CardFundResult.svelte';
@@ -96,7 +97,12 @@
       >
       <button
         type="button"
-        on:click={removeCard}
+        on:click={() =>
+          openModal(ConfirmModal, {
+            title: 'Remove Credit Card?',
+            message: `You are going to delete card ending ${card.last4}.`,
+            onConfirm: removeCard,
+          })}
         disabled={!!removing}
         class="text-sm font-extrabold italic text-gray-500 hover:text-black">Remove card</button
       >
