@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { mdiAlertDecagram } from '@mdi/js';
   import { Modal, closeModal } from '$ui/modals';
-  import Icon from '$ui/icon/Icon.svelte';
   import Button from './Button.svelte';
 
   export let isOpen: boolean;

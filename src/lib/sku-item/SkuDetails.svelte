@@ -47,16 +47,3 @@
     </a>
   </div>
 </div>
-
-<style>
-  .toggle::before {
-    content: '';
-    @apply absolute;
-    @apply top-1;
-    @apply left-1;
-    @apply w-2;
-    @apply h-2;
-    @apply rounded-full;
-    @apply bg-white;
-  }
-</style>
