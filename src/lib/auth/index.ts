@@ -6,15 +6,20 @@ export const isLoading = writable<boolean>(true);
 export const authToken = writable<string>(<string>undefined);
 
 export async function updateAuth() {
-  isLoading.set(true);
+  try {
+    isLoading.set(true);
+    const client = await getClient();
+    const authenticated = await client.isAuthenticated();
+    const _authToken = authenticated ? await getAuthToken() : undefined;
 
-  const client = await getClient();
-  const authenticated = await client.isAuthenticated();
-  const _authToken = authenticated ? await getAuthToken() : undefined;
-
-  isLoading.set(false);
-  authToken.set(_authToken);
-  isAuthenticated.set(authenticated);
+    authToken.set(_authToken);
+    isAuthenticated.set(authenticated);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Error updating authorization: ${error}`);
+  } finally {
+    isLoading.set(false);
+  }
 }
 
 export async function login(returnUrl = window.location.pathname) {
