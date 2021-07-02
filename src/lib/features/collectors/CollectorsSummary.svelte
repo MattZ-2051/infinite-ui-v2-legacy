@@ -9,6 +9,7 @@
   import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
   import { handleQueryParameter } from '$util/queryParameter';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import Breadcrumbs from '$ui/breadcrumbs/Breadcrumbs.svelte';
 
   export let sku: Sku;
   export let collectors: Collector[];
@@ -43,17 +44,22 @@
     });
     goto(url, { noscroll: true, keepfocus: true });
   }
+
+  const items = [
+    { text: 'Marketplace', href: '/marketplace', limit: 600 },
+    { text: sku.name, href: `/marketplace/${sku._id}` },
+    { text: 'Collectors', class: 'text-gray-500' },
+  ];
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
-  <div class="font-black italic">
-    <a class="lg:hidden" href="/marketplace">...</a>
-    <a class="hidden lg:inline" href="/marketplace">Marketplace</a>
-    <span class="mx-2 text-gray-500">/</span>
-    <a sveltekit:prefetch href={`/marketplace/${sku._id}`}>{sku.name}</a>
-    <span class="mx-2 text-gray-500">/</span>
-    <span class="text-gray-500">Collectors</span>
-  </div>
+  <Breadcrumbs
+    {items}
+    class="flex gap-x-3 gap-y-1 font-black italic"
+    itemClass="whitespace-nowrap"
+    dividerClass="text-gray-500"
+  />
+
   <div class="flex flex-wrap gap-7 sm:gap-0">
     <span class="text-5xl">Collectors</span>
   </div>
