@@ -1,16 +1,15 @@
 <script lang="ts">
   import type { Sku, Profile, Series } from '$lib/sku-item/types';
   import { page } from '$app/stores';
-  import { goto } from '$app/navigation';
   import { SkuItemGrid } from '$lib/sku-item';
   import filters from '$static/filters.svg';
   import { Pagination } from '$ui/pagination';
   import { formatInteger } from '$util/format';
-  import { handleQueryParameter } from '$util/queryParameter';
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
+  import Sort from './Sort.svelte';
   import { loading } from './marketplace.api';
-  import { statusFilters } from './marketplace.service';
+  import { statusFilters, setFilters } from './marketplace.service';
 
   export let skus: Sku[];
   export let total: number;
@@ -25,8 +24,12 @@
   };
 
   function gotoPage(event: CustomEvent) {
-    goto(handleQueryParameter({ base: `/marketplace`, params: { page: event.detail.value } }));
+    setFilters({ params: { page: event.detail.value } });
   }
+
+  const sort = (event: CustomEvent) => {
+    setFilters({ params: { sortBy: `${event.detail.value}:${event.detail.order}` } });
+  };
 
   $: p = +$page.query.get('page') || 1;
 </script>
@@ -38,18 +41,23 @@
       <img src={filters} alt="Filters" class="absolute top-2 left-2" />
     </div>
   </div>
-  {#if !showFilters}
-    <div class="flex items-center gap-2 py-3 text-gray-400 cursor-pointer md:hidden">
-      {#each statusFilters as { label, status } (status)}
-        {#if status ? $page.query.get('status') === status : !$page.query.get('status')}
-          <span class="text-black text-2xl">{label}</span>
-          <span class="italic font-black">({formatInteger(total)})</span>
-        {/if}
-      {/each}
+  <div class="flex py-3 md:col-span-3">
+    {#if !showFilters}
+      <div class="flex flex-grow items-center gap-2 text-gray-400 cursor-pointer md:hidden">
+        {#each statusFilters as { label, status } (status)}
+          {#if status ? $page.query.get('status') === status : !$page.query.get('status')}
+            <span class="text-black text-2xl">{label}</span>
+            <span class="italic font-black">({formatInteger(total)})</span>
+          {/if}
+        {/each}
+      </div>
+    {/if}
+    <div class="hidden flex-grow self-center md:col-span-2 md:flex">
+      <Search />
     </div>
-  {/if}
-  <div class="hidden self-center md:col-span-3 md:flex">
-    <Search />
+    <div class="justify-self-end self-center">
+      <Sort on:select={sort} />
+    </div>
   </div>
   <div class={`md:inline ${!showFilters ? 'hidden' : 'inline'}`}>
     <Filters {categories} {creators} {series} {total} on:close={closeFilters} />

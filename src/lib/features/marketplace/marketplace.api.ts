@@ -33,12 +33,13 @@ export async function loadMarketplaceItems({
   const startDate: string = query.get('startDate');
   const endDate: string = query.get('endDate');
   const search: string = query.get('search');
+  const sortBy: string = query.get('sortBy') || 'startDate:1';
   const { data, total } = await getPage<Sku>(`skus/tiles/`, {
     fetch,
     params: {
       page: `${page}`,
       per_page: `6`,
-      sortBy: 'startDate:1',
+      ...{ sortBy },
       ...(status && { status }),
       ...(category && { category }),
       ...(rarity && { rarity }),

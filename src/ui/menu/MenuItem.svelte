@@ -16,6 +16,7 @@
   .menu-item {
     @apply flex-grow font-medium p-2 px-4;
     color: var(--menu-item-color);
+    font-size: var(--menu-item-font-size, 1rem);
   }
 
   .menu-item:hover,
