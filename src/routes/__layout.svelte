@@ -7,6 +7,7 @@
   import Footer from '$lib/layout/footer/Footer.svelte';
   import { ToastContainer } from '$ui/toast';
   import { Modals } from '$ui/modals';
+  import Scrim from '$ui/scrim/Scrim.svelte';
 
   import '../app.css';
 
@@ -32,4 +33,4 @@
   <Footer />
 </div>
 
-<Modals />
+<Modals><Scrim slot="backdrop" /></Modals>

@@ -3,7 +3,6 @@
   import { fly } from 'svelte/transition';
   import { mdiClose } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
-  import Scrim from '$ui/scrim/Scrim.svelte';
 
   export let title = '';
   export let persistent = false;
@@ -50,4 +49,3 @@
     </div>
   </div>
 </div>
-<Scrim />
