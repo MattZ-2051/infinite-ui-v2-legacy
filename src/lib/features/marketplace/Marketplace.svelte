@@ -5,10 +5,12 @@
   import { SkuItemGrid } from '$lib/sku-item';
   import filters from '$static/filters.svg';
   import { Pagination } from '$ui/pagination';
+  import { formatInteger } from '$util/format';
   import { handleQueryParameter } from '$util/queryParameter';
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
   import { loading } from './marketplace.api';
+  import { statusFilters } from './marketplace.service';
 
   export let skus: Sku[];
   export let total: number;
@@ -38,15 +40,19 @@
   </div>
   {#if !showFilters}
     <div class="flex items-center gap-2 py-3 text-gray-400 cursor-pointer md:hidden">
-      <span class="text-black text-2xl">All</span>
-      <span class="italic font-black">(12244)</span>
+      {#each statusFilters as { label, status } (status)}
+        {#if status ? $page.query.get('status') === status : !$page.query.get('status')}
+          <span class="text-black text-2xl">{label}</span>
+          <span class="italic font-black">({formatInteger(total)})</span>
+        {/if}
+      {/each}
     </div>
   {/if}
   <div class="hidden self-center md:col-span-3 md:flex">
     <Search />
   </div>
   <div class={`md:inline ${!showFilters ? 'hidden' : 'inline'}`}>
-    <Filters {categories} {creators} {series} on:close={closeFilters} />
+    <Filters {categories} {creators} {series} {total} on:close={closeFilters} />
   </div>
   <div class={`md:inline md:col-span-3 ${showFilters ? 'hidden' : 'inline'}`} class:opacity-40={$loading}>
     <SkuItemGrid {skus} maxCols={3} />

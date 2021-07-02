@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let rarity: 'legendary' | 'epic' | 'rare' | 'uncommon' | 'common';
+  import type { Rarity } from '$lib/sku-item/types';
+
+  export let rarity: Rarity;
 </script>
 
 <div data-style="container" {...$$restProps}>

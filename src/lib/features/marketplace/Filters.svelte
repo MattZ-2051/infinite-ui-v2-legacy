@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Profile, Series } from '$lib/sku-item/types';
+  import type { Profile, Rarity, Series } from '$lib/sku-item/types';
   import { createEventDispatcher } from 'svelte';
   import { mdiChevronDown, mdiWindowClose } from '@mdi/js';
   import debounce from 'just-debounce';
@@ -9,8 +9,9 @@
   import { datePicker } from '$ui/datepicker/datepicker';
   import { Checkbox } from '$ui/checkbox';
   import Accordion from '$ui/accordion/Accordion.svelte';
+  import { formatDate } from '$util/format';
   import { queryParameter } from '$util/queryParameter';
-  import { setFilters } from './marketplace.service';
+  import { setFilters, statusFilters } from './marketplace.service';
 
   const dispatch = createEventDispatcher();
 
@@ -60,9 +61,17 @@
   export let creators: Profile[];
   export let series: Series[];
   export let maxPrice = 5000;
+  export let total = 0;
+
+  const rarityFilters: { id: Rarity; label: string }[] = [
+    { id: 'legendary', label: 'Legendary' },
+    { id: 'epic', label: 'Epic' },
+    { id: 'rare', label: 'Rare' },
+    { id: 'uncommon', label: 'Uncommon' },
+  ];
 
   let sliderInfo: [number, number] = [+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice];
-  function toggle(type: 'category' | 'series' | 'creators', id: string, event: Event) {
+  function toggle(type: 'category' | 'rarity' | 'series' | 'creators', id: string, event: Event) {
     toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
   }
 
@@ -72,10 +81,26 @@
     });
   }
 
-  function toggleCheckboxFilter(type: 'category' | 'series' | 'creators', id: string, value: boolean) {
+  function toggleCheckboxFilter(type: 'category' | 'rarity' | 'series' | 'creators', id: string, value: boolean) {
     setFilters({
       params: { [`${type}:${id}`]: value, page: 1 },
     });
+  }
+
+  function _formatDate(date: string, format = 'M/DD'): string {
+    return date ? formatDate(date, format) : undefined;
+  }
+
+  function formatDateRange(dateStart, dateEnd) {
+    dateStart = _formatDate(dateStart);
+    dateEnd = _formatDate(dateEnd);
+    if (dateStart && dateEnd) {
+      return `${dateStart} to ${dateEnd}`;
+    } else if (dateStart) {
+      return `from ${dateStart}`;
+    } else if (dateEnd) {
+      return `until ${dateEnd}`;
+    }
   }
 
   $: categorySelected = $page.query.get('category') ? $page.query.get('category').split(',') : [];
@@ -84,6 +109,9 @@
   $: seriesSelected = $page.query.get('series') ? $page.query.get('series').split(',') : [];
   $: seriesSelectedObject = seriesSelected.map((id) => series.find((c) => c._id === id)).filter(Boolean);
 
+  $: raritySelected = $page.query.get('rarity') ? $page.query.get('rarity').split(',') : [];
+  $: raritySelectedObject = raritySelected.map((id) => rarityFilters.find((c) => c.id === id)).filter(Boolean);
+
   $: creatorsSelected = $page.query.get('creators') ? $page.query.get('creators').split(',') : [];
   $: creatorsSelectedObject = creatorsSelected
     .map((username) => creators.find((c) => c.username === username))
@@ -91,19 +119,17 @@
 
   $: startDateSelected = $page.query.get('startDate');
   $: endDateSelected = $page.query.get('endDate');
-  $: dateFilter =
-    startDateSelected || endDateSelected
-      ? [startDateSelected ? `from ${startDateSelected}` : '', endDateSelected ? `to ${endDateSelected}` : ''].join(' ')
-      : undefined;
+  $: dateFilter = formatDateRange(startDateSelected, endDateSelected);
 
   $: priceSelectedObject =
-    sliderInfo[0] > 0 || sliderInfo[1] < maxPrice ? `$${sliderInfo[0]} to ${sliderInfo[1]}` : undefined;
+    sliderInfo[0] > 0 || sliderInfo[1] < maxPrice ? `$${sliderInfo[0]} to $${sliderInfo[1]}` : undefined;
 
   $: searchFilter = $page.query.get('search') || '';
 
   $: filters = <FilterType[]>[
     ...(searchFilter ? [{ type: 'search', label: searchFilter }] : []),
     ...categorySelectedObject.map((v) => ({ type: 'category', label: v.name, id: v.id })),
+    ...raritySelectedObject.map((v) => ({ type: 'rarity', label: v.label, id: v.id })),
     ...seriesSelectedObject.map((v) => ({ type: 'series', label: v.name, id: v._id })),
     ...creatorsSelectedObject.map((v) => ({ type: 'creators', label: v.username, id: v.username })),
     ...(priceSelectedObject ? [{ type: 'price', label: priceSelectedObject }] : []),
@@ -141,7 +167,7 @@
     </div>
   </div>
   <div class="flex flex-col md:order-1">
-    {#each [{ label: 'All', status: '' }, { label: 'Released', status: 'released' }, { label: 'Upcoming', status: 'upcoming' }] as { label, status }}
+    {#each statusFilters as { label, status }}
       <div
         use:queryParameter={{ base: '/marketplace', params: { status, page: '' } }}
         class="flex gap-2 items-center py-3 cursor-pointer hover:text-gray-500 text-2xl"
@@ -153,28 +179,28 @@
   </div>
   <div class="w-10 border border-b-2 border-gray-300 md:order-2" />
   <div class="flex flex-col gap-4 md:order-4">
-    <div
-      class="lg:grid lg:grid-cols-3 flex flex-col justify-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
-    >
+    <div class="flex justify-around text-xl  md:text-lg">
       <div
-        class="flex flex-1 items-center"
+        class="flex items-center px-2 py-3 hover:bg-gray-300 hover:text-black"
         use:datePicker={{
           maxDate: endDateSelected,
+          disableMobile: true,
           onChange: (selectedDates, dateString) => toggleDate('start', dateString),
         }}
       >
-        <div class="whitespace-nowrap ">{startDateSelected || 'Start Date'}</div>
+        <div class="whitespace-nowrap ">{_formatDate(startDateSelected, 'MM/DD/YY') || 'Start Date'}</div>
         <Icon path={mdiChevronDown} color="black" />
       </div>
-      <div class="w-4 flex-shrink justify-self-center border boder-b-2 border-gray-300 self-center" />
+      <div class="w-4 flex-shrink border boder-b-2 border-gray-300 self-center" />
       <div
-        class="flex flex-1 items-center justify-self-end"
+        class="flex items-center px-2 py-3 hover:bg-gray-300 hover:text-black"
         use:datePicker={{
           minDate: startDateSelected,
+          disableMobile: true,
           onChange: (selectedDates, dateString) => toggleDate('end', dateString),
         }}
       >
-        <div class="whitespace-nowrap ">{endDateSelected || 'End Date'}</div>
+        <div class="whitespace-nowrap ">{_formatDate(endDateSelected, 'MM/DD/YY') || 'End Date'}</div>
         <Icon path={mdiChevronDown} color="black" />
       </div>
     </div>
@@ -199,6 +225,13 @@
           let:checked
         >
           <span class="font-black italic" class:text-black={checked}>{category.name}</span>
+        </Checkbox>
+      {/each}
+    </Accordion>
+    <Accordion title={'Rarity'}>
+      {#each rarityFilters as { id, label } (id)}
+        <Checkbox value={id} group={raritySelected} on:change={(event) => toggle('rarity', id, event)} let:checked>
+          <span class="font-black italic" class:text-black={checked}>{label}</span>
         </Checkbox>
       {/each}
     </Accordion>
@@ -228,9 +261,13 @@
     </Accordion>
   </div>
 
-  <div class="self-center w-full py-3 max-w-xl bg-black text-white text-2xl text-center rounded-3xl md:hidden">
-    Update Filters {filters.length > 0 ? `(${filters.length})` : ''}
-  </div>
+  <button
+    type="button"
+    on:click={close}
+    class="self-center w-full py-3 max-w-xl bg-black text-white text-2xl text-center rounded-3xl md:hidden"
+  >
+    {total > 0 ? `View Matching Results (${total})` : 'No Matching Results'}
+  </button>
 </div>
 
 <style>

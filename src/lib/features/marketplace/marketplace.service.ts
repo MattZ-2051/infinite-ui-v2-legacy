@@ -9,3 +9,9 @@ export function setFilters(options: Pick<QueryParameterOptions, 'params' | 'rese
   });
   goto(url, { noscroll: true, keepfocus: true });
 }
+
+export const statusFilters = [
+  { label: 'All', status: '' },
+  { label: 'Released', status: 'released' },
+  { label: 'Upcoming', status: 'upcoming' },
+];
