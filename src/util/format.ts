@@ -7,6 +7,12 @@ export function formatCurrency(value: number, options?: Intl.NumberFormatOptions
   return new Intl.NumberFormat('en-US', { ...options, style: 'currency', currency: 'USD' }).format(value);
 }
 
+export function formatInteger(value: number, options?: Intl.NumberFormatOptions) {
+  return new Intl.NumberFormat('en-US', { ...options, minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(
+    value
+  );
+}
+
 export function formatDecimal(value: number, options?: Intl.NumberFormatOptions) {
   return new Intl.NumberFormat('en-US', { ...options, style: 'decimal' }).format(value);
 }
