@@ -34,6 +34,23 @@ const config = {
       define: {
         'process.env.tw': JSON.stringify({ screens: tailwindConfig.theme.screens }),
       },
+
+      optimizeDeps: {
+        include: [
+          '@auth0/auth0-spa-js',
+          '@felte/validator-yup',
+          '@mdi/js',
+          '@popperjs/core',
+          'dayjs',
+          'dayjs/plugin/advancedFormat.js',
+          'felte',
+          'flatpickr',
+          'just-debounce',
+          'svelte-media',
+          'tippy.js',
+          'yup',
+        ],
+      },
     },
   },
 };
