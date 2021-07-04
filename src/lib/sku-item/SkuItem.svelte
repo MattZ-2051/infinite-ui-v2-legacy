@@ -11,11 +11,12 @@
   let videoElement: HTMLVideoElement;
 
   let showFallbackImage = false;
+  $: featuredImage = (item.nftPublicAssets?.length > 0 && item.nftPublicAssets[0].url) || '';
 </script>
 
 <a sveltekit:prefetch href={`/marketplace/${item._id}`} class="flex flex-col">
   <div class="w-full h-72 card-img relative">
-    {#if item.type === 'Video' || item.graphicUrl.endsWith('mov') || item.graphicUrl.endsWith('mp4')}
+    {#if featuredImage && (item.type === 'Video' || featuredImage.endsWith('mov') || featuredImage.endsWith('mp4'))}
       <IntersectionObserver
         element={videoElement}
         once
@@ -24,7 +25,7 @@
       >
         <video
           bind:this={videoElement}
-          data-src={item.graphicUrl}
+          data-src={featuredImage}
           playsinline
           autoplay
           loop
@@ -32,9 +33,9 @@
           class="w-full h-full object-cover"
         />
       </IntersectionObserver>
-    {:else if !showFallbackImage}
+    {:else if featuredImage && !showFallbackImage}
       <img
-        src={item.graphicUrl}
+        src={featuredImage}
         alt=""
         class="w-full h-full object-cover"
         on:error={() => (showFallbackImage = true)}

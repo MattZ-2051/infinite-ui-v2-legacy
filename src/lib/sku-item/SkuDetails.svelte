@@ -10,7 +10,7 @@
 </script>
 
 <div class="flex flex-col bg-white lg:h-full">
-  <Gallery featuredItem={sku.graphicUrl} items={[sku.graphicUrl, ...sku.imageUrls]} />
+  <Gallery items={sku.nftPublicAssets} />
   <div class="px-6 lg:px-8 flex-grow">
     <div class="flex flex-col py-7 border-b border-gray-200 text-black gap-4">
       <div class="flex flex-wrap justify-between text-2xl">

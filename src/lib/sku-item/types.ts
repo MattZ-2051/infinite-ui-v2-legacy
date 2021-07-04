@@ -54,6 +54,11 @@ export type Sku = {
   upcomingSkuListings: Listing[];
   expiredSkuListings?: Listing[];
   activeProductListings: Listing[];
+  nftPublicAssets: NftAsset[];
+};
+
+export type NftAsset = {
+  url: string;
 };
 
 export type Profile = {

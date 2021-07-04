@@ -22,7 +22,7 @@
 <div class="flex" style="min-height: 70vh; background: linear-gradient(45deg, rgb(2 71 99) 0%, rgb(146 1 162) 100%);">
   <div class="container p-0 grid gap-x-8 gap-y-2 grid-cols-1 md:grid-cols-2 items-stretch">
     <div class="bg-cover bg-no-repeat" style="height: 700px;">
-      <Gallery items={[sku.graphicUrl, ...sku.imageUrls]} featuredItem={sku.graphicUrl} />
+      <Gallery items={sku.nftPublicAssets} />
     </div>
     <div class="container flex flex-col justify-between py-5 md:py-12">
       <div class="text-white">

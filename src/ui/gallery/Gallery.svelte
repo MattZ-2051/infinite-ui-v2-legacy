@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Media } from '$lib/sku-item/types';
+  import type { Media, NftAsset } from '$lib/sku-item/types';
   import { mdiVolumeHigh } from '@mdi/js';
 
-  export let items: string[] = [];
-  export let featuredItem: string;
+  export let items: NftAsset[] = [];
+  export let featuredItem = items.length > 0 && items[0];
 
   const mediaMapper = {
     jpg: 'image',
@@ -15,7 +15,7 @@
     vectary: 'vector',
   };
 
-  const checkType = (source): Media => {
+  const checkType = (source: string): Media => {
     const extensions = source.split('.');
     if (mediaMapper[extensions[extensions.length - 1]]) {
       return mediaMapper[extensions[extensions.length - 1]];
@@ -23,11 +23,11 @@
     return source.includes('vectary') ? 'vector' : undefined;
   };
 
-  const setFeaturedItem = (image: string) => {
+  const setFeaturedItem = (image: NftAsset) => {
     featuredItem = image;
   };
 
-  const getSource = (source, type: Media) => {
+  const getSource = (source: string, type: Media) => {
     if (type === 'image') {
       return source;
     }
@@ -41,35 +41,38 @@
     return '';
   };
 
-  $: featuredType = featuredItem && checkType(featuredItem);
+  $: featuredUrl = featuredItem && featuredItem.url;
+  $: featuredType = featuredItem && checkType(featuredUrl);
 </script>
 
-<div class="relative justify-center h-full">
-  {#if featuredType === 'image'}
-    <img src={featuredItem} alt="preview" />
-  {:else if featuredType === 'video'}
-    <video class="w-full h-full" autoPlay={true} controls={true} loop={true} muted={true} src={featuredItem} />
-  {:else if featuredType === 'audio'}
-    <audio controls autoPlay muted>
-      <source src={featuredItem} type="audio/mpeg" />
-      Your browser does not support audio elements.
-    </audio>
-  {:else if featuredType === 'vector'}
-    <iframe id={'3d-ar'} src={featuredItem} frameBorder="0" title="Product preview" class="w-full h-full" />
-  {:else}
-    Unrecognized type
-  {/if}
-  {#if items.length}
-    <div class="absolute gap-2 bottom-3 left-5 hidden lg:flex">
-      {#each items as item}
-        <div class="border border-black cursor-pointer w-16 h-16" on:click={() => setFeaturedItem(item)}>
-          {#if checkType(item) === 'video'}
-            <video class="w-full" autoPlay={true} controls={false} loop={true} muted={true} src={item} />
-          {:else}
-            <img src={getSource(item, checkType(item))} alt="thumbnail" />
-          {/if}
-        </div>
-      {/each}
-    </div>
-  {/if}
-</div>
+{#if featuredItem || items.length > 0}
+  <div class="relative justify-center h-full">
+    {#if featuredType === 'image'}
+      <img src={featuredUrl} alt="preview" class="h-full" />
+    {:else if featuredType === 'video'}
+      <video class="w-full h-full" autoPlay={true} controls={true} loop={true} muted={true} src={featuredUrl} />
+    {:else if featuredType === 'audio'}
+      <audio controls autoPlay muted>
+        <source src={featuredUrl} type="audio/mpeg" />
+        Your browser does not support audio elements.
+      </audio>
+    {:else if featuredType === 'vector'}
+      <iframe id={'3d-ar'} src={featuredUrl} frameBorder="0" title="Product preview" class="w-full h-full" />
+    {:else}
+      Unrecognized type
+    {/if}
+    {#if items.length}
+      <div class="absolute gap-2 bottom-3 left-5 hidden lg:flex">
+        {#each items as item}
+          <div class="border border-black cursor-pointer w-16 h-16" on:click={() => setFeaturedItem(item)}>
+            {#if checkType(item.url) === 'video'}
+              <video class="w-full" autoPlay={true} controls={false} loop={true} muted={true} src={item.url} />
+            {:else}
+              <img src={getSource(item.url, checkType(item.url))} alt="thumbnail" />
+            {/if}
+          </div>
+        {/each}
+      </div>
+    {/if}
+  </div>
+{/if}
