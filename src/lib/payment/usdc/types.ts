@@ -14,12 +14,12 @@ export type EtherscanReturnType<T> = T extends 'txlist'
   : T extends 'tokennfttx'
   ? TokenTxReponse
   : never;
-export interface EtherscanResponse<ResultType> {
-  status: string;
-  message;
-  string;
+
+export type EtherscanResponse<ResultType> = {
+  status: '0' | '1';
+  message: string;
   result: ResultType;
-}
+};
 
 export interface TxListResponse {
   blockHash: string;

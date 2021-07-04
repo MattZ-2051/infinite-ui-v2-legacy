@@ -11,7 +11,7 @@
   import USDCoin from './usdcoin-avatar.png?w=48&format=avif;webp;png&metadata';
   import Suku from './suku-avatar.png?w=48&format=avif;webp;png&metadata';
 
-  export let isOpen;
+  export let isOpen: boolean;
   export let onDepositSelect: (id: 'circle' | 'coinbase' | 'usdc') => unknown;
 
   type DepositOption = {

@@ -131,7 +131,7 @@ describe('API', () => {
           },
           headers: {
             has: () => true,
-            get: (key) => {
+            get: (key: string) => {
               return {
                 'content-length': 1,
                 'content-range': '20-2/140',

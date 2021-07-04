@@ -9,7 +9,7 @@
   export let path: string; // https://materialdesignicons.com
   export let size: number | string = 1;
   export let color: string = undefined;
-  export let flip: boolean | string = undefined;
+  export let flip: boolean | 'v' | 'h' = undefined;
   export let rotate = 0;
   export let spin: boolean | number = false;
   export let title = '';

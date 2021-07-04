@@ -5,7 +5,7 @@
   import PaginationItem from './PaginationItem.svelte';
   import PaginationEllipsis from './PaginationEllipsis.svelte';
 
-  export let total;
+  export let total: number;
   export let perPage = 10;
   export let page = 1;
   export let boundaryLinks = false;
@@ -13,7 +13,7 @@
   export let siblingCount = 1;
   export let boundaryCount = 1;
 
-  const range = (start, end) => {
+  const range = (start: number, end: number) => {
     const length = end - start + 1;
     return Array.from({ length }, (_, index) => start + index);
   };

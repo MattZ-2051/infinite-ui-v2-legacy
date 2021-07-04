@@ -23,7 +23,7 @@
   let bids: Bid[];
   let total: number;
 
-  async function _load(t, p) {
+  async function _load(t: 'transactions' | 'bids', p: number) {
     if (t === 'transactions') {
       ({ transactions, total } = await loadTransactions(p));
     } else if (t === 'bids') {

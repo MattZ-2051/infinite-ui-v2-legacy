@@ -12,10 +12,7 @@
 
   let dispatch = createEventDispatcher();
 
-  function onLogout(path) {
-    // TODO: needs configuration at auth0
-    // const redirectPath = path === "/u/account" ? "/" : path;
-
+  function onLogout() {
     logout(`${window.location.origin}`);
   }
 </script>
@@ -28,7 +25,7 @@
     <MenuItem href="/u/wallet" class={$page.path === '/u/wallet' ? 'hidden' : ''}>
       <Icon path={mdiCreditCardOutline} class="flex-shrink-0 float-left mr-3" /> My wallet
     </MenuItem>
-    <MenuItem on:click={() => onLogout($page.path)}>
+    <MenuItem on:click={() => onLogout()}>
       <Icon path={mdiLogout} class="flex-shrink-0 float-left mr-3" /> Sign out
     </MenuItem>
   </Menu>

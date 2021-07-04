@@ -2,10 +2,10 @@ import { variables } from '$lib/variables';
 
 export interface PersonaClientOptions {
   referenceId: string;
-  onLoadError: (unknown) => unknown;
-  onComplete: (string) => unknown;
-  onStart?: (string) => unknown;
-  onEvent?: (string, unknown) => unknown;
+  onLoadError: (argument0: unknown) => unknown;
+  onComplete: (argument0: string) => unknown;
+  onStart?: (argument0: string) => unknown;
+  onEvent?: (argument0: Event, argument1: unknown) => unknown;
 }
 
 export function getPersonaClient({

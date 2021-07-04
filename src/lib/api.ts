@@ -40,12 +40,12 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
   });
 }
 
-export function get<T>(path: string, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'GET' }).then((r) => parseBody<T>(r));
+export async function get<T>(path: string, options?: ApiOptions): Promise<T> {
+  return await send(path, { ...options, method: 'GET' }).then((r) => parseBody<T>(r));
 }
 
-export function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: T[]; total: number }> {
-  return send(path, { ...options, method: 'GET' }).then(async (response) => {
+export async function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: T[]; total: number }> {
+  return await send(path, { ...options, method: 'GET' }).then(async (response) => {
     const { headers } = response;
     const total = +headers.get('content-range').split('/')[1];
 
@@ -53,20 +53,20 @@ export function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: 
   });
 }
 
-export function del<T>(path: string, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'DELETE' }).then((r) => parseBody<T>(r));
+export async function del<T>(path: string, options?: ApiOptions): Promise<T> {
+  return await send(path, { ...options, method: 'DELETE' }).then((r) => parseBody<T>(r));
 }
 
-export function post<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'POST', body }).then((r) => parseBody<T>(r));
+export async function post<T>(path: string, body, options?: ApiOptions): Promise<T> {
+  return await send(path, { ...options, method: 'POST', body }).then((r) => parseBody<T>(r));
 }
 
-export function put<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'PUT', body }).then((r) => parseBody<T>(r));
+export async function put<T>(path: string, body, options?: ApiOptions): Promise<T> {
+  return await send(path, { ...options, method: 'PUT', body }).then((r) => parseBody<T>(r));
 }
 
-export function patch<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return send(path, { ...options, method: 'PATCH', body }).then((r) => parseBody<T>(r));
+export async function patch<T>(path: string, body, options?: ApiOptions): Promise<T> {
+  return await send(path, { ...options, method: 'PATCH', body }).then((r) => parseBody<T>(r));
 }
 
 async function parseBody<T>(response: Response): Promise<T> {
