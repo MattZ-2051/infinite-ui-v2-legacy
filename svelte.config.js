@@ -41,6 +41,7 @@ const config = {
           '@felte/validator-yup',
           '@mdi/js',
           '@popperjs/core',
+          'clsx',
           'dayjs',
           'dayjs/plugin/advancedFormat.js',
           'felte',
