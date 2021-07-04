@@ -47,6 +47,7 @@ const config = {
           'felte',
           'flatpickr',
           'just-debounce',
+          'msw',
           'svelte-media',
           'tippy.js',
           'yup',
