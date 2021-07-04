@@ -42,7 +42,6 @@ specifiers:
   svelte-jester: ~1.7.0
   svelte-media: 0.1.4
   svelte-preprocess: 4.7.3
-  svelte-range-slider-pips: 1.7.2
   tailwindcss: 2.2.4
   tippy.js: 6.3.1
   ts-jest: ~26.5.6
@@ -97,7 +96,6 @@ devDependencies:
   svelte-intersection-observer: 0.7.0
   svelte-jester: 1.7.0_jest@26.6.3+svelte@3.38.3
   svelte-preprocess: 4.7.3_a5a18df0fd80b121f7e25f45162d169d
-  svelte-range-slider-pips: 1.7.2
   tailwindcss: 2.2.4_72be89de93206f86f2d67dd5290ec14d
   ts-jest: 26.5.6_jest@26.6.3+typescript@4.3.5
   tslib: 2.3.0
@@ -6791,10 +6789,6 @@ packages:
       strip-indent: 3.0.0
       svelte: 3.38.3
       typescript: 4.3.5
-    dev: true
-
-  /svelte-range-slider-pips/1.7.2:
-    resolution: {integrity: sha512-ZRd/HjU8lq5nPpaIz7d31P/UxQj1Ju9n0n0tI/9wgQTXnXYDwuHBDFfIkpjFVOhTj1VaJ0XdcNcdlj1Hie29dA==}
     dev: true
 
   /svelte/3.38.3:

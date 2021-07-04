@@ -2,14 +2,13 @@
   import type { Profile, Rarity, Series } from '$lib/sku-item/types';
   import { createEventDispatcher } from 'svelte';
   import { mdiChevronDown, mdiWindowClose } from '@mdi/js';
-  import debounce from 'just-debounce';
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
-  import RangeSlider from '$ui/rangeslider/RangeSlider.svelte';
+  import { RangeSlider } from '$ui/rangeslider';
   import { datePicker } from '$ui/datepicker/datepicker';
   import { Checkbox } from '$ui/checkbox';
   import Accordion from '$ui/accordion/Accordion.svelte';
-  import { formatDate } from '$util/format';
+  import { formatDate, formatCurrency } from '$util/format';
   import { queryParameter } from '$util/queryParameter';
   import { setFilters, statusFilters } from './marketplace.service';
 
@@ -44,10 +43,10 @@
     dispatch('close');
   };
 
-  const onPriceRangeChange = debounce(
-    () => setFilters({ params: { minPrice: sliderInfo[0], maxPrice: sliderInfo[1], page: 1 } }),
-    1000
-  );
+  const onPriceRangeChange = (event) =>
+    setFilters({
+      params: { minPrice: event.detail[0], maxPrice: event.detail[1], page: 1 },
+    });
 
   function removeAllFilters() {
     sliderInfo = [0, maxPrice];
@@ -122,7 +121,9 @@
   $: dateFilter = formatDateRange(startDateSelected, endDateSelected);
 
   $: priceSelectedObject =
-    sliderInfo[0] > 0 || sliderInfo[1] < maxPrice ? `$${sliderInfo[0]} to $${sliderInfo[1]}` : undefined;
+    $page.query.has('minPrice') || $page.query.has('maxPrice')
+      ? `$${+$page.query.get('minPrice') || 0} to $${+$page.query.get('maxPrice') || maxPrice}`
+      : undefined;
 
   $: searchFilter = $page.query.get('search') || '';
 
@@ -204,18 +205,27 @@
         <Icon path={mdiChevronDown} color="black" />
       </div>
     </div>
-    <div
-      class="grid grid-cols-2 items-center px-3 py-4 rounded-3xl text-xl hover:bg-gray-300 hover:text-black md:text-lg"
-    >
-      <span>Price Range</span>
-      <div class="flex flex-row ">
-        <p class="text-sm font-bold text-black italic whitespace-nowrap">
-          From ${sliderInfo[0]} to ${sliderInfo[1]}
-        </p>
-        <Icon path={mdiChevronDown} color="black" class="justify-self-end transform -rotate-90" />
+    <Accordion class="flex-grow">
+      <div slot="title" class="flex flex-wrap gap-1 justify-between items-center ">
+        <span class="text-2xl">Price Range</span>
+        {#if $page.query.has('minPrice') || $page.query.has('maxPrice')}
+          <div class="flex">
+            <p class="text-xs font-bold text-black italic whitespace-nowrap">
+              From {formatCurrency(sliderInfo[0], { minimumFractionDigits: 0 })} to {formatCurrency(sliderInfo[1], {
+                minimumFractionDigits: 0,
+              })}
+            </p>
+          </div>
+        {/if}
       </div>
-    </div>
-    <RangeSlider min={0} max={maxPrice} bind:values={sliderInfo} on:change={onPriceRangeChange} />
+      <RangeSlider
+        bind:values={sliderInfo}
+        format={formatCurrency}
+        min={0}
+        max={maxPrice}
+        on:stop={onPriceRangeChange}
+      />
+    </Accordion>
     <Accordion title={'Category'}>
       {#each categories as category (category.id)}
         <Checkbox
