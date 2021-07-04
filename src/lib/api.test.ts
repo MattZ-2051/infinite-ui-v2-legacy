@@ -21,7 +21,7 @@ describe('API', () => {
       await send('my/path', {
         fetch: mockFetch,
         method: 'POST',
-        body: (body as unknown) as BodyInit,
+        body: body as unknown as BodyInit,
       });
       expect(mockFetch).toHaveBeenLastCalledWith(
         'http://api/my/path',

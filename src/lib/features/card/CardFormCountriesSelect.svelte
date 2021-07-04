@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
-  import type { Errors } from 'felte';
   import { getContext } from 'svelte';
   import Input from '$lib/components/Input.svelte';
   import { countries } from './countries';
@@ -8,7 +7,7 @@
   export let name: string;
   export let label: string;
 
-  const errors = getContext('errors') as Writable<Errors<Record<string, unknown>>>;
+  const errors = getContext('errors') as Writable<unknown>;
 
   function getPathValue(myPath, object) {
     return object && myPath
