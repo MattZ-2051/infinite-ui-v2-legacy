@@ -1,4 +1,5 @@
 import type { User } from '$lib/user/types';
+import type { FileAsset } from '$ui/file/types';
 
 export type Rarity = 'uncommon' | 'common' | 'rare' | 'epic' | 'legendary';
 
@@ -54,11 +55,7 @@ export type Sku = {
   upcomingSkuListings: Listing[];
   expiredSkuListings?: Listing[];
   activeProductListings: Listing[];
-  nftPublicAssets: NftAsset[];
-};
-
-export type NftAsset = {
-  url: string;
+  nftPublicAssets: FileAsset[];
 };
 
 export type Profile = {

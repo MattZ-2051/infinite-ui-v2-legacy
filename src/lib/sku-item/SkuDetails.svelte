@@ -3,7 +3,7 @@
   import type { Sku } from '$lib/sku-item/types';
   import Icon from '$ui/icon/Icon.svelte';
   import Rarity from '$lib/rarity/Rarity.svelte';
-  import Gallery from '$ui/gallery/Gallery.svelte';
+  import Gallery from '$lib/components/Gallery.svelte';
   import NotifyButton from '$lib/notify/NotifyButton.svelte';
 
   export let sku: Sku;

@@ -6,7 +6,7 @@
   import { SkuItemGrid } from '$lib/sku-item';
   import NotifyButton from '$lib/notify/NotifyButton.svelte';
   import { media } from '$lib/media-query.store';
-  import Gallery from '$ui/gallery/Gallery.svelte';
+  import Gallery from '$lib/components/Gallery.svelte';
   import hedera from '$static/hedera.svg';
   import { getSupplyInfo } from './supplyInfo';
   import PriceBoxSku from './PriceBoxSku.svelte';
