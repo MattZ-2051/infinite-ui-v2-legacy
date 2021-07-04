@@ -21,7 +21,6 @@ export type Sku = {
   issuer: Profile;
   minStartDate: Date;
   maxEndDate?: Date;
-  minSkuPrice: number;
   maxBid: number; // The cheapest price a sku can be sold
   minPrice: number;
   minCurrentBid: number;
@@ -47,6 +46,7 @@ export type Sku = {
   royaltyFeePercentage: number;
   resaleSellersFeePercentage: number;
   sellerTransactionFeePercentage: number;
+  sellerTransactionFeePercentageSecondary: number;
   type: string;
   productListings: Listing[];
   skuListings: Listing[];
@@ -56,6 +56,7 @@ export type Sku = {
   expiredSkuListings?: Listing[];
   activeProductListings: Listing[];
   nftPublicAssets: FileAsset[];
+  minSkuPrice?: number;
 };
 
 export type Profile = {
@@ -120,9 +121,11 @@ export type Product = {
   resaleSellersFeePercentage?: number;
   initialSellersFeePercentage?: number;
   royaltyFeePercentage?: number;
+  listing: Listing;
+  minSkuPrice: number;
 };
 
-type Cost = {
+export type Cost = {
   finalPayout: number;
   initialBuyersFee: number;
   initialBuyersFeePercentage: number;
@@ -204,28 +207,32 @@ type TransactionData = {
   transactionHash?: string | undefined;
 };
 
+export type TransactionType =
+  | 'deposit'
+  | 'transfer'
+  | 'mint'
+  | 'topup'
+  | 'purchase'
+  | 'payment'
+  | 'redeem'
+  | 'sale'
+  | 'nft_transfer'
+  | 'withdrawal'
+  | 'nft_transfer_manual'
+  | 'royalty_fee'
+  | 'nft_mint'
+  | 'bid';
+
+export type TransactionStatus = 'success' | 'error' | 'pending';
+
 export type Transaction = {
   _id: string;
   owner: Profile;
-  type:
-    | 'deposit'
-    | 'transfer'
-    | 'mint'
-    | 'topup'
-    | 'purchase'
-    | 'payment'
-    | 'redeem'
-    | 'sale'
-    | 'nft_transfer'
-    | 'withdrawal'
-    | 'nft_transfer_manual'
-    | 'royalty_fee'
-    | 'nft_mint'
-    | 'bid';
+  type: TransactionType;
   transactionData: TransactionData;
   createdAt: Date;
   updatedAt?: Date;
-  status: 'success' | 'error' | 'pending';
+  status: TransactionStatus;
 };
 
 export type Collector = {

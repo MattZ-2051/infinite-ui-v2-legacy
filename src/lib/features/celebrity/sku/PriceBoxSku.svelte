@@ -1,9 +1,14 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
-  import { toast } from '$ui/toast';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
+  import { onOrderIntent } from '$lib/features/order/order.service';
 
   export let sku: Sku;
+
+  function onBuy() {
+    onOrderIntent({ sku, listing: activeListings[0] });
+  }
+
   $: numSkuListings = sku.skuListings.length;
   $: activeListings = sku.skuListings.filter((skuListing) => skuListing.status === 'active' && !skuListing.canceled);
   $: upcomingSkuListings = sku.skuListings.filter(
@@ -13,17 +18,10 @@
   $: active = activeListings.length > 0 && sku.totalSkuListingSupplyLeft;
   $: noSale = sku.totalSkuListingSupplyLeft < 1 && numSkuListings > 0;
   $: expiredListings = sku.skuListings.filter((skuListing) => skuListing.status === 'expired');
-  $: minimumBid =
+  $: minimumBidListing =
     active &&
     sku?.activeProductListings.length > 0 &&
-    sku?.activeProductListings
-      .map((item) => item.price)
-      .reduce((previous, next) => {
-        if (next < previous) {
-          return next;
-        }
-        return previous;
-      });
+    sku?.activeProductListings.reduce((previous, next) => (next.price < previous.price ? next : previous));
 </script>
 
 <div class="flex flex-col gap-8">
@@ -43,7 +41,7 @@
         <button
           type="button"
           class="w-full max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3 mb-12 md:mb-0"
-          on:click={() => toast.danger('You need to be <b>logged in</b> to complete your purchase!')}
+          on:click={onBuy}
         >
           Buy Now
         </button>
@@ -55,7 +53,7 @@
           <div class="text-base">Lowest Listing Price</div>
         </div>
         <div class="flex-none text-white text-center">
-          <div class="text-3xl">${minimumBid}</div>
+          <div class="text-3xl">${minimumBidListing.price}</div>
           <div class="text-sm">{`(${sku.activeProductListings.length} for sale)`}</div>
         </div>
         <div class="flex-grow flex justify-center col-span-2 md:col-span-1">

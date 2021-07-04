@@ -19,4 +19,5 @@ export const variables = {
     apiKey: import.meta.env.VITE_USDC_API_KEY,
     txUrl: import.meta.env.VITE_USDC_TX_URL,
   },
+  marketplaceFee: Number.parseFloat(import.meta.env.VITE_MARKETPLACE_FEE),
 };

@@ -43,7 +43,7 @@
 >
   <div class="w-full md:w-1/5">
     <WalletBalance on:deposit={() => openDepositSelectModal()} />
-    <hr class="section-divider h-px m-5" />
+    <hr class="h-px my-5" />
     <div class="mb-2 mx-6">Account Verification Status:</div>
     <AccountVerification status={'unverified'} class="mx-8" />
   </div>
@@ -53,9 +53,3 @@
 {#if selectedDepositMethod === 'coinbase'}
   <DepositCoinbase on:checkout-modal-closed={() => (selectedDepositMethod = undefined)} />
 {/if}
-
-<style>
-  .section-divider {
-    background: rgba(0, 0, 0, 0.12);
-  }
-</style>
