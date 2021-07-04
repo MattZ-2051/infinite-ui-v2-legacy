@@ -5,6 +5,7 @@
   import Icon from '$ui/icon/Icon.svelte';
 
   export let title = '';
+  export let footer = '';
   export let persistent = false;
   export let closeButton = true;
 
@@ -35,15 +36,17 @@
           ><Icon path={mdiClose} size={0.8} /></button
         >
       {/if}
-      <slot name="header">
-        <header class="flex items-center justify-center gap-2 pt-8 pb-4 px-10">
-          <slot name="icon" /><slot name="title"><div class="text-2xl text-center font-normal">{title}</div></slot>
-        </header>
-      </slot>
+      {#if $$slots.header || $$slots.title || title || $$slots.icon}
+        <slot name="header">
+          <header class="flex items-center justify-center gap-2 pt-8 pb-4 px-10">
+            <slot name="icon" /><slot name="title"><div class="text-2xl text-center font-normal">{title}</div></slot>
+          </header>
+        </slot>
+      {/if}
       <div class="overflow-y-auto"><slot /></div>
-      {#if $$slots.footer}
+      {#if $$slots.footer || footer}
         <footer class="py-5 px-10">
-          <slot name="footer" />
+          <slot name="footer">{footer}</slot>
         </footer>
       {/if}
     </div>

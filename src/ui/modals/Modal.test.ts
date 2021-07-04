@@ -27,4 +27,30 @@ describe('Modal', () => {
     await fireEvent.click(closeButton);
     expect(closed).toHaveBeenCalledTimes(1);
   });
+
+  it('renders header if needed', async () => {
+    const { container, component } = render(Modal);
+
+    const modal = container.querySelector('.fixed');
+
+    let footer = modal.querySelector('header');
+    expect(footer).toBeFalsy();
+
+    await component.$$set({ title: 'My header' });
+    footer = modal.querySelector('header');
+    expect(footer).toHaveTextContent('My header');
+  });
+
+  it('renders footer if needed', async () => {
+    const { container, component } = render(Modal);
+
+    const modal = container.querySelector('.fixed');
+
+    let footer = modal.querySelector('footer');
+    expect(footer).toBeFalsy();
+
+    await component.$$set({ footer: 'My footer' });
+    footer = modal.querySelector('footer');
+    expect(footer).toHaveTextContent('My footer');
+  });
 });
