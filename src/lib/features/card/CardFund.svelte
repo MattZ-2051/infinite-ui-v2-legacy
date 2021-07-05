@@ -24,8 +24,13 @@
   let saving: Promise<unknown>;
   let removing: Promise<unknown>;
 
+  const minAmount = 1;
   const schema = yup.object({
-    amount: yup.number().min(0).required('Amount is required.'),
+    amount: yup
+      .number()
+      .typeError('Amount is not a valid number.')
+      .min(minAmount, `Amount must be greater than ${minAmount}.`)
+      .required('Amount is required.'),
   });
 
   const { form, errors, reset } = createForm<{ amount: string }>({

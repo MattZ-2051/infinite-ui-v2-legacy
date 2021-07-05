@@ -11,7 +11,7 @@
   import { redeemItem } from './redeem.api';
 
   const schema = yup.object({
-    addressLine1: yup.string().required('Adress line 1 is required.'),
+    addressLine1: yup.string().required('Adress is required.'),
     addressLine2: yup.string(),
     postalCode: yup.string().required('Postal code is required.'),
     city: yup.string().required('City is required.'),

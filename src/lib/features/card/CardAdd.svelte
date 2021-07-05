@@ -17,17 +17,28 @@
   import { addCreditCard } from './card.api';
 
   const schema = yup.object({
-    cardNumber: yup.string().required('Credit card number is required.'),
-    expMonth: yup.number().typeError('Month is not a number.').required(),
-    expYear: yup.number().required(),
-    cvv: yup.number().required(),
+    cardNumber: yup
+      .string()
+      .required('Credit card number is required.')
+      .matches(/^\d{16}$/, 'Please enter a valid card number'),
+    expMonth: yup
+      .number()
+      .typeError('Enter a valid month format MM')
+      .min(1, 'Enter a valid month format MM')
+      .max(12, 'Enter a valid month format MM')
+      .required(),
+    expYear: yup.number().typeError('Enter a valid year format YYYY').min(new Date().getFullYear()).required(),
+    cvv: yup
+      .string()
+      .matches(/^\d{3,4}$/, 'Enter a valid ccv number')
+      .required('Ccv is required'),
     billingDetails: yup.object({
-      name: yup.string().required(),
-      line1: yup.string().required(),
+      name: yup.string().required('Name is required'),
+      line1: yup.string().required('Address is required'),
       line2: yup.string(),
-      postalCode: yup.string().required(),
-      city: yup.string().required(),
-      country: yup.string().required(),
+      postalCode: yup.string().required('Postal code is required'),
+      city: yup.string().required('City is required'),
+      country: yup.string().required('Country is required'),
       district: yup.string(),
     }),
   });
@@ -56,7 +67,7 @@
           ...values,
           expMonth: +values.expMonth,
           expYear: +values.expYear,
-          cvv: +values.cvv,
+          cvv: values.cvv,
           metadata: { email: $user.email },
         }));
         toast.success('Card added successfully.');
