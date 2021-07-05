@@ -6,6 +6,7 @@
   import * as yup from 'yup';
   import { mdiLightbulbOnOutline } from '@mdi/js';
 
+  import cardChip from '$static/card-chip.svg';
   import { goto } from '$app/navigation';
   import { user } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
@@ -18,6 +19,7 @@
   import CardFormInput from './CardFormInput.svelte';
   import { addCreditCardFunds, deleteCreditCard } from './card.api';
   import CardFundResult from './CardFundResult.svelte';
+  import mapNetworkToLogo from './logoMapper';
 
   export let card: CreditCard;
 
@@ -25,6 +27,8 @@
   let removing: Promise<unknown>;
 
   const minAmount = 1;
+  $: logo = mapNetworkToLogo(card.network);
+
   const schema = yup.object({
     amount: yup
       .number()
@@ -78,8 +82,17 @@
     <div
       class="flex flex-col justify-between bg-black text-gray-500 w-80 h-44 rounded-2xl px-6 py-2 font-extrabold mt-6"
     >
-      <div class="text-white text-2xl text-right">{card.network}</div>
-
+      <div class="flex justify-between items-center">
+        <div class="flex justify-between bg-yellow-600 rounded-sm h-5 w-6 items-center">
+          <img src={cardChip} alt="card chip" class="w-3 h-4" style="transform: scaleX(-1);" />
+          <img src={cardChip} alt="card chip" class="w-3 h-4" />
+        </div>
+        {#if logo}
+          <img class="text-right w-16 h-5" src={logo} alt={card.network} />
+        {:else}
+          <div class="text-white text-2xl text-right">{card.network}</div>
+        {/if}
+      </div>
       <div>
         <span class="text-sm italic">CARD NUMBER</span>
         <div class="flex items-center gap-4 tracking-widest">
