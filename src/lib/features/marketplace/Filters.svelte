@@ -23,7 +23,6 @@
   const removeFilter = (filter: FilterType) => {
     // eslint-disable-next-line unicorn/prefer-switch
     if (filter.type === 'price') {
-      sliderInfo = [0, maxPrice];
       setFilters({
         params: { minPrice: false, maxPrice: false, page: 1 },
       });
@@ -43,13 +42,18 @@
     dispatch('close');
   };
 
-  const onPriceRangeChange = (event) =>
+  const onPriceRangeChange = (event: { detail: [number, number] }) => {
+    const [minPrice_, maxPrice_] = event.detail;
     setFilters({
-      params: { minPrice: event.detail[0], maxPrice: event.detail[1], page: 1 },
+      params: {
+        minPrice: minPrice_ > 0 ? minPrice_ : false,
+        maxPrice: maxPrice_ < maxPrice ? maxPrice_ : false,
+        page: 1,
+      },
     });
+  };
 
   function removeAllFilters() {
-    sliderInfo = [0, maxPrice];
     setFilters({
       params: { page: 1, status: $page.query.get('status') },
       reset: true,
@@ -59,7 +63,7 @@
   export let categories: { id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
-  export let maxPrice = 5000;
+  export let maxPrice = 10_000;
   export let total = 0;
 
   const rarityFilters: { id: Rarity; label: string }[] = [
@@ -69,7 +73,13 @@
     { id: 'uncommon', label: 'Uncommon' },
   ];
 
-  let sliderInfo: [number, number] = [+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice];
+  let sliderInfo: [number, number];
+
+  function initSlider(min, max) {
+    sliderInfo = [min, max];
+  }
+  $: initSlider(+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice);
+
   function toggle(type: 'category' | 'rarity' | 'series' | 'creators', id: string, event: Event) {
     toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
   }
@@ -122,7 +132,10 @@
 
   $: priceSelectedObject =
     $page.query.has('minPrice') || $page.query.has('maxPrice')
-      ? `$${+$page.query.get('minPrice') || 0} to $${+$page.query.get('maxPrice') || maxPrice}`
+      ? `${formatCurrency(+$page.query.get('minPrice') || 0, { minimumFractionDigits: 0 })} to ${formatCurrency(
+          +$page.query.get('maxPrice') || maxPrice,
+          { minimumFractionDigits: 0 }
+        )}`
       : undefined;
 
   $: searchFilter = $page.query.get('search') || '';
