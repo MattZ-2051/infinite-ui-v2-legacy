@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Transaction, Product } from '$lib/sku-item/types';
+  import type { ActionType } from './actions/types';
   import TabsVariantDark from '$ui/tabs/variants/TabsVariantDark.svelte';
   import { Tabs, Tab } from '$ui/tabs';
   import { openModal } from '$ui/modals';
@@ -9,11 +10,12 @@
   import CreateSaleModal from './CreateSaleModal.svelte';
   import CancelSaleModal from './CancelSaleModal.svelte';
   import RedeemModal from './Redeem/RedeemModal.svelte';
+  import ProductActions from './actions/ProductActions.svelte';
 
   export let product: Product;
   export let transactions: Transaction[];
 
-  $: canSale =
+  $: canSell =
     $user &&
     $user._id === product.owner._id &&
     product.activeProductListings.length === 0 &&
@@ -33,6 +35,30 @@
     product.redeemedStatus !== 'redeemed' &&
     product.activeProductListings.length === 0 &&
     product.upcomingProductListings.length === 0;
+
+  let actions: ActionType[];
+  $: actions = [
+    canRedeem ? 'redeem' : undefined,
+    canSell ? 'create-sale' : undefined,
+    canCancelSale ? 'cancel-sale' : undefined,
+  ];
+
+  function onAction({ detail: type }: { detail: ActionType }) {
+    switch (type) {
+      case 'redeem': {
+        openModal(RedeemModal, { product });
+        break;
+      }
+      case 'create-sale': {
+        openModal(CreateSaleModal, { product });
+        break;
+      }
+      case 'cancel-sale': {
+        openModal(CancelSaleModal, { listingId: product?.activeProductListings[0]?._id, productId: product._id });
+        break;
+      }
+    }
+  }
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
@@ -63,28 +89,7 @@
         <span class="text-gray-600 self-center">Redeemed</span>
       {/if}
     </div>
-    {#if canSale}
-      <button
-        on:click={() => openModal(CreateSaleModal, { product })}
-        class="rounded-3xl bg-black text-gray-400 font-black px-2 justify-self-end"
-        >Create Sale
-      </button>
-    {/if}
-    {#if canCancelSale}
-      <button
-        on:click={() =>
-          openModal(CancelSaleModal, { listingId: product?.activeProductListings[0]?._id, productId: product._id })}
-        class="rounded-3xl bg-black text-gray-400 font-black px-2 justify-self-end"
-        >Cancel Sale
-      </button>
-    {/if}
-  </div>
-  <div class="flex justify-end">
-    {#if canRedeem}
-      <button class="rounded-full border-white border-2 p-2" on:click={() => openModal(RedeemModal, { product })}
-        >REDEEM</button
-      >
-    {/if}
+    <ProductActions {actions} on:action={onAction} />
   </div>
 </div>
 <TabsVariantDark>
