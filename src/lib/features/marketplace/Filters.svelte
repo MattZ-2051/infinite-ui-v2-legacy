@@ -8,7 +8,7 @@
   import { datePicker } from '$ui/datepicker/datepicker';
   import { Checkbox } from '$ui/checkbox';
   import Accordion from '$ui/accordion/Accordion.svelte';
-  import { formatDate, formatCurrency } from '$util/format';
+  import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { queryParameter } from '$util/queryParameter';
   import { setFilters, statusFilters } from './marketplace.service';
 
@@ -132,10 +132,9 @@
 
   $: priceSelectedObject =
     $page.query.has('minPrice') || $page.query.has('maxPrice')
-      ? `${formatCurrency(+$page.query.get('minPrice') || 0, { minimumFractionDigits: 0 })} to ${formatCurrency(
-          +$page.query.get('maxPrice') || maxPrice,
-          { minimumFractionDigits: 0 }
-        )}`
+      ? `${formatCurrencyWithOptionalFractionDigits(
+          +$page.query.get('minPrice') || 0
+        )} to ${formatCurrencyWithOptionalFractionDigits(+$page.query.get('maxPrice') || maxPrice)}`
       : undefined;
 
   $: searchFilter = $page.query.get('search') || '';
@@ -224,16 +223,16 @@
         {#if $page.query.has('minPrice') || $page.query.has('maxPrice')}
           <div class="flex">
             <p class="text-xs font-bold text-black italic whitespace-nowrap">
-              From {formatCurrency(sliderInfo[0], { minimumFractionDigits: 0 })} to {formatCurrency(sliderInfo[1], {
-                minimumFractionDigits: 0,
-              })}
+              From {formatCurrencyWithOptionalFractionDigits(sliderInfo[0])} to {formatCurrencyWithOptionalFractionDigits(
+                sliderInfo[1]
+              )}
             </p>
           </div>
         {/if}
       </div>
       <RangeSlider
         bind:values={sliderInfo}
-        format={formatCurrency}
+        format={formatCurrencyWithOptionalFractionDigits}
         min={0}
         max={maxPrice}
         on:stop={onPriceRangeChange}

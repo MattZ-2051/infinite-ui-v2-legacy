@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Status } from './types';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
+  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 
   export let startDate: Date;
   export let price = 0;
@@ -28,7 +29,7 @@
       {type === 'product' ? 'Current Price:' : 'Lowest Price:'}
     </span>
     <span class="text-2xl card-time-color">
-      ${price}
+      {formatCurrencyWithOptionalFractionDigits(price)}
     </span>
   {/if}
 </div>

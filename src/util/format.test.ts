@@ -1,8 +1,19 @@
-import { formatCurrency, formatInteger, formatDecimal, formatDate } from './format';
+import {
+  formatCurrency,
+  formatCurrencyWithOptionalFractionDigits,
+  formatInteger,
+  formatDecimal,
+  formatDate,
+} from './format';
 
 describe('format', () => {
   it('currency', () => {
     expect(formatCurrency(123_456.789)).toEqual('$123,456.79');
+  });
+
+  it('currencyWithOptionalFractionDigits', () => {
+    expect(formatCurrencyWithOptionalFractionDigits(123_456.789)).toEqual('$123,456.79');
+    expect(formatCurrencyWithOptionalFractionDigits(123_456)).toEqual('$123,456');
   });
 
   it('integer', () => {

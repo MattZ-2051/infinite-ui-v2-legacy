@@ -4,6 +4,7 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import avatar from '$static/avatar.svg';
+  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 
   export let collector: Collector;
   $: noSale = !collector.activeProductListing && !collector.upcomingProductListing;
@@ -42,12 +43,12 @@
       {:else if activeSale}
         <span class="text-gray-400">On Sale for</span>
         <Icon path={mdiChevronRight} color="gray" size="0.8" />
-        <span>${collector.activeProductListing?.price || 200}</span>
+        <span>{formatCurrencyWithOptionalFractionDigits(collector.activeProductListing?.price)}</span>
       {:else if activeAuction}
         <div class="flex items-center">
           <span class="text-gray-400">Bid for</span>
           <Icon path={mdiChevronRight} color="gray" size="0.8" />
-          <span>${collector?.activeProductListing?.minBid || 200}</span>
+          <span>{formatCurrencyWithOptionalFractionDigits(collector?.activeProductListing?.minBid)}</span>
         </div>
         <div>
           Expires in

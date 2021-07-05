@@ -3,6 +3,7 @@
   import { mdiLinkVariant } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import DateFormat from '$ui/date/DateFormat.svelte';
+  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 
   export let transactions: Transaction[];
   $: filteredTransactions = transactions
@@ -34,7 +35,9 @@
       <div class="justify-self-end">
         {#if transaction.type === 'purchase'}
           Bought for
-          <span class="text-white">${transaction.transactionData?.cost?.totalCost?.toFixed(2)}</span>
+          <span class="text-white"
+            >{formatCurrencyWithOptionalFractionDigits(transaction.transactionData?.cost?.totalCost)}</span
+          >
         {:else if transaction.type === 'nft_mint'}
           <span class="text-white">NFT Minted</span>
         {:else}

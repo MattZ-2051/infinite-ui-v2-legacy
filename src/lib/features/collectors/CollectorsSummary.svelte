@@ -10,6 +10,7 @@
   import { handleQueryParameter } from '$util/queryParameter';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import Breadcrumbs from '$ui/breadcrumbs/Breadcrumbs.svelte';
+  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 
   export let sku: Sku;
   export let collectors: Collector[];
@@ -122,13 +123,17 @@
             <div class="flex justify-end">
               <span>Sale for</span>
               <Icon path={mdiChevronRight} color="gray" />
-              <span class="text-white">${collector.activeProductListing.price}</span>
+              <span class="text-white"
+                >{formatCurrencyWithOptionalFractionDigits(collector.activeProductListing.price)}</span
+              >
             </div>
           {:else}
             <div class="flex justify-end">
               <span>Bid for</span>
               <Icon path={mdiChevronRight} color="gray" />
-              <span class="text-white">${collector.activeProductListing.minBid}</span>
+              <span class="text-white"
+                >{formatCurrencyWithOptionalFractionDigits(collector.activeProductListing.minBid)}</span
+              >
             </div>
           {/if}
           {#if collector.activeProductListing?.endDate}

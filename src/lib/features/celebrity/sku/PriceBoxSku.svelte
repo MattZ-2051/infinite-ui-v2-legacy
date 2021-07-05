@@ -2,6 +2,7 @@
   import type { Sku } from '$lib/sku-item/types';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { onOrderIntent } from '$lib/features/order/order.service';
+  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 
   export let sku: Sku;
 
@@ -32,7 +33,7 @@
         <div class="text-base">Initial Listing Price</div>
       </div>
       <div class="flex-none text-white text-center">
-        <div class="text-3xl">${activeListings[0].price}</div>
+        <div class="text-3xl">{formatCurrencyWithOptionalFractionDigits(activeListings[0].price)}</div>
         <div class="text-sm">
           {sku?.totalSkuListingSupplyLeft >= 0 && `(${sku?.totalSkuListingSupplyLeft} left)`}
         </div>
@@ -53,7 +54,7 @@
           <div class="text-base">Lowest Listing Price</div>
         </div>
         <div class="flex-none text-white text-center">
-          <div class="text-3xl">${minimumBidListing.price}</div>
+          <div class="text-3xl">{formatCurrencyWithOptionalFractionDigits(minimumBidListing.price)}</div>
           <div class="text-sm">{`(${sku.activeProductListings.length} for sale)`}</div>
         </div>
         <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
@@ -70,7 +71,7 @@
         <div class="text-2xl">Upcoming</div>
       </div>
       <div class="flex-none text-white text-center">
-        <div class="text-3xl">${upcomingSkuListings[0]?.price || 12}</div>
+        <div class="text-3xl">{formatCurrencyWithOptionalFractionDigits(upcomingSkuListings[0]?.price)}</div>
         {#if sku.supplyType !== 'variable'}
           <div class="text-sm">{upcomingSkuListings[0]?.supply || 0} items</div>
         {/if}
@@ -87,7 +88,7 @@
         <div class="text-base">Initial Listing Price</div>
       </div>
       <div class="flex-none text-white text-center">
-        <div class="text-3xl">${expiredListings[0]?.price || 0}</div>
+        <div class="text-3xl">{formatCurrencyWithOptionalFractionDigits(expiredListings[0]?.price)}</div>
         <div class="text-sm">
           {sku?.totalSkuListingSupplyLeft >= 0 && `(${sku?.totalSkuListingSupplyLeft} left)`}
         </div>

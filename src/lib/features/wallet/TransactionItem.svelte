@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Transaction } from '$lib/sku-item/types';
   import { mdiChevronDown } from '@mdi/js';
-  import { formatDate, formatCurrency } from '$util/format';
+  import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
 
   export let transaction: Transaction;
@@ -86,7 +86,7 @@
 
           {#if type === 'deposit' && deposit.type === 'coinbase'}
             <span class="message">You added funds by depositing </span>
-            <span class="font-medium"> {formatCurrency(+deposit.amount)} </span>
+            <span class="font-medium"> {formatCurrencyWithOptionalFractionDigits(+deposit.amount)} </span>
             <span class="message ">using </span>
             <span class="font-medium">Coinbase</span>
           {/if}
@@ -103,19 +103,19 @@
               +
             {/if}
             {#if type === 'royalty_fee'}
-              {formatCurrency(cost.royaltyFee)}
+              {formatCurrencyWithOptionalFractionDigits(cost.royaltyFee)}
             {/if}
             {#if type === 'sale'}
-              {formatCurrency(+cost.finalPayout)}
+              {formatCurrencyWithOptionalFractionDigits(+cost.finalPayout)}
             {/if}
             {#if type === 'deposit'}
-              {formatCurrency(+deposit.amount)}
+              {formatCurrencyWithOptionalFractionDigits(+deposit.amount)}
             {/if}
             {#if type === 'purchase' && status === 'success'}
-              - {formatCurrency(cost.totalCost)}
+              - {formatCurrencyWithOptionalFractionDigits(cost.totalCost)}
             {/if}
             {#if type === 'purchase' && status === 'error'}
-              <span class="line-through">{formatCurrency(cost.totalCost)}</span>
+              <span class="line-through">{formatCurrencyWithOptionalFractionDigits(cost.totalCost)}</span>
             {/if}
           </span>
         </div>
