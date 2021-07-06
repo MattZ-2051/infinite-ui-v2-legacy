@@ -8,6 +8,8 @@
   export let profile: Profile;
   export let skus: Sku[];
   export let products: Product[];
+
+  $: isIssuer = profile.role === 'issuer';
 </script>
 
 <div class="bg-black" style=" height: 65vh;">
@@ -37,23 +39,29 @@
   <div class="container">
     <div class="flex md:justify-end mt-8">
       <div class="flex flex-col w-full md:w-1/2">
-        <div class="text-white text-3xl font-light">
-          {profile.descriptionHeader}
-        </div>
-        <div class="text-gray-400 mt-10 md:mt-16">
-          {profile.descriptionBody}
-        </div>
+        {#if profile.descriptionHeader}
+          <div class="text-white text-3xl font-light">
+            {profile.descriptionHeader}
+          </div>
+        {/if}
+        {#if profile.descriptionBody}
+          <div class="text-gray-400 mt-10 md:mt-16">
+            {profile.descriptionBody}
+          </div>
+        {/if}
       </div>
     </div>
 
     <div class="mt-14">
       <TabsVariantDark>
         <Tabs class="text-xl md:text-2xl lg:text-3xl font-light mb-4" itemClass={'pb-4 md:pb-8'}>
-          <Tab title="Latest Releases">
-            <SkuItemVariantDark>
-              <SkuItemGrid {skus} />
-            </SkuItemVariantDark>
-          </Tab>
+          {#if isIssuer}
+            <Tab title="Latest Releases">
+              <SkuItemVariantDark>
+                <SkuItemGrid {skus} />
+              </SkuItemVariantDark>
+            </Tab>
+          {/if}
           <Tab title="All Collections">
             <SkuItemVariantDark>
               <SkuItemGrid {products} />
