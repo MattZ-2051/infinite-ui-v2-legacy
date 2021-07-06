@@ -1,3 +1,5 @@
+import type { Transaction } from '$lib/sku-item/types';
+
 export interface User {
   _id: string;
   username: string;
@@ -7,3 +9,28 @@ export interface User {
   balance: number;
   availableBalance: number;
 }
+
+export type UserProfile = {
+  _id: string;
+  id: string;
+  balance: number;
+  availableBalance: number;
+  createdAt: Date;
+  externalId: string;
+  hederaAccount: string;
+  role: string;
+  updatedAt: Date;
+  username: string;
+  profilePhotoUrl: string;
+  bannerPhotoUrl: string;
+  midPhotoUrl: string;
+  descriptionIcon: string;
+  descriptionHeader: string;
+  descriptionBody: string;
+  footerPhotoUrl: string;
+  tagline: string;
+  transactions?: Transaction[];
+  errorMessage?: string;
+  showNotifyMe?: boolean;
+  auctionBidIncrement?: string;
+};

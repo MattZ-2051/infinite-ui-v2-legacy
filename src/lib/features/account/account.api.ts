@@ -1,9 +1,10 @@
+import type { UserProfile } from '$lib/user/types';
 import type { Product, Profile, Sku } from '$lib/sku-item/types';
 import { get, patch } from '$lib/api';
 
-export async function getProfile({ username }: { username: string }) {
-  const profiles = await get<Profile>(`users?username=${username}&page=1&per_page=1`);
-  return profiles[0];
+export async function getMyProfile(): Promise<UserProfile> {
+  const profile = await get<UserProfile>(`users/me`);
+  return profile;
 }
 
 export async function loadReleases({ id }: { id: string }) {

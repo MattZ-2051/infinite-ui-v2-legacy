@@ -2,11 +2,11 @@
   import type { Sku, Product, Profile } from '$lib/sku-item/types';
   import Account from '$lib/features/account/Account.svelte';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
-  import { getProfile, loadReleases } from '$lib/features/account/account.api';
+  import { getMyProfile, loadReleases } from '$lib/features/account/account.api';
   import { user } from '$lib/user';
 
   async function load() {
-    profile = await getProfile({ username: $user.username });
+    profile = await getMyProfile();
     ({ skus, products } = await loadReleases({ id: profile._id }));
   }
   $: $user && load();
