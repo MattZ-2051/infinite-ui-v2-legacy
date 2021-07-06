@@ -22,7 +22,7 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
     tracker.set(true);
   }
 
-  if (options.body) {
+  if (options.body && !(options.body instanceof File) && !(options.body instanceof FormData)) {
     options.headers = { ...options.headers, 'Content-Type': 'application/json' };
     options.body = JSON.stringify(options.body);
   }

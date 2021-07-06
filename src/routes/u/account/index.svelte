@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Sku, Product, Profile } from '$lib/sku-item/types';
+  import type { UserProfile } from '$lib/user/types';
+  import type { Sku, Product } from '$lib/sku-item/types';
   import Account from '$lib/features/account/Account.svelte';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
   import { getMyProfile, loadReleases } from '$lib/features/account/account.api';
@@ -12,11 +13,11 @@
   $: $user && load();
   let skus: Sku[];
   let products: Product[];
-  let profile: Profile;
+  let profile: UserProfile;
 </script>
 
 {#if profile}
-  <Account {skus} {products} {profile} />
+  <Account {skus} {products} />
 {:else}
   <FullScreenLoader class="text-black" />
 {/if}

@@ -9,15 +9,14 @@
 
   export let skus: Sku[];
   export let products: Product[];
-  export let profile: Profile;
 
-  function openEditModal() {
+  function openEditModal({ detail: { profile } }: { detail: { profile: Profile } }) {
     openModal(AccountInfoModal, { profile });
   }
 </script>
 
 {#if $user}
-  <AccountHeader {profile} on:edit={() => openEditModal()} />
+  <AccountHeader on:edit={openEditModal} />
 
   <div class="container mt-8 lg:mt-12">
     <Tabs class="text-xl md:text-2xl font-light mb-4" itemClass={'pb-4 md:pb-8'}>
