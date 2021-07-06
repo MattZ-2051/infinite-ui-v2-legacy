@@ -6,7 +6,6 @@
   import * as yup from 'yup';
   import { mdiLightbulbOnOutline } from '@mdi/js';
 
-  import cardChip from '$static/card-chip.svg';
   import { goto } from '$app/navigation';
   import { user } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
@@ -19,7 +18,7 @@
   import CardFormInput from './CardFormInput.svelte';
   import { addCreditCardFunds, deleteCreditCard } from './card.api';
   import CardFundResult from './CardFundResult.svelte';
-  import mapNetworkToLogo from './logoMapper';
+  import CreditCardComponent from './CreditCard.svelte';
 
   export let card: CreditCard;
 
@@ -27,8 +26,6 @@
   let removing: Promise<unknown>;
 
   const minAmount = 1;
-  $: logo = mapNetworkToLogo(card.network);
-
   const schema = yup.object({
     amount: yup
       .number()
@@ -73,41 +70,13 @@
 </script>
 
 <div class="container flex flex-col items-center">
-  <div class="w-80">
+  <div class="w-80 my-10">
     <div class="flex items-center gap-2 text-xl border-b-2 border-black pb-3">
       <Image src={Circle} class="flex-none w-8 h-8" /> Circle Payments
     </div>
-    <div class="text-gray-500 font-extrabold italic mt-4">Add funds into your wallet</div>
+    <div class="text-gray-500 font-extrabold italic my-6">Add funds into your wallet</div>
 
-    <div
-      class="flex flex-col justify-between bg-black text-gray-500 w-80 h-44 rounded-2xl px-6 py-2 font-extrabold mt-6"
-    >
-      <div class="flex justify-between items-center">
-        <div class="flex justify-between bg-yellow-600 rounded-sm h-5 w-6 items-center">
-          <img src={cardChip} alt="card chip" class="w-3 h-4" style="transform: scaleX(-1);" />
-          <img src={cardChip} alt="card chip" class="w-3 h-4" />
-        </div>
-        {#if logo}
-          <img class="text-right w-16 h-5" src={logo} alt={card.network} />
-        {:else}
-          <div class="text-white text-2xl text-right">{card.network}</div>
-        {/if}
-      </div>
-      <div>
-        <span class="text-sm italic">CARD NUMBER</span>
-        <div class="flex items-center gap-4 tracking-widest">
-          <span>••••</span><span>••••</span><span>••••</span><span class="text-white text-xl font-normal"
-            >{card.last4}</span
-          >
-        </div>
-      </div>
-      <div class="flex justify-end">
-        <div>
-          <div class="text-xs italic">EXP</div>
-          <div class="text-white text-base font-normal">{card.expMonth}/{card.expYear}</div>
-        </div>
-      </div>
-    </div>
+    <CreditCardComponent {card} />
 
     <div class="flex justify-between mt-3">
       <span class="text-sm font-extrabold italic text-black"
