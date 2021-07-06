@@ -11,12 +11,13 @@
   export let total: number;
 
   function redirect(_tab: 'transactions' | 'bids') {
+    total = undefined;
     tab = _tab;
-    goto(`/u/wallet?tab=${tab}`);
+    goto(`/u/wallet?tab=${_tab}`);
   }
 </script>
 
-<nav class="text-2xl">
+<nav class="text-xl md:text-2xl">
   <ul class="flex gap-10">
     <TabHeader on:click={() => redirect('transactions')} active={tab === 'transactions'} class="pb-5"
       >Latest transactions</TabHeader
