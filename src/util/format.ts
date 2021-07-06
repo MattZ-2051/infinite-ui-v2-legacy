@@ -21,7 +21,6 @@ export function formatDecimal(value: number, options?: Intl.NumberFormatOptions)
   return new Intl.NumberFormat('en-US', { ...options, style: 'decimal' }).format(value);
 }
 
-export function formatDate(value: Date | string, format = `MMMM Do, YYYY [at] hh:mm A`) {
-  const _dayjs = typeof value === 'string' ? dayjs(value, 'YYYY-MM-DDTHH:mm:ss.SSSZ') : dayjs(value);
-  return _dayjs.format(format);
+export function formatDate(value: Date | string | number, format = `MMMM Do, YYYY [at] hh:mm A`) {
+  return dayjs(new Date(value)).format(format);
 }

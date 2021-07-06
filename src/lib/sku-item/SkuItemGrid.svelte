@@ -62,7 +62,7 @@
           />
         </svelte:fragment>
         <svelte:fragment slot="status">
-          <SkuStatus type="sku" startDate={item.startDate} status={skuStatus(item)} price={item.minPrice} />
+          <SkuStatus type="sku" startDate={item.minStartDate} status={skuStatus(item)} price={item.minPrice} />
         </svelte:fragment>
       </SkuItem>
     {/each}

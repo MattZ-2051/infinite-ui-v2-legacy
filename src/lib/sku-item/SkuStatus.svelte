@@ -18,7 +18,7 @@
   {:else if status === 'upcoming-soon'}
     <span class="card-status-text">Upcoming in:</span>
     <span class="text-2xl card-time-color font-light">
-      <TimeDifference date={startDate || new Date(2022)} />
+      <TimeDifference date={startDate} />
     </span>
   {:else if status === 'no-sale'}
     <span class="card-status-text text-2xl m-auto">

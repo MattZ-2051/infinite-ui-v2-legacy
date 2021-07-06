@@ -2,7 +2,7 @@
   import type { Sku } from '$lib/sku-item/types';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { onOrderIntent } from '$lib/features/order/order.service';
-  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
+  import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
 
   export let sku: Sku;
 
@@ -77,10 +77,8 @@
         {/if}
       </div>
       <div class="flex-grow justify-center col-span-2 text-3xl text-white md:col-span-1">
-        <TimeDifference date={sku.startDate || new Date()} />
-        <div class="text-sm text-gray-400">
-          {sku.startDate?.toLocaleDateString() || new Date().toLocaleDateString()}
-        </div>
+        <TimeDifference date={sku.minStartDate} />
+        <div class="text-sm text-gray-400">{formatDate(sku.minStartDate)}</div>
       </div>
     {:else if noSale}
       <div class="flex-grow text-gray-400">
