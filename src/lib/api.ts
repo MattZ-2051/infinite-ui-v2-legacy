@@ -1,18 +1,26 @@
-import { get as getStoreValue } from 'svelte/store';
+import type { Writable } from 'svelte/store';
+import { get as getStoreValue, writable, derived } from 'svelte/store';
 import { variables } from '$lib/variables';
 import { authToken } from '$lib/auth';
 
 const baseUrl = variables.apiUrl;
 
+type ApiFetchTracker = Pick<Writable<boolean>, 'set' | 'subscribe'>;
+
 type ApiOptions = RequestInit & {
   fetch?: Fetch;
   authorization?: boolean;
   params?: string | string[][] | Record<string, string> | URLSearchParams;
+  tracker?: ApiFetchTracker;
 };
 
 export async function send(path: string, _options: ApiOptions): Promise<Response> {
   const isAbsolute = isAbsoluteURL(path);
-  const { fetch: f, authorization = !isAbsolute, params, ...options } = _options;
+  const { fetch: f, authorization = !isAbsolute, params, tracker, ...options } = _options;
+
+  if (tracker) {
+    tracker.set(true);
+  }
 
   if (options.body) {
     options.headers = { ...options.headers, 'Content-Type': 'application/json' };
@@ -32,6 +40,10 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
   }
 
   return (f || fetch)(url, options).then((r) => {
+    if (tracker) {
+      tracker.set(false);
+    }
+
     const { status, statusText } = r;
     if (status < 200 || status > 299) {
       throw new Error(`${statusText} [${url}]`);
@@ -67,6 +79,31 @@ export async function put<T>(path: string, body, options?: ApiOptions): Promise<
 
 export async function patch<T>(path: string, body, options?: ApiOptions): Promise<T> {
   return await send(path, { ...options, method: 'PATCH', body }).then((r) => parseBody<T>(r));
+}
+
+export function fetchTracker({ showDelay = 0, hideDelay = 50 } = {}): ApiFetchTracker {
+  const store = writable<boolean>(undefined);
+
+  const delayed = derived(
+    store,
+    ($store, set) => {
+      const timeoutId = setTimeout(
+        () => {
+          set($store);
+        },
+        $store ? showDelay : hideDelay
+      );
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    },
+    undefined
+  );
+
+  return {
+    set: store.set,
+    subscribe: delayed?.subscribe || store.subscribe,
+  };
 }
 
 async function parseBody<T>(response: Response): Promise<T> {

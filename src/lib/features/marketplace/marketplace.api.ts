@@ -1,8 +1,7 @@
 import type { Sku, Profile, Series } from '$lib/sku-item/types';
-import { writable } from 'svelte/store';
-import { get, getPage } from '$lib/api';
+import { get, getPage, fetchTracker } from '$lib/api';
 
-export const loading = writable(false);
+export const loading = fetchTracker();
 
 export async function loadMarketplaceFilters({ fetch }: { fetch: Fetch }) {
   const [categories, creators, series] = await Promise.all([
@@ -20,8 +19,6 @@ export async function loadMarketplaceItems({
   fetch: Fetch;
   query: URLSearchParams;
 }): Promise<{ total: number; data: Sku[] }> {
-  loading.set(true);
-
   const page: number = +query.get('page') || 1;
   const status: string = query.get('status');
   const category: string = query.get('category');
@@ -36,6 +33,7 @@ export async function loadMarketplaceItems({
   const sortBy: string = query.get('sortBy') || 'startDate:1';
   const { data, total } = await getPage<Sku>(`skus/tiles/`, {
     fetch,
+    tracker: loading,
     params: {
       page: `${page}`,
       per_page: `6`,
@@ -52,8 +50,6 @@ export async function loadMarketplaceItems({
       ...(search && { search }),
     },
   });
-
-  loading.set(false);
 
   return { data, total };
 }
