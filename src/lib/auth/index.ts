@@ -26,8 +26,12 @@ export async function login(returnUrl = window.location.pathname) {
   isLoading.set(true);
 
   const client = await getClient();
+  let redirectUri = `${window.location.origin}/authorize`;
+  if (returnUrl !== '/') {
+    redirectUri += `?returnUrl=${returnUrl}`;
+  }
   await client.loginWithRedirect({
-    redirect_uri: `${window.location.origin}/authorize?returnUrl=${returnUrl}`,
+    redirect_uri: redirectUri,
   });
 }
 
