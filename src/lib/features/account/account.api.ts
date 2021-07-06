@@ -1,16 +1,5 @@
-import type { UserProfile } from '$lib/user/types';
 import type { Product, Profile, Sku } from '$lib/sku-item/types';
-import { writable } from 'svelte/store';
 import { get, patch } from '$lib/api';
-
-export const userProfile = writable<UserProfile>(undefined);
-
-export async function getMyProfile(): Promise<UserProfile> {
-  const profile = await get<UserProfile>(`users/me`);
-
-  userProfile.set(profile);
-  return profile;
-}
 
 export async function loadReleases({ id }: { id: string }) {
   const [skus, products] = await Promise.all([

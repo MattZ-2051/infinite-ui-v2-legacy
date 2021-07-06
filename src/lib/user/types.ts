@@ -1,6 +1,6 @@
 import type { Transaction } from '$lib/sku-item/types';
 
-export interface User {
+export type User = {
   _id: string;
   username: string;
   email: string;
@@ -8,19 +8,11 @@ export interface User {
   permissions: string[];
   balance: number;
   availableBalance: number;
-}
-
-export type UserProfile = {
-  _id: string;
-  id: string;
-  balance: number;
-  availableBalance: number;
   createdAt: Date;
   externalId: string;
   hederaAccount: string;
   role: string;
   updatedAt: Date;
-  username: string;
   profilePhotoUrl: string;
   bannerPhotoUrl: string;
   midPhotoUrl: string;

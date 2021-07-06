@@ -1,22 +1,20 @@
 <script lang="ts">
-  import type { UserProfile } from '$lib/user/types';
   import type { Sku, Product } from '$lib/sku-item/types';
   import Account from '$lib/features/account/Account.svelte';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
-  import { getMyProfile, loadReleases } from '$lib/features/account/account.api';
+  import { loadReleases } from '$lib/features/account/account.api';
   import { user } from '$lib/user';
 
-  async function load() {
-    profile = await getMyProfile();
-    ({ skus, products } = await loadReleases({ id: profile._id }));
-  }
-  $: $user && load();
   let skus: Sku[];
   let products: Product[];
-  let profile: UserProfile;
+
+  async function load() {
+    ({ skus, products } = await loadReleases({ id: $user._id }));
+  }
+  $: $user && load();
 </script>
 
-{#if profile}
+{#if $user}
   <Account {skus} {products} />
 {:else}
   <FullScreenLoader class="text-black" />

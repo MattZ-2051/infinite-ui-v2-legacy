@@ -1,23 +1,27 @@
 <script lang="ts">
-  import type { Profile } from '$lib/sku-item/types';
   import { closeModal, Modal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import Input from '$lib/components/Input.svelte';
+  import { user, updateUser } from '$lib/user';
   import { editUsername } from './account.api';
 
-  export let isOpen; // provided by Modals
-  export let profile: Profile;
+  export let isOpen: boolean;
 
-  let editableUsername = profile?.username || '';
+  let editableUsername = $user.username;
 
+  let saving: boolean;
   async function handleUpdate() {
+    saving = true;
     try {
       await editUsername({ username: editableUsername });
+      updateUser();
       closeModal();
       toast.success('Your username was successfully updated!');
     } catch {
       toast.danger('There was an error submitting your request. Please try again.');
+    } finally {
+      saving = false;
     }
   }
 </script>
@@ -31,7 +35,7 @@
           <div slot="before" class="text-gray-400">@</div>
           <input
             bind:value={editableUsername}
-            placeholder={profile.username}
+            placeholder={$user.username}
             aria-label="Full name"
             class="{klass} font-black"
           />
@@ -39,7 +43,7 @@
       </div>
     </div>
     <div slot="footer">
-      <Button on:click={handleUpdate} disabled={editableUsername.length === 0}>Update username</Button>
+      <Button on:click={handleUpdate} disabled={editableUsername.length === 0 || saving}>Update username</Button>
     </div>
   </Modal>
 {/if}

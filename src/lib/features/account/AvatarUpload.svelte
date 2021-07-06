@@ -1,6 +1,6 @@
 <script lang="ts">
   import { post } from '$lib/api';
-  import { getMyProfile } from '$lib/features/account/account.api';
+  import { updateUser } from '$lib/user';
   import { toast } from '$ui/toast';
 
   let avatarUpload: HTMLInputElement;
@@ -11,7 +11,7 @@
     data.append('image', avatarUpload.files[0]);
 
     await post('users/photo-upload/me', data)
-      .then(() => getMyProfile())
+      .then(() => updateUser())
       .catch(() => toast.danger('Failed to upload the avatar image. Please, try again.'))
       .finally(() => (avatarUpload.value = ''));
   }
