@@ -33,7 +33,7 @@ export type Sku = {
   totalSkuListingSupply?: number;
   countSkuListings: number;
   countAllSkuListings: number;
-  countProductListings: number;
+  countProductListings?: number;
   series: Series;
   category: {
     _id: string;
