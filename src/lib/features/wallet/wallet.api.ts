@@ -1,12 +1,13 @@
 import type { Wallet } from './types';
 import type { Transaction, Bid } from '$lib/sku-item/types';
 import { get, getPage, fetchTracker } from '$lib/api';
+import { wallet } from './index';
 
 export const loadingTransactions = fetchTracker();
 export const loadingBids = fetchTracker();
 
-export async function loadWallet(): Promise<Wallet> {
-  return await get<Wallet>('wallet');
+export async function loadWallet() {
+  wallet.set(await get<Wallet>('wallet'));
 }
 
 export async function loadTransactions(page: number): Promise<{ total: number; transactions: Transaction[] }> {

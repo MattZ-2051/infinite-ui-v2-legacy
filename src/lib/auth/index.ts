@@ -50,7 +50,7 @@ export async function logout(redirectUri: string) {
   });
 }
 
-export async function getAuthToken() {
+export async function getAuthToken(): Promise<string> {
   const client = await getClient();
   return await client.getTokenSilently();
 }

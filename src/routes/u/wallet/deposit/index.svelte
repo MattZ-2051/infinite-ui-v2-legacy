@@ -1,23 +1,14 @@
 <script lang="ts">
-  import type { Wallet } from '$lib/features/wallet/types';
-  import { user } from '$lib/user';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
-  import { loadWallet } from '$lib/features/wallet/wallet.api';
+  import { wallet } from '$lib/features/wallet';
   import CardAdd from '$lib/features/card/CardAdd.svelte';
   import CardFund from '$lib/features/card/CardFund.svelte';
-
-  let wallet: Wallet;
-  async function load() {
-    wallet = await loadWallet();
-  }
-
-  $: $user && load();
 </script>
 
-{#if !wallet}
+{#if !$wallet}
   <FullScreenLoader>Retrieving your credit card information...</FullScreenLoader>
-{:else if wallet?.cards?.length > 0}
-  <CardFund card={wallet.cards[0]} />
+{:else if $wallet?.cards?.length > 0}
+  <CardFund card={$wallet.cards[0]} />
 {:else}
   <CardAdd />
 {/if}
