@@ -31,6 +31,6 @@
   export let series: Series[];
 </script>
 
-<Seo />
+<Seo title="Marketplace" />
 
 <Marketplace {skus} {total} {categories} {creators} {series} />

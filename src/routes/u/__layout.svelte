@@ -1,6 +1,7 @@
 <script script lang="ts">
   import { browser } from '$app/env';
   import { getAuthToken, login } from '$lib/auth';
+  import { Seo } from '$lib/seo';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -14,6 +15,8 @@
     })();
   }
 </script>
+
+<Seo title="User Area" />
 
 {#await isAuthenticated}
   <FullScreenLoader />
