@@ -5,27 +5,16 @@
 </script>
 
 <div data-style="container" {...$$restProps}>
-  <div
-    class="w-4 h-4 rounded-full mr-2"
-    class:legendary-badge-color={rarity === 'legendary'}
-    class:epic-badge-color={rarity === 'epic'}
-    class:rare-badge-color={rarity === 'rare'}
-    class:uncommon-badge-color={rarity === 'uncommon'}
-  />
-  <span
-    class:legendary-text-color={rarity === 'legendary'}
-    class:epic-text={rarity === 'epic'}
-    class:rare-text={rarity === 'rare'}
-    class:uncommon-text={rarity === 'uncommon'}
-  >
-    {rarity.charAt(0).toUpperCase() + rarity.slice(1)}
-  </span>
+  <div class="{rarity}-badge-color w-4 h-4 rounded-full mr-2" />
+  <span class="{rarity}-text-color">{rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>
 </div>
 
 <style lang="postcss">
   [data-style='container'] {
     display: inline-flex;
     align-items: center;
+    --common-start: #8e8e8e;
+    --common-end: #8e8e8e;
     --uncommon-start: #777777;
     --uncommon-end: #777777;
     --rare-start: #11d6ec;
@@ -36,6 +25,15 @@
     --legendary-end: #ff9412;
   }
 
+  .common-badge-color {
+    background: linear-gradient(45deg, #ffffff 0%, #8e8e8e 100%);
+  }
+  .common-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-tr;
+    --tw-gradient-to: var(--common-start);
+    --tw-gradient-from: var(--common-end);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 114, 182, 0));
+  }
   .uncommon-badge-color {
     background: linear-gradient(45deg, #171717 0%, #777777 100%);
   }
