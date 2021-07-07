@@ -45,7 +45,7 @@
           Buy Now
         </button>
       </div>
-      <div class="border-b-2 border-gray-900 col-span-3" />
+      <div class="border-b-2 border-gray-800 col-span-3" />
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">From Collectors</div>
         <div class="text-base">Lowest Listing Price</div>
@@ -100,7 +100,7 @@
           Sold Out
         </button>
       </div>
-      <div class="border-b-2 border-gray-900 col-span-3" />
+      <div class="border-b-2 border-gray-800 col-span-3" />
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">From Collectors</div>
         <div class="text-base">Lowest Listing Price</div>

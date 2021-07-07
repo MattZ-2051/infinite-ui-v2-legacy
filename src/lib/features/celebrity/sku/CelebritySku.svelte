@@ -16,7 +16,6 @@
   export let collectors: Collector[];
   export let totalCollectors: number;
   export let related: Sku[];
-  $: relatedList = related.filter((item) => item._id !== sku._id);
 </script>
 
 <div class="flex" style="min-height: 70vh; background: linear-gradient(45deg, rgb(2 71 99) 0%, rgb(146 1 162) 100%);">
@@ -64,14 +63,14 @@
         <div class="mt-4 description text-gray-400">
           {@html sku?.description}
         </div>
-        <div class="flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm">
+        <div class="mt-4 flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm">
           <div class="flex items-center ">
             <div class="inline-block bg-black rounded-2xl p-2 mr-4">
               <img src={hedera} alt="Hedera" class="align-middle" />
             </div>
             <span>INFINITE NFTs are minted on the Hedera Hashgraph</span>
           </div>
-          <a class="" href="https://support.suku.world/infinite/hedera-hashgraph-hts">Learn more</a>
+          <a href="https://support.suku.world/infinite/hedera-hashgraph-hts">Learn more</a>
         </div>
       </Accordion>
     </div>
@@ -86,12 +85,12 @@
   </div>
 </div>
 
-{#if relatedList.length > 0}
+{#if related.length > 0}
   <div class="mt-8">
     <div class="container">
       <Tabs class="text-xl md:text-2xl lg:text-2xl font-light" itemClass={'pb-4 md:pb-8'}>
         <Tab title="Related Releases">
-          <SkuItemGrid class="mt-4" skus={relatedList} />
+          <SkuItemGrid class="mt-4" skus={related} />
         </Tab>
       </Tabs>
     </div>

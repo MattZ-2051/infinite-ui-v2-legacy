@@ -6,8 +6,8 @@ export async function loadSku({ id, fetch }: { id: string; fetch?: Fetch }) {
     get<Sku>(`skus/${id}?includeFunctions=true`, { fetch }),
     getPage<Collector>(`products/collectors/${id}`, { params: { page: '1', per_page: '4' }, fetch }),
   ]);
-  const related = await get<Sku[]>(`skus/tiles/?issuerId=${sku?.issuer?._id}&page=1&per_page=4&sortBy=startDate:1`, {
+  const related = await get<Sku[]>(`skus/tiles/?issuerId=${sku?.issuer?._id}&page=1&per_page=8&sortBy=startDate:1`, {
     fetch,
   });
-  return { sku, collectors, totalCollectors, related };
+  return { sku, collectors, totalCollectors, related: related.filter((item) => item._id !== sku._id).slice(0, 4) };
 }
