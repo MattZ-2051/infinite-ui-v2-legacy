@@ -3,22 +3,26 @@ import advancedFormat from 'dayjs/plugin/advancedFormat.js';
 
 dayjs.extend(advancedFormat);
 
-export function formatCurrency(value: number, options?: Intl.NumberFormatOptions) {
-  return new Intl.NumberFormat('en-US', { ...options, style: 'currency', currency: 'USD' }).format(value);
+type FormatNumberOptions = Intl.NumberFormatOptions & { fallback?: string };
+
+export function formatCurrency(value: number | string, options?: FormatNumberOptions) {
+  return numberFormat(value, { ...options, style: 'currency', currency: 'USD' });
 }
 
-export function formatCurrencyWithOptionalFractionDigits(value: number, options?: Intl.NumberFormatOptions) {
+export function formatCurrencyWithOptionalFractionDigits(value: number | string, options?: FormatNumberOptions) {
   return formatCurrency(value, { ...options, minimumFractionDigits: 0 });
 }
 
-export function formatInteger(value: number, options?: Intl.NumberFormatOptions) {
-  return new Intl.NumberFormat('en-US', { ...options, minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(
-    value
-  );
+export function formatInteger(value: number | string, options?: FormatNumberOptions) {
+  return numberFormat(value, { ...options, minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }
 
-export function formatDecimal(value: number, options?: Intl.NumberFormatOptions) {
-  return new Intl.NumberFormat('en-US', { ...options, style: 'decimal' }).format(value);
+export function formatDecimal(value: number | string, options?: FormatNumberOptions) {
+  return numberFormat(value, { ...options, style: 'decimal' });
+}
+
+function numberFormat(value: number | string, options: FormatNumberOptions) {
+  return Number.isNaN(+value) ? options.fallback || '' : new Intl.NumberFormat('en-US', options).format(+value);
 }
 
 export function formatDate(value: Date | string | number, format = `MMMM Do, YYYY [at] hh:mm A`) {

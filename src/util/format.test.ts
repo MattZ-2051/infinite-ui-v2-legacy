@@ -7,22 +7,31 @@ import {
 } from './format';
 
 describe('format', () => {
-  it('currency', () => {
-    expect(formatCurrency(123_456.789)).toEqual('$123,456.79');
-  });
+  describe('number', () => {
+    it('currency', () => {
+      expect(formatCurrency(123_456.789)).toEqual('$123,456.79');
+      expect(formatCurrency('123456.789')).toEqual('$123,456.79');
+    });
 
-  it('currencyWithOptionalFractionDigits', () => {
-    expect(formatCurrencyWithOptionalFractionDigits(123_456.789)).toEqual('$123,456.79');
-    expect(formatCurrencyWithOptionalFractionDigits(123_456)).toEqual('$123,456');
-  });
+    it('currencyWithOptionalFractionDigits', () => {
+      expect(formatCurrencyWithOptionalFractionDigits(123_456.789)).toEqual('$123,456.79');
+      expect(formatCurrencyWithOptionalFractionDigits(123_456)).toEqual('$123,456');
+    });
 
-  it('integer', () => {
-    expect(formatInteger(1_234_567)).toEqual('1,234,567');
-    expect(formatInteger(1_234_567.89)).toEqual('1,234,568');
-  });
+    it('integer', () => {
+      expect(formatInteger(1_234_567)).toEqual('1,234,567');
+      expect(formatInteger(1_234_567.89)).toEqual('1,234,568');
+    });
 
-  it('decimal', () => {
-    expect(formatDecimal(123_456.789, { minimumFractionDigits: 2, maximumFractionDigits: 2 })).toEqual('123,456.79');
+    it('decimal', () => {
+      expect(formatDecimal(123_456.789, { minimumFractionDigits: 2, maximumFractionDigits: 2 })).toEqual('123,456.79');
+    });
+
+    it('supports fallback', () => {
+      expect(formatCurrency(undefined)).toEqual('');
+      expect(formatCurrency('abcd')).toEqual('');
+      expect(formatCurrency('abcd', { fallback: '--' })).toEqual('--');
+    });
   });
 
   it('date', async () => {
