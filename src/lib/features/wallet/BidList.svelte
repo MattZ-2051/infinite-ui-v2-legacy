@@ -7,7 +7,7 @@
   import { loadingBids } from './wallet.api';
 
   export let bids: Bid[];
-  export let total: number;
+  export let totalBids: number;
 
   function gotoPage(event: CustomEvent) {
     goto(`/u/wallet?tab=bids&page=${event.detail.value}`);
@@ -17,7 +17,7 @@
 </script>
 
 <div class:opacity-40={$loadingBids}>
-  {#if total > 0}
+  {#if totalBids > 0}
     <div>
       <div class="mt-3">
         {#each bids as bid}
@@ -31,9 +31,9 @@
           </div>
         {/each}
       </div>
-      <Pagination {total} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
+      <Pagination total={totalBids} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
     </div>
-  {:else if total === 0 && !$loadingBids}
+  {:else if totalBids === 0 && !$loadingBids}
     <div class="flex justify-center items-center text-2xl text-gray-400 pt-20">No active bids found</div>
   {/if}
 </div>

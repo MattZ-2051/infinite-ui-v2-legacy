@@ -13,9 +13,10 @@
   import AccountVerification from './kyc/AccountVerification.svelte';
 
   export let transactions: Transaction[];
-  export let total: number;
   export let tab: 'transactions' | 'bids';
   export let bids: Bid[] = [];
+  export let totalTransactions: number;
+  export let totalBids: number;
 
   let selectedDepositMethod: string;
 
@@ -63,7 +64,7 @@
     <div class="mb-2 mx-6">Account Verification Status:</div>
     <AccountVerification class="mx-8" />
   </div>
-  <div class="w-full md:w-4/5"><WalletList {transactions} {total} {tab} {bids} /></div>
+  <div class="w-full md:w-4/5"><WalletList {transactions} {totalTransactions} {bids} {totalBids} {tab} /></div>
 </div>
 
 {#if selectedDepositMethod === 'coinbase'}

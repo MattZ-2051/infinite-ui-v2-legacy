@@ -8,11 +8,10 @@
   export let tab: 'transactions' | 'bids';
   export let transactions: Transaction[] = [];
   export let bids: Bid[] = [];
-  export let total: number;
+  export let totalTransactions: number;
+  export let totalBids: number;
 
   function redirect(_tab: 'transactions' | 'bids') {
-    total = undefined;
-    tab = _tab;
     goto(`/u/wallet?tab=${_tab}`);
   }
 </script>
@@ -27,11 +26,11 @@
 </nav>
 
 {#if tab === 'transactions'}
-  <TransactionList {transactions} {total} />
+  <TransactionList {transactions} {totalTransactions} />
 {/if}
 
 {#if tab === 'bids'}
-  <BidList {bids} {total} />
+  <BidList {bids} {totalBids} />
 {/if}
 
 <style>

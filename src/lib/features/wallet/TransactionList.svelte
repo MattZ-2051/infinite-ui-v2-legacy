@@ -7,7 +7,7 @@
   import { loadingTransactions } from './wallet.api';
 
   export let transactions: Transaction[] = [];
-  export let total: number;
+  export let totalTransactions: number;
 
   function gotoPage(event: CustomEvent) {
     goto(`/u/wallet?tab=transactions&page=${event.detail.value}`);
@@ -17,16 +17,16 @@
 </script>
 
 <div class:opacity-40={$loadingTransactions}>
-  {#if total > 0}
+  {#if totalTransactions > 0}
     <div>
       <div class="mt-3">
         {#each transactions as transaction}
           <TransactionItem {transaction} />
         {/each}
       </div>
-      <Pagination {total} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
+      <Pagination total={totalTransactions} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
     </div>
-  {:else if total === 0 && !$loadingTransactions}
+  {:else if totalTransactions === 0 && !$loadingTransactions}
     <div class="flex justify-center items-center text-2xl text-gray-400 pt-20">No transactions found</div>
   {/if}
 </div>

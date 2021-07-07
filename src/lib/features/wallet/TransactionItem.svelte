@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Transaction } from '$lib/sku-item/types';
   import { mdiChevronDown } from '@mdi/js';
-  import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
+  import { formatDate, formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
+  import UserLink from './UserLink.svelte';
 
   export let transaction: Transaction;
 
@@ -46,33 +47,69 @@
         <span class="">
           {#if type === 'royalty_fee'}
             <span class="message">You received a royalty payment for the sale of </span>
-            <span class="font-semibold underline hover:no-underline">{name} </span>
-            <span class="font-semibold underline hover:no-underline">#{serialNumber}</span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a></span
+            >
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+            >
           {/if}
 
           {#if type === 'purchase' && status === 'success'}
             <span class="message">You bought</span>
-            <span class="font-semibold underline hover:no-underline">{name} </span>
-            <span class="font-semibold underline hover:no-underline">#{serialNumber}</span>
-            <span class="message">from</span>
-            <span class="font-semibold underline hover:no-underline">@{sellerUsername}</span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a>
+            </span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+            >
+            <UserLink profile={transaction.transactionData.seller}>
+              <span class="message" slot="prefix">from</span>
+            </UserLink>
           {/if}
 
           {#if type === 'purchase' && status === 'error'}
             <span class="message">You tried buying</span>
-            <span class="font-semibold underline hover:no-underline">{name} </span>
-            <span class="font-semibold underline hover:no-underline">#{serialNumber}</span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a>
+            </span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+            >
             <span class="message">from</span>
-            <span class="font-semibold underline hover:no-underline">@{sellerUsername}</span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/collection/{sellerUsername}">@{sellerUsername}</a></span
+            >
             <span class="font-semibold text-red-600">(Transaction failed)</span>
           {/if}
 
-          {#if type === 'sale'}
+          {#if type === 'sale' && status === 'success'}
             <span class="message">You sold</span>
-            <span class="font-semibold underline hover:no-underline">{name} </span>
-            <span class="font-semibold underline hover:no-underline">#{serialNumber}</span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a>
+            </span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+            >
             <span class="message">to</span>
-            <span class="font-semibold underline hover:no-underline">@{buyerUsername}</span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/collection/{buyerUsername}">@{buyerUsername}</a></span
+            >
+          {/if}
+
+          {#if type === 'sale' && status === 'error'}
+            <span class="message">You tried selling</span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a>
+            </span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+            >
+            <span class="message">to</span>
+            <span class="font-semibold underline hover:no-underline"
+              ><a href="/collection/{buyerUsername}">@{buyerUsername}</a></span
+            >
+            <span class="font-semibold text-red-600">(Transaction failed)</span>
           {/if}
 
           {#if type === 'deposit' && deposit.type === 'cc'}
@@ -86,7 +123,7 @@
 
           {#if type === 'deposit' && deposit.type === 'coinbase'}
             <span class="message">You added funds by depositing </span>
-            <span class="font-medium"> {formatCurrencyWithOptionalFractionDigits(+deposit.amount)} </span>
+            <span class="font-medium"> {formatCurrency(+deposit.amount)} </span>
             <span class="message ">using </span>
             <span class="font-medium">Coinbase</span>
           {/if}
@@ -94,28 +131,32 @@
         <div class="flex justify-between gap-x-3">
           <span class="message-color font-extrabold italic">{formatDate(transaction.createdAt, 'MMMM Do, YYYY ')}</span>
           <span
-            class="whitespace-nowrap flex items-center {type === 'purchase' && status === 'success'
-              ? 'withdraw-color'
-              : 'deposit-color'}"
+            class="whitespace-nowrap flex items-center "
             class:text-black={type === 'purchase' && status === 'error'}
+            class:withdraw-color={type === 'purchase' && status === 'success'}
+            class:deposit-color={(type === 'royalty_fee' || type === 'sale' || type === 'deposit') &&
+              status === 'success'}
           >
             {#if (type === 'royalty_fee' || type === 'sale' || type === 'deposit') && status === 'success'}
               +
             {/if}
             {#if type === 'royalty_fee'}
-              {formatCurrencyWithOptionalFractionDigits(cost.royaltyFee)}
+              {formatCurrency(cost.royaltyFee)}
             {/if}
             {#if type === 'sale'}
-              {formatCurrencyWithOptionalFractionDigits(+cost.finalPayout)}
+              {formatCurrency(+cost.finalPayout)}
+            {/if}
+            {#if type === 'sale' && status === 'error'}
+              <span class="line-through">{formatCurrency(+cost.finalPayout)}</span>
             {/if}
             {#if type === 'deposit'}
-              {formatCurrencyWithOptionalFractionDigits(+deposit.amount)}
+              {formatCurrency(+deposit.amount)}
             {/if}
             {#if type === 'purchase' && status === 'success'}
-              - {formatCurrencyWithOptionalFractionDigits(cost.totalCost)}
+              - {formatCurrency(cost.totalCost)}
             {/if}
             {#if type === 'purchase' && status === 'error'}
-              <span class="line-through">{formatCurrencyWithOptionalFractionDigits(cost.totalCost)}</span>
+              <span class="line-through">{formatCurrency(cost.totalCost)}</span>
             {/if}
           </span>
         </div>

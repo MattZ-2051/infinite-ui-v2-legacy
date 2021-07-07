@@ -22,16 +22,22 @@
   let transactions: Transaction[];
   let bids: Bid[];
   let total: number;
+  let totalTransactions: number;
+  let totalBids: number;
 
   async function _load(t: 'transactions' | 'bids', p: number) {
     if (t === 'transactions') {
+      totalBids = -1; //to avoid flickering when switching tabs
       ({ transactions, total } = await loadTransactions(p));
+      totalTransactions = total;
     } else if (t === 'bids') {
+      totalTransactions = -1; //to avoid flickering when switching tabs
       ({ bids, total } = await loadBids(p));
+      totalBids = total;
     }
   }
 
   $: $user && _load(tab, page);
 </script>
 
-<Wallet {transactions} {bids} {total} {tab} />
+<Wallet {transactions} {totalTransactions} {bids} {totalBids} {tab} />
