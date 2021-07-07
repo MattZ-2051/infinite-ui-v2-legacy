@@ -29,7 +29,7 @@
       <Icon path={mdiPencil} size="1.1" class="text-white bg-gray-800 hover:bg-gray-900 rounded-full p-1" />
     </button>
   </div>
-  <span class="info italic font-black mb-5 text-center">{$user.tagline}</span>
+  {#if $user.tagline}<span class="info italic font-black mb-5 text-center">{$user.tagline}</span>{/if}
   <div class="py-3 px-5 divide-x-2 bg-black bg-opacity-70 rounded-full text-white">
     <a href={`/collection/${$user.username}`} class="pr-3">My Collection</a>
     <a href="/u/wallet" sveltekit:prefetch class="pl-4" style="border-color: #4f4f4f">My wallet</a>

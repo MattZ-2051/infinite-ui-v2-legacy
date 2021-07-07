@@ -16,7 +16,10 @@
 
 <LandingHero />
 
-<div class="relative flex-grow text-white" style="background-color: #0d0a0d">
+<div
+  class="relative flex-grow text-white"
+  style="background-color: #0d0a0d; background-image: linear-gradient( #0d0a0d, #000000);"
+>
   <!-- <Image src={digital_bg} class="absolute w-full h-full object-cover -z-1" /> -->
   <div class="hero-text container flex flex-col mt-8">
     <div class="flex flex-col text-right font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
