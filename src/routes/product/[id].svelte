@@ -17,8 +17,15 @@
 </script>
 
 <script lang="ts">
+  import { Seo } from '$lib/seo';
+
   export let product: Product;
   export let transactions: Transaction[];
 </script>
+
+<Seo
+  title={`${product.sku.name} / #${product.serialNumber}`}
+  image={product.sku.nftPublicAssets?.find((item) => item.type.includes('image'))}
+/>
 
 <ProductPage {product} {transactions} />

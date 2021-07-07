@@ -13,6 +13,8 @@
 </script>
 
 <script lang="ts">
+  import { Seo } from '$lib/seo';
+
   export let sku: Sku;
   export let collectors: Collector[];
   export let forSale: boolean;
@@ -22,5 +24,7 @@
   export let page: number;
   export let perPage: number;
 </script>
+
+<Seo title={sku.name} image={sku.nftPublicAssets?.find((item) => item.type.includes('image'))} />
 
 <Collectors {sku} {collectors} {forSale} {search} {sort} {total} {page} {perPage} />

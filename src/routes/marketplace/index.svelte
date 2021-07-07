@@ -21,6 +21,7 @@
 </script>
 
 <script lang="ts">
+  import { Seo } from '$lib/seo';
   import Marketplace from '$lib/features/marketplace/Marketplace.svelte';
 
   export let skus: Sku[];
@@ -29,5 +30,7 @@
   export let creators: Profile[];
   export let series: Series[];
 </script>
+
+<Seo />
 
 <Marketplace {skus} {total} {categories} {creators} {series} />

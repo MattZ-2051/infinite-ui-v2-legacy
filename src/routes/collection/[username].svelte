@@ -12,6 +12,7 @@
 </script>
 
 <script lang="ts">
+  import { Seo } from '$lib/seo';
   import Celebrity from '$lib/features/celebrity/Celebrity.svelte';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
 
@@ -19,6 +20,8 @@
   export let products: Product[];
   export let profile: Profile;
 </script>
+
+<Seo title={profile.username} image={profile.bannerPhotoUrl} />
 
 {#if profile}
   <Celebrity {skus} {products} {profile} />
