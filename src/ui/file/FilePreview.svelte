@@ -25,9 +25,17 @@
       element={videoElement}
       once
       rootMargin={'150px'}
-      on:intersect={() => (videoElement.src = videoElement.dataset.src)}
+      on:intersect={() => (videoElement.src = item.url)}
     >
-      <video class="w-full h-full object-cover" playsinline autoplay controls={false} loop muted data-src={item.url} />
+      <video
+        bind:this={videoElement}
+        class="w-full h-full object-cover"
+        playsinline
+        autoplay
+        controls={false}
+        loop
+        muted
+      />
     </IntersectionObserver>
   {:else}
     <video class="h-full" playsinline autoplay controls={true} loop muted src={item.url} />
