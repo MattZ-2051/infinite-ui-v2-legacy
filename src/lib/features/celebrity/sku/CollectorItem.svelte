@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { mdiChevronRight } from '@mdi/js';
+  import { mdiChevronRight, mdiAccountCircle } from '@mdi/js';
   import type { Collector } from '$lib/sku-item/types';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import Icon from '$ui/icon/Icon.svelte';
-  import avatar from '$static/avatar.svg';
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 
   export let collector: Collector;
@@ -15,14 +14,19 @@
 
 <a href={`/product/${collector._id}`} class="flex justify-between">
   <div class="flex gap-6">
-    <img
-      src={collector?.owner?.profilePhotoUrl || avatar}
-      alt="Collectors avatar"
-      on:error={() => {
-        collector.owner.profilePhotoUrl = undefined;
-      }}
-      loading="lazy"
-    />
+    {#if collector?.owner?.profilePhotoUrl}
+      <img
+        class="w-12 h-12 border rounded-full"
+        src={collector.owner.profilePhotoUrl}
+        alt=""
+        on:error={() => {
+          collector.owner.profilePhotoUrl = undefined;
+        }}
+        loading="lazy"
+      />
+    {:else}
+      <Icon path={mdiAccountCircle} size="2" />
+    {/if}
     <div>
       <div>
         #{collector.serialNumber}
