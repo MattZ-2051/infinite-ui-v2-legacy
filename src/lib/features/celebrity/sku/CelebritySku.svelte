@@ -77,7 +77,8 @@
     <div>
       <Accordion open={true} collapsible={!$media.md}>
         <div slot="title" class="flex gap-4 items-end">
-          <span>Collector Auctions</span><span class="text-gray-400 text-xl">{totalCollectors} Total</span>
+          <span>Collector Auctions</span>
+          {#if totalCollectors > 0}<span class="text-gray-400 text-xl">{totalCollectors} Total</span>{/if}
         </div>
         <Collectors {collectors} skuId={sku._id} />
       </Accordion>
