@@ -20,17 +20,17 @@
   export let related: Sku[];
 </script>
 
-<div class="flex" style="min-height: 70vh; background: linear-gradient(45deg, rgb(2 71 99) 0%, rgb(146 1 162) 100%);">
+<div class="flex bg-gray-900 sku-details" style="min-height: 70vh">
   <div class="container p-0 grid gap-x-8 gap-y-2 grid-cols-1 md:grid-cols-2 items-stretch">
-    <div class="bg-cover bg-no-repeat" style="height: 700px;">
+    <div class="bg-cover bg-no-repeat">
       <Gallery items={sku.nftPublicAssets} />
     </div>
-    <div class="container flex flex-col justify-between py-5 md:py-12">
-      <div class="text-white">
-        <div class="flex gap-2 text-sm">
+    <div class="flex flex-col justify-around pt-5 pb-0 md:py-12 md:pb-5 gap-4">
+      <div class="text-white px-4">
+        <div class="text-sm">
           <a sveltekit:prefetch href={`/collection/${sku.issuer.username}`} class="link">{sku.issuerName}</a>
           <span class="italic text-gray-300">/</span>
-          <span class="text-gray-300">{sku.name}</span>
+          <span class="text-gray-300 ml-2">{sku.name}</span>
         </div>
         <div class="flex justify-between mt-12 md:mt-16">
           <a sveltekit:prefetch class="text-xl text-gray-400 link" href={`/collection/${sku.issuer.username}`}
@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center gap-2 text-white">
+      <div class="flex items-center gap-1 text-white px-4">
         <span class="gray-text"
           >Created by<a sveltekit:prefetch href="/collection/{sku.issuer.username}" class="link ml-1 text-white"
             >@{sku.issuer.username}</a
@@ -133,5 +133,10 @@
   }
   .gray-text {
     color: #9e9e9e;
+  }
+  @media only screen and (min-width: 600px) {
+    .sku-details {
+      background: linear-gradient(45deg, rgb(2 71 99) 0%, rgb(146 1 162) 100%);
+    }
   }
 </style>

@@ -21,14 +21,14 @@
   $: expiredListings = sku.skuListings.filter((skuListing) => skuListing.status === 'sold');
 </script>
 
-<div class="flex flex-col gap-8">
-  <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
-    {#if active}
+{#if active}
+  <div class="flex flex-col gap-8 mt-8  px-4 py-5 bg-black md:bg-transparent md:py-0">
+    <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">From Creator</div>
         <div class="text-base">Initial Release</div>
       </div>
-      <div class="flex-none text-white text-center">
+      <div class="flex-none text-white justify-self-end md:text-center md:justify-self-center">
         <div class="text-3xl">{formatCurrencyWithOptionalFractionDigits(activeListings[0].price)}</div>
         {#if sku.supplyType === 'fixed'}
           <div class="text-sm">
@@ -36,10 +36,10 @@
           </div>
         {/if}
       </div>
-      <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
+      <div class="w-full flex-grow flex justify-center col-span-2 md:col-span-1 md:w-auto">
         <button
           type="button"
-          class="w-full max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3 mb-12 md:mb-0"
+          class="w-11/12 md:max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3 mb-6 md:mb-0"
           on:click={onBuy}
         >
           Buy Now
@@ -59,12 +59,16 @@
       <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
         <a
           href="/collectors/{sku._id}"
-          class="w-full max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3"
+          class="w-11/12 md:max-w-xs text-center mb-6 bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3"
         >
           See All
         </a>
       </div>
-    {:else if upcoming}
+    </div>
+  </div>
+{:else if upcoming}
+  <div class="flex flex-col gap-8 mt-8  px-4 py-5 bg-black md:bg-transparent md:py-0">
+    <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">Upcoming</div>
       </div>
@@ -78,12 +82,16 @@
         <TimeDifference date={sku.minStartDate} />
         <div class="text-sm text-gray-400">{formatDate(sku.minStartDate)}</div>
       </div>
-    {:else if noSale}
+    </div>
+  </div>
+{:else if noSale}
+  <div class="flex flex-col gap-8 mt-8  px-4 py-5 bg-black md:bg-transparent md:py-0">
+    <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">From Creator</div>
         <div class="text-base">Initial Release</div>
       </div>
-      <div class="flex-none text-white text-center">
+      <div class="flex-none text-white text-center justify-self-end md:justify-self-center">
         {#if expiredListings[0]?.price}
           <div class="text-3xl">{formatCurrencyWithOptionalFractionDigits(expiredListings[0]?.price)}</div>
         {/if}
@@ -95,7 +103,7 @@
         <button
           type="button"
           disabled={true}
-          class="w-full max-w-xs text-center bg-white text-black cursor-default rounded-full text-xl px-10 py-3 mb-12 md:mb-0"
+          class="w-11/12 md:max-w-xs text-center bg-white text-black cursor-default rounded-full text-xl px-10 py-3 mb-6 md:mb-0"
         >
           Sold Out
         </button>
@@ -105,7 +113,7 @@
         <div class="text-2xl">From Collectors</div>
         <div class="text-base">Lowest Listing Price</div>
       </div>
-      <div class="flex-none text-white text-center">
+      <div class="flex-none text-white text-center justify-self-end md:justify-self-center">
         <div class="text-3xl">
           {sku.countProductListings ? formatCurrencyWithOptionalFractionDigits(sku.minPrice) : '—'}
         </div>
@@ -114,11 +122,11 @@
       <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
         <a
           href="/collectors/{sku._id}"
-          class="w-full max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3"
+          class="w-11/12 md:max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3"
         >
           See All
         </a>
       </div>
-    {/if}
+    </div>
   </div>
-</div>
+{/if}
