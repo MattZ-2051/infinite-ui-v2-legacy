@@ -118,7 +118,7 @@
             Not for sale
           {:else if collector.upcomingProductListing}
             Upcoming
-          {:else if collector.salesType !== 'auction'}
+          {:else if collector.activeProductListing.saleType === 'fixed'}
             <div class="flex justify-end">
               <span>Sale for</span>
               <Icon path={mdiChevronRight} color="gray" />
@@ -126,7 +126,7 @@
                 >{formatCurrencyWithOptionalFractionDigits(collector.activeProductListing.price)}</span
               >
             </div>
-          {:else}
+          {:else if collector.activeProductListing.saleType === 'auction'}
             <div class="flex justify-end">
               <span>Bid for</span>
               <Icon path={mdiChevronRight} color="gray" />

@@ -6,7 +6,7 @@
 
 <div data-style="container" {...$$restProps}>
   <div class="{rarity}-badge-color w-4 h-4 rounded-full mr-2" />
-  <span class="{rarity}-text-color">{rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>
+  <span class="{rarity}-text">{rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>
 </div>
 
 <style lang="postcss">

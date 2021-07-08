@@ -24,10 +24,10 @@
       <div class="flex gap-2">
         {#if sku.supplyType === 'fixed'}
           <span class="text-gray-400">1 of {sku.totalSupply}</span>
+          <div class="border border-black rounded-xl px-2 text-center">LE</div>
         {:else if sku.supplyType === 'variable'}
           <span>{sku.circulatingSupply} Released</span>
-          <div class="border border-black rounded-xl px-2 text-center">LE</div>
-          <a href="/marketplace">(See All)</a>
+          <a href="/marketplace/{sku._id}">(See All)</a>
         {/if}
       </div>
       <div class="flex gap-3 text-sm text-gray-400 font-black">
