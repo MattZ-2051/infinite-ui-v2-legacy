@@ -55,7 +55,7 @@
 
   function removeAllFilters() {
     setFilters({
-      params: { page: 1, status: $page.query.get('status') },
+      params: { status: $page.query.get('status') },
       reset: true,
     });
   }

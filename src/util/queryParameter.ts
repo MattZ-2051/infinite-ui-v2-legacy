@@ -1,7 +1,7 @@
 import { goto } from '$app/navigation';
 
 export type QueryParameterOptions = {
-  base: string;
+  base?: string;
   params: { [key: string]: string | number | boolean };
   reset?: boolean;
 };
@@ -31,7 +31,8 @@ export function handleQueryParameter(options: QueryParameterOptions) {
     }
   }
   const parameters = `${urlSearchParameters}`;
-  return parameters ? `${options.base}?${parameters}` : options.base;
+  const base = options.base || window.location.pathname;
+  return parameters ? `${base}?${parameters}` : base;
 }
 
 export function queryParameter(node: HTMLElement, options: QueryParameterOptions) {
