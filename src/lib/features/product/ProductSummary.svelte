@@ -6,6 +6,8 @@
   import { openModal } from '$ui/modals';
   import { user } from '$lib/user';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
+
   import History from './ProductHistory.svelte';
   import CreateSaleModal from './CreateSaleModal.svelte';
   import CancelSaleModal from './CancelSaleModal.svelte';
@@ -98,5 +100,10 @@
     <Tab id="2" title="History">
       <History {transactions} />
     </Tab>
+    <PrivateAsset skuId={product.sku._id}>
+      <Tab id="3" title="Owner Access">
+        <div class="text-white"><PrivateAssetList /></div>
+      </Tab>
+    </PrivateAsset>
   </Tabs>
 </TabsVariantDark>

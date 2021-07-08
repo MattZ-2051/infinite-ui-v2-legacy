@@ -9,6 +9,7 @@
   import { media } from '$lib/media-query.store';
   import Gallery from '$lib/components/Gallery.svelte';
   import hedera from '$static/hedera.svg';
+  import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import { getSupplyInfo } from './supplyInfo';
   import PriceBoxSku from './PriceBoxSku.svelte';
   import Collectors from './Collectors.svelte';
@@ -84,6 +85,13 @@
         <Collectors {collectors} skuId={sku._id} />
       </Accordion>
     </div>
+    <PrivateAsset skuId={sku._id}>
+      <div>
+        <Accordion title={'Owner Access'} open={true} collapsible={!$media.md}>
+          <PrivateAssetList />
+        </Accordion>
+      </div>
+    </PrivateAsset>
   </div>
 </div>
 
