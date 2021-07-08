@@ -13,7 +13,7 @@ export async function getPrivateAssets({
   const [{ total, data: assets }, { data }] = await Promise.all([
     getPage<FileAsset>(`skus/${skuId}/private-assets`),
     getPage<Collector>(`products/collectors/${skuId}`, {
-      params: { page: '1', per_page: '1', includeFunctions: 'true', owner: ownerId },
+      params: { page: '1', per_page: '1', includeFunctions: 'true', ownerId },
     }),
   ]);
 
