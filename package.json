@@ -17,7 +17,7 @@
     "fclt": "pnpm format && pnpm check && pnpm lint && pnpm test"
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "1.16.0",
+    "@auth0/auth0-spa-js": "1.16.1",
     "@felte/validator-yup": "0.2.5",
     "@mdi/js": "5.9.55",
     "@popperjs/core": "2.9.2",
@@ -33,10 +33,10 @@
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-conventional": "12.1.4",
-    "@sveltejs/adapter-netlify": "1.0.0-next.18",
-    "@sveltejs/adapter-node": "1.0.0-next.31",
+    "@sveltejs/adapter-netlify": "1.0.0-next.19",
+    "@sveltejs/adapter-node": "1.0.0-next.32",
     "@sveltejs/adapter-static": "1.0.0-next.13",
-    "@sveltejs/kit": "1.0.0-next.121",
+    "@sveltejs/kit": "1.0.0-next.122",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/svelte": "3.0.3",
     "@typescript-eslint/eslint-plugin": "4.28.2",

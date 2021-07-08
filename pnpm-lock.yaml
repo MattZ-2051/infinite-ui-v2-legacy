@@ -1,16 +1,16 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@auth0/auth0-spa-js': 1.16.0
+  '@auth0/auth0-spa-js': 1.16.1
   '@commitlint/cli': 12.1.4
   '@commitlint/config-conventional': 12.1.4
   '@felte/validator-yup': 0.2.5
   '@mdi/js': 5.9.55
   '@popperjs/core': 2.9.2
-  '@sveltejs/adapter-netlify': 1.0.0-next.18
-  '@sveltejs/adapter-node': 1.0.0-next.31
+  '@sveltejs/adapter-netlify': 1.0.0-next.19
+  '@sveltejs/adapter-node': 1.0.0-next.32
   '@sveltejs/adapter-static': 1.0.0-next.13
-  '@sveltejs/kit': 1.0.0-next.121
+  '@sveltejs/kit': 1.0.0-next.122
   '@testing-library/jest-dom': 5.14.1
   '@testing-library/svelte': 3.0.3
   '@typescript-eslint/eslint-plugin': 4.28.2
@@ -53,7 +53,7 @@ specifiers:
   yup: 0.32.9
 
 dependencies:
-  '@auth0/auth0-spa-js': 1.16.0
+  '@auth0/auth0-spa-js': 1.16.1
   '@felte/validator-yup': 0.2.5_yup@0.32.9
   '@mdi/js': 5.9.55
   '@popperjs/core': 2.9.2
@@ -69,10 +69,10 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 12.1.4
   '@commitlint/config-conventional': 12.1.4
-  '@sveltejs/adapter-netlify': 1.0.0-next.18
-  '@sveltejs/adapter-node': 1.0.0-next.31
+  '@sveltejs/adapter-netlify': 1.0.0-next.19
+  '@sveltejs/adapter-node': 1.0.0-next.32
   '@sveltejs/adapter-static': 1.0.0-next.13
-  '@sveltejs/kit': 1.0.0-next.121_svelte@3.38.3
+  '@sveltejs/kit': 1.0.0-next.122_svelte@3.38.3
   '@testing-library/jest-dom': 5.14.1
   '@testing-library/svelte': 3.0.3_svelte@3.38.3
   '@typescript-eslint/eslint-plugin': 4.28.2_5031fffb45dfb7117e61c1d8ea1ef3ff
@@ -108,8 +108,8 @@ devDependencies:
 
 packages:
 
-  /@auth0/auth0-spa-js/1.16.0:
-    resolution: {integrity: sha512-vGeUQZJfNwqEd/OxrNpgPVRWCuPUbCXT1OBdWTxoyampPSkcjf0JOQzLng+BOjCO2OihN4dGNWLZ5wvOQMIrmA==}
+  /@auth0/auth0-spa-js/1.16.1:
+    resolution: {integrity: sha512-LosLwxKmLTVvy7dFwugVUwToRRwMetSgA8B+fHY0rq+hLtQr3mwZuEiu4T7NkmOzHTzGUWxLN38DkU6nYEG0Nw==}
     dependencies:
       abortcontroller-polyfill: 1.7.3
       browser-tabs-lock: 1.2.14
@@ -1190,15 +1190,15 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
-  /@sveltejs/adapter-netlify/1.0.0-next.18:
-    resolution: {integrity: sha512-/rNjYcJ9YRxC5U2WUE2IPDu+rrHVSbpE64IzPM9eNE6wwRYpmn6rQQElzSaMlpQZC2UW37agxIVomnA5bJYHPw==}
+  /@sveltejs/adapter-netlify/1.0.0-next.19:
+    resolution: {integrity: sha512-MryVO+TT3xExspsvxcdpPjrzVwK3cCvRSC2y/Rd92HHheRO67qRVQ5ZzALkX5CP1wFBEFq+WntaA8pDVE+6rwg==}
     dependencies:
       '@iarna/toml': 2.2.5
       esbuild: 0.12.10
     dev: true
 
-  /@sveltejs/adapter-node/1.0.0-next.31:
-    resolution: {integrity: sha512-JDewaXheAkQfK0jH+QQi7uKm4dcvto3WdFDAeyyb/ux9jBuqRWx0oi8fpAGgB6MCvIiIVG6/Mvrbnv4i8qcXMA==}
+  /@sveltejs/adapter-node/1.0.0-next.32:
+    resolution: {integrity: sha512-9mHE50BdY4NpK76IQYfWbv1LrLwyV2o9mQvkszFUucUMk5Htxo7oiPRIaon/Yqc1BphDKd7Mx8R4XSRzBzh6yw==}
     dependencies:
       esbuild: 0.12.10
       tiny-glob: 0.2.9
@@ -1208,24 +1208,24 @@ packages:
     resolution: {integrity: sha512-zaXJlWK9JfrjrE6nG5etB8kf4DSkbE3H8Ql6gmCk3WjdvpY85a60TMYBU9OK2iunkqpHnPYiMUGEnOGYmWlLYA==}
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.121_svelte@3.38.3:
-    resolution: {integrity: sha512-I8vUK3uZsX/IXmW6mUzPip7/WMIbxpDmcUR0d24kz38Fv8WIDeIoqOQTtg0y2JrxhD6P2H3/GMcCNcBS8bUWtw==}
+  /@sveltejs/kit/1.0.0-next.122_svelte@3.38.3:
+    resolution: {integrity: sha512-HwyYcbLMN2q7HuO561CD01RZ8ZPEdZgwdTKmyvMYrTZehH9WPJI2VF+7bI84mNxWiQiLnc2gg+Y0klVHXJO+Yw==}
     engines: {node: ^12.20 || >=14.13}
     hasBin: true
     peerDependencies:
       svelte: ^3.34.0
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 1.0.0-next.11_svelte@3.38.3+vite@2.3.8
+      '@sveltejs/vite-plugin-svelte': 1.0.0-next.11_svelte@3.38.3+vite@2.4.1
       cheap-watch: 1.0.3
       sade: 1.7.4
       svelte: 3.38.3
-      vite: 2.3.8
+      vite: 2.4.1
     transitivePeerDependencies:
       - rollup
       - supports-color
     dev: true
 
-  /@sveltejs/vite-plugin-svelte/1.0.0-next.11_svelte@3.38.3+vite@2.3.8:
+  /@sveltejs/vite-plugin-svelte/1.0.0-next.11_svelte@3.38.3+vite@2.4.1:
     resolution: {integrity: sha512-EYR1I145k5rflVqhPwk3442m3bkYimTKSHM9uO5KdomXzt+GS9ZSBJQE3/wy1Di9V8OnGa3oKpckI3OZsHkTIA==}
     engines: {node: ^12.20 || ^14.13.1 || >= 16}
     peerDependencies:
@@ -1238,7 +1238,7 @@ packages:
       require-relative: 0.8.7
       svelte: 3.38.3
       svelte-hmr: 0.14.4_svelte@3.38.3
-      vite: 2.3.8
+      vite: 2.4.1
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -7540,8 +7540,8 @@ packages:
       - rollup
     dev: true
 
-  /vite/2.3.8:
-    resolution: {integrity: sha512-QiEx+iqNnJntSgSF2fWRQvRey9pORIrtNJzNyBJXwc+BdzWs83FQolX84cTBo393cfhObrtWa6180dAa4NLDiQ==}
+  /vite/2.4.1:
+    resolution: {integrity: sha512-4BpKRis9uxIqPfIEcJ18LTBsamqnDFxTx45CXwagHjNltHa6PFEvf8Pe6OpgIHb0OyWT30OXOSSQvdOaX4OBiQ==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
