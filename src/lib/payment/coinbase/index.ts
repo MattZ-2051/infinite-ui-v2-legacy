@@ -43,9 +43,9 @@ export function getServiceURI(uid: string, metadata?: string): string {
 }
 
 export function handleServiceMessage(
-  message: { origin: string; data: Record<string, unknown> },
+  message: { origin: string; data: { event: string; code?: string; buttonId: string } },
   uid: string,
-  dispatch: (event: string, data: unknown) => void
+  dispatch: (event: string, data?: string) => void
 ) {
   if (message?.origin !== serviceURI || message?.data?.buttonId !== uid) {
     return;
@@ -53,19 +53,16 @@ export function handleServiceMessage(
 
   switch (message?.data?.event) {
     case 'charge_confirmed':
-      dispatch('charge-confirmed', message.data);
+      dispatch('charge-confirmed', message.data.code);
       break;
     case 'charge_failed':
-      dispatch('charge-failed', message.data);
+      dispatch('charge-failed', message.data.code);
       break;
     case 'payment_detected':
-      dispatch('payment-detected', message.data);
-      break;
-    case 'error_not_found':
-      dispatch('error-not-found', message.data);
+      dispatch('payment-detected', message.data.code);
       break;
     case 'checkout_modal_closed':
-      dispatch('checkout-modal-closed', message.data);
+      dispatch('checkout-modal-closed');
       break;
   }
 }
