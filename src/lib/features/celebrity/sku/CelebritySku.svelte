@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Sku, Collector } from '$lib/sku-item/types';
+  import xss from 'xss';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import { Tabs, Tab } from '$ui/tabs';
   import Accordion from '$ui/accordion/Accordion.svelte';
@@ -61,7 +62,7 @@
     <div>
       <Accordion title={'Description'} open={true} collapsible={!$media.md}>
         <div class="mt-4 description text-gray-400">
-          {@html sku?.description}
+          {@html xss(sku.description || '')}
         </div>
         <div class="mt-4 flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm">
           <div class="flex items-center ">

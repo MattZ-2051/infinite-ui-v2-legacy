@@ -50,6 +50,7 @@ const config = {
           'msw',
           'svelte-media',
           'tippy.js',
+          'xss',
           'yup',
         ],
       },

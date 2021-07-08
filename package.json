@@ -28,6 +28,7 @@
     "just-debounce": "1.1.0",
     "svelte-media": "0.1.4",
     "tippy.js": "6.3.1",
+    "xss": "^1.0.9",
     "yup": "0.32.9"
   },
   "devDependencies": {
