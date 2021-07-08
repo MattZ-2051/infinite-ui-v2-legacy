@@ -4,6 +4,7 @@
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';
   import { get as getStoreValue, writable } from 'svelte/store';
   import { Modal, closeModal } from '$ui/modals';
+  import tooltip from '$ui/tooltip';
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import { variables } from '$lib/variables';
@@ -77,8 +78,16 @@
           </div>
           {#if txLink}
             <div class="mx-auto mt-8 max-w-xs">
-              <p class="font-medium">Success!</p>
-              <a href={`${txUrl}/${txLink}`}>{txLink}</a>
+              <p class="font-medium text-lg mb-1">Success!</p>
+              <div class="w-full overflow-hidden break-all">
+                <a
+                  href={`${txUrl}/${txLink}`}
+                  class="underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  use:tooltip={'Open transaction'}>{txLink}</a
+                >
+              </div>
               <div class="mt-4 text-xs max-w-xs mx-auto">
                 Your deposit has been received. It will take a moment for it to show up in your transaction history.
               </div>
