@@ -11,18 +11,11 @@
 
   setContext('PrivateAssets', privateAssets);
 
-  async function loadPrivateAssets() {
-    privateAssets.set(await getPrivateAssets({ skuId, ownerId: $user._id }));
+  async function loadPrivateAssets(id: string) {
+    privateAssets.set(await getPrivateAssets({ skuId: id, ownerId: $user._id }));
   }
 
-  $: $user && loadPrivateAssets();
+  $: $user && loadPrivateAssets(skuId);
 </script>
 
-{#if $privateAssets?.total > 0}
-  <slot
-    assets={$privateAssets.assets}
-    total={$privateAssets.total}
-    isOwner={$privateAssets.isOwner}
-    productId={$privateAssets.productId}
-  />
-{/if}
+<slot total={$privateAssets?.total} />

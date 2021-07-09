@@ -1,21 +1,23 @@
 <script lang="ts">
-  import type { Transaction, Product } from '$lib/sku-item/types';
+  import type { Product } from '$lib/sku-item/types';
   import type { ActionType } from './actions/types';
-  import TabsVariantDark from '$ui/tabs/variants/TabsVariantDark.svelte';
-  import { Tabs, Tab } from '$ui/tabs';
+  import { TabHeader, TabsVariantDark } from '$ui/tabs';
   import { openModal } from '$ui/modals';
   import { user } from '$lib/user';
+  import { goto } from '$app/navigation';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import { page } from '$app/stores';
+  import { totalAuctions } from '$lib/features/product/product.store';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
 
-  import History from './ProductHistory.svelte';
+  import ProductHistory from './ProductHistory.svelte';
+  import ProductAuctions from './ProductAuctions.svelte';
   import CreateSaleModal from './CreateSaleModal.svelte';
   import CancelSaleModal from './CancelSaleModal.svelte';
   import RedeemModal from './Redeem/RedeemModal.svelte';
   import ProductActions from './actions/ProductActions.svelte';
 
   export let product: Product;
-  export let transactions: Transaction[];
 
   $: canSell =
     $user &&
@@ -61,6 +63,13 @@
       }
     }
   }
+
+  function redirect(_tab: 'auctions' | 'history' | 'owner') {
+    goto(`/product/${product._id}?tab=${_tab}`);
+  }
+
+  // TODO(tasos): move to route to avoid unnecessary call for transactions
+  $: tab = $page.query.get(`tab`) || ($totalAuctions > 0 ? 'auctions' : 'history');
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
@@ -83,7 +92,7 @@
     </div>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="self-center flex flex-grow">
-      {#if product.sku.redeemable}
+      {#if product.sku.redeemable && product.redeemedStatus === 'NA'}
         <IconRedeem class="text-black bg-white rounded-full mr-2 p-1" />
         <span>Redeemable</span>
       {:else}
@@ -94,16 +103,41 @@
     <ProductActions {actions} on:action={onAction} />
   </div>
 </div>
-<TabsVariantDark>
-  <Tabs class="text-lg" itemClass={'pb-4'}>
-    <Tab id="1" title="Auctions" />
-    <Tab id="2" title="History">
-      <History {transactions} />
-    </Tab>
-    <PrivateAsset skuId={product.sku._id}>
-      <Tab id="3" title="Owner Access">
-        <div class="text-white"><PrivateAssetList /></div>
-      </Tab>
-    </PrivateAsset>
-  </Tabs>
-</TabsVariantDark>
+
+<PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
+  <nav class="text-xl ">
+    <ul class="flex gap-10">
+      <TabsVariantDark>
+        {#if $totalAuctions > 0}
+          <TabHeader on:click={() => redirect('auctions')} active={tab === 'auctions'} class="pb-5">Auctions</TabHeader>
+        {/if}
+        <TabHeader on:click={() => redirect('history')} active={tab === 'history'} class="pb-5">History</TabHeader>
+        {#if totalPrivateAssets > 0}
+          <TabHeader on:click={() => redirect('owner')} active={tab === 'owner'} class="pb-5">Owner Access</TabHeader>
+        {/if}
+      </TabsVariantDark>
+    </ul>
+  </nav>
+
+  {#if tab === 'auctions'}
+    <ProductAuctions />
+  {/if}
+
+  {#if tab === 'history'}
+    <ProductHistory />
+  {/if}
+
+  {#if tab === 'owner'}
+    {#if totalPrivateAssets > 0}
+      <div class="text-white">
+        <PrivateAssetList />
+      </div>
+    {/if}
+  {/if}
+</PrivateAsset>
+
+<style>
+  nav {
+    box-shadow: inset 0 -2px #232323;
+  }
+</style>

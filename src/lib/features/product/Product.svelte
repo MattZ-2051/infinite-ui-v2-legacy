@@ -1,10 +1,9 @@
 <script lang="ts">
-  import type { Transaction, Product } from '$lib/sku-item/types';
+  import type { Product } from '$lib/sku-item/types';
   import SkuDetails from '$lib/sku-item/SkuDetails.svelte';
   import ProductSummary from './ProductSummary.svelte';
 
   export let product: Product;
-  export let transactions: Transaction[];
 </script>
 
 <div class="flex bg-gray-900 flex-grow">
@@ -19,7 +18,7 @@
         />
       </div>
       <div class="flex-grow pt-6 pl-0 pb-16 lg:pl-16 lg:pb-0">
-        <ProductSummary {product} {transactions} />
+        <ProductSummary {product} />
       </div>
     </div>
   </div>

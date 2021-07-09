@@ -29,20 +29,22 @@
 {#if !isOwner}
   <div class="text-lg py-4 italic">Only owners of this NFT are granted access to download these assets.</div>
 {/if}
-{#each assetList as asset (asset.key)}
-  <div class="flex gap-2 justify-between py-6 border-b border-gray-300">
-    <div class="flex-grow flex flex-col gap-4">
-      <div>{asset.filename}</div>
-      <div class="flex justify-between w-full max-w-sm">
-        <span>Type: {asset.type?.split('/')[0]}</span><span>Size: {formatBytes(asset.size)}</span>
+{#if assetList.length > 0}
+  {#each assetList as asset (asset.key)}
+    <div class="flex gap-2 justify-between py-6 border-b border-gray-300">
+      <div class="flex-grow flex flex-col gap-4">
+        <div>{asset.filename}</div>
+        <div class="flex justify-between w-full max-w-sm">
+          <span>Type: {asset.type?.split('/')[0]}</span><span>Size: {formatBytes(asset.size)}</span>
+        </div>
       </div>
+      {#if isOwner}
+        <div class="flex-none flex items-center justify-center px-6">
+          <button type="button" on:click={() => download(asset.key, asset.filename)}
+            ><Icon path={mdiDownloadCircleOutline} size="1.6" /></button
+          >
+        </div>
+      {/if}
     </div>
-    {#if isOwner}
-      <div class="flex-none flex items-center justify-center px-6">
-        <button type="button" on:click={() => download(asset.key, asset.filename)}
-          ><Icon path={mdiDownloadCircleOutline} size="1.6" /></button
-        >
-      </div>
-    {/if}
-  </div>
-{/each}
+  {/each}
+{/if}

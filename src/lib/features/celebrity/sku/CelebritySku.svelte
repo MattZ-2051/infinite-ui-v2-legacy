@@ -85,12 +85,14 @@
         <Collectors {collectors} skuId={sku._id} />
       </Accordion>
     </div>
-    <PrivateAsset skuId={sku._id}>
-      <div>
-        <Accordion title={'Owner Access'} open={true} collapsible={!$media.md}>
-          <PrivateAssetList />
-        </Accordion>
-      </div>
+    <PrivateAsset skuId={sku._id} let:total={totalPrivateAssets}>
+      {#if totalPrivateAssets > 0}
+        <div>
+          <Accordion title={'Owner Access'} open={true} collapsible={!$media.md}>
+            <PrivateAssetList />
+          </Accordion>
+        </div>
+      {/if}
     </PrivateAsset>
   </div>
 </div>
