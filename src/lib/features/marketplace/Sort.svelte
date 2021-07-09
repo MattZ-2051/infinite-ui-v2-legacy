@@ -60,7 +60,13 @@
 
 {#if showSortMenu}
   <MenuVariantLight>
-    <Menu {trigger} offset={4} position="bottom-end" on:click={() => (showSortMenu = !showSortMenu)}>
+    <Menu
+      {trigger}
+      offset={4}
+      position="bottom-end"
+      on:click={() => (showSortMenu = !showSortMenu)}
+      on:close={() => (showSortMenu = false)}
+    >
       {#each availableOptions as option}
         <MenuItem on:click={() => select(option)}>
           {option.name}
