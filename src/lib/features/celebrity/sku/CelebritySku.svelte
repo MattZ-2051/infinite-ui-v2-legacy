@@ -27,12 +27,15 @@
     </div>
     <div class="container flex flex-col justify-between py-5 md:py-12">
       <div class="text-white">
-        <div class="text-sm">
-          <a href={`/collection/${sku.issuer.username}`}>{sku.issuerName}</a>
-          <span class="text-gray-300 ml-2">{sku.name}</span>
+        <div class="flex gap-2 text-sm">
+          <a sveltekit:prefetch href={`/collection/${sku.issuer.username}`} class="link">{sku.issuerName}</a>
+          <span class="italic text-gray-300">/</span>
+          <span class="text-gray-300">{sku.name}</span>
         </div>
         <div class="flex justify-between mt-12 md:mt-16">
-          <a class="text-xl text-gray-400" href={`/collection/${sku.issuer.username}`}>{sku.issuerName}</a>
+          <a sveltekit:prefetch class="text-xl text-gray-400 link" href={`/collection/${sku.issuer.username}`}
+            >{sku.issuerName}</a
+          >
           <Rarity rarity={sku?.rarity} class="font-bold text-lg" />
         </div>
         <div class="text-5xl mt-4">{sku.name}</div>
@@ -44,9 +47,11 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center gap-1 text-white">
-        <span class="gray-text">Created by</span><span
-          >@<a href="/collection/{sku.issuer.username}">{sku.issuer.username}</a></span
+      <div class="flex items-center gap-2 text-white">
+        <span class="gray-text"
+          >Created by<a sveltekit:prefetch href="/collection/{sku.issuer.username}" class="link ml-1 text-white"
+            >@{sku.issuer.username}</a
+          ></span
         >
         {#if sku.issuer.showNotifyMe}
           <span>/</span>
@@ -72,7 +77,7 @@
             </div>
             <span>INFINITE NFTs are minted on the Hedera Hashgraph</span>
           </div>
-          <a href="https://support.suku.world/infinite/hedera-hashgraph-hts">Learn more</a>
+          <a href="https://support.suku.world/infinite/hedera-hashgraph-hts" class="link">Learn more</a>
         </div>
       </Accordion>
     </div>

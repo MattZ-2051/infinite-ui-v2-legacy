@@ -16,11 +16,11 @@
 </script>
 
 {#if fileType === 'video'}
-  <video autoplay={true} controls={false} loop={true} muted={true} src={item.url} />
+  <video autoplay controls={false} loop muted src={item.url} class="w-full h-full object-cover" />
 {:else if fileType === 'image'}
-  <img src={item.url} {alt} loading="lazy" />
+  <img src={item.url} {alt} loading="lazy" class="w-full h-full object-cover" />
 {:else if fileType === 'audio'}
-  <Icon path={mdiVolumeHigh} />
+  <div class="w-full h-full bg-black flex items-center justify-center"><Icon path={mdiVolumeHigh} /></div>
 {:else if fileType === 'vector'}
-  <img src={getVectorThumbImage()} {alt} loading="lazy" />
+  <img src={getVectorThumbImage()} {alt} loading="lazy" class="w-full h-full object-cover" />
 {/if}

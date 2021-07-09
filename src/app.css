@@ -54,3 +54,27 @@ body::-webkit-scrollbar-track {
   --tw-gradient-from: #40c9ff;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 114, 182, 0));
 }
+
+.link {
+  position: relative;
+}
+
+.link::after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  content: '';
+  opacity: 0;
+  transition: height 0.3s, opacity 0.3s, transform 0.3s;
+  transform: translateY(0);
+}
+
+.link:hover::after,
+.link:focus::after {
+  height: 2px;
+  opacity: 1;
+  transform: translateY(3px);
+}

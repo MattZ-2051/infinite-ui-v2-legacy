@@ -14,6 +14,6 @@
     {#each collectors as collector}
       <CollectorItem {collector} />
     {/each}
-    <a href="/collectors/{skuId}" class="self-center text-lg mt-2">View all collectors</a>
+    <a sveltekit:prefetch href="/collectors/{skuId}" class="self-center text-lg mt-2 link">View all collectors</a>
   {/if}
 </div>
