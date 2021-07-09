@@ -15,6 +15,8 @@
   import CreateSaleModal from './CreateSaleModal.svelte';
   import CancelSaleModal from './CancelSaleModal.svelte';
   import RedeemModal from './Redeem/RedeemModal.svelte';
+  import AuctionModal from './Auction/AuctionModal.svelte';
+  import CancelAuctionModal from './Auction/CancelAuctionModal.svelte';
   import ProductActions from './actions/ProductActions.svelte';
 
   export let product: Product;
@@ -32,6 +34,14 @@
     product.upcomingProductListings?.length === 0 &&
     product.activeProductListings[0].saleType !== 'auction';
 
+  $: canCancelAuction =
+    $userId &&
+    $userId === product.owner._id &&
+    product.upcomingProductListings?.length !== 0 &&
+    product.upcomingProductListings[0].saleType === 'auction';
+
+  $: canAuction = !canCancelAuction;
+
   $: canRedeem =
     product.sku.redeemable &&
     $userId &&
@@ -43,6 +53,8 @@
   let actions: ActionType[];
   $: actions = [
     canRedeem ? 'redeem' : undefined,
+    canAuction ? 'auction' : undefined,
+    canCancelAuction ? 'cancel-auction' : undefined,
     canSell ? 'create-sale' : undefined,
     canCancelSale ? 'cancel-sale' : undefined,
   ];
@@ -51,6 +63,14 @@
     switch (type) {
       case 'redeem': {
         openModal(RedeemModal, { product });
+        break;
+      }
+      case 'auction': {
+        openModal(AuctionModal, { product });
+        break;
+      }
+      case 'cancel-auction': {
+        openModal(CancelAuctionModal, { listingId: product?.upcomingProductListings[0]?._id });
         break;
       }
       case 'create-sale': {

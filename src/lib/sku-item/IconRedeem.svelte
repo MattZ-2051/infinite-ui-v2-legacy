@@ -2,33 +2,12 @@
   import type { TooltipInput } from '$ui/tooltip';
   import Icon from '$ui/icon/Icon.svelte';
   import iconRedeem from '$lib/components/icons/redeem';
+  import iconRedeemed from '$lib/components/icons/redeemed';
 
   export let tooltip: TooltipInput = 'Redeemable';
   export let disabled = false;
+
+  $: iconPath = disabled ? iconRedeemed : iconRedeem;
 </script>
 
-<span class="relative" class:redeemed={disabled}><Icon path={iconRedeem} {tooltip} {...$$restProps} /></span>
-
-<style>
-  .redeemed::after {
-    pointer-events: none;
-    content: '';
-    position: absolute;
-    border-bottom: 2px solid white;
-    width: 22px;
-    top: 13px;
-    left: 3px;
-    transform: rotate(45deg);
-  }
-  .redeemed::before {
-    pointer-events: none;
-    content: '';
-    position: absolute;
-    border-bottom: 8px solid;
-    width: 24px;
-    top: 12px;
-    left: 4px;
-    transform: rotate(45deg);
-    @apply border-gray-900;
-  }
-</style>
+<span class="relative"><Icon path={iconPath} {tooltip} {...$$restProps} /></span>

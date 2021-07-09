@@ -7,9 +7,9 @@
   import { FilePreview } from '$ui/file';
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
+  import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import { toast } from '$ui/toast';
 
-  import OrderProduct from './OrderProduct.svelte';
   import OrderProductPricing from './OrderProductPricing.svelte';
   import { purchaseSkuListing } from './order.api';
 
@@ -69,7 +69,7 @@
         {/if}
       </div>
       <div>
-        <OrderProduct {sku} {serial} />
+        <ProductModalInfo {sku} {serial} />
         {#if !result}
           <hr class="h-px w-full my-4" />
           <OrderProductPricing price={listing.price} {marketplaceFee} />

@@ -17,8 +17,7 @@
     <Rarity rarity={sku.rarity} />
   </div>
   <div class="font-medium">
-    <span class="text-xl">{sku.name}</span><br />
-    <span>{sku.series.name}</span>
+    <span class="text-xl">{sku.name}</span>
   </div>
   <div class="text-right text-2xl">
     {#if price}
@@ -26,7 +25,9 @@
     {/if}
   </div>
   <div class="flex">
+    <span class="text-gray-400 font-medium">{sku.series.name}</span>
     {#if sku.redeemable}
+      <span class="text-gray-400 font-medium px-2">/</span>
       <IconRedeem class="text-black bg-white rounded-full mr-1 p-1 border" />
       <span>Redeemable</span>
     {/if}

@@ -5,6 +5,8 @@
   import Icon from '$ui/icon/Icon.svelte';
   import iconSale from '$lib/components/icons/sale';
   import iconRedeem from '$lib/components/icons/redeem';
+  import iconAuction from '$lib/components/icons/auction';
+  import iconCancelAuction from '$lib/components/icons/cancel-auction';
   import MenuVariantDark from '$ui/menu/variants/MenuVariantDark.svelte';
   import Menu from '$ui/menu/Menu.svelte';
   import MenuItem from '$ui/menu/MenuItem.svelte';
@@ -21,6 +23,16 @@
       type: 'redeem',
       label: 'Redeem',
       icon: iconRedeem,
+    },
+    auction: {
+      type: 'auction',
+      label: 'Start Auction',
+      icon: iconAuction,
+    },
+    'cancel-auction': {
+      type: 'cancel-auction',
+      label: 'Cancel Auction',
+      icon: iconCancelAuction,
     },
     'create-sale': {
       type: 'create-sale',
@@ -51,7 +63,7 @@
     Actions
     <button
       bind:this={trigger}
-      class="rounded-3xl bg-gray-800 hover:bg-white hover:text-black ml-2.5 p-3"
+      class="rounded-2xl bg-gray-800 hover:bg-white hover:text-black ml-2.5 p-2"
       on:click={() => (showActions = !showActions)}
     >
       <Icon path={mdiDotsVertical} />
