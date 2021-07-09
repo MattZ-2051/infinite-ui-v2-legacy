@@ -84,7 +84,7 @@ export type Listing = {
   product: Product;
   saleType: string;
   startDate: Date;
-  status: string;
+  status: 'active' | 'upcoming' | 'expired' | 'sold' | 'canceled';
   supply: number;
   supplyLeft: number;
   type: string;
@@ -94,6 +94,7 @@ export type Listing = {
   issuer: Partial<Profile>;
   createdAt: Date;
   updatedAt: Date;
+  auctionBidIncrement?: number;
 };
 
 export type ListingSalePayload = {

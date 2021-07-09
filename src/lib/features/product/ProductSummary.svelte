@@ -9,7 +9,8 @@
   import { page } from '$app/stores';
   import { totalAuctions } from '$lib/features/product/product.store';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
-
+  import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
+  import DateFormat from '$ui/date/DateFormat.svelte';
   import ProductHistory from './ProductHistory.svelte';
   import ProductAuctions from './ProductAuctions.svelte';
   import CreateSaleModal from './CreateSaleModal.svelte';
@@ -18,6 +19,7 @@
   import AuctionModal from './Auction/AuctionModal.svelte';
   import CancelAuctionModal from './Auction/CancelAuctionModal.svelte';
   import ProductActions from './actions/ProductActions.svelte';
+  import { isActiveAuction } from './product.service';
 
   export let product: Product;
 
@@ -125,7 +127,7 @@
 </div>
 
 <PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
-  <nav class="text-xl ">
+  <nav class="text-xl flex justify-between gap-4">
     <ul class="flex gap-10">
       <TabsVariantDark>
         {#if $totalAuctions > 0}
@@ -137,10 +139,19 @@
         {/if}
       </TabsVariantDark>
     </ul>
+    {#if tab === 'auctions' && isActiveAuction(product)}
+      <div class="text-gray-500 text-sm md:text-base">
+        <span>Expires in</span>
+        <span class="text-white"><TimeDifference date={new Date(product.activeProductListings[0].endDate)} /></span>
+        <span class="italic text-sm font-black ">
+          (<DateFormat value={product.activeProductListings[0].endDate} />)
+        </span>
+      </div>
+    {/if}
   </nav>
 
   {#if tab === 'auctions'}
-    <ProductAuctions />
+    <ProductAuctions listing={product.listing} />
   {/if}
 
   {#if tab === 'history'}

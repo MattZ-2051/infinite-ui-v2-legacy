@@ -35,14 +35,16 @@ export async function loadProductTransactions({
 export async function loadProductAuctions({
   id,
   page,
+  per_page,
   fetch,
 }: {
   id: string;
   page: number;
+  per_page: number;
   fetch?: Fetch;
 }): Promise<{ data: Bid[]; total: number }> {
   return await getPage<Bid>(`bids`, {
-    params: { listing: id, includeFunctions: 'true', page: `${page}`, per_page: '5' },
+    params: { listing: id, includeFunctions: 'true', page: `${page}`, per_page: `${per_page}` },
     tracker: loadingAuctions,
     fetch,
   });

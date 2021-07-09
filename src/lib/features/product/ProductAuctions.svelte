@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Listing } from '$lib/sku-item/types';
   import { handleQueryParameter } from '$util/queryParameter';
   import UserLink from '$lib/features/wallet/UserLink.svelte';
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
@@ -8,6 +9,10 @@
   import { formatCurrency } from '$util/format';
   import { loadingAuctions } from './product.api';
   import { auctions, totalAuctions } from './product.store';
+  import BidForm from './BidForm.svelte';
+  import UpcomingBid from './UpcomingBid.svelte';
+
+  export let listing: Listing;
 
   $: p = +$page.query.get(`page`) || 1;
 
@@ -19,37 +24,40 @@
   };
 </script>
 
-<div class:opacity-40={$loadingAuctions}>
-  {#if $totalAuctions > 0}
-    <div class="mt-3">
-      <div class="text-gray-500">
-        {#each $auctions as auction}
-          <div
-            class="grid-container group grid gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
-          >
-            <span class="self-end font-black italic group-hover:text-white">
-              <UserLink profile={auction.owner} />
-            </span>
-            <div class="justify-self-end">
-              Bid for <span class="text-white px-1">{formatCurrency(auction.bidAmt)}</span>
+{#if listing.status === 'active'}
+  <BidForm minBidPrice={listing.minBid} bidIncremenent={listing.auctionBidIncrement} />
+  <div class:opacity-40={$loadingAuctions}>
+    {#if $totalAuctions > 0}
+      <div class="mt-3">
+        <div class="text-gray-500">
+          {#each $auctions as auction}
+            <div
+              class="grid-container group grid grid-cols-2 gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
+            >
+              <span class="self-end font-black italic group-hover:text-white">
+                <UserLink profile={auction.owner} />
+              </span>
+              <div class="justify-self-end">
+                Bid for <span class="text-white px-1">{formatCurrency(auction.bidAmt)}</span>
+              </div>
+              <span class="col-span-2 justify-self-end self-start font-black italic text-sm">
+                <DateFormat value={auction.createdAt} />
+              </span>
             </div>
-            <span class="col-span-2 justify-self-end self-start font-black italic text-sm">
-              <DateFormat value={auction.createdAt} />
-            </span>
-          </div>
-        {/each}
+          {/each}
+        </div>
       </div>
-    </div>
-    <PaginationVariantDark>
-      <Pagination perPage={5} total={$totalAuctions} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
-    </PaginationVariantDark>
-  {:else if $totalAuctions === 0 && !$loadingAuctions}
-    <div class="flex justify-center items-center text-2xl text-gray-400 pt-20">No auctions found</div>
-  {/if}
-</div>
-
-<style>
-  .grid-container {
-    grid-template-columns: auto auto 35px;
-  }
-</style>
+      <PaginationVariantDark>
+        <Pagination perPage={5} total={$totalAuctions} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
+      </PaginationVariantDark>
+    {:else if $totalAuctions === 0 && !$loadingAuctions}
+      <div class="flex justify-center items-center text-2xl text-gray-400 my-20">No auctions found</div>
+    {/if}
+  </div>
+  <div class="text-center  text-gray-500   py-6 ">
+    Started at <span class="text-white">{formatCurrency(listing.minBid)}</span> on
+    <span class="font-black italic text-sm whitespace-nowrap"><DateFormat value={listing.startDate} /></span>
+  </div>
+{:else if listing.status === 'upcoming'}
+  <UpcomingBid minBidPrice={listing.minBid} bidStartDate={listing.startDate} />
+{/if}

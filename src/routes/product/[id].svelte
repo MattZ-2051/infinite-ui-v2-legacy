@@ -13,6 +13,7 @@
     totalAuctions,
     product as product$,
     reset,
+    maxBidAuction,
   } from '$lib/features/product/product.store';
 
   export async function load({ page, fetch }: LoadInput) {
@@ -28,13 +29,31 @@
     const tab = page.query.get(`tab`);
 
     if (hasAuction(product) && (tab === 'auctions' || !tab)) {
-      const { total, data } = await loadProductAuctions({
-        id: product.activeProductListings[0]?._id,
-        page: page_,
-        fetch,
-      });
+      const calls = [
+        loadProductAuctions({
+          id: product.activeProductListings[0]?._id,
+          page: page_,
+          per_page: 5,
+          fetch,
+        }),
+      ];
+      if (page_ !== 1) {
+        calls.push(
+          loadProductAuctions({
+            id: product.activeProductListings[0]?._id,
+            page: 1,
+            per_page: 1,
+            fetch,
+          })
+        );
+      }
+
+      const [{ total, data }, maxBidResponse] = await Promise.all(calls);
+
       totalAuctions.set(total);
       auctions.set(data);
+
+      maxBidAuction.set(maxBidResponse ? maxBidResponse.data[0].bidAmt : data[0].bidAmt);
     }
     if (tab === 'history' || !tab) {
       const { total, data } = await loadProductTransactions({ id, page: page_, fetch });

@@ -9,13 +9,12 @@
   export let after = '';
   export let error: string | string[] = '';
 
-  const klass =
-    'flex-grow appearance-none bg-transparent w-full text-gray-700  leading-tight focus:outline-none font-black';
+  const klass = 'flex-grow appearance-none bg-transparent w-full leading-tight focus:outline-none font-black';
 
   $: cols = +($$slots.before || before) + 1 + +($$slots.after || after);
 </script>
 
-<div>
+<div {...$$restProps}>
   {#if label}
     <label for={id} class="text-sm font-extrabold italic text-gray-500"><slot name="label">{label}</slot></label>
   {/if}
