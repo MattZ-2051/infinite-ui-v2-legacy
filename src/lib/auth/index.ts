@@ -1,17 +1,24 @@
 import { writable } from 'svelte/store';
+import { localStorageWritable } from '$util/localstorage-store';
 import { getClient } from './auth0';
 
 export const isAuthenticated = writable<boolean>(false);
+export const userExternalId = localStorageWritable<string>('auth:externalId', undefined);
 export const isLoading = writable<boolean>(true);
 export const authToken = writable<string>(<string>undefined);
 
-export async function updateAuth() {
+export async function initAuth(): Promise<void> {
   try {
     isLoading.set(true);
+
     const client = await getClient();
     const authenticated = await client.isAuthenticated();
     const _authToken = authenticated ? await getAuthToken() : undefined;
 
+    if (authenticated) {
+      const user = await client.getUser();
+      userExternalId.set(user?.sub);
+    }
     authToken.set(_authToken);
     isAuthenticated.set(authenticated);
   } catch (error) {

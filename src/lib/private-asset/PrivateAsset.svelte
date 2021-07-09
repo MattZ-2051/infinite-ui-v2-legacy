@@ -2,7 +2,7 @@
   import type { PrivateAssets } from './types';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
-  import { user } from '$lib/user';
+  import { userId } from '$lib/user';
   import { getPrivateAssets } from './private-asset.api';
 
   export let skuId: string;
@@ -12,10 +12,10 @@
   setContext('PrivateAssets', privateAssets);
 
   async function loadPrivateAssets(id: string) {
-    privateAssets.set(await getPrivateAssets({ skuId: id, ownerId: $user._id }));
+    privateAssets.set(await getPrivateAssets({ skuId: id, ownerId: $userId }));
   }
 
-  $: $user && loadPrivateAssets(skuId);
+  $: $userId && loadPrivateAssets(skuId);
 </script>
 
 <slot total={$privateAssets?.total} />

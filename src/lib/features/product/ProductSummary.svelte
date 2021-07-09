@@ -3,7 +3,7 @@
   import type { ActionType } from './actions/types';
   import { TabHeader, TabsVariantDark } from '$ui/tabs';
   import { openModal } from '$ui/modals';
-  import { user } from '$lib/user';
+  import { userId } from '$lib/user';
   import { goto } from '$app/navigation';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import { page } from '$app/stores';
@@ -20,22 +20,22 @@
   export let product: Product;
 
   $: canSell =
-    $user &&
-    $user._id === product.owner._id &&
+    $userId &&
+    $userId === product.owner._id &&
     product.activeProductListings.length === 0 &&
     product.upcomingProductListings.length === 0;
 
   $: canCancelSale =
-    $user &&
-    $user._id === product.owner._id &&
+    $userId &&
+    $userId === product.owner._id &&
     product.activeProductListings?.length !== 0 &&
     product.upcomingProductListings?.length === 0 &&
     product.activeProductListings[0].saleType !== 'auction';
 
   $: canRedeem =
     product.sku.redeemable &&
-    $user &&
-    $user._id === product?.owner._id &&
+    $userId &&
+    $userId === product?.owner._id &&
     product.redeemedStatus !== 'redeemed' &&
     product.activeProductListings.length === 0 &&
     product.upcomingProductListings.length === 0;

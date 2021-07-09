@@ -7,12 +7,14 @@
   import Menu from '$ui/menu/Menu.svelte';
   import MenuItem from '$ui/menu/MenuItem.svelte';
   import { logout } from '$lib/auth';
+  import { clearUser } from '$lib/user';
 
   export let trigger: HTMLElement;
 
   let dispatch = createEventDispatcher();
 
   function onLogout() {
+    clearUser();
     logout(`${window.location.origin}`);
   }
 </script>

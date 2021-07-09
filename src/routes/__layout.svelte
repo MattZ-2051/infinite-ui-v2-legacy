@@ -17,7 +17,8 @@
 
 <script lang="ts">
   import { navigating } from '$app/stores';
-  import { isLoading, updateAuth } from '$lib/auth';
+  import { isLoading } from '$lib/auth';
+  import { initUserAuth } from '$lib/user';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$lib/layout/header/Header.svelte';
   import Footer from '$lib/layout/footer/Footer.svelte';
@@ -28,7 +29,7 @@
   import '../app.css';
 
   if (browser) {
-    updateAuth();
+    initUserAuth();
   }
 </script>
 

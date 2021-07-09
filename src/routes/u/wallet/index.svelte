@@ -15,7 +15,7 @@
   import type { Transaction, Bid } from '$lib/sku-item/types';
   import { loadBids, loadTransactions } from '$lib/features/wallet/wallet.api';
   import Wallet from '$lib/features/wallet/Wallet.svelte';
-  import { user } from '$lib/user';
+  import { userId } from '$lib/user';
 
   export let page: number;
   export let tab: 'transactions' | 'bids';
@@ -37,7 +37,7 @@
     }
   }
 
-  $: $user && _load(tab, page);
+  $: $userId && _load(tab, page);
 </script>
 
 <Wallet {transactions} {totalTransactions} {bids} {totalBids} {tab} />
