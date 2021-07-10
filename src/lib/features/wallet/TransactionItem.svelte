@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Transaction } from '$lib/sku-item/types';
+  import type { Sku, Transaction } from '$lib/sku-item/types';
   import { mdiChevronDown } from '@mdi/js';
   import { formatDate, formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
@@ -9,7 +9,8 @@
 
   let isOpen = false;
 
-  $: name = transaction.transactionData.sku[0]?.name || '';
+  $: sku = transaction.transactionData?.sku;
+  $: name = sku?.name || '';
   $: serialNumber = transaction.transactionData.product[0]?.serialNumber || '';
   $: sellerUsername = transaction.transactionData.seller?.username || '';
   $: buyerUsername = transaction.transactionData.buyer?.username || '';
@@ -47,8 +48,7 @@
         <span class="">
           {#if type === 'royalty_fee'}
             <span class="message">You received a royalty payment for the sale of </span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a></span
+            <span class="font-semibold underline hover:no-underline"><a href="/marketplace/{sku?._id}">{name} </a></span
             >
             <span class="font-semibold underline hover:no-underline"
               ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
@@ -58,7 +58,7 @@
           {#if type === 'purchase' && status === 'success'}
             <span class="message">You bought</span>
             <span class="font-semibold underline hover:no-underline"
-              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a>
+              ><a href="/marketplace/{sku?._id}">{name} </a>
             </span>
             <span class="font-semibold underline hover:no-underline"
               ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
@@ -71,7 +71,7 @@
           {#if type === 'purchase' && status === 'error'}
             <span class="message">You tried buying</span>
             <span class="font-semibold underline hover:no-underline"
-              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a>
+              ><a href="/marketplace/{sku?._id}">{name} </a>
             </span>
             <span class="font-semibold underline hover:no-underline"
               ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
@@ -86,7 +86,7 @@
           {#if type === 'sale' && status === 'success'}
             <span class="message">You sold</span>
             <span class="font-semibold underline hover:no-underline"
-              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a>
+              ><a href="/marketplace/{sku?._id}">{name} </a>
             </span>
             <span class="font-semibold underline hover:no-underline"
               ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
@@ -100,7 +100,7 @@
           {#if type === 'sale' && status === 'error'}
             <span class="message">You tried selling</span>
             <span class="font-semibold underline hover:no-underline"
-              ><a href="/marketplace/{transaction.transactionData.sku[0]?._id}">{name} </a>
+              ><a href="/marketplace/{sku?._id}">{name} </a>
             </span>
             <span class="font-semibold underline hover:no-underline"
               ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span

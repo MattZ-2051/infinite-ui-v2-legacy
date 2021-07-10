@@ -180,7 +180,7 @@ type CircleReceipt = {
 
 type TransactionData = {
   product: Product[];
-  sku: Sku[];
+  sku: Sku;
   listing?: string;
   amount?: number;
   bid?: string;
