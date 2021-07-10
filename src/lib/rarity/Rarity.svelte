@@ -1,13 +1,17 @@
+<svelte:options immutable={true} />
+
 <script lang="ts">
   import type { Rarity } from '$lib/sku-item/types';
 
   export let rarity: Rarity;
 </script>
 
-<div data-style="container" {...$$restProps}>
-  <div class="{rarity}-badge-color w-4 h-4 rounded-full mr-2" />
-  <span class="{rarity}-text">{rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>
-</div>
+{#if rarity}
+  <div data-style="container" {...$$restProps}>
+    <div class="{rarity}-badge-color w-4 h-4 rounded-full mr-2" />
+    <span class="{rarity}-text">{rarity.charAt(0).toUpperCase() + rarity.slice(1)}</span>
+  </div>
+{/if}
 
 <style lang="postcss">
   [data-style='container'] {
