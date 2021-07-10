@@ -37,13 +37,17 @@
     </div>
   </div>
   <div class="flex items-center gap-5 justify-self-end">
-    <div class="items-center flex" class:flex-col={activeAuction}>
+    <div class="flex items-end" class:flex-col={activeAuction}>
       {#if noSale}
         <span class="text-gray-400">Not for sale</span>
       {:else if upcoming}
         <span class="text-gray-400">Upcoming</span>
-        <Icon path={mdiChevronRight} color="gray" size="0.8" />
-        <TimeDifference date={new Date()} />
+        {#if collector.upcomingProductListing?.startDate}
+          <div class="text-sm">
+            Starts in
+            <TimeDifference date={new Date(collector.upcomingProductListing.startDate)} />
+          </div>
+        {/if}
       {:else if activeSale}
         <span class="text-gray-400">On Sale for</span>
         <Icon path={mdiChevronRight} color="gray" size="0.8" />
@@ -54,10 +58,12 @@
           <Icon path={mdiChevronRight} color="gray" size="0.8" />
           <span>{formatCurrencyWithOptionalFractionDigits(collector?.activeProductListing?.minBid)}</span>
         </div>
-        <div>
-          Expires in
-          <TimeDifference date={new Date()} />
-        </div>
+        {#if collector?.activeProductListing?.endDate}
+          <div class="text-sm">
+            Expires in
+            <TimeDifference date={new Date(collector.activeProductListing.endDate)} />
+          </div>
+        {/if}
       {/if}
     </div>
     <Icon path={mdiChevronRight} color="black" class="justify-self-end" />
