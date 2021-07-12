@@ -1,15 +1,17 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+
   export let isOpen: boolean;
+
+  const dispatch = createEventDispatcher();
 </script>
 
-<div>
-  <button class:open={isOpen} type="button" class="menu">
-    <span>Menu</span>
-  </button>
-</div>
+<button type="button" class:open={isOpen} on:click={() => dispatch('toggle', !isOpen)} {...$$restProps}>
+  <span>Menu</span>
+</button>
 
 <style>
-  .menu {
+  button {
     border: none;
     width: 30px;
     height: 24px;
@@ -19,14 +21,14 @@
     z-index: 2000;
   }
 
-  .menu::before,
-  .menu::after,
-  .menu span {
-    background: #5f656f;
+  button::before,
+  button::after,
+  button span {
+    background: var(--sidebar-toggle-color, currentColor);
   }
 
-  .menu::before,
-  .menu::after {
+  button::before,
+  button::after {
     content: '';
     position: absolute;
     height: 2px;
@@ -37,7 +39,7 @@
     transition: transform 0.5s;
   }
 
-  .menu span {
+  button span {
     position: absolute;
     width: 100%;
     height: 2px;
@@ -47,22 +49,22 @@
     transition: opacity 0.25s;
   }
 
-  .menu::before {
+  button::before {
     transform: translate3d(0, -10px, 0);
   }
 
-  .menu::after {
+  button::after {
     transform: translate3d(0, 10px, 0);
   }
-  .open.menu span {
+  .open span {
     opacity: 0;
   }
 
-  .open.menu::before {
+  .open::before {
     transform: rotate3d(0, 0, 1, 45deg);
   }
 
-  .open.menu::after {
+  .open::after {
     transform: rotate3d(0, 0, 1, -45deg);
   }
 </style>

@@ -1,9 +1,9 @@
 <script lang="ts">
   import aria from '$static/aria-white.png?w=199&format=avif;webp;png&metadata';
   import Image from '$ui/image/Image.svelte';
+  import SidebarToggle from '$ui/sidebar-toggle/SidebarToggle.svelte';
   import Sidebar from './Sidebar.svelte';
   import Links from './Links.svelte';
-  import SidebarToggle from './SidebarToggle.svelte';
 
   let showSidebar = false;
 </script>
@@ -16,10 +16,11 @@
   {/if}
   <div class="container flex justify-between items-center md:items-end py-2">
     <a href="/"><Image src={aria} alt="ARIA" /></a>
-    <div class="md:hidden flex justify-center cursor-pointer " on:click={() => (showSidebar = !showSidebar)}>
-      <SidebarToggle isOpen={showSidebar} />
-    </div>
-
+    <SidebarToggle
+      isOpen={showSidebar}
+      on:toggle={(event) => (showSidebar = event.detail)}
+      class="md:hidden hover:text-white"
+    />
     <div class="hidden md:flex gap-1 md:gap-6 lg:gap-12">
       <Links />
     </div>
