@@ -1,7 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { TabHeader } from '$ui/tabs';
+  import { withdrawableBalance } from '$lib/features/wallet/index';
   import { user } from '$lib/user';
+  import { TabHeader } from '$ui/tabs';
   import { formatCurrency } from '$util/format';
 
   const dispatch = createEventDispatcher();
@@ -22,24 +23,33 @@
       {/if}
     </div>
   </div>
-  <div class="mt-4">
-    <p class="available">Available:</p>
-    <p class="text-black">
+  <div class="grid grid-cols-1 gap-4 flex-col mt-6 font-medium">
+    <div class="text-sm">
+      <span class="text-gray-400 mr-1">Available:</span>
       {#if $user}
         {formatCurrency($user.availableBalance)}
-        <span class="text-sm explanation">(Excludes pending transactions)</span>
       {:else}
-        <div class="animate-pulse bg-gray-300 rounded h-4 w-36" />
+        <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
       {/if}
-    </p>
-  </div>
-  <div class="flex flex-col mt-10">
-    <button
-      class="mb-8 rounded-full py-4 text-white bg-black text-xl tracking-tight "
-      on:click={() => dispatch('deposit')}>Deposit</button
+      <br />
+      <span class="text-xs text-gray-400">(Excludes pending transactions)</span>
+    </div>
+    <button class="rounded-full py-4 text-white bg-black text-xl tracking-tight" on:click={() => dispatch('deposit')}
+      >Deposit</button
     >
+    <div class="text-sm mt-4">
+      <span class="text-gray-400 mr-1">Withdrawable:</span>
+      {#if $withdrawableBalance}
+        {formatCurrency($withdrawableBalance)}
+      {:else}
+        <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
+      {/if}
+      <br />
+      <span class="text-xs text-gray-400">(Excludes pending transactions)</span>
+    </div>
     <button
       class="rounded-full text-black border-2 border-black py-4 text-xl tracking-tight"
+      disabled={!$withdrawableBalance || $withdrawableBalance === 0}
       on:click={() => dispatch('withdraw')}>Withdrawal</button
     >
   </div>
@@ -48,10 +58,5 @@
 <style>
   nav {
     box-shadow: inset 0 -2px #ebebeb;
-  }
-
-  .available,
-  .explanation {
-    color: #9e9e9e;
   }
 </style>

@@ -32,3 +32,20 @@ export interface KycRecord {
   createdAt: string;
   updatedAt: string;
 }
+
+export type BalanceInfo = {
+  _id: string;
+  transactionAvailableBalance: string;
+  purchasesLock: string;
+  depositsLock: string;
+  salesLock: string;
+  withdrawalsLock: string;
+  bidsLock: string;
+  lockedPositiveBalance: string;
+  lockedNegativeBalance: string;
+  lockedBalance: string;
+  ccNoWithdrawablesLock: string;
+  circleBalance: string;
+  ccWithdrawablesLock: string;
+  totalBalance: string;
+};
