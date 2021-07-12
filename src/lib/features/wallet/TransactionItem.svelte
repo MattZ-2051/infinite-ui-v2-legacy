@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Sku, Transaction } from '$lib/sku-item/types';
+  import type { Transaction } from '$lib/sku-item/types';
   import { mdiChevronDown } from '@mdi/js';
   import { formatDate, formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
@@ -132,7 +132,7 @@
           <span class="message-color font-extrabold italic">{formatDate(transaction.createdAt, 'MMMM Do, YYYY ')}</span>
           <span
             class="whitespace-nowrap flex items-center "
-            class:text-black={type === 'purchase' && status === 'error'}
+            class:text-black={(type === 'purchase' || type === 'sale') && status === 'error'}
             class:withdraw-color={type === 'purchase' && status === 'success'}
             class:deposit-color={(type === 'royalty_fee' || type === 'sale' || type === 'deposit') &&
               status === 'success'}
@@ -143,7 +143,7 @@
             {#if type === 'royalty_fee'}
               {formatCurrency(cost.royaltyFee)}
             {/if}
-            {#if type === 'sale'}
+            {#if type === 'sale' && status === 'success'}
               {formatCurrency(+cost.finalPayout)}
             {/if}
             {#if type === 'sale' && status === 'error'}
