@@ -6,22 +6,6 @@
   import { skuStatus, productStatus } from './status';
 
   export let max = 0;
-  export let maxCols = 4;
-
-  $: gridResponsiveClass = getGridResponsiveClasses(maxCols);
-
-  function getGridResponsiveClasses(cols: number): string {
-    switch (cols) {
-      case 3:
-        return 'md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3';
-
-      case 4:
-        return 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
-
-      default:
-        return '';
-    }
-  }
 
   export let products: Product[] = [];
 
@@ -31,7 +15,7 @@
   $: information = max > 0 ? skus.slice(0, max) : skus;
 </script>
 
-<div class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 {gridResponsiveClass} {$$props.class}">
+<div class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 {$$props.class} grid-container">
   {#if productList.length}
     {#each productList as item (item._id)}
       <SkuItem item={item.sku}>
@@ -68,3 +52,15 @@
     {/each}
   {/if}
 </div>
+
+<style lang="postcss">
+  .grid-container:container(width > = 580) {
+    @apply grid-cols-2;
+  }
+  .grid-container:container(width > = 850) {
+    @apply grid-cols-3;
+  }
+  .grid-container:container(width > = 1200) {
+    @apply grid-cols-4;
+  }
+</style>

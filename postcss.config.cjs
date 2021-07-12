@@ -1,5 +1,6 @@
 const tailwindcss = require('tailwindcss');
 const autoprefixer = require('autoprefixer');
+const cqPostcss = require('cq-prolyfill/postcss-plugin');
 const cssnano = require('cssnano');
 
 const mode = process.env.NODE_ENV;
@@ -11,7 +12,7 @@ module.exports = {
     tailwindcss,
     // But others, like autoprefixer, need to run after
     autoprefixer,
-
+    cqPostcss,
     !dev &&
       cssnano({
         preset: 'default',
