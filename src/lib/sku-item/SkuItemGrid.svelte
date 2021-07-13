@@ -15,7 +15,7 @@
   $: information = max > 0 ? skus.slice(0, max) : skus;
 </script>
 
-<div class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-6 {$$props.class} grid-container">
+<div class="grid grid-cols-1 gap-2 md:gap-6 {$$props.class} grid-container">
   {#if productList.length}
     {#each productList as item (item._id)}
       <SkuItem item={item.sku}>

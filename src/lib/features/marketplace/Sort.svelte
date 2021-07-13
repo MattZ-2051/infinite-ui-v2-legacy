@@ -49,7 +49,7 @@
 </script>
 
 <div
-  class="flex cursor-pointer gap-2 text-gray-400 text-lg"
+  class="flex justify-end cursor-pointer gap-2 text-gray-400"
   on:click={() => (showSortMenu = !showSortMenu)}
   bind:this={trigger}
 >
