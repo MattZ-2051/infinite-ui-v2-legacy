@@ -124,6 +124,8 @@ export type Product = {
   royaltyFeePercentage?: number;
   listing: Listing;
   minSkuPrice: number;
+  tokenId: string;
+  explorerLink?: string;
 };
 
 export type Cost = {

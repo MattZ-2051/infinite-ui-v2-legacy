@@ -9,7 +9,8 @@
   import { media } from '$lib/media-query.store';
   import Gallery from '$lib/components/Gallery.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
-  import hedera from '$static/hedera.svg';
+  import Icon from '$ui/icon/Icon.svelte';
+  import hedera from '$lib/components/icons/hedera';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import { getSupplyInfo } from './supplyInfo';
   import PriceBoxSku from './PriceBoxSku.svelte';
@@ -80,7 +81,7 @@
         <div class="mt-4 flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm">
           <div class="flex items-center ">
             <div class="inline-block bg-black rounded-2xl p-2 mr-4">
-              <img src={hedera} alt="Hedera" class="align-middle" />
+              <Icon path={hedera} size="0.6" />
             </div>
             <span>INFINITE NFTs are minted on the Hedera Hashgraph</span>
           </div>
