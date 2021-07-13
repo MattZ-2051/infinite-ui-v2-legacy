@@ -3,11 +3,10 @@ import { get as getStoreValue, writable, derived } from 'svelte/store';
 import { variables } from '$lib/variables';
 import { authToken } from '$lib/auth';
 
-const baseUrl = variables.apiUrl;
-
 type ApiFetchTracker = Pick<Writable<boolean>, 'set' | 'subscribe'>;
 
 type ApiOptions = RequestInit & {
+  baseUrl?: string;
   fetch?: Fetch;
   authorization?: boolean;
   params?: string | string[][] | Record<string, string> | URLSearchParams;
@@ -16,7 +15,7 @@ type ApiOptions = RequestInit & {
 
 export async function send(path: string, _options: ApiOptions): Promise<Response> {
   const isAbsolute = isAbsoluteURL(path);
-  const { fetch: f, authorization = !isAbsolute, params, tracker, ...options } = _options;
+  const { baseUrl = variables.apiUrl, fetch: f, authorization = !isAbsolute, params, tracker, ...options } = _options;
 
   if (tracker) {
     tracker.set(true);

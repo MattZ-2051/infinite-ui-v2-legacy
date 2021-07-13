@@ -69,7 +69,12 @@ describe('API', () => {
       expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {});
     });
 
-    describe('authorizatiion', () => {
+    it('should support custom `baseUrl`', async () => {
+      await send('/my/path', { baseUrl: 'http://my-custom.path', fetch: mockFetch });
+      expect(mockFetch).toHaveBeenLastCalledWith('http://my-custom.path/my/path', {});
+    });
+
+    describe('authorization', () => {
       const bearer =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFudG9uaXMtS29zdGlzLUV1aSIsImlhdCI6MTUxNjIzOTAyMn0.yhRrCOv0rIag7bT5gT1h58vcx1RuvDVjF_r0WvhLWkc';
       const authorizationHeader = { Authorization: `Bearer ${bearer}` };
