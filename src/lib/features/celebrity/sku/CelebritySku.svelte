@@ -8,6 +8,7 @@
   import NotifyButton from '$lib/notify/NotifyButton.svelte';
   import { media } from '$lib/media-query.store';
   import Gallery from '$lib/components/Gallery.svelte';
+  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import hedera from '$static/hedera.svg';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import { getSupplyInfo } from './supplyInfo';
@@ -58,11 +59,17 @@
           <NotifyButton profile={sku.issuer} />
         {/if}
       </div>
+      {#if sku.redeemable}
+        <div class="border-t broder-gray-800 w-10 mx-4" />
+        <div class="px-4 flex gap-2 text-white items-center">
+          <IconRedeem class="bg-white text-black rounded-full border p-1.5" size="1.3" />
+          Redeemable
+        </div>
+      {/if}
       <PriceBoxSku {sku} />
     </div>
   </div>
 </div>
-
 <div class="mt-8">
   <div class="container grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>

@@ -22,7 +22,7 @@
 </script>
 
 {#if active}
-  <div class="flex flex-col gap-8 mt-8  px-4 py-5 bg-black md:bg-transparent md:py-0">
+  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent md:py-0 md:mt-8">
     <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">From Creator</div>
@@ -67,7 +67,7 @@
     </div>
   </div>
 {:else if upcoming}
-  <div class="flex flex-col gap-8 mt-8  px-4 py-5 bg-black md:bg-transparent md:py-0">
+  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent md:py-0 md:mt-8">
     <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">Upcoming</div>
@@ -85,7 +85,7 @@
     </div>
   </div>
 {:else if noSale}
-  <div class="flex flex-col gap-8 mt-8  px-4 py-5 bg-black md:bg-transparent md:py-0">
+  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent md:py-0 md:mt-8">
     <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">From Creator</div>
