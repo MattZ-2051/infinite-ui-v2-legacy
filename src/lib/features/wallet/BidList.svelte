@@ -2,6 +2,7 @@
   import type { Bid } from '$lib/sku-item/types';
   import { page } from '$app/stores';
   import { Pagination } from '$ui/pagination';
+  import { handleQueryParameter } from '$util/queryParameter';
   import { goto } from '$app/navigation';
   import BidItem from './BidItem.svelte';
   import { loadingBids } from './wallet.api';
@@ -10,7 +11,11 @@
   export let totalBids: number;
 
   function gotoPage(event: CustomEvent) {
-    goto(`/u/wallet?tab=bids&page=${event.detail.value}`);
+    const url = handleQueryParameter({
+      params: { page: event.detail.value },
+    });
+
+    goto(url);
   }
 
   $: p = +$page.query.get(`page`) || 1;
