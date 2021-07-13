@@ -108,8 +108,8 @@
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="flex flex-col">
       <span class="text-gray-500">Owner</span>
-      <a sveltekit:prefetch href={`/collection/${product.sku.issuer.username}`}
-        ><span class="font-black">{product.sku.issuerName}</span></a
+      <a sveltekit:prefetch href={`/collection/${product.owner.username}`}
+        ><span class="font-black">{product.owner.username}</span></a
       >
     </div>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
