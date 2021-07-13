@@ -22,52 +22,55 @@
   export let related: Sku[];
 </script>
 
-<div class="flex bg-gray-900 sku-details" style="min-height: 70vh">
-  <div class="container p-0 grid gap-x-8 gap-y-2 grid-cols-1 md:grid-cols-2 items-stretch">
-    <div class="bg-cover bg-no-repeat">
+<div class="flex justify-around bg-gray-900 sku-details">
+  <div class="container grid gap-x-8 grid-cols-1 md:grid-cols-2 items-stretch -container-y md:-container-x">
+    <div class="-container-x md:-container-none">
       <Gallery items={sku.nftPublicAssets} />
     </div>
-    <div class="flex flex-col justify-around pt-5 pb-0 md:py-12 md:pb-5 gap-4">
-      <div class="text-white px-4">
-        <div class="text-sm">
-          <a sveltekit:prefetch href={`/collection/${sku.issuer.username}`} class="link">{sku.issuerName}</a>
-          <span class="italic text-gray-300">/</span>
-          <span class="text-gray-300 ml-2">{sku.name}</span>
-        </div>
-        <div class="flex justify-between mt-12 md:mt-16">
-          <a sveltekit:prefetch class="text-xl text-gray-400 link" href={`/collection/${sku.issuer.username}`}
-            >{sku.issuerName}</a
-          >
-          <Rarity rarity={sku?.rarity} class="font-bold text-lg" />
-        </div>
-        <div class="text-5xl mt-4">{sku.name}</div>
+    <div class="flex flex-col justify-between">
+      <div class="flex flex-col py-5 gap-4 text-white">
+        <div>
+          <div class="text-sm flex gap-2">
+            <a sveltekit:prefetch href={`/collection/${sku.issuer.username}`} class="link">{sku.issuerName}</a>
+            <span class="italic text-gray-300">/</span>
+            <span class="text-gray-300">{sku.name}</span>
+          </div>
+          <div class="flex justify-between mt-12">
+            <a sveltekit:prefetch class="text-xl text-gray-400 link" href={`/collection/${sku.issuer.username}`}
+              >{sku.issuerName}</a
+            >
+            <Rarity rarity={sku?.rarity} class="font-bold text-lg" />
+          </div>
+          <div class="text-5xl mt-4">{sku.name}</div>
 
-        <div class="mt-12 ">
-          <div>{sku?.series?.name || ''}</div>
-          <div class="text-gray-400 mt-4 flex gap-2">
-            <span>{getSupplyInfo(sku)}</span>
+          <div class="mt-6">
+            <div>{sku?.series?.name || ''}</div>
+            <div class="text-gray-400 mt-4">
+              <span>{getSupplyInfo(sku)}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex items-center gap-1 text-white px-4">
-        <span class="gray-text"
-          >Created by<a sveltekit:prefetch href="/collection/{sku.issuer.username}" class="link ml-1 text-white"
-            >@{sku.issuer.username}</a
-          ></span
-        >
-        {#if sku.issuer.showNotifyMe}
-          <span>/</span>
-          <NotifyButton profile={sku.issuer} />
-        {/if}
-      </div>
-      {#if sku.redeemable}
-        <div class="border-t broder-gray-800 w-10 mx-4" />
-        <div class="px-4 flex gap-2 text-white items-center">
-          <IconRedeem class="bg-white text-black rounded-full border p-1.5" size="1.3" />
-          Redeemable
+        <div class="flex flex-col flex-grow gap-4">
+          <div class="flex items-center gap-2">
+            <span class="gray-text">Created by</span>
+            <a sveltekit:prefetch href="/collection/{sku.issuer.username}" class="link">@{sku.issuer.username}</a>
+            {#if sku.issuer.showNotifyMe}
+              <span>/</span>
+              <NotifyButton profile={sku.issuer} />
+            {/if}
+          </div>
+          {#if sku.redeemable}
+            <div class="border-t broder-gray-800 w-10" />
+            <div class="flex gap-2 items-center">
+              <IconRedeem class="bg-white text-black rounded-full border p-1.5" size="1.3" />
+              Redeemable
+            </div>
+          {/if}
         </div>
-      {/if}
-      <PriceBoxSku {sku} />
+      </div>
+      <div class="-container-x">
+        <PriceBoxSku {sku} />
+      </div>
     </div>
   </div>
 </div>
@@ -122,7 +125,7 @@
   </div>
 {/if}
 
-<style>
+<style lang="postcss">
   .description :global(h3) {
     @apply font-bold;
     @apply text-black;

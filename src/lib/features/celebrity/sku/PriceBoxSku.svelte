@@ -22,7 +22,7 @@
 </script>
 
 {#if active}
-  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent md:py-0 md:mt-8">
+  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent">
     <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">From Creator</div>
@@ -39,7 +39,7 @@
       <div class="w-full flex-grow flex justify-center col-span-2 md:col-span-1 md:w-auto">
         <button
           type="button"
-          class="w-11/12 md:max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3 mb-6 md:mb-0"
+          class="w-11/12 md:max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl py-3 mb-6 md:mb-0"
           on:click={onBuy}
         >
           Buy Now
@@ -50,7 +50,7 @@
         <div class="text-2xl">From Collectors</div>
         <div class="text-base">Lowest Listing Price</div>
       </div>
-      <div class="flex-none text-white text-center">
+      <div class="flex-none text-white justify-self-end md:text-center md:justify-self-center">
         <div class="text-3xl">
           {formatCurrencyWithOptionalFractionDigits(sku.minPrice, { fallback: '—' })}
         </div>
@@ -59,7 +59,7 @@
       <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
         <a
           href="/collectors/{sku._id}"
-          class="w-11/12 md:max-w-xs text-center mb-6 bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3"
+          class="w-11/12 md:max-w-xs text-center mb-6 bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl py-3"
         >
           See All
         </a>
@@ -67,7 +67,7 @@
     </div>
   </div>
 {:else if upcoming}
-  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent md:py-0 md:mt-8">
+  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent md:mt-8">
     <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">Upcoming</div>
@@ -85,7 +85,7 @@
     </div>
   </div>
 {:else if noSale}
-  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent md:py-0 md:mt-8">
+  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent md:mt-8">
     <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-12">
       <div class="flex-grow text-gray-400">
         <div class="text-2xl">From Creator</div>

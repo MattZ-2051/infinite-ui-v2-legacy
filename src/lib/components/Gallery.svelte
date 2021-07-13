@@ -12,7 +12,7 @@
 <div class="flex relative justify-center items-center h-full text-white">
   <FilePreview item={activeItem} />
   {#if items?.length > 0}
-    <div class="absolute gap-2 bottom-3 left-5 hidden lg:flex">
+    <div class="absolute gap-2 bottom-3 left-5 flex">
       {#each items as item (item.key)}
         <div class="border border-black cursor-pointer w-16 h-16" on:click={() => (selectedItem = item)}>
           <FileThumbnail {item} />

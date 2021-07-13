@@ -39,6 +39,10 @@ body::-webkit-scrollbar-track {
       margin-left: -1rem;
       margin-right: -1rem;
     }
+    .-container-y {
+      margin-top: -1rem;
+      margin-bottom: -1rem;
+    }
   }
 }
 
