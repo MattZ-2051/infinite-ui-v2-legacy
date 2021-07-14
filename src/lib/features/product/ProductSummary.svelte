@@ -9,6 +9,7 @@
   import { page } from '$app/stores';
   import { totalAuctions } from '$lib/features/product/product.store';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
+  import { formatCurrency } from '$util/format';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import DateFormat from '$ui/date/DateFormat.svelte';
   import ProductHistory from './ProductHistory.svelte';
@@ -52,6 +53,11 @@
     product.activeProductListings.length === 0 &&
     product.upcomingProductListings.length === 0;
 
+  $: showActiveSale =
+    product.activeProductListings?.length !== 0 &&
+    product.upcomingProductListings?.length === 0 &&
+    product.activeProductListings[0].saleType !== 'auction';
+
   let actions: ActionType[];
   $: actions = [
     canRedeem ? 'redeem' : undefined,
@@ -80,7 +86,10 @@
         break;
       }
       case 'cancel-sale': {
-        openModal(CancelSaleModal, { listingId: product?.activeProductListings[0]?._id, productId: product._id });
+        openModal(CancelSaleModal, {
+          listingId: product?.activeProductListings[0]?._id,
+          productId: product._id,
+        });
         break;
       }
     }
@@ -122,7 +131,15 @@
         <span class="text-gray-600 self-center">Redeemed</span>
       {/if}
     </div>
-    <ProductActions {actions} on:action={onAction} />
+    <div class="flex items-center">
+      {#if showActiveSale}
+        <div class="flex flex-col items-start mr-4 pb-3.5">
+          <span class="text-gray-400 text-xs">Active Sale</span>
+          <span class="text-xl font-semibold">{formatCurrency(product.activeProductListings[0].price)}</span>
+        </div>
+      {/if}
+      <ProductActions {actions} on:action={onAction} />
+    </div>
   </div>
 </div>
 

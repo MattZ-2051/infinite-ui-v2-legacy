@@ -10,6 +10,7 @@
   export let isOpen: boolean;
   export let listingId: string;
   export let productId: string;
+
   let disabled = false;
 
   async function submit() {
@@ -18,6 +19,8 @@
       await cancelSale({ id: listingId });
       toast.success('Listing successfully cancelled.');
       closeModal();
+      // TODO: replace with data reload. Does goto work?
+      setTimeout(() => window.location.reload(), 1000);
       goto(`/product/${productId}`);
     } catch {
       toast.danger('Whoops, something went wrong - please try again.');

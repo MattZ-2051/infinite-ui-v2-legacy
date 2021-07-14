@@ -11,6 +11,7 @@
 
   export let product: Partial<Product>;
   export let isOpen: boolean;
+
   let price: number;
   let disabled = false;
 
@@ -35,6 +36,8 @@
     try {
       await createSale({ listing });
       closeModal();
+      // TODO: replace with data reload. Does goto work?
+      setTimeout(() => window.location.reload(), 1000);
       goto(`/product/${product._id}`);
       toast.success('Congrats! Your sale has started.');
     } catch {
