@@ -1,13 +1,3 @@
-export interface District {
-  name: string;
-  stateCode: string;
-}
-
-export interface Country {
-  name: string;
-  iso2: string;
-  states?: Array<District>;
-}
 export interface NewCreditCard extends Record<string, unknown> {
   cardNumber: string;
   cvv: number;
