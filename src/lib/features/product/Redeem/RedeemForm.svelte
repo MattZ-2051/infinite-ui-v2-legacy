@@ -6,8 +6,8 @@
   import * as yup from 'yup';
   import notifications from '$ui/toast/toast.store';
   import Button from '$lib/components/Button.svelte';
-  import CardFormInput from '$lib/features/card/CardFormInput.svelte';
-  import CardFormCountriesSelect from '$lib/features/card/CardFormCountriesSelect.svelte';
+  import FormInput from '$lib/components/form/FormInput.svelte';
+  import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
   import { redeemItem } from './redeem.api';
 
   const schema = yup.object({
@@ -46,13 +46,13 @@
 <div class="flex flex-col gap-2">
   <div class="flex gap-2 text-xl border-b-2 border-black pb-3 w-full">Shipping Information</div>
   <form use:form class="mt-2 flex flex-col gap-3">
-    <CardFormInput name="addressLine1" label="Address Line 1" />
-    <CardFormInput name="addressLine2" label="Address Line 2" />
-    <CardFormInput name="postalCode" label="Postal Code" />
-    <CardFormInput name="city" label="City" />
-    <CardFormCountriesSelect name="country" label="Country" />
-    <CardFormInput name="district" label="State/Province" />
-    <CardFormInput name="shippingNotes" label="Shipping Notes" />
+    <FormInput name="addressLine1" label="Address Line 1" />
+    <FormInput name="addressLine2" label="Address Line 2" />
+    <FormInput name="postalCode" label="Postal Code" />
+    <FormInput name="city" label="City" />
+    <FormCountriesSelect name="country" label="Country" />
+    <FormInput name="district" label="State/Province" />
+    <FormInput name="shippingNotes" label="Shipping Notes" />
 
     <div style="font-size:12px; line-height:19.2px;" class="gray-text flex flex-col items-center">
       <span>Redeem this item and receive a copy on the following</span>

@@ -4,7 +4,7 @@
   import { validateSchema } from '@felte/validator-yup';
   import { createForm } from 'felte';
   import { formatCurrency } from '$util/format';
-  import CardFormInput from '$lib/features/card/CardFormInput.svelte';
+  import FormInput from '$lib/components/form/FormInput.svelte';
   import notifications from '$ui/toast/toast.store';
   import { maxBidAuction } from '$lib/features/product/product.store';
 
@@ -35,7 +35,7 @@
 <div class="bid-color py-6 px-6 rounded-xl mt-4">
   <form use:form class="w-full flex gap-6  flex-wrap" autocomplete="off">
     <div style="flex-grow:999;" class="flex gap-4">
-      <CardFormInput
+      <FormInput
         class="w-full"
         name="placeBid"
         label="Place a bid higher or equal than {formatCurrency(acceptedBidPrice)} :"

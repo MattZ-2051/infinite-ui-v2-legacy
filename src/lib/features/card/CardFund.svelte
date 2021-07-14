@@ -15,7 +15,7 @@
   import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
   import Button from '$lib/components/Button.svelte';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
-  import CardFormInput from './CardFormInput.svelte';
+  import FormInput from '$lib/components/form/FormInput.svelte';
   import { addCreditCardFunds, deleteCreditCard } from './card.api';
   import CardFundResult from './CardFundResult.svelte';
   import CreditCardComponent from './CreditCard.svelte';
@@ -101,7 +101,7 @@
     </div>
 
     <form use:form class="mt-6 flex flex-col gap-3">
-      <CardFormInput name="amount" label="Enter Amount" />
+      <FormInput name="amount" label="Enter Amount" />
       <Button type="submit" class="mt-6" disabled={!!saving}>Add Funds</Button>
     </form>
   </div>

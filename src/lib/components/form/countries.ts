@@ -1,4 +1,4 @@
-import type { Country } from './types';
+import type { Country } from '$lib/features/card/types';
 
 export const countries: Country[] = [
   {

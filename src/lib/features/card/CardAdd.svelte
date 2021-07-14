@@ -9,11 +9,12 @@
   import { user } from '$lib/user';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
-  import Image from '$ui/image/Image.svelte';
   import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
+  import FormInput from '$lib/components/form/FormInput.svelte';
+  import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
+  import FormDistrictsSelect from '$lib/components/form/FormDistrictsSelect.svelte';
+  import Image from '$ui/image/Image.svelte';
 
-  import CardFormInput from './CardFormInput.svelte';
-  import CardFormCountriesSelect from './CardFormCountriesSelect.svelte';
   import { addCreditCard } from './card.api';
 
   const schema = yup.object({
@@ -43,6 +44,7 @@
     }),
   });
 
+  let selectedCountryISO2: string;
   let saving: Promise<CreditCard>;
 
   const { form, errors, reset } = createForm<NewCreditCard>({
@@ -91,17 +93,17 @@
     </div>
     <div class="text-gray-500 font-extrabold italic mt-4">Enter the card details below</div>
     <form use:form class="mt-6 flex flex-col gap-3">
-      <CardFormInput name="cardNumber" label="Credit card number" />
-      <CardFormInput name="expMonth" label="Exp month" />
-      <CardFormInput name="expYear" label="Exp year" />
-      <CardFormInput name="cvv" label="CCV" />
-      <CardFormInput name="billingDetails.name" label="Cardholder name" />
-      <CardFormInput name="billingDetails.line1" label="Address Line 1" />
-      <CardFormInput name="billingDetails.line2" label="Address Line 2" />
-      <CardFormInput name="billingDetails.postalCode" label="Postal Code" />
-      <CardFormInput name="billingDetails.city" label="City" />
-      <CardFormCountriesSelect name="billingDetails.country" label="Country" />
-      <CardFormInput name="billingDetails.district" label="State/Province" />
+      <FormInput name="cardNumber" label="Credit card number" />
+      <FormInput name="expMonth" label="Exp month" />
+      <FormInput name="expYear" label="Exp year" />
+      <FormInput name="cvv" label="CCV" />
+      <FormInput name="billingDetails.name" label="Cardholder name" />
+      <FormInput name="billingDetails.line1" label="Address Line 1" />
+      <FormInput name="billingDetails.line2" label="Address Line 2" />
+      <FormInput name="billingDetails.postalCode" label="Postal Code" />
+      <FormInput name="billingDetails.city" label="City" />
+      <FormCountriesSelect bind:value={selectedCountryISO2} name="billingDetails.country" label="Country" />
+      <FormDistrictsSelect countryISO2={selectedCountryISO2} name="billingDetails.district" label="State/Province" />
 
       <Button type="submit" class="mt-6" disabled={!!saving}>Add Card</Button>
     </form>

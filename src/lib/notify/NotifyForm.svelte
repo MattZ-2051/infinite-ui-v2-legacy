@@ -6,7 +6,7 @@
   import * as yup from 'yup';
   import notifications from '$ui/toast/toast.store';
   import Button from '$lib/components/Button.svelte';
-  import CardFormInput from '$lib/features/card/CardFormInput.svelte';
+  import FormInput from '$lib/components/form/FormInput.svelte';
   import { notifyItem } from './notify.api';
 
   const schema = yup.object({
@@ -37,7 +37,7 @@
 
 <div class="flex flex-col gap-2">
   <form use:form class="mt-2 flex flex-col gap-3">
-    <CardFormInput name="email" label="Enter your e-mail:" />
+    <FormInput name="email" label="Enter your e-mail:" />
 
     <Button type="submit" disabled={!!saving} class="mt-2">Subscribe</Button>
   </form>
