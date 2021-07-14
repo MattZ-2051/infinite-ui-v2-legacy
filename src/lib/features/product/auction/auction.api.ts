@@ -1,7 +1,7 @@
 import type { Bid, Product } from '$lib/sku-item/types';
 import type { NewListing } from './types';
 import { fetchTracker, getPage, patch, post } from '$lib/api';
-import { bids, maxBid, totalBids } from './auction.store';
+import { bids, minAllowedBid, totalBids } from './auction.store';
 
 export const loadingBids = fetchTracker();
 
@@ -52,8 +52,7 @@ export async function loadProductBids({
   if (!id) {
     bids.set(undefined);
     totalBids.set(undefined);
-    maxBid.set(undefined);
-
+    minAllowedBid.set(undefined);
     return;
   }
 
@@ -66,19 +65,17 @@ export async function loadProductBids({
   bids.set(data);
   totalBids.set(total);
 
-  if (page === 1) {
-    maxBid.set(data.length > 0 ? data[0].bidAmt : 0);
-  } else {
-    await loadMaxProductBid({ id, fetch });
+  if (total > 0) {
+    minAllowedBid.set(page === 1 ? data[0].bidAmt : await loadMaxProductBid({ id, fetch }));
   }
 }
 
-async function loadMaxProductBid({ id, fetch }: { id: string; fetch?: Fetch }) {
+async function loadMaxProductBid({ id, fetch }: { id: string; fetch?: Fetch }): Promise<number> {
   const { data } = await getPage<Bid>(`bids`, {
     params: { listing: id, includeFunctions: 'true', page: '1', per_page: '1' },
     tracker: loadingBids,
     fetch,
   });
 
-  maxBid.set(data.length > 0 ? data[0].bidAmt : 0);
+  return data[0]?.bidAmt;
 }

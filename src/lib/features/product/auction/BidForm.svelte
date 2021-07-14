@@ -7,16 +7,15 @@
   import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
   import FormInput from '$lib/components/form/FormInput.svelte';
-  import { maxBid } from './auction.store';
+  import { minAllowedBid } from './auction.store';
 
-  export let minBidPrice: number;
   export let bidIncremenent: number;
 
   const dispatch = createEventDispatcher();
 
   let submit: HTMLButtonElement;
 
-  $: acceptedBidPrice = $maxBid === undefined ? minBidPrice : $maxBid + bidIncremenent;
+  $: acceptedBidPrice = $minAllowedBid + bidIncremenent;
 
   // this could suffer from rounding issues
   // ie, not accepting the exact displayed available balance due to upwards rounding

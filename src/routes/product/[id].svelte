@@ -5,7 +5,7 @@
   import { browser } from '$app/env';
   import { loadProduct, loadProductTransactions } from '$lib/features/product/product.api';
   import { loadProductBids } from '$lib/features/product/auction/auction.api';
-  import { hasAuction } from '$lib/features/product/product.service';
+  import { isActiveAuction } from '$lib/features/product/product.service';
   import ProductPage from '$lib/features/product/Product.svelte';
   import {
     transactions,
@@ -13,7 +13,7 @@
     product as product$,
     resetProductStores,
   } from '$lib/features/product/product.store';
-  import { resetAuctionStores } from '$lib/features/product/auction/auction.store';
+  import { resetAuctionStores, minAllowedBid } from '$lib/features/product/auction/auction.store';
 
   export async function load({ page, fetch }: LoadInput) {
     const { id } = page.params;
@@ -28,7 +28,8 @@
 
     const tab = page.query.get(`tab`);
 
-    if (hasAuction(product) && (tab === 'auction' || !tab)) {
+    if (isActiveAuction(product) && (tab === 'auction' || !tab)) {
+      minAllowedBid.set(product.activeProductListings[0].minBid);
       await loadProductBids({ id: product.activeProductListings[0]?._id, page: page_, fetch });
     }
 
