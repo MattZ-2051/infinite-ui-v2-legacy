@@ -20,7 +20,7 @@
   import AuctionModal from './Auction/AuctionModal.svelte';
   import CancelAuctionModal from './Auction/CancelAuctionModal.svelte';
   import ProductActions from './actions/ProductActions.svelte';
-  import { isActiveAuction } from './product.service';
+  import { isActiveAuction, hasAuction } from './product.service';
 
   export let product: Product;
 
@@ -147,7 +147,7 @@
   <nav class="text-xl flex justify-between gap-4">
     <ul class="flex gap-10">
       <TabsVariantDark>
-        {#if $totalAuctions > 0}
+        {#if hasAuction(product)}
           <TabHeader on:click={() => redirect('auctions')} active={tab === 'auctions'} class="pb-5">Auctions</TabHeader>
         {/if}
         <TabHeader on:click={() => redirect('history')} active={tab === 'history'} class="pb-5">History</TabHeader>

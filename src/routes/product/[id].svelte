@@ -52,8 +52,9 @@
 
       totalAuctions.set(total);
       auctions.set(data);
-
-      maxBidAuction.set(maxBidResponse ? maxBidResponse.data[0].bidAmt : data[0].bidAmt);
+      if (total > 0) {
+        maxBidAuction.set(maxBidResponse ? maxBidResponse.data[0].bidAmt : data[0].bidAmt);
+      }
     }
     if (tab === 'history' || !tab) {
       const { total, data } = await loadProductTransactions({ id, page: page_, fetch });
