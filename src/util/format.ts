@@ -13,6 +13,10 @@ export function formatCurrencyWithOptionalFractionDigits(value: number | string,
   return formatCurrency(value, { ...options, minimumFractionDigits: 0 });
 }
 
+export function formatApiCurrency(value: number | string) {
+  return numberFormat(value, { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 export function formatInteger(value: number | string, options?: FormatNumberOptions) {
   return numberFormat(value, { ...options, minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }

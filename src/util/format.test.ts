@@ -1,6 +1,7 @@
 import {
   formatCurrency,
   formatCurrencyWithOptionalFractionDigits,
+  formatApiCurrency,
   formatInteger,
   formatDecimal,
   formatDate,
@@ -17,6 +18,13 @@ describe('format', () => {
     it('currencyWithOptionalFractionDigits', () => {
       expect(formatCurrencyWithOptionalFractionDigits(123_456.789)).toEqual('$123,456.79');
       expect(formatCurrencyWithOptionalFractionDigits(123_456)).toEqual('$123,456');
+      expect(formatCurrencyWithOptionalFractionDigits(123_456)).toEqual('$123,456');
+    });
+
+    it('api currency', () => {
+      expect(formatApiCurrency(123_456.789)).toEqual('123456.79');
+      expect(formatApiCurrency(123_456)).toEqual('123456.00');
+      expect(formatApiCurrency(9)).toEqual('9.00');
     });
 
     it('integer', () => {

@@ -1,6 +1,7 @@
 export default function injectScript({ url, id }: { url: string; id: string }): Promise<unknown> {
   return new Promise(function injectScriptCallback(resolve, reject) {
-    const existingScript = document.querySelector(`#${id}`) as HTMLScriptElement | undefined;
+    const scriptId = `injected-script-${id}`;
+    const existingScript = document.querySelector(`#${scriptId}`) as HTMLScriptElement | undefined;
     if (existingScript) {
       // Same script id/url: keep same script
       if (existingScript.src === url) {
@@ -25,7 +26,7 @@ export default function injectScript({ url, id }: { url: string; id: string }): 
 
     script.type = 'text/javascript';
     script.src = url;
-    script.id = id;
+    script.id = scriptId;
     script.async = true;
     script.addEventListener('load', onload);
     script.addEventListener('error', reject);

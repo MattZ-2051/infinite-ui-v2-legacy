@@ -11,6 +11,7 @@
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
+  import Withdraw from './withdraw/Withdraw.svelte';
 
   export let transactions: Transaction[];
   export let tab: 'transactions' | 'bids';
@@ -19,6 +20,7 @@
   export let totalBids: number;
 
   let selectedDepositMethod: string;
+  let showWithdraw = false;
 
   $: isKycCleared = $wallet?.kycMaxLevel >= 1;
   $: isKycPending = $wallet?.kycPending;
@@ -59,7 +61,7 @@
   class="flex flex-col gap-x-24 gap-y-14 items-center md:flex-row md:justify-between mt-4 md:mt-16 md:items-baseline container"
 >
   <div class="w-full md:w-1/5">
-    <WalletBalance on:deposit={() => openDepositSelectModal()} />
+    <WalletBalance on:deposit={openDepositSelectModal} on:withdraw={() => (showWithdraw = true)} />
     <hr class="h-px my-5" />
     <div class="mb-2 mx-6">Account Verification Status:</div>
     <AccountVerification class="mx-8" />
@@ -69,4 +71,8 @@
 
 {#if selectedDepositMethod === 'coinbase'}
   <DepositCoinbase on:checkout-modal-closed={() => (selectedDepositMethod = undefined)} />
+{/if}
+
+{#if showWithdraw}
+  <Withdraw on:close={() => (showWithdraw = false)} />
 {/if}
