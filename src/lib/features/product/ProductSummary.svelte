@@ -5,6 +5,7 @@
   import { openModal } from '$ui/modals';
   import { userId } from '$lib/user';
   import { goto } from '$app/navigation';
+  import { totalBids } from '$lib/features/product/auction/auction.store';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import { page } from '$app/stores';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
@@ -41,7 +42,10 @@
 
   $: canCancelSale = userOwnsTheProduct && productHasOnlyActiveListing((l) => l.saleType !== 'auction');
 
-  $: canCancelAuction = userOwnsTheProduct && productHasOnlyUpcomingListing((l) => l.saleType === 'auction');
+  $: canCancelAuction =
+    userOwnsTheProduct &&
+    (productHasOnlyUpcomingListing((l) => l.saleType === 'auction') ||
+      (productHasOnlyActiveListing((l) => l.saleType === 'auction') && $totalBids === 0));
 
   $: canAuction = userOwnsTheProduct && productIsNotListed;
 
@@ -75,7 +79,8 @@
         break;
       }
       case 'cancel-auction': {
-        openModal(CancelAuctionModal, { listingId: product?.upcomingProductListings[0]?._id });
+        const listingId = (product.upcomingProductListings[0] || product.activeProductListings[0])._id;
+        openModal(CancelAuctionModal, { listingId });
         break;
       }
       case 'create-sale': {
@@ -165,7 +170,7 @@
   </nav>
 
   {#if tab === 'auction'}
-    <ProductAuction {product} />
+    <ProductAuction {product} canBid={!userOwnsTheProduct} />
   {/if}
 
   {#if tab === 'history'}

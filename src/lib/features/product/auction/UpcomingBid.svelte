@@ -9,7 +9,12 @@
 
 <div class="mt-5 h-24 rounded-xl flex flex-col items-center justify-center bg-white">
   <div class="text-lg">
-    <span>Starts at {formatCurrency(minBidPrice)} in <TimeDifference date={new Date(bidStartDate)} /></span>
+    <span
+      >Starts at {formatCurrency(minBidPrice)} in <TimeDifference
+        date={new Date(bidStartDate)}
+        on:zero={() => window.location.reload()}
+      /></span
+    >
   </div>
   <span class=" italic text-sm font-black text-gray-500  ">
     (<DateFormat value={bidStartDate} />)

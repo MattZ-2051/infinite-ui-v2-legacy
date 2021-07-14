@@ -15,6 +15,7 @@
   import UpcomingBid from './UpcomingBid.svelte';
 
   export let product: Product;
+  export let canBid: boolean;
 
   $: listing = product.listing;
   $: p = +$page.query.get(`page`) || 1;
@@ -41,7 +42,9 @@
 </script>
 
 {#if listing.status === 'active'}
-  <BidForm minBidPrice={listing.minBid} bidIncremenent={listing.auctionBidIncrement} on:place-bid={onPlaceBid} />
+  {#if canBid}
+    <BidForm minBidPrice={listing.minBid} bidIncremenent={listing.auctionBidIncrement} on:place-bid={onPlaceBid} />
+  {/if}
   <div class:opacity-40={$loadingBids}>
     {#if $totalBids > 0}
       <div class="mt-3">

@@ -1,11 +1,21 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import { time } from './clock';
   import { timeRemaining } from './time.service';
 
   export let date: Date | string;
+
+  const dispatch = createEventDispatcher();
+
   $: _date = typeof date === 'string' ? new Date(date) : date;
 
   $: difference = timeRemaining(_date, $time);
+
+  $: {
+    if (!difference.some((x) => x !== 0)) {
+      dispatch('zero');
+    }
+  }
 </script>
 
 <span class="tabular-nums">
