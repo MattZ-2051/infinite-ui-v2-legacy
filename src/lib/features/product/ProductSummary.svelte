@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Product } from '$lib/sku-item/types';
+  import type { Listing, Product } from '$lib/sku-item/types';
   import type { ActionType } from './actions/types';
   import { TabHeader, TabsVariantDark } from '$ui/tabs';
   import { openModal } from '$ui/modals';
@@ -7,51 +7,48 @@
   import { goto } from '$app/navigation';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import { page } from '$app/stores';
-  import { totalAuctions } from '$lib/features/product/product.store';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import { formatCurrency } from '$util/format';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import DateFormat from '$ui/date/DateFormat.svelte';
   import ProductHistory from './ProductHistory.svelte';
-  import ProductAuctions from './ProductAuctions.svelte';
+  import ProductAuction from './auction/ProductAuction.svelte';
   import CreateSaleModal from './CreateSaleModal.svelte';
   import CancelSaleModal from './CancelSaleModal.svelte';
   import RedeemModal from './Redeem/RedeemModal.svelte';
-  import AuctionModal from './Auction/AuctionModal.svelte';
-  import CancelAuctionModal from './Auction/CancelAuctionModal.svelte';
+  import AuctionModal from './auction/AuctionModal.svelte';
+  import CancelAuctionModal from './auction/CancelAuctionModal.svelte';
   import ProductActions from './actions/ProductActions.svelte';
-  import { isActiveAuction, hasAuction } from './product.service';
+  import { hasAuction, isActiveAuction } from './product.service';
 
   export let product: Product;
 
-  $: canSell =
-    $userId &&
-    $userId === product.owner._id &&
-    product.activeProductListings.length === 0 &&
-    product.upcomingProductListings.length === 0;
+  $: userOwnsTheProduct = $userId && $userId === product.owner._id;
 
-  $: canCancelSale =
-    $userId &&
-    $userId === product.owner._id &&
+  $: productIsNotListed = product.activeProductListings.length === 0 && product.upcomingProductListings.length === 0;
+
+  $: productHasOnlyActiveListing = (listingPredicate: (listing: Listing) => boolean = () => true) =>
     product.activeProductListings?.length !== 0 &&
     product.upcomingProductListings?.length === 0 &&
-    product.activeProductListings[0].saleType !== 'auction';
+    (!listingPredicate || listingPredicate(product.activeProductListings[0]));
 
-  $: canCancelAuction =
-    $userId &&
-    $userId === product.owner._id &&
+  $: productHasOnlyUpcomingListing = (listingPredicate: (listing: Listing) => boolean = () => true) =>
+    product.activeProductListings?.length === 0 &&
     product.upcomingProductListings?.length !== 0 &&
-    product.upcomingProductListings[0].saleType === 'auction';
+    (!listingPredicate || listingPredicate(product.upcomingProductListings[0]));
 
-  $: canAuction = !canCancelAuction;
+  $: canSell = userOwnsTheProduct && productIsNotListed;
+
+  $: canCancelSale = userOwnsTheProduct && productHasOnlyActiveListing((l) => l.saleType !== 'auction');
+
+  $: canCancelAuction = userOwnsTheProduct && productHasOnlyUpcomingListing((l) => l.saleType === 'auction');
+
+  $: canAuction = userOwnsTheProduct && productIsNotListed;
 
   $: canRedeem =
-    product.sku.redeemable &&
-    $userId &&
-    $userId === product?.owner._id &&
-    product.redeemedStatus !== 'redeemed' &&
-    product.activeProductListings.length === 0 &&
-    product.upcomingProductListings.length === 0;
+    product.sku.redeemable && userOwnsTheProduct && product.redeemedStatus !== 'redeemed' && productIsNotListed;
+
+  $: showAuction = hasAuction(product);
 
   $: showActiveSale =
     product.activeProductListings?.length !== 0 &&
@@ -95,12 +92,12 @@
     }
   }
 
-  function redirect(_tab: 'auctions' | 'history' | 'owner') {
+  function redirect(_tab: 'auction' | 'history' | 'owner') {
     goto(`/product/${product._id}?tab=${_tab}`);
   }
 
   // TODO(tasos): move to route to avoid unnecessary call for transactions
-  $: tab = $page.query.get(`tab`) || ($totalAuctions > 0 ? 'auctions' : 'history');
+  $: tab = $page.query.get(`tab`) || (showAuction ? 'auction' : 'history');
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
@@ -147,8 +144,8 @@
   <nav class="text-xl flex justify-between gap-4">
     <ul class="flex gap-10">
       <TabsVariantDark>
-        {#if hasAuction(product)}
-          <TabHeader on:click={() => redirect('auctions')} active={tab === 'auctions'} class="pb-5">Auctions</TabHeader>
+        {#if showAuction}
+          <TabHeader on:click={() => redirect('auction')} active={tab === 'auction'} class="pb-5">Auction</TabHeader>
         {/if}
         <TabHeader on:click={() => redirect('history')} active={tab === 'history'} class="pb-5">History</TabHeader>
         {#if totalPrivateAssets > 0}
@@ -156,7 +153,7 @@
         {/if}
       </TabsVariantDark>
     </ul>
-    {#if tab === 'auctions' && isActiveAuction(product)}
+    {#if tab === 'auction' && isActiveAuction(product)}
       <div class="text-gray-500 text-sm md:text-base">
         <span>Expires in</span>
         <span class="text-white"><TimeDifference date={new Date(product.activeProductListings[0].endDate)} /></span>
@@ -167,8 +164,8 @@
     {/if}
   </nav>
 
-  {#if tab === 'auctions'}
-    <ProductAuctions listing={product.listing} />
+  {#if tab === 'auction'}
+    <ProductAuction {product} />
   {/if}
 
   {#if tab === 'history'}

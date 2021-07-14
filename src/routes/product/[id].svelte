@@ -3,18 +3,17 @@
   import type { Product } from '$lib/sku-item/types';
   import { get } from 'svelte/store';
   import { browser } from '$app/env';
-  import { loadProduct, loadProductAuctions, loadProductTransactions } from '$lib/features/product/product.api';
+  import { loadProduct, loadProductTransactions } from '$lib/features/product/product.api';
+  import { loadProductBids } from '$lib/features/product/auction/auction.api';
   import { hasAuction } from '$lib/features/product/product.service';
   import ProductPage from '$lib/features/product/Product.svelte';
   import {
     transactions,
     totalTransactions,
-    auctions,
-    totalAuctions,
     product as product$,
-    reset,
-    maxBidAuction,
+    resetProductStores,
   } from '$lib/features/product/product.store';
+  import { resetAuctionStores } from '$lib/features/product/auction/auction.store';
 
   export async function load({ page, fetch }: LoadInput) {
     const { id } = page.params;
@@ -23,39 +22,16 @@
     let product = browser ? get(product$) : undefined;
     if (id !== product?._id) {
       product = await loadProduct({ id, fetch });
-      reset(product);
+      resetProductStores(product);
+      resetAuctionStores();
     }
 
     const tab = page.query.get(`tab`);
 
-    if (hasAuction(product) && (tab === 'auctions' || !tab)) {
-      const calls = [
-        loadProductAuctions({
-          id: product.activeProductListings[0]?._id,
-          page: page_,
-          per_page: 5,
-          fetch,
-        }),
-      ];
-      if (page_ !== 1) {
-        calls.push(
-          loadProductAuctions({
-            id: product.activeProductListings[0]?._id,
-            page: 1,
-            per_page: 1,
-            fetch,
-          })
-        );
-      }
-
-      const [{ total, data }, maxBidResponse] = await Promise.all(calls);
-
-      totalAuctions.set(total);
-      auctions.set(data);
-      if (total > 0) {
-        maxBidAuction.set(maxBidResponse ? maxBidResponse.data[0].bidAmt : data[0].bidAmt);
-      }
+    if (hasAuction(product) && (tab === 'auction' || !tab)) {
+      await loadProductBids({ id: product.activeProductListings[0]?._id, page: page_, fetch });
     }
+
     if (tab === 'history' || !tab) {
       const { total, data } = await loadProductTransactions({ id, page: page_, fetch });
       totalTransactions.set(total);
@@ -79,7 +55,8 @@
   function resetStore(path: string) {
     // Leaving current product page
     if (path && path !== `/product/${product._id}`) {
-      reset();
+      resetProductStores();
+      resetAuctionStores();
     }
   }
 
