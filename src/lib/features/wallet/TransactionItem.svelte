@@ -30,6 +30,10 @@
       <img src="/bought-normal.png" alt="img" />
     {/if}
 
+    {#if transaction.type === 'withdrawal'}
+      <img src="/withdrew-funds.png" alt="img" />
+    {/if}
+
     {#if transaction.type === 'deposit' && deposit.type === 'cc'}
       <img src="/added-funds.png" alt="img" />
     {/if}
@@ -97,6 +101,13 @@
             >
           {/if}
 
+          {#if type === 'withdrawal' && status === 'success'}
+            <span class="message"
+              >You withdrew funds to bank {transaction.transactionData.withdraw.institution_name} and acount ending in</span
+            >
+            <span class="font-semibold">{transaction.transactionData.withdraw.ach_number}</span>
+          {/if}
+
           {#if type === 'sale' && status === 'error'}
             <span class="message">You tried selling</span>
             <span class="font-semibold underline hover:no-underline"
@@ -113,7 +124,13 @@
           {/if}
 
           {#if type === 'deposit' && deposit.type === 'cc'}
-            <span class="message">You added funds from your credit card</span>
+            <span class="message"
+              >You added funds from your <span class="font-semibold text-black"
+                >{transaction.transactionData.deposit.card.network}</span
+              >
+              credit card ending in
+              <span class="font-semibold text-black">{transaction.transactionData.deposit.card.last4} </span></span
+            >
           {/if}
 
           {#if type === 'deposit' && deposit.type === 'circle'}
@@ -133,12 +150,15 @@
           <span
             class="whitespace-nowrap flex items-center "
             class:text-black={(type === 'purchase' || type === 'sale') && status === 'error'}
-            class:withdraw-color={type === 'purchase' && status === 'success'}
+            class:withdraw-color={(type === 'purchase' || type === 'withdrawal') && status === 'success'}
             class:deposit-color={(type === 'royalty_fee' || type === 'sale' || type === 'deposit') &&
               status === 'success'}
           >
             {#if (type === 'royalty_fee' || type === 'sale' || type === 'deposit') && status === 'success'}
               +
+            {/if}
+            {#if (type === 'purchase' || type === 'withdrawal') && status === 'success'}
+              -
             {/if}
             {#if type === 'royalty_fee'}
               {formatCurrency(cost.royaltyFee)}
@@ -153,7 +173,10 @@
               {formatCurrency(+deposit.amount)}
             {/if}
             {#if type === 'purchase' && status === 'success'}
-              - {formatCurrency(cost.totalCost)}
+              {formatCurrency(cost.totalCost)}
+            {/if}
+            {#if type === 'withdrawal' && status === 'success'}
+              {formatCurrency(transaction.transactionData.withdraw.amount)}
             {/if}
             {#if type === 'purchase' && status === 'error'}
               <span class="line-through">{formatCurrency(cost.totalCost)}</span>

@@ -6,6 +6,26 @@ import { withdrawableBalance, wallet } from './index';
 export const loadingTransactions = fetchTracker();
 export const loadingBids = fetchTracker();
 
+const filter = {
+  $or: [
+    {
+      type: {
+        $in: ['purchase', 'deposit'],
+      },
+      status: { $exists: true },
+    },
+    {
+      type: 'sale',
+    },
+    {
+      type: 'royalty_fee',
+    },
+    {
+      type: 'withdrawal',
+    },
+  ],
+};
+
 export async function loadWallet() {
   const [walletData, balaceInfoData] = await Promise.all([get<Wallet>('wallet'), get<BalanceInfo>('wallet/balance')]);
 
@@ -18,13 +38,10 @@ export async function loadTransactions(
   page: number,
   sortBy?: string
 ): Promise<{ total: number; transactions: Transaction[] }> {
-  const { data: transactions, total } = await getPage<Transaction>(
-    `users/me/transactions?filter=%7B%22$or%22:[%7B%22type%22:%7B%22$in%22:[%22purchase%22,%22deposit%22]%7D,%22status%22:%7B%22$exists%22:true%7D%7D,%7B%22type%22:%22sale%22%7D,%7B%22type%22:%22royalty_fee%22%7D]%7D&page=${page}&per_page=10`,
-    {
-      tracker: loadingTransactions,
-      params: { ...(sortBy && { sortBy }) },
-    }
-  );
+  const { data: transactions, total } = await getPage<Transaction>(`users/me/transactions`, {
+    tracker: loadingTransactions,
+    params: { filter: JSON.stringify(filter), page: `${page}`, per_page: '10', ...(sortBy && { sortBy }) },
+  });
 
   return { total, transactions };
 }

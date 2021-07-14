@@ -207,8 +207,26 @@ type TransactionData = {
     id: string;
     type: string;
     amount: string;
+    card?: {
+      createdAt: Date;
+      expMonth: number;
+      expYear: number;
+      fingerprint: string;
+      id: string;
+      last4: string;
+      network: string;
+      updatedAt: Date;
+      _id: string;
+    };
   };
   transactionHash?: string | undefined;
+  withdraw?: {
+    ach_number: number;
+    amount: number;
+    institution_id: string;
+    institution_name: string;
+    payout: string;
+  };
 };
 
 export type TransactionType =
