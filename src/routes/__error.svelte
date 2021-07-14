@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
-  import type { LoadOutput } from '@sveltejs/kit/types/page';
+  import type { ErrorLoadInput } from '@sveltejs/kit';
 
-  export function load({ error, status }: LoadOutput): { props: Partial<LoadOutput> } {
+  export function load({ error, status }: ErrorLoadInput): { props: Partial<ErrorLoadInput> } {
     return {
       props: {
         status,
@@ -15,7 +15,9 @@
   import { dev } from '$app/env';
 
   export let status: number = undefined;
-  export let error: string | Error = undefined;
+
+  // `frame` is populated by Svelte in its CompileError and is a Rollup/Vite convention
+  export let error: Error & { frame?: string } = undefined;
 </script>
 
 <div class="bg-black text-white flex flex-grow items-center justify-center">
@@ -38,7 +40,12 @@
       >
     </div>
     {#if dev}
-      <pre class="m-4 p-4 border whitespace-normal">{JSON.stringify(error)}</pre>
+      {#if error.frame}
+        <pre class="m-4 p-4 border whitespace-pre-line">{error.frame}</pre>
+      {/if}
+      {#if error.stack}
+        <pre class="m-4 p-4 border whitespace-pre-line">{error.stack}</pre>
+      {/if}
     {/if}
   </div>
 </div>
