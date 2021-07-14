@@ -6,8 +6,19 @@
   export let title = 'Are you sure?';
   export let message: string;
   export let onConfirm: () => unknown;
+  export let onCancel: () => unknown = undefined;
   export let labels = { cancel: 'Cancel', confirm: 'OK' };
   export let persistent = false;
+
+  function onSelect(confirmed: boolean) {
+    closeModal();
+
+    if (confirmed) {
+      onConfirm();
+    } else if (onCancel) {
+      onCancel();
+    }
+  }
 </script>
 
 {#if isOpen}
@@ -21,8 +32,8 @@
     </div>
 
     <div slot="footer" class="flex flex-col gap-4">
-      <Button type="button" on:click={onConfirm}>{labels?.confirm}</Button>
-      <Button type="button" on:click={closeModal} theme="secondary">{labels?.cancel}</Button>
+      <Button type="button" on:click={() => onSelect(true)}>{labels?.confirm}</Button>
+      <Button type="button" on:click={() => onSelect(false)} theme="secondary">{labels?.cancel}</Button>
     </div>
   </Modal>
 {/if}
