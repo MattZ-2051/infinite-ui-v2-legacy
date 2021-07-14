@@ -13,7 +13,10 @@ export function onOrderIntent({ sku, listing }: { sku: Sku; listing: Listing }):
     toast.danger('You need to be <b>logged in</b> to complete your purchase!');
     return;
   }
-
+  if (sku.issuer?._id === currentUser._id) {
+    toast.danger('Cannot purchase your own SKU');
+    return;
+  }
   openModal(Order, {
     sku,
     listing,
