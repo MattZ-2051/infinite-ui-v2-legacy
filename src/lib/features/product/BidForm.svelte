@@ -14,11 +14,14 @@
   const acceptedBidPrice = ($maxBidAuction || minBidPrice) + bidIncremenent;
 
   const schema = yup.object({
-    placeBid: yup
-      .number()
-      .typeError('Not a valid number.')
-      .required('Bid amount is required.')
-      .min(acceptedBidPrice, `Amount must be greater or equal than ${formatCurrency(acceptedBidPrice)}.`),
+    placeBid: yup.lazy((value) => {
+      return value === ''
+        ? yup.string().required('Bid amount is required.')
+        : yup
+            .number()
+            .typeError('Not a valid number.')
+            .min(acceptedBidPrice, `Amount must be greater or equal than ${formatCurrency(acceptedBidPrice)}.`);
+    }),
   });
 
   const { form, errors, reset } = createForm({
