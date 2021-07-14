@@ -6,6 +6,7 @@
   import { loadWallet } from '$lib/features/wallet/wallet.api';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
+  import injectScript from '$util/injectScript';
 
   let personaClient;
 
@@ -31,15 +32,12 @@
   }
 
   async function launchKYCPersona() {
+    await injectScript({ id: 'persona', url: 'https://cdn.withpersona.com/dist/persona-v3.10.0.js' });
     personaClient = personaClient || getPersonaClient(await getPersonalToken());
 
     personaClient.open();
   }
 </script>
-
-<svelte:head>
-  <script src="https://cdn.withpersona.com/dist/persona-v3.10.0.js"></script>
-</svelte:head>
 
 {#if $wallet}
   <div class:flex={true} class:flex-row={true} class:font-semibold={true} {...$$restProps}>
