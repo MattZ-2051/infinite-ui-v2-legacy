@@ -7,12 +7,13 @@
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
 
   export let bid: Bid;
+  const bidExceed = bid.listing.highestBid.bidAmt > bid.bidAmt;
 </script>
 
 <div class="py-6 flex li-style justify-between font-medium">
   <div class="flex flex-col">
     <span class="flex items-center gap-1">
-      {bid.sku.name} | #{bid.listing.product.serialNumber}
+      <span class:text-red-700={bidExceed}>{bid.sku.name} | #{bid.listing.product.serialNumber}</span>
       {#if bid.sku.redeemable}
         <IconRedeem size="0.8" class="text-gray-400 p-0.5" />
       {/if}
@@ -22,9 +23,16 @@
   <div class="flex items-center gap-6">
     <div>
       <div class="text-right">
-        <span class="message">You bid ></span><span class="px-2">{formatCurrency(bid.bidAmt)}</span>
+        <span class="message">You bid</span>
+        {#if bidExceed}
+          <span class="message">{formatCurrency(bid.bidAmt)} ></span>
+          <span class="text-red-700">Bid exceeded > {formatCurrency(bid.listing.highestBid.bidAmt)}</span>
+        {:else}
+          <span class="message">></span>
+          <span class="px-1">{formatCurrency(bid.bidAmt)}</span>
+        {/if}
       </div>
-      <div class="message font-black italic">
+      <div class="message font-black italic text-right">
         <span>Expires in </span><TimeDifference date={new Date(bid.listing.endDate)} />
       </div>
     </div>

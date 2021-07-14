@@ -95,6 +95,7 @@ export type Listing = {
   createdAt: Date;
   updatedAt: Date;
   auctionBidIncrement?: number;
+  highestBid?: Bid;
 };
 
 export type ListingSalePayload = {
