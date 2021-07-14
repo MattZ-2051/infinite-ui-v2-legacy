@@ -1,9 +1,8 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
-  import { handleQueryParameter } from '$util/queryParameter';
+  import { gotoQueryParameters } from '$util/queryParameter';
   import UserLink from '$lib/features/wallet/UserLink.svelte';
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
-  import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { user } from '$lib/user';
   import DateFormat from '$ui/date/DateFormat.svelte';
@@ -21,10 +20,12 @@
   $: p = +$page.query.get(`page`) || 1;
 
   const gotoPage = (event: CustomEvent) => {
-    const url = handleQueryParameter({
-      params: { tab: 'auction', page: event.detail.value },
-    });
-    goto(url, { noscroll: true, keepfocus: true });
+    gotoQueryParameters(
+      {
+        params: { tab: 'auction', page: event.detail.value },
+      },
+      { noscroll: true, keepfocus: true }
+    );
   };
 
   function onPlaceBid({ detail: { amount } }: { detail: { amount: number } }) {

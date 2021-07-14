@@ -6,7 +6,21 @@ export type QueryParameterOptions = {
   reset?: boolean;
 };
 
-export function handleQueryParameter(options: QueryParameterOptions) {
+export function gotoQueryParameters(
+  options: QueryParameterOptions,
+  gotoOptions?: {
+    replaceState?: boolean;
+    noscroll?: boolean;
+    keepfocus?: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    state?: any;
+  }
+) {
+  const url = changeQueryParameters(options);
+  return gotoOptions ? goto(url, gotoOptions) : goto(url);
+}
+
+export function changeQueryParameters(options: QueryParameterOptions) {
   const urlSearchParameters = new URLSearchParams(options.reset ? '' : window.location.search);
 
   for (let [key, value] of Object.entries(options.params)) {
@@ -36,15 +50,15 @@ export function handleQueryParameter(options: QueryParameterOptions) {
 }
 
 export function queryParameter(node: HTMLElement, options: QueryParameterOptions) {
-  function handleOutsideClick() {
-    goto(handleQueryParameter(options));
+  function redirect() {
+    gotoQueryParameters(options);
   }
 
-  node.addEventListener('click', handleOutsideClick);
+  node.addEventListener('click', redirect);
 
   return {
     destroy() {
-      node.removeEventListener('click', handleOutsideClick);
+      node.removeEventListener('click', redirect);
     },
   };
 }

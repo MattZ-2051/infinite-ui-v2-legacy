@@ -1,9 +1,8 @@
 <script lang="ts">
   import type { Transaction } from '$lib/sku-item/types';
   import { page } from '$app/stores';
-  import { goto } from '$app/navigation';
   import { Pagination } from '$ui/pagination';
-  import { handleQueryParameter } from '$util/queryParameter';
+  import { gotoQueryParameters } from '$util/queryParameter';
   import TransactionItem from './TransactionItem.svelte';
   import { loadingTransactions } from './wallet.api';
 
@@ -11,11 +10,9 @@
   export let totalTransactions: number;
 
   function gotoPage(event: CustomEvent) {
-    const url = handleQueryParameter({
+    gotoQueryParameters({
       params: { page: event.detail.value },
     });
-
-    goto(url);
   }
 
   $: p = +$page.query.get(`page`) || 1;

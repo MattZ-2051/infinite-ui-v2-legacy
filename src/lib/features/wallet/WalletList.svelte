@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { Transaction, Bid } from '$lib/sku-item/types';
-  import { goto } from '$app/navigation';
   import { TabHeader } from '$ui/tabs';
-  import { handleQueryParameter } from '$util/queryParameter';
+  import { gotoQueryParameters } from '$util/queryParameter';
   import TransactionList from './TransactionList.svelte';
   import BidList from './BidList.svelte';
   import Sort from './Sort.svelte';
@@ -14,17 +13,15 @@
   export let totalBids: number;
 
   function redirect(_tab: 'transactions' | 'bids') {
-    const url = handleQueryParameter({
+    gotoQueryParameters({
       params: { tab: _tab, page: false },
     });
-    goto(url);
   }
 
   const sort = (event: CustomEvent) => {
-    const url = handleQueryParameter({
+    gotoQueryParameters({
       params: { sortBy: `${event.detail.value}:${event.detail.order}` },
     });
-    goto(url);
   };
 </script>
 

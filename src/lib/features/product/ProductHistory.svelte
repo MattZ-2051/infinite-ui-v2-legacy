@@ -1,12 +1,11 @@
 <script lang="ts">
   import { mdiLinkVariant } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
-  import { handleQueryParameter } from '$util/queryParameter';
+  import { gotoQueryParameters } from '$util/queryParameter';
   import DateFormat from '$ui/date/DateFormat.svelte';
   import { page } from '$app/stores';
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
-  import { goto } from '$app/navigation';
   import { loadingTransactions } from './product.api';
   import { transactions, totalTransactions } from './product.store';
 
@@ -30,10 +29,12 @@
   $: p = +$page.query.get(`page`) || 1;
 
   const gotoPage = (event: CustomEvent) => {
-    const url = handleQueryParameter({
-      params: { tab: 'history', page: event.detail.value },
-    });
-    goto(url, { noscroll: true, keepfocus: true });
+    gotoQueryParameters(
+      {
+        params: { tab: 'history', page: event.detail.value },
+      },
+      { noscroll: true, keepfocus: true }
+    );
   };
 </script>
 

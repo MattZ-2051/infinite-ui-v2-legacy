@@ -2,12 +2,11 @@
   import debounce from 'just-debounce';
   import type { Collector, Sku } from '$lib/sku-item/types';
   import { mdiChevronRight, mdiChevronDown, mdiChevronUp, mdiMagnify } from '@mdi/js';
-  import { goto } from '$app/navigation';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
   import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
-  import { handleQueryParameter } from '$util/queryParameter';
+  import { gotoQueryParameters } from '$util/queryParameter';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import Breadcrumbs from '$ui/breadcrumbs/Breadcrumbs.svelte';
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
@@ -39,10 +38,12 @@
   };
 
   function navigate(parameters): void {
-    const url = handleQueryParameter({
-      params: { page: false, ...parameters },
-    });
-    goto(url, { noscroll: true, keepfocus: true });
+    gotoQueryParameters(
+      {
+        params: { page: false, ...parameters },
+      },
+      { noscroll: true, keepfocus: true }
+    );
   }
 
   const items = [
