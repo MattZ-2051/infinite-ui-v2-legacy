@@ -1,7 +1,7 @@
 import type { Bid, Product } from '$lib/sku-item/types';
 import type { NewListing } from './types';
 import { fetchTracker, getPage, patch, post } from '$lib/api';
-import { bids, minAllowedBid, totalBids } from './auction.store';
+import { bids, maxPlacedBid, totalBids } from './auction.store';
 
 export const loadingBids = fetchTracker();
 
@@ -49,10 +49,11 @@ export async function loadProductBids({
   perPage?: number;
   fetch?: Fetch;
 }) {
+  bids.set(undefined);
+  totalBids.set(undefined);
+  maxPlacedBid.set(undefined);
+
   if (!id) {
-    bids.set(undefined);
-    totalBids.set(undefined);
-    minAllowedBid.set(undefined);
     return;
   }
 
@@ -66,7 +67,7 @@ export async function loadProductBids({
   totalBids.set(total);
 
   if (total > 0) {
-    minAllowedBid.set(page === 1 ? data[0].bidAmt : await loadMaxProductBid({ id, fetch }));
+    maxPlacedBid.set(page === 1 ? data[0].bidAmt : await loadMaxProductBid({ id, fetch }));
   }
 }
 

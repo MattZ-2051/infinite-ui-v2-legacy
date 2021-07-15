@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Listing } from '$lib/sku-item/types';
   import * as yup from 'yup';
   import { createEventDispatcher, setContext } from 'svelte';
   import { validateSchema } from '@felte/validator-yup';
@@ -7,15 +8,15 @@
   import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
   import FormInput from '$lib/components/form/FormInput.svelte';
-  import { minAllowedBid } from './auction.store';
+  import { maxPlacedBid } from './auction.store';
 
-  export let bidIncremenent: number;
+  export let listing: Listing;
 
   const dispatch = createEventDispatcher();
 
   let submit: HTMLButtonElement;
 
-  $: acceptedBidPrice = $minAllowedBid + bidIncremenent;
+  $: acceptedBidPrice = $maxPlacedBid ? $maxPlacedBid + listing.auctionBidIncrement : listing.minBid;
 
   // this could suffer from rounding issues
   // ie, not accepting the exact displayed available balance due to upwards rounding

@@ -43,7 +43,7 @@
 
 {#if listing.status === 'active'}
   {#if canBid}
-    <BidForm bidIncremenent={listing.auctionBidIncrement} on:place-bid={onPlaceBid} />
+    <BidForm {listing} on:place-bid={onPlaceBid} />
   {/if}
   <div class:opacity-40={$loadingBids}>
     {#if $totalBids > 0}

@@ -13,7 +13,7 @@
     product as product$,
     resetProductStores,
   } from '$lib/features/product/product.store';
-  import { resetAuctionStores, minAllowedBid } from '$lib/features/product/auction/auction.store';
+  import { resetAuctionStores } from '$lib/features/product/auction/auction.store';
 
   export async function load({ page, fetch }: LoadInput) {
     const { id } = page.params;
@@ -29,7 +29,6 @@
     const tab = page.query.get(`tab`);
 
     if (hasActiveAuction(product) && (tab === 'auction' || !tab)) {
-      minAllowedBid.set(product.activeProductListings[0].minBid);
       await loadProductBids({ id: product.activeProductListings[0]?._id, page: page_, fetch });
     }
 
