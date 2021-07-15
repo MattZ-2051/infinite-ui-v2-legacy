@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Listing, Product } from '$lib/sku-item/types';
+  import type { Product } from '$lib/sku-item/types';
   import type { ActionType } from './actions/types';
   import { TabHeader, TabsVariantDark } from '$ui/tabs';
   import { openModal } from '$ui/modals';
@@ -20,52 +20,38 @@
   import AuctionModal from './auction/AuctionModal.svelte';
   import CancelAuctionModal from './auction/CancelAuctionModal.svelte';
   import ProductActions from './actions/ProductActions.svelte';
-  import { hasAuction, isActiveAuction } from './product.service';
+  import {
+    hasAuction,
+    hasActiveAuction,
+    isOwner,
+    canCreateSale,
+    canCancelSale,
+    canStartAuction,
+    canCancelAuction,
+    hasActiveSale,
+    canRedeem,
+  } from './product.service';
 
   export let product: Product;
 
-  $: userOwnsTheProduct = $userId && $userId === product.owner._id;
+  $: userOwnsProduct = isOwner(product, $userId);
 
-  $: productIsNotListed = product.activeProductListings.length === 0 && product.upcomingProductListings.length === 0;
-
-  $: productHasOnlyActiveListing = (listingPredicate: (listing: Listing) => boolean = () => true) =>
-    product.activeProductListings?.length !== 0 &&
-    product.upcomingProductListings?.length === 0 &&
-    (!listingPredicate || listingPredicate(product.activeProductListings[0]));
-
-  $: productHasOnlyUpcomingListing = (listingPredicate: (listing: Listing) => boolean = () => true) =>
-    product.activeProductListings?.length === 0 &&
-    product.upcomingProductListings?.length !== 0 &&
-    (!listingPredicate || listingPredicate(product.upcomingProductListings[0]));
-
-  $: canSell = userOwnsTheProduct && productIsNotListed;
-
-  $: canCancelSale = userOwnsTheProduct && productHasOnlyActiveListing((l) => l.saleType !== 'auction');
-
-  $: canCancelAuction =
-    userOwnsTheProduct &&
-    (productHasOnlyUpcomingListing((l) => l.saleType === 'auction') ||
-      (productHasOnlyActiveListing((l) => l.saleType === 'auction') && $totalBids === 0));
-
-  $: canAuction = userOwnsTheProduct && productIsNotListed;
-
-  $: canRedeem =
-    product.sku.redeemable && userOwnsTheProduct && product.redeemedStatus !== 'redeemed' && productIsNotListed;
+  $: hasCreateSellAction = canCreateSale(product, $userId);
+  $: hasCancelSaleAction = canCancelSale(product, $userId);
+  $: hasStartAuctionAction = canStartAuction(product, $userId);
+  $: hasCancelAuctionAction = canCancelAuction(product, $userId, $totalBids);
+  $: hasRedeemAction = canRedeem(product, $userId);
 
   $: showAuction = hasAuction(product);
-
-  $: showActiveSale =
-    product.activeProductListings?.length !== 0 &&
-    product.upcomingProductListings?.length === 0 &&
-    product.activeProductListings[0].saleType !== 'auction';
+  $: showActiveSale = hasActiveSale(product);
 
   let actions: ActionType[];
   $: actions = [
-    canRedeem ? 'redeem' : undefined,
-    canAuction ? 'auction' : undefined,
-    canCancelAuction ? 'cancel-auction' : undefined,
-    canSell ? 'create-sale' : undefined,
-    canCancelSale ? 'cancel-sale' : undefined,
+    hasRedeemAction ? 'redeem' : undefined,
+    hasStartAuctionAction ? 'auction' : undefined,
+    hasCancelAuctionAction ? 'cancel-auction' : undefined,
+    hasCreateSellAction ? 'create-sale' : undefined,
+    hasCancelSaleAction ? 'cancel-sale' : undefined,
   ];
 
   function onAction({ detail: type }: { detail: ActionType }) {
@@ -158,7 +144,7 @@
         {/if}
       </TabsVariantDark>
     </ul>
-    {#if tab === 'auction' && isActiveAuction(product)}
+    {#if tab === 'auction' && hasActiveAuction(product)}
       <div class="text-gray-500 text-sm md:text-base">
         <span>Expires in</span>
         <span class="text-white"><TimeDifference date={new Date(product.activeProductListings[0].endDate)} /></span>
@@ -170,7 +156,7 @@
   </nav>
 
   {#if tab === 'auction'}
-    <ProductAuction {product} canBid={!userOwnsTheProduct} />
+    <ProductAuction {product} canBid={!userOwnsProduct} />
   {/if}
 
   {#if tab === 'history'}

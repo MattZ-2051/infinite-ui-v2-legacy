@@ -1,5 +1,5 @@
 import type { FileAsset } from '$ui/file';
-import type { Collector } from '$lib/sku-item/types';
+import type { CollectorProduct } from '$lib/sku-item/types';
 import { getPage, post } from '$lib/api';
 
 export async function getPrivateAssets({
@@ -12,7 +12,7 @@ export async function getPrivateAssets({
 }): Promise<{ total: number; assets: FileAsset[]; isOwner: boolean; productId: string }> {
   const [{ total, data: assets }, { data }] = await Promise.all([
     getPage<FileAsset>(`skus/${skuId}/private-assets`),
-    getPage<Collector>(`products/collectors/${skuId}`, {
+    getPage<CollectorProduct>(`products/collectors/${skuId}`, {
       params: { page: '1', per_page: '1', includeFunctions: 'true', ownerId },
     }),
   ]);

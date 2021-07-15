@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Sku, Collector } from '$lib/sku-item/types';
+  import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import xss from 'xss';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import { Tabs, Tab } from '$ui/tabs';
@@ -17,7 +17,7 @@
   import Collectors from './Collectors.svelte';
 
   export let sku: Sku;
-  export let collectors: Collector[];
+  export let collectors: CollectorProduct[];
   export let totalCollectors: number;
   export let related: Sku[];
 </script>

@@ -1,15 +1,10 @@
 <script lang="ts">
   import { mdiChevronRight, mdiAccountCircle } from '@mdi/js';
-  import type { Collector } from '$lib/sku-item/types';
-  import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
+  import type { CollectorProduct } from '$lib/sku-item/types';
   import Icon from '$ui/icon/Icon.svelte';
-  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
+  import CollectorItemStatus from '$lib/features/collectors/CollectorItemStatus.svelte';
 
-  export let collector: Collector;
-  $: noSale = !collector.activeProductListing && !collector.upcomingProductListing;
-  $: upcoming = !!collector.upcomingProductListing;
-  $: activeAuction = collector?.activeProductListing?.saleType === 'auction';
-  $: activeSale = collector?.activeProductListing?.saleType !== 'auction';
+  export let collector: CollectorProduct;
 </script>
 
 <a href={`/product/${collector._id}`} class="flex justify-between">
@@ -37,36 +32,16 @@
     </div>
   </div>
   <div class="flex items-center gap-5 justify-self-end">
-    <div class="flex items-end" class:flex-col={activeAuction}>
-      {#if noSale}
-        <span class="text-gray-400">Not for sale</span>
-      {:else if upcoming}
-        <span class="text-gray-400">Upcoming</span>
-        {#if collector.upcomingProductListing?.startDate}
-          <div class="text-sm">
-            Starts in
-            <TimeDifference date={new Date(collector.upcomingProductListing.startDate)} />
-          </div>
-        {/if}
-      {:else if activeSale}
-        <span class="text-gray-400">On Sale for</span>
-        <Icon path={mdiChevronRight} color="gray" size="0.8" />
-        <span>{formatCurrencyWithOptionalFractionDigits(collector.activeProductListing?.price)}</span>
-      {:else if activeAuction}
-        <div class="flex items-center">
-          <span class="text-gray-400">Bid for</span>
-          <Icon path={mdiChevronRight} color="gray" size="0.8" />
-          <span>{formatCurrencyWithOptionalFractionDigits(collector?.activeProductListing?.minBid)}</span>
-        </div>
-        {#if collector?.activeProductListing?.endDate}
-          <div class="text-sm">
-            Expires in
-            <TimeDifference date={new Date(collector.activeProductListing.endDate)} />
-          </div>
-        {/if}
-      {/if}
+    <div class="flex items-end text-gray-500 item-status">
+      <CollectorItemStatus {collector} />
     </div>
     <Icon path={mdiChevronRight} color="black" class="justify-self-end" />
   </div>
 </a>
 <div class="w-full border-b border-gray-100" />
+
+<style lang="postcss">
+  .item-status {
+    --collector-item-status-highlight: theme('colors.black');
+  }
+</style>

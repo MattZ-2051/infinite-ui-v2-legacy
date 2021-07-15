@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Collector } from '$lib/sku-item/types';
+  import type { CollectorProduct } from '$lib/sku-item/types';
   import CollectorItem from './CollectorItem.svelte';
 
-  export let collectors: Collector[];
+  export let collectors: CollectorProduct[];
   export let skuId: string;
 </script>
 

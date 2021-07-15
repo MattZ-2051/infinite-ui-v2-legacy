@@ -82,7 +82,7 @@ export type Listing = {
   canceled?: boolean;
   price: number;
   product: Product;
-  saleType: string;
+  saleType: 'auction' | 'fixed';
   startDate: Date;
   status: 'active' | 'upcoming' | 'expired' | 'sold' | 'canceled';
   supply: number;
@@ -103,7 +103,7 @@ export type ListingSalePayload = {
   product: string;
   startDate: Date;
   type: string;
-  saleType: string;
+  saleType: 'fixed';
   supply: number;
   sku: Sku;
   issuer: string;
@@ -257,16 +257,18 @@ export type Transaction = {
   status: TransactionStatus;
 };
 
-export type Collector = {
+export type CollectorProduct = {
   _id: string;
   serialNumber: string;
   redeemedStatus?: 'NA' | 'pending' | 'redeemed';
   createdAt: Date;
+  sku: string;
   owner: Partial<Profile>;
-  activeProductListing?: Partial<Listing>;
-  listings?: Partial<Listing>[];
-  upcomingProductListing?: Partial<Listing>;
-  salesType?: string;
+  activeProductListing?: Listing;
+  upcomingProductListing?: Listing;
+  tokenId?: string;
+  explorerLink?: string;
+  highestBid?: Bid;
 };
 
 export type Series = {

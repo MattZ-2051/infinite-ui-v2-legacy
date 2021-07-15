@@ -5,7 +5,7 @@
   import { browser } from '$app/env';
   import { loadProduct, loadProductTransactions } from '$lib/features/product/product.api';
   import { loadProductBids } from '$lib/features/product/auction/auction.api';
-  import { isActiveAuction } from '$lib/features/product/product.service';
+  import { hasActiveAuction } from '$lib/features/product/product.service';
   import ProductPage from '$lib/features/product/Product.svelte';
   import {
     transactions,
@@ -28,7 +28,7 @@
 
     const tab = page.query.get(`tab`);
 
-    if (isActiveAuction(product) && (tab === 'auction' || !tab)) {
+    if (hasActiveAuction(product) && (tab === 'auction' || !tab)) {
       minAllowedBid.set(product.activeProductListings[0].minBid);
       await loadProductBids({ id: product.activeProductListings[0]?._id, page: page_, fetch });
     }

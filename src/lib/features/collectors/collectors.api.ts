@@ -1,7 +1,15 @@
-import type { Collector, Sku } from '$lib/sku-item/types';
+import type { CollectorProduct, Sku } from '$lib/sku-item/types';
 import { get, getPage } from '$lib/api';
 
-export async function loadCollectors({ id, fetch, query }: { id: string; fetch?: Fetch; query: URLSearchParams }) {
+export async function loadCollectorProducts({
+  id,
+  fetch,
+  query,
+}: {
+  id: string;
+  fetch?: Fetch;
+  query: URLSearchParams;
+}) {
   const page: number = +query.get('page') || 1;
   const perPage: number = +query.get('perPage') || 6;
   const forSale = query.has('forSale') && query.get('forSale') === 'true';
@@ -10,7 +18,7 @@ export async function loadCollectors({ id, fetch, query }: { id: string; fetch?:
 
   const [sku, { data: collectors, total }] = await Promise.all([
     get<Sku>(`skus/${id}?includeFunctions=true`, { fetch }),
-    getPage<Collector>(`products/collectors/${id}?includeFunctions=true`, {
+    getPage<CollectorProduct>(`products/collectors/${id}?includeFunctions=true`, {
       fetch,
       params: {
         page: `${page}`,

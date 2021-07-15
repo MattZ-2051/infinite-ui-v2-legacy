@@ -1,18 +1,16 @@
 <script lang="ts">
+  import type { CollectorProduct, Sku } from '$lib/sku-item/types';
   import debounce from 'just-debounce';
-  import type { Collector, Sku } from '$lib/sku-item/types';
-  import { mdiChevronRight, mdiChevronDown, mdiChevronUp, mdiMagnify } from '@mdi/js';
+  import { mdiChevronDown, mdiChevronUp, mdiMagnify } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
-  import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
   import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
   import { gotoQueryParameters } from '$util/queryParameter';
-  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import Breadcrumbs from '$ui/breadcrumbs/Breadcrumbs.svelte';
-  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
+  import CollectorItem from './CollectorItem.svelte';
 
   export let sku: Sku;
-  export let collectors: Collector[];
+  export let collectors: CollectorProduct[];
   export let sort: 'asc' | 'desc';
   export let forSale: boolean;
   export let page: number;
@@ -93,59 +91,7 @@
     </div>
   </div>
   {#each collectors as collector}
-    <a href="/product/{collector._id}" class="self-end group-hover:text-white">
-      <div
-        class="grid-container group grid gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
-      >
-        <div>
-          <div class="flex items-center gap-3 ">
-            <span class="text-white font-normal">#{collector.serialNumber}</span>
-            {#if sku?.redeemable}
-              <IconRedeem
-                class="text-black {collector.redeemedStatus === 'redeemed'
-                  ? 'bg-gray-800'
-                  : 'bg-white'} rounded-full p-1"
-                tooltip={{
-                  content: collector.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable',
-                  theme: 'white',
-                }}
-              />
-            {/if}
-          </div>
-          <span class="italic font-black">@{collector.owner?.username}</span>
-        </div>
-        <div class="justify-self-end">
-          {#if !collector.activeProductListing && !collector.upcomingProductListing}
-            Not for sale
-          {:else if collector.upcomingProductListing}
-            Upcoming
-          {:else if collector.activeProductListing.saleType === 'fixed'}
-            <div class="flex justify-end">
-              <span>Sale for</span>
-              <Icon path={mdiChevronRight} color="gray" />
-              <span class="text-white"
-                >{formatCurrencyWithOptionalFractionDigits(collector.activeProductListing.price)}</span
-              >
-            </div>
-          {:else if collector.activeProductListing.saleType === 'auction'}
-            <div class="flex justify-end">
-              <span>Bid for</span>
-              <Icon path={mdiChevronRight} color="gray" />
-              <span class="text-white"
-                >{formatCurrencyWithOptionalFractionDigits(collector.activeProductListing.minBid)}</span
-              >
-            </div>
-          {/if}
-          {#if collector.activeProductListing?.endDate}
-            <div>
-              Expires in
-              <TimeDifference date={new Date(collector.activeProductListing.endDate)} />
-            </div>
-          {/if}
-        </div>
-        <Icon path={mdiChevronRight} color="gray" size="1.5" class="justify-self-end" />
-      </div>
-    </a>
+    <CollectorItem {collector} redeemable={sku?.redeemable} />
   {/each}
   <PaginationVariantDark>
     <Pagination {page} {total} {perPage} class="flex justify-end mt-5" on:change={gotoPage} />
@@ -153,9 +99,6 @@
 </div>
 
 <style>
-  .grid-container {
-    grid-template-columns: auto auto 35px;
-  }
   .search-input::placeholder {
     @apply italic;
     @apply font-black;

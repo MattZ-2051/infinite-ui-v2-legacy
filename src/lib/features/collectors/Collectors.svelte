@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Sku, Collector } from '$lib/sku-item/types';
+  import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import SkuDetails from '$lib/sku-item/SkuDetails.svelte';
   import CollectorsSummary from './CollectorsSummary.svelte';
 
   export let sku: Sku;
-  export let collectors: Collector[];
+  export let collectors: CollectorProduct[];
   export let page: number;
   export let forSale: boolean;
   export let sort: 'asc' | 'desc';
