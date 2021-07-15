@@ -1,29 +1,44 @@
 <script lang="ts">
   import type { CollectorProduct, Sku } from '$lib/sku-item/types';
   import debounce from 'just-debounce';
-  import { mdiChevronDown, mdiChevronUp, mdiMagnify } from '@mdi/js';
+  import { mdiMagnify } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
+  import Sort from '$lib/components/Sort.svelte';
   import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
-  import { gotoQueryParameters } from '$util/queryParameter';
   import Breadcrumbs from '$ui/breadcrumbs/Breadcrumbs.svelte';
+  import { gotoQueryParameters } from '$util/queryParameter';
   import CollectorItem from './CollectorItem.svelte';
 
   export let sku: Sku;
   export let collectors: CollectorProduct[];
-  export let sort: 'asc' | 'desc';
   export let forSale: boolean;
   export let page: number;
   export let search: string;
   export let total: number;
   export let perPage: number;
 
-  const toggleSort = () => {
+  const sort = (event: CustomEvent) => {
     navigate({
-      sort: sort === 'asc' ? 'desc' : 'asc',
+      sortBy: `${event.detail.value}:${event.detail.order}`,
       page,
     });
   };
+
+  const sortOptions = [
+    {
+      id: 1,
+      name: 'Serial A to Z',
+      order: 'asc',
+      value: 'serialNumber',
+    },
+    {
+      id: 2,
+      name: 'Serial Z to A',
+      order: 'desc',
+      value: 'serialNumber',
+    },
+  ];
 
   const gotoPage = (event: CustomEvent) => {
     navigate({ page: +event.detail.value });
@@ -83,10 +98,8 @@
           </Checkbox>
         </CheckboxVariantDark>
       </div>
-      <div class="flex cursor-pointer gap-2" on:click={toggleSort}>
-        <span>Sort by:</span>
-        <span class="text-white">Serial</span>
-        <Icon path={sort === 'asc' ? mdiChevronDown : mdiChevronUp} color="gray" class="mr-3" />
+      <div class="flex cursor-pointer gap-2">
+        <Sort {sortOptions} on:select={sort} theme="dark" />
       </div>
     </div>
   </div>

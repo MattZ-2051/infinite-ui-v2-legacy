@@ -2,15 +2,30 @@
   import type { Transaction, Bid } from '$lib/sku-item/types';
   import { TabHeader } from '$ui/tabs';
   import { gotoQueryParameters } from '$util/queryParameter';
+  import Sort from '$lib/components/Sort.svelte';
   import TransactionList from './TransactionList.svelte';
   import BidList from './BidList.svelte';
-  import Sort from './Sort.svelte';
 
   export let tab: 'transactions' | 'bids';
   export let transactions: Transaction[] = [];
   export let bids: Bid[] = [];
   export let totalTransactions: number;
   export let totalBids: number;
+
+  const sortOptions = [
+    {
+      id: 1,
+      name: 'Newest',
+      order: 'desc',
+      value: 'createdAt',
+    },
+    {
+      id: 2,
+      name: 'Oldest',
+      order: 'asc',
+      value: 'createdAt',
+    },
+  ];
 
   function redirect(_tab: 'transactions' | 'bids') {
     gotoQueryParameters({
@@ -32,8 +47,8 @@
     >
     <TabHeader on:click={() => redirect('bids')} active={tab === 'bids'} class="pb-5">Active Bids</TabHeader>
   </ul>
-  <div class="justify-self-end self-center">
-    <Sort on:select={sort} />
+  <div class="justify-self-end self-center text-lg">
+    <Sort on:select={sort} {sortOptions} />
   </div>
 </nav>
 

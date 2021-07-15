@@ -3,12 +3,12 @@
   import { page } from '$app/stores';
   import { SkuItemGrid } from '$lib/sku-item';
   import NoResults from '$lib/components/NoResults.svelte';
+  import Sort from '$lib/components/Sort.svelte';
   import filters from '$static/filters.svg';
   import { Pagination } from '$ui/pagination';
   import { formatInteger } from '$util/format';
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
-  import Sort from './Sort.svelte';
   import { loading } from './marketplace.api';
   import { statusFilters, setFilters } from './marketplace.service';
 
@@ -31,6 +31,27 @@
   const sort = (event: CustomEvent) => {
     setFilters({ params: { sortBy: `${event.detail.value}:${event.detail.order}` } });
   };
+
+  const sortOptions = [
+    {
+      id: 1,
+      name: 'Release date',
+      order: 'desc',
+      value: 'startDate',
+    },
+    {
+      id: 2,
+      name: 'Price high to low',
+      order: 'desc',
+      value: 'price',
+    },
+    {
+      id: 3,
+      name: 'Price low to high',
+      order: 'asc',
+      value: 'price',
+    },
+  ];
 
   $: p = +$page.query.get('page') || 1;
 </script>
@@ -58,7 +79,7 @@
         <Search />
       </div>
       <div class="flex-grow self-center sort-container">
-        <Sort on:select={sort} />
+        <Sort on:select={sort} {sortOptions} />
       </div>
     </div>
   </div>

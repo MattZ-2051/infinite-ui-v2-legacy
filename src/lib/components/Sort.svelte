@@ -6,41 +6,26 @@
   import MenuVariantLight from '$ui/menu/variants/MenuVariantLight.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
+  import MenuVariantDark from '$ui/menu/variants/MenuVariantDark.svelte';
 
   let dispatch = createEventDispatcher();
 
   let showSortMenu = false;
   let trigger: HTMLElement;
-  let options = [
-    {
-      id: 1,
-      name: 'Release date',
-      order: 'desc',
-      value: 'startDate',
-    },
-    {
-      id: 2,
-      name: 'Price high to low',
-      order: 'desc',
-      value: 'price',
-    },
-    {
-      id: 3,
-      name: 'Price low to high',
-      order: 'asc',
-      value: 'price',
-    },
-  ];
+  export let sortOptions: { id: number; name: string; value: string; order: string }[];
+  export let label = 'Sort by:';
+  export let theme: 'light' | 'dark' = 'light';
+
   const getSelected = () => {
     if (!$page.query.get('sortBy')) {
-      return options[0];
+      return sortOptions[0];
     }
     const [value, order] = $page.query.get('sortBy').split(':');
-    return options.find((item) => item.value === value && item.order === order);
+    return sortOptions.find((item) => item.value === value && item.order === order);
   };
+  export let selected = getSelected();
 
-  let selected = getSelected();
-  $: availableOptions = options.filter((item) => item.id !== selected.id);
+  $: availableOptions = sortOptions.filter((item) => item.id !== selected.id);
 
   const select = (option: { id: number; value: string; order: string; name: string }): void => {
     selected = option;
@@ -50,16 +35,17 @@
 
 <div
   class="flex justify-end cursor-pointer gap-2 text-gray-400"
+  data-testid="sort-container"
   on:click={() => (showSortMenu = !showSortMenu)}
   bind:this={trigger}
 >
-  <span>Sort by:</span>
-  <span class="text-black">{selected.name}</span>
+  <span>{label}</span>
+  <span class={theme === 'light' ? 'text-black' : 'text-white'}>{selected.name}</span>
   <Icon path={mdiChevronDown} color="gray" class="mr-3" />
 </div>
 
 {#if showSortMenu}
-  <MenuVariantLight>
+  <svelte:component this={theme === 'light' ? MenuVariantLight : MenuVariantDark}>
     <Menu
       {trigger}
       offset={4}
@@ -73,5 +59,5 @@
         </MenuItem>
       {/each}
     </Menu>
-  </MenuVariantLight>
+  </svelte:component>
 {/if}

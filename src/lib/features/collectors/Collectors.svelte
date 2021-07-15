@@ -7,7 +7,6 @@
   export let collectors: CollectorProduct[];
   export let page: number;
   export let forSale: boolean;
-  export let sort: 'asc' | 'desc';
   export let search: string;
   export let total: number;
   export let perPage: number;
@@ -20,7 +19,7 @@
         <SkuDetails {sku} />
       </div>
       <div class="flex-grow pt-6 pl-0 pb-16 lg:pl-16 lg:pb-0">
-        <CollectorsSummary {sku} {collectors} {page} {forSale} {sort} {search} {total} {perPage} />
+        <CollectorsSummary {sku} {collectors} {page} {forSale} {search} {total} {perPage} />
       </div>
     </div>
   </div>
