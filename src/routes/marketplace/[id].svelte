@@ -12,7 +12,7 @@
 </script>
 
 <script lang="ts">
-  import { Seo } from '$lib/seo';
+  import { Seo, chooseSkuSocialImage } from '$lib/seo';
   import CelebritySku from '$lib/features/celebrity/sku/CelebritySku.svelte';
 
   export let sku: Sku;
@@ -21,6 +21,6 @@
   export let related: Sku[];
 </script>
 
-<Seo title={sku.name} image={sku.nftPublicAssets?.find((item) => item.type.includes('image'))} />
+<Seo title={sku.name} image={chooseSkuSocialImage(sku)} />
 
 <CelebritySku {sku} {collectors} {totalCollectors} {related} />

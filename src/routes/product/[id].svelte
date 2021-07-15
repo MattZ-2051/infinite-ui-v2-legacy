@@ -49,7 +49,7 @@
 
 <script lang="ts">
   import { navigating } from '$app/stores';
-  import { Seo } from '$lib/seo';
+  import { Seo, chooseSkuSocialImage } from '$lib/seo';
 
   export let product: Product;
 
@@ -64,9 +64,6 @@
   $: resetStore($navigating?.to?.path);
 </script>
 
-<Seo
-  title={`${product.sku.name} / #${product.serialNumber}`}
-  image={product.sku.nftPublicAssets?.find((item) => item.type.includes('image'))}
-/>
+<Seo title={`${product.sku.name} / #${product.serialNumber}`} image={chooseSkuSocialImage(product.sku)} />
 
 <ProductPage {product} />
