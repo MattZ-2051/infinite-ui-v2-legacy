@@ -1,4 +1,18 @@
-export default function injectScript({ url, id }: { url: string; id: string }): Promise<unknown> {
+/**
+ * Standard interface for loading third-party dependencies (scripts).
+ * Usually required when integrating third-party SDKs.
+ */
+export default function injectScript({
+  url,
+  id,
+  async = true,
+  defer = true,
+}: {
+  url: string;
+  id: string;
+  async?: boolean;
+  defer?: boolean;
+}): Promise<unknown> {
   return new Promise(function injectScriptCallback(resolve, reject) {
     const scriptId = `injected-script-${id}`;
     const existingScript = document.querySelector(`#${scriptId}`) as HTMLScriptElement | undefined;
@@ -27,7 +41,8 @@ export default function injectScript({ url, id }: { url: string; id: string }): 
     script.type = 'text/javascript';
     script.src = url;
     script.id = scriptId;
-    script.async = true;
+    script.async = async;
+    script.defer = defer;
     script.addEventListener('load', onload);
     script.addEventListener('error', reject);
 
