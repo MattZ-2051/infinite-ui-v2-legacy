@@ -68,7 +68,7 @@
   .legendary-badge-color {
     background: linear-gradient(45deg, #ff9412 0%, #fff72d 98.96%);
   }
-  .legendary-text-color {
+  .legendary-text {
     @apply text-transparent bg-clip-text bg-gradient-to-tr;
     --tw-gradient-to: var(--legendary-start);
     --tw-gradient-from: var(--legendary-end);
