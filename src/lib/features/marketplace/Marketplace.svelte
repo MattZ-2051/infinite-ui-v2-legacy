@@ -88,7 +88,7 @@
     {#if !$loading && skus.length === 0}
       <NoResults class="mt-4 md:mt-12 text-gray-400" />
     {:else}
-      <SkuItemGrid {skus} />
+      <SkuItemGrid {skus} maxCols={3} />
       <Pagination page={p} {total} perPage={6} class="flex justify-end" on:change={gotoPage} />
     {/if}
   </div>

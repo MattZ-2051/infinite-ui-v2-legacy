@@ -22,7 +22,6 @@
     "@mdi/js": "5.9.55",
     "@popperjs/core": "2.9.2",
     "clsx": "1.1.1",
-    "cq-prolyfill": "^0.4.0",
     "dayjs": "1.10.6",
     "felte": "0.7.10",
     "flatpickr": "4.6.9",
