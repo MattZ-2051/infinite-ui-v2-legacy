@@ -10,10 +10,12 @@ export const skuStatus = (sku: Sku): Status => {
   ) {
     return 'upcoming-soon';
   }
+  if (sku?.totalSupplyLeft !== 0 && (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0)) {
+    return 'active';
+  }
   if (sku?.totalSupplyLeft === 0 || sku.activeSkuListings?.length === 0) {
     return 'no-sale';
   }
-  return 'active';
 };
 
 export const productStatus = (product: Product): Status => {
