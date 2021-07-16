@@ -1,7 +1,7 @@
 import type { BalanceInfo, Wallet } from './types';
 import type { Transaction, Bid } from '$lib/sku-item/types';
 import { get, getPage, fetchTracker } from '$lib/api';
-import { withdrawableBalance, wallet } from './index';
+import { wallet } from './index';
 
 export const loadingTransactions = fetchTracker();
 export const loadingBids = fetchTracker();
@@ -27,11 +27,8 @@ const filter = {
 };
 
 export async function loadWallet() {
-  const [walletData, balaceInfoData] = await Promise.all([get<Wallet>('wallet'), get<BalanceInfo>('wallet/balance')]);
-
-  wallet.set(walletData);
-
-  withdrawableBalance.set(Number.parseFloat(balaceInfoData.ccWithdrawablesLock));
+  const [walletData, balanceInfo] = await Promise.all([get<Wallet>('wallet'), get<BalanceInfo>('wallet/balance')]);
+  wallet.set({ ...walletData, balanceInfo });
 }
 
 export async function loadTransactions(

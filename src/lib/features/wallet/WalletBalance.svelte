@@ -39,10 +39,10 @@
     >
     <div class="text-sm mt-4">
       <span class="text-gray-400 mr-1">Withdrawable:</span>
-      {#if $withdrawableBalance}
-        {formatCurrency($withdrawableBalance)}
-      {:else}
+      {#if Number.isNaN($withdrawableBalance)}
         <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
+      {:else}
+        {formatCurrency($withdrawableBalance)}
       {/if}
       <br />
       <span class="text-xs text-gray-400">(Excludes pending transactions)</span>

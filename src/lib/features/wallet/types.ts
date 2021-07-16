@@ -49,3 +49,5 @@ export type BalanceInfo = {
   ccWithdrawablesLock: string;
   totalBalance: string;
 };
+
+export type WalletExtended = Wallet & { balanceInfo: BalanceInfo };
