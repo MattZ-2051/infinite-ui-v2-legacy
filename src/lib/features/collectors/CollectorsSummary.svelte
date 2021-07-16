@@ -6,7 +6,7 @@
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
   import Sort from '$lib/components/Sort.svelte';
   import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
-  import Breadcrumbs from '$ui/breadcrumbs/Breadcrumbs.svelte';
+  import { Breadcrumb, BreadcrumbItem } from '$ui/breadcrumbs';
   import { gotoQueryParameters } from '$util/queryParameter';
   import CollectorItem from './CollectorItem.svelte';
   import { loading } from './collectors.api';
@@ -59,21 +59,14 @@
       { noscroll: true, keepfocus: true }
     );
   }
-
-  const items = [
-    { text: 'Marketplace', href: '/marketplace', limit: 600 },
-    { text: sku.name, href: `/marketplace/${sku._id}` },
-    { text: 'Collectors', class: 'text-gray-500' },
-  ];
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
-  <Breadcrumbs
-    {items}
-    class="flex gap-x-3 gap-y-1 font-black italic"
-    itemClass="whitespace-nowrap"
-    dividerClass="text-gray-500"
-  />
+  <Breadcrumb class="font-black italic" --breadcrumb-color="#7C7C7C">
+    <BreadcrumbItem><a href="/marketplace">Marketplace</a></BreadcrumbItem>
+    <BreadcrumbItem><a href={`/marketplace/${sku._id}`}>{sku.name}</a></BreadcrumbItem>
+    <BreadcrumbItem class="text-gray-500">Collectors</BreadcrumbItem>
+  </Breadcrumb>
 
   <div class="flex flex-wrap gap-7 sm:gap-0">
     <span class="text-5xl">Collectors</span>
