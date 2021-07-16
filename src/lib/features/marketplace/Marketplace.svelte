@@ -6,11 +6,10 @@
   import Sort from '$lib/components/Sort.svelte';
   import filters from '$static/filters.svg';
   import { Pagination } from '$ui/pagination';
-  import { formatInteger } from '$util/format';
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
   import { loading } from './marketplace.api';
-  import { statusFilters, setFilters } from './marketplace.service';
+  import { modeFilters, setFilters } from './marketplace.service';
 
   export let skus: Sku[];
   export let total: number;
@@ -66,10 +65,9 @@
   <div class="py-3 gap-2 {showFilters ? 'hidden' : 'flex'}">
     {#if !showFilters}
       <div class="flex flex-grow items-center gap-2 text-gray-400 cursor-pointer md:hidden">
-        {#each statusFilters as { label, status } (status)}
-          {#if status ? $page.query.get('status') === status : !$page.query.get('status')}
+        {#each modeFilters as { label, status } (status)}
+          {#if status ? $page.query.get('mode') === status : !$page.query.get('mode')}
             <span class="text-black text-2xl filter-summary">{label}</span>
-            <span class="italic font-black">({formatInteger(total)})</span>
           {/if}
         {/each}
       </div>

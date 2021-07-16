@@ -10,7 +10,7 @@
   import Accordion from '$ui/accordion/Accordion.svelte';
   import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { queryParameter } from '$util/queryParameter';
-  import { setFilters, statusFilters } from './marketplace.service';
+  import { setFilters, modeFilters } from './marketplace.service';
 
   const dispatch = createEventDispatcher();
 
@@ -55,7 +55,7 @@
 
   function removeAllFilters() {
     setFilters({
-      params: { status: $page.query.get('status') },
+      params: { mode: $page.query.get('mode') },
       reset: true,
     });
   }
@@ -180,11 +180,11 @@
     </div>
   </div>
   <div class="flex flex-col md:order-1">
-    {#each statusFilters as { label, status }}
+    {#each modeFilters as { label, status }}
       <div
-        use:queryParameter={{ base: '/marketplace', params: { status, page: '' } }}
+        use:queryParameter={{ base: '/marketplace', params: { mode: status, page: '' } }}
         class="flex gap-2 items-center py-3 cursor-pointer hover:text-gray-500 text-2xl"
-        class:active={status ? $page.query.get('status') === status : !$page.query.get('status')}
+        class:active={status ? $page.query.get('mode') === status : !$page.query.get('mode')}
       >
         <span class="label">{label}</span>
       </div>

@@ -10,8 +10,8 @@ export function setFilters(options: Pick<QueryParameterOptions, 'params' | 'rese
   );
 }
 
-export const statusFilters = [
+export const modeFilters = [
   { label: 'All', status: '' },
-  { label: 'Released', status: 'released' },
+  { label: 'On Sale', status: 'onsale' },
   { label: 'Upcoming', status: 'upcoming' },
 ];

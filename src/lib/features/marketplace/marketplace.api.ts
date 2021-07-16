@@ -3,6 +3,15 @@ import { get, getPage, fetchTracker } from '$lib/api';
 
 export const loading = fetchTracker();
 
+const getModeParameters = (status: string) => {
+  if (status === 'onsale') {
+    return { forSale: 'true' };
+  }
+  if (status === 'upcoming') {
+    return { status: 'upcoming' };
+  }
+};
+
 export async function loadMarketplaceFilters({ fetch }: { fetch: Fetch }) {
   const [categories, creators, series] = await Promise.all([
     get<Sku>(`categories/`, { fetch }),
@@ -20,7 +29,7 @@ export async function loadMarketplaceItems({
   query: URLSearchParams;
 }): Promise<{ total: number; data: Sku[] }> {
   const page: number = +query.get('page') || 1;
-  const status: string = query.get('status');
+  const mode = getModeParameters(query.get('mode'));
   const category: string = query.get('category');
   const rarity: string = query.get('rarity');
   const series: string = query.get('series');
@@ -38,7 +47,7 @@ export async function loadMarketplaceItems({
       page: `${page}`,
       per_page: `6`,
       ...{ sortBy },
-      ...(status && { status }),
+      ...mode,
       ...(category && { category }),
       ...(rarity && { rarity }),
       ...(series && { series }),
