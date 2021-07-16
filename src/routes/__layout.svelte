@@ -19,7 +19,8 @@
 <script lang="ts">
   import { navigating } from '$app/stores';
   import { isLoading } from '$lib/auth';
-  import { initUserAuth } from '$lib/user';
+  import { initUserAuth, user } from '$lib/user';
+  import { pollPendingTransactions } from '$lib/features/wallet/wallet.poll';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$lib/layout/header/Header.svelte';
   import Footer from '$lib/layout/footer/Footer.svelte';
@@ -37,6 +38,8 @@
     navigating,
     ($navigating) => $navigating && $navigating.from.path !== $navigating.to.path
   );
+
+  $: $user && pollPendingTransactions();
 </script>
 
 {#if $navigationPathChanging || $isLoading}

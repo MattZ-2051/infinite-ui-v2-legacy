@@ -4,23 +4,20 @@ import { get, getPage, fetchTracker, post } from '$lib/api';
 
 export const loadingHbarTransactions = fetchTracker();
 
-const filter = {
+const filterWithStatus = {
   $or: [
-    {
-      type: {
-        $in: ['purchase', 'deposit'],
-      },
-      status: { $exists: true },
-    },
-    {
-      type: 'sale',
-    },
-    {
-      type: 'royalty_fee',
-    },
-    {
-      type: 'withdrawal',
-    },
+    { type: { $in: ['purchase', 'deposit'] }, status: { $exists: true } },
+    { type: 'sale' },
+    { type: 'royalty_fee' },
+    { type: 'withdrawal' },
+  ],
+};
+
+const filterWithPendingStatus = {
+  $or: [
+    { type: { $in: ['purchase', 'deposit'] }, status: { $in: ['pending'] } },
+    { type: 'sale', status: { $in: ['pending'] } },
+    { type: 'withdrawal', status: { $in: ['pending'] } },
   ],
 };
 
@@ -36,11 +33,11 @@ export async function loadMyTransactions({
   page: number;
   sortBy?: string;
 }): Promise<{ total: number; transactions: Transaction[] }> {
-  const { data: transactions, total } = await getPage<Transaction>(`users/me/transactions`, {
-    params: { filter: JSON.stringify(filter), page: `${page || 1}`, per_page: '10', ...(sortBy && { sortBy }) },
-  });
+  return await loadTransactionsWithFilter(filterWithStatus, page, sortBy);
+}
 
-  return { total, transactions };
+export async function loadPendingTransactions(): Promise<{ total: number; transactions: Transaction[] }> {
+  return await loadTransactionsWithFilter(filterWithPendingStatus);
 }
 
 export async function loadBids({
@@ -65,4 +62,20 @@ export async function loadExplorerLink(): Promise<{ explorerLink: string }> {
 export async function checkHbarDeposits(): Promise<HbarTransaction[]> {
   const { newTransactions } = await post<HbarDeposits>('wallet/hbar/check', {}, { tracker: loadingHbarTransactions });
   return newTransactions;
+}
+
+async function loadTransactionsWithFilter(
+  filter: unknown,
+  page?: number,
+  sortBy?: string
+): Promise<{ total: number; transactions: Transaction[] }> {
+  const { data: transactions, total } = await getPage<Transaction>(`users/me/transactions`, {
+    params: {
+      filter: JSON.stringify(filter),
+      ...(page && { page: `${page}`, per_page: '10' }),
+      ...(sortBy && { sortBy }),
+    },
+  });
+
+  return { total, transactions };
 }
