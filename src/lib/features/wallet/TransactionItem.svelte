@@ -3,7 +3,7 @@
   import { mdiChevronDown } from '@mdi/js';
   import { formatDate, formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
-  import UserLink from './UserLink.svelte';
+  import UserLink from '$lib/components/UserLink.svelte';
 
   export let transaction: Transaction;
 
@@ -67,7 +67,10 @@
             <span class="font-semibold underline hover:no-underline"
               ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
             >
-            <UserLink profile={transaction.transactionData.seller}>
+            <UserLink
+              username={transaction.transactionData.seller?.username}
+              class="font-semibold underline hover:no-underline"
+            >
               <span class="message" slot="prefix">from</span>
             </UserLink>
           {/if}
@@ -80,10 +83,9 @@
             <span class="font-semibold underline hover:no-underline"
               ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
             >
-            <span class="message">from</span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href="/collection/{sellerUsername}">@{sellerUsername}</a></span
-            >
+            <UserLink username={sellerUsername} class="font-semibold underline hover:no-underline" hasLinkClass={false}>
+              <span class="message" slot="prefix">from</span>
+            </UserLink>
             <span class="font-semibold text-red-600">(Transaction failed)</span>
           {/if}
 
@@ -95,10 +97,9 @@
             <span class="font-semibold underline hover:no-underline"
               ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
             >
-            <span class="message">to</span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href="/collection/{buyerUsername}">@{buyerUsername}</a></span
-            >
+            <UserLink username={buyerUsername} class="font-semibold underline hover:no-underline" hasLinkClass={false}>
+              <span class="message" slot="prefix">to</span>
+            </UserLink>
           {/if}
 
           {#if type === 'withdrawal' && status === 'success'}
@@ -116,10 +117,9 @@
             <span class="font-semibold underline hover:no-underline"
               ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
             >
-            <span class="message">to</span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href="/collection/{buyerUsername}">@{buyerUsername}</a></span
-            >
+            <UserLink username={buyerUsername} class="font-semibold underline hover:no-underline" hasLinkClass={false}>
+              <span class="message" slot="prefix">to</span>
+            </UserLink>
             <span class="font-semibold text-red-600">(Transaction failed)</span>
           {/if}
 

@@ -6,6 +6,7 @@
   import { page } from '$app/stores';
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
+  import UserLink from '$lib/components/UserLink.svelte';
   import { loadingTransactions } from './product.api';
   import { transactions, totalTransactions } from './product.store';
 
@@ -45,9 +46,7 @@
         <div
           class="grid-container group grid gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
         >
-          <a href="/collection/{transaction.owner?.username}" class="self-end font-black italic group-hover:text-white">
-            {transaction.owner?.username}
-          </a>
+          <UserLink username={transaction.owner?.username} class="self-end font-black italic group-hover:text-white" />
           <div class="justify-self-end">
             {#if transaction.type === 'purchase'}
               Bought for

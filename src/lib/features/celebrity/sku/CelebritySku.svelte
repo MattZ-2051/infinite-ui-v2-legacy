@@ -11,6 +11,7 @@
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import hedera from '$lib/components/icons/hedera';
+  import UserLink from '$lib/components/UserLink.svelte';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import { getSupplyInfo } from './supplyInfo';
   import PriceBoxSku from './PriceBoxSku.svelte';
@@ -31,14 +32,12 @@
       <div class="flex flex-col py-5 gap-4 text-white">
         <div>
           <div class="text-sm flex gap-2">
-            <a sveltekit:prefetch href={`/collection/${sku.issuer.username}`} class="link">{sku.issuerName}</a>
+            <a sveltekit:prefetch href="/marketplace">Marketplace</a>
             <span class="italic text-gray-300">/</span>
             <span class="text-gray-300">{sku.name}</span>
           </div>
           <div class="flex justify-between mt-12">
-            <a sveltekit:prefetch class="text-xl text-gray-400 link" href={`/collection/${sku.issuer.username}`}
-              >{sku.issuerName}</a
-            >
+            <UserLink username={sku.issuer.username} class="text-xl text-gray-400">{sku.issuerName}</UserLink>
             <Rarity rarity={sku?.rarity} class="font-bold text-lg" />
           </div>
           <div class="text-5xl mt-4">{sku.name}</div>
@@ -53,7 +52,7 @@
         <div class="flex flex-col flex-grow gap-4">
           <div class="flex items-center gap-2">
             <span class="gray-text">Created by</span>
-            <a sveltekit:prefetch href="/collection/{sku.issuer.username}" class="link">@{sku.issuer.username}</a>
+            <UserLink username={sku.issuer.username} />
             {#if sku.issuer.showNotifyMe}
               <span>/</span>
               <NotifyButton profile={sku.issuer} />

@@ -12,6 +12,7 @@
   import { formatCurrency } from '$util/format';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import DateFormat from '$ui/date/DateFormat.svelte';
+  import UserLink from '$lib/components/UserLink.svelte';
   import ProductHistory from './ProductHistory.svelte';
   import ProductAuction from './auction/ProductAuction.svelte';
   import CreateSaleModal from './CreateSaleModal.svelte';
@@ -105,9 +106,7 @@
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="flex flex-col">
       <span class="text-gray-500">Owner</span>
-      <a sveltekit:prefetch href={`/collection/${product.owner.username}`}
-        ><span class="font-black">{product.owner.username}</span></a
-      >
+      <UserLink username={product.owner.username} class="font-black">{product.owner.username}</UserLink>
     </div>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="self-center flex flex-grow">

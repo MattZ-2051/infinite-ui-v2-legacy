@@ -6,6 +6,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
+  import UserLink from '$lib/components/UserLink.svelte';
   import NotifyButton from '$lib/notify/NotifyButton.svelte';
   import HederaLink from '$lib/product/HederaLink.svelte';
 
@@ -44,10 +45,9 @@
       </div>
       <div class="flex gap-3 text-sm text-gray-400 font-black">
         <div class="font-normal">
-          Created by
-          <a sveltekit:prefetch href={`/collection/${_sku.issuer?.username}`} class="text-black ml-1 font-black">
-            @{_sku.issuerName}
-          </a>
+          <UserLink prefix="Created by" username={_sku.issuer?.username} class="text-black font-black"
+            >@{_sku.issuerName}</UserLink
+          >
         </div>
         <span>/</span>
         <NotifyButton profile={_sku.issuer} />

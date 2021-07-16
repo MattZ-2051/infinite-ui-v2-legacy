@@ -3,6 +3,7 @@
   import { mdiBell } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { closeModal, Modal } from '$ui/modals';
+  import UserLink from '$lib/components/UserLink.svelte';
   import NotifyForm from './NotifyForm.svelte';
 
   export let isOpen = false;
@@ -19,7 +20,7 @@
         <span class="gray-text">Subscribe and stay up to date on the newest</span>
         <div>
           <span class="gray-text">updates from</span>
-          <a class="underline hover:no-underline" href="/collection/{profile.username}">{profile.username}</a>
+          <UserLink username={profile.username} />
         </div>
       </div>
 
