@@ -34,6 +34,11 @@ export function hasActiveAuction(product: CollectorProduct): boolean {
   return product?.activeProductListing?.saleType === 'auction';
 }
 
+export function getActiveAuctionMinAllowedBid(product: CollectorProduct): number {
+  const listing = product.activeProductListing;
+  return product.highestBid?.bidAmt ? product.highestBid?.bidAmt + listing.auctionBidIncrement : listing.minBid;
+}
+
 export function hasUpcomingAuction(product: CollectorProduct): boolean {
   return product?.upcomingProductListing?.saleType === 'auction';
 }

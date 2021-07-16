@@ -4,7 +4,13 @@
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
-  import { hasListing, hasUpcomingListing, hasActiveAuction, hasActiveSale } from './collectors.service';
+  import {
+    hasListing,
+    hasUpcomingListing,
+    hasActiveAuction,
+    hasActiveSale,
+    getActiveAuctionMinAllowedBid,
+  } from './collectors.service';
 
   export let collector: CollectorProduct;
 </script>
@@ -30,7 +36,8 @@
     <div class="flex">
       <span>Bid for</span>
       <Icon path={mdiChevronRight} color="gray" />
-      <span class="highlight">{formatCurrencyWithOptionalFractionDigits(collector.highestBid.bidAmt)}</span>
+      <span class="highlight">{formatCurrencyWithOptionalFractionDigits(getActiveAuctionMinAllowedBid(collector))}</span
+      >
     </div>
     {#if collector.activeProductListing?.endDate}
       <div>
