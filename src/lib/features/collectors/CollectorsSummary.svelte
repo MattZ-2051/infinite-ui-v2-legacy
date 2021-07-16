@@ -9,6 +9,7 @@
   import Breadcrumbs from '$ui/breadcrumbs/Breadcrumbs.svelte';
   import { gotoQueryParameters } from '$util/queryParameter';
   import CollectorItem from './CollectorItem.svelte';
+  import { loading } from './collectors.api';
 
   export let sku: Sku;
   export let collectors: CollectorProduct[];
@@ -103,11 +104,15 @@
       </div>
     </div>
   </div>
-  {#each collectors as collector}
-    <CollectorItem {collector} redeemable={sku?.redeemable} />
-  {/each}
+  <div class:opacity-50={$loading}>
+    {#each collectors as collector}
+      <CollectorItem {collector} redeemable={sku?.redeemable} />
+    {:else}
+      <div class="text-xl pt-10 text-center font-bold italic">No collector editions found</div>
+    {/each}
+  </div>
   <PaginationVariantDark>
-    <Pagination {page} {total} {perPage} class="flex justify-end mt-5" on:change={gotoPage} />
+    <Pagination {page} {total} {perPage} class="flex justify-end my-5" on:change={gotoPage} />
   </PaginationVariantDark>
 </div>
 

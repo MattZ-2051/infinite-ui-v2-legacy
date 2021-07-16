@@ -1,5 +1,7 @@
 import type { CollectorProduct, Sku } from '$lib/sku-item/types';
-import { get, getPage } from '$lib/api';
+import { get, getPage, fetchTracker } from '$lib/api';
+
+export const loading = fetchTracker();
 
 export async function loadCollectorProducts({
   id,
@@ -20,6 +22,7 @@ export async function loadCollectorProducts({
     get<Sku>(`skus/${id}?includeFunctions=true`, { fetch }),
     getPage<CollectorProduct>(`products/collectors/${id}?includeFunctions=true`, {
       fetch,
+      tracker: loading,
       params: {
         page: `${page}`,
         per_page: `${perPage}`,
