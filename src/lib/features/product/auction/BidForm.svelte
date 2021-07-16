@@ -25,7 +25,7 @@
   $: schema = yup.object({
     placeBid: yup.lazy((value) => {
       return value === ''
-        ? yup.string().required('Bid amount is required.')
+        ? yup.string()
         : yup
             .number()
             .typeError('Not a valid number.')
@@ -39,8 +39,14 @@
 
   const { form, errors, reset } = createForm({
     onSubmit: async ({ placeBid }: { placeBid: string }) => {
-      dispatch('place-bid', { amount: Number.parseFloat(placeBid) });
-      reset();
+      if (!$user) {
+        toast.danger('Please, login to place a bid.');
+      } else if (placeBid === '') {
+        toast.danger(`Bid amount is required.`);
+      } else {
+        dispatch('place-bid', { amount: Number.parseFloat(placeBid) });
+        reset();
+      }
     },
     validate,
   });
@@ -49,16 +55,6 @@
 
   function validate(values) {
     return validateSchema(schema)(values);
-  }
-
-  function onPlaceBid() {
-    if (!$user) {
-      toast.danger('Please, login to place a bid.');
-
-      return;
-    }
-
-    submit.click();
   }
 </script>
 
@@ -74,8 +70,8 @@
     <div style="flex-grow:1;" class="flex justify-center  items-center">
       <button type="submit" class="hidden" bind:this={submit} />
       <button
+        type="submit"
         class="button-style w-full max-w-xs px-12 py-4 text-xl rounded-3xl transition delay-100 hover:bg-white hover:text-black"
-        on:click={onPlaceBid}
       >
         Place Bid
       </button>
