@@ -12,6 +12,8 @@ export async function getClient(): Promise<Auth0Client> {
       domain: variables.auth0.domain,
       client_id: variables.auth0.client_id,
       audience: variables.auth0.audience,
+      useRefreshTokens: true,
+      cacheLocation: 'localstorage',
     });
   }
 
