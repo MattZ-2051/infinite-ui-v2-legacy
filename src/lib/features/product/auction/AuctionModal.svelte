@@ -25,7 +25,7 @@
   let waitingForAPI = false;
 
   $: fee = formatCurrency(marketplaceFee * price);
-  $: total = formatCurrency(price * (1 + marketplaceFee));
+  $: total = formatCurrency(price * (1 - marketplaceFee));
 
   function onChangeDateFrom([_startDate]) {
     startDate = _startDate;
