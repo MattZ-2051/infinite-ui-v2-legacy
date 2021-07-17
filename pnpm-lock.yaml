@@ -39,7 +39,7 @@ specifiers:
   prettier: ~2.3.2
   prettier-plugin-svelte: 2.3.1
   svelte: 3.38.3
-  svelte-check: 2.2.2
+  svelte-check: 2.2.3
   svelte-intersection-observer: 0.7.1
   svelte-jester: ~1.7.0
   svelte-media: 0.1.4
@@ -99,7 +99,7 @@ devDependencies:
   prettier: 2.3.2
   prettier-plugin-svelte: 2.3.1_prettier@2.3.2+svelte@3.38.3
   svelte: 3.38.3
-  svelte-check: 2.2.2_7d4d22e7287a4965435cb62392efd75a
+  svelte-check: 2.2.3_7d4d22e7287a4965435cb62392efd75a
   svelte-intersection-observer: 0.7.1
   svelte-jester: 1.7.0_jest@26.6.3+svelte@3.38.3
   svelte-preprocess: 4.7.4_a5a18df0fd80b121f7e25f45162d169d
@@ -6987,8 +6987,8 @@ packages:
       supports-color: 7.2.0
     dev: true
 
-  /svelte-check/2.2.2_7d4d22e7287a4965435cb62392efd75a:
-    resolution: {integrity: sha512-PQtVt+TcXuwtfCkJl/b0NFFwYNAHERHWqy9ypZ1eevi684wlsjCApmKYh0JZEiR9+Q8Rq+1P0JIdOLsQLEkaXA==}
+  /svelte-check/2.2.3_7d4d22e7287a4965435cb62392efd75a:
+    resolution: {integrity: sha512-mqe/lgF0Ew+54YI4bPW5D26sMolh+MofQiz41U0c1GvUsP3bKsLLH0mjs4P4Xc+ajUFJtvGBo5PWaf0dd46sIQ==}
     hasBin: true
     peerDependencies:
       svelte: ^3.24.0

@@ -61,7 +61,7 @@
     "prettier": "~2.3.2",
     "prettier-plugin-svelte": "2.3.1",
     "svelte": "3.38.3",
-    "svelte-check": "2.2.2",
+    "svelte-check": "2.2.3",
     "svelte-intersection-observer": "0.7.1",
     "svelte-jester": "~1.7.0",
     "svelte-preprocess": "4.7.4",
