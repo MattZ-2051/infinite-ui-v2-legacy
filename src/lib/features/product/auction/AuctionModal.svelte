@@ -24,8 +24,8 @@
   let price: number;
   let waitingForAPI = false;
 
-  $: fee = formatCurrency(marketplaceFee * price);
-  $: total = formatCurrency(price * (1 - marketplaceFee));
+  $: fee = Math.max(marketplaceFee * price || 0, 0);
+  $: total = Math.max(price * (1 - marketplaceFee) || 0, 0);
 
   function onChangeDateFrom([_startDate]) {
     startDate = _startDate;
@@ -131,12 +131,11 @@
           </div>
         </div>
       </div>
-      <div class="w-full flex bg-gray-100 rounded-2xl px-4 py-2 text-xl mt-2 mb-8">
-        <span class="flex-grow-0 text-gray-400 mr-1">$</span>
+      <div class="input-container flex items-center relative py-4">
         <input
           type="number"
           min="0"
-          class="flex-grow bg-transparent text-center focus:outline-none"
+          class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center"
           bind:value={price}
           on:change={onPriceChange}
           placeholder="Enter min bid price"
@@ -144,11 +143,11 @@
       </div>
       <div class="flex justify-between border-solid border-b border-gray-200 pb-1 mb-1 text-gray-400 font-medium">
         <span>MarketPlace fee ({marketplaceFee * 100}%)</span>
-        <span>{fee}</span>
+        <span>{formatCurrency(fee)}</span>
       </div>
       <div class="flex justify-between font-medium">
         <span>Minimum Final Payout:</span>
-        <span class="font-semibold text-xl">{total}</span>
+        <span class="font-semibold text-xl">{formatCurrency(total)}</span>
       </div>
       <div class="text-gray-400 text-center py-6">
         All resales of this product a subject to a {product.sku.royaltyFeePercentage}%<br />
@@ -161,3 +160,14 @@
     </div>
   </Modal>
 {/if}
+
+<style>
+  .input-container::before {
+    content: '$';
+    position: absolute;
+    left: 10px;
+    z-index: 1;
+    @apply text-xl;
+    @apply text-gray-400;
+  }
+</style>

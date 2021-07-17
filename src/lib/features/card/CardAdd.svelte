@@ -92,7 +92,7 @@
       <Image src={Circle} class="flex-none w-8 h-8" /> Circle Payments
     </div>
     <div class="text-gray-500 font-extrabold italic mt-4">Enter the card details below</div>
-    <form use:form class="mt-6 flex flex-col gap-3">
+    <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
       <FormInput name="cardNumber" label="Credit card number" />
       <FormInput name="expMonth" label="Exp month" />
       <FormInput name="expYear" label="Exp year" />

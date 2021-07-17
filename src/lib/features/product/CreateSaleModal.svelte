@@ -74,11 +74,11 @@
         </div>
       </div>
       <div class="flex flex-col gap-5 my-6">
-        <div class="input-container flex relative">
+        <div class="input-container flex items-center relative">
           <input
             type="number"
             bind:value={price}
-            class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-3xl"
+            class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center"
           />
         </div>
         <div class="flex justify-between text-gray-400">
@@ -117,7 +117,6 @@
     content: '$';
     position: absolute;
     left: 10px;
-    top: 10px;
     z-index: 1;
     @apply text-xl;
     @apply text-gray-400;

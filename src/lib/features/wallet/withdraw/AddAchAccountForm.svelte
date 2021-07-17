@@ -100,7 +100,7 @@
 
 <div class="container flex flex-col gap-2 items-center">
   <div class="w-80">
-    <form use:form class="mt-6 flex flex-col gap-3">
+    <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
       <FormInput name="holderName" label="Account holder name *" />
       <FormInput name="addressLine1" label="Address Line 1 *" />
       <FormInput name="addressLine2" label="Address Line 2" />

@@ -100,7 +100,7 @@
       <div>Remember to account for the 5% service fee when choosing your deposit amount.</div>
     </div>
 
-    <form use:form class="mt-6 flex flex-col gap-3">
+    <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
       <FormInput name="amount" label="Enter Amount" />
       <Button type="submit" class="mt-6" disabled={!!saving}>Add Funds</Button>
     </form>

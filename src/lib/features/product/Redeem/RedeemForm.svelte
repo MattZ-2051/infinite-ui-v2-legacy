@@ -45,7 +45,7 @@
 
 <div class="flex flex-col gap-2">
   <div class="flex gap-2 text-xl border-b-2 border-black pb-3 w-full">Shipping Information</div>
-  <form use:form class="mt-2 flex flex-col gap-3">
+  <form use:form class="mt-2 flex flex-col gap-3" autocomplete="off">
     <FormInput name="addressLine1" label="Address Line 1" />
     <FormInput name="addressLine2" label="Address Line 2" />
     <FormInput name="postalCode" label="Postal Code" />

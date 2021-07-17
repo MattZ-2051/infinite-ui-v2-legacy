@@ -36,7 +36,7 @@
 </script>
 
 <div class="flex flex-col gap-2">
-  <form use:form class="mt-2 flex flex-col gap-3">
+  <form use:form class="mt-2 flex flex-col gap-3" autocomplete="off">
     <FormInput name="email" label="Enter your e-mail:" />
 
     <Button type="submit" disabled={!!saving} class="mt-2">Subscribe</Button>

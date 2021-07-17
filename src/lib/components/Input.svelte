@@ -9,7 +9,8 @@
   export let after = '';
   export let error: string | string[] = '';
 
-  const klass = 'flex-grow appearance-none bg-transparent w-full leading-tight focus:outline-none font-black';
+  const klass =
+    'flex-grow appearance-none bg-transparent w-full leading-tight focus:outline-none font-black px-0.5 border-0 focus:ring-0';
 
   $: cols = +($$slots.before || before) + 1 + +($$slots.after || after);
 </script>
@@ -19,9 +20,9 @@
     <label for={id} class="text-sm font-extrabold italic text-gray-500"><slot name="label">{label}</slot></label>
   {/if}
   <div
-    class="flex flex-cols-{cols} items-center border-b {error
+    class="flex flex-cols-{cols} items-center border-b-2 {error
       ? 'border-red-500'
-      : 'border-black'} pb-2 pt-1 font-black italic"
+      : 'border-gray-200'} focus-within:border-black px-0.5 pb-1 font-black italic"
   >
     {#if $$slots.before || before}
       <div class="flex-none"><slot name="before" class="flex-none">{before}</slot></div>
@@ -32,6 +33,6 @@
     {/if}
   </div>
   {#if error}
-    <div class="text-red-500 font-extrabold italic">{error}</div>
+    <div class="text-red-500 font-extrabold italic text-sm pt-0.5">{error}</div>
   {/if}
 </div>

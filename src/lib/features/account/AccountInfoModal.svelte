@@ -28,10 +28,9 @@
 
 {#if isOpen}
   <Modal title="Edit Profile" on:close={() => closeModal()}>
-    <div class="p-6">
-      <div class="text-gray-500 italic font-extrabold">Lorem ipsum dolor sit amet, adipiscing elit.</div>
+    <div class="px-6 py-2">
       <div class="mt-2">
-        <Input let:klass>
+        <Input let:klass label="Username">
           <div slot="before" class="text-gray-400">@</div>
           <input
             bind:value={editableUsername}
@@ -43,7 +42,7 @@
       </div>
     </div>
     <div slot="footer">
-      <Button on:click={handleUpdate} disabled={editableUsername.length === 0 || saving}>Update username</Button>
+      <Button on:click={handleUpdate} disabled={editableUsername.length === 0 || saving}>Update</Button>
     </div>
   </Modal>
 {/if}

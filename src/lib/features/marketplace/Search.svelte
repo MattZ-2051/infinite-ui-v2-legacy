@@ -8,7 +8,7 @@
   const handleInput = debounce((event) => setFilters({ params: { search: event.target.value } }), 300);
 </script>
 
-<div class="relative w-40">
+<div class="relative w-48">
   <input
     type="text"
     on:input={handleInput}
