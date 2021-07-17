@@ -154,7 +154,9 @@
   <div class="flex flex-col md:order-3">
     <div class="flex items-center gap-2 text-4xl text-black">
       <span class="flex-auto">Filter by</span>
-      <Icon on:click={close} path={mdiWindowClose} size="1.66" class="bg-gray-200 rounded-2xl p-1 md:hidden" />
+      <button type="button" on:click={close}>
+        <Icon path={mdiWindowClose} size="1.66" class="bg-gray-200 rounded-2xl p-1 md:hidden" />
+      </button>
       {#if filters.length > 0}
         <div
           on:click={removeAllFilters}

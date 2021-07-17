@@ -33,8 +33,9 @@
   };
 </script>
 
-<div
-  class="flex justify-end cursor-pointer gap-2 text-gray-400"
+<button
+  type="button"
+  class="flex cursor-pointer gap-2 text-gray-400 select-none"
   data-testid="sort-container"
   on:click={() => (showSortMenu = !showSortMenu)}
   bind:this={trigger}
@@ -42,7 +43,7 @@
   <span>{label}</span>
   <span class={theme === 'light' ? 'text-black' : 'text-white'}>{selected.name}</span>
   <Icon path={mdiChevronDown} color="gray" class="mr-3" />
-</div>
+</button>
 
 {#if showSortMenu}
   <svelte:component this={theme === 'light' ? MenuVariantLight : MenuVariantDark}>

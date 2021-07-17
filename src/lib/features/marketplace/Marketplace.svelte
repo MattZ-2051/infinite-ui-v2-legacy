@@ -58,12 +58,13 @@
 <div class="container flex gap-8 flex-col pt-6 md:grid marketplace-container">
   <div class={`${showFilters ? 'hidden' : 'flex'} md:flex items-center justify-between`}>
     <h1 class="text-4xl md:text-5xl title">Marketplace</h1>
-    <div
+    <button
+      type="button"
       on:click={() => (showFilters = true)}
       class="w-10 h-10 bg-gray-200 rounded-2xl md:hidden flex items-center justify-center"
     >
       <img src={filters} alt="Filters" />
-    </div>
+    </button>
   </div>
   <div class="py-3 gap-2 {showFilters ? 'hidden' : 'flex'}">
     {#if !showFilters}
@@ -75,11 +76,11 @@
         {/each}
       </div>
     {/if}
-    <div class="flex-grow flex">
-      <div class="hidden self-center md:flex">
+    <div class="flex items-center justify-end md:justify-between w-full">
+      <div class="hidden md:flex">
         <Search />
       </div>
-      <div class="flex-grow self-center sort-container">
+      <div class="sort-container">
         <Sort on:select={sort} {sortOptions} />
       </div>
     </div>
