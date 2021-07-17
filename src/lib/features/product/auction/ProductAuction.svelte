@@ -13,6 +13,7 @@
   import BidForm from './BidForm.svelte';
   import BidModal from './BidModal.svelte';
   import UpcomingBid from './UpcomingBid.svelte';
+  import NotForSale from './NotForSale.svelte';
 
   export let product: Product;
   export let canBid: boolean;
@@ -79,4 +80,6 @@
   </div>
 {:else if listing.status === 'upcoming'}
   <UpcomingBid minBidPrice={listing.minBid} bidStartDate={listing.startDate} />
+{:else}
+  <NotForSale {product} />
 {/if}

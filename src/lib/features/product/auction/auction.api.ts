@@ -49,11 +49,10 @@ export async function loadProductBids({
   perPage?: number;
   fetch?: Fetch;
 }) {
-  bids.set(undefined);
-  totalBids.set(undefined);
-  maxPlacedBid.set(undefined);
-
   if (!id) {
+    bids.set(undefined);
+    totalBids.set(undefined);
+    maxPlacedBid.set(undefined);
     return;
   }
 

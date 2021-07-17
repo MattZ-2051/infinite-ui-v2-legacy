@@ -134,9 +134,8 @@
   <nav class="text-xl flex justify-between gap-4">
     <ul class="flex gap-10">
       <TabsVariantDark>
-        {#if showAuction}
-          <TabHeader on:click={() => redirect('auction')} active={tab === 'auction'} class="pb-5">Auction</TabHeader>
-        {/if}
+        <TabHeader on:click={() => redirect('auction')} active={tab === 'auction'} class="pb-5">Auction</TabHeader>
+
         <TabHeader on:click={() => redirect('history')} active={tab === 'history'} class="pb-5">History</TabHeader>
         {#if totalPrivateAssets > 0}
           <TabHeader on:click={() => redirect('owner')} active={tab === 'owner'} class="pb-5">Owner Access</TabHeader>
