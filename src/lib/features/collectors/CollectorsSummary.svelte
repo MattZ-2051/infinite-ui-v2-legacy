@@ -68,9 +68,7 @@
     <BreadcrumbItem class="text-gray-500">Collectors</BreadcrumbItem>
   </Breadcrumb>
 
-  <div class="flex flex-wrap gap-7 sm:gap-0">
-    <span class="text-5xl">Collectors</span>
-  </div>
+  <div class="text-5xl">Collectors</div>
 </div>
 <div class="text-gray-500">
   <div class="flex flex-col justify-between w-full items-center md:flex-row gap-8 border-b border-gray-800 pb-3">

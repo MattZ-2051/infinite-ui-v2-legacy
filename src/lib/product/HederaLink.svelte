@@ -7,5 +7,5 @@
 </script>
 
 {#if tokenId}
-  <a class="flex items-center gap-1" href={explorerLink}><Icon path={hedera} size="0.6" /> Token {tokenId}</a>
+  <a class="link flex items-center gap-1" href={explorerLink}><Icon path={hedera} size="0.6" /> Token {tokenId}</a>
 {/if}

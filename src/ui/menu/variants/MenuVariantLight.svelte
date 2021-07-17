@@ -9,6 +9,5 @@
     --menu-item-background-active: #f8f8f8;
     --menu-item-color: #7c7c7c;
     --menu-item-color-active: black;
-    --menu-item-font-size: 1.125rem;
   }
 </style>

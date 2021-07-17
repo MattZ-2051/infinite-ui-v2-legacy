@@ -14,14 +14,14 @@
 <div class="container mt-8 lg:mt-12">
   <nav class="text-2xl mb-2">
     <ul class="flex gap-10">
-      <TabHeader active={true} class="pb-5">My Items</TabHeader>
+      <TabHeader active={true} class="pb-5">NFTs owned</TabHeader>
     </ul>
   </nav>
 
   {#if !products}
-    <div class="text-2xl text-center my-16 opacity-60">Loading your items...</div>
+    <div class="text-2xl text-center my-16 opacity-60">Loading your NFTs...</div>
   {:else if products?.length === 0}
-    <div class="text-2xl text-center my-16">You don't own any items yet!</div>
+    <div class="text-2xl text-center my-16">You don't own any NFTs yet!</div>
   {:else}
     <SkuItemGrid {products} />
   {/if}

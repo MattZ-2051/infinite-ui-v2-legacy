@@ -56,13 +56,13 @@
       <TabsVariantDark>
         <Tabs class="text-xl md:text-2xl lg:text-3xl font-light mb-4" itemClass={'pb-4 md:pb-8'}>
           {#if isIssuer}
-            <Tab title="Latest Releases">
+            <Tab title="Releases">
               <SkuItemVariantDark>
                 <SkuItemGrid {skus} />
               </SkuItemVariantDark>
             </Tab>
           {/if}
-          <Tab title="All Collections">
+          <Tab title="NFTs">
             <SkuItemVariantDark>
               <SkuItemGrid {products} />
             </SkuItemVariantDark>

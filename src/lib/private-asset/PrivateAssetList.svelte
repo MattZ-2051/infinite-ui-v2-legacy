@@ -30,7 +30,7 @@
   <div class="text-lg py-4 italic">Only owners of this NFT are granted access to download these assets.</div>
 {/if}
 {#if assetList.length > 0}
-  {#each assetList as asset (asset.key)}
+  {#each assetList as asset}
     <div class="flex gap-2 justify-between py-6 border-b border-gray-300">
       <div class="flex-grow flex flex-col gap-4">
         <div>{asset.filename}</div>

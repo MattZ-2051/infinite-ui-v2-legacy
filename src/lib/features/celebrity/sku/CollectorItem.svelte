@@ -7,8 +7,8 @@
   export let collector: CollectorProduct;
 </script>
 
-<a href={`/product/${collector._id}`} class="flex justify-between">
-  <div class="flex gap-6">
+<a href={`/product/${collector._id}`} class="flex flex-wrap justify-end items-center gap-1">
+  <div class="flex gap-3 mr-auto">
     {#if collector?.owner?.profilePhotoUrl}
       <img
         class="w-12 h-12 border rounded-full"

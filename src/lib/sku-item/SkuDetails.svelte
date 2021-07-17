@@ -4,6 +4,7 @@
   import type { Sku, Product } from '$lib/sku-item/types';
   import { mdiChevronLeft } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
+  import { Breadcrumb, BreadcrumbItem } from '$ui/breadcrumbs';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
   import UserLink from '$lib/components/UserLink.svelte';
@@ -31,31 +32,44 @@
       {#if _sku.series?.name}
         <span class="text-lg">{_sku.series?.name}</span>
       {/if}
-      <div class="flex gap-2">
+      <Breadcrumb>
         {#if _sku.supplyType === 'fixed'}
-          <span class="text-gray-400">1 of {_sku.totalSupply}</span>
-          <div class="border border-black rounded-xl px-2 text-center">LE</div>
+          <BreadcrumbItem>
+            <div class="flex items-center gap-2">
+              <span class="text-gray-400">1 of {_sku.totalSupply}</span>
+              <div class="border border-black rounded-xl px-2 text-center">LE</div>
+            </div>
+          </BreadcrumbItem>
         {:else if _sku.supplyType === 'variable'}
-          <span>{_sku.circulatingSupply} Released</span>
-          <a href="/marketplace/{_sku._id}">(See All)</a>
+          <BreadcrumbItem>
+            <div class="flex items-center gap-2">
+              <span>{_sku.circulatingSupply} Released</span>
+              <a href="/marketplace/{_sku._id}">(See All)</a>
+            </div>
+          </BreadcrumbItem>
         {/if}
         {#if product}
-          <HederaLink tokenId={product.tokenId} explorerLink={product.explorerLink} />
+          <BreadcrumbItem>
+            <HederaLink tokenId={product.tokenId} explorerLink={product.explorerLink} />
+          </BreadcrumbItem>
         {/if}
-      </div>
-      <div class="flex gap-3 text-sm text-gray-400 font-black">
-        <div class="font-normal">
+      </Breadcrumb>
+      <Breadcrumb class="text-gray-500">
+        <BreadcrumbItem>
           <UserLink prefix="Created by" username={_sku.issuer?.username} class="text-black font-black"
             >@{_sku.issuerName}</UserLink
           >
-        </div>
-        <span>/</span>
-        <NotifyButton profile={_sku.issuer} />
-      </div>
+        </BreadcrumbItem>
+        {#if _sku.issuer?.showNotifyMe}
+          <BreadcrumbItem>
+            <NotifyButton profile={_sku.issuer} />
+          </BreadcrumbItem>
+        {/if}
+      </Breadcrumb>
     </div>
     <a class="flex-grow flex justify-items-start my-5 text-lg" href="/marketplace">
       <Icon path={mdiChevronLeft} size="1.125" />
-      <a sveltekit:prefetch href={`/marketplace/${_sku._id}`}>View release details</a>
+      <a sveltekit:prefetch href={`/marketplace/${_sku._id}`} class="link">View release details</a>
     </a>
   </div>
 </div>

@@ -18,7 +18,7 @@
 </script>
 
 {#if !item || showFallbackImage}
-  <Image src={ariaLogo} alt="N/A" class="w-full h-full object-contain px-8" />
+  <Image src={ariaLogo} alt="N/A" class="w-full h-full object-contain p-8" />
 {:else if fileType === 'video'}
   {#if preview}
     <IntersectionObserver

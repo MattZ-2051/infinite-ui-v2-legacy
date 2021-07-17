@@ -22,6 +22,9 @@ module.exports = {
       zIndex: {
         '-1': '-1',
       },
+      fontSize: {
+        '2.5xl': ['1.6rem', '2rem'],
+      },
     },
   },
   plugins: [],

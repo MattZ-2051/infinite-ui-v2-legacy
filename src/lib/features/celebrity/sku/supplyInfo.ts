@@ -23,6 +23,7 @@ const variableSupplyInfo = (sku: Sku) => {
   if (sku.minStartDate > new Date()) {
     return `${sku.totalSupplyUpcoming} to be released`;
   }
+  return '';
 };
 
 export const getSupplyInfo = (sku: Sku) => {

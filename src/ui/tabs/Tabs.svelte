@@ -16,7 +16,7 @@
 
   export let selectedTabId: string = undefined;
   export let itemClass: string = undefined;
-  export let deactivateSignle = true;
+  export let deactivateSignle = false;
 
   let selectedTabStore = writable<string>(selectedTabId);
   let selfElement: HTMLElement;

@@ -23,11 +23,11 @@
         <Rarity rarity={item.rarity} />
       </div>
       <div class="mt-5 mb-2">
-        <span class=" text-3xl font-light card-title">{item.name}</span>
+        <span class=" text-2.5xl font-light card-title">{item.name}</span>
       </div>
     </div>
     <div class="flex justify-between mt-8 gap-1">
-      <span class="card-series">{item.series?.name}</span>
+      <span class="card-series">{item.series?.name || ''}</span>
       <div class=" flex items-end">
         <slot name="info" />
       </div>

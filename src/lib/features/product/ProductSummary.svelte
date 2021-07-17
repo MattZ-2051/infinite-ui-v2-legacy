@@ -101,7 +101,7 @@
     <span class="mx-2 text-gray-500">/</span>
     <span class="text-gray-500">#{product.serialNumber}</span>
   </div>
-  <div class="flex flex-wrap gap-7 w-full sm:gap-0">
+  <div class="flex flex-wrap w-full">
     <span class="text-5xl">#{product.serialNumber}</span>
     <span class="mx-2 text-gray-500 text-5xl">/</span>
     <div class="flex flex-col">

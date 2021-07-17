@@ -29,27 +29,27 @@
       <Gallery items={sku.nftPublicAssets} />
     </div>
     <div class="flex flex-col justify-between">
-      <div class="flex flex-col py-5 gap-4 text-white">
+      <div class="flex flex-col py-5 gap-4 md:gap-8 text-white">
         <div>
-          <div class="text-sm flex gap-2">
+          <div class="text-base flex gap-2">
             <a sveltekit:prefetch href="/marketplace">Marketplace</a>
             <span class="italic text-gray-300">/</span>
             <span class="text-gray-300">{sku.name}</span>
           </div>
-          <div class="flex justify-between mt-12">
-            <UserLink username={sku.issuer.username} class="text-xl text-gray-400">{sku.issuerName}</UserLink>
-            <Rarity rarity={sku?.rarity} class="font-bold text-lg" />
+          <div class="flex justify-between mt-12 text-2.5xl">
+            <UserLink username={sku.issuer.username} class="text-gray-400">{sku.issuerName}</UserLink>
+            <Rarity rarity={sku?.rarity} class="font-semibold" />
           </div>
-          <div class="text-5xl mt-4">{sku.name}</div>
+          <div class="text-4xl md:text-5xl mt-4">{sku.name}</div>
 
           <div class="mt-6">
             <div>{sku?.series?.name || ''}</div>
-            <div class="text-gray-400 mt-4">
+            <div class="text-gray-400 mt-2">
               <span>{getSupplyInfo(sku)}</span>
             </div>
           </div>
         </div>
-        <div class="flex flex-col flex-grow gap-4">
+        <div class="flex flex-col flex-grow gap-3">
           <div class="flex items-center gap-2">
             <span class="gray-text">Created by</span>
             <UserLink username={sku.issuer.username} />
@@ -93,9 +93,9 @@
     </div>
     <div>
       <Accordion open={true} collapsible={!$media.md}>
-        <div slot="title" class="flex gap-4 items-end">
+        <div slot="title" class="flex gap-4 items-center">
           <span>Collectors</span>
-          {#if totalCollectors > 0}<span class="text-gray-400 text-xl">{totalCollectors} Total</span>{/if}
+          {#if totalCollectors > 0}<span class="text-gray-400 text-lg">{totalCollectors} Total</span>{/if}
         </div>
         <Collectors {collectors} skuId={sku._id} />
       </Accordion>

@@ -104,7 +104,7 @@
     dateStart = _formatDate(dateStart);
     dateEnd = _formatDate(dateEnd);
     if (dateStart && dateEnd) {
-      return `${dateStart} to ${dateEnd}`;
+      return `${dateStart} - ${dateEnd}`;
     } else if (dateStart) {
       return `from ${dateStart}`;
     } else if (dateEnd) {
@@ -151,8 +151,8 @@
 </script>
 
 <div class="flex flex-col text-gray-400 gap-8 md:gap-9">
-  <div class="flex flex-col md:order-3 gap-4">
-    <div class="flex items-center gap-2 text-5xl text-black md:text-2xl md:text-gray-400">
+  <div class="flex flex-col md:order-3">
+    <div class="flex items-center gap-2 text-4xl text-black">
       <span class="flex-auto">Filter by</span>
       <Icon on:click={close} path={mdiWindowClose} size="1.66" class="bg-gray-200 rounded-2xl p-1 md:hidden" />
       {#if filters.length > 0}
@@ -192,9 +192,9 @@
   </div>
   <div class="w-10 border border-b-2 border-gray-300 md:order-2" />
   <div class="flex flex-col gap-4 md:order-4">
-    <div class="flex justify-around text-xl  md:text-lg">
+    <div class="flex justify-between text-xl md:text-lg">
       <div
-        class="flex items-center px-2 py-3 hover:bg-gray-300 hover:text-black"
+        class="flex items-center px-2 py-3 hover:text-black"
         use:datePicker={{
           maxDate: endDateSelected,
           disableMobile: true,
@@ -206,7 +206,7 @@
       </div>
       <div class="w-4 flex-shrink border boder-b-2 border-gray-300 self-center" />
       <div
-        class="flex items-center px-2 py-3 hover:bg-gray-300 hover:text-black"
+        class="flex items-center px-2 py-3 hover:text-black"
         use:datePicker={{
           minDate: startDateSelected,
           disableMobile: true,

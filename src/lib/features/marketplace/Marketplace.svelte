@@ -56,10 +56,13 @@
 </script>
 
 <div class="container flex gap-8 flex-col pt-6 md:grid marketplace-container">
-  <div class={`${showFilters ? 'hidden' : 'flex'} md:flex justify-between`}>
-    <h1 class="self-start text-5xl title">MarketPlace</h1>
-    <div on:click={() => (showFilters = true)} class="relative w-10 h-10 self-end bg-gray-200 rounded-2xl md:hidden">
-      <img src={filters} alt="Filters" class="absolute top-2 left-2" />
+  <div class={`${showFilters ? 'hidden' : 'flex'} md:flex items-center justify-between`}>
+    <h1 class="text-4xl md:text-5xl title">Marketplace</h1>
+    <div
+      on:click={() => (showFilters = true)}
+      class="w-10 h-10 bg-gray-200 rounded-2xl md:hidden flex items-center justify-center"
+    >
+      <img src={filters} alt="Filters" />
     </div>
   </div>
   <div class="py-3 gap-2 {showFilters ? 'hidden' : 'flex'}">
