@@ -10,7 +10,7 @@ const mediaMapper: { [key: string]: FileType } = {
   vectary: 'vector',
 };
 
-export const getFileType = (item: FileAsset): FileType => {
+export function getFileType(item: FileAsset): FileType {
   if (!item) {
     return;
   }
@@ -26,4 +26,8 @@ export const getFileType = (item: FileAsset): FileType => {
   }
 
   return;
-};
+}
+
+export function getAspectRatioStyle(item: FileAsset) {
+  return item?.width && item?.height ? { 'aspect-ratio': item.width / item.height } : undefined;
+}

@@ -5,8 +5,9 @@
 
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
+  import { styles } from '$util/styles';
   import ariaLogo from '$static/aria-logo-comp.png?w=700&format=avif;webp;png&metadata';
-  import { getFileType } from './file-utils';
+  import { getFileType, getAspectRatioStyle } from './file-utils';
 
   export let item: FileAsset;
   export let preview = false;
@@ -15,6 +16,7 @@
   let videoElement: HTMLVideoElement;
 
   $: fileType = getFileType(item);
+  $: style = item ? styles({ ...getAspectRatioStyle(item), ...{ 'max-height': '60vh' } }) : '';
 </script>
 
 {#if !item || showFallbackImage}
@@ -35,18 +37,20 @@
         controls={false}
         loop
         muted
+        {style}
       />
     </IntersectionObserver>
   {:else}
-    <video class="h-full" playsinline autoplay controls={true} loop muted src={item.url} />
+    <video class="w-full" playsinline autoplay controls={false} loop muted src={item.url} {style} />
   {/if}
 {:else if fileType === 'image'}
   <img
     src={item.url}
     alt="preview"
-    class="h-full {preview ? 'w-full object-cover' : 'object-contain'}"
+    class="w-full {preview ? 'h-full object-cover' : 'object-contain'}"
     on:error={() => (showFallbackImage = true)}
     loading="lazy"
+    {style}
   />
 {:else if fileType === 'audio'}
   {#if preview}
