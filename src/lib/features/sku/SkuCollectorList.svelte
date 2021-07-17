@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { CollectorProduct } from '$lib/sku-item/types';
-  import CollectorItem from './CollectorItem.svelte';
+  import SkuCollectorListItem from './SkuCollectorListItem.svelte';
 
   export let collectors: CollectorProduct[];
   export let skuId: string;
@@ -12,7 +12,7 @@
     <div class="w-full border-b border-gray-100" />
   {:else}
     {#each collectors as collector}
-      <CollectorItem {collector} />
+      <SkuCollectorListItem {collector} />
     {/each}
     <a sveltekit:prefetch href="/collectors/{skuId}" class="self-center text-lg mt-2 link">View all collectors</a>
   {/if}

@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   import type { LoadInput } from '@sveltejs/kit';
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
-  import { loadSku } from '$lib/features/celebrity/sku/celebritySku.api';
+  import { loadSku } from '$lib/features/sku/sku.api';
 
   export async function load({ page, fetch }: LoadInput) {
     const { id } = page.params;
@@ -13,7 +13,7 @@
 
 <script lang="ts">
   import { Seo, chooseSkuSocialImage } from '$lib/seo';
-  import CelebritySku from '$lib/features/celebrity/sku/CelebritySku.svelte';
+  import SkuContainer from '$lib/features/sku/Sku.svelte';
 
   export let sku: Sku;
   export let collectors: CollectorProduct[];
@@ -23,4 +23,4 @@
 
 <Seo title={sku.name} image={chooseSkuSocialImage(sku)} />
 
-<CelebritySku {sku} {collectors} {totalCollectors} {related} />
+<SkuContainer {sku} {collectors} {totalCollectors} {related} />

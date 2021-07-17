@@ -13,9 +13,9 @@
   import hedera from '$lib/components/icons/hedera';
   import UserLink from '$lib/components/UserLink.svelte';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
-  import { getSupplyInfo } from './supplyInfo';
-  import PriceBoxSku from './PriceBoxSku.svelte';
-  import Collectors from './Collectors.svelte';
+  import { getSupplyInfo } from './sku.service';
+  import PriceBoxSku from './SkuPriceBox.svelte';
+  import SkuCollectorList from './SkuCollectorList.svelte';
 
   export let sku: Sku;
   export let collectors: CollectorProduct[];
@@ -97,7 +97,7 @@
           <span>Collectors</span>
           {#if totalCollectors > 0}<span class="text-gray-400 text-lg">{totalCollectors} Total</span>{/if}
         </div>
-        <Collectors {collectors} skuId={sku._id} />
+        <SkuCollectorList {collectors} skuId={sku._id} />
       </Accordion>
     </div>
     <PrivateAsset skuId={sku._id} let:total={totalPrivateAssets}>
