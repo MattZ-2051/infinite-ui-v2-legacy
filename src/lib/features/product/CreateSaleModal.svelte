@@ -49,8 +49,8 @@
 </script>
 
 {#if isOpen}
-  <Modal title="List your NFTs for sale" on:close={closeModal}>
-    <div class="flex flex-col w-80 px-10 mb-4">
+  <Modal title="List your NFTs for sale" on:close={closeModal} class="max-w-md">
+    <div class="flex flex-col px-10 mb-4">
       <div class="flex flex-col justify-evenly gap-3 py-5 align-middle border-t border-b border-gray-200">
         <div class="flex justify-between">
           <span>{product.sku.issuerName}</span>

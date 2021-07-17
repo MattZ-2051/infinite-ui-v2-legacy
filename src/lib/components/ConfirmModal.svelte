@@ -22,7 +22,7 @@
 </script>
 
 {#if isOpen}
-  <Modal on:close={closeModal} {persistent}>
+  <Modal on:close={closeModal} {persistent} class="max-w-sm">
     <svelte:fragment slot="icon">⚠️</svelte:fragment>
     <svelte:fragment slot="title"><span class="text-2xl">{title}</span></svelte:fragment>
     <div class="px-10">

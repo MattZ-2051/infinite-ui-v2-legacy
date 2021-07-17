@@ -9,6 +9,9 @@
   export let persistent = false;
   export let closeButton = true;
 
+  let _class = '';
+  export { _class as class };
+
   const dispatch = createEventDispatcher();
 
   function onClose(reason?: string) {
@@ -19,13 +22,17 @@
   }
 </script>
 
-<div class="fixed top-0 left-0 bottom-0 right-0 z-40">
+<div class="fixed top-0 left-0 bottom-0 right-0 z-40 backdrop-filter backdrop-blur-sm">
   <div
     class="h-full w-full absolute flex items-center justify-center z-20"
     transition:fly={{ y: 50 }}
     on:click|self={() => onClose('backdrop')}
   >
-    <div class="flex flex-col relative rounded-lg bg-white shadow text-black" style="max-height: 90vh;">
+    <div
+      class="flex flex-col relative rounded-lg bg-white shadow text-black mx-2 {_class}"
+      style="min-width: 24rem; max-height: 90vh;"
+      {...$$restProps}
+    >
       {#if !persistent && closeButton}
         <button
           type="button"

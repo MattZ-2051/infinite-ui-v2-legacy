@@ -63,14 +63,13 @@
       <div class="w-full text-gray-500 text-center">
         <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. -->
       </div>
-      <div class="w-full flex bg-gray-100 rounded-2xl px-4 py-2 text-xl mt-4">
-        <span class="flex-grow-0 text-gray-400 mr-1">$</span>
+      <div class="input-container flex items-center relative py-4">
         <input
           type="number"
           min="0"
           max={withdrawableAmount}
           placeholder="Enter amount"
-          class="flex-grow bg-transparent text-center focus:outline-none"
+          class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center"
           bind:value={amount}
           on:change={onPriceChange}
         />
@@ -82,3 +81,14 @@
     </div>
   </Modal>
 {/if}
+
+<style>
+  .input-container::before {
+    content: '$';
+    position: absolute;
+    left: 10px;
+    z-index: 1;
+    @apply text-xl;
+    @apply text-gray-400;
+  }
+</style>
