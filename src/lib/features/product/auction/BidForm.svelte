@@ -8,7 +8,7 @@
   import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
   import FormInput from '$lib/components/form/FormInput.svelte';
-  import { maxPlacedBid } from './auction.store';
+  import { maxPlacedBid } from '../product.store';
 
   export let listing: Listing;
 

@@ -9,16 +9,17 @@
   import { openModal } from '$ui/modals';
   import { formatCurrency } from '$util/format';
   import { loadingBids, loadProductBids } from './auction.api';
-  import { bids, totalBids } from './auction.store';
+  import { bids, totalBids, auctionStarted } from '../product.store';
   import BidForm from './BidForm.svelte';
   import BidModal from './BidModal.svelte';
   import UpcomingBid from './UpcomingBid.svelte';
-  import NotForSale from './NotForSale.svelte';
+  import NoAuction from './NoAuction.svelte';
+  import { hasAuction } from '../product.service';
 
   export let product: Product;
   export let canBid: boolean;
 
-  $: listing = product.listing;
+  $: listing = hasAuction(product) && (product.activeProductListings?.[0] || product.upcomingProductListings?.[0]);
   $: p = +$page.query.get(`page`) || 1;
 
   const gotoPage = (event: CustomEvent) => {
@@ -42,7 +43,7 @@
   }
 </script>
 
-{#if listing.status === 'active'}
+{#if listing?.status === 'active'}
   {#if canBid}
     <BidForm {listing} on:place-bid={onPlaceBid} />
   {/if}
@@ -78,8 +79,12 @@
     Started at <span class="text-white">{formatCurrency(listing.minBid)}</span> on
     <span class="font-black italic text-sm whitespace-nowrap"><DateFormat value={listing.startDate} /></span>
   </div>
-{:else if listing.status === 'upcoming'}
-  <UpcomingBid minBidPrice={listing.minBid} bidStartDate={listing.startDate} />
+{:else if listing?.status === 'upcoming'}
+  <UpcomingBid
+    minBidPrice={listing.minBid}
+    bidStartDate={listing.startDate}
+    on:zero={() => auctionStarted({ product })}
+  />
 {:else}
-  <NotForSale {product} />
+  <NoAuction {product} />
 {/if}

@@ -44,6 +44,7 @@ const config = {
           'clsx',
           'dayjs',
           'dayjs/plugin/advancedFormat.js',
+          'effector',
           'felte',
           'flatpickr',
           'just-debounce',

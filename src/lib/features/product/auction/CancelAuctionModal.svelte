@@ -3,6 +3,7 @@
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import { cancelAuction } from './auction.api';
+  import { auctionCancelled } from '../product.store';
 
   export let isOpen = false;
   export let listingId: string;
@@ -15,12 +16,9 @@
     await cancelAuction(listingId)
       .then(() => {
         closeModal();
-        // TODO: refresh data instead of reloading
-        toast.success(
-          'Your auction has been canceled.<br><span class="text-xs">The page will be refreshed in 2 seconds.</span>'
-        );
-        setTimeout(() => window.location.reload(), 2000);
-        return false;
+        toast.success('Your auction has been canceled.');
+        auctionCancelled({ listingId });
+        return true;
       })
       .catch(() => toast.danger('Whoops, something went wrong - please try again.'))
       .finally(() => (waitingForAPI = false));

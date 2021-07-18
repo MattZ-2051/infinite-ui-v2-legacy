@@ -1,7 +1,6 @@
 import type { Bid, Product } from '$lib/sku-item/types';
 import type { NewListing } from './types';
 import { fetchTracker, getPage, patch, post } from '$lib/api';
-import { bids, maxPlacedBid, totalBids } from './auction.store';
 
 export const loadingBids = fetchTracker();
 
@@ -48,26 +47,24 @@ export async function loadProductBids({
   page: number;
   perPage?: number;
   fetch?: Fetch;
-}) {
-  if (!id) {
-    bids.set(undefined);
-    totalBids.set(undefined);
-    maxPlacedBid.set(undefined);
-    return;
-  }
-
+}): Promise<{
+  data: Bid[];
+  total: number;
+  max: number;
+}> {
   const { total, data } = await getPage<Bid>(`bids`, {
     params: { listing: id, includeFunctions: 'true', page: `${page}`, per_page: `${perPage}` },
     tracker: loadingBids,
     fetch,
   });
 
-  bids.set(data);
-  totalBids.set(total);
-
+  let max: number;
   if (total > 0) {
-    maxPlacedBid.set(page === 1 ? data[0].bidAmt : await loadMaxProductBid({ id, fetch }));
+    // TODO: make these in parallel
+    max = page === 1 ? data[0].bidAmt : await loadMaxProductBid({ id, fetch });
   }
+
+  return { total, data, max };
 }
 
 async function loadMaxProductBid({ id, fetch }: { id: string; fetch?: Fetch }): Promise<number> {

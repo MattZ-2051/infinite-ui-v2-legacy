@@ -5,7 +5,6 @@
   import { openModal } from '$ui/modals';
   import { userId } from '$lib/user';
   import { goto } from '$app/navigation';
-  import { totalBids } from '$lib/features/product/auction/auction.store';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import { page } from '$app/stores';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
@@ -32,6 +31,7 @@
     hasActiveSale,
     canRedeem,
   } from './product.service';
+  import { totalBids, auctionCancelled } from './product.store';
 
   export let product: Product;
 
@@ -77,7 +77,6 @@
       case 'cancel-sale': {
         openModal(CancelSaleModal, {
           listingId: product?.activeProductListings[0]?._id,
-          productId: product._id,
         });
         break;
       }
@@ -145,7 +144,12 @@
     {#if tab === 'auction' && hasActiveAuction(product)}
       <div class="text-gray-500 text-sm md:text-base">
         <span>Expires in</span>
-        <span class="text-white"><TimeDifference date={new Date(product.activeProductListings[0].endDate)} /></span>
+        <span class="text-white"
+          ><TimeDifference
+            date={new Date(product.activeProductListings[0].endDate)}
+            on:zero={() => auctionCancelled({ listingId: product.activeProductListings[0]._id })}
+          /></span
+        >
         <span class="italic text-sm font-black ">
           (<DateFormat value={product.activeProductListings[0].endDate} />)
         </span>

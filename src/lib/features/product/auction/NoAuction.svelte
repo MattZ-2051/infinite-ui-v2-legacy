@@ -7,7 +7,7 @@
 </script>
 
 <div class="mt-5 h-24 rounded-xl flex justify-between items-center text-lg bg-color px-10">
-  <span class="text-gray-500">Not for sale</span>
+  <span class="text-gray-500">No active or upcoming auction</span>
   <a href={`/collectors/${product.sku._id}`} class="text-white flex items-center"
     >Find others <Icon path={mdiChevronRight} size="1.4" /></a
   >

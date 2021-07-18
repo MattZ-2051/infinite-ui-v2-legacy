@@ -10,6 +10,7 @@
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import { startAuction } from './auction.api';
+  import { auctionStarted } from '../product.store';
 
   export let isOpen = false;
   export let product: Product;
@@ -75,11 +76,8 @@
     await startAuction(product, startDate, endDate, price)
       .then(() => {
         closeModal();
-        // TODO: refresh data instead of reloading
-        toast.success(
-          'Congrats! Your auction has started.<br><span class="text-xs">The page will be refreshed in 2 seconds.</span>'
-        );
-        setTimeout(() => window.location.reload(), 2000);
+        toast.success('Congrats! Your auction has been created successfully.');
+        auctionStarted({ product });
         return true;
       })
       .catch(() => toast.danger('Whoops, something went wrong - please try again.'))

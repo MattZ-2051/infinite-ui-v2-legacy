@@ -4,12 +4,12 @@
   import { closeModal, Modal } from '$ui/modals';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { goto } from '$app/navigation';
   import { formatCurrency } from '$util/format';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import { saleStarted } from './product.store';
   import { createSale } from './product.api';
 
-  export let product: Partial<Product>;
+  export let product: Product;
   export let isOpen: boolean;
 
   let price: number;
@@ -35,10 +35,8 @@
     };
     try {
       await createSale({ listing });
+      saleStarted({ product });
       closeModal();
-      // TODO: replace with data reload. Does goto work?
-      setTimeout(() => window.location.reload(), 1000);
-      goto(`/product/${product._id}`);
       toast.success('Congrats! Your sale has started.');
     } catch {
       toast.danger('Whoops, something went wrong - please try again.');

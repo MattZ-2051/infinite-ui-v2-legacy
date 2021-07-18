@@ -24,6 +24,7 @@
     "@tailwindcss/forms": "^0.3.3",
     "clsx": "1.1.1",
     "dayjs": "1.10.6",
+    "effector": "~21.8.12",
     "felte": "0.7.10",
     "flatpickr": "4.6.9",
     "just-debounce": "1.1.0",
