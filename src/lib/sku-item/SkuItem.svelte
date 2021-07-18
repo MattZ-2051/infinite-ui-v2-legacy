@@ -7,7 +7,7 @@
   export let item: Sku;
 </script>
 
-<a sveltekit:prefetch href={`/marketplace/${item._id}`} class="flex flex-col">
+<a sveltekit:prefetch href={`/marketplace/${item._id}`} class="flex flex-col tracking-tighter">
   <div class="w-full h-72 card-img relative">
     <FilePreview item={item.nftPublicAssets?.[0]} preview />
     {#if item.redeemable}

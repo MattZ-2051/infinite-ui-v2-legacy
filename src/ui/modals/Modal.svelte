@@ -39,7 +39,7 @@
           on:click={() => onClose('close')}
           data-style="close"
           title="Close"
-          class="absolute right-3 top-3 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full p-0.5 inline-flex items-center justify-center"
+          class="absolute right-3 top-3 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full p-0.5 inline-flex items-center justify-center z-10"
           ><Icon path={mdiClose} size={0.8} /></button
         >
       {/if}

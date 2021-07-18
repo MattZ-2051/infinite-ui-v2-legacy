@@ -49,9 +49,9 @@
 </script>
 
 {#if isOpen}
-  <Modal on:close={closeModal}>
-    <div class="flex justify-center items-center bg-black h-60">
-      <FilePreview item={sku.nftPublicAssets?.[0]} />
+  <Modal on:close={closeModal} class="max-w-md">
+    <div class="flex justify-center items-center bg-black h-56">
+      <FilePreview item={sku.nftPublicAssets?.[0]} preview />
     </div>
     <div class="px-8 py-6 flex flex-col items-center gap-5">
       <div class="flex flex-col gap-1 items-center font-medium">

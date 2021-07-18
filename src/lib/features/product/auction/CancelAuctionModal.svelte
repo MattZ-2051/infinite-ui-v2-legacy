@@ -31,8 +31,8 @@
       <span class="mr-2 text-base">❌</span>
       Cancel auction?
     </div>
-    <div class="flex flex-col px-10 py-2">
-      <div class="flex gap-8 justify-between border-solid border-t border-gray-200 py-8 mb-6">
+    <div class="flex flex-col px-10 py-2 max-w-sm">
+      <div class="flex gap-8 justify-between border-solid border-t border-gray-200 py-8 mb-6 text-center">
         This action will cancel your for sale listing for this NFT.
       </div>
       <div class="w-full mb-6">
