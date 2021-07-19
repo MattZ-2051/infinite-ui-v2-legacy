@@ -22,6 +22,7 @@
   }
 </script>
 
+<svelte:window on:keydown={(event) => event.key === 'Escape' && onClose('esc')} />
 <div class="fixed top-0 left-0 bottom-0 right-0 z-40 backdrop-filter backdrop-blur-sm">
   <div
     class="h-full w-full absolute flex items-center justify-center z-20"
