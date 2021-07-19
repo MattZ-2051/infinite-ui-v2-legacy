@@ -42,6 +42,7 @@ const config = {
           '@mdi/js',
           '@popperjs/core',
           'clsx',
+          'clipboard-copy',
           'dayjs',
           'dayjs/plugin/advancedFormat.js',
           'effector',

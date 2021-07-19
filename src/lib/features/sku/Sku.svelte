@@ -13,6 +13,7 @@
   import hedera from '$lib/components/icons/hedera';
   import UserLink from '$lib/components/UserLink.svelte';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
+  import { SocialShareButton } from '$lib/social';
   import { getSupplyInfo } from './sku.service';
   import PriceBoxSku from './SkuPriceBox.svelte';
   import SkuCollectorList from './SkuCollectorList.svelte';
@@ -40,7 +41,10 @@
             <UserLink username={sku.issuer.username} class="text-gray-400">{sku.issuerName}</UserLink>
             <Rarity rarity={sku?.rarity} class="font-semibold" />
           </div>
-          <div class="text-4xl md:text-5xl mt-4">{sku.name}</div>
+          <div class="flex items-center text-4xl md:text-5xl mt-4">
+            {sku.name}
+            <SocialShareButton share={{ sku }} class="ml-3" />
+          </div>
 
           <div class="mt-6">
             <div>{sku?.series?.name || ''}</div>
