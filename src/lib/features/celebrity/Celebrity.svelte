@@ -15,7 +15,7 @@
   $: isIssuer = profile.role === 'issuer';
 </script>
 
-<div class="bg-black">
+<div class="bg-black flex flex-col flex-grow">
   <div class="container ">
     {#if profile.username === 'Roberto_Clemente'}
       <Clemente />
@@ -27,31 +27,27 @@
       </div>
     {/if}
 
-    <div class="flex-grow">
-      <div class="">
-        <TabsVariantDark>
-          <Tabs class="text-xl md:text-2xl lg:text-3xl font-light mb-4" itemClass={'pb-4 md:pb-8'}>
-            {#if isIssuer}
-              <Tab title="Releases">
-                <SkuItemVariantDark>
-                  <SkuItemGrid {skus} />
-                </SkuItemVariantDark>
-              </Tab>
-            {/if}
-            <Tab title="NFTs">
-              <SkuItemVariantDark>
-                <SkuItemGrid {products} />
-              </SkuItemVariantDark>
-            </Tab>
-          </Tabs>
-        </TabsVariantDark>
-      </div>
+    <TabsVariantDark>
+      <Tabs class="text-xl md:text-2xl lg:text-3xl font-light mb-4" itemClass={'pb-4 md:pb-8'}>
+        {#if isIssuer}
+          <Tab title="Releases">
+            <SkuItemVariantDark>
+              <SkuItemGrid {skus} />
+            </SkuItemVariantDark>
+          </Tab>
+        {/if}
+        <Tab title="NFTs">
+          <SkuItemVariantDark>
+            <SkuItemGrid {products} />
+          </SkuItemVariantDark>
+        </Tab>
+      </Tabs>
+    </TabsVariantDark>
 
-      {#if profile.username === 'Roberto_Clemente'}
-        <Image src={clemente21} alt="Clemente's shirt" class="m-auto" />
-      {:else}
-        <Logo />
-      {/if}
-    </div>
+    {#if profile.username === 'Roberto_Clemente'}
+      <Image src={clemente21} alt="Clemente's shirt" class="m-auto" />
+    {:else}
+      <Logo />
+    {/if}
   </div>
 </div>
