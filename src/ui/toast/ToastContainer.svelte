@@ -8,7 +8,7 @@
 </script>
 
 <div class="flex flex-col" {...$$restProps}>
-  {#each $toast as item (item.toastId)}
+  {#each $toast as item (item.key)}
     <Toast on:close={handleOnClose} {...item} />
   {/each}
 </div>

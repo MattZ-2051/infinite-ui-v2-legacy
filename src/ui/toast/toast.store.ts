@@ -7,13 +7,16 @@ let uid = 0;
 const { subscribe, set, update } = writable<ToastProps[]>([]);
 
 function add(message: string, severity: ToastSeverity, options: ToastOptions) {
+  remove(options?.toastId);
+
   update((items): ToastProps[] => {
-    const item = { message, severity, toastId: `toast-${++uid}`, ...options };
+    const id = `toast-${++uid}`;
+    const item = { message, severity, toastId: id, key: id, ...options };
     return [...items, item];
   });
 }
 
-function remove(toastId: string) {
+function remove(toastId?: string) {
   update((items): ToastProps[] => items.filter((n) => n.toastId !== toastId));
 }
 

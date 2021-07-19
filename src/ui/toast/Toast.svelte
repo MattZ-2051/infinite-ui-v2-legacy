@@ -56,7 +56,8 @@
   style={getThemeStyle(severity)}
   on:mouseenter={pauseOnHover ? pauseToast : undefined}
   on:mouseleave={pauseOnHover ? resumeToast : undefined}
-  transition:fly={{ x: 250 }}
+  in:fly={{ x: 250 }}
+  out:fly={$progress === MAX_VALUE ? { x: 250 } : { duration: 0 }}
   role="status"
 >
   <div class="container flex items-center justify-between">

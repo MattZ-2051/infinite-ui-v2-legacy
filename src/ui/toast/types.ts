@@ -11,6 +11,7 @@ export type ToastOptions = {
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export type ToastProps = ToastOptions & {
   toastId: string;
+  key: string;
   message: string;
   severity?: ToastSeverity;
 };
