@@ -18,7 +18,7 @@
 {#if fileType === 'video'}
   <video autoplay controls={false} loop muted src={item.url} class="w-full h-full object-cover" />
 {:else if fileType === 'image'}
-  <img src={item.url} {alt} loading="lazy" class="w-full h-full object-cover" />
+  <img src={item.previewUrl || item.url} {alt} loading="lazy" class="w-full h-full object-cover" />
 {:else if fileType === 'audio'}
   <div class="w-full h-full bg-black flex items-center justify-center"><Icon path={mdiVolumeHigh} /></div>
 {:else if fileType === 'vector'}

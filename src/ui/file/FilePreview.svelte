@@ -45,7 +45,7 @@
   {/if}
 {:else if fileType === 'image'}
   <img
-    src={item.url}
+    src={preview && item.previewUrl ? item.previewUrl : item.url}
     alt="preview"
     class="w-full {preview ? 'h-full object-cover' : 'object-contain'}"
     on:error={() => (showFallbackImage = true)}
