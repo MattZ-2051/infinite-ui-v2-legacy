@@ -5,6 +5,7 @@
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
 
   export let sku: Sku;
+  export let totalCollectors: number;
 
   function onBuy() {
     onOrderIntent({ sku, listing: activeListings[0] });
@@ -45,25 +46,28 @@
           Buy Now
         </button>
       </div>
-      <div class="border-b-2 border-gray-800 col-span-3" />
-      <div class="flex-grow text-gray-400">
-        <div class="text-2xl">From Collectors</div>
-        <div class="text-base">Lowest Listing Price</div>
-      </div>
-      <div class="flex-none text-white justify-self-end md:text-center md:justify-self-center">
-        <div class="text-3xl">
-          {formatCurrencyWithOptionalFractionDigits(sku.minPrice, { fallback: '—' })}
+      {#if totalCollectors > 0}
+        <div class="border-b-2 border-gray-800 col-span-3" />
+
+        <div class="flex-grow text-gray-400">
+          <div class="text-2xl">From Collectors</div>
+          <div class="text-base">Lowest Listing Price</div>
         </div>
-        <div class="text-sm">{`(${sku.countProductListings || 0} for sale)`}</div>
-      </div>
-      <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
-        <a
-          href="/collectors/{sku._id}"
-          class="w-11/12 md:max-w-xs text-center mb-6 bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl py-3"
-        >
-          See All
-        </a>
-      </div>
+        <div class="flex-none text-white justify-self-end md:text-center md:justify-self-center">
+          <div class="text-3xl">
+            {formatCurrencyWithOptionalFractionDigits(sku.minPrice, { fallback: '—' })}
+          </div>
+          <div class="text-sm">{`(${sku.countProductListings || 0} for sale)`}</div>
+        </div>
+        <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
+          <a
+            href="/collectors/{sku._id}"
+            class="w-11/12 md:max-w-xs text-center mb-6 bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl py-3"
+          >
+            See All
+          </a>
+        </div>
+      {/if}
     </div>
   </div>
 {:else if upcoming}

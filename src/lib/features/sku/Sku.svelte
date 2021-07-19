@@ -15,7 +15,7 @@
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import { SocialShareButton } from '$lib/social';
   import { getSupplyInfo } from './sku.service';
-  import PriceBoxSku from './SkuPriceBox.svelte';
+  import SkuPriceBox from './SkuPriceBox.svelte';
   import SkuCollectorList from './SkuCollectorList.svelte';
 
   export let sku: Sku;
@@ -72,7 +72,7 @@
         </div>
       </div>
       <div class="-container-x">
-        <PriceBoxSku {sku} />
+        <SkuPriceBox {sku} {totalCollectors} />
       </div>
     </div>
   </div>
