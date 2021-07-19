@@ -114,9 +114,25 @@ describe('API', () => {
     });
 
     it('throw based on response status', async () => {
-      mockFetch.mockReturnValueOnce(Promise.resolve({ status: 404, statusText: 'Not found!' }));
+      const data = { error: 'Conflict' };
+      mockFetch.mockReturnValueOnce(
+        Promise.resolve({
+          status: 404,
+          statusText: 'Not found!',
+          json: () => data,
+          headers: {
+            has: () => true,
+            get: () => 1, // Content-length
+          },
+        })
+      );
       expect.assertions(1);
-      await expect(send('my/path', { fetch: mockFetch })).rejects.toEqual(new Error('Not found! [http://api/my/path]'));
+      await expect(send('my/path', { fetch: mockFetch })).rejects.toEqual({
+        status: 404,
+        statusText: 'Not found!',
+        url: 'http://api/my/path',
+        data,
+      });
     });
   });
 

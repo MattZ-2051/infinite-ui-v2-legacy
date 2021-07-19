@@ -18,8 +18,12 @@
       updateUser();
       closeModal();
       toast.success('Your username was successfully updated!');
-    } catch {
-      toast.danger('There was an error submitting your request. Please try again.');
+    } catch (error) {
+      if (error?.data?.error === 'Conflict') {
+        toast.danger('The username you selected is already taken. Please choose a diffent one.');
+      } else {
+        toast.danger('There was an error submitting your request. Please try again.');
+      }
     } finally {
       saving = false;
     }
@@ -42,7 +46,10 @@
       </div>
     </div>
     <div slot="footer">
-      <Button on:click={handleUpdate} disabled={editableUsername.length === 0 || saving}>Update</Button>
+      <Button
+        on:click={handleUpdate}
+        disabled={editableUsername.length === 0 || editableUsername === $user.username || saving}>Update</Button
+      >
     </div>
   </Modal>
 {/if}

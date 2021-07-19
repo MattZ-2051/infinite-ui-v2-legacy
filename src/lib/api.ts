@@ -38,14 +38,18 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
     url += (url.includes('?') ? '&' : '?') + new URLSearchParams(params).toString();
   }
 
-  return (f || fetch)(url, options).then((r) => {
+  return (f || fetch)(url, options).then(async (r) => {
     if (tracker) {
       tracker.set(false);
     }
 
     const { status, statusText } = r;
     if (status < 200 || status > 299) {
-      throw new Error(`${statusText} [${url}]`);
+      let data: unknown;
+      try {
+        data = await parseBody(r);
+      } catch {}
+      throw { status, statusText, url, data };
     }
     return r;
   });
