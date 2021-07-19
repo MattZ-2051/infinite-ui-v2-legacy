@@ -89,9 +89,10 @@ export const maxPlacedBid = createStore<number>(0)
 
 export const saleStarted = createEvent<{ product: Product }>();
 export const saleCancelled = createEvent<{ listingId: string }>();
+export const productBought = createEvent<{ product: Product }>();
 
 forward({
-  from: [saleStarted, saleCancelled],
+  from: [saleStarted, saleCancelled, productBought],
   to: refetchProductFx,
 });
 

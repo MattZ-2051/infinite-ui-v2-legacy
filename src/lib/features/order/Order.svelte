@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Listing, Sku } from '$lib/sku-item/types';
+  import type { Listing, Sku, Product } from '$lib/sku-item/types';
   import type { SkuPurchaseTransaction } from './types';
   import type { User } from '$lib/user/types';
   import { variables } from '$lib/variables';
@@ -8,13 +8,15 @@
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
+  import { productBought } from '$lib/features/product/product.store';
   import { toast } from '$ui/toast';
 
   import OrderProductPricing from './OrderProductPricing.svelte';
   import { purchaseSkuListing } from './order.api';
 
   export let isOpen: boolean;
-  export let sku: Sku;
+  export let sku: Sku = undefined;
+  export let product: Product = undefined;
   export let serial: string = undefined;
   export let listing: Listing;
   export let marketplaceFee = variables.marketplaceFee;
@@ -22,12 +24,16 @@
 
   let purchasing = false;
   let result: SkuPurchaseTransaction;
+  $: _sku = product ? product.sku : sku;
 
   async function submitOrder() {
     purchasing = true;
     try {
       result = await purchaseSkuListing(listing._id);
       // result = { status: 'pending' } as any;
+      if (product) {
+        productBought({ product });
+      }
 
       if (!result || result.errorLog || result.status === 'error') {
         throw new Error('error');
@@ -42,7 +48,7 @@
   }
 
   let royaltyFee: number;
-  $: royaltyFee = (sku.minSkuPrice * sku.royaltyFeePercentage) / 100;
+  $: royaltyFee = (_sku.minSkuPrice * _sku.royaltyFeePercentage) / 100;
 
   $: total = listing.price * (1 + marketplaceFee);
   $: insufficientFunds = total > user.availableBalance;
@@ -51,7 +57,7 @@
 {#if isOpen}
   <Modal on:close={closeModal} class="max-w-md">
     <div class="flex justify-center items-center bg-black h-56">
-      <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+      <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
     </div>
     <div class="px-8 py-6 flex flex-col items-center gap-5">
       <div class="flex flex-col gap-1 items-center font-medium">
@@ -69,7 +75,7 @@
         {/if}
       </div>
       <div>
-        <ProductModalInfo {sku} {serial} />
+        <ProductModalInfo sku={_sku} {serial} />
         {#if !result}
           <hr class="h-px w-full my-4" />
           <OrderProductPricing price={listing.price} {marketplaceFee} />
@@ -99,7 +105,7 @@
         {:else}
           <span class="font-bold text-center">
             <div class="text-black">
-              Royalty fee per unit aprox {formatCurrency(royaltyFee)} ({sku.royaltyFeePercentage}%)
+              Royalty fee per unit aprox {formatCurrency(royaltyFee)} ({_sku.royaltyFeePercentage}%)
             </div>
             <div>Confirming this action will deduct the associated funds from your wallet.</div>
           </span>

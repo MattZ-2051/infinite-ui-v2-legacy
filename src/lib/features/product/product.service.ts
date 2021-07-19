@@ -61,3 +61,11 @@ export function canRedeem(product: Product, userId: string) {
     isOwner(product, userId) && product.sku?.redeemable && product.redeemedStatus !== 'redeemed' && !hasListing(product)
   );
 }
+
+export function canBuy(product: Product, userId: string): boolean {
+  return !isOwner(product, userId) && hasActiveSale(product);
+}
+
+export function hasNoSale(product: Product, userId: string): boolean {
+  return !hasListing(product) && !isOwner(product, userId);
+}

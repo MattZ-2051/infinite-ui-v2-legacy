@@ -8,11 +8,11 @@
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import { page } from '$app/stores';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
-  import { formatCurrency } from '$util/format';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import DateFormat from '$ui/date/DateFormat.svelte';
   import UserLink from '$lib/components/UserLink.svelte';
   import ProductHistory from './ProductHistory.svelte';
+  import ProductStatusButton from './ProductStatusButton.svelte';
   import ProductAuction from './auction/ProductAuction.svelte';
   import CreateSaleModal from './CreateSaleModal.svelte';
   import CancelSaleModal from './CancelSaleModal.svelte';
@@ -28,7 +28,6 @@
     canCancelSale,
     canStartAuction,
     canCancelAuction,
-    hasActiveSale,
     canRedeem,
   } from './product.service';
   import { totalBids, auctionCancelled } from './product.store';
@@ -44,7 +43,6 @@
   $: hasRedeemAction = canRedeem(product, $userId);
 
   $: showAuction = hasAuction(product);
-  $: showActiveSale = hasActiveSale(product);
 
   let actions: ActionType[];
   $: actions = [
@@ -117,13 +115,8 @@
         <span class="text-gray-600 self-center">Redeemed</span>
       {/if}
     </div>
-    <div class="flex items-center">
-      {#if showActiveSale}
-        <div class="flex flex-col items-start mr-4 pb-3.5">
-          <span class="text-gray-400 text-xs">Active Sale</span>
-          <span class="text-xl font-semibold">{formatCurrency(product.activeProductListings[0].price)}</span>
-        </div>
-      {/if}
+    <div class="flex gap-3 items-center">
+      <ProductStatusButton {product} />
       <ProductActions {actions} on:action={onAction} />
     </div>
   </div>
