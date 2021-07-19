@@ -7,6 +7,7 @@
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
   import UserLink from '$lib/components/UserLink.svelte';
+  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import { loadingTransactions } from './product.api';
   import { transactions, totalTransactions } from './product.store';
 
@@ -15,7 +16,7 @@
       (item) =>
         item.status !== 'error' &&
         item.status !== 'pending' &&
-        ['nft_transfer_manual', 'purchase', 'nft_mint'].includes(item.type)
+        ['nft_transfer_manual', 'purchase', 'nft_mint', 'nft_redeem'].includes(item.type)
     )
     .sort((a, b) => {
       if (a.type === 'nft_mint') {
@@ -55,17 +56,23 @@
               >
             {:else if transaction.type === 'nft_mint'}
               <span class="text-white">NFT Minted</span>
+            {:else if transaction.type === 'nft_redeem'}
+              <span class="text-white flex items-center gap-2"
+                ><IconRedeem size="0.6" /><span>Redeemed this product</span></span
+              >
             {:else}
               <span class="text-white">Received Transfer</span>
             {/if}
           </div>
-          <a href={transaction?.transactionData?.explorerLink} target="_blank" rel="noreferrer" class="row-span-2">
-            <Icon
-              tooltip={{ content: 'View transaction', theme: 'white' }}
-              path={mdiLinkVariant}
-              class="w-6 justify-self-center group-hover:text-white"
-            />
-          </a>
+          {#if transaction?.transactionData?.explorerLink}
+            <a href={transaction?.transactionData?.explorerLink} target="_blank" rel="noreferrer" class="row-span-2">
+              <Icon
+                tooltip={{ content: 'View transaction', theme: 'white' }}
+                path={mdiLinkVariant}
+                class="w-6 justify-self-center group-hover:text-white"
+              />
+            </a>
+          {/if}
           <span class="col-span-2 justify-self-end self-start font-black italic text-sm">
             <DateFormat value={transaction.updatedAt} />
           </span>

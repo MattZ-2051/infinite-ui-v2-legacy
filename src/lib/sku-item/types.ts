@@ -243,7 +243,9 @@ export type TransactionType =
   | 'nft_transfer_manual'
   | 'royalty_fee'
   | 'nft_mint'
-  | 'bid';
+  | 'bid'
+  | 'claim'
+  | 'nft_redeem';
 
 export type TransactionStatus = 'success' | 'error' | 'pending';
 
