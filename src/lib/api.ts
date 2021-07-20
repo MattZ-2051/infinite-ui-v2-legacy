@@ -115,6 +115,10 @@ async function parseBody<T>(response: Response): Promise<T> {
     return;
   }
 
+  if (headers.has('content-type') && headers.get('content-type').indexOf('text') === 0) {
+    return response.text() as never;
+  }
+
   return await response.json();
 }
 

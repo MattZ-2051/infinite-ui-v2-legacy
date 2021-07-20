@@ -115,14 +115,17 @@ describe('API', () => {
 
     it('throw based on response status', async () => {
       const data = { error: 'Conflict' };
+      const responseHeaders = {
+        'content-length': 1,
+      };
       mockFetch.mockReturnValueOnce(
         Promise.resolve({
           status: 404,
           statusText: 'Not found!',
           json: () => data,
           headers: {
-            has: () => true,
-            get: () => 1, // Content-length
+            has: (key) => key in responseHeaders,
+            get: (key) => responseHeaders[key],
           },
         })
       );
@@ -141,23 +144,42 @@ describe('API', () => {
       await get('my/path', { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'GET' }));
     });
+
+    it('should parse text responses', async () => {
+      const responseHeaders = {
+        'content-type': 'text/html',
+      };
+
+      mockFetch.mockReturnValueOnce(
+        Promise.resolve({
+          text: () => 'abcd',
+          headers: {
+            has: (key) => key in responseHeaders,
+            get: (key) => responseHeaders[key],
+          },
+        })
+      );
+
+      const response = await get('my/path', { fetch: mockFetch });
+      expect(response).toEqual('abcd');
+    });
   });
 
   describe('`getPage`', () => {
     it('should parse response for pagination information', async () => {
+      const responseHeaders = {
+        'content-length': 1,
+        'content-range': '20-2/140',
+      };
+
       mockFetch.mockReturnValueOnce(
         Promise.resolve({
           json: () => {
             return ['a', 'b', 'c'];
           },
           headers: {
-            has: () => true,
-            get: (key: string) => {
-              return {
-                'content-length': 1,
-                'content-range': '20-2/140',
-              }[key];
-            },
+            has: (key) => key in responseHeaders,
+            get: (key) => responseHeaders[key],
           },
         })
       );
