@@ -39,7 +39,7 @@
         await handleRedirectCallback(url);
       }
       await initUserAuth();
-      await goto(returnUrl || '/');
+      await goto(returnUrl || '/', { replaceState: true });
     })();
   }
 </script>
