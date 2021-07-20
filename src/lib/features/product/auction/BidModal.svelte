@@ -3,21 +3,18 @@
   import type { User } from '$lib/user/types';
   import { variables } from '$lib/variables';
   import { closeModal, Modal } from '$ui/modals';
-  import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
-  import { placeBid } from './auction.api';
+  import { placeBidFx } from './auction.store';
 
   export let isOpen = false;
   export let product: Product;
   export let amount: number;
   export let user: User;
-  export let reloadBids: () => Promise<void>;
 
   const marketplaceFee = variables.marketplaceFee;
-
-  let waitingForAPI = false;
+  const waitingForAPI = placeBidFx.pending;
 
   $: listing = product.listing;
   $: bid = formatCurrency(amount);
@@ -25,24 +22,8 @@
   $: total = formatCurrency(amount * (1 + marketplaceFee));
 
   async function onPlaceBid() {
-    waitingForAPI = true;
-
-    await placeBid(listing._id, amount)
-      .then(async () => {
-        closeModal();
-
-        toast.success(
-          'Your bid was successfully placed. ' +
-            'Learn more about biding ' +
-            '<a target="_blank" href="https://support.suku.world/infinite-powered-by-suku" rel="noreferrer">here</a>.'
-        );
-
-        await reloadBids();
-
-        return true;
-      })
-      .catch(() => toast.danger('Whoops, something went wrong - please try again.'))
-      .finally(() => (waitingForAPI = false));
+    await placeBidFx({ listing, amount });
+    closeModal();
   }
 </script>
 
@@ -82,7 +63,7 @@
       </div>
     </div>
     <div class="w-full px-10  mb-6">
-      <Button type="button" disabled={waitingForAPI} on:click={onPlaceBid}>Place Bid</Button>
+      <Button type="button" disabled={$waitingForAPI} on:click={onPlaceBid}>Place Bid</Button>
     </div>
   </Modal>
 {/if}

@@ -20,8 +20,12 @@ export function gotoQueryParameters(
   return gotoOptions ? goto(url, gotoOptions) : goto(url);
 }
 
+export function getQueryParameters(reset = false) {
+  return new URLSearchParams(reset ? '' : window.location.search);
+}
+
 export function changeQueryParameters(options: QueryParameterOptions) {
-  const urlSearchParameters = new URLSearchParams(options.reset ? '' : window.location.search);
+  const urlSearchParameters = getQueryParameters(options.reset);
 
   for (let [key, value] of Object.entries(options.params)) {
     let index: string;

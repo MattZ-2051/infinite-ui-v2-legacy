@@ -8,7 +8,7 @@
   import DateFormat from '$ui/date/DateFormat.svelte';
   import { openModal } from '$ui/modals';
   import { formatCurrency } from '$util/format';
-  import { loadingBids, loadProductBids } from './auction.api';
+  import { loadingBids } from './auction.api';
   import { bids, totalBids, auctionStarted } from '../product.store';
   import BidForm from './BidForm.svelte';
   import BidModal from './BidModal.svelte';
@@ -36,9 +36,6 @@
       product,
       amount,
       user: $user,
-      reloadBids: async () => {
-        await loadProductBids({ id: listing._id, page: p, fetch });
-      },
     });
   }
 </script>

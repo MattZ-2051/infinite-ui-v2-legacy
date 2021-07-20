@@ -35,15 +35,13 @@ export async function placeBid(listingId: string, amount: number): Promise<Parti
   return await post(`listings/${listingId}/bids`, { bidAmt: amount });
 }
 
-// `?` is used for the `id` type for when there is not active listing
-// and the code simply passes `undefined` as the `id` value
 export async function loadProductBids({
   id,
   page,
   perPage = 5,
   fetch,
 }: {
-  id?: string;
+  id: string;
   page: number;
   perPage?: number;
   fetch?: Fetch;
