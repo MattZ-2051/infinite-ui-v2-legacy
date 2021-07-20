@@ -3,6 +3,7 @@
   import { fly } from 'svelte/transition';
   import { mdiClose } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
+  import trapFocus from '$util/trapFocus';
 
   export let title = '';
   export let footer = '';
@@ -12,6 +13,7 @@
   let _class = '';
   export { _class as class };
 
+  let modal: HTMLElement;
   const dispatch = createEventDispatcher();
 
   function onClose(reason?: string) {
@@ -23,7 +25,16 @@
 </script>
 
 <svelte:window on:keydown={(event) => event.key === 'Escape' && onClose('esc')} />
-<div class="fixed top-0 left-0 bottom-0 right-0 z-40 backdrop-filter backdrop-blur-sm">
+<div
+  tabindex="-1"
+  bind:this={modal}
+  class="fixed top-0 left-0 bottom-0 right-0 z-40 backdrop-filter backdrop-blur-sm"
+  use:trapFocus={{
+    focusTrapOptions: {
+      initialFocus: () => modal.querySelector('[data-initial-focus]') || modal,
+    },
+  }}
+>
   <div
     class="h-full w-full absolute flex items-center justify-center z-20"
     transition:fly={{ y: 50 }}

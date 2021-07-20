@@ -28,6 +28,7 @@
     "effector": "~21.8.12",
     "felte": "0.7.10",
     "flatpickr": "4.6.9",
+    "focus-trap": "^6.6.0",
     "just-debounce": "1.1.0",
     "svelte-media": "0.1.4",
     "tippy.js": "6.3.1",

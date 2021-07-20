@@ -48,6 +48,7 @@ const config = {
           'effector',
           'felte',
           'flatpickr',
+          'focus-trap',
           'just-debounce',
           'msw',
           'svelte-media',

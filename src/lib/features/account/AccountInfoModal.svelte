@@ -41,6 +41,7 @@
             placeholder={$user.username}
             aria-label="Full name"
             class="{klass} font-black"
+            data-initial-focus
           />
         </Input>
       </div>
