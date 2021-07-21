@@ -24,9 +24,18 @@ export async function loadProductTransactions({
   page: number;
   fetch?: Fetch;
 }): Promise<{ total: number; data: Transaction[] }> {
-  return await getPage<Transaction>(`products/${id}/transactions`, {
+  const { total, data } = await getPage<Transaction>(`products/${id}/transactions`, {
     params: { page: `${page}`, per_page: '5' },
     tracker: loadingTransactions,
     fetch,
   });
+
+  // Always move `nft_minted` first, if exists (max 1 transaction with this type)
+  const nftMintIndex = data.findIndex((transaction) => transaction.type === 'nft_mint');
+
+  return {
+    total,
+    data:
+      nftMintIndex > -1 ? [...data.slice(0, nftMintIndex), ...data.slice(nftMintIndex + 1), data[nftMintIndex]] : data,
+  };
 }

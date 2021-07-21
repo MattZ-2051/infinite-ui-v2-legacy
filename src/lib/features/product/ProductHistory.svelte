@@ -11,23 +11,6 @@
   import { loadingTransactions } from './product.api';
   import { transactions, totalTransactions } from './product.store';
 
-  $: filteredTransactions = $transactions
-    .filter(
-      (item) =>
-        item.status !== 'error' &&
-        item.status !== 'pending' &&
-        ['nft_transfer_manual', 'purchase', 'nft_mint', 'nft_redeem'].includes(item.type)
-    )
-    .sort((a, b) => {
-      if (a.type === 'nft_mint') {
-        return 1;
-      }
-      if (b.type === 'nft_mint') {
-        return -1;
-      }
-      return a.updatedAt < b.updatedAt ? -1 : 1;
-    });
-
   $: p = +$page.query.get(`page`) || 1;
 
   const gotoPage = (event: CustomEvent) => {
@@ -43,13 +26,13 @@
 <div class:opacity-40={$loadingTransactions}>
   {#if $totalTransactions > 0}
     <div class="text-gray-500">
-      {#each filteredTransactions as transaction}
+      {#each $transactions as transaction}
         <div
           class="grid-container group grid gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
         >
           <UserLink username={transaction.owner?.username} class="self-end font-black italic group-hover:text-white" />
           <div class="justify-self-end">
-            {#if transaction.type === 'purchase'}
+            {#if transaction.type === 'purchase' && transaction.status === 'success'}
               Bought for
               <span class="text-white"
                 >{formatCurrencyWithOptionalFractionDigits(transaction.transactionData?.cost?.totalCost)}</span
