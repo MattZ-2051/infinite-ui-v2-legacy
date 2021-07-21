@@ -40,7 +40,7 @@
       }
     } catch {
       toast.danger(
-        `There was an error processing your purchase. Please, try again or see the <a href="/help" class="underline">help page</a> to learn more.`
+        `There was an error processing your purchase. Please, try again or see the <a href="/help">help page</a> to learn more.`
       );
     } finally {
       purchasing = false;

@@ -61,7 +61,7 @@
   role="status"
 >
   <div class="container flex items-center justify-between">
-    <div>{@html message}</div>
+    <div class="toast-message">{@html message}</div>
     {#if closeable}
       <button
         type="button"
@@ -81,3 +81,13 @@
     />
   {/if}
 </div>
+
+<style>
+  .toast-message :global(a) {
+    text-decoration: underline;
+  }
+
+  .toast-message :global(a):hover {
+    text-decoration: none;
+  }
+</style>

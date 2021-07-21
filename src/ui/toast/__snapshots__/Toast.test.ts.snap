@@ -10,7 +10,9 @@ exports[`Toast renders correctly 1`] = `
     <div
       class="container flex items-center justify-between"
     >
-      <div>
+      <div
+        class="toast-message svelte-1jtjqq3"
+      >
         content
       </div>
        
