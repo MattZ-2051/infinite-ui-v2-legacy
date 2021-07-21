@@ -41,9 +41,9 @@
 
 {#if $wallet}
   <div class:flex={true} class:flex-row={true} class:font-semibold={true} {...$$restProps}>
-    {#if $wallet.kycPending && false}
+    {#if $wallet.kycPending}
       <Icon path={mdiClockOutline} class="mr-2" /> Pending...
-    {:else if $wallet.kycMaxLevel >= 1 && false}
+    {:else if $wallet.kycMaxLevel >= 1}
       <Icon path={mdiShieldCheckOutline} class="mr-2" /> lvl {$wallet.kycMaxLevel}
     {:else}
       <div class="contents text-gray-400">

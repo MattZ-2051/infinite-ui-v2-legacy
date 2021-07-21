@@ -4,6 +4,7 @@
   import { wallet } from '$lib/features/wallet/index';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
+  import TooltipIcon from '$lib/components/TooltipIcon.svelte';
   import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
   import USDC from '$lib/payment/usdc/USDC.svelte';
   import WalletHead from './WalletHead.svelte';
@@ -63,7 +64,11 @@
   <div class="w-full md:w-1/5">
     <WalletBalance on:deposit={openDepositSelectModal} on:withdraw={() => (showWithdraw = true)} />
     <hr class="h-px my-5" />
-    <div class="mb-2 mx-6">Account Verification Status:</div>
+    <div class="mb-2 mx-6">
+      Account Verification Status <TooltipIcon
+        tooltip={'Account verification is required for users to deposit cryptocurrency'}
+      />
+    </div>
     <AccountVerification class="mx-8" />
   </div>
   <div class="w-full md:w-4/5"><WalletList {transactions} {totalTransactions} {bids} {totalBids} {tab} /></div>
