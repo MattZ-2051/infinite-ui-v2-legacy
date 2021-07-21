@@ -4,6 +4,7 @@
   import { formatDate, formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
   import UserLink from '$lib/components/UserLink.svelte';
+  import hedera from '$lib/components/icons/hedera';
 
   export let transaction: Transaction;
 
@@ -22,28 +23,36 @@
 
 <div class="grid grid-cols-3 items-center gap-x-4 container-tr py-4 border-b border-gray-200">
   <div>
-    {#if transaction.type === 'royalty_fee' || transaction.type === 'sale'}
-      <img src="/sold-normal.png" alt="img" />
+    {#if type === 'royalty_fee' || type === 'sale'}
+      <img src="/sold-normal.png" alt="sold" />
     {/if}
 
-    {#if transaction.type === 'purchase'}
-      <img src="/bought-normal.png" alt="img" />
+    {#if type === 'purchase'}
+      <img src="/bought-normal.png" alt="bought" />
     {/if}
 
-    {#if transaction.type === 'withdrawal'}
-      <img src="/withdrew-funds.png" alt="img" />
+    {#if type === 'withdrawal'}
+      <img src="/withdrew-funds.png" alt="withdrew" />
     {/if}
 
-    {#if transaction.type === 'deposit' && deposit.type === 'cc'}
-      <img src="/added-funds.png" alt="img" />
+    {#if type === 'deposit' && deposit.type === 'cc'}
+      <img src="/added-funds.png" alt="added" />
     {/if}
 
-    {#if transaction.type === 'deposit' && deposit.type === 'circle'}
-      <img style="width:32px; height:32px" src="/usdcoin.png" alt="img" />
+    {#if type === 'deposit' && deposit.type === 'circle'}
+      <img style="width:32px; height:32px" src="/usdcoin.png" alt="usdcoin" />
     {/if}
 
-    {#if transaction.type === 'deposit' && deposit.type === 'coinbase'}
-      <img src="/added-funds-coinbase.png" alt="img" />
+    {#if type === 'deposit' && deposit.type === 'coinbase'}
+      <img src="/added-funds-coinbase.png" alt="coinbase" />
+    {/if}
+    {#if type === 'deposit' && deposit.type === 'hbar'}
+      <div
+        style="width:32px; height:32px; border:1px solid #EBEBEB;"
+        class="rounded-xl  flex justify-center items-center"
+      >
+        <Icon path={hedera} size="0.6" />
+      </div>
     {/if}
   </div>
   <div class="flex-grow">
@@ -138,11 +147,18 @@
             <span class="font-medium">USDC</span>
           {/if}
 
-          {#if type === 'deposit' && deposit.type === 'coinbase'}
+          {#if type === 'deposit' && (deposit.type === 'hbar' || deposit.type === 'coinbase')}
             <span class="message">You added funds by depositing </span>
             <span class="font-medium"> {formatCurrency(+deposit.amount)} </span>
             <span class="message ">using </span>
-            <span class="font-medium">Coinbase</span>
+            <span class="font-medium">
+              {#if deposit.type === 'coinbase'}
+                Coinbase
+              {:else if deposit.type === 'hbar'}
+                Hbar
+              {/if}
+              {status === 'pending' ? '(Pending)' : ''}
+            </span>
           {/if}
         </span>
         <div class="flex justify-between gap-x-3">
