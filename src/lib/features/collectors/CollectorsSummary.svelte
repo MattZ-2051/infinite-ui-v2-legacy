@@ -78,7 +78,7 @@
         type="text"
         value={search}
         on:input={onInputChange}
-        class="search-input text-white border-none placeholder-gray-700 bg-gray-900 w-full outline-none"
+        class="search-input text-white border-none placeholder-gray-700 bg-primary w-full outline-none"
         placeholder="*Select an owner to place a bid"
       />
     </div>

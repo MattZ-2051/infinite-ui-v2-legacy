@@ -24,7 +24,7 @@
   export let related: Sku[];
 </script>
 
-<div class="flex justify-around bg-gray-900 sku-details">
+<div class="bg-primary flex justify-around sku-details">
   <div class="container grid gap-x-8 grid-cols-1 md:grid-cols-2 items-stretch -container-y md:-container-x">
     <div class="-container-x md:-container-none">
       <Gallery items={sku.nftPublicAssets} />

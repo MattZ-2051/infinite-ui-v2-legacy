@@ -25,6 +25,9 @@ module.exports = {
       fontSize: {
         '2.5xl': ['1.6rem', '2rem'],
       },
+      backgroundColor: {
+        primary: '#1a1a1a',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],

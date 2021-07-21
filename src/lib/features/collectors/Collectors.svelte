@@ -12,7 +12,7 @@
   export let perPage: number;
 </script>
 
-<div class="flex bg-gray-900 flex-grow">
+<div class="flex bg-primary flex-grow">
   <div class="flex container py-0">
     <div class="flex flex-col flex-auto lg:flex-row">
       <div class="lg:max-w-md -container-x lg:-container-none">
