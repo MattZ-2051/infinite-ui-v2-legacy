@@ -1,4 +1,4 @@
-import type { Sku } from '$lib/sku-item/types';
+import type { Sku, Listing, CollectorProduct } from '$lib/sku-item/types';
 
 const fixedSupplyInfo = (sku: Sku) => {
   if (sku?.totalSupplyUpcoming > 0) {
@@ -34,4 +34,27 @@ export const getSupplyInfo = (sku: Sku) => {
     return fixedSupplyInfo(sku);
   }
   return variableSupplyInfo(sku);
+};
+
+export const getActiveListings = (sku: Sku): Listing[] => {
+  return sku.skuListings.filter((skuListing) => skuListing.status === 'active' && !skuListing.canceled);
+};
+
+export const getUpcomingListings = (sku: Sku): Listing[] => {
+  return sku.skuListings.filter((skuListing) => skuListing.status === 'upcoming' && !skuListing.canceled);
+};
+
+const isLimited = (sku: Sku): boolean => {
+  return getActiveListings(sku).length === 0 && getUpcomingListings(sku).length === 0 && sku.totalSupply === 1;
+};
+
+export const getLimitedAuctionCollector = (sku: Sku, collectors: CollectorProduct[]): CollectorProduct | undefined => {
+  if (
+    isLimited(sku) &&
+    collectors?.length > 0 &&
+    collectors[0].listing?.saleType === 'auction' &&
+    ['upcoming', 'active', 'sold'].includes(collectors[0].listing.status)
+  ) {
+    return collectors[0];
+  }
 };

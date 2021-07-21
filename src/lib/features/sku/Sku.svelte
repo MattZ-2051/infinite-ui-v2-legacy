@@ -72,7 +72,7 @@
         </div>
       </div>
       <div class="-container-x">
-        <SkuPriceBox {sku} {totalCollectors} />
+        <SkuPriceBox {sku} {totalCollectors} {collectors} />
       </div>
     </div>
   </div>

@@ -1,28 +1,32 @@
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
+  import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
+  import { getActiveListings, getUpcomingListings, getLimitedAuctionCollector } from './sku.service';
+  import LimitedAuctionPriceBox from './LimitedAuctionPriceBox.svelte';
 
   export let sku: Sku;
   export let totalCollectors: number;
+  export let collectors: CollectorProduct[];
 
   function onBuy() {
     onOrderIntent({ sku, listing: activeListings[0] });
   }
 
   $: numSkuListings = sku.skuListings.length;
-  $: activeListings = sku.skuListings.filter((skuListing) => skuListing.status === 'active' && !skuListing.canceled);
-  $: upcomingSkuListings = sku.skuListings.filter(
-    (skuListing) => skuListing.status === 'upcoming' && !skuListing.canceled
-  );
+  $: activeListings = getActiveListings(sku);
+  $: upcomingSkuListings = getUpcomingListings(sku);
+  $: collector = getLimitedAuctionCollector(sku, collectors);
   $: upcoming = upcomingSkuListings.length > 0 && activeListings.length === 0;
   $: active = activeListings.length > 0 && sku.totalSkuListingSupplyLeft;
   $: noSale = sku.totalSkuListingSupplyLeft === 0 && numSkuListings > 0;
   $: expiredListings = sku.skuListings.filter((skuListing) => skuListing.status === 'sold');
 </script>
 
-{#if active}
+{#if collector}
+  <LimitedAuctionPriceBox {collector} />
+{:else if active}
   <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent">
     <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-8">
       <div class="flex-grow text-gray-400">

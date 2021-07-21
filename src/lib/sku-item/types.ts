@@ -268,6 +268,7 @@ export type CollectorProduct = {
   owner: Partial<Profile>;
   activeProductListing?: Listing;
   upcomingProductListing?: Listing;
+  listing?: Listing;
   tokenId?: string;
   explorerLink?: string;
   highestBid?: Bid;
