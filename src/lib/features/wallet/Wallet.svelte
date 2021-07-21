@@ -7,6 +7,7 @@
   import TooltipIcon from '$lib/components/TooltipIcon.svelte';
   import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
   import USDC from '$lib/payment/usdc/USDC.svelte';
+  import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
   import WalletHead from './WalletHead.svelte';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
@@ -30,8 +31,8 @@
     openModal(WalletDepositModal, { onDepositSelect });
   }
 
-  function onDepositSelect(id: 'circle' | 'usdc' | 'coinbase') {
-    if (!isKycCleared && (id === 'circle' || id === 'coinbase')) {
+  function onDepositSelect(id: 'circle' | 'usdc' | 'coinbase' | 'hbar') {
+    if (!isKycCleared && (id === 'circle' || id === 'coinbase' || id === 'hbar')) {
       const prompt = isKycPending
         ? 'wait until we validate your identity.'
         : 'complete the required account validation steps. ' +
@@ -49,6 +50,9 @@
 
     if (id === 'usdc') {
       openModal(USDC);
+    }
+    if (id === 'hbar') {
+      openModal(DepositHedera);
     }
 
     selectedDepositMethod = id;

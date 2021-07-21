@@ -1,10 +1,11 @@
-import type { BalanceInfo, Wallet } from './types';
+import type { BalanceInfo, Wallet, HbarDeposits, HbarTransaction } from './types';
 import type { Transaction, Bid } from '$lib/sku-item/types';
-import { get, getPage, fetchTracker } from '$lib/api';
+import { get, getPage, fetchTracker, post } from '$lib/api';
 import { wallet } from './index';
 
 export const loadingTransactions = fetchTracker();
 export const loadingBids = fetchTracker();
+export const loadingHbarTransactions = fetchTracker();
 
 const filter = {
   $or: [
@@ -50,4 +51,14 @@ export async function loadBids(page: number, sortBy?: string): Promise<{ total: 
   });
 
   return { total, bids };
+}
+
+export async function loadExplorerLink(): Promise<{ explorerLink: string }> {
+  const { explorerLink } = await get<{ explorerLink: string }>('wallet/hbar/address');
+  return { explorerLink };
+}
+
+export async function checkHbarDeposits(): Promise<HbarTransaction[]> {
+  const { newTransactions } = await post<HbarDeposits>('wallet/hbar/check', {}, { tracker: loadingHbarTransactions });
+  return newTransactions;
 }

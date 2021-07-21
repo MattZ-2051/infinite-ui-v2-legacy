@@ -10,12 +10,13 @@
   import Coinbase from './coinbase-avatar.png?w=48&format=avif;webp;png&metadata';
   import USDCoin from './usdcoin-avatar.png?w=48&format=avif;webp;png&metadata';
   import Suku from './suku-avatar.png?w=48&format=avif;webp;png&metadata';
+  import Hbar from './hbar-avatar.png?w=48&format=avif;webp;png&metadata';
 
   export let isOpen: boolean;
-  export let onDepositSelect: (id: 'circle' | 'coinbase' | 'usdc') => unknown;
+  export let onDepositSelect: (id: 'circle' | 'coinbase' | 'usdc' | 'hbar') => unknown;
 
   type DepositOption = {
-    id: 'circle' | 'coinbase' | 'usdc' | 'suku';
+    id: 'circle' | 'coinbase' | 'usdc' | 'suku' | 'hbar';
     title: string;
     subtitle: string;
     image: ImageMetadata[];
@@ -25,6 +26,7 @@
     { id: 'circle', title: 'Circle', subtitle: 'Pay with credit card', image: Circle },
     { id: 'coinbase', title: 'Coinbase', subtitle: 'Pay with cryptocurrency', image: Coinbase },
     { id: 'usdc', title: 'USD Coin', subtitle: 'Pay with USDC', image: USDCoin },
+    { id: 'hbar', title: 'HBAR', subtitle: 'Deposit funds using Hedera Hashgraph', image: Hbar },
     { id: 'suku', title: 'Suku', subtitle: 'Coming soon', image: Suku, disabled: true },
   ];
 
@@ -33,7 +35,7 @@
       return;
     }
     closeModal();
-    onDepositSelect(id as 'circle' | 'coinbase' | 'usdc');
+    onDepositSelect(id as 'circle' | 'coinbase' | 'usdc' | 'hbar');
   }
 </script>
 

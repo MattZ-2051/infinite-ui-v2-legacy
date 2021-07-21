@@ -50,4 +50,14 @@ export type BalanceInfo = {
   totalBalance: string;
 };
 
+export type HbarTransaction = {
+  depositStatus: 'pending' | 'success' | 'error';
+  hbarAmount: string;
+  rawTransaction: { id: string; consensusAt: Date };
+};
+
+export type HbarDeposits = {
+  newTransactions: HbarTransaction[];
+};
+
 export type WalletExtended = Wallet & { balanceInfo: BalanceInfo };
