@@ -9,11 +9,10 @@
   import { user } from '$lib/user';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
-  import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
   import FormDistrictsSelect from '$lib/components/form/FormDistrictsSelect.svelte';
-  import Image from '$ui/image/Image.svelte';
+  import CircleContainer from './CircleContainer.svelte';
 
   import { addCreditCard } from './card.api';
 
@@ -86,26 +85,21 @@
   setContext('errors', errors);
 </script>
 
-<div class="container flex flex-col gap-2 items-center">
-  <div class="w-80">
-    <div class="flex items-center gap-2 text-xl border-b-2 border-black pb-3">
-      <Image src={Circle} class="flex-none w-8 h-8" /> Circle Payments
-    </div>
-    <div class="text-gray-500 font-extrabold italic mt-4">Enter the card details below</div>
-    <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
-      <FormInput name="cardNumber" label="Credit card number" />
-      <FormInput name="expMonth" label="Exp month" />
-      <FormInput name="expYear" label="Exp year" />
-      <FormInput name="cvv" label="CCV" />
-      <FormInput name="billingDetails.name" label="Cardholder name" />
-      <FormInput name="billingDetails.line1" label="Address Line 1" />
-      <FormInput name="billingDetails.line2" label="Address Line 2" />
-      <FormInput name="billingDetails.postalCode" label="Postal Code" />
-      <FormInput name="billingDetails.city" label="City" />
-      <FormCountriesSelect bind:value={selectedCountryISO2} name="billingDetails.country" label="Country" />
-      <FormDistrictsSelect countryISO2={selectedCountryISO2} name="billingDetails.district" label="State/Province" />
+<CircleContainer>
+  <div class="text-gray-500 font-extrabold italic mt-4">Enter the card details below</div>
+  <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
+    <FormInput name="cardNumber" label="Credit card number" />
+    <FormInput name="expMonth" label="Exp month" />
+    <FormInput name="expYear" label="Exp year" />
+    <FormInput name="cvv" label="CCV" />
+    <FormInput name="billingDetails.name" label="Cardholder name" />
+    <FormInput name="billingDetails.line1" label="Address Line 1" />
+    <FormInput name="billingDetails.line2" label="Address Line 2" />
+    <FormInput name="billingDetails.postalCode" label="Postal Code" />
+    <FormInput name="billingDetails.city" label="City" />
+    <FormCountriesSelect bind:value={selectedCountryISO2} name="billingDetails.country" label="Country" />
+    <FormDistrictsSelect countryISO2={selectedCountryISO2} name="billingDetails.district" label="State/Province" />
 
-      <Button type="submit" class="mt-6" disabled={!!saving}>Add Card</Button>
-    </form>
-  </div>
-</div>
+    <Button type="submit" class="mt-6" disabled={!!saving}>Add Card</Button>
+  </form>
+</CircleContainer>

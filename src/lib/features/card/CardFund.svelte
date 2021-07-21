@@ -11,26 +11,24 @@
   import Icon from '$ui/icon/Icon.svelte';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
-  import Image from '$ui/image/Image.svelte';
-  import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
   import Button from '$lib/components/Button.svelte';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import { addCreditCardFunds, deleteCreditCard } from './card.api';
   import CardFundResult from './CardFundResult.svelte';
   import CreditCardComponent from './CreditCard.svelte';
+  import CircleContainer from './CircleContainer.svelte';
 
   export let card: CreditCard;
 
   let saving: Promise<unknown>;
   let removing: Promise<unknown>;
 
-  const minAmount = 1;
   const schema = yup.object({
     amount: yup
       .number()
       .typeError('Amount is not a valid number.')
-      .min(minAmount, `Amount must be greater than ${minAmount}.`)
+      .positive('Amount must be greater than zero.')
       .required('Amount is required.'),
   });
 
@@ -69,40 +67,35 @@
   }
 </script>
 
-<div class="container flex flex-col items-center">
-  <div class="w-80 my-10">
-    <div class="flex items-center gap-2 text-xl border-b-2 border-black pb-3">
-      <Image src={Circle} class="flex-none w-8 h-8" /> Circle Payments
-    </div>
-    <div class="text-gray-500 font-extrabold italic my-6">Add funds into your wallet</div>
+<CircleContainer>
+  <div class="text-gray-500 font-extrabold italic my-6">Add funds into your wallet</div>
 
-    <CreditCardComponent {card} />
+  <CreditCardComponent {card} />
 
-    <div class="flex justify-between mt-3">
-      <span class="text-sm font-extrabold italic text-black"
-        >Credit Card <span class="text-green-500">(Active)</span></span
-      >
-      <button
-        type="button"
-        on:click={() =>
-          openModal(ConfirmModal, {
-            title: 'Remove Credit Card?',
-            message: `You are going to delete card ending ${card.last4}.`,
-            onConfirm: removeCard,
-          })}
-        disabled={!!removing}
-        class="text-sm font-extrabold italic text-gray-500 hover:text-black">Remove card</button
-      >
-    </div>
-
-    <div class="mt-10 flex flex-col items-center text-base font-extrabold italic text-gray-500">
-      <Icon path={mdiLightbulbOnOutline} />
-      <div>Remember to account for the 5% service fee when choosing your deposit amount.</div>
-    </div>
-
-    <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
-      <FormInput name="amount" label="Enter Amount" />
-      <Button type="submit" class="mt-6" disabled={!!saving}>Add Funds</Button>
-    </form>
+  <div class="flex justify-between mt-3">
+    <span class="text-sm font-extrabold italic text-black"
+      >Credit Card <span class="text-green-500">(Active)</span></span
+    >
+    <button
+      type="button"
+      on:click={() =>
+        openModal(ConfirmModal, {
+          title: 'Remove Credit Card?',
+          message: `You are going to delete card ending ${card.last4}.`,
+          onConfirm: removeCard,
+        })}
+      disabled={!!removing}
+      class="text-sm font-extrabold italic text-gray-500 hover:text-black">Remove card</button
+    >
   </div>
-</div>
+
+  <div class="mt-10 flex flex-col items-center text-base font-extrabold italic text-gray-500">
+    <Icon path={mdiLightbulbOnOutline} />
+    <div>Remember to account for the 5% service fee when choosing your deposit amount.</div>
+  </div>
+
+  <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
+    <FormInput name="amount" label="Enter Amount" />
+    <Button type="submit" class="mt-6" disabled={!!saving}>Add Funds</Button>
+  </form>
+</CircleContainer>
