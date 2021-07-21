@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mdiTwitter, mdiYoutube, mdiInstagram, mdiLinkedin, mdiFacebook } from '@mdi/js';
+  import { mdiTwitter, mdiYoutube, mdiInstagram, mdiLinkedin, mdiFacebook, mdiDiscord, mdiEmail } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
 
   export let size = 1.33;
@@ -18,6 +18,8 @@
     { id: 'Twitter', href: 'https://twitter.com/TheAriaNetwork', path: mdiTwitter },
     { id: 'Instagram', href: 'https://www.instagram.com/TheAriaNetwork/', path: mdiInstagram },
     { id: 'LinkedIn', href: 'https://www.linkedin.com/company/vrm-aria', path: mdiLinkedin },
+    { id: 'Discord', href: 'https://discord.gg/3JtgwbduBt', path: mdiDiscord },
+    { id: 'Email', href: 'mailto:support@ariaexchange.com', path: mdiEmail },
   ];
 </script>
 

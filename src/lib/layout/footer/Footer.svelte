@@ -4,9 +4,9 @@
 
 <div class="bg-black py-6 md:py-3">
   <div
-    class="container flex flex-col gap-y-12 justify-evenly items-center  text-lg font-black italic text-gray-500 md:flex-row md:justify-between md:text-sm md:font-normal md:not-italic"
+    class="container flex flex-col gap-y-12 justify-evenly items-center text-lg font-black italic text-gray-500 md:flex-row md:justify-between md:text-sm md:font-normal md:not-italic"
   >
-    <div class="flex items-center justify-between gap-6 md:order-last md:gap-4 md:justify-end">
+    <div class="flex flex-wrap items-center justify-center gap-4 md:order-last md:gap-4 md:justify-end">
       <SocialLinks />
     </div>
     <div class="flex flex-wrap items-center justify-center text-center gap-x-8 gap-y-4 md:gap-5">
