@@ -1,11 +1,13 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
   import { mdiChevronDown } from '@mdi/js';
-  import { variables } from '$lib/variables';
-  import { datePicker } from '$ui/datepicker/datepicker';
-  import { closeModal, Modal } from '$ui/modals';
+  import { validateSchema } from '@felte/validator-yup';
+  import * as yup from 'yup';
   import { toast } from '$ui/toast';
   import { formatCurrency, formatDate } from '$util/format';
+  import { closeModal, Modal } from '$ui/modals';
+  import { datePicker } from '$ui/datepicker/datepicker';
+  import { variables } from '$lib/variables';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import Icon from '$ui/icon/Icon.svelte';
@@ -18,6 +20,8 @@
   const marketplaceFee = variables.marketplaceFee;
 
   let startDate = new Date();
+  let errors;
+  let isSubmitted = false;
 
   startDate.setTime(startDate.getTime() - startDate.getSeconds() * 1000 - startDate.getMilliseconds());
 
@@ -30,44 +34,42 @@
 
   function onChangeDateFrom([_startDate]) {
     startDate = _startDate;
-
-    if (startDate >= endDate) {
-      endDate = new Date(startDate.getTime() + 60_000);
-    }
   }
 
   function onChangeDateTo([_endDate]) {
     endDate = _endDate;
-
-    if (endDate <= startDate) {
-      startDate = new Date(endDate.getTime() - 60_000);
-    }
   }
 
-  function onPriceChange() {
-    if (price < 0) {
-      price = 0;
-    }
+  async function validate(_price, _startDate, _endDate) {
+    const schema = yup.object({
+      price: yup
+        .number()
+        .required('Amount is required.')
+        .typeError('Enter a valid number.')
+        .moreThan(0, 'Enter a positive amount.'),
+      startDate: yup
+        .date()
+        .required('Start date is required.')
+        .min(new Date(), 'The start date should be in the future.')
+        .max(endDate, 'The end date should be greater than start date.'),
+      endDate: yup.date().required('End date is required.'),
+    });
+
+    errors = await validateSchema(schema)({
+      price: _price,
+      startDate: formatDate(_startDate, 'YYYY/MM/DD HH:mm'),
+      endDate: _endDate,
+    });
   }
+
+  $: isSubmitted && validate(price, startDate, endDate);
 
   async function onStartAuction() {
-    if (startDate <= new Date()) {
-      toast.danger('The start date should be in the future.');
-      return;
-    }
+    isSubmitted = true;
 
-    if (startDate >= endDate) {
-      toast.danger('The end date should be greather than start date.');
-      return;
-    }
+    await validate(price, startDate, endDate);
 
-    if (!price) {
-      toast.danger('Please, enter a minimum bid price.');
-      return;
-    }
-
-    if (price <= 0) {
-      toast.danger('Minimum bid should be more than 0.');
+    if (errors) {
       return;
     }
 
@@ -88,74 +90,82 @@
 {#if isOpen}
   <Modal on:close={closeModal}>
     <div class="text-2xl font-medium" slot="title">Create auction</div>
-    <div class="px-10 pb-2 text-center">
-      You wont be able to transfer or redeem this<br />
-      item while your auction is in progress.
-    </div>
-    <div class="flex flex-col px-10 py-2">
-      <div class="flex gap-8 justify-between border-solid border-t border-b border-gray-200 py-4">
-        <ProductModalInfo sku={product.sku} serial={product.serialNumber} />
+    <form on:submit|preventDefault={onStartAuction}>
+      <div class="px-10 pb-2 text-center">
+        You wont be able to transfer or redeem this<br />
+        item while your auction is in progress.
       </div>
-      <div class="flex py-4 text-center">
-        <div class="flex-grow flex flex-col">
-          <div class="text-gray-500 mb-2">Start date</div>
-          <div
-            class="flex-grow px-2 py-2 whitespace-nowrap text-lg flex justify-center items-center"
-            use:datePicker={{
-              defaultDate: startDate,
-              enableTime: true,
-              minuteIncrement: 1,
-              onChange: onChangeDateFrom,
-            }}
-          >
-            <span>
-              {formatDate(startDate, 'MMM D, YYYY')}<br />
-              {formatDate(startDate, 'hh:mm A')}
-            </span>
-            <Icon path={mdiChevronDown} color="black" class="inline ml-1" />
+      <div class="flex flex-col px-10 py-2">
+        <div class="flex gap-8 justify-between border-solid border-t border-b border-gray-200 py-4">
+          <ProductModalInfo sku={product.sku} serial={product.serialNumber} />
+        </div>
+        <div class="flex py-4 text-center">
+          <div class="flex-grow flex flex-col">
+            <div class="text-gray-500 mb-2">Start date</div>
+            <div
+              class="flex-grow px-2 py-2 whitespace-nowrap text-lg flex justify-center items-center"
+              use:datePicker={{
+                defaultDate: startDate,
+                enableTime: true,
+                minuteIncrement: 1,
+                onChange: onChangeDateFrom,
+              }}
+            >
+              <span>
+                {formatDate(startDate, 'MMM D, YYYY')}<br />
+                {formatDate(startDate, 'hh:mm A')}
+              </span>
+              <Icon path={mdiChevronDown} color="black" class="inline ml-1" />
+            </div>
+          </div>
+          <div class="flex-grow flex flex-col">
+            <div class="text-gray-500 mb-2">End date</div>
+            <div
+              class="flex-grow px-2 py-2 whitespace-nowrap text-lg flex justify-center items-center"
+              use:datePicker={{ defaultDate: endDate, enableTime: true, minuteIncrement: 1, onChange: onChangeDateTo }}
+            >
+              <span>
+                {formatDate(endDate, 'MMM D, YYYY')}<br />
+                {formatDate(endDate, 'hh:mm A')}
+              </span>
+              <Icon path={mdiChevronDown} color="black" class="inline ml-1" />
+            </div>
           </div>
         </div>
-        <div class="flex-grow flex flex-col">
-          <div class="text-gray-500 mb-2">End date</div>
-          <div
-            class="flex-grow px-2 py-2 whitespace-nowrap text-lg flex justify-center items-center"
-            use:datePicker={{ defaultDate: endDate, enableTime: true, minuteIncrement: 1, onChange: onChangeDateTo }}
-          >
-            <span>
-              {formatDate(endDate, 'MMM D, YYYY')}<br />
-              {formatDate(endDate, 'hh:mm A')}
-            </span>
-            <Icon path={mdiChevronDown} color="black" class="inline ml-1" />
-          </div>
+        {#if errors?.startDate}
+          <div class="text-red-500 font-extrabold italic text-sm mb-2 text-center">{errors.startDate}</div>
+        {/if}
+        <div class="input-container flex items-center relative pt-4 pb-2">
+          <input
+            type="number"
+            name="price"
+            class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center border-2"
+            bind:value={price}
+            placeholder="Enter min bid price"
+            class:border-red-600={!!errors?.price}
+          />
+        </div>
+        {#if errors?.price}
+          <div class="text-red-500 font-extrabold italic text-sm mb-2">{errors.price}</div>
+        {/if}
+        <div class="flex justify-between border-solid border-b border-gray-200 pb-1 mb-1 text-gray-400 font-medium">
+          <span>MarketPlace fee ({marketplaceFee * 100}%)</span>
+          <span>{formatCurrency(fee)}</span>
+        </div>
+        <div class="flex justify-between font-medium">
+          <span>Minimum Final Payout:</span>
+          <span class="font-semibold text-xl">{formatCurrency(total)}</span>
+        </div>
+        <div class="text-gray-400 text-center py-6">
+          All resales of this product a subject to a {product.sku.royaltyFeePercentage}%<br />
+          royalty fee set by and to be paid to the original<br />
+          creator.
+        </div>
+        <div class="w-full mb-6">
+          <Button type="submit" disabled={waitingForAPI}>Start Auction</Button>
         </div>
       </div>
-      <div class="input-container flex items-center relative py-4">
-        <input
-          type="number"
-          min="0"
-          class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center"
-          bind:value={price}
-          on:change={onPriceChange}
-          placeholder="Enter min bid price"
-        />
-      </div>
-      <div class="flex justify-between border-solid border-b border-gray-200 pb-1 mb-1 text-gray-400 font-medium">
-        <span>MarketPlace fee ({marketplaceFee * 100}%)</span>
-        <span>{formatCurrency(fee)}</span>
-      </div>
-      <div class="flex justify-between font-medium">
-        <span>Minimum Final Payout:</span>
-        <span class="font-semibold text-xl">{formatCurrency(total)}</span>
-      </div>
-      <div class="text-gray-400 text-center py-6">
-        All resales of this product a subject to a {product.sku.royaltyFeePercentage}%<br />
-        royalty fee set by and to be paid to the original<br />
-        creator.
-      </div>
-      <div class="w-full mb-6">
-        <Button type="button" disabled={waitingForAPI} on:click={onStartAuction}>Start Auction</Button>
-      </div>
-    </div>
+    </form>
   </Modal>
 {/if}
 

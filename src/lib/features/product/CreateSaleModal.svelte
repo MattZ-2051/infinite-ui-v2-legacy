@@ -1,9 +1,12 @@
 <script lang="ts">
   import type { Product, ListingSalePayload } from '$lib/sku-item/types';
+  import { validateSchema } from '@felte/validator-yup';
+  import * as yup from 'yup';
+  import { createForm } from 'felte';
   import { toast } from '$ui/toast';
-  import { closeModal, Modal } from '$ui/modals';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import Button from '$lib/components/Button.svelte';
+  import { closeModal, Modal } from '$ui/modals';
   import { formatCurrency } from '$util/format';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import { saleStarted } from './product.store';
@@ -12,7 +15,7 @@
   export let product: Product;
   export let isOpen: boolean;
 
-  let price: number;
+  let price = 0;
   let disabled = false;
 
   $: marketplaceFee = product?.resaleSellersFeePercentage;
@@ -44,69 +47,91 @@
       disabled = false;
     }
   }
+
+  const schema = yup.object({
+    price: yup
+      .number()
+      .typeError('Enter a valid number.')
+      .moreThan(0, 'Enter a positive amount.')
+      .required('Amount is required.'),
+  });
+
+  const { form, errors } = createForm({
+    onSubmit: async () => {
+      startSale();
+    },
+    validate: validateSchema(schema),
+  });
 </script>
 
 {#if isOpen}
   <Modal title="List your NFTs for sale" on:close={closeModal} class="max-w-md">
-    <div class="flex flex-col px-10 mb-4">
-      <div class="flex flex-col justify-evenly gap-3 py-5 align-middle border-t border-b border-gray-200">
-        <div class="flex justify-between">
-          <span>{product.sku.issuerName}</span>
-          <Rarity rarity={product.sku.rarity} />
-        </div>
-        <span class="text-xl">{product.sku.name}</span>
-        <div class="flex justify-between">
-          <div class="flex items-center flex-wrap flex-grow">
-            {#if product.sku?.series?.name}
-              <span>{product.sku.series.name}</span>
-            {/if}
-            {#if product.sku?.redeemable}
-              <IconRedeem size="0.7" class="mr-1" />
-              / Redeemable
-            {/if}
+    <form use:form>
+      <div class="flex flex-col px-10 mb-4">
+        <div class="flex flex-col justify-evenly gap-3 py-5 align-middle border-t border-b border-gray-200">
+          <div class="flex justify-between">
+            <span>{product.sku.issuerName}</span>
+            <Rarity rarity={product.sku.rarity} />
           </div>
-          <div class="flex justify-self-end ml-4">
-            <span class="text-gray-400">Serial:</span>
-            <span>#{product.serialNumber}</span>
+          <span class="text-xl">{product.sku.name}</span>
+          <div class="flex justify-between">
+            <div class="flex items-center flex-wrap flex-grow">
+              {#if product.sku?.series?.name}
+                <span>{product.sku.series.name}</span>
+              {/if}
+              {#if product.sku?.redeemable}
+                <IconRedeem size="0.7" class="mr-1" />
+                / Redeemable
+              {/if}
+            </div>
+            <div class="flex justify-self-end ml-4">
+              <span class="text-gray-400">Serial:</span>
+              <span>#{product.serialNumber}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex flex-col gap-5 my-6">
-        <div class="input-container flex items-center relative">
-          <input
-            type="number"
-            bind:value={price}
-            class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center"
-          />
-        </div>
-        <div class="flex justify-between text-gray-400">
-          <span>Marketplace fee ({marketplaceFee}%):</span>
-          <span>{formatCurrency(marketplaceFeePrice)}</span>
-        </div>
-        {#if creatorRoyalFee}
+        <div class="flex flex-col gap-2 my-6">
+          <div class="input-container flex flex-col items-center relative">
+            <input
+              name="price"
+              type="number"
+              bind:value={price}
+              class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center border-2 "
+              class:border-red-600={!!$errors.price}
+            />
+          </div>
+          {#if $errors.price}
+            <div class="text-red-500 font-extrabold italic text-sm ">{$errors.price}</div>
+          {/if}
           <div class="flex justify-between text-gray-400">
-            <span>Creator royalty fee ({creatorRoyalFee}%):</span>
-            <span>{formatCurrency(creatorRoyalFeePrice)}</span>
+            <span>Marketplace fee ({marketplaceFee}%):</span>
+            <span>{formatCurrency(marketplaceFeePrice)}</span>
           </div>
-        {/if}
-      </div>
-      <div class="flex flex-col gap-5 pt-5 border-t border-gray-200">
-        <div class="flex justify-between  font-bold">
-          <span>Final Payout:</span>
-          <span class="text-xl">{formatCurrency(total)}</span>
+          {#if creatorRoyalFee}
+            <div class="flex justify-between text-gray-400">
+              <span>Creator royalty fee ({creatorRoyalFee}%):</span>
+              <span>{formatCurrency(creatorRoyalFeePrice)}</span>
+            </div>
+          {/if}
         </div>
-        <div class="flex flex-col text-gray-400 justify-items-center items-center">
-          <span class="text-center"
-            >Listing your NFT for sale on the marketplace will allow it to be purchased by other users. Once listed for
-            sale it cannot be canceled</span
-          >
-          <a href="https://support.suku.world/" class="text-black underline font-bold">Click here to learn more.</a>
+        <div class="flex flex-col gap-5 pt-5 border-t border-gray-200">
+          <div class="flex justify-between  font-bold">
+            <span>Final Payout:</span>
+            <span class="text-xl">{formatCurrency(total)}</span>
+          </div>
+          <div class="flex flex-col text-gray-400 justify-items-center items-center">
+            <span class="text-center"
+              >Listing your NFT for sale on the marketplace will allow it to be purchased by other users. Once listed
+              for sale it cannot be canceled</span
+            >
+            <a href="https://support.suku.world/" class="text-black underline font-bold">Click here to learn more.</a>
+          </div>
+        </div>
+        <div class="flex items-center py-4">
+          <Button type="submit" {disabled}>Start Sale</Button>
         </div>
       </div>
-    </div>
-    <div class="flex items-center" slot="footer">
-      <Button disabled={disabled || !price} on:click={startSale}>Start Sale</Button>
-    </div>
+    </form>
   </Modal>
 {/if}
 
@@ -114,7 +139,8 @@
   .input-container::before {
     content: '$';
     position: absolute;
-    left: 10px;
+    left: 12px;
+    bottom: 12px;
     z-index: 1;
     @apply text-xl;
     @apply text-gray-400;
