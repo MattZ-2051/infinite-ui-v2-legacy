@@ -35,7 +35,7 @@
     {
       id: 1,
       name: 'Release date',
-      order: 'desc',
+      order: 'asc',
       value: 'startDate',
     },
     {
