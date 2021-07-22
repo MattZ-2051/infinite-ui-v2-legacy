@@ -183,7 +183,7 @@
               {formatCurrency(+cost.finalPayout)}
             {/if}
             {#if type === 'sale' && status === 'error'}
-              <span class="line-through">{formatCurrency(+cost.finalPayout)}</span>
+              <span class="line-through">{formatCurrency(+cost?.finalPayout)}</span>
             {/if}
             {#if type === 'deposit'}
               {formatCurrency(+deposit.amount)}
