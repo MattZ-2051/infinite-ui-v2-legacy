@@ -9,7 +9,7 @@
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
   import { loading } from './marketplace.api';
-  import { modeFilters, setFilters } from './marketplace.service';
+  import { setFilters } from './marketplace.service';
 
   export let skus: Sku[];
   export let total: number;
@@ -66,21 +66,12 @@
       <img src={filters} alt="Filters" />
     </button>
   </div>
-  <div class="py-3 gap-2 {showFilters ? 'hidden' : 'flex'}">
-    {#if !showFilters}
-      <div class="flex flex-grow items-center gap-2 text-gray-400 cursor-pointer md:hidden">
-        {#each modeFilters as { label, status } (status)}
-          {#if status ? $page.query.get('mode') === status : !$page.query.get('mode')}
-            <span class="text-black text-2xl filter-summary">{label}</span>
-          {/if}
-        {/each}
-      </div>
-    {/if}
-    <div class="flex items-center justify-end md:justify-between w-full">
-      <div class="hidden md:flex">
+  <div class="gap-2 {showFilters ? 'hidden' : 'flex'}">
+    <div class="flex flex-wrap items-center justify-end md:justify-between w-full">
+      <div class="py-3 flex-1">
         <Search />
       </div>
-      <div class="sort-container">
+      <div class="py-3 ml-4 sort-container">
         <Sort on:select={sort} {sortOptions} />
       </div>
     </div>

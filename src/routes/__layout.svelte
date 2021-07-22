@@ -1,4 +1,5 @@
 <script context="module" lang="ts">
+  import { derived } from 'svelte/store';
   import { browser } from '$app/env';
   import { variables } from '$lib/variables';
 
@@ -31,9 +32,14 @@
   if (browser) {
     initUserAuth();
   }
+
+  const navigationPathChanging = derived(
+    navigating,
+    ($navigating) => $navigating && $navigating.from.path !== $navigating.to.path
+  );
 </script>
 
-{#if $navigating || $isLoading}
+{#if $navigationPathChanging || $isLoading}
   <PreloadIndicator />
 {/if}
 

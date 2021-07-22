@@ -30,6 +30,7 @@
     "flatpickr": "4.6.9",
     "focus-trap": "^6.6.0",
     "just-debounce": "1.1.0",
+    "p-debounce": "^4.0.0",
     "svelte-media": "0.1.4",
     "tippy.js": "6.3.1",
     "xss": "^1.0.9",

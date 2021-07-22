@@ -163,20 +163,21 @@
           class="hidden gap-1 text-base text-black font-black italic cursor-pointer md:flex"
         >
           Clear All
-          <Icon path={mdiWindowClose} size="0.8" class="self-center cursor-pointer" />
+          <Icon path={mdiWindowClose} size="0.75" class="self-center cursor-pointer" />
         </div>
       {/if}
     </div>
     <div class="flex flex-wrap gap-1">
       {#each filters as filter}
-        <div class="flex font-black bg-black text-white italic rounded-xl px-2 py-1">
-          <span>{filter.label}</span>
-          <Icon
-            path={mdiWindowClose}
-            size="0.8"
-            class="self-center cursor-pointer"
+        <div class="truncate relative font-black bg-black text-white italic rounded-xl pl-2 pr-7 py-1">
+          <span title={filter.label}>{filter.label}</span>
+          <button
+            type="button"
             on:click={() => removeFilter(filter)}
-          />
+            class="absolute transform -translate-y-1/2 top-1/2 right-1.5"
+          >
+            <Icon path={mdiWindowClose} size="0.75" />
+          </button>
         </div>
       {/each}
     </div>

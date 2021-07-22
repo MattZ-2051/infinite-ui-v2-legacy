@@ -1,23 +1,28 @@
 <script context="module" lang="ts">
   import type { LoadInput } from '@sveltejs/kit';
   import type { Sku, Profile, Series } from '$lib/sku-item/types';
+  import debounce from 'p-debounce';
+  import { browser } from '$app/env';
   import { loadMarketplaceFilters, loadMarketplaceItems } from '$lib/features/marketplace/marketplace.api';
 
-  export async function load({ fetch, page }: LoadInput) {
-    const [filters, items] = await Promise.all([
-      loadMarketplaceFilters({ fetch }),
-      loadMarketplaceItems({ fetch, query: page.query }),
-    ]);
-    const { data, total } = items;
+  export const load = debounce(
+    async ({ fetch, page }: LoadInput) => {
+      const [filters, items] = await Promise.all([
+        loadMarketplaceFilters({ fetch }),
+        loadMarketplaceItems({ fetch, query: page.query }),
+      ]);
+      const { data, total } = items;
 
-    return {
-      props: {
-        ...filters,
-        skus: data,
-        total,
-      },
-    };
-  }
+      return {
+        props: {
+          ...filters,
+          skus: data,
+          total,
+        },
+      };
+    },
+    browser ? 300 : 0
+  );
 </script>
 
 <script lang="ts">

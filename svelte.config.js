@@ -31,6 +31,10 @@ const config = {
       },
       plugins: [imagetools()],
 
+      ssr: {
+        noExternal: ['p-debounce'],
+      },
+
       define: {
         'process.env.tw': JSON.stringify({ screens: tailwindConfig.theme.screens }),
       },
@@ -51,6 +55,7 @@ const config = {
           'focus-trap',
           'just-debounce',
           'msw',
+          'p-debounce',
           'svelte-media',
           'tippy.js',
           'xss',
