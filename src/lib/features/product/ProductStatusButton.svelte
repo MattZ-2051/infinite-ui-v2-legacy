@@ -2,8 +2,16 @@
   import type { Product } from '$lib/sku-item/types';
   import { userId } from '$lib/user';
   import { formatCurrency } from '$util/format';
-  import { hasActiveSale, canBuy, hasNoSale, hasUpcomingSale } from './product.service';
+  import {
+    hasActiveSale,
+    canBuy,
+    hasNoSale,
+    hasUpcomingSale,
+    hasUpcomingAuction,
+    hasActiveAuction,
+  } from './product.service';
   import { onOrderIntent } from '../order/order.service';
+  import { maxPlacedBid } from './product.store';
 
   export let product: Product;
 
@@ -49,4 +57,18 @@
   >
     Upcoming
   </button>
+{/if}
+{#if hasUpcomingAuction(product)}
+  <div class="flex flex-col text-gray-400">
+    <span class="text-xs ">Upcoming auction</span>
+    <div class="font-semibold text-xl ">
+      <span class="text-white"> {formatCurrency(product?.upcomingProductListings[0]?.minBid)}</span>
+    </div>
+  </div>
+{/if}
+{#if hasActiveAuction(product)}
+  <div class="font-semibold text-xl text-gray-400">
+    {$maxPlacedBid ? 'Highest Bid:' : 'Minimum Bid:'}
+    <span class="text-white"> {formatCurrency($maxPlacedBid ? $maxPlacedBid : product.listing.minBid)}</span>
+  </div>
 {/if}
