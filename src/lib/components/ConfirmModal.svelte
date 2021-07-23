@@ -8,15 +8,26 @@
   export let onConfirm: () => unknown;
   export let onCancel: () => unknown = undefined;
   export let labels = { cancel: 'Cancel', confirm: 'OK' };
-  export let persistent = false;
+  export let persistent = true;
 
-  function onSelect(confirmed: boolean) {
-    closeModal();
+  let disabled = false;
 
+  async function onSelect(confirmed: boolean) {
     if (confirmed) {
-      onConfirm();
-    } else if (onCancel) {
-      onCancel();
+      disabled = true;
+      try {
+        await onConfirm();
+        closeModal();
+      } catch {
+        // Nothing special to do in case of error
+      } finally {
+        disabled = false;
+      }
+    } else {
+      closeModal();
+      if (onCancel) {
+        onCancel();
+      }
     }
   }
 </script>
@@ -32,8 +43,8 @@
     </div>
 
     <div slot="footer" class="flex flex-col gap-4">
-      <Button type="button" on:click={() => onSelect(true)}>{labels?.confirm}</Button>
-      <Button type="button" on:click={() => onSelect(false)} theme="secondary">{labels?.cancel}</Button>
+      <Button type="button" on:click={() => onSelect(true)} {disabled}>{labels?.confirm}</Button>
+      <Button type="button" on:click={() => onSelect(false)} theme="secondary" {disabled}>{labels?.cancel}</Button>
     </div>
   </Modal>
 {/if}
