@@ -10,6 +10,7 @@
 </script>
 
 <button
+  type="button"
   {disabled}
   class="w-full grid grid-cols-3 auto-cols-fr place-content-between items-center gap-4 border-black rounded-2xl border-2 overflow-hidden p-2 text-xl"
   class:cursor-default={disabled}

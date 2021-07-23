@@ -1,6 +1,6 @@
 <script lang="ts">
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
-  import { wallet } from '$lib/features/wallet';
+  import { wallet } from '$lib/features/wallet/wallet.store';
   import CardAdd from '$lib/features/card/CardAdd.svelte';
   import CardFund from '$lib/features/card/CardFund.svelte';
 </script>

@@ -11,8 +11,8 @@
   import { countries } from '$lib/components/form/countries';
   import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
   import FormDistrictsSelect from '$lib/components/form/FormDistrictsSelect.svelte';
-  import { getAchLinkToken, getAchAccessToken } from './ach.api';
   import { openPlaid } from './plaid';
+  import { getAchLinkToken, getAchAccessToken } from './account-add.api';
 
   export let onSubmit: (handler: () => void) => void;
   export let user: User;

@@ -1,7 +1,6 @@
 <script lang="ts">
-  import type { Transaction, Bid } from '$lib/sku-item/types';
+  import type { Bid } from '$lib/sku-item/types';
   import { goto } from '$app/navigation';
-  import { wallet } from '$lib/features/wallet/index';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import TooltipIcon from '$lib/components/TooltipIcon.svelte';
@@ -13,16 +12,12 @@
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
-  import Withdraw from './withdraw/Withdraw.svelte';
+  import WithdrawModal from './withdraw/WithdrawModal.svelte';
+  import { wallet } from './wallet.store';
 
-  export let transactions: Transaction[];
   export let tab: 'transactions' | 'bids';
-  export let bids: Bid[] = [];
-  export let totalTransactions: number;
-  export let totalBids: number;
 
   let selectedDepositMethod: string;
-  let showWithdraw = false;
 
   $: isKycCleared = $wallet?.kycMaxLevel >= 1;
   $: isKycPending = $wallet?.kycPending;
@@ -66,22 +61,20 @@
   class="flex flex-col gap-x-24 gap-y-14 items-center md:flex-row md:justify-between mt-4 md:mt-16 md:items-baseline container"
 >
   <div class="w-full md:w-1/5">
-    <WalletBalance on:deposit={openDepositSelectModal} on:withdraw={() => (showWithdraw = true)} />
+    <WalletBalance on:deposit={openDepositSelectModal} on:withdraw={() => openModal(WithdrawModal)} />
     <hr class="h-px my-5" />
-    <div class="mb-2 mx-6">
-      Account Verification Status <TooltipIcon
-        tooltip={'Account verification is required for users to deposit cryptocurrency'}
-      />
+    <div class="flex flex-col gap-2 mx-4">
+      <div>
+        Account Verification Status <TooltipIcon
+          tooltip={'Account verification is required for users to deposit cryptocurrency'}
+        />
+      </div>
+      <AccountVerification class="mx-2" />
     </div>
-    <AccountVerification class="mx-8" />
   </div>
-  <div class="w-full md:w-4/5"><WalletList {transactions} {totalTransactions} {bids} {totalBids} {tab} /></div>
+  <div class="w-full md:w-4/5"><WalletList {tab} /></div>
 </div>
 
 {#if selectedDepositMethod === 'coinbase'}
   <DepositCoinbase on:checkout-modal-closed={() => (selectedDepositMethod = undefined)} />
-{/if}
-
-{#if showWithdraw}
-  <Withdraw on:close={() => (showWithdraw = false)} />
 {/if}

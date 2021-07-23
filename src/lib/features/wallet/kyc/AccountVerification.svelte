@@ -2,11 +2,10 @@
   import { mdiCancel, mdiClockOutline, mdiShieldCheckOutline } from '@mdi/js';
   import { getPersonalToken } from '$lib/user';
   import { variables } from '$lib/variables';
-  import { wallet } from '$lib/features/wallet/index';
-  import { loadWallet } from '$lib/features/wallet/wallet.api';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
   import injectScript from '$util/injectScript';
+  import { loadWalletFx, wallet } from '../wallet.store';
 
   let personaClient;
 
@@ -24,7 +23,7 @@
         client.render();
       },
       // onStart: (inquiryId) => {}
-      onComplete: (/*inquiryId*/) => loadWallet(),
+      onComplete: (/*inquiryId*/) => loadWalletFx(),
       // onEvent: (name, meta) => {}
     });
 

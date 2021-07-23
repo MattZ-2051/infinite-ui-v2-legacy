@@ -1,17 +1,14 @@
 <script lang="ts">
-  import type { AchAccount } from './types';
+  import type { AchAccount } from '../types';
   import Button from '$lib/components/Button.svelte';
   import { Modal, closeModal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
-  import { withdrawToAchAccount } from './ach.api';
+  import { achAccountWithdrawFx } from './account-withdraw.store';
 
   export let isOpen: boolean;
   export let achAccount: AchAccount;
   export let withdrawableAmount: number;
-  export let onSelectAchAccount: () => void;
-  export let onWithdrawComplete: () => void;
-  export let onClose: () => void;
 
   let amount: number;
 
@@ -21,39 +18,26 @@
     }
   }
 
-  async function onConfirm() {
-    if (!amount) {
-      toast.danger(`Please, provide a valid amount.`);
+  const pending = achAccountWithdrawFx.pending;
 
+  async function onConfirm() {
+    if (!amount || amount < 0) {
+      toast.danger(`Please, provide a valid amount.`);
       return;
     }
 
     if (amount > withdrawableAmount) {
       toast.danger(`Cannot withdraw more than ${formatCurrency(withdrawableAmount)}.`);
-
       return;
     }
 
-    await withdrawToAchAccount(achAccount.id, amount)
-      .then(() => {
-        toast.success('The withdrawal to the ACH account was successful.');
-
-        onWithdrawComplete();
-
-        return true;
-      })
-      .catch(() => toast.danger('There was an error with your withdrawal. Please, try again.'));
-  }
-
-  function _onClose() {
+    await achAccountWithdrawFx({ achAccount, amount });
     closeModal();
-
-    onClose();
   }
 </script>
 
 {#if isOpen}
-  <Modal on:close={_onClose}>
+  <Modal on:close={closeModal}>
     <div class="flex flex-col gap-4 px-10" slot="title">
       <img src={achAccount.plaidInfo.institution_logo} alt="Institution Logo" class="w-full max-w-md" />
       <div class="font-semibold text-center text-2xl">{achAccount.plaidInfo.metadata.institution.name}</div>
@@ -76,8 +60,8 @@
       </div>
     </div>
     <div slot="footer" class="flex flex-col gap-4">
-      <Button type="button" on:click={onConfirm}>Confirm Withdraw</Button>
-      <Button type="button" on:click={onSelectAchAccount} theme="secondary">Go Back</Button>
+      <Button on:click={onConfirm} disabled={$pending}>Confirm Withdraw</Button>
+      <Button on:click={closeModal} theme="secondary">Go Back</Button>
     </div>
   </Modal>
 {/if}

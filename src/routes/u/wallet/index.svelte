@@ -13,33 +13,23 @@
 </script>
 
 <script lang="ts">
-  import type { Transaction, Bid } from '$lib/sku-item/types';
-  import { loadBids, loadTransactions } from '$lib/features/wallet/wallet.api';
+  import { loadMyBidsFx, loadMyTransactionsFx } from '$lib/features/wallet/wallet.store';
   import Wallet from '$lib/features/wallet/Wallet.svelte';
   import { userId } from '$lib/user';
 
   export let page: number;
   export let tab: 'transactions' | 'bids';
   export let sortBy: 'createdAt:asc' | 'createdAt:desc';
-  let transactions: Transaction[];
-  let bids: Bid[];
-  let total: number;
-  let totalTransactions: number;
-  let totalBids: number;
 
   async function _load(t: 'transactions' | 'bids', p: number, _sortBy) {
     if (t === 'transactions') {
-      totalBids = -1; //to avoid flickering when switching tabs
-      ({ transactions, total } = await loadTransactions(p, _sortBy));
-      totalTransactions = total;
+      await loadMyTransactionsFx({ page: p, sortBy: _sortBy });
     } else if (t === 'bids') {
-      totalTransactions = -1; //to avoid flickering when switching tabs
-      ({ bids, total } = await loadBids(p, _sortBy));
-      totalBids = total;
+      await loadMyBidsFx({ page: p, sortBy: _sortBy });
     }
   }
 
   $: $userId && _load(tab, page, sortBy);
 </script>
 
-<Wallet {transactions} {totalTransactions} {bids} {totalBids} {tab} />
+<Wallet {tab} />

@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { wallet } from '$lib/features/wallet';
-  import { loadWallet } from '$lib/features/wallet/wallet.api';
+  import { loadWalletFx } from '$lib/features/wallet/wallet.store';
   import { userId } from '$lib/user';
 
-  $: $userId && ($wallet || loadWallet());
+  $: $userId && loadWalletFx();
 </script>
 
 <slot />

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Transaction, Bid } from '$lib/sku-item/types';
   import { TabHeader } from '$ui/tabs';
   import { gotoQueryParameters } from '$util/queryParameter';
   import Sort from '$lib/components/Sort.svelte';
@@ -7,10 +6,6 @@
   import BidList from './BidList.svelte';
 
   export let tab: 'transactions' | 'bids';
-  export let transactions: Transaction[] = [];
-  export let bids: Bid[] = [];
-  export let totalTransactions: number;
-  export let totalBids: number;
 
   const sortOptions = [
     {
@@ -53,11 +48,11 @@
 </nav>
 
 {#if tab === 'transactions'}
-  <TransactionList {transactions} {totalTransactions} />
+  <TransactionList />
 {/if}
 
 {#if tab === 'bids'}
-  <BidList {bids} {totalBids} />
+  <BidList />
 {/if}
 
 <style>

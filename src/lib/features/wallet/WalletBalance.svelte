@@ -1,9 +1,9 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { withdrawableBalance } from '$lib/features/wallet/index';
   import { user } from '$lib/user';
   import { TabHeader } from '$ui/tabs';
   import { formatCurrency } from '$util/format';
+  import { withdrawableBalance } from './wallet.store';
 
   const dispatch = createEventDispatcher();
 </script>
