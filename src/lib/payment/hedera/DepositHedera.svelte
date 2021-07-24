@@ -51,7 +51,7 @@
         <WalletAddress />
         <HederaTransactionList {transactions} />
         <Button on:click={checkPayments}>Check for new HBAR deposits</Button>
-        <Button on:click={onClose} theme="secondary">Back to wallet</Button>
+        <Button on:click={onClose} variant="secondary">Back to wallet</Button>
       {:else}
         <div class="flex flex-col gap-1">
           <span>Step 1:</span>

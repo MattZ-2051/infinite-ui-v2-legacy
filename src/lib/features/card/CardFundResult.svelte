@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import { closeModal, Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
 
@@ -16,7 +15,7 @@
           Check your open tabs to refresh your previous screen to see your added funds.<br />
           or
         </div>
-        <Button type="button" on:click={() => goto('/marketplace')}>Go to Marketplace</Button>
+        <Button href="/marketplace">Go to Marketplace</Button>
         <a href="/u/wallet" class="text-black text-xl">View Wallet</a>
       {:else if status === 'error'}
         <div class="text-2xl text-black">⚠️ Whoops, something went wrong.</div>

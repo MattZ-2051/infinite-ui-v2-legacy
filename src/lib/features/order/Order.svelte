@@ -101,7 +101,7 @@
           </div>
         {:else if insufficientFunds}
           <span> You need more founds to make this purchase. </span>
-          <a href="/u/wallet"><Button type="button">Add Funds</Button></a>
+          <Button href="/u/wallet">Add Funds</Button>
         {:else}
           <span class="font-bold text-center">
             <div class="text-black">

@@ -3,6 +3,7 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
+  import Button from '$lib/components/Button.svelte';
   import { getActiveListings, getUpcomingListings, getLimitedAuctionCollector } from './sku.service';
   import LimitedAuctionPriceBox from './LimitedAuctionPriceBox.svelte';
 
@@ -41,14 +42,8 @@
           </div>
         {/if}
       </div>
-      <div class="w-full flex-grow flex justify-center col-span-2 md:col-span-1 md:w-auto">
-        <button
-          type="button"
-          class="w-11/12 md:max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl py-3 mb-6 md:mb-0"
-          on:click={onBuy}
-        >
-          Buy Now
-        </button>
+      <div class="flex-grow col-span-2 md:col-span-1">
+        <Button on:click={onBuy} variant="tertiary">Buy Now</Button>
       </div>
       {#if totalCollectors > 0}
         <div class="border-b-2 border-gray-800 col-span-3" />
@@ -63,13 +58,8 @@
           </div>
           <div class="text-sm">{`(${sku.countProductListings || 0} for sale)`}</div>
         </div>
-        <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
-          <a
-            href="/collectors/{sku._id}"
-            class="w-11/12 md:max-w-xs text-center mb-6 bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl py-3"
-          >
-            See All
-          </a>
+        <div class="flex-grow col-span-2 md:col-span-1">
+          <Button variant="tertiary" href="/collectors/{sku._id}">See All</Button>
         </div>
       {/if}
     </div>
@@ -107,14 +97,8 @@
           {sku?.totalSkuListingSupplyLeft >= 0 && `(${sku?.totalSkuListingSupplyLeft} left)`}
         </div>
       </div>
-      <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
-        <button
-          type="button"
-          disabled={true}
-          class="w-11/12 md:max-w-xs text-center bg-white text-black cursor-default rounded-full text-xl px-10 py-3 mb-6 md:mb-0"
-        >
-          Sold Out
-        </button>
+      <div class="flex-grow col-span-2 md:col-span-1">
+        <Button disabled={true} variant="tertiary">Sold Out</Button>
       </div>
       <div class="border-b-2 border-gray-800 col-span-3" />
       <div class="flex-grow text-gray-400">
@@ -127,13 +111,8 @@
         </div>
         <div class="text-sm">{`(${sku.countProductListings} ${sku.countProductListings ? 'for' : 'on'} sale)`}</div>
       </div>
-      <div class="flex-grow flex justify-center col-span-2 md:col-span-1">
-        <a
-          href="/collectors/{sku._id}"
-          class="w-11/12 md:max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl px-10 py-3"
-        >
-          See All
-        </a>
+      <div class="flex-grow col-span-2 md:col-span-1">
+        <Button variant="tertiary" href="/collectors/{sku._id}">See All</Button>
       </div>
     </div>
   </div>

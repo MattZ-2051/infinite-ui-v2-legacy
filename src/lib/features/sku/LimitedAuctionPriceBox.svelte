@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { CollectorProduct } from '$lib/sku-item/types';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
+  import Button from '$lib/components/Button.svelte';
 
   export let collector: CollectorProduct;
 
@@ -50,13 +51,8 @@
         </div>
       </div>
     {/if}
-    <div class="flex-grow flex self-center justify-center col-span-2 md:col-span-1">
-      <a
-        href="/product/{listing.product}"
-        class="w-11/12 md:max-w-xs text-center bg-white text-black hover:bg-gray-500 hover:text-white rounded-full text-xl py-3"
-      >
-        View NFT
-      </a>
+    <div class="flex-grow col-span-2 md:col-span-1">
+      <Button variant="tertiary" href="/product/{listing.product}">View NFT</Button>
     </div>
   </div>
 </div>

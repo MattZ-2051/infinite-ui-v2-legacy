@@ -44,7 +44,7 @@
 
     <div slot="footer" class="flex flex-col gap-4">
       <Button type="button" on:click={() => onSelect(true)} {disabled}>{labels?.confirm}</Button>
-      <Button type="button" on:click={() => onSelect(false)} theme="secondary" {disabled}>{labels?.cancel}</Button>
+      <Button type="button" on:click={() => onSelect(false)} variant="secondary" {disabled}>{labels?.cancel}</Button>
     </div>
   </Modal>
 {/if}

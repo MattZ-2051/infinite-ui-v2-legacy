@@ -2,32 +2,31 @@ import { render, fireEvent } from '@testing-library/svelte';
 import Button from './Button.svelte';
 
 describe('Button', () => {
-  it('render correctly', async () => {
-    const { container } = render(Button, {
+  it('render correctly', () => {
+    const { getByRole } = render(Button, {
       props: { test: '123' },
     });
-    const button: HTMLButtonElement = container.querySelector('button');
+    const button = getByRole('button');
 
-    expect(button.type).toEqual('button');
+    expect(button).toHaveAttribute('type', 'button');
     expect(button).toHaveAttribute('test', '123');
-    expect(button).toHaveClass('bg-black');
+    expect(button).toHaveClass('primary', 'hover:scale-105', 'transform', 'duration-200');
   });
 
-  it('should support passing of a class prop', async () => {
-    const { container } = render(Button, {
+  it('should support passing of a class prop', () => {
+    const { getByRole } = render(Button, {
       props: { class: 'my-custom-class' },
     });
-    const button: HTMLButtonElement = container.querySelector('button');
+    const button = getByRole('button');
 
-    expect(button).toHaveClass('bg-black');
-    expect(button).toHaveClass('my-custom-class');
+    expect(button).toHaveClass('primary', 'my-custom-class');
   });
 
-  it('should forward events', async () => {
-    const { component, container } = render(Button, {
+  it('should forward events', () => {
+    const { component, getByRole } = render(Button, {
       props: {},
     });
-    const button = container.querySelector('button');
+    const button = getByRole('button');
 
     const mock = jest.fn();
     component.$on('click', mock);
@@ -35,5 +34,49 @@ describe('Button', () => {
     expect(mock).not.toHaveBeenCalled();
     fireEvent.click(button);
     expect(mock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should support secondary variant', () => {
+    const { getByRole } = render(Button, {
+      props: { variant: 'secondary' },
+    });
+    const button = getByRole('button');
+    expect(button).toHaveClass('secondary');
+  });
+
+  it('should support tertiary variant', () => {
+    const { getByRole } = render(Button, {
+      props: { variant: 'tertiary' },
+    });
+    const button = getByRole('button');
+    expect(button).toHaveClass('tertiary');
+  });
+
+  it('should have disabled state', () => {
+    const { getByRole } = render(Button, {
+      props: { disabled: true },
+    });
+    const button = getByRole('button');
+    expect(button).toBeDisabled();
+    expect(button).toHaveClass('pointer-events-none');
+    expect(button).not.toHaveClass('hover:scale-105');
+  });
+
+  it('should render as a link', () => {
+    const { getByRole } = render(Button, {
+      props: { href: '/marketplace' },
+    });
+    const link = getByRole('link');
+    expect(link).toHaveAttribute('href', '/marketplace');
+    expect(link).toHaveAttribute('aria-disabled', 'false');
+  });
+
+  it('should support disabled state in links', () => {
+    const { getByRole } = render(Button, {
+      props: { href: '/marketplace', disabled: true },
+    });
+    const link = getByRole('link');
+    expect(link).toHaveAttribute('href', '');
+    expect(link).toHaveAttribute('aria-disabled', 'true');
   });
 });

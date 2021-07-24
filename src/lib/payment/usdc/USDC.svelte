@@ -66,12 +66,7 @@
       <p>Funds sent to the following address will be credited to your wallet:</p>
       {#if $address}
         <div class="mt-8 text-center">
-          <input
-            type="text"
-            disabled
-            value={$address}
-            class="border-b-2 border-dotted bg-transparent outline-none focus:outline-none w-96"
-          />
+          <input type="text" disabled value={$address} class="border-b-2 border-dotted bg-transparent w-96" />
           <div class="mt-4 text-xs max-w-xs mx-auto">
             This is a USDC (Ethereum mainnet) address. Please do not send any other currencies to this address, it
             accepts USDC only. Funds sent to this address will be automatically credited to your account.
@@ -99,9 +94,7 @@
       {:else}
         <div class="flex flex-col items-center my-12">
           <div class="inline-block">
-            <Button disabled={false} class="focus:outline-none" on:click={onGenerateUSDCAddress}>
-              Generate USDC Address
-            </Button>
+            <Button on:click={onGenerateUSDCAddress}>Generate USDC Address</Button>
           </div>
         </div>
       {/if}
