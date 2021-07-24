@@ -1,29 +1,37 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { time } from './clock';
-  import { timeRemaining } from './time.service';
+  import { timeRemainingFormat } from './time.service';
 
   export let date: Date | string;
 
   const dispatch = createEventDispatcher();
 
-  $: _date = typeof date === 'string' ? new Date(date) : date;
+  let _$time;
 
-  $: difference = timeRemaining(_date, $time);
+  const unsubscribe = time.subscribe((value) => {
+    _$time = value;
+  });
+
+  $: _date = typeof date === 'string' ? new Date(date) : date;
+  let difference: { days: number; hours: number; minutes: number; seconds: number };
 
   $: {
-    if (!difference.some((x) => x !== 0)) {
+    const delta = (+_date - +_$time) / 1000;
+    difference = timeRemainingFormat(Math.max(delta, 0));
+    if (delta <= 0) {
       dispatch('zero');
+      unsubscribe();
     }
   }
 </script>
 
 <span class="tabular-nums">
-  {#if difference[0] > 0}
-    {difference[0]}d
+  {#if difference.days > 0}
+    {difference.days}d
   {/if}
-  {difference[1]}h {`${difference[2]}`.padStart(2, '0')}m
-  {#if difference[0] < 1}
-    {`${difference[3]}`.padStart(2, '0')}s
+  {difference.hours}h {`${difference.minutes}`.padStart(2, '0')}m
+  {#if difference.days < 1}
+    {`${difference.seconds}`.padStart(2, '0')}s
   {/if}
 </span>

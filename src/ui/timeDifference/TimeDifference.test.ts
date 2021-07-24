@@ -65,4 +65,11 @@ describe('TimeDifference', () => {
     await (time as Writable<Date>).set(new Date(2021, 6, 7, 14, 1, 31));
     expect(container).toHaveTextContent('1h 18m 49s');
   });
+
+  it('should show zero for past dates', async () => {
+    const { container } = render(TimeDifference, {
+      props: { date: new Date(2020, 6, 7, 15, 20, 20) },
+    });
+    expect(container).toHaveTextContent('0h 00m 00s');
+  });
 });
