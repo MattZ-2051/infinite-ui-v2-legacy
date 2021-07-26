@@ -9,7 +9,8 @@
   export let after = '';
   export let error: string | string[] = '';
 
-  const klass = 'flex-grow appearance-none bg-transparent w-full leading-tight font-black px-0.5 border-0 focus:ring-0';
+  const klass =
+    'flex-grow appearance-none bg-transparent w-full leading-tight focus:outline-none font-black px-0.5 border-0 focus:ring-0';
 
   $: cols = +($$slots.before || before) + 1 + +($$slots.after || after);
 </script>
