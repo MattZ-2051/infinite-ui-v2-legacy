@@ -49,11 +49,11 @@
 <div class="flex flex-col min-h-screen">
   <Header />
 
-  <main class="relative flex flex-col flex-grow">
-    <div class="fixed top-0 left-0 right-0 text-xl italic font-extrabold z-50">
-      <ToastContainer />
-    </div>
+  <div class="sticky top-0 z-50">
+    <ToastContainer class="absolute top-0 left-0 right-0 overflow-hidden text-xl italic font-extrabold" />
+  </div>
 
+  <main class="relative flex flex-col flex-grow">
     <slot />
   </main>
   <Footer />
