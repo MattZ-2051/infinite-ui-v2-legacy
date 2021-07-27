@@ -27,19 +27,20 @@
   }
 
   function onDepositSelect(id: 'circle' | 'usdc' | 'coinbase' | 'hbar') {
-    if (!isKycCleared && (id === 'circle' || id === 'coinbase' || id === 'hbar')) {
+    // Credit cards do not need KYC
+    if (id === 'circle') {
+      goto('/u/wallet/deposit');
+      return;
+    }
+
+    // Cryptocurrencies...
+    if (!isKycCleared) {
       const prompt = isKycPending
         ? 'wait until we validate your identity.'
         : 'complete the required account validation steps. ' +
           '<a href="https://support.suku.world/infinite/how-does-kyc-work">Learn more.</a>';
 
-      toast.danger(`To deposit cryptocurrency, please, ${prompt}`);
-
-      return;
-    }
-
-    if (id === 'circle') {
-      goto('/u/wallet/deposit');
+      toast.warning(`To deposit cryptocurrency, please, ${prompt}`);
       return;
     }
 
