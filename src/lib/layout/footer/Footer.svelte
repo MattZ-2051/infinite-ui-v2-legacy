@@ -16,7 +16,7 @@
       <a href="/terms" class="hover:text-white">Terms & Conditions</a>
     </div>
     <span class="text-sm px-4 flex flex-wrap gap-1 justify-center"
-      ><span>ARIA© 2021</span><span>All rights reserved.</span></span
+      ><span>ARIA Exchange © 2021</span><span>All rights reserved.</span></span
     >
   </div>
 </div>
