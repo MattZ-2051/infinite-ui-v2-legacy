@@ -195,7 +195,7 @@
               {formatCurrency(transaction.transactionData.withdraw.amount)}
             {/if}
             {#if type === 'purchase' && status === 'error'}
-              <span class="line-through">{formatCurrency(cost.totalCost)}</span>
+              <span class="line-through">{formatCurrency(cost?.totalCost)}</span>
             {/if}
           </span>
         </div>
