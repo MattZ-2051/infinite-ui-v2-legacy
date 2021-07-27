@@ -67,7 +67,7 @@
           <div class="text-2xl">We're processing your order!</div>
         {:else}
           <div class="text-2xl">
-            {#if insufficientFunds}⚠️ Whoops, insuficient funds!{:else}Confirm your order:{/if}
+            {#if insufficientFunds}⚠️ Whoops, insufficient funds!{:else}Confirm your order:{/if}
           </div>
           <div class={insufficientFunds ? 'text-red-500' : 'text-green-500'}>
             Your current balance {formatCurrency(user.availableBalance)}
