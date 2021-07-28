@@ -26,7 +26,14 @@
   let result: SkuPurchaseTransaction;
   $: _sku = product ? product.sku : sku;
 
+  let acceptedTerms = false;
+
   async function submitOrder() {
+    if (!acceptedTerms) {
+      toast.danger('Please agree to the terms and conditions.');
+      return;
+    }
+
     purchasing = true;
     try {
       result = await purchaseSkuListing(listing._id);
@@ -103,10 +110,20 @@
           <span> You need more founds to make this purchase. </span>
           <Button href="/u/wallet">Add Funds</Button>
         {:else}
+          <div class="flex items-center justify-center py-4 my-4">
+            <label class="inline-flex items-center">
+              <input
+                type="checkbox"
+                bind:checked={acceptedTerms}
+                class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
+              />
+              I accept the <a href="/terms" class="ml-1 underline">Terms & Conditions</a>
+            </label>
+          </div>
           <span class="font-bold text-center">
-            <div class="text-black">
+            <!-- <div class="text-black">
               Royalty fee per unit aprox {formatCurrency(royaltyFee)} ({_sku.royaltyFeePercentage}%)
-            </div>
+            </div> -->
             <div>Confirming this action will deduct the associated funds from your wallet.</div>
           </span>
           <Button type="button" disabled={purchasing} on:click={submitOrder}>Place Order</Button>

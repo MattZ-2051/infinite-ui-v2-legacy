@@ -3,6 +3,7 @@
   import type { User } from '$lib/user/types';
   import { variables } from '$lib/variables';
   import { closeModal, Modal } from '$ui/modals';
+  import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
@@ -21,7 +22,14 @@
   $: fee = formatCurrency(marketplaceFee * amount);
   $: total = formatCurrency(amount * (1 + marketplaceFee));
 
+  let acceptedTerms = false;
+
   async function onPlaceBid() {
+    if (!acceptedTerms) {
+      toast.danger('Please agree to the terms and conditions.');
+      return;
+    }
+
     await placeBidFx({ listing, amount });
     closeModal();
   }
@@ -55,6 +63,16 @@
         Placing a bid will freeze the associated funds from your wallet until the auction ends. Bids cannot be canceled
         but can be increased as the auction progresses.
       </div>
+    </div>
+    <div class="flex items-center justify-center py-4 my-4">
+      <label class="inline-flex items-center">
+        <input
+          type="checkbox"
+          bind:checked={acceptedTerms}
+          class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
+        />
+        I accept the <a href="/terms" class="ml-1 underline">Terms & Conditions</a>
+      </label>
     </div>
     <div class="text-gray-400 px-10 py-4 my-4">
       <div class="max-w-md m-auto text-center">
