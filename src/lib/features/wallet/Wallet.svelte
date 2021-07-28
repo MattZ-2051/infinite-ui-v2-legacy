@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Bid } from '$lib/sku-item/types';
   import { goto } from '$app/navigation';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
@@ -7,7 +6,6 @@
   import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
   import USDC from '$lib/payment/usdc/USDC.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
-  import WalletHead from './WalletHead.svelte';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import WalletList from './WalletList.svelte';
@@ -55,8 +53,10 @@
   }
 </script>
 
-<div>
-  <WalletHead />
+<div class="header">
+  <div class="container">
+    <div class="py-5 md:py-10 text-white text-3xl">My Wallet</div>
+  </div>
 </div>
 <div
   class="flex flex-col gap-x-24 gap-y-14 items-center md:flex-row md:justify-between mt-4 md:mt-16 md:items-baseline container"
@@ -79,3 +79,9 @@
 {#if selectedDepositMethod === 'coinbase'}
   <DepositCoinbase on:checkout-modal-closed={() => (selectedDepositMethod = undefined)} />
 {/if}
+
+<style>
+  .header {
+    background: #101010;
+  }
+</style>
