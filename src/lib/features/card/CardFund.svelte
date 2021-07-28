@@ -6,23 +6,21 @@
   import * as yup from 'yup';
   import { mdiLightbulbOnOutline } from '@mdi/js';
 
-  import { goto } from '$app/navigation';
   import { user } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import { openModal } from '$ui/modals';
-  import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import FormInput from '$lib/components/form/FormInput.svelte';
-  import { addCreditCardFunds, deleteCreditCard } from './card.api';
+  import { creditCardFundsAddFx, creditCardRemoveFx } from './card.store';
   import CardFundResult from './CardFundResult.svelte';
   import CreditCardComponent from './CreditCard.svelte';
   import CircleContainer from './CircleContainer.svelte';
 
   export let card: CreditCard;
 
-  let saving: Promise<unknown>;
-  let removing: Promise<unknown>;
+  const saving = creditCardFundsAddFx.pending;
+  const removing = creditCardRemoveFx.pending;
 
   const schema = yup.object({
     amount: yup
@@ -39,14 +37,13 @@
     onSubmit: async ({ amount }) => {
       let status: 'success' | 'error';
       try {
-        await (saving = addCreditCardFunds(card.id, { amount, email: $user.email }));
+        await creditCardFundsAddFx({ card, amount, email: $user.email });
         status = 'success';
         reset();
       } catch {
         status = 'error';
       } finally {
         openModal(CardFundResult, { status });
-        saving = undefined;
       }
     },
     validate: validateSchema(schema),
@@ -55,15 +52,7 @@
   setContext('errors', errors);
 
   async function removeCard() {
-    try {
-      await (removing = deleteCreditCard(card.id));
-      toast.success('Card was removed successfully.');
-      goto(`/u/wallet`);
-    } catch {
-      toast.danger(`There was a problem removing your card ending on ${card.last4}.`);
-    } finally {
-      removing = undefined;
-    }
+    await creditCardRemoveFx({ card });
   }
 </script>
 
@@ -84,7 +73,7 @@
           message: `You are going to delete card ending ${card.last4}.`,
           onConfirm: removeCard,
         })}
-      disabled={!!removing}
+      disabled={$removing}
       class="text-sm font-extrabold italic text-gray-500 hover:text-black">Remove card</button
     >
   </div>
@@ -96,6 +85,6 @@
 
   <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
     <FormInput name="amount" label="Enter Amount" />
-    <Button type="submit" class="mt-6" disabled={!!saving}>Add Funds</Button>
+    <Button type="submit" class="mt-6" disabled={$saving}>Add Funds</Button>
   </form>
 </CircleContainer>

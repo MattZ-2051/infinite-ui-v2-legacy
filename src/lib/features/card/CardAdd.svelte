@@ -1,20 +1,17 @@
 <script lang="ts">
   import type { NewCreditCard } from './types';
-  import type { CreditCard } from '../wallet/types';
   import { setContext } from 'svelte';
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import * as yup from 'yup';
 
   import { user } from '$lib/user';
-  import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
   import FormDistrictsSelect from '$lib/components/form/FormDistrictsSelect.svelte';
   import CircleContainer from './CircleContainer.svelte';
-
-  import { addCreditCard } from './card.api';
+  import { creditCardInsertFx } from './card.store';
 
   const schema = yup.object({
     cardNumber: yup
@@ -44,7 +41,7 @@
   });
 
   let selectedCountryISO2: string;
-  let saving: Promise<CreditCard>;
+  const saving = creditCardInsertFx.pending;
 
   const { form, errors, reset } = createForm<NewCreditCard>({
     // initialValues: {
@@ -63,21 +60,14 @@
     //   },
     // },
     onSubmit: async (values) => {
-      try {
-        await (saving = addCreditCard({
-          ...values,
-          expMonth: +values.expMonth,
-          expYear: +values.expYear,
-          cvv: values.cvv,
-          metadata: { email: $user.email },
-        }));
-        toast.success('Card added successfully.');
-        reset();
-      } catch {
-        toast.danger(`There was a problem adding your card.`);
-      } finally {
-        saving = undefined;
-      }
+      await creditCardInsertFx({
+        ...values,
+        expMonth: +values.expMonth,
+        expYear: +values.expYear,
+        cvv: values.cvv,
+        metadata: { email: $user.email },
+      });
+      reset();
     },
     validate: validateSchema(schema),
   });
@@ -100,6 +90,6 @@
     <FormCountriesSelect bind:value={selectedCountryISO2} name="billingDetails.country" label="Country" />
     <FormDistrictsSelect countryISO2={selectedCountryISO2} name="billingDetails.district" label="State/Province" />
 
-    <Button type="submit" class="mt-6" disabled={!!saving}>Add Card</Button>
+    <Button type="submit" class="mt-6" disabled={$saving}>Add Card</Button>
   </form>
 </CircleContainer>

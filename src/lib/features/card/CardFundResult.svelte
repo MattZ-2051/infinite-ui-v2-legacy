@@ -12,7 +12,7 @@
       {#if status === 'success'}
         <div class="text-2xl text-black">🤘 Yeah! Funds added.</div>
         <div class="text-gray-500 font-extrabold italic text-base">
-          Check your open tabs to refresh your previous screen to see your added funds.<br />
+          Check your open tabs to refresh your previous screen to see your added funds<br />
           or
         </div>
         <Button href="/marketplace">Go to Marketplace</Button>
