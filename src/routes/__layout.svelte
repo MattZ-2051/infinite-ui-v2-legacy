@@ -25,7 +25,7 @@
   import Header from '$lib/layout/header/Header.svelte';
   import Footer from '$lib/layout/footer/Footer.svelte';
   import { ToastContainer } from '$ui/toast';
-  import { Modals } from '$ui/modals';
+  import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
 
   import '../app.css';
@@ -49,7 +49,7 @@
 <div class="flex flex-col min-h-screen">
   <Header />
 
-  <div class="sticky top-0 z-50">
+  <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-50">
     <ToastContainer class="absolute top-0 left-0 right-0 overflow-hidden text-xl italic font-extrabold" />
   </div>
 
