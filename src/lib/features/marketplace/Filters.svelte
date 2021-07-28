@@ -10,6 +10,7 @@
   import Accordion from '$ui/accordion/Accordion.svelte';
   import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { queryParameter } from '$util/queryParameter';
+  import Tag from '$ui/Tag/Tag.svelte';
   import { setFilters, modeFilters } from './marketplace.service';
 
   const dispatch = createEventDispatcher();
@@ -169,16 +170,12 @@
     </div>
     <div class="flex flex-wrap gap-1">
       {#each filters as filter}
-        <div class="truncate relative font-black bg-black text-white italic rounded-xl pl-2 pr-7 py-1">
+        <Tag
+          on:remove={() => removeFilter(filter)}
+          class="font-black bg-black text-white italic focus:ring-black rounded-xl"
+        >
           <span title={filter.label}>{filter.label}</span>
-          <button
-            type="button"
-            on:click={() => removeFilter(filter)}
-            class="absolute transform -translate-y-1/2 top-1/2 right-1.5"
-          >
-            <Icon path={mdiWindowClose} size="0.75" />
-          </button>
-        </div>
+        </Tag>
       {/each}
     </div>
   </div>
