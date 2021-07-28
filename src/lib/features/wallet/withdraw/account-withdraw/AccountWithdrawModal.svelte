@@ -38,14 +38,20 @@
 
 {#if isOpen}
   <Modal on:close={closeModal}>
-    <div class="flex flex-col gap-4 px-10" slot="title">
-      <img src={achAccount.plaidInfo.institution_logo} alt="Institution Logo" class="w-full max-w-md" />
-      <div class="font-semibold text-center text-2xl">{achAccount.plaidInfo.metadata.institution.name}</div>
-      <div class="text-gray-500 text-center text-xl">xxxx{achAccount.plaidInfo.metadata.account.mask}</div>
+    <div class="flex flex-col items-center justify-center px-10 gap-2" slot="title">
+      <img src={`data:image/png;base64,${achAccount.plaidInfo.institution_logo}`} alt="" class="w-20" />
+      <div class="text-center text-2xl">
+        <div class="font-semibold">{achAccount.plaidInfo.metadata.institution.name}</div>
+        <div class="text-gray-500">xxxx{achAccount.plaidInfo.metadata.account.mask}</div>
+      </div>
     </div>
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
-      <div class="w-full text-gray-500 text-center">
-        <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. -->
+      <div class="w-full max-w-sm text-gray-500 text-center">
+        <div class="mb-4">Enter the amount you would like to withdraw.</div>
+        <div>
+          Withdrawable balance: <span class="text-black font-semibold">{formatCurrency(withdrawableAmount)}</span>
+        </div>
+        <div>(Excludes pending transactions)</div>
       </div>
       <div class="input-container flex items-center relative py-4">
         <input

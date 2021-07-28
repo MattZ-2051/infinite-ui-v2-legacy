@@ -17,7 +17,7 @@
   on:click
 >
   <div class="flex items-center">
-    <img src={achAccount.plaidInfo.institution_logo} alt="Institution Logo" class="w-14 mr-4" />
+    <img src={`data:image/png;base64,${achAccount.plaidInfo.institution_logo}`} alt="" class="w-14 mr-4" />
     <span class="font-semibold">{achAccount.plaidInfo.metadata.institution.name}</span>
   </div>
   <span class="text-gray-500">xxxx{achAccount.plaidInfo.metadata.account.mask}</span>
