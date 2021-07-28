@@ -1,8 +1,8 @@
-import type { Listing } from '$lib/sku-item/types';
+import type { Bid, Listing } from '$lib/sku-item/types';
 import { createEffect, forward } from 'effector';
 import { toast } from '$ui/toast';
 import { getQueryParameters } from '$util/queryParameter';
-import { placeBid } from './auction.api';
+import { placeBid, loadProductBids } from './auction.api';
 import { fetchProductBidsFx } from '../product.store';
 
 export const placeBidFx = createEffect(async ({ listing, amount }: { listing: Listing; amount: number }) => {
@@ -28,3 +28,23 @@ forward({
   })),
   to: fetchProductBidsFx,
 });
+
+export const fetchBidsFx = createEffect(
+  async ({
+    id,
+    page,
+    perPage,
+    fetch,
+  }: {
+    id: string;
+    page: number;
+    perPage: number;
+    fetch?: Fetch;
+  }): Promise<{
+    data: Bid[];
+    total: number;
+    max: number;
+  }> => {
+    return await loadProductBids({ id, page, perPage, fetch });
+  }
+);

@@ -6,10 +6,13 @@
   import { page } from '$app/stores';
   import { formatCurrency } from '$util/format';
   import { Pagination, PaginationVariantDark } from '$ui/pagination';
+  import { openModal } from '$ui/modals';
+  import iconAuction from '$lib/components/icons/auction';
   import UserLink from '$lib/components/UserLink.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import AuctionHistoryModal from '$lib/features/product/auction/AuctionHistoryModal.svelte';
   import { loadingTransactions } from './product.api';
-  import { transactions, totalTransactions } from './product.store';
+  import { product, transactions, totalTransactions } from './product.store';
 
   $: p = +$page.query.get(`page`) || 1;
 
@@ -21,6 +24,13 @@
       { noscroll: true, keepfocus: true }
     );
   };
+
+  async function showAuctionHistory(listingId: string) {
+    openModal(AuctionHistoryModal, {
+      product: $product,
+      listing: $product.soldProductListings.find((listing) => listing._id === listingId),
+    });
+  }
 </script>
 
 <div class:opacity-40={$loadingTransactions}>
@@ -38,9 +48,18 @@
             <div class="flex flex-col gap-1 text-right">
               <span class="group-hover:text-white">
                 {#if transaction.type === 'purchase' && transaction.status === 'success'}
-                  Bought for <span class="text-white"
-                    >{formatCurrency(transaction.transactionData?.cost?.totalCost)}</span
-                  >
+                  {#if transaction.transactionData.saleType === 'auction'}
+                    <Icon
+                      path={iconAuction}
+                      class="cursor-pointer inline-flex"
+                      tooltip="See bids"
+                      on:click={() => showAuctionHistory(transaction.transactionData.listing)}
+                    />
+                    Bought at auction for
+                  {:else}
+                    Bought for
+                  {/if}
+                  <span class="text-white">{formatCurrency(transaction.transactionData?.cost?.totalCost)}</span>
                 {:else if transaction.type === 'nft_mint'}
                   NFT Minted
                 {:else if transaction.type === 'nft_redeem'}

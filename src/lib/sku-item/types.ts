@@ -113,6 +113,8 @@ export type Product = {
   serialNumber?: string;
   activeProductListings?: Listing[];
   upcomingProductListings?: Listing[];
+  expiredProductListings?: Listing[];
+  soldProductListings?: Listing[];
   redeemedStatus?: 'NA' | 'pending' | 'redeemed';
   sku: Sku;
   totalSupply?: number;
@@ -227,6 +229,7 @@ type TransactionData = {
     institution_name: string;
     payout: string;
   };
+  saleType: 'fixed' | 'auction';
 };
 
 export type TransactionType =
@@ -285,6 +288,7 @@ export type Series = {
 
 export type Bid = {
   _id: string;
+  status: 'active' | 'winner';
   bidAmt: number;
   createdAt: Date;
   updatedAt: Date;
