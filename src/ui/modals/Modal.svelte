@@ -28,7 +28,7 @@
 <div
   tabindex="-1"
   bind:this={modal}
-  class="fixed top-0 left-0 bottom-0 right-0 z-40 backdrop-filter backdrop-blur-sm"
+  class="fixed top-0 left-0 bottom-0 right-0 backdrop-filter backdrop-blur-sm z-modal"
   use:trapFocus={{
     focusTrapOptions: {
       allowOutsideClick: true,

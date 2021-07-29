@@ -18,7 +18,7 @@
     padding: 0;
     outline: none;
     position: relative;
-    z-index: 2000;
+    @apply z-menu;
   }
 
   button::before,

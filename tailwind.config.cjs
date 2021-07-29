@@ -21,6 +21,9 @@ module.exports = {
     extend: {
       zIndex: {
         '-1': '-1',
+        toast: 10_000,
+        modal: 9000,
+        menu: 2000,
       },
       fontSize: {
         '2.5xl': ['1.6rem', '2rem'],
