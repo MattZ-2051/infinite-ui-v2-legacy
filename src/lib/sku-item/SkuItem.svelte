@@ -8,7 +8,7 @@
 </script>
 
 <a sveltekit:prefetch href={`/marketplace/${item._id}`} class="flex flex-col tracking-tighter">
-  <div class="bg-black w-full h-72 card-img relative">
+  <div class="bg-black w-full card-img relative flex flex-col justify-center">
     <FilePreview item={item.nftPublicAssets?.[0]} preview />
     {#if item.redeemable}
       <div class="absolute top-6 right-4">
@@ -18,17 +18,17 @@
   </div>
   <div class="px-5 pt-3 pb-10 bottom-half-container rounded-b-3xl flex flex-col flex-grow justify-between">
     <div>
-      <div class="flex justify-between ">
-        <span class=" card-name ">{item.issuerName}</span>
+      <div class="flex justify-between">
+        <span class="card-name">{item.issuerName}</span>
         <Rarity rarity={item.rarity} />
       </div>
       <div class="mt-5 mb-2">
-        <span class=" text-2.5xl font-light card-title">{item.name}</span>
+        <span class="text-2.5xl font-light card-title">{item.name}</span>
       </div>
     </div>
     <div class="flex justify-between mt-8 gap-1">
       <span class="card-series">{item.series?.name || ''}</span>
-      <div class=" flex items-end">
+      <div class="flex items-end">
         <slot name="info" />
       </div>
     </div>
@@ -49,5 +49,8 @@
   }
   .card-series {
     color: var(--card-series-color, #000000);
+  }
+  .card-img {
+    aspect-ratio: 1 / 1;
   }
 </style>

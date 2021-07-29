@@ -28,6 +28,9 @@ export function getFileType(item: FileAsset): FileType {
   return;
 }
 
-export function getAspectRatioStyle(item: FileAsset) {
+export function getAspectRatioStyle(item: FileAsset, preview = false) {
+  if (preview) {
+    return { 'aspect-ratio': '1 / 1' };
+  }
   return item?.width && item?.height ? { 'aspect-ratio': item.width / item.height } : undefined;
 }

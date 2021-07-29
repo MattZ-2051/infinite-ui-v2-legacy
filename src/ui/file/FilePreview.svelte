@@ -16,7 +16,7 @@
   let videoElement: HTMLVideoElement;
 
   $: fileType = getFileType(item);
-  $: style = item ? styles({ ...getAspectRatioStyle(item), ...{ 'max-height': '60vh' } }) : '';
+  $: style = item ? styles({ ...getAspectRatioStyle(item, preview), ...{ 'max-height': '60vh' } }) : '';
 </script>
 
 {#if !item || showFallbackImage}
