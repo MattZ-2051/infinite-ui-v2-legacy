@@ -14,9 +14,15 @@
   import Icon from '$ui/icon/Icon.svelte';
   import TabHeader from './TabHeader.svelte';
 
+  /**
+   * The id of the selected Tab.
+   */
   export let selectedTabId: string = undefined;
+  /**
+   * Class to be added on each Tab.
+   */
   export let itemClass: string = undefined;
-  export let deactivateSignle = false;
+  export let deactivateSingle = false;
 
   let selectedTabStore = writable<string>(selectedTabId);
   let selfElement: HTMLElement;
@@ -64,7 +70,7 @@
     {#each headers as { id, title, icon } (id)}
       <TabHeader
         on:click={() => ($selectedTabStore = id)}
-        active={$selectedTabStore === id && (!deactivateSignle || headers.length > 1)}
+        active={$selectedTabStore === id && (!deactivateSingle || headers.length > 1)}
         class={itemClass}
       >
         {#if icon}

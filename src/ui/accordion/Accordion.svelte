@@ -3,8 +3,19 @@
   import type { AccordionContext } from './AccordionGroup.svelte';
   import AccordionHeader from './AccordionHeader.svelte';
 
+  /**
+   * Whether the Accordion is open.
+   */
   export let open = false;
+
+  /**
+   * Whether the Accordion can collapse.
+   */
   export let collapsible = true;
+
+  /**
+   * The title of the Accordion.
+   */
   export let title = '';
 
   const close = () => (open = false);

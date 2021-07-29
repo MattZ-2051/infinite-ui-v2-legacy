@@ -8,12 +8,38 @@
   import Icon from '$ui/icon/Icon.svelte';
   import { getThemeStyle } from './themes';
 
-  export let toastId: string;
-  export let message: string;
+  /**
+   * Useful to manually remove the Toast using toast.remove(toastId).
+   */
+  export let toastId;
+
+  /**
+   * The content of the Toast.
+   */
+  export let message = '';
+
+  /**
+   * The severity of the Toast.
+   */
   export let severity: ToastSeverity = 'info';
+  /**
+   * Delay in ms to close the Toast. If set to 0, the Toast needs to be closed manually.
+   */
   export let duration = 5000;
+
+  /**
+   * Show close button.
+   */
   export let closeable = true;
+
+  /**
+   * Keep the timer running or not on hover.
+   */
   export let pauseOnHover = true;
+
+  /**
+   * Display or not the progress bar below the toast(remaining time).
+   */
   export let showProgressBar = true;
 
   const MIN_VALUE = 0;

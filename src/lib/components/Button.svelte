@@ -1,13 +1,31 @@
 <script lang="ts">
   import { get_current_component } from 'svelte/internal';
-  import { forwardEventsBuilder } from '../../util/forwardEvents';
+  import { forwardEventsBuilder } from '$util/forwardEvents';
 
+  /**
+   * The button's type.
+   */
   export let type = 'button';
-  export let href: string = undefined;
+
+  /**
+   * The URL to link to when the button is clicked. If defined, an `a` element will be used as the root node.
+   */
+  export let href = undefined;
+
+  /**
+   * If true, the button will be disabled.
+   */
   export let disabled = false;
+
+  /**
+   * The appearance of the button.
+   */
   export let variant: 'primary' | 'secondary' | 'tertiary' = 'primary';
 
   let _class = '';
+  /**
+   * Extra classes.
+   */
   export { _class as class };
 
   const forwardEvents = forwardEventsBuilder(get_current_component());

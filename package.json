@@ -14,7 +14,9 @@
     "format:check": "prettier --plugin-search-dir=. --check .",
     "test": "jest --coverage",
     "tdd": "jest --watch",
-    "fclt": "pnpm format && pnpm check && pnpm lint && pnpm test"
+    "fclt": "pnpm format && pnpm check && pnpm lint && pnpm test",
+    "build-storybook": "build-storybook",
+    "storybook": "start-storybook -p 6006"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "1.16.1",
@@ -37,8 +39,21 @@
     "yup": "0.32.9"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.5",
     "@commitlint/cli": "13.1.0",
     "@commitlint/config-conventional": "13.1.0",
+    "@mdx-js/react": "^1.6.22",
+    "@storybook/addon-a11y": "^6.3.5",
+    "@storybook/addon-actions": "^6.4.0-alpha.18",
+    "@storybook/addon-cssresources": "^6.2.9",
+    "@storybook/addon-essentials": "^6.4.0-alpha.18",
+    "@storybook/addon-links": "^6.4.0-alpha.18",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/addon-svelte-csf": "^1.1.0",
+    "@storybook/builder-webpack5": "^6.3.6",
+    "@storybook/manager-webpack5": "^6.3.6",
+    "@storybook/svelte": "^6.4.0-alpha.18",
     "@sveltejs/adapter-netlify": "1.0.0-next.25",
     "@sveltejs/adapter-node": "1.0.0-next.35",
     "@sveltejs/adapter-static": "1.0.0-next.13",
@@ -48,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "4.28.5",
     "@typescript-eslint/parser": "4.28.5",
     "autoprefixer": "10.3.1",
+    "babel-loader": "^8.2.2",
     "cssnano": "5.0.7",
     "eslint": "7.31.0",
     "eslint-config-prettier": "8.3.0",
@@ -68,6 +84,7 @@
     "svelte-check": "2.2.3",
     "svelte-intersection-observer": "0.7.1",
     "svelte-jester": "~1.7.0",
+    "svelte-loader": "^3.1.2",
     "svelte-preprocess": "4.7.4",
     "svelte-seo": "^1.2.1",
     "tailwindcss": "2.2.7",

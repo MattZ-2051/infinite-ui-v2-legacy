@@ -18,6 +18,11 @@ To start a development build (e.g. with file watching and live-reload) run `pnpm
 
 Mocking is supported (server side & client side) using [MSW](https://mswjs.io) and can be enabled by using the `API_MOCKING` environment variable.
 
+### Storybook
+
+To use storybook as a component development environment run `pnpm storybook`.
+Make sure that `./.svelte-kit/dev/runtime/app` path exists. If not, run `pnpm build` first.
+
 ### Formatting
 
 To enforce a common style guide we use [Prettier](https://prettier.io).
