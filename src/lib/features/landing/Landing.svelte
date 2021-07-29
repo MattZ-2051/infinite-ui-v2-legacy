@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
-  import { Tabs, Tab, TabsVariantDark } from '$ui/tabs';
+  import { Tabs, Tab } from '$ui/tabs';
   import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
   import Image from '$ui/image/Image.svelte';
 
@@ -42,13 +42,11 @@
   </div>
 
   <div class="container mt-10 lg:mt-24">
-    <TabsVariantDark>
-      <Tabs class="text-xl md:text-2xl lg:text-3xl font-light mb-4" itemClass={'pb-4 md:pb-8'}>
-        <Tab title="Latest Releases">
-          <SkuItemVariantDark><SkuItemGrid {skus} /></SkuItemVariantDark>
-        </Tab>
-      </Tabs>
-    </TabsVariantDark>
+    <Tabs variant="inverse" class="lg:text-3xl mb-4" itemClass="md:pb-8">
+      <Tab title="Latest Releases">
+        <SkuItemVariantDark><SkuItemGrid {skus} /></SkuItemVariantDark>
+      </Tab>
+    </Tabs>
 
     <Logo />
   </div>

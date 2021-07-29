@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { user } from '$lib/user';
-  import { TabHeader } from '$ui/tabs';
+  import { Tabs, Tab } from '$ui/tabs';
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import { withdrawableBalance } from './wallet.store';
@@ -11,11 +11,9 @@
 
 <div>
   <div>
-    <nav class="text-2xl">
-      <ul class="flex gap-10">
-        <TabHeader active={true} class="pb-5">Total Balance</TabHeader>
-      </ul>
-    </nav>
+    <Tabs>
+      <Tab title="Total Balance" />
+    </Tabs>
     <div class="text-5xl py-4 tracking-tight">
       {#if $user}
         {formatCurrency($user.balance)}
@@ -55,9 +53,3 @@
     </Button>
   </div>
 </div>
-
-<style>
-  nav {
-    box-shadow: inset 0 -2px #ebebeb;
-  }
-</style>

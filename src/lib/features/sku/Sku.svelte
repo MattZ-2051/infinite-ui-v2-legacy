@@ -119,7 +119,7 @@
 {#if related.length > 0}
   <div class="mt-8">
     <div class="container">
-      <Tabs class="text-xl md:text-2xl lg:text-2xl font-light" itemClass={'pb-4 md:pb-8'}>
+      <Tabs itemClass="md:pb-8">
         <Tab title="Related Releases">
           <SkuItemGrid class="mt-4" skus={related} />
         </Tab>

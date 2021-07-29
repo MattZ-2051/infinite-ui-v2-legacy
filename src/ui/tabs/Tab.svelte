@@ -4,15 +4,16 @@
 
 <script lang="ts">
   import { getContext, onDestroy, onMount } from 'svelte';
-  import type { ISelectedTab, ITabTitles } from './Tabs.svelte';
+  import { fade } from 'svelte/transition';
+  import type { SelectedTab, TabTitles } from './Tabs.svelte';
 
   export let id = `tab-id-${uid++}`;
   export let title: string;
   export let icon = undefined;
 
   let selfElement: HTMLElement;
-  let selectedTab: ISelectedTab = getContext('selectedTab');
-  const tabs: ITabTitles = getContext('tabTitles');
+  let selectedTab: SelectedTab = getContext('selectedTab');
+  const tabs: TabTitles = getContext('tabTitles');
 
   function updateHeader(_title: string, _icon: unknown) {
     tabs.updateHeader(id, { title: _title, icon: _icon });
@@ -32,6 +33,10 @@
 
 <div bind:this={selfElement}>
   {#if $selectedTab === id}
-    <slot />
+    {#key id}
+      <div in:fade>
+        <slot />
+      </div>
+    {/key}
   {/if}
 </div>

@@ -36,9 +36,8 @@ describe('Toast', () => {
   };
 
   it('renders correctly', () => {
-    const { container, toast, closeButton, progressBar } = setup({});
+    const { toast, closeButton, progressBar } = setup({});
 
-    expect(container.firstChild).toMatchSnapshot();
     expect(toast).toHaveTextContent('content');
     expect(closeButton).not.toBeNull();
     expect(progressBar).not.toBeNull();

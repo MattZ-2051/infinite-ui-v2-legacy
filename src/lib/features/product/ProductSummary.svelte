@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
   import type { ActionType } from './actions/types';
-  import { TabHeader, TabsVariantDark } from '$ui/tabs';
+  import { Tabs, Tab } from '$ui/tabs';
   import { openModal } from '$ui/modals';
   import { userId } from '$lib/user';
   import { goto } from '$app/navigation';
@@ -81,8 +81,8 @@
     }
   }
 
-  function redirect(_tab: 'auction' | 'history' | 'owner') {
-    goto(`/product/${product._id}?tab=${_tab}`);
+  function redirect({ detail }: CustomEvent<'auction' | 'history' | 'owner'>) {
+    goto(`/product/${product._id}?tab=${detail}`, { keepfocus: true });
   }
 
   // TODO(tasos): move to route to avoid unnecessary call for transactions
@@ -123,52 +123,35 @@
 </div>
 
 <PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
-  <nav class="text-xl flex justify-between gap-4">
-    <ul class="flex gap-10">
-      <TabsVariantDark>
-        <TabHeader on:click={() => redirect('auction')} active={tab === 'auction'} class="pb-5">Auction</TabHeader>
-
-        <TabHeader on:click={() => redirect('history')} active={tab === 'history'} class="pb-5">History</TabHeader>
-        {#if totalPrivateAssets > 0}
-          <TabHeader on:click={() => redirect('owner')} active={tab === 'owner'} class="pb-5">Owner Access</TabHeader>
-        {/if}
-      </TabsVariantDark>
-    </ul>
-    {#if tab === 'auction' && hasActiveAuction(product)}
-      <div class="text-gray-500 text-sm md:text-base">
-        <span>Expires in</span>
-        <span class="text-white"
-          ><TimeDifference
-            date={new Date(product.activeProductListings[0].endDate)}
-            on:zero={() => auctionCancelled({ listingId: product.activeProductListings[0]._id })}
-          /></span
-        >
-        <span class="italic text-sm font-black ">
-          (<DateFormat value={product.activeProductListings[0].endDate} />)
-        </span>
-      </div>
-    {/if}
-  </nav>
-
-  {#if tab === 'auction'}
-    <ProductAuction {product} canBid={!userOwnsProduct} />
-  {/if}
-
-  {#if tab === 'history'}
-    <ProductHistory />
-  {/if}
-
-  {#if tab === 'owner'}
+  <Tabs variant="inverse" defaultSelectedId={tab} on:select={redirect}>
+    <Tab id="auction" title="Auction">
+      <ProductAuction {product} canBid={!userOwnsProduct} />
+    </Tab>
+    <Tab id="history" title="History">
+      <ProductHistory />
+    </Tab>
     {#if totalPrivateAssets > 0}
-      <div class="text-white">
-        <PrivateAssetList />
-      </div>
+      <Tab id="owner" title="Owner Access">
+        <div class="text-white">
+          <PrivateAssetList />
+        </div>
+      </Tab>
     {/if}
-  {/if}
+    <svelte:fragment slot="extra">
+      {#if tab === 'auction' && hasActiveAuction(product)}
+        <div class="text-gray-500 text-sm md:text-base">
+          <span>Expires in</span>
+          <span class="text-white"
+            ><TimeDifference
+              date={new Date(product.activeProductListings[0].endDate)}
+              on:zero={() => auctionCancelled({ listingId: product.activeProductListings[0]._id })}
+            /></span
+          >
+          <span class="italic text-sm font-black ">
+            (<DateFormat value={product.activeProductListings[0].endDate} />)
+          </span>
+        </div>
+      {/if}
+    </svelte:fragment>
+  </Tabs>
 </PrivateAsset>
-
-<style>
-  nav {
-    box-shadow: inset 0 -2px #232323;
-  }
-</style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { TabHeader } from '$ui/tabs';
+  import { Tabs, Tab } from '$ui/tabs';
   import { gotoQueryParameters } from '$util/queryParameter';
   import Sort from '$lib/components/Sort.svelte';
   import TransactionList from './TransactionList.svelte';
@@ -22,10 +22,13 @@
     },
   ];
 
-  function redirect(_tab: 'transactions' | 'bids') {
-    gotoQueryParameters({
-      params: { tab: _tab, page: false },
-    });
+  function redirect({ detail }: CustomEvent<'transactions' | 'bids'>) {
+    gotoQueryParameters(
+      {
+        params: { tab: detail, page: false },
+      },
+      { keepfocus: true }
+    );
   }
 
   const sort = (event: CustomEvent) => {
@@ -35,28 +38,10 @@
   };
 </script>
 
-<nav class="text-xl md:text-2xl flex justify-between">
-  <ul class="flex gap-10">
-    <TabHeader on:click={() => redirect('transactions')} active={tab === 'transactions'} class="pb-5"
-      >Latest transactions</TabHeader
-    >
-    <TabHeader on:click={() => redirect('bids')} active={tab === 'bids'} class="pb-5">Active Bids</TabHeader>
-  </ul>
-  <div class="justify-self-end self-center text-lg">
+<Tabs defaultSelectedId={tab} on:select={redirect}>
+  <Tab id="transactions" title="Latest transactions"><TransactionList /></Tab>
+  <Tab id="bids" title="Active Bids"><BidList /></Tab>
+  <div slot="extra" class="justify-self-end self-center text-lg">
     <Sort on:select={sort} {sortOptions} />
   </div>
-</nav>
-
-{#if tab === 'transactions'}
-  <TransactionList />
-{/if}
-
-{#if tab === 'bids'}
-  <BidList />
-{/if}
-
-<style>
-  nav {
-    box-shadow: inset 0 -2px #ebebeb;
-  }
-</style>
+</Tabs>
