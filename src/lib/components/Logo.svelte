@@ -1,6 +1,6 @@
 <script lang="ts">
   import Image from '$ui/image/Image.svelte';
-  import ariaLogo from '$static/aria-logo-comp.png?w=400;900&format=avif;webp;png&metadata';
+  import ariaLogo from '$static/logo_purpleglow.png?w=400;900&format=avif;webp;png&metadata';
 </script>
 
 <div class="flex justify-end py-14 px-4 mt-4 lg:mt-8">

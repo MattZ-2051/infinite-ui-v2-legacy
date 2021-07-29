@@ -8,7 +8,7 @@
 </script>
 
 <a sveltekit:prefetch href={`/marketplace/${item._id}`} class="flex flex-col tracking-tighter">
-  <div class="w-full h-72 card-img relative">
+  <div class="bg-black w-full h-72 card-img relative">
     <FilePreview item={item.nftPublicAssets?.[0]} preview />
     {#if item.redeemable}
       <div class="absolute top-6 right-4">

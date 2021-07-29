@@ -23,7 +23,7 @@
   <div class="hero-text container flex flex-col mt-8">
     <div class="flex flex-col text-right font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
       <div>WELCOME TO</div>
-      <div>THE ARIA EXCHANGE.</div>
+      <div>THE ARIA EXCHANGE</div>
     </div>
     <div class="flex justify-between">
       <Image src={TravisScott} alt="Travis Scott" class="w-1/3 mt-40 hidden xl:block" style="width: 500px;" />

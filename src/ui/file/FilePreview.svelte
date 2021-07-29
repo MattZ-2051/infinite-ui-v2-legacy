@@ -6,7 +6,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
   import { styles } from '$util/styles';
-  import ariaLogo from '$static/aria-logo-comp.png?w=700&format=avif;webp;png&metadata';
+  import fallbackImage from '$static/logo_purpleglow.png?w=700&format=avif;webp;png&metadata';
   import { getFileType, getAspectRatioStyle } from './file-utils';
 
   export let item: FileAsset;
@@ -20,7 +20,7 @@
 </script>
 
 {#if !item || showFallbackImage}
-  <Image src={ariaLogo} alt="N/A" class="w-full h-full object-contain p-8" />
+  <Image src={fallbackImage} alt="N/A" class="w-full h-full object-contain p-8" />
 {:else if fileType === 'video'}
   {#if preview}
     <IntersectionObserver
