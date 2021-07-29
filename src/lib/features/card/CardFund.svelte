@@ -13,9 +13,10 @@
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import { creditCardFundsAddFx, creditCardRemoveFx } from './card.store';
-  import CardFundResult from './CardFundResult.svelte';
   import CreditCardComponent from './CreditCard.svelte';
   import CircleContainer from './CircleContainer.svelte';
+  import CardFundSuccess from './CardFundSuccess.svelte';
+  import CardFundError from './CardFundError.svelte';
 
   export let card: CreditCard;
 
@@ -35,15 +36,13 @@
       amount: '0',
     },
     onSubmit: async ({ amount }) => {
-      let status: 'success' | 'error';
       try {
         await creditCardFundsAddFx({ card, amount, email: $user.email });
-        status = 'success';
+        openModal(CardFundSuccess);
         reset();
-      } catch {
-        status = 'error';
-      } finally {
-        openModal(CardFundResult, { status });
+      } catch (error) {
+        CardFundError;
+        openModal(CardFundError, { error });
       }
     },
     validate: validateSchema(schema),
