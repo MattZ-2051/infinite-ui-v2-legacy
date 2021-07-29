@@ -16,6 +16,10 @@ export function hasUpcomingListing(product: Product): boolean {
   return product?.upcomingProductListings?.length > 0;
 }
 
+export function hasSale(product: Product): boolean {
+  return hasActiveSale(product) || hasUpcomingSale(product);
+}
+
 export function hasActiveSale(product: Product): boolean {
   const saleType = product?.activeProductListings?.[0]?.saleType;
   return saleType && saleType !== 'auction';
@@ -68,4 +72,8 @@ export function canBuy(product: Product, userId: string): boolean {
 
 export function hasNoSale(product: Product, userId: string): boolean {
   return !hasListing(product) && !isOwner(product, userId);
+}
+
+export function canTransfer(product: Product, userId: string): boolean {
+  return isOwner(product, userId) && !hasAuction(product) && !hasSale(product);
 }

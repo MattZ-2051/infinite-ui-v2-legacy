@@ -19,6 +19,7 @@
   import RedeemModal from './Redeem/RedeemModal.svelte';
   import AuctionModal from './auction/AuctionModal.svelte';
   import CancelAuctionModal from './auction/CancelAuctionModal.svelte';
+  import ProductTransferModal from './transfer/ProductTransferModal.svelte';
   import ProductActions from './actions/ProductActions.svelte';
   import {
     hasAuction,
@@ -29,6 +30,7 @@
     canStartAuction,
     canCancelAuction,
     canRedeem,
+    canTransfer,
   } from './product.service';
   import { totalBids, auctionCancelled } from './product.store';
 
@@ -41,6 +43,7 @@
   $: hasStartAuctionAction = canStartAuction(product, $userId);
   $: hasCancelAuctionAction = canCancelAuction(product, $userId, $totalBids);
   $: hasRedeemAction = canRedeem(product, $userId);
+  $: hasTransferAction = canTransfer(product, $userId);
 
   $: showAuction = hasAuction(product);
 
@@ -51,6 +54,7 @@
     hasCancelAuctionAction ? 'cancel-auction' : undefined,
     hasCreateSellAction ? 'create-sale' : undefined,
     hasCancelSaleAction ? 'cancel-sale' : undefined,
+    hasTransferAction ? 'transfer' : undefined,
   ];
 
   function onAction({ detail: type }: { detail: ActionType }) {
@@ -76,6 +80,10 @@
         openModal(CancelSaleModal, {
           listingId: product?.activeProductListings[0]?._id,
         });
+        break;
+      }
+      case 'transfer': {
+        openModal(ProductTransferModal, { product });
         break;
       }
     }

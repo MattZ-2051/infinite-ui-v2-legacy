@@ -7,6 +7,7 @@
   import iconRedeem from '$lib/components/icons/redeem';
   import iconAuction from '$lib/components/icons/auction';
   import iconCancelAuction from '$lib/components/icons/cancel-auction';
+  import iconTransfer from '$lib/components/icons/transfer';
   import MenuVariantDark from '$ui/menu/variants/MenuVariantDark.svelte';
   import Menu from '$ui/menu/Menu.svelte';
   import MenuItem from '$ui/menu/MenuItem.svelte';
@@ -43,6 +44,11 @@
       type: 'cancel-sale',
       label: 'Cancel Sale',
       icon: iconSale,
+    },
+    transfer: {
+      type: 'transfer',
+      label: 'Transfer',
+      icon: iconTransfer,
     },
   };
 

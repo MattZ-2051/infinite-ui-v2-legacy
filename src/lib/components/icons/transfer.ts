@@ -1,0 +1,3 @@
+const path = 'M22,7L17,3V6H3V8H17V11M7,11L1,15L7,19V16H21V14H7V12Z';
+
+export default path;
