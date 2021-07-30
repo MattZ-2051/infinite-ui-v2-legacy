@@ -16,7 +16,7 @@
   const dispatch = createEventDispatcher();
 
   type FilterType = {
-    type: 'category' | 'series' | 'creators' | 'price' | 'date' | 'search';
+    type: 'category' | 'series' | 'issuerId' | 'price' | 'date' | 'search';
     label: string;
     id: string;
   };
@@ -81,7 +81,7 @@
   }
   $: initSlider(+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice);
 
-  function toggle(type: 'category' | 'rarity' | 'series' | 'creators', id: string, event: Event) {
+  function toggle(type: 'category' | 'rarity' | 'series' | 'issuerId', id: string, event: Event) {
     toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
   }
 
@@ -91,7 +91,7 @@
     });
   }
 
-  function toggleCheckboxFilter(type: 'category' | 'rarity' | 'series' | 'creators', id: string, value: boolean) {
+  function toggleCheckboxFilter(type: 'category' | 'rarity' | 'series' | 'issuerId', id: string, value: boolean) {
     setFilters({
       params: { [`${type}:${id}`]: value, page: 1 },
     });
@@ -122,10 +122,8 @@
   $: raritySelected = $page.query.get('rarity') ? $page.query.get('rarity').split(',') : [];
   $: raritySelectedObject = raritySelected.map((id) => rarityFilters.find((c) => c.id === id)).filter(Boolean);
 
-  $: creatorsSelected = $page.query.get('creators') ? $page.query.get('creators').split(',') : [];
-  $: creatorsSelectedObject = creatorsSelected
-    .map((username) => creators.find((c) => c.username === username))
-    .filter(Boolean);
+  $: creatorsSelected = $page.query.get('issuerId') ? $page.query.get('issuerId').split(',') : [];
+  $: creatorsSelectedObject = creatorsSelected.map((_id) => creators.find((c) => c._id === _id)).filter(Boolean);
 
   $: startDateSelected = $page.query.get('startDate');
   $: endDateSelected = $page.query.get('endDate');
@@ -145,7 +143,7 @@
     ...categorySelectedObject.map((v) => ({ type: 'category', label: v.name, id: v.id })),
     ...raritySelectedObject.map((v) => ({ type: 'rarity', label: v.label, id: v.id })),
     ...seriesSelectedObject.map((v) => ({ type: 'series', label: v.name, id: v._id })),
-    ...creatorsSelectedObject.map((v) => ({ type: 'creators', label: v.username, id: v.username })),
+    ...creatorsSelectedObject.map((v) => ({ type: 'issuerId', label: v.username, id: v._id })),
     ...(priceSelectedObject ? [{ type: 'price', label: priceSelectedObject }] : []),
     ...(dateFilter ? [{ type: 'date', label: dateFilter }] : []),
   ];
@@ -272,9 +270,9 @@
     <Accordion title={'Creators'}>
       {#each creators as creator}
         <Checkbox
-          value={creator.username}
+          value={creator._id}
           group={creatorsSelected}
-          on:change={(event) => toggle('creators', creator.username, event)}
+          on:change={(event) => toggle('issuerId', creator._id, event)}
           let:checked
         >
           <span class="font-black italic" class:text-black={checked}>{creator.username}</span>
