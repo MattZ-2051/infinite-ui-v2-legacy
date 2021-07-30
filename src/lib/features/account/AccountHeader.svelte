@@ -6,6 +6,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import tooltip from '$ui/tooltip';
   import UserLink from '$lib/components/UserLink.svelte';
+  import imageError from '$util/imageError';
   import { passwordResetRequested } from './account.store';
 
   const dispatch = createEventDispatcher();
@@ -23,7 +24,11 @@
     class="group mb-3.5 flex justify-center items-center relative border-4 rounded-full w-36 h-36 overflow-hidden bg-black bg-opacity-70"
   >
     {#if $user.profilePhotoUrl}
-      <img src={`${$user.profilePhotoUrl}?t=${$user.updatedAt}`} alt={$user.username} />
+      <img
+        src={`${$user.profilePhotoUrl}?t=${$user.updatedAt}`}
+        alt={$user.username}
+        use:imageError={() => ($user.profilePhotoUrl = undefined)}
+      />
     {:else}
       <Icon path={mdiAccount} size="4" class="text-white" />
     {/if}

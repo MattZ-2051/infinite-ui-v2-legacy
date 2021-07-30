@@ -3,6 +3,7 @@
   import type { CollectorProduct } from '$lib/sku-item/types';
   import Icon from '$ui/icon/Icon.svelte';
   import CollectorItemStatus from '$lib/features/collectors/CollectorItemStatus.svelte';
+  import imageError from '$util/imageError';
 
   export let collector: CollectorProduct;
 </script>
@@ -14,9 +15,7 @@
         class="w-12 h-12 border rounded-full"
         src={collector.owner.profilePhotoUrl}
         alt=""
-        on:error={() => {
-          collector.owner.profilePhotoUrl = undefined;
-        }}
+        use:imageError={() => (collector.owner.profilePhotoUrl = undefined)}
         loading="lazy"
       />
     {:else}
