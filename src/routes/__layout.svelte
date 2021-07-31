@@ -28,6 +28,7 @@
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
   import GdprBanner from '$lib/components/GdprBanner.svelte';
+  import Head from '$scope/Head.svelte';
 
   import '../app.css';
 
@@ -42,6 +43,10 @@
 
   $: $user && pollPendingTransactions();
 </script>
+
+<svelte:head>
+  <Head />
+</svelte:head>
 
 {#if $navigationPathChanging || $isLoading}
   <PreloadIndicator />

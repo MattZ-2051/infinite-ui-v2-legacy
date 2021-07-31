@@ -22,6 +22,10 @@ const config = {
     // hydrate the <div id="svelte"> element in src/app.html
     target: '#svelte',
 
+    files: {
+      assets: alias.find(([key]) => key === '$static')[1],
+    },
+
     vite: {
       resolve: {
         alias: Object.fromEntries(alias.map(([key, value]) => [key, path.resolve(`./${value}`)])),

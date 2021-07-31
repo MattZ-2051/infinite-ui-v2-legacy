@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import xss from 'xss';
+  import { CLIENT_COMPANY_NAME } from '$scope/variables';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import { Tabs, Tab } from '$ui/tabs';
   import Accordion from '$ui/accordion/Accordion.svelte';
@@ -89,7 +90,7 @@
             <div class="inline-block bg-black rounded-2xl p-2 mr-4">
               <Icon path={hedera} size="0.6" />
             </div>
-            <span>INFINITE NFTs are minted on the Hedera Hashgraph</span>
+            <span>{CLIENT_COMPANY_NAME} NFTs are minted on the Hedera Hashgraph</span>
           </div>
           <a href="https://support.suku.world/infinite/hedera-hashgraph-hts" class="link">Learn more</a>
         </div>
