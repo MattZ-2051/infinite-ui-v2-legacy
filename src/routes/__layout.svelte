@@ -27,6 +27,7 @@
   import { ToastContainer } from '$ui/toast';
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
+  import GdprBanner from '$lib/components/GdprBanner.svelte';
 
   import '../app.css';
 
@@ -45,6 +46,8 @@
 {#if $navigationPathChanging || $isLoading}
   <PreloadIndicator />
 {/if}
+
+<GdprBanner />
 
 <div class="flex flex-col min-h-screen">
   <Header />

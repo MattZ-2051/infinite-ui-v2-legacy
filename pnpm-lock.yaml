@@ -49,6 +49,7 @@ specifiers:
   focus-trap: ^6.6.0
   husky: 7.0.1
   jest: ~26.6.3
+  js-cookie: ^3.0.0
   just-debounce: 1.1.0
   msw: ~0.33.2
   p-debounce: ^4.0.0
@@ -88,6 +89,7 @@ dependencies:
   felte: 0.7.13_svelte@3.41.0
   flatpickr: 4.6.9
   focus-trap: 6.6.0
+  js-cookie: 3.0.0
   just-debounce: 1.1.0
   p-debounce: 4.0.0
   svelte-media: 0.1.4_svelte@3.41.0
@@ -10408,6 +10410,11 @@ packages:
       - ts-node
       - utf-8-validate
     dev: true
+
+  /js-cookie/3.0.0:
+    resolution: {integrity: sha512-oUbbplKuH07/XX2YD2+Q+GMiPpnVXaRz8npE7suhBH9QEkJe2W7mQ6rwuMXHue3fpfcftQwzgyvGzIHyfCSngQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /js-levenshtein/1.1.6:
     resolution: {integrity: sha512-X2BB11YZtrRqY4EnQcLX5Rh373zbK4alC1FW7D7MBhL2gtcC17cTnr6DmfHZeS0s2rTHjUTMMHfG7gO8SSdw+g==}

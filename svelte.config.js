@@ -51,6 +51,7 @@ const config = {
           'felte',
           'flatpickr',
           'focus-trap',
+          'js-cookie',
           'just-debounce',
           'msw',
           'p-debounce',

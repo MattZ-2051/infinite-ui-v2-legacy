@@ -31,6 +31,9 @@ module.exports = {
       backgroundColor: {
         primary: '#1a1a1a',
       },
+      listStyleType: {
+        circle: 'circle',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],
