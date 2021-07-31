@@ -6,6 +6,7 @@ import netlifyAdapter from '@sveltejs/adapter-netlify';
 import nodeAdapter from '@sveltejs/adapter-node';
 import staticAdapter from '@sveltejs/adapter-static';
 import tailwindConfig from './scripts/tailwind/fullConfig.js';
+import { alias } from './path-alias.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -23,12 +24,9 @@ const config = {
 
     vite: {
       resolve: {
-        alias: {
-          $ui: path.resolve('./src/ui'),
-          $util: path.resolve('./src/util'),
-          $static: path.resolve('./static'),
-        },
+        alias: Object.fromEntries(alias.map(([key, value]) => [key, path.resolve(`./${value}`)])),
       },
+
       plugins: [imagetools()],
 
       ssr: {

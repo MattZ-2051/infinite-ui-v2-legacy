@@ -56,6 +56,7 @@ specifiers:
   postcss-load-config: 3.1.0
   prettier: ~2.3.2
   prettier-plugin-svelte: 2.3.1
+  strip-json-comments: ^3.1.1
   svelte: 3.41.0
   svelte-check: 2.2.3
   svelte-intersection-observer: 0.7.1
@@ -137,6 +138,7 @@ devDependencies:
   postcss-load-config: 3.1.0
   prettier: 2.3.2
   prettier-plugin-svelte: 2.3.1_prettier@2.3.2+svelte@3.41.0
+  strip-json-comments: 3.1.1
   svelte: 3.41.0
   svelte-check: 2.2.3_71d33041e8fffb9913285bb6ac54fa7b
   svelte-intersection-observer: 0.7.1

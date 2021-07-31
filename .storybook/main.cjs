@@ -29,16 +29,16 @@ module.exports = {
     ],
   },
   webpackFinal: async (config) => {
+    const { alias } = await import('../path-alias.js');
+
     config.resolve = {
       ...config.resolve,
       alias: {
         ...config.resolve.alias,
         svelte: path.resolve(__dirname, '..', 'node_modules', 'svelte'),
         $app: path.resolve('./.svelte-kit/dev/runtime/app'),
-        $ui: path.resolve('./src/ui'),
         $lib: path.resolve('./src/lib'),
-        $util: path.resolve('./src/util'),
-        $static: path.resolve('./static'),
+        ...Object.fromEntries(alias.map(([key, value]) => [key, path.resolve(`./${value}`)])),
       },
       mainFields: ['svelte', 'browser', 'module', 'main'],
     };
