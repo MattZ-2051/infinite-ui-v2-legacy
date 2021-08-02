@@ -25,4 +25,5 @@ export type User = {
   errorMessage?: string;
   showNotifyMe?: boolean;
   auctionBidIncrement?: string;
+  initialBuyersFeePercentage?: number;
 };

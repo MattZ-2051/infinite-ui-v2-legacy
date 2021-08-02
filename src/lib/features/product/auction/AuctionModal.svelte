@@ -7,17 +7,17 @@
   import { formatCurrency, formatDate } from '$util/format';
   import { closeModal, Modal } from '$ui/modals';
   import { datePicker } from '$ui/datepicker/datepicker';
-  import { variables } from '$lib/variables';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import { startAuction } from './auction.api';
   import { auctionStarted } from '../product.store';
+  import { getSellingFee, getRoyaltyFee } from '../product.fee';
 
   export let isOpen = false;
   export let product: Product;
 
-  const marketplaceFee = variables.marketplaceFee;
+  const marketplaceFee = getSellingFee(product);
 
   let startDate = new Date();
   let errors;
@@ -29,8 +29,10 @@
   let price: number;
   let waitingForAPI = false;
 
-  $: fee = Math.max(marketplaceFee * price || 0, 0);
-  $: total = Math.max(price * (1 - marketplaceFee) || 0, 0);
+  $: royaltyFee = getRoyaltyFee(product);
+  $: marketplaceFeePrice = Math.max(marketplaceFee * price || 0, 0);
+  $: royaltyFeePrice = Math.max(royaltyFee * price || 0, 0);
+  $: total = Math.max(price * (1 - marketplaceFee - royaltyFee) || 0, 0);
 
   function onChangeDateFrom([_startDate]) {
     startDate = _startDate;
@@ -148,20 +150,30 @@
         {#if errors?.price}
           <div class="text-red-500 font-extrabold italic text-sm mb-2">{errors.price}</div>
         {/if}
-        <div class="flex justify-between border-solid border-b border-gray-200 pb-1 mb-1 text-gray-400 font-medium">
-          <span>MarketPlace fee ({marketplaceFee * 100}%)</span>
-          <span>{formatCurrency(fee)}</span>
+        <div class="border-solid border-b border-gray-200 text-gray-400 font-medium">
+          <div class="flex justify-between pb-1 mb-1">
+            <span>MarketPlace fee ({marketplaceFee * 100}%)</span>
+            <span>{formatCurrency(marketplaceFeePrice)}</span>
+          </div>
+          {#if royaltyFee > 0}
+            <div class="flex justify-between pb-1 mb-1">
+              <span>Creator royalty fee ({royaltyFee * 100}%)</span>
+              <span>{formatCurrency(royaltyFeePrice)}</span>
+            </div>
+          {/if}
         </div>
         <div class="flex justify-between font-medium">
           <span>Minimum Final Payout:</span>
           <span class="font-semibold text-xl">{formatCurrency(total)}</span>
         </div>
-        <div class="text-gray-400 text-center py-6">
-          All resales of this product a subject to a {product.sku.royaltyFeePercentage}%<br />
-          royalty fee set by and to be paid to the original<br />
-          creator.
-        </div>
-        <div class="w-full mb-6">
+        {#if royaltyFee > 0}
+          <div class="text-gray-400 text-center pt-6">
+            All resales of this product a subject to a {royaltyFee * 100}%<br />
+            royalty fee set by and to be paid to the original<br />
+            creator.
+          </div>
+        {/if}
+        <div class="w-full mb-6 mt-6">
           <Button type="submit" disabled={waitingForAPI}>Start Auction</Button>
         </div>
       </div>

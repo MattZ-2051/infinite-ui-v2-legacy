@@ -11,6 +11,7 @@
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import { saleStarted } from './product.store';
   import { createSale } from './product.api';
+  import { getSellingFee, getRoyaltyFee } from './product.fee';
 
   export let product: Product;
   export let isOpen: boolean;
@@ -18,11 +19,11 @@
   let price = 0;
   let disabled = false;
 
-  $: marketplaceFee = product?.resaleSellersFeePercentage;
-  $: marketplaceFeePrice = price && marketplaceFee ? (price * marketplaceFee) / 100 : 0;
-  $: creatorRoyalFee = product?.resale && product?.royaltyFeePercentage;
-  $: creatorRoyalFeePrice = price && creatorRoyalFee ? (price * creatorRoyalFee) / 100 : 0;
-  $: total = price ? price - marketplaceFeePrice - creatorRoyalFeePrice : 0;
+  $: marketplaceFee = getSellingFee(product);
+  $: royaltyFee = getRoyaltyFee(product);
+  $: royaltyFeePrice = Math.max(price * royaltyFee || 0, 0);
+  $: marketplaceFeePrice = Math.max(price * marketplaceFee || 0, 0);
+  $: total = Math.max(price * (1 - marketplaceFee - royaltyFee) || 0, 0);
 
   async function startSale() {
     disabled = true;
@@ -107,10 +108,10 @@
             <span>Marketplace fee ({marketplaceFee}%):</span>
             <span>{formatCurrency(marketplaceFeePrice)}</span>
           </div>
-          {#if creatorRoyalFee}
+          {#if royaltyFee > 0}
             <div class="flex justify-between text-gray-400">
-              <span>Creator royalty fee ({creatorRoyalFee}%):</span>
-              <span>{formatCurrency(creatorRoyalFeePrice)}</span>
+              <span>Creator royalty fee ({royaltyFee}%):</span>
+              <span>{formatCurrency(royaltyFeePrice)}</span>
             </div>
           {/if}
         </div>

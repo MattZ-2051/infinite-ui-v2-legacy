@@ -1,25 +1,24 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
   import type { User } from '$lib/user/types';
-  import { variables } from '$lib/variables';
   import { closeModal, Modal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import { placeBidFx } from './auction.store';
+  import { getBiddingFee } from '../product.fee';
 
   export let isOpen = false;
   export let product: Product;
   export let amount: number;
   export let user: User;
 
-  const marketplaceFee = variables.marketplaceFee;
+  const marketplaceFee = getBiddingFee(product);
   const waitingForAPI = placeBidFx.pending;
 
   $: listing = product.listing;
   $: bid = formatCurrency(amount);
-  $: fee = formatCurrency(marketplaceFee * amount);
   $: total = formatCurrency(amount * (1 + marketplaceFee));
 
   let acceptedTerms = false;
@@ -51,7 +50,7 @@
       </div>
       <div class="flex justify-between border-solid border-b border-gray-200 pb-4 text-gray-400 font-medium">
         <span>MarketPlace fee ({marketplaceFee * 100}%)</span>
-        <span>{fee}</span>
+        <span>{formatCurrency(marketplaceFee * amount)}</span>
       </div>
       <div class="flex justify-between font-medium pt-4">
         <span>Total cost <span class="text-gray-400">(if you win)</span>:</span>

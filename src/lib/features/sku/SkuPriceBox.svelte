@@ -6,13 +6,19 @@
   import Button from '$lib/components/Button.svelte';
   import { getActiveListings, getUpcomingListings, getLimitedAuctionCollector } from './sku.service';
   import LimitedAuctionPriceBox from './LimitedAuctionPriceBox.svelte';
+  import { loadProduct } from '../product/product.api';
 
   export let sku: Sku;
   export let totalCollectors: number;
   export let collectors: CollectorProduct[];
 
-  function onBuy() {
-    onOrderIntent({ sku, listing: activeListings[0] });
+  async function onBuy() {
+    if (activeListings[0].product) {
+      const product = await loadProduct({ id: activeListings[0].product });
+      return onOrderIntent({ sku, listing: activeListings[0], product });
+    } else {
+      return onOrderIntent({ sku, listing: activeListings[0] });
+    }
   }
 
   $: numSkuListings = sku.skuListings.length;

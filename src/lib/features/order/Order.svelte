@@ -2,13 +2,13 @@
   import type { Listing, Sku, Product } from '$lib/sku-item/types';
   import type { SkuPurchaseTransaction } from './types';
   import type { User } from '$lib/user/types';
-  import { variables } from '$lib/variables';
   import { closeModal, Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import { productBought } from '$lib/features/product/product.store';
+  import { getBuyingFee } from '$lib/features/product/product.fee';
   import { toast } from '$ui/toast';
 
   import OrderProductPricing from './OrderProductPricing.svelte';
@@ -19,7 +19,6 @@
   export let product: Product = undefined;
   export let serial: string = undefined;
   export let listing: Listing;
-  export let marketplaceFee = variables.marketplaceFee;
   export let user: User;
 
   let purchasing = false;
@@ -54,9 +53,7 @@
     }
   }
 
-  let royaltyFee: number;
-  $: royaltyFee = (_sku.minSkuPrice * _sku.royaltyFeePercentage) / 100;
-
+  $: marketplaceFee = product ? getBuyingFee(product) : user.initialBuyersFeePercentage;
   $: total = listing.price * (1 + marketplaceFee);
   $: insufficientFunds = total > user.availableBalance;
 </script>

@@ -13,7 +13,6 @@ interface ImportMetaEnv {
   VITE_USDC_API_URL: string;
   VITE_USDC_API_KEY: string;
   VITE_USDC_TX_URL: string;
-  VITE_MARKETPLACE_FEE: string;
 }
 
 declare module '*format=avif;webp;png&metadata';

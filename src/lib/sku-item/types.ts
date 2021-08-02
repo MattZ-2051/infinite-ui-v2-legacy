@@ -81,7 +81,7 @@ export type Profile = {
 export type Listing = {
   canceled?: boolean;
   price: number;
-  product: Product;
+  product: string;
   saleType: 'auction' | 'fixed';
   startDate: Date;
   status: 'active' | 'upcoming' | 'expired' | 'sold' | 'canceled';
@@ -122,13 +122,13 @@ export type Product = {
   _id: string;
   owner: Partial<User>;
   resale?: boolean;
-  resaleSellersFeePercentage?: number;
-  initialSellersFeePercentage?: number;
+  resaleBuyersFeePercentage?: number;
   royaltyFeePercentage?: number;
   listing: Listing;
   minSkuPrice: number;
   tokenId: string;
   explorerLink?: string;
+  initialBuyersFeePercentage: number;
 };
 
 export type Cost = {
@@ -286,13 +286,20 @@ export type Series = {
   updatedAt?: Date;
 };
 
+export type BidListing = {
+  _id: string;
+  product: Product;
+  highestBid?: Bid;
+  issuer: User;
+  endDate: Date;
+};
 export type Bid = {
   _id: string;
   status: 'active' | 'winner';
   bidAmt: number;
   createdAt: Date;
   updatedAt: Date;
-  listing: Listing;
+  listing: BidListing;
   owner: Profile;
   sku: Sku;
 };

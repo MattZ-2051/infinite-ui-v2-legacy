@@ -3,7 +3,7 @@ import type { Readable } from 'svelte/store';
 import { derived, writable, get as getStoreValue } from 'svelte/store';
 import { isAuthenticated, initAuth, userExternalId } from '$lib/auth';
 import { localStorageWritable } from '$util/localstorage-store';
-import { get, post } from '$lib/api';
+import { post, send } from '$lib/api';
 
 // Keep a reference between the external (Auth0) id
 const externalIdMap = localStorageWritable<Pick<User, '_id' | 'externalId'>>('user:id', undefined);
@@ -18,11 +18,15 @@ export const userId: Readable<string> = derived(
 );
 
 export async function updateUser(): Promise<User> {
-  const me = await get<User>('users/me');
+  const { body: me, headers } = await send<User>('users/me');
+  const initialBuyersFeePercentage = Number.parseInt(headers.get('initial-buyers-fee-percentage')) / 100 || 0;
+
+  me.initialBuyersFeePercentage = initialBuyersFeePercentage;
 
   userExternalId.set(me.externalId);
   externalIdMap.set({ _id: me._id, externalId: me.externalId });
   user.set(me);
+
   return me;
 }
 
