@@ -13,9 +13,16 @@ type ApiOptions = RequestInit & {
   tracker?: ApiFetchTracker;
 };
 
-export async function send(path: string, _options: ApiOptions): Promise<Response> {
+export async function send<T>(path: string, _options?: ApiOptions): Promise<{ headers: Headers; body: T }> {
   const isAbsolute = isAbsoluteURL(path);
-  const { baseUrl = variables.apiUrl, fetch: f, authorization = !isAbsolute, params, tracker, ...options } = _options;
+  const {
+    baseUrl = variables.apiUrl,
+    fetch: f,
+    authorization = !isAbsolute,
+    params,
+    tracker,
+    ...options
+  } = { ..._options };
 
   if (tracker) {
     tracker.set(true);
@@ -43,7 +50,7 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
       tracker.set(false);
     }
 
-    const { status, statusText } = r;
+    const { status, statusText, headers } = r;
     if (status < 200 || status > 299) {
       let data: unknown;
       try {
@@ -51,37 +58,38 @@ export async function send(path: string, _options: ApiOptions): Promise<Response
       } catch {}
       throw { status, statusText, url, data };
     }
-    return r;
+
+    return { headers, body: await parseBody<T>(r) };
   });
 }
 
 export async function get<T>(path: string, options?: ApiOptions): Promise<T> {
-  return await send(path, { ...options, method: 'GET' }).then((r) => parseBody<T>(r));
+  return await send<T>(path, { ...options, method: 'GET' }).then((r) => r.body);
 }
 
 export async function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: T[]; total: number }> {
-  return await send(path, { ...options, method: 'GET' }).then(async (response) => {
-    const { headers } = response;
+  return await send<T[]>(path, { ...options, method: 'GET' }).then(async (response) => {
+    const { headers, body } = response;
     const total = +headers.get('content-range').split('/')[1];
 
-    return { data: await parseBody<T[]>(response), total };
+    return { data: body, total };
   });
 }
 
 export async function del<T>(path: string, options?: ApiOptions): Promise<T> {
-  return await send(path, { ...options, method: 'DELETE' }).then((r) => parseBody<T>(r));
+  return await send<T>(path, { ...options, method: 'DELETE' }).then((r) => r.body);
 }
 
 export async function post<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return await send(path, { ...options, method: 'POST', body }).then((r) => parseBody<T>(r));
+  return await send<T>(path, { ...options, method: 'POST', body }).then((r) => r.body);
 }
 
 export async function put<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return await send(path, { ...options, method: 'PUT', body }).then((r) => parseBody<T>(r));
+  return await send<T>(path, { ...options, method: 'PUT', body }).then((r) => r.body);
 }
 
 export async function patch<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return await send(path, { ...options, method: 'PATCH', body }).then((r) => parseBody<T>(r));
+  return await send<T>(path, { ...options, method: 'PATCH', body }).then((r) => r.body);
 }
 
 export function fetchTracker({ showDelay = 0, hideDelay = 50 } = {}): ApiFetchTracker {
