@@ -22,12 +22,12 @@ export function hasSale(product: Product): boolean {
 
 export function hasActiveSale(product: Product): boolean {
   const saleType = product?.activeProductListings?.[0]?.saleType;
-  return saleType && saleType !== 'auction';
+  return !!saleType && saleType !== 'auction';
 }
 
 export function hasUpcomingSale(product: Product): boolean {
   const saleType = product?.upcomingProductListings?.[0]?.saleType;
-  return saleType && saleType !== 'auction';
+  return !!saleType && saleType !== 'auction';
 }
 
 export function hasAuction(product: Product): boolean {
