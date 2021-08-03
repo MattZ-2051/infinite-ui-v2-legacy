@@ -16,7 +16,8 @@
     "tdd": "jest --watch",
     "fclt": "pnpm format && pnpm check && pnpm lint && pnpm test",
     "build-storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "chromatic": "chromatic --exit-zero-on-changes"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "1.16.1",
@@ -66,6 +67,7 @@
     "@typescript-eslint/parser": "4.28.5",
     "autoprefixer": "10.3.1",
     "babel-loader": "^8.2.2",
+    "chromatic": "^5.10.0-canary.0",
     "cssnano": "5.0.7",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
