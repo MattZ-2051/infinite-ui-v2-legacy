@@ -1,18 +1,31 @@
 import type { Profile, Product, Sku } from '$lib/sku-item/types';
-import { get } from '$lib/api';
+import { get, getPage } from '$lib/api';
 
-export async function loadReleases({ username, fetch }: { username: string; fetch?: Fetch }) {
+export async function loadProfile({ username, fetch }: { username: string; fetch?: Fetch }) {
   const profiles = await get<Profile[]>(`users?username=${username}`, { fetch });
   const profile = profiles[0];
-  const [skus, products] = await Promise.all([
-    profile.role === 'issuer'
-      ? get<Sku[]>(`skus/tiles/?issuerId=${profile._id}&page=1&per_page=50&sortBy=startDate:1`, {
-          fetch,
-        })
-      : [],
-    get<Product[]>(`products?owner=${profile._id}&includeFunctions=true&page=1&per_page=8`, {
+
+  return profile;
+}
+
+export async function loadSkus({ profileId, page, fetch }: { profileId: string; page: number; fetch?: Fetch }) {
+  const { data: skus, total: totalSkus } = await getPage<Sku>(
+    `skus/tiles/?issuerId=${profileId}&page=${page}&per_page=8&sortBy=startDate:1`,
+    {
       fetch,
-    }),
-  ]);
-  return { profile, skus, products };
+    }
+  );
+
+  return { skus, totalSkus };
+}
+
+export async function loadProducts({ profileId, page, fetch }: { profileId: string; page: number; fetch?: Fetch }) {
+  const { data: products, total: totalProducts } = await getPage<Product>(
+    `products?owner=${profileId}&includeFunctions=true&page=${page}&per_page=8`,
+    {
+      fetch,
+    }
+  );
+
+  return { products, totalProducts };
 }
