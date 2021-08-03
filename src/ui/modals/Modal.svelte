@@ -37,7 +37,7 @@
   }}
 >
   <div
-    class="h-full w-full absolute flex items-center justify-center z-20"
+    class="h-full w-full absolute flex items-center justify-center"
     transition:fly={{ y: 50 }}
     on:click|self={() => onClose('backdrop')}
   >

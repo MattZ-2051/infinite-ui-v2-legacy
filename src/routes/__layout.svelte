@@ -57,7 +57,7 @@
 <div class="flex flex-col min-h-screen">
   <Header />
 
-  <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-50">
+  <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-toast">
     <ToastContainer class="absolute top-0 left-0 right-0 overflow-hidden text-xl italic font-extrabold" />
   </div>
 
