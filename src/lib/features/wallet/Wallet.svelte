@@ -6,6 +6,7 @@
   import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
   import USDC from '$lib/payment/usdc/USDC.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
+  import routes from '$lib/routes';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import WalletList from './WalletList.svelte';
@@ -27,7 +28,7 @@
   function onDepositSelect(id: 'circle' | 'usdc' | 'coinbase' | 'hbar') {
     // Credit cards do not need KYC
     if (id === 'circle') {
-      goto('/u/wallet/deposit');
+      goto(routes.deposit);
       return;
     }
 

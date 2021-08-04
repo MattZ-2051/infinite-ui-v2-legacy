@@ -1,4 +1,6 @@
 <script lang="ts">
+  import routes from '$lib/routes';
+
   export let username: string;
   export let prefix: string = undefined;
 
@@ -14,7 +16,7 @@
       <slot name="prefix">{prefix}</slot>
     {/if}
     <a
-      href="/collection/{username}"
+      href={routes.collection(username)}
       sveltekit:prefetch
       class:link={hasLinkClass}
       class="whitespace-nowrap {_class || ''}"

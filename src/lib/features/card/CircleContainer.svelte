@@ -4,9 +4,10 @@
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
   import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
+  import routes from '$lib/routes';
 
   function onClose() {
-    goto('/u/wallet');
+    goto(routes.wallet);
   }
 </script>
 

@@ -3,6 +3,7 @@
   import { Pagination } from '$ui/pagination';
   import { gotoQueryParameters } from '$util/queryParameter';
   import { goto } from '$app/navigation';
+  import routes from '$lib/routes';
   import BidItem from './BidItem.svelte';
   import { myBids, myBidsTotal, loadMyBidsFx } from './wallet.store';
 
@@ -25,7 +26,7 @@
           <div
             class="cursor-pointer"
             on:click={() => {
-              goto(`/product/${bid.listing.product._id}`);
+              goto(routes.product(bid.listing.product._id));
             }}
           >
             <BidItem {bid} />

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { closeModal, Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
+  import routes from '$lib/routes';
 
   export let isOpen;
 </script>
@@ -14,8 +15,8 @@
         or
       </div>
       <div class="flex flex-col gap-4">
-        <Button href="/marketplace">Go to Marketplace</Button>
-        <a href="/u/wallet" class="text-black text-xl py-2">View Wallet</a>
+        <Button href={routes.marketplace}>Go to Marketplace</Button>
+        <a href={routes.wallet} class="text-black text-xl py-2">View Wallet</a>
       </div>
     </div>
   </Modal>

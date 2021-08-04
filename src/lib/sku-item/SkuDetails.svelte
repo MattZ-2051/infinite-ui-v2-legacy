@@ -10,6 +10,7 @@
   import UserLink from '$lib/components/UserLink.svelte';
   import NotifyButton from '$lib/notify/NotifyButton.svelte';
   import HederaLink from '$lib/product/HederaLink.svelte';
+  import routes from '$lib/routes';
 
   export let sku: Sku = undefined;
   export let product: Product = undefined;
@@ -44,7 +45,7 @@
           <BreadcrumbItem>
             <div class="flex items-center gap-2">
               <span>{_sku.circulatingSupply} Released</span>
-              <a href="/marketplace/{_sku._id}">(See All)</a>
+              <a href={routes.sku(_sku._id)}>(See All)</a>
             </div>
           </BreadcrumbItem>
         {/if}
@@ -67,9 +68,9 @@
         {/if}
       </Breadcrumb>
     </div>
-    <a class="flex-grow flex justify-items-start my-5 text-lg" href="/marketplace">
+    <a class="flex-grow flex justify-items-start my-5 text-lg" href={routes.marketplace}>
       <Icon path={mdiChevronLeft} size="1.125" />
-      <a sveltekit:prefetch href={`/marketplace/${_sku._id}`} class="link">View release details</a>
+      <a sveltekit:prefetch href={routes.sku(_sku._id)} class="link">View release details</a>
     </a>
   </div>
 </div>

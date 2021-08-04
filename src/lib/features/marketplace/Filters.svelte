@@ -11,6 +11,7 @@
   import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { queryParameter } from '$util/queryParameter';
   import Tag from '$ui/Tag/Tag.svelte';
+  import routes from '$lib/routes';
   import { setFilters, modeFilters } from './marketplace.service';
 
   const dispatch = createEventDispatcher();
@@ -180,7 +181,7 @@
   <div class="flex flex-col md:order-1">
     {#each modeFilters as { label, status }}
       <div
-        use:queryParameter={{ base: '/marketplace', params: { mode: status, page: '' } }}
+        use:queryParameter={{ base: routes.marketplace, params: { mode: status, page: '' } }}
         class="flex gap-2 items-center py-3 cursor-pointer hover:text-gray-500 text-2xl"
         class:active={status ? $page.query.get('mode') === status : !$page.query.get('mode')}
       >

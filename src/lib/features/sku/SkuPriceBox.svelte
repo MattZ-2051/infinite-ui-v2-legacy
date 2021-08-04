@@ -4,6 +4,7 @@
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
   import Button from '$lib/components/Button.svelte';
+  import routes from '$lib/routes';
   import { getActiveListings, getUpcomingListings, getLimitedAuctionCollector } from './sku.service';
   import LimitedAuctionPriceBox from './LimitedAuctionPriceBox.svelte';
   import { loadProduct } from '../product/product.api';
@@ -65,7 +66,7 @@
           <div class="text-sm">{`(${sku.countProductListings || 0} for sale)`}</div>
         </div>
         <div class="flex-grow col-span-2 md:col-span-1">
-          <Button variant="tertiary" href="/collectors/{sku._id}">See All</Button>
+          <Button variant="tertiary" href={routes.collectors(sku._id)}>See All</Button>
         </div>
       {/if}
     </div>
@@ -118,7 +119,7 @@
         <div class="text-sm">{`(${sku.countProductListings} ${sku.countProductListings ? 'for' : 'on'} sale)`}</div>
       </div>
       <div class="flex-grow col-span-2 md:col-span-1">
-        <Button variant="tertiary" href="/collectors/{sku._id}">See All</Button>
+        <Button variant="tertiary" href={routes.collectors(sku._id)}>See All</Button>
       </div>
     </div>
   </div>

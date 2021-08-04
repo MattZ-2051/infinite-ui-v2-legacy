@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
   import type { ErrorLoadInput } from '@sveltejs/kit';
+  import routes from '$lib/routes';
 
   export function load({ error, status }: ErrorLoadInput): { props: Partial<ErrorLoadInput> } {
     return {
@@ -34,7 +35,7 @@
     {/if}
     <div class="mt-10">
       <a
-        href="/"
+        href={routes.index}
         class="bg-white text-black hover:bg-gray-500 hover:text-white rounded-full font-bold text-base px-6 py-3"
         >Go to homepage</a
       >

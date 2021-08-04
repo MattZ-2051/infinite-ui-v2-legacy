@@ -2,6 +2,7 @@
   import type { LoadInput } from '@sveltejs/kit';
   import ProductPage from '$lib/features/product/Product.svelte';
   import { product, fetchProductFx, clearProduct } from '$lib/features/product/product.store';
+  import routes from '$lib/routes';
 
   export async function load({ page: location, fetch }: LoadInput) {
     const { id } = location.params;
@@ -19,7 +20,7 @@
 
   function resetStore(path: string) {
     // Leaving current product page
-    if (path && path !== `/product/${$product._id}`) {
+    if (path && path !== routes.product($product._id)) {
       setTimeout(() => clearProduct(), 500);
     }
   }

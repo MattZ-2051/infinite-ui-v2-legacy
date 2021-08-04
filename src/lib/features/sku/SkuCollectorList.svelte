@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { CollectorProduct } from '$lib/sku-item/types';
+  import routes from '$lib/routes';
   import SkuCollectorListItem from './SkuCollectorListItem.svelte';
 
   export let collectors: CollectorProduct[];
@@ -14,6 +15,6 @@
     {#each collectors as collector}
       <SkuCollectorListItem {collector} />
     {/each}
-    <a sveltekit:prefetch href="/collectors/{skuId}" class="self-center text-lg mt-2 link">View all collectors</a>
+    <a sveltekit:prefetch href={routes.collectors(skuId)} class="self-center text-lg mt-2 link">View all collectors</a>
   {/if}
 </div>

@@ -3,13 +3,14 @@
   import { mdiChevronRight } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import routes from '$lib/routes';
   import CollectorItemStatus from './CollectorItemStatus.svelte';
 
   export let collector: CollectorProduct;
   export let redeemable: boolean;
 </script>
 
-<a href="/product/{collector._id}" class="group-hover:text-white">
+<a href={routes.product(collector._id)} class="group-hover:text-white">
   <div class="group flex flex-wrap justify-end items-center gap-1 border-b border-gray-500 hover:border-white py-4">
     <div class="flex flex-col gap-1 mr-auto">
       <div class="flex items-center gap-3 ">

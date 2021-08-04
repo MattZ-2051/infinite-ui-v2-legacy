@@ -4,11 +4,12 @@
   import Icon from '$ui/icon/Icon.svelte';
   import CollectorItemStatus from '$lib/features/collectors/CollectorItemStatus.svelte';
   import imageError from '$util/imageError';
+  import routes from '$lib/routes';
 
   export let collector: CollectorProduct;
 </script>
 
-<a href={`/product/${collector._id}`} class="flex flex-wrap justify-end items-center gap-1">
+<a href={routes.product(collector._id)} class="flex flex-wrap justify-end items-center gap-1">
   <div class="flex gap-3 mr-auto">
     {#if collector?.owner?.profilePhotoUrl}
       <img

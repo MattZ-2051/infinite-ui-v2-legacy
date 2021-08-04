@@ -5,6 +5,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import UserLink from '$lib/components/UserLink.svelte';
   import hedera from '$lib/components/icons/hedera';
+  import routes from '$lib/routes';
 
   export let transaction: Transaction;
 
@@ -61,20 +62,17 @@
         <span class="">
           {#if type === 'royalty_fee'}
             <span class="message">You received a royalty payment for the sale of </span>
-            <span class="font-semibold underline hover:no-underline"><a href="/marketplace/{sku?._id}">{name} </a></span
-            >
+            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a></span>
             <span class="font-semibold underline hover:no-underline"
-              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
             >
           {/if}
 
           {#if type === 'purchase' && status === 'success'}
             <span class="message">You bought</span>
+            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a> </span>
             <span class="font-semibold underline hover:no-underline"
-              ><a href="/marketplace/{sku?._id}">{name} </a>
-            </span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
             >
             <UserLink
               username={transaction.transactionData.seller?.username}
@@ -86,11 +84,9 @@
 
           {#if type === 'purchase' && status === 'error'}
             <span class="message">You tried buying</span>
+            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a> </span>
             <span class="font-semibold underline hover:no-underline"
-              ><a href="/marketplace/{sku?._id}">{name} </a>
-            </span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
             >
             <UserLink username={sellerUsername} class="font-semibold underline hover:no-underline" hasLinkClass={false}>
               <span class="message" slot="prefix">from</span>
@@ -100,11 +96,9 @@
 
           {#if type === 'sale' && status === 'success'}
             <span class="message">You sold</span>
+            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a> </span>
             <span class="font-semibold underline hover:no-underline"
-              ><a href="/marketplace/{sku?._id}">{name} </a>
-            </span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
             >
             <UserLink username={buyerUsername} class="font-semibold underline hover:no-underline" hasLinkClass={false}>
               <span class="message" slot="prefix">to</span>
@@ -120,11 +114,9 @@
 
           {#if type === 'sale' && status === 'error'}
             <span class="message">You tried selling</span>
+            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a> </span>
             <span class="font-semibold underline hover:no-underline"
-              ><a href="/marketplace/{sku?._id}">{name} </a>
-            </span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href="/product/{transaction.transactionData.product[0]?._id}">#{serialNumber}</a></span
+              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
             >
             <UserLink username={buyerUsername} class="font-semibold underline hover:no-underline" hasLinkClass={false}>
               <span class="message" slot="prefix">to</span>

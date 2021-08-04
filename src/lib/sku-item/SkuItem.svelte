@@ -3,11 +3,12 @@
   import { FilePreview } from '$ui/file';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import routes from '$lib/routes';
 
   export let item: Sku;
 </script>
 
-<a sveltekit:prefetch href={`/marketplace/${item._id}`} class="flex flex-col tracking-tighter">
+<a sveltekit:prefetch href={routes.sku(item._id)} class="flex flex-col tracking-tighter">
   <div class="bg-black w-full card-img relative flex flex-col justify-center">
     <FilePreview item={item.nftPublicAssets?.[0]} preview />
     {#if item.redeemable}

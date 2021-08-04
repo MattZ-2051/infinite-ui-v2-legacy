@@ -1,6 +1,7 @@
 <script lang="ts">
   import { closeModal, Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
+  import routes from '$lib/routes';
 
   export let isOpen;
   export let error: { status: number; data: { message: string } };
@@ -19,7 +20,7 @@
       </div>
       <div class="flex flex-col gap-4">
         <Button type="button" on:click={closeModal}>Try again</Button>
-        <a href="/u/wallet" class="text-black text-xl py-2">Select Another Payment Methood</a>
+        <a href={routes.wallet} class="text-black text-xl py-2">Select Another Payment Methood</a>
       </div>
     </div>
   </Modal>

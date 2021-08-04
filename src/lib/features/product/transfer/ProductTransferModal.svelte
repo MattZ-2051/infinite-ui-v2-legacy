@@ -5,6 +5,7 @@
   import { closeModal, Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
+  import routes from '$lib/routes';
   import SelectUser from './SelectUser.svelte';
   import { transferProductFx } from './product-transfer.store';
 
@@ -103,20 +104,20 @@
               type="button"
               variant="secondary"
               disabled={$waitingForAPI}
-              on:click={() => goto(`/collection/${$user.username}`)}>Back to Collection</Button
+              on:click={() => goto(routes.collection($user.username))}>Back to Collection</Button
             >
             <Button
               type="button"
               variant="secondary"
               disabled={$waitingForAPI}
-              on:click={() => goto('/marketplace')}
+              on:click={() => goto(routes.marketplace)}
               theme="secondary">Back to Marketplace</Button
             >
           </div>
         {:else}
           <div class="grid grid-cols-1 gap-4">
             <Button type="button" on:click={() => (status = 'select-user')}>Try Again</Button>
-            <Button type="button" variant="secondary" on:click={() => goto('/help')} theme="secondary"
+            <Button type="button" variant="secondary" on:click={() => goto(routes.help)} theme="secondary"
               >Help/Contact Support</Button
             >
           </div>

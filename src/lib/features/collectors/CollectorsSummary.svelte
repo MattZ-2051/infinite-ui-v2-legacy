@@ -8,6 +8,7 @@
   import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
   import { Breadcrumb, BreadcrumbItem } from '$ui/breadcrumbs';
   import { gotoQueryParameters } from '$util/queryParameter';
+  import routes from '$lib/routes';
   import CollectorItem from './CollectorItem.svelte';
   import { loading } from './collectors.api';
 
@@ -63,8 +64,8 @@
 
 <div class="flex justify-evenly flex-col h-48 text-white">
   <Breadcrumb class="font-black italic" --breadcrumb-color="#7C7C7C">
-    <BreadcrumbItem><a href="/marketplace">Marketplace</a></BreadcrumbItem>
-    <BreadcrumbItem><a href={`/marketplace/${sku._id}`}>{sku.name}</a></BreadcrumbItem>
+    <BreadcrumbItem><a href={routes.marketplace}>Marketplace</a></BreadcrumbItem>
+    <BreadcrumbItem><a href={routes.sku(sku._id)}>{sku.name}</a></BreadcrumbItem>
     <BreadcrumbItem class="text-gray-500">Collectors</BreadcrumbItem>
   </Breadcrumb>
 

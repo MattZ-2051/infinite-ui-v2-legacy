@@ -10,6 +10,7 @@
   import { productBought } from '$lib/features/product/product.store';
   import { getBuyingFee } from '$lib/features/product/product.fee';
   import { toast } from '$ui/toast';
+  import routes from '$lib/routes';
 
   import OrderProductPricing from './OrderProductPricing.svelte';
   import { purchaseSkuListing } from './order.api';
@@ -46,7 +47,7 @@
       }
     } catch {
       toast.danger(
-        `There was an error processing your purchase. Please, try again or see the <a href="/help">help page</a> to learn more.`
+        `There was an error processing your purchase. Please, try again or see the <a href=${routes.help}>help page</a> to learn more.`
       );
     } finally {
       purchasing = false;
@@ -90,9 +91,9 @@
           <span>You successfully bought this item, and now is part of your collection.</span>
           <div class="flex flex-col gap-5">
             {#if result.product._id}
-              <a href={`/product/${result.product._id}`}><Button type="button">View Your Product</Button></a>
+              <a href={routes.product(result.product._id)}><Button type="button">View Your Product</Button></a>
             {/if}
-            <a class="font-medium justify-self-center" href="/marketplace"> Back to Marketplace </a>
+            <a class="font-medium justify-self-center" href={routes.marketplace}> Back to Marketplace </a>
           </div>
         {:else if result?.status === 'pending'}
           <span
@@ -101,11 +102,11 @@
           >
           <div class="flex flex-col gap-5">
             <Button type="button" on:click={closeModal}>Continue</Button>
-            <a class="font-medium justify-self-center" href="/u/wallet">View Pending Transactions</a>
+            <a class="font-medium justify-self-center" href={routes.wallet}>View Pending Transactions</a>
           </div>
         {:else if insufficientFunds}
           <span> You need more founds to make this purchase. </span>
-          <Button href="/u/wallet">Add Funds</Button>
+          <Button href={routes.wallet}>Add Funds</Button>
         {:else}
           <div class="flex items-center justify-center py-4 my-4">
             <label class="inline-flex items-center">
@@ -114,7 +115,7 @@
                 bind:checked={acceptedTerms}
                 class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
               />
-              I accept the <a href="/terms" class="ml-1 underline">Terms & Conditions</a>
+              I accept the <a href={routes.terms} class="ml-1 underline">Terms & Conditions</a>
             </label>
           </div>
           <span class="font-bold text-center">

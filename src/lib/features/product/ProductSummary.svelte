@@ -11,6 +11,7 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import DateFormat from '$ui/date/DateFormat.svelte';
   import UserLink from '$lib/components/UserLink.svelte';
+  import routes from '$lib/routes';
   import ProductHistory from './ProductHistory.svelte';
   import ProductStatusButton from './ProductStatusButton.svelte';
   import ProductAuction from './auction/ProductAuction.svelte';
@@ -90,7 +91,7 @@
   }
 
   function redirect({ detail }: CustomEvent<'auction' | 'history' | 'owner'>) {
-    goto(`/product/${product._id}?tab=${detail}`, { keepfocus: true });
+    goto(`${routes.product(product._id)}?tab=${detail}`, { keepfocus: true });
   }
 
   // TODO(tasos): move to route to avoid unnecessary call for transactions
@@ -99,10 +100,10 @@
 
 <div class="flex justify-evenly flex-col h-48 text-white">
   <div class="font-black italic">
-    <a class="lg:hidden" href="/marketplace">...</a>
-    <a class="hidden lg:inline" href="/marketplace">Marketplace</a>
+    <a class="lg:hidden" href={routes.marketplace}>...</a>
+    <a class="hidden lg:inline" href={routes.marketplace}>Marketplace</a>
     <span class="mx-2 text-gray-500">/</span>
-    <a sveltekit:prefetch href={`/marketplace/${product.sku._id}`}>{product.sku.name}</a>
+    <a sveltekit:prefetch href={routes.sku(product.sku._id)}>{product.sku.name}</a>
     <span class="mx-2 text-gray-500">/</span>
     <span class="text-gray-500">#{product.serialNumber}</span>
   </div>

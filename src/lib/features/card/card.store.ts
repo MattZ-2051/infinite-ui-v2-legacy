@@ -4,6 +4,7 @@ import { createEffect } from 'effector';
 import { goto } from '$app/navigation';
 import { toast } from '$ui/toast';
 import { updateUser } from '$lib/user';
+import routes from '$lib/routes';
 import { addCreditCard, addCreditCardFunds, deleteCreditCard } from './card.api';
 import { loadWalletFx } from '../wallet/wallet.store';
 
@@ -35,7 +36,7 @@ export const creditCardRemoveFx = createEffect(async ({ card }: { card: CreditCa
 
 creditCardRemoveFx.done.watch(() => {
   toast.success('Card was removed successfully.');
-  goto(`/u/wallet`);
+  goto(routes.wallet);
 });
 
 creditCardRemoveFx.fail.watch(({ params: { card } }) =>

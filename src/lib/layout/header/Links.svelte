@@ -5,23 +5,24 @@
   import AccountMenu from '$lib/layout/header/AccountMenu.svelte';
   import { login, isLoading } from '$lib/auth';
   import { user } from '$lib/user';
+  import routes from '$lib/routes';
 
   let showAccountMenu = false;
   let accountMenuTrigger: HTMLElement;
 </script>
 
-<a sveltekit:prefetch href="/marketplace" class:active={$page.path === '/marketplace'}>Marketplace</a>
+<a sveltekit:prefetch href={routes.marketplace} class:active={$page.path === routes.marketplace}>Marketplace</a>
 
 {#if $user}
   <a
     sveltekit:prefetch
-    href={`/collection/${$user.username}`}
-    class:active={$page.path === `/collection/${$user.username}`}>My Collection</a
+    href={routes.collection($user.username)}
+    class:active={$page.path === routes.collection($user.username)}>My Collection</a
   >
 
   <button
     class="flex"
-    class:active={$page.path === '/u/account'}
+    class:active={$page.path === routes.account}
     on:click={() => (showAccountMenu = !showAccountMenu)}
     bind:this={accountMenuTrigger}
     ><Icon path={mdiAccountCircleOutline} class="mr-1" /> {$user.username}

@@ -6,6 +6,7 @@
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
+  import routes from '$lib/routes';
   import { placeBidFx } from './auction.store';
   import { getBiddingFee } from '../product.fee';
 
@@ -70,7 +71,7 @@
           bind:checked={acceptedTerms}
           class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
         />
-        I accept the <a href="/terms" class="ml-1 underline">Terms & Conditions</a>
+        I accept the <a href={routes.terms} class="ml-1 underline">Terms & Conditions</a>
       </label>
     </div>
     <div class="text-gray-400 px-10 py-4 my-4">

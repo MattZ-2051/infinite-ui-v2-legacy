@@ -15,6 +15,7 @@
   import UserLink from '$lib/components/UserLink.svelte';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import { SocialShareButton } from '$lib/social';
+  import routes from '$lib/routes';
   import { getSupplyInfo } from './sku.service';
   import SkuPriceBox from './SkuPriceBox.svelte';
   import SkuCollectorList from './SkuCollectorList.svelte';
@@ -34,7 +35,7 @@
       <div class="flex flex-col py-5 gap-4 md:gap-8 text-white">
         <div>
           <div class="text-base flex gap-2">
-            <a sveltekit:prefetch href="/marketplace">Marketplace</a>
+            <a sveltekit:prefetch href={routes.marketplace}>Marketplace</a>
             <span class="italic text-gray-300">/</span>
             <span class="text-gray-300">{sku.name}</span>
           </div>

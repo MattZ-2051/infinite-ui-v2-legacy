@@ -2,6 +2,7 @@
   import type { CollectorProduct } from '$lib/sku-item/types';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
   import Button from '$lib/components/Button.svelte';
+  import routes from '$lib/routes';
 
   export let collector: CollectorProduct;
 
@@ -52,7 +53,7 @@
       </div>
     {/if}
     <div class="flex-grow col-span-2 md:col-span-1">
-      <Button variant="tertiary" href="/product/{listing.product}">View NFT</Button>
+      <Button variant="tertiary" href={routes.product(listing.product)}>View NFT</Button>
     </div>
   </div>
 </div>

@@ -2,6 +2,7 @@
   import Cookies from 'js-cookie';
   import { mdiClose } from '@mdi/js';
   import { browser } from '$app/env';
+  import routes from '$lib/routes';
 
   import Icon from '$ui/icon/Icon.svelte';
 
@@ -21,7 +22,7 @@
       <div class="flex-grow">
         <p>
           By using this website, you agree to our use of cookies as outlined in our
-          <a class="underline hover:no-underline font-medium" href="/privacy">Privacy Policy.</a>
+          <a class="underline hover:no-underline font-medium" href={routes.privacy}>Privacy Policy.</a>
         </p>
         <p>We use cookies to provide you with a great experience and to help our website run effectively.</p>
       </div>

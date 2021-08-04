@@ -8,6 +8,7 @@
   import MenuItem from '$ui/menu/MenuItem.svelte';
   import { logout } from '$lib/auth';
   import { clearUser } from '$lib/user';
+  import routes from '$lib/routes';
 
   export let trigger: HTMLElement;
 
@@ -21,10 +22,10 @@
 
 <MenuVariantDark>
   <Menu {trigger} offset={4} position="bottom-end" on:click={() => dispatch('close')} on:close>
-    <MenuItem href="/u/account" class={$page.path === '/u/account' ? 'hidden' : ''}>
+    <MenuItem href={routes.account} class={$page.path === routes.account ? 'hidden' : ''}>
       <Icon path={mdiAccountCircleOutline} class="flex-shrink-0 float-left mr-3" /> My account
     </MenuItem>
-    <MenuItem href="/u/wallet" class={$page.path === '/u/wallet' ? 'hidden' : ''}>
+    <MenuItem href={routes.wallet} class={$page.path === routes.wallet ? 'hidden' : ''}>
       <Icon path={mdiCreditCardOutline} class="flex-shrink-0 float-left mr-3" /> My wallet
     </MenuItem>
     <MenuItem on:click={() => onLogout()}>

@@ -7,6 +7,7 @@
   import tooltip from '$ui/tooltip';
   import UserLink from '$lib/components/UserLink.svelte';
   import imageError from '$util/imageError';
+  import routes from '$lib/routes';
   import { passwordResetRequested } from './account.store';
 
   const dispatch = createEventDispatcher();
@@ -43,7 +44,9 @@
   {#if $user.tagline}<span class="info italic font-black mb-5 text-center">{$user.tagline}</span>{/if}
   <div class="py-3 px-5 divide-x-2 bg-black bg-opacity-70 rounded-full text-white">
     <UserLink username={$user.username} class="mr-3">My Collection</UserLink>
-    <span class="border-l border-gray-500 pl-4"><a href="/u/wallet" sveltekit:prefetch class="link">My wallet</a></span>
+    <span class="border-l border-gray-500 pl-4"
+      ><a href={routes.wallet} sveltekit:prefetch class="link">My wallet</a></span
+    >
   </div>
   <button type="button" on:click={onResetPassowrd} class="mt-4 text-white link text-sm">Reset password</button>
 </div>
