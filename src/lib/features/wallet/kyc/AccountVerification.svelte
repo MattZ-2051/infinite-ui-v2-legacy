@@ -1,41 +1,8 @@
 <script lang="ts">
   import { mdiCancel, mdiClockOutline, mdiShieldCheckOutline } from '@mdi/js';
-  import { getPersonalToken } from '$lib/user';
-  import { variables } from '$lib/variables';
   import Icon from '$ui/icon/Icon.svelte';
-  import { toast } from '$ui/toast';
-  import injectScript from '$util/injectScript';
-  import { loadWalletFx, wallet } from '../wallet.store';
-
-  let personaClient;
-
-  function getPersonaClient(referenceId: string) {
-    // eslint-disable-next-line no-undef
-    const client = new Persona.Client({
-      templateId: variables.persona.templateId,
-      environment: variables.persona.environment,
-      referenceId,
-      onLoad: (error) => {
-        if (error) {
-          toast.danger('Failed to load the KYC verification form. Please, try again.');
-        }
-
-        client.render();
-      },
-      // onStart: (inquiryId) => {}
-      onComplete: (/*inquiryId*/) => loadWalletFx(),
-      // onEvent: (name, meta) => {}
-    });
-
-    return client;
-  }
-
-  async function launchKYCPersona() {
-    await injectScript({ id: 'persona', url: 'https://cdn.withpersona.com/dist/persona-v3.10.0.js' });
-    personaClient = personaClient || getPersonaClient(await getPersonalToken());
-
-    personaClient.open();
-  }
+  import { wallet } from '../wallet.store';
+  import { launchKYCPersona } from './personaClient.service';
 </script>
 
 {#if $wallet}

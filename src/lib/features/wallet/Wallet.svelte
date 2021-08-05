@@ -13,6 +13,7 @@
   import AccountVerification from './kyc/AccountVerification.svelte';
   import WithdrawModal from './withdraw/WithdrawModal.svelte';
   import { wallet } from './wallet.store';
+  import { launchKYCPersona } from './kyc/personaClient.service';
 
   export let tab: 'transactions' | 'bids';
 
@@ -36,10 +37,11 @@
     if (!isKycCleared) {
       const prompt = isKycPending
         ? 'wait until we validate your identity.'
-        : 'complete the required account validation steps. ' +
-          '<a href="https://support.suku.world/infinite/how-does-kyc-work">Learn more.</a>';
+        : `<a data-toast="verificationStepsCb" class="cursor-pointer">click here</a> to complete the required account validation steps. <a href="https://support.suku.world/infinite/how-does-kyc-work">Learn more.</a>`;
 
-      toast.warning(`To deposit cryptocurrency, please, ${prompt}`);
+      toast.warning(`To deposit cryptocurrency, please, ${prompt}`, {
+        onClick: { verificationStepsCb: launchKYCPersona },
+      });
       return;
     }
 
