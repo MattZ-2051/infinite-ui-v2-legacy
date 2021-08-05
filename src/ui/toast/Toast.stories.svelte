@@ -30,6 +30,13 @@
       <button class="py-1" on:click={() => toast.success('Success')}>Success</button>
       <button class="py-1" on:click={() => toast.warning('Warning')}>Warning</button>
       <button class="py-1" on:click={() => toast.danger('Danger', { toastId: 'danger' })}>Danger</button>
+      <button
+        class="py-1"
+        on:click={() =>
+          toast.danger('You can <a data-toast="cb">click me</a> for alert!', {
+            onClick: { cb: () => alert('clicked!') },
+          })}>Callback</button
+      >
     </div>
     <div class="fixed top-0 left-28 right-0 text-xl italic font-extrabold z-50">
       <ToastContainer />

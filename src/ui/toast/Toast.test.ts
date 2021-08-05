@@ -63,4 +63,15 @@ describe('Toast', () => {
 
     expect(progressBar).toBeNull();
   });
+
+  it('supports click callbacks on message', async () => {
+    const spy = jest.fn();
+    const { getByText } = setup({ message: `my <a data-toast="spy">click me</a> callback`, onClick: { spy } });
+
+    const a = getByText('click me');
+    expect(spy).not.toHaveBeenCalled();
+
+    await fireEvent.click(a);
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
 });

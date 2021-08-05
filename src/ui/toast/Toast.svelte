@@ -42,6 +42,11 @@
    */
   export let showProgressBar = true;
 
+  /**
+   * When any element inside message with `data-toast=id` is clicked, calls `onClick[id]`.
+   */
+  export let onClick = undefined;
+
   const MIN_VALUE = 0;
   const MAX_VALUE = 1;
   const dispatch = createEventDispatcher<{ close: string }>();
@@ -73,6 +78,17 @@
       progress.set(value, { duration: 0 });
     }
   }
+
+  function onMessageClick(event) {
+    if (!onClick) {
+      return;
+    }
+
+    const callbackId = event.target.dataset?.toast;
+    if (callbackId && callbackId in onClick) {
+      onClick[callbackId]();
+    }
+  }
 </script>
 
 <svelte:window on:focus={resumeToast} on:blur={pauseToast} />
@@ -87,7 +103,7 @@
   role="status"
 >
   <div class="container flex items-center justify-between">
-    <div class="toast-message">{@html message}</div>
+    <div class="toast-message" on:click={onMessageClick}>{@html message}</div>
     {#if closeable}
       <button
         type="button"
