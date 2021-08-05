@@ -46,7 +46,7 @@ export async function loadMarketplaceItems({
     params: {
       page: `${page}`,
       per_page: `6`,
-      ...{ sortBy },
+      sortBy,
       ...mode,
       ...(category && { category }),
       ...(rarity && { rarity }),

@@ -11,6 +11,7 @@
   const order: EXT[] = ['avif', 'webp', 'jpeg', 'jpg', 'png'];
 
   const groupBy: { <T>(xs: T[], key: string): { [key: string]: T[] } } = function (xs, key) {
+    // eslint-disable-next-line unicorn/prefer-object-from-entries
     return xs.reduce(function (rv, x) {
       (rv[x[key]] = rv[x[key]] || []).push(x);
       return rv;
