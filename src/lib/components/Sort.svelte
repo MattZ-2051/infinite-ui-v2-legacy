@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mdiChevronDown } from '@mdi/js';
+  import { mdiChevronDown, mdiSortVariant } from '@mdi/js';
   import { createEventDispatcher } from 'svelte';
   import Menu from '$ui/menu/Menu.svelte';
   import MenuItem from '$ui/menu/MenuItem.svelte';
@@ -25,8 +25,6 @@
   };
   export let selected = getSelected();
 
-  $: availableOptions = sortOptions.filter((item) => item.id !== selected.id);
-
   const select = (option: { id: number; value: string; order: string; name: string }): void => {
     selected = option;
     dispatch('select', { value: option.value, order: option.order });
@@ -40,9 +38,15 @@
   on:click={() => (showSortMenu = !showSortMenu)}
   bind:this={trigger}
 >
-  <span>{label}</span>
-  <span class={theme === 'light' ? 'text-black' : 'text-white'}>{selected.name}</span>
-  <Icon path={mdiChevronDown} color="gray" class="mr-3" />
+  <span class="hidden lg:inline">{label}</span>
+  <span class="hidden lg:inline {theme === 'light' ? 'text-black' : 'text-white'}">{selected.name}</span>
+  <Icon path={mdiChevronDown} color="gray" class="mr-3 hidden lg:inline" />
+  <Icon
+    path={mdiSortVariant}
+    size="1.5"
+    color={theme === 'light' ? 'white' : 'black'}
+    class="p-1 lg:hidden rounded-full {theme === 'light' ? 'bg-black' : 'bg-white'}"
+  />
 </button>
 
 {#if showSortMenu}
@@ -54,10 +58,12 @@
       on:click={() => (showSortMenu = !showSortMenu)}
       on:close={() => (showSortMenu = false)}
     >
-      {#each availableOptions as option}
-        <MenuItem on:click={() => select(option)}>
-          {option.name}
-        </MenuItem>
+      {#each sortOptions as option}
+        <div class={option.id === selected.id && 'lg:hidden'}>
+          <MenuItem on:click={() => select(option)} active={option.id === selected.id}>
+            {option.name}
+          </MenuItem>
+        </div>
       {/each}
     </Menu>
   </svelte:component>

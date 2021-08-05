@@ -1,13 +1,14 @@
 <script lang="ts">
   export let href: string = undefined;
+  export let active = false;
 </script>
 
 {#if href}
-  <a {href} class:menu-item={true} {...$$restProps}>
+  <a {href} class:active class:menu-item={true} {...$$restProps}>
     <slot />
   </a>
 {:else}
-  <div class:menu-item={true} {...$$restProps} on:click>
+  <div class:active class:menu-item={true} {...$$restProps} on:click>
     <slot />
   </div>
 {/if}
@@ -19,6 +20,7 @@
     font-size: var(--menu-item-font-size, inherit);
   }
 
+  .menu-item.active,
   .menu-item:hover,
   .menu-item:active {
     @apply rounded-3xl;

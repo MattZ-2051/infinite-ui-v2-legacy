@@ -39,7 +39,16 @@ describe('Sort', () => {
     await fireEvent.click(div);
     const menuItems: NodeListOf<HTMLElement> = container.querySelectorAll('.menu-item');
     expect(menuItems).toBeTruthy();
+    expect(menuItems).toHaveLength(2);
+  });
+
+  it('should have active class on selected item', async () => {
+    const { container } = render(Sort, { props: properties });
+    const div: HTMLElement = screen.getByTestId('sort-container');
+    await fireEvent.click(div);
+    const menuItems: NodeListOf<HTMLElement> = container.querySelectorAll('.menu-item.active');
     expect(menuItems).toHaveLength(1);
+    expect(menuItems[0]).toHaveTextContent('sort asc');
   });
 
   it('should be able to set selected externally', () => {
