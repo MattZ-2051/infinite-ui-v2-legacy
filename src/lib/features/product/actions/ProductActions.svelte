@@ -8,7 +8,6 @@
   import iconAuction from '$lib/components/icons/auction';
   import iconCancelAuction from '$lib/components/icons/cancel-auction';
   import iconTransfer from '$lib/components/icons/transfer';
-  import MenuVariantDark from '$ui/menu/variants/MenuVariantDark.svelte';
   import Menu from '$ui/menu/Menu.svelte';
   import MenuItem from '$ui/menu/MenuItem.svelte';
 
@@ -78,16 +77,14 @@
 {/if}
 
 {#if showActions}
-  <MenuVariantDark>
-    <Menu {trigger} offset={4} position="bottom-end" on:close={onClose}>
-      {#each visibleActions as { type, label, icon } (type)}
-        <MenuItem class="flex gap-6 justify-between" on:click={() => onAction(type)}>
-          {label}
-          {#if icon}
-            <Icon path={icon} />
-          {/if}
-        </MenuItem>
-      {/each}
-    </Menu>
-  </MenuVariantDark>
+  <Menu {trigger} offset={4} position="bottom-end" on:close={onClose}>
+    {#each visibleActions as { type, label, icon } (type)}
+      <MenuItem class="flex gap-6 justify-between" on:click={() => onAction(type)}>
+        {label}
+        {#if icon}
+          <Icon path={icon} />
+        {/if}
+      </MenuItem>
+    {/each}
+  </Menu>
 {/if}

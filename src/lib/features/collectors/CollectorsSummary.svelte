@@ -3,9 +3,9 @@
   import debounce from 'just-debounce';
   import { mdiMagnify } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
-  import { Pagination, PaginationVariantDark } from '$ui/pagination';
+  import { Pagination } from '$ui/pagination';
   import Sort from '$lib/components/Sort.svelte';
-  import { Checkbox, CheckboxVariantDark } from '$ui/checkbox';
+  import { Checkbox } from '$ui/checkbox';
   import { Breadcrumb, BreadcrumbItem } from '$ui/breadcrumbs';
   import { gotoQueryParameters } from '$util/queryParameter';
   import routes from '$lib/routes';
@@ -85,14 +85,12 @@
     </div>
     <div class="flex gap-8">
       <div class="flex gap-2 items-center">
-        <CheckboxVariantDark>
-          <Checkbox checked={forSale} on:change={onFilterChange}>
-            <span>For Sale</span>
-          </Checkbox>
-        </CheckboxVariantDark>
+        <Checkbox checked={forSale} on:change={onFilterChange}>
+          <span>For Sale</span>
+        </Checkbox>
       </div>
       <div class="flex cursor-pointer gap-2">
-        <Sort {sortOptions} on:select={sort} theme="dark" />
+        <Sort {sortOptions} on:select={sort} />
       </div>
     </div>
   </div>
@@ -103,9 +101,7 @@
       <div class="text-xl pt-10 text-center font-bold italic">No collector editions found</div>
     {/each}
   </div>
-  <PaginationVariantDark>
-    <Pagination {page} {total} {perPage} class="flex justify-end my-5" on:change={gotoPage} />
-  </PaginationVariantDark>
+  <Pagination {page} {total} {perPage} class="flex justify-end my-5" on:change={gotoPage} />
 </div>
 
 <style>

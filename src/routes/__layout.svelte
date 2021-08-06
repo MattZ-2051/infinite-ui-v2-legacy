@@ -29,7 +29,9 @@
   import Scrim from '$ui/scrim/Scrim.svelte';
   import GdprBanner from '$lib/components/GdprBanner.svelte';
   import Head from '$scope/Head.svelte';
+  import ThemeContext from '$lib/theme/ThemeContext.svelte';
 
+  import '$theme/theme.css';
   import '../app.css';
 
   if (browser) {
@@ -54,17 +56,19 @@
 
 <GdprBanner />
 
-<div class="flex flex-col min-h-screen">
-  <Header />
+<ThemeContext>
+  <div class="flex flex-col min-h-screen">
+    <Header />
 
-  <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-toast">
-    <ToastContainer class="absolute top-0 left-0 right-0 overflow-hidden text-xl italic font-extrabold" />
+    <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-toast">
+      <ToastContainer class="absolute top-0 left-0 right-0 overflow-hidden text-xl italic font-extrabold" />
+    </div>
+
+    <main class="relative flex flex-col flex-grow">
+      <slot />
+    </main>
+    <Footer />
   </div>
-
-  <main class="relative flex flex-col flex-grow">
-    <slot />
-  </main>
-  <Footer />
-</div>
+</ThemeContext>
 
 <Modals><Scrim slot="backdrop" /></Modals>

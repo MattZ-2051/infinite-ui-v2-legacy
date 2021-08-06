@@ -3,6 +3,7 @@
   "compilerOptions": {
     "paths": {
       "$scope/*": ["scope/aria/src/*"],
+      "$theme/*": ["scope/aria/theme/*"],
       "$static/*": ["scope/aria/static/*"],
       "$lib/*": ["src/lib/*"],
       "$ui/*": ["src/ui/*"],

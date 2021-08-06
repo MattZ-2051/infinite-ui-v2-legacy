@@ -2,6 +2,6 @@
 
 <style>
   li {
-    color: var(--pagination-color, #9e9e9e);
+    color: var(--pagination-color);
   }
 </style>

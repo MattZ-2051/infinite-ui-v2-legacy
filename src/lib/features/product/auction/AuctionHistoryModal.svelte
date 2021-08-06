@@ -6,7 +6,6 @@
   import { closeModal, Modal } from '$ui/modals';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import Icon from '$ui/icon/Icon.svelte';
-  import PaginationVariantDark from '$ui/pagination/variants/PaginationVariantDark.svelte';
   import Pagination from '$ui/pagination/Pagination.svelte';
   import { fetchBidsFx } from './auction.store';
 
@@ -75,14 +74,12 @@
           </div>
         {/each}
         <div class="flex justify-center w-full py-6">
-          <PaginationVariantDark>
-            <Pagination
-              {page}
-              {perPage}
-              {total}
-              on:change={async (event) => await onPaginationChanged(event.detail.value)}
-            />
-          </PaginationVariantDark>
+          <Pagination
+            {page}
+            {perPage}
+            {total}
+            on:change={async (event) => await onPaginationChanged(event.detail.value)}
+          />
         </div>
       {/if}
     </div>

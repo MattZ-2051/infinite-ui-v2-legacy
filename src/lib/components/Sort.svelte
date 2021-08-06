@@ -3,10 +3,8 @@
   import { createEventDispatcher } from 'svelte';
   import Menu from '$ui/menu/Menu.svelte';
   import MenuItem from '$ui/menu/MenuItem.svelte';
-  import MenuVariantLight from '$ui/menu/variants/MenuVariantLight.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
-  import MenuVariantDark from '$ui/menu/variants/MenuVariantDark.svelte';
 
   let dispatch = createEventDispatcher();
 
@@ -14,7 +12,6 @@
   let trigger: HTMLElement;
   export let sortOptions: { id: number; name: string; value: string; order: string }[];
   export let label = 'Sort by:';
-  export let theme: 'light' | 'dark' = 'light';
 
   const getSelected = () => {
     if (!$page.query.get('sortBy')) {
@@ -39,32 +36,30 @@
   bind:this={trigger}
 >
   <span class="hidden lg:inline">{label}</span>
-  <span class="hidden lg:inline {theme === 'light' ? 'text-black' : 'text-white'}">{selected.name}</span>
+  <span class="hidden lg:inline" style="color: var(--sort-color)">{selected.name}</span>
   <Icon path={mdiChevronDown} color="gray" class="mr-3 hidden lg:inline" />
-  <Icon
-    path={mdiSortVariant}
-    size="1.5"
-    color={theme === 'light' ? 'white' : 'black'}
-    class="p-1 lg:hidden rounded-full {theme === 'light' ? 'bg-black' : 'bg-white'}"
-  />
+  <div
+    class="lg:hidden rounded-full"
+    style="color: var(--sort-icon-color); background-color: var(--sort-icon-bg-color)"
+  >
+    <Icon path={mdiSortVariant} size="1.5" class="p-1 rounded-full" />
+  </div>
 </button>
 
 {#if showSortMenu}
-  <svelte:component this={theme === 'light' ? MenuVariantLight : MenuVariantDark}>
-    <Menu
-      {trigger}
-      offset={4}
-      position="bottom-end"
-      on:click={() => (showSortMenu = !showSortMenu)}
-      on:close={() => (showSortMenu = false)}
-    >
-      {#each sortOptions as option}
-        <div class={option.id === selected.id && 'lg:hidden'}>
-          <MenuItem on:click={() => select(option)} active={option.id === selected.id}>
-            {option.name}
-          </MenuItem>
-        </div>
-      {/each}
-    </Menu>
-  </svelte:component>
+  <Menu
+    {trigger}
+    offset={4}
+    position="bottom-end"
+    on:click={() => (showSortMenu = !showSortMenu)}
+    on:close={() => (showSortMenu = false)}
+  >
+    {#each sortOptions as option}
+      <div class={option.id === selected.id && 'lg:hidden'}>
+        <MenuItem on:click={() => select(option)} active={option.id === selected.id}>
+          {option.name}
+        </MenuItem>
+      </div>
+    {/each}
+  </Menu>
 {/if}

@@ -45,7 +45,7 @@
     position: relative;
     height: 16px;
     width: 16px;
-    background-color: var(--checkbox-bg, #d6d6d6);
+    background-color: var(--checkbox-bg);
     border-radius: 50%;
   }
   input:checked ~ .checkmark:after {
@@ -57,7 +57,7 @@
     width: 9px;
     height: 15px;
     border-radius: 0.125rem;
-    border: 1px solid var(--checkbox-color, #000000);
+    border: 1px solid var(--checkbox-color);
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
     content: '';
@@ -65,6 +65,6 @@
     display: none;
   }
   label:hover .checkmark {
-    background-color: var(--checkbox-hover-bg, #cccccc);
+    background-color: var(--checkbox-hover-bg);
   }
 </style>

@@ -30,7 +30,6 @@ describe('Sort', () => {
     const selectedLabel: HTMLSpanElement = getByText('sort asc');
     expect(label).toBeInTheDocument();
     expect(selectedLabel).toBeInTheDocument();
-    expect(selectedLabel).toHaveClass('text-black');
   });
 
   it('should open menu', async () => {
@@ -62,12 +61,6 @@ describe('Sort', () => {
     const { getByText } = render(Sort, { props: { ...properties, label: 'serial' } });
     const selectedLabel: HTMLSpanElement = getByText('serial');
     expect(selectedLabel).toBeInTheDocument();
-  });
-
-  it('should apply theming', () => {
-    const { getByText } = render(Sort, { props: { ...properties, theme: 'dark' } });
-    const selectedLabel: HTMLSpanElement = getByText('sort asc');
-    expect(selectedLabel).toHaveClass('text-white');
   });
 
   it('should be able to select', async () => {

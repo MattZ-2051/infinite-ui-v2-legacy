@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
   import { Tabs, Tab } from '$ui/tabs';
-  import { SkuItemGrid, SkuItemVariantDark } from '$lib/sku-item';
+  import { SkuItemGrid } from '$lib/sku-item';
   import Image from '$ui/image/Image.svelte';
 
   import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?w=350;500&format=avif;webp;png&metadata';
@@ -44,7 +44,7 @@
   <div class="container mt-10 lg:mt-24">
     <Tabs variant="inverse" class="lg:text-3xl mb-4" itemClass="md:pb-8">
       <Tab title="Latest Releases">
-        <SkuItemVariantDark><SkuItemGrid {skus} /></SkuItemVariantDark>
+        <SkuItemGrid {skus} />
       </Tab>
     </Tabs>
 

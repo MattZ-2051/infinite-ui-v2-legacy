@@ -2,7 +2,7 @@
   import type { Product } from '$lib/sku-item/types';
   import { gotoQueryParameters } from '$util/queryParameter';
   import UserLink from '$lib/components/UserLink.svelte';
-  import { Pagination, PaginationVariantDark } from '$ui/pagination';
+  import { Pagination } from '$ui/pagination';
   import { page } from '$app/stores';
   import { user } from '$lib/user';
   import DateFormat from '$ui/date/DateFormat.svelte';
@@ -65,9 +65,7 @@
           {/each}
         </div>
       </div>
-      <PaginationVariantDark>
-        <Pagination perPage={5} total={$totalBids} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
-      </PaginationVariantDark>
+      <Pagination perPage={5} total={$totalBids} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
     {:else if $totalBids === 0 && !$loadingBids}
       <div class="flex justify-center items-center text-2xl text-gray-400 my-20">No bids found</div>
     {/if}

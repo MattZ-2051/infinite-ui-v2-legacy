@@ -94,8 +94,7 @@
               type="button"
               variant="secondary"
               disabled={$waitingForAPI}
-              on:click={() => (status = 'select-user')}
-              theme="secondary">Go Back</Button
+              on:click={() => (status = 'select-user')}>Go Back</Button
             >
           </div>
         {:else if status === 'transfer-success'}
@@ -110,16 +109,13 @@
               type="button"
               variant="secondary"
               disabled={$waitingForAPI}
-              on:click={() => goto(routes.marketplace)}
-              theme="secondary">Back to Marketplace</Button
+              on:click={() => goto(routes.marketplace)}>Back to Marketplace</Button
             >
           </div>
         {:else}
           <div class="grid grid-cols-1 gap-4">
             <Button type="button" on:click={() => (status = 'select-user')}>Try Again</Button>
-            <Button type="button" variant="secondary" on:click={() => goto(routes.help)} theme="secondary"
-              >Help/Contact Support</Button
-            >
+            <Button type="button" variant="secondary" on:click={() => goto(routes.help)}>Help/Contact Support</Button>
           </div>
         {/if}
       </div>

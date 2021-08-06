@@ -5,7 +5,7 @@
   import DateFormat from '$ui/date/DateFormat.svelte';
   import { page } from '$app/stores';
   import { formatCurrency } from '$util/format';
-  import { Pagination, PaginationVariantDark } from '$ui/pagination';
+  import { Pagination } from '$ui/pagination';
   import { openModal } from '$ui/modals';
   import iconAuction from '$lib/components/icons/auction';
   import UserLink from '$lib/components/UserLink.svelte';
@@ -86,9 +86,7 @@
         </div>
       {/each}
     </div>
-    <PaginationVariantDark>
-      <Pagination perPage={5} total={$totalTransactions} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
-    </PaginationVariantDark>
+    <Pagination perPage={5} total={$totalTransactions} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
   {:else if $totalTransactions === 0 && !$loadingTransactions}
     <div class="flex justify-center items-center text-2xl text-gray-400 pt-20">No records found</div>
   {/if}

@@ -16,7 +16,7 @@
 
 <style>
   li {
-    color: var(--pagination-color, #9e9e9e);
+    color: var(--pagination-color);
   }
 
   li:hover:not(.disabled):not(.active) {
@@ -28,7 +28,7 @@
   }
 
   .active {
-    color: var(--pagination-color-active, #ffffff);
-    background-color: var(--pagination-background-color-active, #000000);
+    color: var(--pagination-color-active);
+    background-color: var(--pagination-background-color-active);
   }
 </style>

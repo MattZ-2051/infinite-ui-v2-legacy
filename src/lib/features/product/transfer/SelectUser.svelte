@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   import { mdiCheckCircle } from '@mdi/js';
   import { user } from '$lib/user';
-  import PaginationVariantDark from '$ui/pagination/variants/PaginationVariantDark.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import Pagination from '$ui/pagination/Pagination.svelte';
   import Search from '$lib/components/Search.svelte';
@@ -81,14 +80,7 @@
   </div>
   {#if total}
     <div class="flex justify-center w-full" class:opacity-50={$loading}>
-      <PaginationVariantDark>
-        <Pagination
-          {page}
-          {perPage}
-          {total}
-          on:change={async (event) => await onPaginationChanged(event.detail.value)}
-        />
-      </PaginationVariantDark>
+      <Pagination {page} {perPage} {total} on:change={async (event) => await onPaginationChanged(event.detail.value)} />
     </div>
   {/if}
 </div>
