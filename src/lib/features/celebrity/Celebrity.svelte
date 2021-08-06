@@ -5,11 +5,11 @@
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Logo from '$lib/components/Logo.svelte';
   import Image from '$ui/image/Image.svelte';
-  import clemente21 from '$static/clemente-21.png?w=640&format=avif;webp;png&metadata';
   import { Pagination } from '$ui/pagination';
   import { page } from '$app/stores';
+  import clemente21 from './clemente/clemente-21.png?w=640&format=avif;webp;png&metadata';
   import Issuer from './Issuer.svelte';
-  import Clemente from './Clemente.svelte';
+  import Clemente from './clemente/Clemente.svelte';
   import {
     products,
     productsTotal,
