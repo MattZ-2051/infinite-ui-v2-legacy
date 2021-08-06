@@ -55,8 +55,8 @@ export function getMatch(input: string, matchers: [string, string, string][] = _
       continue;
     }
 
-    const bestSpecExpNoStars = bestSpec.replace(/\\\*\\\./g, '');
-    const specNoStars = spec.replace(/\\\*\\\./g, '');
+    const bestSpecExpNoStars = bestSpec.replace(/\*\.|\.\*$/g, '');
+    const specNoStars = spec.replace(/\*\.|\.\*$/g, '');
 
     if (specNoStars.split(/\./).length > bestSpecExpNoStars.split(/\./).length) {
       bestSpec = spec;
