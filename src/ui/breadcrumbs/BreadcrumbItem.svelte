@@ -1,6 +1,6 @@
 <script lang="ts"></script>
 
-<li {...$$restProps} on:click on:mouseover on:mouseenter on:mouseleave>
+<li {...$$restProps} on:click on:mouseover on:mouseenter on:mouseleave on:focus>
   <slot />
 </li>
 

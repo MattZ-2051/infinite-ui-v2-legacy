@@ -21,6 +21,10 @@
   }
 
   let activeThumb: 'L' | 'R' = undefined;
+
+  function activateThumb(thumb: 'L' | 'R' | undefined) {
+    activeThumb = thumb;
+  }
 </script>
 
 <div class="slider">
@@ -47,8 +51,10 @@
     {step}
     on:change={onStop}
     on:input={() => (values[0] = Math.min(values[0], values[1] - 1))}
-    on:mouseover={() => (activeThumb = 'L')}
-    on:mouseout={() => (activeThumb = undefined)}
+    on:mouseover={() => activateThumb('L')}
+    on:focus={() => activateThumb('L')}
+    on:mouseout={() => activateThumb(undefined)}
+    on:blur={() => activateThumb(undefined)}
   />
   <input
     class="cursor-pointer"
@@ -60,8 +66,10 @@
     {step}
     on:change={onStop}
     on:input={() => (values[1] = Math.max(values[0] + 1, values[1]))}
-    on:mouseover={() => (activeThumb = 'R')}
-    on:mouseout={() => (activeThumb = undefined)}
+    on:mouseover={() => activateThumb('R')}
+    on:focus={() => activateThumb('R')}
+    on:mouseout={() => activateThumb(undefined)}
+    on:blur={() => activateThumb(undefined)}
   />
 </div>
 

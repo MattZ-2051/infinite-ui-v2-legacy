@@ -122,7 +122,7 @@ export async function openPlaid(
     token,
     onSuccess,
     onExit,
-    onEvent: (eventName: PlaidEventName, metadata: PlaidErrorMetadata) => {
+    onEvent: (eventName: PlaidEventName /*, metadata: PlaidErrorMetadata*/) => {
       if (eventName === 'OPEN') {
         onOpen();
       }
