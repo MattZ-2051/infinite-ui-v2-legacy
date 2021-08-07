@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import xss from 'xss';
-  import { CLIENT_COMPANY_NAME } from '$scope/variables';
+  import { CLIENT_COMPANY_NAME } from '$project/variables';
   import Rarity from '$lib/rarity/Rarity.svelte';
   import { Tabs, Tab } from '$ui/tabs';
   import Accordion from '$ui/accordion/Accordion.svelte';

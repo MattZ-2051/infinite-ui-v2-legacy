@@ -12,6 +12,10 @@ jobs:
         with:
           version: latest
           run_install: true
+
+      - name: Setup project
+        run: pnpm use aria
+
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:

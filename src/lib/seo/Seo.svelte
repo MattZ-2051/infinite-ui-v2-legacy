@@ -2,7 +2,7 @@
   import type { OpenGraphImage } from 'svelte-seo/types/SvelteSeo';
   import type { FileAsset } from '$ui/file';
   import SvelteSeo from 'svelte-seo';
-  import { CLIENT_SOCIAL_IMAGE, CLIENT_DOC_TITLE } from '$scope/variables';
+  import { CLIENT_SOCIAL_IMAGE, CLIENT_DOC_TITLE } from '$project/variables';
 
   const DEFAULT_IMAGE = CLIENT_SOCIAL_IMAGE;
 

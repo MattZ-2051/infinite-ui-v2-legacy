@@ -35,11 +35,14 @@ jobs:
       - name: Check format
         run: pnpm format:check
 
-      - name: Check Svelte
-        run: pnpm check
-
       - name: Lint
         run: pnpm lint
+
+      - name: Setup project
+        run: pnpm use aria
+
+      - name: Check Svelte
+        run: pnpm check
 
       - name: Test
         run: pnpm test

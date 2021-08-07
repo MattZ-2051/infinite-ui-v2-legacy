@@ -28,7 +28,7 @@
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
   import GdprBanner from '$lib/components/GdprBanner.svelte';
-  import Head from '$scope/Head.svelte';
+  import Head from '$project/Head.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
 
   import '$theme/theme.css';

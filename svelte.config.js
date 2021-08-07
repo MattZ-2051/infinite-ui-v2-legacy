@@ -8,6 +8,8 @@ import staticAdapter from '@sveltejs/adapter-static';
 import tailwindConfig from './scripts/tailwind/fullConfig.js';
 import { alias } from './path-alias.js';
 
+const project = alias.find(([key]) => key === '$project')[1].split('/')[1];
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess
@@ -27,6 +29,8 @@ const config = {
     },
 
     vite: {
+      envDir: path.resolve(`./projects/${project}`),
+
       resolve: {
         alias: Object.fromEntries(alias.map(([key, value]) => [key, path.resolve(`./${value}`)])),
       },

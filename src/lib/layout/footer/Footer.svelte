@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CLIENT_COMPANY_NAME } from '$scope/variables';
+  import { CLIENT_COMPANY_NAME } from '$project/variables';
   import routes from '$lib/routes';
   import SocialLinks from './SocialLinks.svelte';
 </script>

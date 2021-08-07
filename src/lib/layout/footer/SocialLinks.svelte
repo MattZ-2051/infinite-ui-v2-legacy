@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { links } from '$scope/social-links';
+  import { links } from '$project/social-links';
   import Icon from '$ui/icon/Icon.svelte';
 
   export let size = 1.33;

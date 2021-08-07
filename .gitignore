@@ -10,3 +10,6 @@ node_modules
 *:Zone.Identifier
 
 .env*.local
+
+# Auto-generated
+tsconfig.json
