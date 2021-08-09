@@ -38,9 +38,17 @@
   };
 </script>
 
-<Tabs defaultSelectedId={tab} on:select={redirect}>
-  <Tab id="transactions" title="Latest transactions"><TransactionList /></Tab>
-  <Tab id="bids" title="Active Bids"><BidList /></Tab>
+<Tabs
+  items={[
+    { id: 'transactions', title: 'Latest transactions' },
+    { id: 'bids', title: 'Active Bids' },
+  ]}
+  dropdownBreakpoint="sm"
+  defaultSelectedId={tab}
+  on:select={redirect}
+>
+  <Tab id="transactions"><TransactionList /></Tab>
+  <Tab id="bids"><BidList /></Tab>
   <div slot="extra" class="justify-self-end self-center text-lg">
     <Sort on:select={sort} {sortOptions} />
   </div>

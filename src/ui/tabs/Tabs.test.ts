@@ -1,5 +1,8 @@
 import { render, RenderResult, fireEvent } from '@testing-library/svelte';
+import { readable } from 'svelte/store';
 import TabsTest from './test/TabsTest.svelte';
+
+jest.mock('$lib/media-query.store', () => ({ media: readable({ md: false }) }));
 
 describe('Tabs', () => {
   const onSelectMock = jest.fn(({ detail }: CustomEvent<string>) => detail);
@@ -37,17 +40,10 @@ describe('Tabs', () => {
   };
 
   it('should render', () => {
-    const { host, tablist, items } = setup({});
+    const { tablist, items } = setup({});
 
-    expect(host).toHaveClass('default');
     expect(tablist.tagName).toBe('UL');
     expect(items.map((h: HTMLElement) => h.textContent.trim())).toEqual(['Home', 'Profile', 'Contact']);
-  });
-
-  it('should support inverse variant', () => {
-    const { host } = setup({ variant: 'inverse' });
-
-    expect(host).toHaveClass('inverse');
   });
 
   it('should have the proper aria attributes for headers and content', () => {
@@ -108,5 +104,38 @@ describe('Tabs', () => {
     await fireEvent.keyDown(tablist, { key: 'ArrowLeft' });
     expect(panel).toHaveTextContent('Content 3');
     expect(onSelectMock.mock.results[2].value).toBe('3');
+  });
+
+  describe('dropdown', () => {
+    it('renders only the selected tab', async () => {
+      const { items } = setup({ defaultSelectedId: '2', dropdownBreakpoint: 'md' });
+      expect(items).toHaveLength(1);
+      expect(items[0]).toHaveTextContent('Profile');
+    });
+
+    it('renders a dropdown with the unselected items', async () => {
+      const { getByRole } = setup({ dropdownBreakpoint: 'md' });
+      const button = getByRole('button');
+
+      expect(getByRole('button')).toBeInTheDocument();
+
+      await fireEvent.click(button);
+
+      const nav = getByRole('navigation');
+      expect(nav).toBeInTheDocument();
+      expect(nav.children).toHaveLength(2);
+    });
+
+    it('should activate on menu item click', async () => {
+      const { getByRole, queryByRole } = setup({ dropdownBreakpoint: 'md' });
+      const button = getByRole('button');
+
+      await fireEvent.click(button);
+
+      const nav = getByRole('navigation');
+      await fireEvent.click(nav.children[0]);
+      expect(onSelectMock.mock.results[0].value).toBe('2');
+      expect(queryByRole('navigation')).not.toBeInTheDocument();
+    });
   });
 });

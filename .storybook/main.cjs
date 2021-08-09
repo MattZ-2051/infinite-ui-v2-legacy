@@ -1,6 +1,7 @@
 const postcss = require('postcss');
 const sveltePreprocess = require('svelte-preprocess');
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx|svelte)'],
@@ -30,6 +31,8 @@ module.exports = {
   },
   webpackFinal: async (config) => {
     const { alias } = await import('../path-alias.js');
+    const svelteConfig = await import('../svelte.config.js');
+    config.plugins.push(new webpack.DefinePlugin(svelteConfig.default.kit.vite.define));
 
     config.resolve = {
       ...config.resolve,

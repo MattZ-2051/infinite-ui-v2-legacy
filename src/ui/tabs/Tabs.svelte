@@ -1,25 +1,25 @@
-<script context="module" lang="ts">
-  export type SelectedTab = Writable<string>;
-  export type TabTitles = {
-    registerTab(id: string, element: HTMLElement): void;
-    updateHeader(id: string, data: unknown): void;
-    unregisterTab(id: string): void;
-  };
-</script>
-
 <script lang="ts">
   import { createEventDispatcher, setContext } from 'svelte';
   import { writable } from 'svelte/store';
-  import type { Writable } from 'svelte/store';
+  import type { TabItem } from './types';
+  import type { Screens } from '$lib/media-query.store';
+  import { media } from '$lib/media-query.store';
   import TabHeader from './TabHeader.svelte';
+  import TabDropdown from './TabDropdown.svelte';
 
   /**
-   * The appearance of the Tabs.
+   * The items to render.
    */
-  export let variant: 'default' | 'inverse' = 'default';
+  export let items: TabItem[] = [];
 
   /**
-   * The default active tab id that is selected on start.
+   * Below this size, Tabs will be rendered as Dropdown.
+   */
+  export let dropdownBreakpoint: keyof Screens = undefined;
+
+  /**
+   * The tab id that is selected initially.
+   * One of the `items` must have this id.
    */
   export let defaultSelectedId: string = undefined;
 
@@ -36,23 +36,23 @@
 
   const dispatch = createEventDispatcher<{ select: string }>();
 
-  let selectedTabStore = writable<string>(defaultSelectedId);
-  let selfElement: HTMLElement;
-  let headers = [];
+  let selectedTab = writable<TabItem>(items.find((item) => item.id === defaultSelectedId) || items[0]);
+  $: renderDropdown = items.length > 1 && dropdownBreakpoint && !$media[dropdownBreakpoint];
+  $: dropdownItems = items.filter((item) => item.id !== $selectedTab.id);
 
-  function activate(id: string, initial = false) {
-    $selectedTabStore = id;
+  function activate(item: TabItem, initial = false) {
+    $selectedTab = item;
 
     if (!initial) {
-      dispatch('select', id);
+      dispatch('select', $selectedTab.id);
     }
   }
 
   function move(event: Event, moves: number) {
     event.preventDefault();
 
-    const selectedIndex = headers.findIndex(({ id }) => id === $selectedTabStore);
-    activate(headers[(headers.length + selectedIndex + moves) % headers.length].id);
+    const selectedIndex = items.findIndex(({ id }) => id === $selectedTab.id);
+    activate(items[(items.length + selectedIndex + moves) % items.length]);
   }
 
   function handleKeydown(event: KeyboardEvent) {
@@ -67,70 +67,35 @@
     }
   }
 
-  setContext('selectedTab', selectedTabStore);
-
-  setContext('tabTitles', <TabTitles>{
-    registerTab(id, tabElement) {
-      // eslint-disable-next-line unicorn/prefer-spread
-      const index = Array.from(selfElement.children).indexOf(tabElement);
-      headers.splice(index, 0, { id });
-      headers = headers;
-
-      if (headers.length === 1 && !defaultSelectedId) {
-        activate(id, true);
-      }
-    },
-    updateHeader(id, { title, icon }) {
-      const index = headers.findIndex((header) => header.id === id);
-      if (index > -1) {
-        headers[index].title = title;
-        headers[index].icon = icon;
-      }
-    },
-    unregisterTab(id) {
-      const index = headers.findIndex((title) => title.id === id);
-      if (index > -1) {
-        headers.splice(index, 1);
-        headers = headers;
-      }
-    },
-  });
+  setContext('selectedTab', selectedTab);
 </script>
 
-<div class={`tabs flex justify-between text-xl md:text-2xl ${variant} ${_class}`} {...$$restProps}>
+<div class={`tabs flex justify-between text-xl md:text-2xl ${_class}`} {...$$restProps}>
   <ul role="tablist" class="flex gap-10" on:keydown={handleKeydown}>
-    {#each headers as { id, title, icon } (id)}
-      <TabHeader
-        {id}
-        {title}
-        {icon}
-        active={$selectedTabStore === id}
-        class={`pb-5 ${itemClass}`}
-        on:click={() => activate(id)}
-      />
-    {/each}
+    {#if renderDropdown}
+      <TabHeader {...$selectedTab} active={true} class={`pb-5 ${itemClass}`} />
+      <TabDropdown class={`pb-5 ${itemClass}`} items={dropdownItems} on:activate={({ detail }) => activate(detail)} />
+    {:else}
+      {#each items as item (item.id)}
+        <TabHeader
+          {...item}
+          active={$selectedTab.id === item.id}
+          class={`pb-5 ${itemClass}`}
+          on:click={() => activate(item)}
+        />
+      {/each}
+    {/if}
   </ul>
-  <div><slot name="extra" /></div>
+  {#if $$slots.extra}
+    <div class="ml-4"><slot name="extra" /></div>
+  {/if}
 </div>
 
-<div role="tabpanel" id={$selectedTabStore} aria-labelledby={`${$selectedTabStore}__item`} bind:this={selfElement}>
+<div role="tabpanel" id={$selectedTab.id} aria-labelledby={`${$selectedTab.id}__item`}>
   <slot />
 </div>
 
 <style lang="postcss">
-  .default {
-    --tab-border-color: #ebebeb;
-    --tab-color: #9e9e9e;
-    --tab-active-border-color: #000000;
-    --tab-active-color: #000000;
-  }
-
-  .inverse {
-    --tab-border-color: #232323;
-    --tab-color: #606060;
-    --tab-active-border-color: #ffffff;
-    --tab-active-color: #ffffff;
-  }
   .tabs {
     box-shadow: inset 0 -2px var(--tab-border-color);
   }

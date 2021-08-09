@@ -121,8 +121,8 @@
 {#if related.length > 0}
   <div class="mt-8">
     <div class="container">
-      <Tabs itemClass="md:pb-8">
-        <Tab title="Related Releases">
+      <Tabs items={[{ id: 'related', title: 'Related Releases' }]} itemClass="md:pb-8">
+        <Tab id="related">
           <SkuItemGrid class="mt-4" skus={related} />
         </Tab>
       </Tabs>

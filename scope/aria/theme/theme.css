@@ -33,6 +33,12 @@
   --sort-color: #000000;
   --sort-icon-color: #ffffff;
   --sort-icon-bg-color: #000000;
+
+  /* Tabs */
+  --tab-border-color: #ebebeb;
+  --tab-color: #9e9e9e;
+  --tab-active-border-color: #000000;
+  --tab-active-color: #000000;
 }
 
 .theme-dark {
@@ -70,4 +76,10 @@
   --sort-color: #ffffff;
   --sort-icon-color: #000000;
   --sort-icon-bg-color: #ffffff;
+
+  /* Tabs */
+  --tab-border-color: #232323;
+  --tab-color: #606060;
+  --tab-active-border-color: #ffffff;
+  --tab-active-color: #ffffff;
 }

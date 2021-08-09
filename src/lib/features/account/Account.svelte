@@ -12,8 +12,8 @@
 <AccountHeader on:edit={() => openModal(AccountInfoModal)} />
 
 <div class="container mt-8 lg:mt-12">
-  <Tabs class="mb-2">
-    <Tab title="NFTs owned">
+  <Tabs items={[{ id: 'owned', title: 'NFTs owned' }]} class="mb-2">
+    <Tab id="owned">
       {#if !products}
         <div class="text-2xl text-center my-16 opacity-60">Loading your NFTs...</div>
       {:else if products?.length === 0}

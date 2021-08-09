@@ -39,6 +39,12 @@
   function onChangePage(event: CustomEvent) {
     changePage(event.detail.value);
   }
+
+  let items = [{ id: 'NFTs', title: 'NFTs' }];
+  $: if (isIssuer) {
+    items.unshift({ id: 'Releases', title: 'Releases' });
+    items = items;
+  }
 </script>
 
 <ThemeContext id="celebrity">
@@ -54,26 +60,24 @@
         </div>
       {/if}
 
-      <Tabs defaultSelectedId={tab} variant="inverse" class="mb-4" on:select={onSelectTab}>
-        {#if isIssuer}
-          <Tab id="Releases" title="Releases">
-            {#if $skusTotal === 0}
-              <div class="text-gray-200  text-center mt-12 text-2xl ">No releases found.</div>
-            {:else if $skusTotal === null}
-              <div class="text-gray-200 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
-            {:else}
-              <SkuItemGrid skus={$skus} class={$skusLoading ? 'opacity-40' : ''} />
-              <Pagination
-                perPage={8}
-                total={$skusTotal}
-                page={p}
-                class="mt-4 flex justify-end"
-                on:change={onChangePage}
-              />
-            {/if}
-          </Tab>
-        {/if}
-        <Tab id="NFTs" title="NFTs">
+      <Tabs {items} defaultSelectedId={tab} class="mb-4" on:select={onSelectTab}>
+        <Tab id="Releases">
+          {#if $skusTotal === 0}
+            <div class="text-gray-200  text-center mt-12 text-2xl ">No releases found.</div>
+          {:else if $skusTotal === null}
+            <div class="text-gray-200 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+          {:else}
+            <SkuItemGrid skus={$skus} class={$skusLoading ? 'opacity-40' : ''} />
+            <Pagination
+              perPage={8}
+              total={$skusTotal}
+              page={p}
+              class="mt-4 flex justify-end"
+              on:change={onChangePage}
+            />
+          {/if}
+        </Tab>
+        <Tab id="NFTs">
           {#if $productsTotal === 0 && !$productsLoading}
             <div class="text-gray-200  text-center mt-12 text-2xl ">No NFTs found.</div>
           {:else if $productsTotal === null}

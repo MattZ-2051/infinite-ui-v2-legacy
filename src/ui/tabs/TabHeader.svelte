@@ -3,9 +3,9 @@
   import Icon from '$ui/icon/Icon.svelte';
 
   export let id: string;
-  export let active: boolean;
-  export let title: string;
-  export let icon: string;
+  export let active = false;
+  export let title = '';
+  export let icon = undefined;
   let _class = '';
   export { _class as class };
 
@@ -28,7 +28,6 @@
   role="presentation"
   class="cursor-pointer whitespace-nowrap transition-all ease-out duration-300 {_class || ''}"
 >
-  <!-- svelte-ignore a11y-missing-attribute -->
   <a
     bind:this={anchorElement}
     role="tab"
@@ -38,10 +37,10 @@
     aria-selected={active}
     class="flex items-center justify-center"
   >
-    {#if icon}
-      <Icon path={icon} class="h-6 w-6 mr-2 " />
-    {/if}
     {title}
+    {#if icon}
+      <Icon path={icon} class="ml-2" />
+    {/if}
   </a>
 </li>
 

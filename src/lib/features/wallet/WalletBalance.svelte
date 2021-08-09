@@ -11,8 +11,8 @@
 
 <div>
   <div>
-    <Tabs>
-      <Tab title="Total Balance" />
+    <Tabs items={[{ id: 'balance', title: 'Total Balance' }]}>
+      <Tab id="balance" />
     </Tabs>
     <div class="text-5xl py-4 tracking-tight">
       {#if $user}

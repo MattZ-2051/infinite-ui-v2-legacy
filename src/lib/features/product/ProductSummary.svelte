@@ -96,6 +96,25 @@
 
   // TODO(tasos): move to route to avoid unnecessary call for transactions
   $: tab = $page.query.get(`tab`) || (showAuction ? 'auction' : 'history');
+
+  function getItems(totalPrivateAssets: number) {
+    let items = [
+      {
+        id: 'auction',
+        title: 'Auction',
+      },
+      {
+        id: 'history',
+        title: 'History',
+      },
+    ];
+
+    if (totalPrivateAssets > 0) {
+      items.push({ id: 'owner', title: 'Owner Access' });
+    }
+
+    return items;
+  }
 </script>
 
 <div class="flex justify-evenly flex-col h-48 text-white">
@@ -132,20 +151,18 @@
 </div>
 
 <PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
-  <Tabs variant="inverse" defaultSelectedId={tab} on:select={redirect}>
-    <Tab id="auction" title="Auction">
+  <Tabs items={getItems(totalPrivateAssets)} dropdownBreakpoint="sm" defaultSelectedId={tab} on:select={redirect}>
+    <Tab id="auction">
       <ProductAuction {product} canBid={!userOwnsProduct} />
     </Tab>
-    <Tab id="history" title="History">
+    <Tab id="history">
       <ProductHistory />
     </Tab>
-    {#if totalPrivateAssets > 0}
-      <Tab id="owner" title="Owner Access">
-        <div class="text-white">
-          <PrivateAssetList />
-        </div>
-      </Tab>
-    {/if}
+    <Tab id="owner">
+      <div class="text-white">
+        <PrivateAssetList />
+      </div>
+    </Tab>
     <svelte:fragment slot="extra">
       {#if tab === 'auction' && hasActiveAuction(product)}
         <div class="text-gray-500 text-sm md:text-base">

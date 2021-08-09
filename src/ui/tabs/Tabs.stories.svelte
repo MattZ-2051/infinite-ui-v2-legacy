@@ -11,15 +11,21 @@
   component={Tabs}
   subcomponents={{ Tab }}
   argTypes={{
+    items: {
+      control: { type: 'array' },
+      defaultValue: [
+        { id: '1', title: 'Home' },
+        { id: '2', title: 'Profile', icon: mdiAccount },
+        { id: '3', title: 'Contact' },
+      ],
+    },
     defaultSelectedId: {
       control: { type: 'text' },
     },
-    itemClass: {
-      control: { type: 'text' },
-    },
-    variant: {
-      options: ['default', 'inverse'],
+    dropdownBreakpoint: {
+      options: ['sm', 'md', 'lg', 'xl', '2xl'],
       control: { type: 'select' },
+      defaultValue: 'md',
     },
     select: {
       action: 'select',
@@ -28,14 +34,11 @@
 />
 
 <Template let:args>
-  <div class={args.variant === 'inverse' ? 'bg-black text-white' : 'bg-white text-black'}>
-    <Tabs {...args} on:select={action('select')}>
-      <Tab id="1" title="Home">Content 1</Tab>
-      <Tab id="2" title="Profile" icon={mdiAccount}>Content 2</Tab>
-      <Tab id="3" title="Contact">Content 3</Tab>
-    </Tabs>
-  </div>
+  <Tabs {...args} on:select={action('select')}>
+    <Tab id="1">Content 1</Tab>
+    <Tab id="2">Content 2</Tab>
+    <Tab id="3">Content 3</Tab>
+  </Tabs>
 </Template>
 
 <Story name="Default" />
-<Story name="Inverse" args={{ variant: 'inverse' }} />

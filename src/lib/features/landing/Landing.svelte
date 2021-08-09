@@ -42,8 +42,8 @@
   </div>
 
   <div class="container mt-10 lg:mt-24">
-    <Tabs variant="inverse" class="lg:text-3xl mb-4" itemClass="md:pb-8">
-      <Tab title="Latest Releases">
+    <Tabs items={[{ id: 'latest', title: 'Latest Releases' }]} class="lg:text-3xl mb-4" itemClass="md:pb-8">
+      <Tab id="latest">
         <SkuItemGrid {skus} />
       </Tab>
     </Tabs>

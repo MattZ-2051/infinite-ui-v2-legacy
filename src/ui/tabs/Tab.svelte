@@ -1,42 +1,17 @@
-<script context="module" lang="ts">
-  let uid = 1;
-</script>
-
 <script lang="ts">
-  import { getContext, onDestroy, onMount } from 'svelte';
+  import { getContext } from 'svelte';
   import { fade } from 'svelte/transition';
-  import type { SelectedTab, TabTitles } from './Tabs.svelte';
+  import type { SelectedTab } from './types';
 
-  export let id = `tab-id-${uid++}`;
-  export let title: string;
-  export let icon = undefined;
+  export let id = undefined;
 
-  let selfElement: HTMLElement;
   let selectedTab: SelectedTab = getContext('selectedTab');
-  const tabs: TabTitles = getContext('tabTitles');
-
-  function updateHeader(_title: string, _icon: unknown) {
-    tabs.updateHeader(id, { title: _title, icon: _icon });
-  }
-
-  $: updateHeader(title, icon);
-
-  onMount(() => {
-    tabs.registerTab(id, selfElement);
-    updateHeader(title, icon);
-  });
-
-  onDestroy(() => {
-    tabs.unregisterTab(id);
-  });
 </script>
 
-<div bind:this={selfElement}>
-  {#if $selectedTab === id}
-    {#key id}
-      <div in:fade>
-        <slot />
-      </div>
-    {/key}
-  {/if}
-</div>
+{#if $selectedTab.id === id}
+  {#key id}
+    <div in:fade>
+      <slot />
+    </div>
+  {/key}
+{/if}
