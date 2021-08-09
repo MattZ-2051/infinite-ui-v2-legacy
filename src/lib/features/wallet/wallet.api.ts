@@ -10,6 +10,8 @@ const filterWithStatus = {
     { type: 'sale' },
     { type: 'royalty_fee' },
     { type: 'withdrawal' },
+    { type: 'nft_redeem' },
+    { type: 'claim' },
   ],
 };
 

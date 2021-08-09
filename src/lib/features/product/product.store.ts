@@ -1,6 +1,8 @@
 import type { Transaction, Product, Bid } from '$lib/sku-item/types';
 import { createEffect, createStore, createEvent, forward } from 'effector';
 import { browser } from '$app/env';
+import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
+import { createPolling } from '$util/effector';
 import { loadProduct, loadProductTransactions } from './product.api';
 import { hasActiveAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
@@ -102,4 +104,33 @@ export const auctionCancelled = createEvent<{ listingId: string }>();
 forward({
   from: [auctionStarted, auctionCancelled],
   to: refetchProductFx,
+});
+
+const pollTransactionFx = createEffect(async () => {
+  return await loadMyTransactions({ page: 1 });
+});
+
+export const pendingBuyCreated = createEvent<string>();
+export const polls = createStore({}).on(pendingBuyCreated, (state, payload) => {
+  const fx = createEffect(() => {
+    pollTransactionFx();
+  });
+  const poll = createPolling(fx);
+  poll.start();
+  return { ...state, [payload]: poll };
+});
+
+pollTransactionFx.doneData.watch((response) => {
+  if (response.transactions.length > 0) {
+    const $product = product.getState();
+    const pendingTx = response.transactions.find((tx) => {
+      return tx.transactionData.listing === $product.listing._id;
+    });
+
+    if (pendingTx.status === 'success') {
+      const $polls = polls.getState();
+      $polls[$product._id].stop();
+      productBought({ product: $product });
+    }
+  }
 });

@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { readable } from 'svelte/store';
   import type { Product } from '$lib/sku-item/types';
   import { userId } from '$lib/user';
   import { formatCurrency } from '$util/format';
+  import { polls } from '$lib/features/product/product.store';
   import {
     hasActiveSale,
     canBuy,
@@ -10,8 +12,8 @@
     hasUpcomingAuction,
     hasActiveAuction,
   } from './product.service';
-  import { onOrderIntent } from '../order/order.service';
   import { maxPlacedBid } from './product.store';
+  import { onOrderIntent } from '../order/order.service';
 
   export let product: Product;
 
@@ -23,6 +25,7 @@
   $: showBuy = canBuy(product, $userId);
   $: showNoSale = hasNoSale(product, $userId);
   $: showUpcoming = hasUpcomingSale(product);
+  $: isActive = $polls[product._id]?.$isActive || readable(false);
 </script>
 
 {#if showActiveSale}
@@ -35,9 +38,10 @@
   <button
     type="button"
     class="text-center bg-gray-700 text-gray-200 text-sm font-semibold hover:bg-white hover:text-black rounded-full py-2 px-4"
+    disabled={$isActive}
     on:click={onBuy}
   >
-    Buy now
+    {$isActive ? 'Processing ...' : 'Buy now'}
   </button>
 {/if}
 {#if showNoSale}

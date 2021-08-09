@@ -7,11 +7,10 @@
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
-  import { productBought } from '$lib/features/product/product.store';
+  import { productBought, pendingBuyCreated } from '$lib/features/product/product.store';
   import { getBuyingFee } from '$lib/features/product/product.fee';
   import { toast } from '$ui/toast';
   import routes from '$lib/routes';
-
   import OrderProductPricing from './OrderProductPricing.svelte';
   import { purchaseSkuListing } from './order.api';
 
@@ -39,7 +38,11 @@
       result = await purchaseSkuListing(listing._id);
       // result = { status: 'pending' } as any;
       if (product) {
-        productBought({ product });
+        if (result?.status === 'pending') {
+          pendingBuyCreated(product._id);
+        } else if (result?.status === 'success') {
+          productBought({ product });
+        }
       }
 
       if (!result || result.errorLog || result.status === 'error') {
