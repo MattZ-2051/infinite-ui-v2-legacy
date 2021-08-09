@@ -60,6 +60,7 @@ specifiers:
   postcss-load-config: 3.1.0
   prettier: ~2.3.2
   prettier-plugin-svelte: 2.3.1
+  simple-icons: ^5.9.0
   strip-json-comments: ^3.1.1
   svelte: 3.42.1
   svelte-check: 2.2.4
@@ -95,6 +96,7 @@ dependencies:
   js-cookie: 3.0.0
   just-debounce: 1.1.0
   p-debounce: 4.0.0
+  simple-icons: 5.9.0
   svelte-media: 0.1.4_svelte@3.42.1
   svelte-previous: 2.0.0
   tippy.js: 6.3.1
@@ -15584,6 +15586,10 @@ packages:
       once: 1.4.0
       simple-concat: 1.0.1
     dev: true
+
+  /simple-icons/5.9.0:
+    resolution: {integrity: sha512-L6sHzUQkMYTTvFTcVxxkI+uoL2MSbM/yQ7rTEcv9V4crzO/2Yn5dyJAJV1kJV+NIMfnIxLMAAN3UwGaivehpVw==}
+    dev: false
 
   /simple-swizzle/0.2.2:
     resolution: {integrity: sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=}

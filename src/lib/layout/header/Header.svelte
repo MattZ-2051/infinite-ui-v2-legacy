@@ -1,6 +1,5 @@
 <script lang="ts">
-  import logo from '$static/logo_purpleglow.png?w=200&format=avif;webp;png&metadata';
-  import Image from '$ui/image/Image.svelte';
+  import Logo from '$project/Logo.svelte';
   import SidebarToggle from '$ui/sidebar-toggle/SidebarToggle.svelte';
   import routes from '$lib/routes';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
@@ -18,14 +17,7 @@
       </div>
     {/if}
     <div class="container flex justify-between items-center md:items-end py-2">
-      <a href={routes.index} class="self-center flex gap-1 mr-3 items-end"
-        ><Image src={logo} alt="ARIA" /><img
-          src="/suku-white.svg"
-          alt="Powered by SUKU"
-          width="110"
-          loading="lazy"
-        /></a
-      >
+      <a href={routes.index} class="self-center flex gap-1 mr-3 items-end"><Logo /></a>
       <SidebarToggle
         isOpen={showSidebar}
         on:toggle={(event) => (showSidebar = event.detail)}
