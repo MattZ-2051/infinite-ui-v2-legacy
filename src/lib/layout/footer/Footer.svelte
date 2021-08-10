@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CLIENT_COMPANY_NAME } from '$project/variables';
+  import { COPYRIGHT } from '$project/variables';
   import routes from '$lib/routes';
   import SocialLinks from './SocialLinks.svelte';
 </script>
@@ -17,8 +17,8 @@
       <a href={routes.privacy} class="hover:text-white">Privacy Policy</a>
       <a href={routes.terms} class="hover:text-white">Terms & Conditions</a>
     </div>
-    <span class="text-sm px-4 flex flex-wrap gap-1 justify-center"
-      ><span>{CLIENT_COMPANY_NAME} © 2021</span><span>All rights reserved.</span></span
-    >
+    <span class="text-sm px-4 flex flex-wrap gap-1 justify-center">
+      {COPYRIGHT}
+    </span>
   </div>
 </div>

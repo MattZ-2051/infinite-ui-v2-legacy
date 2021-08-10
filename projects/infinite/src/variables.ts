@@ -7,3 +7,4 @@ export const CLIENT_SOCIAL_IMAGE = {
   height: 630,
   alt: 'INFINITE by SUKU | NFT Marketplace',
 };
+export const COPYRIGHT = '© 2021 Infinite Assets, Inc.';
