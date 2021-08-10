@@ -33,6 +33,7 @@
 
   import '$theme/theme.css';
   import '../app.css';
+  import '$theme/app.css';
 
   if (browser) {
     initUserAuth();
