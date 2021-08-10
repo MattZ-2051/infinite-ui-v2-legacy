@@ -8,3 +8,8 @@ export const CLIENT_SOCIAL_IMAGE = {
   alt: 'INFINITE by SUKU | NFT Marketplace',
 };
 export const COPYRIGHT = '© 2021 Infinite Assets, Inc.';
+export const hubspot = {
+  region: import.meta.env.VITE_HUBSPOT_REGION,
+  formId: import.meta.env.VITE_HUBSPOT_FORM_ID,
+  portalId: import.meta.env.VITE_HUBSPOT_PORTAL_ID,
+};
