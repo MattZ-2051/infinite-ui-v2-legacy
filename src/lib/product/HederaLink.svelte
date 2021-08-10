@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import Icon from '$ui/icon/Icon.svelte';
   import hedera from '$lib/components/icons/hedera';
 
