@@ -1,5 +1,7 @@
-:root,
 .theme-default {
+  /* Main */
+  --main-bg-color: #ffffff;
+
   /* Header */
   --header-color: #000000;
   --header-bg-color: #ffffff;
@@ -42,6 +44,9 @@
 }
 
 .theme-dark {
+  /* Main */
+  --main-bg-color: #1a1a1a;
+
   /* Header */
   --header-color: theme('colors.gray.300');
   --header-bg-color: #000000;

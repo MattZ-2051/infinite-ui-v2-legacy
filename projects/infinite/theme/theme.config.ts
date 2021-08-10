@@ -4,9 +4,10 @@ const Theme = {
 };
 
 export const themeConfig = {
-  $index: Theme.Dark,
+  '*.root': Theme.Default,
   '*.header': Theme.Dark,
-  '$collection.*': Theme.Dark,
-  '$product.*': Theme.Dark,
-  '$collectors.*': Theme.Dark,
+  '$index.*.root': Theme.Dark,
+  '$collection.*.root': Theme.Dark,
+  '$product.*.root': Theme.Dark,
+  '$collectors.*.root': Theme.Dark,
 };

@@ -51,13 +51,13 @@
   <Head />
 </svelte:head>
 
-{#if $navigationPathChanging || $isLoading}
-  <PreloadIndicator />
-{/if}
+<ThemeContext id="root">
+  {#if $navigationPathChanging || $isLoading}
+    <PreloadIndicator />
+  {/if}
 
-<GdprBanner />
+  <GdprBanner />
 
-<ThemeContext>
   <div class="flex flex-col min-h-screen">
     <Header />
 
@@ -70,6 +70,6 @@
     </main>
     <Footer />
   </div>
-</ThemeContext>
 
-<Modals><Scrim slot="backdrop" /></Modals>
+  <Modals><Scrim slot="backdrop" /></Modals>
+</ThemeContext>

@@ -4,7 +4,7 @@
   import { product } from './product.store';
 </script>
 
-<div class="bg-primary flex flex-grow">
+<div class="flex flex-grow">
   <div class="flex container py-0">
     <div class="flex flex-col flex-auto lg:flex-row">
       <div class="lg:max-w-md -container-x lg:-container-none">

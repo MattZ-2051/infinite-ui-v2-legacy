@@ -2,6 +2,7 @@
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
   import { action } from '@storybook/addon-actions';
   import { mdiAccount } from '@mdi/js';
+  import ThemeDecorator from '$storybook/decorators/ThemeDecorator.svelte';
   import Tabs from './Tabs.svelte';
   import Tab from './Tab.svelte';
 </script>
@@ -9,6 +10,7 @@
 <Meta
   title="UI / Tabs"
   component={Tabs}
+  decorators={[() => ThemeDecorator]}
   subcomponents={{ Tab }}
   argTypes={{
     items: {

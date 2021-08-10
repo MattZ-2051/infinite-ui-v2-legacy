@@ -25,6 +25,10 @@ body::-webkit-scrollbar-track {
 }
 
 @layer base {
+  main {
+    background-color: var(--main-bg-color);
+  }
+
   .container {
     width: 100%;
     max-width: 1536px;

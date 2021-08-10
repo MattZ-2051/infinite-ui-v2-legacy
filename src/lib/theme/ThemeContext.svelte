@@ -4,7 +4,7 @@
   import { page } from '$app/stores';
   import { getMatch, getCurrentPage } from './theme.util';
 
-  export let id = '';
+  export let id: string;
 
   const context: string[] = [...((getContext('theme') as string[]) || []), id].filter(Boolean);
   setContext('theme', context);

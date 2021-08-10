@@ -41,6 +41,7 @@ module.exports = {
         svelte: path.resolve(__dirname, '..', 'node_modules', 'svelte'),
         $app: path.resolve('./.svelte-kit/dev/runtime/app'),
         $lib: path.resolve('./src/lib'),
+        $storybook: path.resolve('./.storybook'),
         ...Object.fromEntries(alias.map(([key, value]) => [key, path.resolve(`./${value}`)])),
       },
       mainFields: ['svelte', 'browser', 'module', 'main'],
