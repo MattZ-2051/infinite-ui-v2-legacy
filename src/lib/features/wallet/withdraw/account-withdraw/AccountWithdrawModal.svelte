@@ -51,7 +51,7 @@
         <div>
           Withdrawable balance: <span class="text-black font-semibold">{formatCurrency(withdrawableAmount)}</span>
         </div>
-        <div>(Excludes pending transactions)</div>
+        <div>(Excludes pending transactions and credit card payments less than 30 days old)</div>
       </div>
       <div class="input-container flex items-center relative py-4">
         <input

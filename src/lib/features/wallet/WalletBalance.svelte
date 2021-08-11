@@ -31,7 +31,7 @@
         <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
       {/if}
       <br />
-      <span class="text-xs text-gray-400">(Excludes pending transactions)</span>
+      <span class="text-xs text-gray-400">(Excludes pending transactions and active bids)</span>
     </div>
     <Button on:click={() => dispatch('deposit')}>Deposit</Button>
     <div class="text-sm mt-4">
@@ -42,7 +42,9 @@
         {formatCurrency($withdrawableBalance)}
       {/if}
       <br />
-      <span class="text-xs text-gray-400">(Excludes pending transactions)</span>
+      <span class="text-xs text-gray-400"
+        >(Excludes pending transactions and credit card payments less than 30 days old)</span
+      >
     </div>
     <Button
       variant="secondary"
