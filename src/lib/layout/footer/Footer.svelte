@@ -12,7 +12,7 @@
       <SocialLinks />
     </div>
     <div class="flex flex-wrap items-center justify-center text-center gap-x-8 gap-y-4 md:gap-5">
-      <a href={routes.faq} class="hover:text-white">FAQ</a>
+      <a href={routes.faq} target="_blank" class="hover:text-white">FAQ</a>
       <a href={routes.help} class="hover:text-white">Help</a>
       <a href={routes.privacy} class="hover:text-white">Privacy Policy</a>
       <a href={routes.terms} class="hover:text-white">Terms & Conditions</a>

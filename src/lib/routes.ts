@@ -1,4 +1,6 @@
-const routes = {
+import routes from '$project/routes';
+
+export default Object.freeze({
   index: '/',
   marketplace: '/marketplace',
   sku: (skuId) => `/marketplace/${skuId}`,
@@ -11,7 +13,5 @@ const routes = {
   help: '/help',
   privacy: '/privacy',
   terms: '/terms',
-  faq: '/faq',
-};
-
-export default routes;
+  ...routes,
+});
