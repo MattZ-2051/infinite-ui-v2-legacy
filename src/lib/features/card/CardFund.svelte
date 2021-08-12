@@ -20,6 +20,8 @@
 
   export let card: CreditCard;
 
+  $: isActive = card.status === 'complete' && card.verification?.cvv === 'pass';
+
   const saving = creditCardFundsAddFx.pending;
   const removing = creditCardRemoveFx.pending;
 
@@ -62,8 +64,15 @@
 
   <div class="flex justify-between mt-3">
     <span class="text-sm font-extrabold italic text-black"
-      >Credit Card <span class="text-green-500">(Active)</span></span
-    >
+      >Credit Card
+      {#if isActive}
+        <span class="text-green-500">(Active)</span>
+      {:else if card.status === 'pending'}
+        <span class="text-gray-400">(Pending)</span>
+      {:else}
+        <span class="text-red-500">(Failed)</span>
+      {/if}
+    </span>
     <button
       type="button"
       on:click={() =>
@@ -84,6 +93,6 @@
 
   <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
     <FormInput name="amount" label="Enter Amount" />
-    <Button type="submit" class="mt-6" disabled={$saving}>Add Funds</Button>
+    <Button type="submit" class="mt-6" disabled={!isActive || $saving}>Add Funds</Button>
   </form>
 </CircleContainer>

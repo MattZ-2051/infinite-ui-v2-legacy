@@ -9,9 +9,9 @@ export interface Wallet {
   kycRecords: KycRecord[];
 }
 
-export interface CreditCard {
+export type CreditCard = {
   id: string;
-  status: string;
+  status: 'complete' | 'pending' | 'failed';
   last4: string;
   network: string;
   expYear: number;
@@ -21,7 +21,11 @@ export interface CreditCard {
     email: string;
   };
   fingerprint: string;
-}
+  verification: {
+    avs: string; // AVSCode;
+    cvv: 'pending' | 'pass' | 'fail' | 'unavailable' | 'not_requested';
+  };
+};
 
 export interface KycRecord {
   _id: string;
