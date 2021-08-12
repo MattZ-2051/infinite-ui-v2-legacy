@@ -13,6 +13,8 @@
   import CircleContainer from './CircleContainer.svelte';
   import { creditCardInsertFx } from './card.store';
 
+  $: isDistrictRequired = ['US', 'CA'].includes(selectedCountryISO2);
+
   const schema = yup.object({
     cardNumber: yup
       .string()
@@ -36,7 +38,9 @@
       postalCode: yup.string().required('Postal code is required'),
       city: yup.string().required('City is required'),
       country: yup.string().required('Country is required'),
-      district: yup.string(),
+      district: yup.string().when('country', () => {
+        return isDistrictRequired ? yup.string().required('State/Province is required') : yup.string().notRequired();
+      }),
     }),
   });
 
@@ -78,17 +82,21 @@
 <CircleContainer>
   <div class="text-gray-500 font-extrabold italic mt-4">Enter the card details below</div>
   <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
-    <FormInput name="cardNumber" label="Credit card number" />
-    <FormInput name="expMonth" label="Exp month" />
-    <FormInput name="expYear" label="Exp year" />
-    <FormInput name="cvv" label="CCV" />
-    <FormInput name="billingDetails.name" label="Cardholder name" />
-    <FormInput name="billingDetails.line1" label="Address Line 1" />
+    <FormInput name="cardNumber" label="Credit card number *" />
+    <FormInput name="expMonth" label="Exp month *" />
+    <FormInput name="expYear" label="Exp year *" />
+    <FormInput name="cvv" label="CCV *" />
+    <FormInput name="billingDetails.name" label="Cardholder name *" />
+    <FormInput name="billingDetails.line1" label="Address Line 1 *" />
     <FormInput name="billingDetails.line2" label="Address Line 2" />
-    <FormInput name="billingDetails.postalCode" label="Postal Code" />
-    <FormInput name="billingDetails.city" label="City" />
-    <FormCountriesSelect bind:value={selectedCountryISO2} name="billingDetails.country" label="Country" />
-    <FormDistrictsSelect countryISO2={selectedCountryISO2} name="billingDetails.district" label="State/Province" />
+    <FormInput name="billingDetails.postalCode" label="Postal Code *" />
+    <FormInput name="billingDetails.city" label="City *" />
+    <FormCountriesSelect bind:value={selectedCountryISO2} name="billingDetails.country" label="Country *" />
+    <FormDistrictsSelect
+      countryISO2={selectedCountryISO2}
+      name="billingDetails.district"
+      label="State/Province{isDistrictRequired ? ' *' : ''}"
+    />
 
     <Button type="submit" class="mt-6" disabled={$saving}>Add Card</Button>
   </form>

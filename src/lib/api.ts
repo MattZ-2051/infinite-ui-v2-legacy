@@ -3,6 +3,8 @@ import { get as getStoreValue, writable, derived } from 'svelte/store';
 import { variables } from '$lib/variables';
 import { authToken } from '$lib/auth';
 
+export type ApiError = { status: number; statusText: string; url: string; data?: any };
+
 type ApiFetchTracker = Pick<Writable<boolean>, 'set' | 'subscribe'>;
 
 type ApiOptions = RequestInit & {
@@ -56,7 +58,7 @@ export async function send<T>(path: string, _options?: ApiOptions): Promise<{ he
       try {
         data = await parseBody(r);
       } catch {}
-      throw { status, statusText, url, data };
+      throw <ApiError>{ status, statusText, url, data };
     }
 
     return { headers, body: await parseBody<T>(r) };

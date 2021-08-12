@@ -1,3 +1,4 @@
+import type { ApiError } from '$lib/api';
 import type { CreditCard } from '../wallet/types';
 import type { NewCreditCard } from './types';
 import { createEffect } from 'effector';
@@ -19,7 +20,7 @@ creditCardFundsAddFx.done.watch(() => {
   updateUser();
 });
 
-export const creditCardInsertFx = createEffect(async (payload: NewCreditCard) => {
+export const creditCardInsertFx = createEffect<NewCreditCard, CreditCard, ApiError>(async (payload: NewCreditCard) => {
   return await addCreditCard(payload);
 });
 
@@ -28,7 +29,9 @@ creditCardInsertFx.done.watch(() => {
   toast.success('Card added successfully.');
 });
 
-creditCardInsertFx.fail.watch(() => toast.danger(`There was a problem adding your card.`));
+creditCardInsertFx.failData.watch((error) => {
+  toast.danger(error?.data?.message || `There was a problem adding your card.`, { toastId: 'CARD_ADD_ERROR' });
+});
 
 export const creditCardRemoveFx = createEffect(async ({ card }: { card: CreditCard }) => {
   return await deleteCreditCard(card.id);
