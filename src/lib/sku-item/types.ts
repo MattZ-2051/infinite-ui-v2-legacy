@@ -228,6 +228,8 @@ type TransactionData = {
     institution_id: string;
     institution_name: string;
     payout: string;
+    type: string;
+    usdcAddress?: string;
   };
   saleType: 'fixed' | 'auction';
 };

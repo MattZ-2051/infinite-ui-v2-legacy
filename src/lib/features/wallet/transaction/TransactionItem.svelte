@@ -3,15 +3,16 @@
   import { mdiChevronDown } from '@mdi/js';
   import { formatDate, formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
+  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import UserLink from '$lib/components/UserLink.svelte';
   import hedera from '$lib/components/icons/hedera';
   import routes from '$lib/routes';
-  import soldNormal from './sold-normal.png';
-  import boughtNormal from './bought-normal.png';
-  import withdrawalFunds from './withdrew-funds.png';
-  import addedFunds from './added-funds.png';
-  import usdcoin from './usdcoin.png';
-  import addedFundsCoinbase from './added-funds-coinbase.png';
+  import soldNormal from './assets/sold-normal.png';
+  import boughtNormal from './assets/bought-normal.png';
+  import withdrawalFunds from './assets/withdrew-funds.png';
+  import addedFunds from './assets/added-funds.png';
+  import usdcoin from './assets/usdcoin.png';
+  import addedFundsCoinbase from './assets/added-funds-coinbase.png';
 
   export let transaction: Transaction;
 
@@ -61,112 +62,112 @@
         <Icon path={hedera} size="0.6" />
       </div>
     {/if}
+    {#if type === 'nft_redeem'}
+      <div
+        style="width:32px; height:32px; border:1px solid #EBEBEB;"
+        class="rounded-xl  flex justify-center items-center"
+      >
+        <IconRedeem size="0.8" />
+      </div>
+    {/if}
   </div>
   <div class="flex-grow">
     <div class="flex div-style items-center">
       <div class="container-message grid grid-cols-2  gap-x-10 gap-y-2  w-full items-center">
-        <span class="">
+        <span class="message">
           {#if type === 'royalty_fee'}
-            <span class="message">You received a royalty payment for the sale of </span>
-            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a></span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
+            {status === 'error' ? 'You tried to receive' : 'You received'} a royalty payment for the sale of
+            <span class="font-semibold underline hover:no-underline text-black"
+              ><a href={routes.sku(sku?._id)}>{name} </a></span
+            >
+            <span class="font-semibold underline hover:no-underline text-black">
+              <a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
             >
           {/if}
 
-          {#if type === 'purchase' && status === 'success'}
-            <span class="message">You bought</span>
-            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a> </span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
+          {#if type === 'purchase'}
+            {status === 'error' ? 'You tried to buy' : 'You bought'}
+            <span class="font-semibold underline hover:no-underline text-black"
+              ><a href={routes.sku(sku?._id)}>{name} </a></span
+            >
+            <span class="font-semibold underline hover:no-underline text-black">
+              <a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
+            >
+            <UserLink username={sellerUsername} class="font-semibold underline hover:no-underline text-black">
+              <span class="message" slot="prefix">from</span>
+            </UserLink>
+          {/if}
+
+          {#if type === 'sale'}
+            {status === 'error' ? 'You tried to sell' : 'You sold'}
+            <span class="font-semibold underline hover:no-underline text-black"
+              ><a href={routes.sku(sku?._id)}>{name} </a></span
+            >
+            <span class="font-semibold underline hover:no-underline text-black">
+              <a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
             >
             <UserLink
-              username={transaction.transactionData.seller?.username}
-              class="font-semibold underline hover:no-underline"
+              username={buyerUsername}
+              class="font-semibold underline hover:no-underline text-black"
+              hasLinkClass={false}
             >
-              <span class="message" slot="prefix">from</span>
-            </UserLink>
-          {/if}
-
-          {#if type === 'purchase' && status === 'error'}
-            <span class="message">You tried buying</span>
-            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a> </span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
-            >
-            <UserLink username={sellerUsername} class="font-semibold underline hover:no-underline" hasLinkClass={false}>
-              <span class="message" slot="prefix">from</span>
-            </UserLink>
-            <span class="font-semibold text-red-600">(Transaction failed)</span>
-          {/if}
-
-          {#if type === 'sale' && status === 'success'}
-            <span class="message">You sold</span>
-            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a> </span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
-            >
-            <UserLink username={buyerUsername} class="font-semibold underline hover:no-underline" hasLinkClass={false}>
               <span class="message" slot="prefix">to</span>
             </UserLink>
           {/if}
 
-          {#if type === 'withdrawal' && status === 'success'}
-            <span class="message"
-              >You withdrew funds to bank {transaction.transactionData.withdraw.institution_name} and acount ending in</span
-            >
-            <span class="font-semibold">{transaction.transactionData.withdraw.ach_number}</span>
+          {#if type === 'withdrawal'}
+            {status === 'error' ? 'You tried to withdraw' : 'You withdrew'}
+            {#if transaction.transactionData.withdraw.type === 'usdc'}
+              USDC to wallet
+              <span class="font-semibold text-black">{transaction.transactionData.withdraw.usdcAddress}</span>
+            {:else}
+              funds to bank {transaction.transactionData.withdraw.institution_name} and acount ending in
+              <span class="font-semibold text-black">{transaction.transactionData.withdraw.ach_number}</span>
+            {/if}
           {/if}
 
-          {#if type === 'sale' && status === 'error'}
-            <span class="message">You tried selling</span>
-            <span class="font-semibold underline hover:no-underline"><a href={routes.sku(sku?._id)}>{name} </a> </span>
-            <span class="font-semibold underline hover:no-underline"
-              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
-            >
-            <UserLink username={buyerUsername} class="font-semibold underline hover:no-underline" hasLinkClass={false}>
-              <span class="message" slot="prefix">to</span>
-            </UserLink>
-            <span class="font-semibold text-red-600">(Transaction failed)</span>
-          {/if}
-
-          {#if type === 'deposit' && deposit.type === 'cc'}
-            <span class="message"
-              >You added funds from your <span class="font-semibold text-black"
-                >{transaction.transactionData.deposit.card.network}</span
-              >
+          {#if type === 'deposit'}
+            {status === 'error' ? 'You tried to add funds' : 'You added funds'}
+            {#if deposit.type === 'cc'}
+              from your
+              <span class="font-semibold text-black">{transaction.transactionData.deposit.card?.network}</span>
               credit card ending in
-              <span class="font-semibold text-black">{transaction.transactionData.deposit.card.last4} </span></span
+              <span class="font-semibold text-black">{transaction.transactionData.deposit.card?.last4} </span>
+            {:else if deposit.type === 'circle'}
+              by depositing
+              <span class="text-black font-medium">USDC</span>
+            {:else if deposit.type === 'hbar' || deposit.type === 'coinbase'}
+              by depositing
+              <span class="text-black font-medium"> {formatCurrency(+deposit.amount)} </span>
+              using
+              <span class="text-black font-medium">
+                {deposit.type === 'coinbase' ? 'Coinbase' : 'Hbar'}
+              </span>
+            {/if}
+          {/if}
+
+          {#if type === 'nft_redeem'}
+            {status === 'error' ? 'You tried to redeem' : 'You redeemed'}
+            {sku?.name ? sku.name : ''}
+            <span class="font-semibold underline hover:no-underline text-black"
+              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
             >
           {/if}
 
-          {#if type === 'deposit' && deposit.type === 'circle'}
-            <span class="message">You added funds by depositing </span>
-            <span class="font-medium">USDC</span>
-          {/if}
-
-          {#if type === 'deposit' && (deposit.type === 'hbar' || deposit.type === 'coinbase')}
-            <span class="message">You added funds by depositing </span>
-            <span class="font-medium"> {formatCurrency(+deposit.amount)} </span>
-            <span class="message ">using </span>
-            <span class="font-medium">
-              {#if deposit.type === 'coinbase'}
-                Coinbase
-              {:else if deposit.type === 'hbar'}
-                Hbar
-              {/if}
-              {status === 'pending' ? '(Pending)' : ''}
-            </span>
+          {#if status === 'pending'}
+            <span class="font-semibold text-black"> (Pending)</span>
+          {:else if status === 'error'}
+            <span class="font-semibold text-red-600"> (Transaction failed)</span>
           {/if}
         </span>
         <div class="flex justify-between gap-x-3">
           <span class="message-color font-extrabold italic">{formatDate(transaction.createdAt, 'MMMM Do, YYYY ')}</span>
           <span
             class="whitespace-nowrap flex items-center "
-            class:text-black={(type === 'purchase' || type === 'sale') && status === 'error'}
             class:withdraw-color={(type === 'purchase' || type === 'withdrawal') && status === 'success'}
             class:deposit-color={(type === 'royalty_fee' || type === 'sale' || type === 'deposit') &&
               status === 'success'}
+            class:line-through={status === 'error'}
           >
             {#if (type === 'royalty_fee' || type === 'sale' || type === 'deposit') && status === 'success'}
               +
@@ -175,25 +176,19 @@
               -
             {/if}
             {#if type === 'royalty_fee'}
-              {formatCurrency(cost.royaltyFee)}
+              {formatCurrency(cost?.royaltyFee)}
             {/if}
-            {#if type === 'sale' && status === 'success'}
-              {formatCurrency(+cost.finalPayout)}
-            {/if}
-            {#if type === 'sale' && status === 'error'}
-              <span class="line-through">{formatCurrency(+cost?.finalPayout)}</span>
+            {#if type === 'sale'}
+              {formatCurrency(+cost?.finalPayout)}
             {/if}
             {#if type === 'deposit'}
-              {formatCurrency(+deposit.amount)}
+              {formatCurrency(+deposit?.amount)}
             {/if}
-            {#if type === 'purchase' && status === 'success'}
-              {formatCurrency(cost.totalCost)}
+            {#if type === 'purchase'}
+              {formatCurrency(cost?.totalCost)}
             {/if}
-            {#if type === 'withdrawal' && status === 'success'}
-              {formatCurrency(transaction.transactionData.withdraw.amount)}
-            {/if}
-            {#if type === 'purchase' && status === 'error'}
-              <span class="line-through">{formatCurrency(cost?.totalCost)}</span>
+            {#if type === 'withdrawal'}
+              {formatCurrency(transaction.transactionData.withdraw?.amount)}
             {/if}
           </span>
         </div>
