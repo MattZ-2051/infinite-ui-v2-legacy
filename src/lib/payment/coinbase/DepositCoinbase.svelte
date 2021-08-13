@@ -1,30 +1,34 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { getPersonalToken } from '$lib/user';
+  import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
   import { generateUID, getServiceURI, handleServiceMessage } from './index';
 
   const dispatch = createEventDispatcher();
 
   let uid: string;
   let serviceURI: string;
+  let loaded = false;
 
-  onMount(async () => {
+  (async () => {
     const personalToken = await getPersonalToken();
     uid = generateUID();
     serviceURI = getServiceURI(uid, personalToken);
-  });
+  })();
 </script>
 
 <svelte:window on:message={(message) => handleServiceMessage(message, uid, dispatch)} />
 
-<div class="fixed w-full h-full top-0 left-0 z-40">
-  <div class="h-full w-full absolute flex items-center justify-center z-20">
-    <iframe src={serviceURI} title="" scrolling="no" frameBorder="no" class="min-w-min" />
-  </div>
-</div>
-
-<style lang="postcss">
-  iframe {
-    height: 585px;
-  }
-</style>
+{#if serviceURI}
+  <iframe
+    src={serviceURI}
+    title=""
+    scrolling="no"
+    frameBorder="no"
+    class="fixed top-0 bottom-0 right-0 left-0 w-full h-full bg-black bg-opacity-50"
+    on:load={() => (loaded = true)}
+  />
+{/if}
+{#if !loaded}
+  <FullScreenLoader class="fixed top-0 bottom-0 right-0 left-0 bg-black bg-opacity-50 text-white" />
+{/if}
