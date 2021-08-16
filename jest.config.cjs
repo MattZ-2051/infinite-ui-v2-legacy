@@ -13,6 +13,7 @@ module.exports = async () => {
       '\\$app/(.+)$': '<rootDir>/scripts/test/$app/$1',
       '\\$lib/(.+)$': '<rootDir>/src/lib/$1',
       ...Object.fromEntries(alias.map(([key, value]) => [`\\${key}/(.+)$`, `<rootDir>/${value}/$1`])),
+      '^clsx$': '<rootDir>/scripts/test/clsx.jest.cjs',
     },
     setupFilesAfterEnv: ['<rootDir>/scripts/test/setup.ts'],
     globalSetup: '<rootDir>/scripts/test/global-setup.cjs',

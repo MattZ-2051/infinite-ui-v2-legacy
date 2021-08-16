@@ -1,5 +1,6 @@
 <script lang="ts">
   import { get_current_component } from 'svelte/internal';
+  import clsx from 'clsx';
   import { forwardEventsBuilder } from '$util/forwardEvents';
 
   /**
@@ -29,11 +30,13 @@
   export { _class as class };
 
   const forwardEvents = forwardEventsBuilder(get_current_component());
-  let classes = '';
-  // TODO: refactor with clsx when import issue is resolved
-  $: classes = `${_class} ${variant} button inline-block text-center rounded-full w-full ${
+
+  $: classes = clsx(
+    'button inline-block text-center rounded-full w-full',
+    _class,
+    variant,
     disabled ? 'opacity-50 pointer-events-none cursor-default' : 'hover:scale-105 transform duration-200'
-  }`;
+  );
 </script>
 
 {#if href}
