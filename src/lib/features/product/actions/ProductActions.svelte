@@ -32,7 +32,7 @@
     },
     'create-sale': {
       type: 'create-sale',
-      label: 'Create Sale',
+      label: 'Sell Your NFT',
       icon: iconSale,
     },
     'cancel-sale': {
