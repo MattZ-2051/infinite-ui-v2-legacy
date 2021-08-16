@@ -62,8 +62,10 @@
 {#if isOpen}
   <Modal title="USDC Deposit" on:close={onClose}>
     <p slot="title" class="font-medium text-3xl text-center px-8 py-6">USDC Deposit</p>
-    <div class="p-10">
-      <p>Funds sent to the following address will be credited to your wallet:</p>
+    <div class="p-10 text-gray-400">
+      <p class="m-auto w-max max-w-sm text-center">
+        Funds sent to the following address will be automatically credited to your account.
+      </p>
       {#if $address}
         <div class="mt-8 text-center">
           <input type="text" disabled value={$address} class="border-b-2 border-dotted bg-transparent w-96" />
@@ -92,10 +94,9 @@
           {/if}
         </div>
       {:else}
-        <div class="flex flex-col items-center my-12">
-          <div class="inline-block">
-            <Button on:click={onGenerateUSDCAddress}>Generate USDC Address</Button>
-          </div>
+        <div class="flex flex-col items-center my-12 gap-3">
+          <Button on:click={onGenerateUSDCAddress}>Generate USDC Address</Button>
+          <Button on:click={onClose} variant="tertiary" class="font-bold">Back to Wallet</Button>
         </div>
       {/if}
     </div>
