@@ -1,5 +1,5 @@
 <script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+  import { Meta, Story } from '@storybook/addon-svelte-csf';
   import { mdiAccountCircleOutline, mdiChevronDown, mdiCreditCardOutline } from '@mdi/js';
   import { ThemeDecorator } from '$storybook/decorators';
   import Icon from '$ui/icon/Icon.svelte';
@@ -19,7 +19,7 @@
   argTypes={{
     visible: {
       control: { type: 'boolean' },
-      defaultValue: true,
+      defaultValue: false,
     },
     placement: {
       control: { type: 'text' },
@@ -32,7 +32,7 @@
   }}
 />
 
-<Template let:args>
+<Story name="Default" let:args>
   <div class="flex justify-center">
     <Menu {...args}>
       <MenuTrigger slot="trigger" class="text-gray-500"
@@ -41,18 +41,24 @@
       </MenuTrigger>
       <MenuList slot="menu">
         <MenuItem selected={selected === 'action-1'} on:select={() => (selected = 'action-1')}>Action 1</MenuItem>
-        <MenuItem selected={selected === 'action-2'} on:select={() => (selected = 'action-2')}>
-          Action 2
-          <Icon path={mdiCreditCardOutline} class="inline ml-3" />
-        </MenuItem>
-        <MenuItem href="/">Link</MenuItem>
-        <MenuItem disabled>
-          Disabled
-          <Icon path={mdiAccountCircleOutline} class="inline ml-3" />
-        </MenuItem>
+        <MenuItem selected={selected === 'action-2'} on:select={() => (selected = 'action-2')}>Action 2</MenuItem>
+        <MenuItem selected={selected === 'action-3'} on:select={() => (selected = 'action-3')}>Action 3</MenuItem>
       </MenuList>
     </Menu>
   </div>
-</Template>
+</Story>
 
-<Story name="Default" />
+<Story name="List" let:args>
+  <MenuList>
+    <MenuItem selected={selected === 'action-1'} on:select={() => (selected = 'action-1')}>Action 1</MenuItem>
+    <MenuItem selected={selected === 'action-2'} on:select={() => (selected = 'action-2')}>
+      Action 2
+      <Icon path={mdiCreditCardOutline} class="inline ml-3" />
+    </MenuItem>
+    <MenuItem href="/">Link</MenuItem>
+    <MenuItem disabled>
+      Disabled
+      <Icon path={mdiAccountCircleOutline} class="inline ml-3" />
+    </MenuItem>
+  </MenuList>
+</Story>

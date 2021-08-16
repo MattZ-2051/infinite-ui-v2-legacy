@@ -23,7 +23,7 @@
   <Toast {...args} />
 </Template>
 
-<Story name="Usage">
+<Story name="Usage" parameters={{ chromatic: { disableSnapshot: true } }}>
   <div class="flex">
     <div class="flex flex-col px-2">
       <button class="py-1" on:click={() => toast.info('Info')}>Info</button>
