@@ -16,7 +16,7 @@
   export let product: Product;
   export let isOpen: boolean;
 
-  let price = 0;
+  let price;
   let disabled = false;
 
   $: marketplaceFee = getSellingFee(product);
@@ -66,7 +66,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="List your NFTs for sale" on:close={closeModal} class="max-w-md">
+  <Modal title="List your NFT for sale" on:close={closeModal} class="max-w-md">
     <form use:form>
       <div class="flex flex-col px-10 mb-4">
         <div class="flex flex-col justify-evenly gap-3 py-5 align-middle border-t border-b border-gray-200">
@@ -97,7 +97,8 @@
               name="price"
               type="number"
               bind:value={price}
-              class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center border-2 "
+              placeholder="Enter price"
+              class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center border-0 text-xl"
               class:border-red-600={!!$errors.price}
             />
           </div>
@@ -121,11 +122,9 @@
             <span class="text-xl">{formatCurrency(total)}</span>
           </div>
           <div class="flex flex-col text-gray-400 justify-items-center items-center">
-            <span class="text-center"
-              >Listing your NFT for sale on the marketplace will allow it to be purchased by other users. Once listed
-              for sale it cannot be canceled</span
-            >
-            <a href="https://support.suku.world/" class="text-black underline font-bold">Click here to learn more.</a>
+            <span class="text-center">
+              If your NFT is bought on the marketplace, payment will be transferred to your INFINITE wallet.
+            </span>
           </div>
         </div>
         <div class="flex items-center py-4">
