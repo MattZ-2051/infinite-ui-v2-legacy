@@ -92,9 +92,8 @@
   <Modal on:close={closeModal}>
     <div class="text-2xl font-medium" slot="title">Create auction</div>
     <form on:submit|preventDefault={onStartAuction}>
-      <div class="px-10 pb-2 text-center">
-        You wont be able to transfer or redeem this<br />
-        item while your auction is in progress.
+      <div class="max-w-sm pb-2 text-center text-gray-400 m-auto">
+        Once started, an auction can only be canceled if there have been no active bids placed.
       </div>
       <div class="flex flex-col px-10 py-2">
         <div class="flex gap-8 justify-between border-solid border-t border-b border-gray-200 py-4">

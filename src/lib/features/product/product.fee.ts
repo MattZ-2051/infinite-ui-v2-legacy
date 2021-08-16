@@ -6,7 +6,7 @@ export function getSellingFee(product: Product): number {
   }
 
   if (product.resale) {
-    return product.sku.sellerTransactionFeePercentageSecondary / 100;
+    return product.sku.sellerTransactionFeePercentageSecondary / 100 || 0;
   }
 
   return product.sku?.sellerTransactionFeePercentage / 100 || 0;
