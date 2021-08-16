@@ -17,9 +17,9 @@
   /* Menu */
   --menu-background-color: white;
   --menu-box-shadow-color: rgba(0, 0, 0, 0.05);
-  --menu-item-background-active: #f8f8f8;
+  --menu-item-background-selected: #f8f8f8;
   --menu-item-color: #7c7c7c;
-  --menu-item-color-active: black;
+  --menu-item-color-selected: black;
 
   /* Pagination */
   --pagination-color: #9e9e9e;
@@ -63,9 +63,9 @@
   /* Menu */
   --menu-background-color: #252525;
   --menu-box-shadow-color: rgba(0, 0, 0, 0.05);
-  --menu-item-background-active: #3a3a3a;
+  --menu-item-background-selected: #3a3a3a;
   --menu-item-color: #7c7c7c;
-  --menu-item-color-active: white;
+  --menu-item-color-selected: white;
 
   /* Pagination */
   --pagination-color: #9e9e9e;

@@ -5,7 +5,7 @@
   import type { Screens } from '$lib/media-query.store';
   import { media } from '$lib/media-query.store';
   import TabHeader from './TabHeader.svelte';
-  import TabDropdown from './TabDropdown.svelte';
+  import TabMenu from './TabMenu.svelte';
 
   /**
    * The items to render.
@@ -13,9 +13,9 @@
   export let items: TabItem[] = [];
 
   /**
-   * Below this size, Tabs will be rendered as Dropdown.
+   * Below this size, Tabs will be rendered as Menu.
    */
-  export let dropdownBreakpoint: keyof Screens = undefined;
+  export let menuBreakpoint: keyof Screens = undefined;
 
   /**
    * The tab id that is selected initially.
@@ -37,7 +37,7 @@
   const dispatch = createEventDispatcher<{ select: string }>();
 
   let selectedTab = writable<TabItem>(items.find((item) => item.id === defaultSelectedId) || items[0]);
-  $: renderDropdown = items.length > 1 && dropdownBreakpoint && !$media[dropdownBreakpoint];
+  $: renderDropdown = items.length > 1 && menuBreakpoint && !$media[menuBreakpoint];
   $: dropdownItems = items.filter((item) => item.id !== $selectedTab.id);
 
   function activate(item: TabItem, initial = false) {
@@ -74,7 +74,11 @@
   <ul role="tablist" class="flex gap-10" on:keydown={handleKeydown}>
     {#if renderDropdown}
       <TabHeader {...$selectedTab} active={true} class={`pb-5 ${itemClass}`} />
-      <TabDropdown class={`pb-5 ${itemClass}`} items={dropdownItems} on:activate={({ detail }) => activate(detail)} />
+      <TabMenu
+        triggerClass={`pb-5 ${itemClass}`}
+        items={dropdownItems}
+        on:activate={({ detail }) => activate(detail)}
+      />
     {:else}
       {#each items as item (item.id)}
         <TabHeader

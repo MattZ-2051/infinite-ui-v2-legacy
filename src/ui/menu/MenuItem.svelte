@@ -1,31 +1,80 @@
-<script lang="ts">
-  export let href: string = undefined;
-  export let active = false;
+<script context="module" lang="ts">
+  let uid = 1;
 </script>
 
-{#if href}
-  <a {href} class:active class:menu-item={true} {...$$restProps}>
+<script lang="ts">
+  import { createEventDispatcher, getContext, onDestroy, onMount } from 'svelte';
+  import type { Writable } from 'svelte/store';
+  import type { MenuItems, VisibleStore } from './types';
+
+  export let href = undefined;
+  export let selected = false;
+  export let disabled = false;
+
+  const { registerItem, unregisterItem }: MenuItems = getContext('menuItems');
+  let id = `menuitem-id-${uid++}`;
+  let currenItemStore: Writable<string> = getContext('currenItemStore');
+  let visibleStore: Writable<VisibleStore> = getContext('visibleStore');
+  let selfElement: HTMLElement;
+  let anchorElement: HTMLElement;
+
+  $: $currenItemStore === id && anchorElement?.focus();
+
+  onMount(() => {
+    registerItem(id, selfElement);
+  });
+
+  onDestroy(() => {
+    unregisterItem(id);
+  });
+
+  function handleClick(event: Event) {
+    dispatch('select');
+    $visibleStore = { visible: false, event, reason: 'select' };
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (!href && event.key === 'Enter') {
+      event.preventDefault();
+      handleClick(event);
+    }
+  }
+
+  let dispatch = createEventDispatcher<{ select: void }>();
+</script>
+
+<li bind:this={selfElement} role="presentation" on:click={handleClick} class:pointer-events-none={disabled}>
+  <a
+    bind:this={anchorElement}
+    {href}
+    class:selected
+    class:disabled
+    class:menu-item={true}
+    role="menuitem"
+    tabindex={-1}
+    on:keydown={handleKeydown}
+    {...$$restProps}
+  >
     <slot />
   </a>
-{:else}
-  <div class:active class:menu-item={true} {...$$restProps} on:click>
-    <slot />
-  </div>
-{/if}
+</li>
 
 <style lang="postcss">
   .menu-item {
-    @apply flex items-center flex-grow font-medium p-2 px-4;
+    @apply flex items-center flex-grow font-medium p-2 px-4 outline-none cursor-pointer;
     color: var(--menu-item-color);
     font-size: var(--menu-item-font-size, inherit);
   }
 
-  .menu-item.active,
-  .menu-item:hover,
-  .menu-item:active {
+  .menu-item.disabled {
+    @apply opacity-50;
+  }
+
+  .menu-item.selected,
+  .menu-item:focus:not(.disabled),
+  .menu-item:hover {
     @apply rounded-3xl;
-    background: var(--menu-item-background-active);
-    color: var(--menu-item-color-active);
-    cursor: pointer;
+    background: var(--menu-item-background-selected);
+    color: var(--menu-item-color-selected);
   }
 </style>

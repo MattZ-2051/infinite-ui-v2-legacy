@@ -151,7 +151,7 @@
 </div>
 
 <PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
-  <Tabs items={getItems(totalPrivateAssets)} dropdownBreakpoint="sm" defaultSelectedId={tab} on:select={redirect}>
+  <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" defaultSelectedId={tab} on:select={redirect}>
     <Tab id="auction">
       <ProductAuction {product} canBid={!userOwnsProduct} />
     </Tab>

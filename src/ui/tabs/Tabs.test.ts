@@ -106,36 +106,36 @@ describe('Tabs', () => {
     expect(onSelectMock.mock.results[2].value).toBe('3');
   });
 
-  describe('dropdown', () => {
+  describe('menu', () => {
     it('renders only the selected tab', async () => {
-      const { items } = setup({ defaultSelectedId: '2', dropdownBreakpoint: 'md' });
+      const { items } = setup({ defaultSelectedId: '2', menuBreakpoint: 'md' });
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveTextContent('Profile');
     });
 
-    it('renders a dropdown with the unselected items', async () => {
-      const { getByRole } = setup({ dropdownBreakpoint: 'md' });
+    it('renders a menu with the unselected items', async () => {
+      const { getByRole } = setup({ menuBreakpoint: 'md' });
       const button = getByRole('button');
 
       expect(getByRole('button')).toBeInTheDocument();
 
       await fireEvent.click(button);
 
-      const nav = getByRole('navigation');
-      expect(nav).toBeInTheDocument();
-      expect(nav.children).toHaveLength(2);
+      const menu = getByRole('menu');
+      expect(menu).toBeInTheDocument();
+      expect(menu.children).toHaveLength(2);
     });
 
     it('should activate on menu item click', async () => {
-      const { getByRole, queryByRole } = setup({ dropdownBreakpoint: 'md' });
+      const { getByRole, queryByRole } = setup({ menuBreakpoint: 'md' });
       const button = getByRole('button');
 
       await fireEvent.click(button);
 
-      const nav = getByRole('navigation');
-      await fireEvent.click(nav.children[0]);
+      const menu = getByRole('menu');
+      await fireEvent.click(menu.children[0]);
       expect(onSelectMock.mock.results[0].value).toBe('2');
-      expect(queryByRole('navigation')).not.toBeInTheDocument();
+      expect(queryByRole('menu')).not.toBeInTheDocument();
     });
   });
 });

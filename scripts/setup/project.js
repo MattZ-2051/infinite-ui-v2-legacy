@@ -9,6 +9,7 @@ import enquirer from 'enquirer';
     extends: './tsconfig.base.json',
     compilerOptions: {
       paths: {
+        '$storybook/*': ['.storybook/*'],
         '$project/*': [`projects/${project}/src/*`],
         '$theme/*': [`projects/${project}/theme/*`],
         '$static/*': [`projects/${project}/static/*`],

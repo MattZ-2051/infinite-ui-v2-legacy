@@ -6,11 +6,11 @@
  */
 export default function clickOutside(
   node: HTMLElement,
-  { enabled: initialEnabled = true, cb }: { enabled?: boolean; cb: () => void }
+  { enabled: initialEnabled = true, cb }: { enabled?: boolean; cb: (event: MouseEvent) => void }
 ) {
-  const handleOutsideClick = ({ target }: MouseEvent) => {
-    if (!node.contains(target as Node)) {
-      cb();
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (!node.contains(event.target as Node)) {
+      cb(event);
     }
   };
 

@@ -1,7 +1,9 @@
 import { render, fireEvent, screen } from '@testing-library/svelte';
-import { get } from 'svelte/store';
+import { get, readable } from 'svelte/store';
 import { page } from '$app/stores';
 import Sort from './Sort.svelte';
+
+jest.mock('$lib/media-query.store', () => ({ media: readable({ lg: false }) }));
 
 describe('Sort', () => {
   const $page = get(page);
@@ -41,11 +43,11 @@ describe('Sort', () => {
     expect(menuItems).toHaveLength(2);
   });
 
-  it('should have active class on selected item', async () => {
+  it('should have selected class on selected item', async () => {
     const { container } = render(Sort, { props: properties });
     const div: HTMLElement = screen.getByTestId('sort-container');
     await fireEvent.click(div);
-    const menuItems: NodeListOf<HTMLElement> = container.querySelectorAll('.menu-item.active');
+    const menuItems: NodeListOf<HTMLElement> = container.querySelectorAll('.menu-item.selected');
     expect(menuItems).toHaveLength(1);
     expect(menuItems[0]).toHaveTextContent('sort asc');
   });

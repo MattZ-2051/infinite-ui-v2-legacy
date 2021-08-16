@@ -2,7 +2,7 @@
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
   import { action } from '@storybook/addon-actions';
   import { mdiAccount } from '@mdi/js';
-  import ThemeDecorator from '$storybook/decorators/ThemeDecorator.svelte';
+  import { ThemeDecorator } from '$storybook/decorators';
   import Tabs from './Tabs.svelte';
   import Tab from './Tab.svelte';
 </script>
@@ -24,7 +24,7 @@
     defaultSelectedId: {
       control: { type: 'text' },
     },
-    dropdownBreakpoint: {
+    menuBreakpoint: {
       options: ['sm', 'md', 'lg', 'xl', '2xl'],
       control: { type: 'select' },
       defaultValue: 'md',

@@ -1,39 +1,89 @@
 <script lang="ts">
-  import type { Options, Placement } from './placement';
-  import { createEventDispatcher } from 'svelte';
+  import { createPopperActions } from 'svelte-popperjs';
+  import type { PopperOptions } from 'svelte-popperjs';
+  import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
+  import type { Placement, StrictModifiers } from '@popperjs/core';
+  import type { VisibleStore } from './types';
   import clickOutside from '$util/clickOutside';
-  import { placement } from './placement';
 
-  export let trigger: HTMLElement;
-  export let position: Placement = 'bottom';
-  export let offset = 0;
+  /**
+   * Whether or not the Menu is visible.
+   */
+  export let visible = false;
 
-  const dispatch = createEventDispatcher();
+  /**
+   * The placement of the MenuList relative to the MenuTrigger.
+   */
+  export let placement: Placement = 'bottom';
 
-  let menuOptions: Options;
-  $: menuOptions = {
-    referenceElement: trigger,
-    placement: position,
-    offset: {
-      distance: offset,
-    },
+  /**
+   * The distance offset of the MenuList (https://popper.js.org/docs/v2/modifiers/offset/)
+   */
+  export let offset = 4;
+  let _class = '';
+  export { _class as class };
+
+  let popperOptions: PopperOptions<StrictModifiers>;
+  $: popperOptions = {
+    placement,
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, offset],
+        },
+      },
+    ],
   };
+
+  // eslint-disable-next-line unicorn/prevent-abbreviations
+  const [popperRef, popperContent] = createPopperActions(popperOptions);
+
+  let visibleStore = writable<VisibleStore>({
+    visible,
+  });
+
+  $: $visibleStore = { visible };
+  $: updateProperties($visibleStore);
+
+  function updateProperties(store: VisibleStore) {
+    visible = store.visible;
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape' || event.key === 'Tab') {
+      $visibleStore = { visible: false, event, reason: 'keydown' };
+    }
+  }
+
+  function handleClickOutside(event: MouseEvent) {
+    $visibleStore = { visible: false, event, reason: 'clickoutside' };
+  }
+
+  function handleNavigation(event: CustomEvent) {
+    $visibleStore = { visible: false, event, reason: 'navigation' };
+  }
+
+  setContext('visibleStore', visibleStore);
+  setContext('popperRef', popperRef);
 </script>
 
-<svelte:window on:sveltekit:navigation-start={() => dispatch('close')} />
+<svelte:window on:sveltekit:navigation-start={handleNavigation} />
 
-<nav
-  class="flex flex-col px-4 py-2 rounded-3xl z-50"
-  use:placement={menuOptions}
-  use:clickOutside={{ enabled: true, cb: () => dispatch('close') }}
-  on:click
+<div
+  use:clickOutside={{
+    enabled: $visibleStore.visible,
+    cb: handleClickOutside,
+  }}
+  class="inline-block {_class}"
+  on:keydown={handleKeydown}
+  {...$$restProps}
 >
-  <slot />
-</nav>
-
-<style>
-  nav {
-    background: var(--menu-background-color);
-    box-shadow: 0px 0px 20px var(--menu-box-shadow-color);
-  }
-</style>
+  <slot name="trigger" />
+  {#if $visibleStore.visible}
+    <div use:popperContent={popperOptions} style="min-width: 6rem" class="z-50 max-w-xs">
+      <slot name="menu" />
+    </div>
+  {/if}
+</div>

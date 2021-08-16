@@ -64,6 +64,7 @@ const config = {
           'msw',
           'p-debounce',
           'svelte-media',
+          'svelte-popperjs',
           'svelte-previous',
           'tippy.js',
           'xss',

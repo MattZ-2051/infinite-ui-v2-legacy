@@ -43,7 +43,7 @@
     { id: 'transactions', title: 'Latest transactions' },
     { id: 'bids', title: 'Active Bids' },
   ]}
-  dropdownBreakpoint="sm"
+  menuBreakpoint="sm"
   defaultSelectedId={tab}
   on:select={redirect}
 >
