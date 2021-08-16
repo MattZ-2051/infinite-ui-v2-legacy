@@ -8,7 +8,6 @@
   import { createForm } from 'felte';
   import { toast } from '$ui/toast';
   import FormInput from '$lib/components/form/FormInput.svelte';
-  import { countries } from '$lib/components/form/countries';
   import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
   import FormDistrictsSelect from '$lib/components/form/FormDistrictsSelect.svelte';
   import { openPlaid } from './plaid';
@@ -18,6 +17,8 @@
   export let user: User;
 
   const dispatch = createEventDispatcher();
+
+  $: isDistrictRequired = ['US', 'CA'].includes(selectedCountryISO2);
 
   const schema = yup.object({
     holderName: yup
@@ -31,15 +32,11 @@
     postalCode: yup.string().required('Postal code is required'),
     city: yup.string().required('City is required'),
     country: yup.string().required('Country is required'),
-    district: yup.string().when('country', (countryISO2) => {
-      const states = countries.find((country) => country.iso2 === countryISO2)?.states || [];
-
-      if (states.length > 0) {
-        return yup.string().required('State/Province is required');
-      }
-
-      return yup.string().notRequired();
-    }),
+    district: yup
+      .string()
+      .when('country', () =>
+        isDistrictRequired ? yup.string().required('State/Province is required') : yup.string().notRequired()
+      ),
   });
 
   let selectedCountryISO2: string;
@@ -114,7 +111,11 @@
       </div>
       <div class="grid grid-cols-2 gap-4">
         <FormCountriesSelect bind:value={selectedCountryISO2} name="country" label="Country *" />
-        <FormDistrictsSelect countryISO2={selectedCountryISO2} name="district" label="State/Province" />
+        <FormDistrictsSelect
+          countryISO2={selectedCountryISO2}
+          name="district"
+          label="State/Province{isDistrictRequired ? ' *' : ''}"
+        />
       </div>
       <button class="hidden" bind:this={submit} />
     </form>
