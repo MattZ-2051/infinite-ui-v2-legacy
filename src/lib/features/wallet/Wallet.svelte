@@ -2,11 +2,11 @@
   import { goto } from '$app/navigation';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
-  import TooltipIcon from '$lib/components/TooltipIcon.svelte';
   import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
   import USDC from '$lib/payment/usdc/USDC.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
   import routes from '$lib/routes';
+  import { variables } from '$lib/variables';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import WalletList from './WalletList.svelte';
@@ -68,12 +68,15 @@
     <WalletBalance on:deposit={openDepositSelectModal} on:withdraw={() => openModal(WithdrawModal)} />
     <hr class="h-px my-5" />
     <div class="flex flex-col gap-2 mx-4">
-      <div>
-        Account Verification Status <TooltipIcon
-          tooltip={'Account verification is required for users to deposit cryptocurrency'}
+      {#if $wallet}
+        <AccountVerification
+          on:verify={launchKYCPersona}
+          on:upgrade={launchKYCPersona}
+          kycMaxLevel={$wallet.kycMaxLevel}
+          kycPending={$wallet.kycPending}
+          dailyDepositLimit={Number(variables.dailyDepositLimit)}
         />
-      </div>
-      <AccountVerification class="mx-2" />
+      {/if}
     </div>
   </div>
   <div class="w-full md:w-4/5"><WalletList {tab} /></div>

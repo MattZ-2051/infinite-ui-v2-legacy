@@ -31,7 +31,7 @@
   const forwardEvents = forwardEventsBuilder(get_current_component());
   let classes = '';
   // TODO: refactor with clsx when import issue is resolved
-  $: classes = `${_class} ${variant} button inline-block text-xl text-center rounded-full p-4 w-full ${
+  $: classes = `${_class} ${variant} button inline-block text-center rounded-full w-full ${
     disabled ? 'opacity-50 pointer-events-none cursor-default' : 'hover:scale-105 transform duration-200'
   }`;
 </script>
@@ -52,6 +52,9 @@
 <style lang="postcss">
   .button {
     border-width: var(--button-sizing-border, 2px);
+    padding: var(--button-padding, 1rem);
+    font-size: var(--button-text-size, 1.25rem);
+    line-height: var(--button-line-height, 1.75rem);
   }
 
   .primary {
