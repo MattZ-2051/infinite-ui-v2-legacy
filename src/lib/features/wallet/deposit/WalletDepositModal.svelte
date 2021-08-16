@@ -23,9 +23,9 @@
     disabled?: boolean;
   };
   const options: DepositOption[] = [
-    { id: 'circle', title: 'Circle', subtitle: 'Pay with credit card', image: Circle },
-    { id: 'coinbase', title: 'Coinbase', subtitle: 'Pay with cryptocurrency', image: Coinbase },
-    { id: 'usdc', title: 'USD Coin', subtitle: 'Pay with USDC', image: USDCoin },
+    { id: 'circle', title: 'Credit Card', subtitle: 'Deposit funds using a credit card', image: Circle },
+    { id: 'coinbase', title: 'Coinbase', subtitle: 'Deposit funds using ETH, BTC', image: Coinbase },
+    { id: 'usdc', title: 'USDC', subtitle: 'Deposit funds using USDC', image: USDCoin },
     { id: 'hbar', title: 'HBAR', subtitle: 'Deposit funds using Hedera Hashgraph', image: Hbar },
     { id: 'suku', title: 'Suku', subtitle: 'Coming soon', image: Suku, disabled: true },
   ];
