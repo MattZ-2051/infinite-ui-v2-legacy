@@ -3,18 +3,18 @@
   import { page } from '$app/stores';
   import { setFilters } from './marketplace.service';
 
-  let widthClass = 'max-w-xs';
+  let isFocused = false;
 
   function onInput(value: string) {
     setFilters({ params: { search: value } });
   }
 </script>
 
-<div style="min-width: 10rem;" class="transition-width duration-200 w-full {widthClass}">
+<div style="min-width: 10rem;" class="w-full {isFocused ? 'transition-width duration-500 max-w-3xl' : 'max-w-xs'}">
   <Search
     {onInput}
     value={$page.query.get('search') || ''}
-    on:focus={() => (widthClass = 'max-w-3xl')}
-    on:blur={() => (widthClass = 'max-w-xs')}
+    on:focus={() => (isFocused = true)}
+    on:blur={() => (isFocused = false)}
   />
 </div>
