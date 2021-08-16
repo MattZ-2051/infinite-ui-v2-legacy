@@ -75,7 +75,7 @@ const config = {
   },
 };
 
-const { SVELTEKIT_ADAPTER: adapter } = process.env;
+const { SVELTEKIT_ADAPTER: adapter, SVELTEKIT_MODE } = process.env;
 
 switch (adapter) {
   case 'node': {
@@ -99,6 +99,10 @@ switch (adapter) {
     if (adapter) {
       throw new Error(`Adapter "${adapter}" is not supported.`);
     }
+}
+
+if (SVELTEKIT_MODE) {
+  config.kit.vite.mode = SVELTEKIT_MODE;
 }
 
 export default config;
