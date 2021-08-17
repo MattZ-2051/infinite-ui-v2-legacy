@@ -1,9 +1,18 @@
 import { writeFileSync } from 'node:fs';
 import enquirer from 'enquirer';
+import ci from 'ci-info';
 
-(async () => {
+async function run() {
   const arguments_ = process.argv.slice(2);
-  const project = arguments_[0] || (await resolveProject());
+  let project = arguments_[0];
+
+  if (!project) {
+    if (ci.isCI) {
+      throw new Error(`Please specify the desired project on CI`);
+    } else {
+      project = await resolveProject();
+    }
+  }
 
   const data = {
     extends: './tsconfig.base.json',
@@ -23,7 +32,7 @@ import enquirer from 'enquirer';
     'tsconfig.json',
     `/* Please do NOT modify this auto-generated file. */\n${JSON.stringify(data, undefined, 2)}`
   );
-})();
+}
 
 async function resolveProject() {
   const questions = [
@@ -43,3 +52,5 @@ async function resolveProject() {
 
   return project;
 }
+
+run();

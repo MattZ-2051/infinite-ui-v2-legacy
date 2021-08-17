@@ -41,7 +41,7 @@ To run tests in watch mode, , run `pnpm tdd`.
 
 ### Production build
 
-To build the project for production, run `pnpm build`.
+To build a specific project for production, run `pnpm build my-project`.
 
 > You can preview the built app with `pnpm preview`.
 
