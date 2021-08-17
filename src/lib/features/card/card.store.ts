@@ -10,8 +10,8 @@ import { addCreditCard, addCreditCardFunds, deleteCreditCard } from './card.api'
 import { loadWalletFx } from '../wallet/wallet.store';
 
 export const creditCardFundsAddFx = createEffect(
-  async ({ card, email, amount }: { card: CreditCard; email: string; amount: string }) => {
-    return await addCreditCardFunds(card.id, { amount, email });
+  async ({ card, email, amount, cvv }: { card: CreditCard; email: string; amount: string; cvv: string }) => {
+    return await addCreditCardFunds(card.id, { amount, email, cvv });
   }
 );
 

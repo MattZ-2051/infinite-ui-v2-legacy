@@ -20,4 +20,5 @@ export interface NewCreditCard extends Record<string, unknown> {
 export interface AddFundsRequest {
   email: string;
   amount: string;
+  cvv: string;
 }

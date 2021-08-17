@@ -4,10 +4,7 @@
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import * as yup from 'yup';
-  import { mdiLightbulbOnOutline } from '@mdi/js';
-
   import { user } from '$lib/user';
-  import Icon from '$ui/icon/Icon.svelte';
   import { openModal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
@@ -31,15 +28,16 @@
       .typeError('Amount is not a valid number.')
       .positive('Amount must be greater than zero.')
       .required('Amount is required.'),
+    cvv: yup
+      .mixed()
+      .test('validCvv', 'CVV is a number with 3 to 4 digits', (value) => /^\d{3,4}$/.test(value))
+      .required('CVV is required.'),
   });
 
-  const { form, errors, reset } = createForm<{ amount: string }>({
-    initialValues: {
-      amount: '0',
-    },
-    onSubmit: async ({ amount }) => {
+  const { form, errors, reset } = createForm<{ amount: string; cvv: string }>({
+    onSubmit: async ({ cvv, amount }) => {
       try {
-        await creditCardFundsAddFx({ card, amount, email: $user.email });
+        await creditCardFundsAddFx({ card, amount, email: $user.email, cvv: cvv });
         openModal(CardFundSuccess);
         reset();
       } catch (error) {
@@ -86,13 +84,41 @@
     >
   </div>
 
-  <div class="mt-10 flex flex-col items-center text-base font-extrabold italic text-gray-500">
-    <Icon path={mdiLightbulbOnOutline} />
-    <div>Remember to account for the 5% service fee when choosing your deposit amount.</div>
-  </div>
-
-  <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
-    <FormInput name="amount" label="Enter Amount" />
-    <Button type="submit" class="mt-6" disabled={!isActive || $saving}>Add Funds</Button>
+  <form use:form class="mt-6 flex flex-col gap-6 items-center" autocomplete="off">
+    <div class="cvv-container">
+      <FormInput name="cvv" placeholder="Enter CVV" />
+    </div>
+    <span class="text-gray-400 text-center"
+      >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
+    >
+    <div class="input-container w-full flex flex-col items-center relative">
+      <input
+        name="amount"
+        type="number"
+        placeholder="Enter Amount"
+        class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-full text-center border-0 text-xl"
+        class:border-red-600={!!$errors.amount}
+      />
+    </div>
+    {#if $errors.amount}
+      <div class="text-red-500 font-extrabold italic text-sm">{$errors.amount}</div>
+    {/if}
+    <Button type="submit" disabled={!isActive || $saving}>Add Funds</Button>
   </form>
 </CircleContainer>
+
+<style>
+  .input-container::before {
+    content: '$';
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 1;
+    @apply text-xl;
+    @apply text-gray-400;
+  }
+  .cvv-container {
+    --form-placeholder-weight: normal;
+    --form-input-align: center;
+  }
+</style>
