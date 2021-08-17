@@ -45,6 +45,11 @@ To build a specific project for production, run `pnpm build my-project`.
 
 > You can preview the built app with `pnpm preview`.
 
+| Project  | Development                   |
+| -------- | ----------------------------- |
+| aria     | https://dev.ariaexchange.com  |
+| infinite | https://dev.infiniteworld.com |
+
 ### Commit Message Guidelines
 
 We follow the [Conventional Commits specification](https://www.conventionalcommits.org).
