@@ -3,8 +3,9 @@ module.exports = async () => {
 
   const config = {
     rootDir: __dirname,
+    testMatch: ['<rootDir>/src/**/+(*.)+(spec|test).+(ts|js)'],
     transform: {
-      '^.+\\.svelte$': ['svelte-jester', { preprocess: './scripts/test/svelte.config.cjs' }],
+      '^.+\\.svelte$': ['svelte-jester', { preprocess: true }],
       '^.+\\.(ts|js)$': 'ts-jest',
     },
     moduleFileExtensions: ['js', 'ts', 'svelte'],
@@ -15,9 +16,13 @@ module.exports = async () => {
       ...Object.fromEntries(alias.map(([key, value]) => [`\\${key}/(.+)$`, `<rootDir>/${value}/$1`])),
       '^clsx$': '<rootDir>/scripts/test/clsx.jest.cjs',
     },
-    setupFilesAfterEnv: ['<rootDir>/scripts/test/setup.ts'],
+    setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+    globals: {
+      'ts-jest': {
+        tsconfig: 'tsconfig.spec.json',
+      },
+    },
     globalSetup: '<rootDir>/scripts/test/global-setup.cjs',
-    testPathIgnorePatterns: ['/node_modules/', '<rootDir>/cypress/'],
   };
 
   return config;
