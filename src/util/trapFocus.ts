@@ -1,5 +1,6 @@
+import type { Options } from 'focus-trap';
 import { writable, derived, get } from 'svelte/store';
-import { createFocusTrap, Options } from 'focus-trap';
+import { createFocusTrap } from 'focus-trap';
 
 export type FocusTrapOptions = {
   /**

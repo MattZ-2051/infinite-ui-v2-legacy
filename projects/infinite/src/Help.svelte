@@ -1,18 +1,19 @@
+<script context="module" lang="ts">
+  declare const hbspt: {
+    forms: {
+      create: (config: unknown) => void;
+    };
+  };
+</script>
+
 <script lang="ts">
   import { onMount } from 'svelte';
   import { hubspot } from '$project/variables';
   import injectScript from '$util/injectScript';
 
-  interface WindowWithHubspot extends Window {
-    hbspt?: any;
-  }
-
-  let windowWithHubspot: WindowWithHubspot;
-
   onMount(async () => {
     await injectScript({ id: 'hubspot-form', url: '//js.hsforms.net/forms/v2.js' });
-    windowWithHubspot = window;
-    windowWithHubspot.hbspt.forms.create({
+    hbspt.forms.create({
       region: hubspot.region,
       portalId: hubspot.portalId,
       formId: hubspot.formId,

@@ -3,7 +3,7 @@ import { get as getStoreValue, writable, derived } from 'svelte/store';
 import { variables } from '$lib/variables';
 import { authToken } from '$lib/auth';
 
-export type ApiError = { status: number; statusText: string; url: string; data?: any };
+export type ApiError = { status: number; statusText: string; url: string; data?: { [key: string]: unknown } };
 
 type ApiFetchTracker = Pick<Writable<boolean>, 'set' | 'subscribe'>;
 

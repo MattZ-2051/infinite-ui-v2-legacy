@@ -30,7 +30,9 @@ creditCardInsertFx.done.watch(() => {
 });
 
 creditCardInsertFx.failData.watch((error) => {
-  toast.danger(error?.data?.message || `There was a problem adding your card.`, { toastId: 'CARD_ADD_ERROR' });
+  const message =
+    typeof error?.data?.message === 'string' ? error.data.message : `There was a problem adding your card.`;
+  toast.danger(message, { toastId: 'CARD_ADD_ERROR' });
 });
 
 export const creditCardRemoveFx = createEffect(async ({ card }: { card: CreditCard }) => {

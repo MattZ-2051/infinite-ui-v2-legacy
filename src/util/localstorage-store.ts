@@ -1,5 +1,6 @@
 // https://github.com/joshnuss/svelte-local-storage-store
-import { writable as internal, get, Writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
+import { writable as internal, get } from 'svelte/store';
 
 declare type Updater<T> = (value: T) => T;
 declare type StoreDict = { [key: string]: Writable<unknown> };
