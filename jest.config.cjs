@@ -17,6 +17,7 @@ module.exports = async () => {
     },
     setupFilesAfterEnv: ['<rootDir>/scripts/test/setup.ts'],
     globalSetup: '<rootDir>/scripts/test/global-setup.cjs',
+    testPathIgnorePatterns: ['/node_modules/', '<rootDir>/cypress/'],
   };
 
   return config;

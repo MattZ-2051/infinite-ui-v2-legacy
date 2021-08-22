@@ -48,4 +48,19 @@ jobs:
         run: pnpm test
 
       - name: Build
-        run: pnpm build
+        run: pnpm build aria
+
+      - name: E2E
+        uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          install: false
+          start: pnpm preview
+
+      - name: E2E Artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          retention-days: 30

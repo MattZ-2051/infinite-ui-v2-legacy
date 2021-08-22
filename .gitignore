@@ -9,7 +9,10 @@ node_modules
 *.log
 *:Zone.Identifier
 
+/cypress/screenshots
+/cypress/videos
+
 .env*.local
 
 # Auto-generated
-tsconfig.json
+/tsconfig.json

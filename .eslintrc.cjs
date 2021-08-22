@@ -5,9 +5,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
-    'plugin:jest/recommended',
-    'plugin:jest/style',
-    'plugin:jest-dom/recommended',
     'plugin:promise/recommended',
     'plugin:unicorn/recommended',
   ],
@@ -49,6 +46,18 @@ module.exports = {
       rules: {
         'unicorn/no-useless-undefined': 'off',
       },
+    },
+    {
+      files: ['src/**/*.test.ts'],
+      extends: ['plugin:jest/recommended', 'plugin:jest/style', 'plugin:jest-dom/recommended'],
+    },
+    {
+      files: ['cypress/**/*.ts'],
+      extends: ['plugin:cypress/recommended'],
+      parserOptions: {
+        project: 'cypress/tsconfig.json',
+      },
+      rules: {},
     },
   ],
   settings: {

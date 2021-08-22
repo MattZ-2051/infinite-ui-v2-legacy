@@ -37,7 +37,13 @@ To check your code, run `pnpm lint` and `pnpm check`.
 
 To test your code and generate coverage reports in `/coverage` directory, run `pnpm test`.
 
-To run tests in watch mode, , run `pnpm tdd`.
+To run tests in watch mode, run `pnpm tdd`.
+
+### E2E
+
+We use [Cypress](https://www.cypress.io) to create the e2e tests. You can leverage all available commands through `pnpm cypress`.
+
+To run E2E tests from the CLI without the GUI, run `pnpm e2e`.
 
 ### Production build
 
