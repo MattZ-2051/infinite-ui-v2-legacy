@@ -12,7 +12,7 @@
   <div>
     <div class="text-2xl">Check your spelling or try adjusting keywords and/or filters.</div>
     <div class="text-xl mt-2">
-      If the problem persists please contact <a href="mail:help@infinite.com" class="text-blue-500 hover:underline"
+      If the problem persists please contact <a href="mailto:help@infinite.com" class="text-blue-500 hover:underline"
         >help@infinite.com</a
       >
     </div>
