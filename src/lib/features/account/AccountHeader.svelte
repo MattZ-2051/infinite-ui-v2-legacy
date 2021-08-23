@@ -12,8 +12,8 @@
 
   const dispatch = createEventDispatcher();
 
-  function onResetPassowrd() {
-    passwordResetRequested({ email: $user.email });
+  function onResetPassword() {
+    passwordResetRequested({ email: $user['http://schemas.microsoft.com/ws/2008/06/identity/id/meta'].email });
   }
 </script>
 
@@ -48,7 +48,7 @@
       ><a href={routes.wallet} sveltekit:prefetch class="link">My wallet</a></span
     >
   </div>
-  <button type="button" on:click={onResetPassowrd} class="mt-4 text-white link text-sm">Reset password</button>
+  <button type="button" on:click={onResetPassword} class="mt-4 text-white link text-sm">Reset password</button>
 </div>
 
 <style>
