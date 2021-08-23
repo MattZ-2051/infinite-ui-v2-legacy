@@ -138,6 +138,7 @@
         {/if}
         <div class="input-container flex items-center relative pt-4 pb-2">
           <input
+            data-initial-focus
             type="number"
             name="price"
             class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center border-2"

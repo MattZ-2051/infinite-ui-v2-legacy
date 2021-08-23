@@ -94,6 +94,7 @@
         <div class="flex flex-col gap-2 my-6">
           <div class="input-container flex flex-col items-center relative">
             <input
+              data-initial-focus
               name="price"
               type="number"
               bind:value={price}

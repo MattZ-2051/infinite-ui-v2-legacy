@@ -30,6 +30,7 @@
   bind:this={modal}
   class="fixed top-0 left-0 bottom-0 right-0 backdrop-filter backdrop-blur-sm z-modal"
   use:trapFocus={{
+    active: !!modal,
     focusTrapOptions: {
       allowOutsideClick: true,
       initialFocus: () => modal.querySelector('[data-initial-focus]') || modal,
