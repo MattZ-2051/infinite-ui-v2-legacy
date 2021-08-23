@@ -37,11 +37,11 @@ export const getSupplyInfo = (sku: Sku) => {
 };
 
 export const getActiveListings = (sku: Sku): Listing[] => {
-  return sku.skuListings.filter((skuListing) => skuListing.status === 'active' && !skuListing.canceled);
+  return sku.activeSkuListings.filter((skuListing) => !skuListing.canceled);
 };
 
 export const getUpcomingListings = (sku: Sku): Listing[] => {
-  return sku.skuListings.filter((skuListing) => skuListing.status === 'upcoming' && !skuListing.canceled);
+  return sku.upcomingSkuListings.filter((skuListing) => !skuListing.canceled);
 };
 
 const isLimited = (sku: Sku): boolean => {

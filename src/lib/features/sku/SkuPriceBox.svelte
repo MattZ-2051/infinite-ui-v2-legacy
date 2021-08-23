@@ -22,14 +22,12 @@
     }
   }
 
-  $: numSkuListings = sku.skuListings.length;
   $: activeListings = getActiveListings(sku);
   $: upcomingSkuListings = getUpcomingListings(sku);
   $: collector = getLimitedAuctionCollector(sku, collectors);
   $: upcoming = upcomingSkuListings.length > 0 && activeListings.length === 0;
   $: active = activeListings.length > 0 && sku.totalSkuListingSupplyLeft;
-  $: noSale = sku.totalSkuListingSupplyLeft === 0 && numSkuListings > 0;
-  $: expiredListings = sku.skuListings.filter((skuListing) => skuListing.status === 'sold');
+  $: noSale = sku.totalSkuListingSupplyLeft === 0 && activeListings.length === 0;
 </script>
 
 {#if collector}
@@ -97,8 +95,8 @@
         <div class="text-base">Initial Release</div>
       </div>
       <div class="flex-none text-white text-center justify-self-end md:justify-self-center">
-        {#if expiredListings[0]?.price}
-          <div class="text-3xl">{formatCurrencyWithOptionalFractionDigits(expiredListings[0]?.price)}</div>
+        {#if sku.soldSkuListings[0]?.price}
+          <div class="text-3xl">{formatCurrencyWithOptionalFractionDigits(sku.soldSkuListings[0].price)}</div>
         {/if}
         <div class="text-sm">
           {sku?.totalSkuListingSupplyLeft >= 0 && `(${sku?.totalSkuListingSupplyLeft} left)`}

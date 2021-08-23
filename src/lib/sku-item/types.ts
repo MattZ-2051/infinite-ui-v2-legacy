@@ -55,6 +55,8 @@ export type Sku = {
   upcomingSkuListings: Listing[];
   expiredSkuListings?: Listing[];
   activeProductListings: Listing[];
+  soldProductListings?: Listing[];
+  soldSkuListings?: Listing[];
   nftPublicAssets: FileAsset[];
   minSkuPrice?: number;
 };
