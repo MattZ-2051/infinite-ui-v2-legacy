@@ -20,7 +20,7 @@
 
   $: sku = transaction.transactionData?.sku;
   $: name = sku?.name || '';
-  $: serialNumber = transaction.transactionData.product[0]?.serialNumber || '';
+  $: serialNumber = transaction.transactionData?.product?.serialNumber || '';
   $: sellerUsername = transaction.transactionData.seller?.username || '';
   $: buyerUsername = transaction.transactionData.buyer?.username || '';
   $: type = transaction.type;
@@ -81,7 +81,7 @@
               ><a href={routes.sku(sku?._id)}>{name} </a></span
             >
             <span class="font-semibold underline hover:no-underline text-black">
-              <a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
+              <a href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a></span
             >
           {/if}
 
@@ -91,7 +91,7 @@
               ><a href={routes.sku(sku?._id)}>{name} </a></span
             >
             <span class="font-semibold underline hover:no-underline text-black">
-              <a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
+              <a href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a></span
             >
             <UserLink username={sellerUsername} class="font-semibold underline hover:no-underline text-black">
               <span class="message" slot="prefix">from</span>
@@ -104,7 +104,7 @@
               ><a href={routes.sku(sku?._id)}>{name} </a></span
             >
             <span class="font-semibold underline hover:no-underline text-black">
-              <a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
+              <a href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a></span
             >
             <UserLink
               username={buyerUsername}
@@ -150,7 +150,7 @@
             {status === 'error' ? 'You tried to redeem' : 'You redeemed'}
             {sku?.name ? sku.name : ''}
             <span class="font-semibold underline hover:no-underline text-black"
-              ><a href={routes.product(transaction.transactionData.product[0]?._id)}>#{serialNumber}</a></span
+              ><a href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a></span
             >
           {/if}
 
