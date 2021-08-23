@@ -190,6 +190,8 @@ type CircleReceipt = {
   };
 };
 
+export type CircleType = 'usdc' | 'btc' | 'eth';
+
 type TransactionData = {
   product?: Product;
   sku: Sku;
@@ -214,6 +216,7 @@ type TransactionData = {
   deposit?: {
     id: string;
     type: string;
+    circleType?: CircleType;
     amount: string;
     card?: {
       createdAt: Date;

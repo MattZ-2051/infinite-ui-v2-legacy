@@ -12,7 +12,8 @@
   import withdrawalFunds from './assets/withdrew-funds.png';
   import addedFunds from './assets/added-funds.png';
   import usdcoin from './assets/usdcoin.png';
-  import addedFundsCoinbase from './assets/added-funds-coinbase.png';
+  import bitcoin from './assets/bitcoin.png';
+  import ethcoin from './assets/ethcoin.png';
 
   export let transaction: Transaction;
 
@@ -48,12 +49,15 @@
     {/if}
 
     {#if type === 'deposit' && deposit.type === 'circle'}
-      <img style="width:32px; height:32px" src={usdcoin} alt="usdcoin" />
+      {#if deposit.circleType === 'eth'}
+        <img style="width:32px; height:32px" src={ethcoin} alt="ethcoin" />
+      {:else if deposit.circleType === 'btc'}
+        <img style="width:32px; height:32px" src={bitcoin} alt="bitcoin" />
+      {:else}
+        <img style="width:32px; height:32px" src={usdcoin} alt="usdcoin" />
+      {/if}
     {/if}
 
-    {#if type === 'deposit' && deposit.type === 'coinbase'}
-      <img src={addedFundsCoinbase} alt="coinbase" />
-    {/if}
     {#if type === 'deposit' && deposit.type === 'hbar'}
       <div
         style="width:32px; height:32px; border:1px solid #EBEBEB;"
@@ -135,14 +139,20 @@
               <span class="font-semibold text-black">{transaction.transactionData.deposit.card?.last4} </span>
             {:else if deposit.type === 'circle'}
               by depositing
-              <span class="text-black font-medium">USDC</span>
-            {:else if deposit.type === 'hbar' || deposit.type === 'coinbase'}
+              <span class="text-black font-medium">
+                {#if deposit.circleType === 'btc'}
+                  BTC
+                {:else if deposit.circleType === 'eth'}
+                  ETH
+                {:else}
+                  USDC
+                {/if}
+              </span>
+            {:else if deposit.type === 'hbar'}
               by depositing
               <span class="text-black font-medium"> {formatCurrency(+deposit.amount)} </span>
               using
-              <span class="text-black font-medium">
-                {deposit.type === 'coinbase' ? 'Coinbase' : 'Hbar'}
-              </span>
+              <span class="text-black font-medium"> Hbar </span>
             {/if}
           {/if}
 

@@ -5,8 +5,7 @@
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import { user } from '$lib/user';
-  import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
-  import USDC from '$lib/payment/usdc/USDC.svelte';
+  import CryptoCurrency from '$lib/payment/crypto/CryptoCurrency.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
   import routes from '$lib/routes';
   import { variables } from '$lib/variables';
@@ -22,8 +21,6 @@
 
   export let tab: 'transactions' | 'bids';
 
-  let selectedDepositMethod: string;
-
   $: isKycCleared = $wallet?.kycMaxLevel >= 1;
   $: isKycPending = $wallet?.kycPending;
 
@@ -31,7 +28,7 @@
     openModal(WalletDepositModal, { onDepositSelect });
   }
 
-  function onDepositSelect(id: 'circle' | 'usdc' | 'coinbase' | 'hbar') {
+  function onDepositSelect(id: 'circle' | 'usdc' | 'btc' | 'eth' | 'hbar') {
     // Credit cards do not need KYC
     if (id === 'circle') {
       goto(routes.deposit);
@@ -50,14 +47,16 @@
       return;
     }
 
-    if (id === 'usdc') {
-      openModal(USDC);
+    switch (id) {
+      case 'usdc':
+      case 'btc':
+      case 'eth':
+        openModal(CryptoCurrency, { kind: id });
+        break;
+      case 'hbar':
+        openModal(DepositHedera);
+        break;
     }
-    if (id === 'hbar') {
-      openModal(DepositHedera);
-    }
-
-    selectedDepositMethod = id;
   }
 
   $: canWithdraw = $withdrawableBalance > 0;
@@ -108,10 +107,6 @@
     </button>
   </div>
 </StickyColumn>
-
-{#if selectedDepositMethod === 'coinbase'}
-  <DepositCoinbase on:checkout-modal-closed={() => (selectedDepositMethod = undefined)} />
-{/if}
 
 <style>
   button {

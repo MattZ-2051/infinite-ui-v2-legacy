@@ -1,8 +1,8 @@
 import { variables } from '../../src/lib/variables';
 
-export const ROPSTEN_API_URL = <string>variables.usdc.apiUrl;
+export const ROPSTEN_API_URL = <string>variables.ethNetwork.apiUrl;
 
-const ROPSTEN_ADDRESS = variables.usdc.address;
+const ROPSTEN_ADDRESS = variables.ethNetwork.usdcContractAddress;
 
 type RopstenState = {
   attempt: number;

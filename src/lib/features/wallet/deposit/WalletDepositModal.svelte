@@ -7,16 +7,17 @@
   import Icon from '$ui/icon/Icon.svelte';
 
   import Circle from './circle-avatar.png?w=48&format=avif;webp;png&metadata';
-  import Coinbase from './coinbase-avatar.png?w=48&format=avif;webp;png&metadata';
+  import BitCoin from './bitcoin-avatar.png?w=48&format=avif;webp;png&metadata';
+  import EthCoin from './ethcoin-avatar.png?w=48&format=avif;webp;png&metadata';
   import USDCoin from './usdcoin-avatar.png?w=48&format=avif;webp;png&metadata';
   import Suku from './suku-avatar.png?w=48&format=avif;webp;png&metadata';
   import Hbar from './hbar-avatar.png?w=48&format=avif;webp;png&metadata';
 
   export let isOpen: boolean;
-  export let onDepositSelect: (id: 'circle' | 'coinbase' | 'usdc' | 'hbar') => unknown;
+  export let onDepositSelect: (id: 'circle' | 'eth' | 'btc' | 'usdc' | 'hbar') => unknown;
 
   type DepositOption = {
-    id: 'circle' | 'coinbase' | 'usdc' | 'suku' | 'hbar';
+    id: 'circle' | 'usdc' | 'suku' | 'hbar' | 'eth' | 'btc';
     title: string;
     subtitle: string;
     image: ImageMetadata[];
@@ -24,7 +25,8 @@
   };
   const options: DepositOption[] = [
     { id: 'circle', title: 'Credit Card', subtitle: 'Deposit funds using a credit card', image: Circle },
-    { id: 'coinbase', title: 'Coinbase', subtitle: 'Deposit funds using ETH, BTC', image: Coinbase },
+    { id: 'btc', title: 'BTC', subtitle: 'Deposit funds using BTC', image: BitCoin },
+    { id: 'eth', title: 'ETH', subtitle: 'Deposit funds using ETH', image: EthCoin },
     { id: 'usdc', title: 'USDC', subtitle: 'Deposit funds using USDC', image: USDCoin },
     { id: 'hbar', title: 'HBAR', subtitle: 'Deposit funds using Hedera Hashgraph', image: Hbar },
     { id: 'suku', title: 'Suku', subtitle: 'Coming soon', image: Suku, disabled: true },
@@ -35,7 +37,7 @@
       return;
     }
     closeModal();
-    onDepositSelect(id as 'circle' | 'coinbase' | 'usdc' | 'hbar');
+    onDepositSelect(id as 'circle' | 'eth' | 'btc' | 'usdc' | 'hbar');
   }
 </script>
 

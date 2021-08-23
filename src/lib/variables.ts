@@ -10,14 +10,15 @@ export const variables = {
     templateId: import.meta.env.VITE_KYC_PERSONA_TEMPLATE,
     environment: import.meta.env.VITE_KYC_PERSONA_ENVIRONMENT,
   },
-  coinbase: {
-    checkoutId: import.meta.env.VITE_COINBASE_CHECKOUT_ID,
+  ethNetwork: {
+    apiUrl: import.meta.env.VITE_ETHERSCAN_API_URL,
+    apiKey: import.meta.env.VITE_ETHERSCAN_API_KEY,
+    explorerBaseUrl: import.meta.env.VITE_ETH_EXPLORER_BASE_URL,
+    usdcContractAddress: import.meta.env.VITE_USDC_CONTRACT_ADDRESS,
   },
-  usdc: {
-    address: import.meta.env.VITE_USDC_ADDRESS,
-    apiUrl: import.meta.env.VITE_USDC_API_URL,
-    apiKey: import.meta.env.VITE_USDC_API_KEY,
-    txUrl: import.meta.env.VITE_USDC_TX_URL,
+  bitcoinNetwork: {
+    apiUrl: import.meta.env.VITE_BLOCKCYPHER_API_URL,
+    explorerBaseUrl: import.meta.env.VITE_BTC_EXPLORER_BASE_URL,
   },
   dailyDepositLimit: import.meta.env.VITE_DAILY_DEPOSIT_LIMIT_USD,
 };
