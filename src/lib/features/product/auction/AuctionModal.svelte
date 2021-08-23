@@ -52,6 +52,7 @@
       startDate: yup
         .date()
         .required('Start date is required.')
+        .min(new Date(), 'Date must be in the future.')
         .max(endDate, 'The end date should be greater than start date.'),
       endDate: yup.date().required('End date is required.'),
     });
