@@ -27,12 +27,12 @@
 </script>
 
 <div class="flex justify-around sku-details">
-  <div class="container grid gap-x-8 grid-cols-1 md:grid-cols-2 items-stretch -container-y md:-container-x">
-    <div class="-container-x md:-container-none">
+  <div class="container py-0 flex items-stretch">
+    <div class="w-8/12">
       <Gallery items={sku.nftPublicAssets} />
     </div>
-    <div class="flex flex-col justify-between">
-      <div class="flex flex-col py-5 gap-4 md:gap-8 text-white">
+    <div class="w-4/12 flex flex-col justify-between">
+      <div class="flex flex-col py-5 px-4 gap-4 md:gap-8 text-white">
         <div>
           <div class="text-base flex gap-2">
             <a sveltekit:prefetch href={routes.marketplace}>Marketplace</a>
@@ -73,7 +73,7 @@
           {/if}
         </div>
       </div>
-      <div class="-container-x">
+      <div class="">
         <SkuPriceBox {sku} {totalCollectors} {collectors} />
       </div>
     </div>
@@ -152,7 +152,7 @@
   }
   @media only screen and (min-width: 600px) {
     .sku-details {
-      background: linear-gradient(45deg, rgb(2 71 99) 0%, rgb(146 1 162) 100%);
+      background: #000000;
     }
   }
 </style>

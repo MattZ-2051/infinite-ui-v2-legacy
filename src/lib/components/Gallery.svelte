@@ -9,15 +9,16 @@
   $: activeItem = selectedItem || items?.[0];
 </script>
 
-<div class="flex flex-col gap-2 justify-center items-center h-full text-white">
-  <FilePreview item={activeItem} />
+<div class="flex flex-col gap-2 justify-between items-center h-full p-6 text-white relative z-0">
+  <div><!-- empty --></div>
+  <div class="p-8 max-w-2xl">
+    <FilePreview item={activeItem} />
+  </div>
   {#if items?.length > 1}
-    <div class="gap-2 flex flex-wrap justify-center md:mb-2">
+    <div class="flex flex-wrap w-full justify-left">
       {#each items as item}
         <div
-          class="border cursor-pointer w-16 h-16 opacity-70 hover:opacity-100 {activeItem === item
-            ? 'border-gray-300'
-            : 'border-gray-600'}"
+          class="cursor-pointer hover:opacity-100 {activeItem === item ? '' : 'opacity-50'}"
           on:click={() => (selectedItem = item)}
         >
           <FileThumbnail {item} />
@@ -25,4 +26,7 @@
       {/each}
     </div>
   {/if}
+  <div class="absolute top-0 left-0 right-0 bottom-0 -z-1 overflow-hidden">
+    <FilePreview item={activeItem} preview blur={20} />
+  </div>
 </div>
