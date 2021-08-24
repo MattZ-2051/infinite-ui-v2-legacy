@@ -9,14 +9,28 @@
   import fallback from '$static/fallback.png?w=700&format=avif;webp;png&metadata';
   import { getFileType, getAspectRatioStyle } from './file-utils';
 
+  /**
+   * The asset to display.
+   */
   export let item: FileAsset;
+
+  /**
+   * Wheter it should use the preview url.
+   */
   export let preview = false;
+
+  /**
+   * Amount of blur filter.
+   */
+  export let blur = 0;
 
   let showFallbackImage = false;
   let videoElement: HTMLVideoElement;
 
   $: fileType = getFileType(item);
-  $: style = item ? styles({ ...getAspectRatioStyle(item, preview), 'max-height': '60vh' }) : '';
+  $: style = item
+    ? styles({ ...getAspectRatioStyle(item, preview), filter: blur > 0 ? `blur(${blur}px)` : undefined })
+    : '';
 </script>
 
 {#if !item || showFallbackImage}

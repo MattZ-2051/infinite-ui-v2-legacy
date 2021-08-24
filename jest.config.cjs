@@ -10,9 +10,10 @@ module.exports = async () => {
     },
     moduleFileExtensions: ['js', 'ts', 'svelte'],
     moduleNameMapper: {
-      '\\.css$': '<rootDir>/scripts/test/css-stub.js',
+      '\\.css$': '<rootDir>/scripts/test/file-stub.js',
       '\\$app/(.+)$': '<rootDir>/scripts/test/$app/$1',
       '\\$lib/(.+)$': '<rootDir>/src/lib/$1',
+      '\\$static/(.+)metadata$': '<rootDir>/scripts/test/file-stub.js',
       ...Object.fromEntries(alias.map(([key, value]) => [`\\${key}/(.+)$`, `<rootDir>/${value}/$1`])),
       '^clsx$': '<rootDir>/scripts/test/clsx.jest.cjs',
     },
