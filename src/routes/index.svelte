@@ -12,7 +12,7 @@
 
 <script lang="ts">
   import { Seo } from '$lib/seo';
-  import Landing from '$lib/features/landing/Landing.svelte';
+  import Landing from '$project/landing/Landing.svelte';
 
   export let skus: Sku[];
 </script>
