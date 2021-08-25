@@ -1,10 +1,12 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
+  import { readable } from 'svelte/store';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import routes from '$lib/routes';
+  import { polls } from '$lib/features/product/product.store';
   import { getActiveListings, getUpcomingListings, getLimitedAuctionCollector } from './sku.service';
   import LimitedAuctionPriceBox from './LimitedAuctionPriceBox.svelte';
   import { loadProduct } from '../product/product.api';
@@ -28,6 +30,7 @@
   $: upcoming = upcomingSkuListings.length > 0 && activeListings.length === 0;
   $: active = activeListings.length > 0 && sku.totalSkuListingSupplyLeft;
   $: noSale = sku.totalSkuListingSupplyLeft === 0 && activeListings.length === 0;
+  $: isPolling = $polls[sku._id]?.$isActive || readable(false);
 </script>
 
 {#if collector}
@@ -48,7 +51,9 @@
         {/if}
       </div>
       <div class="flex-grow col-span-2 md:col-span-1">
-        <Button on:click={onBuy} variant="tertiary">Buy Now</Button>
+        <Button on:click={onBuy} variant="tertiary" disabled={$isPolling}
+          >{$isPolling ? 'Processing ...' : 'Buy now'}</Button
+        >
       </div>
       {#if totalCollectors > 0}
         <div class="border-b-2 border-gray-800 col-span-3" />

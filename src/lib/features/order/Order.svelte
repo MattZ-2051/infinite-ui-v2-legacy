@@ -11,6 +11,7 @@
   import { getBuyingFee } from '$lib/features/product/product.fee';
   import { toast } from '$ui/toast';
   import routes from '$lib/routes';
+  import { skuBought } from '$lib/features/sku/sku.store';
   import OrderProductPricing from './OrderProductPricing.svelte';
   import { purchaseSkuListing } from './order.api';
 
@@ -42,6 +43,12 @@
           pendingBuyCreated(product._id);
         } else if (result?.status === 'success') {
           productBought({ product });
+        }
+      } else {
+        if (result?.status === 'pending') {
+          pendingBuyCreated(_sku._id);
+        } else if (result?.status === 'success') {
+          skuBought();
         }
       }
 

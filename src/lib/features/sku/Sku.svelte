@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import xss from 'xss';
   import { CLIENT_COMPANY_NAME } from '$project/variables';
   import Rarity from '$lib/rarity/Rarity.svelte';
@@ -19,17 +18,13 @@
   import { getSupplyInfo } from './sku.service';
   import SkuPriceBox from './SkuPriceBox.svelte';
   import SkuCollectorList from './SkuCollectorList.svelte';
-
-  export let sku: Sku;
-  export let collectors: CollectorProduct[];
-  export let totalCollectors: number;
-  export let related: Sku[];
+  import { sku, collectors, totalCollectors, related } from './sku.store';
 </script>
 
 <div class="flex justify-around sku-details">
   <div class="container py-0 flex items-stretch">
     <div class="w-8/12">
-      <Gallery items={sku.nftPublicAssets} />
+      <Gallery items={$sku.nftPublicAssets} />
     </div>
     <div class="w-4/12 flex flex-col justify-between">
       <div class="flex flex-col py-5 px-4 gap-4 md:gap-8 text-white">
@@ -37,34 +32,34 @@
           <div class="text-base flex gap-2">
             <a sveltekit:prefetch href={routes.marketplace}>Marketplace</a>
             <span class="italic text-gray-300">/</span>
-            <span class="text-gray-300">{sku.name}</span>
+            <span class="text-gray-300">{$sku.name}</span>
           </div>
           <div class="flex justify-between mt-12 text-2.5xl">
-            <UserLink username={sku.issuer.username} class="text-gray-400">{sku.issuerName}</UserLink>
-            <Rarity rarity={sku?.rarity} class="font-semibold" />
+            <UserLink username={$sku.issuer.username} class="text-gray-400">{$sku.issuerName}</UserLink>
+            <Rarity rarity={$sku?.rarity} class="font-semibold" />
           </div>
           <div class="flex items-center text-4xl md:text-5xl mt-4">
-            {sku.name}
+            {$sku.name}
             <SocialShareButton share={{ sku }} class="ml-3" />
           </div>
 
           <div class="mt-6">
-            <div>{sku?.series?.name || ''}</div>
+            <div>{$sku?.series?.name || ''}</div>
             <div class="text-gray-400 mt-2">
-              <span>{getSupplyInfo(sku)}</span>
+              <span>{getSupplyInfo($sku)}</span>
             </div>
           </div>
         </div>
         <div class="flex flex-col flex-grow gap-3">
           <div class="flex items-center gap-2">
             <span class="gray-text">Created by</span>
-            <UserLink username={sku.issuer.username} />
-            {#if sku.issuer.showNotifyMe}
+            <UserLink username={$sku.issuer.username} />
+            {#if $sku.issuer.showNotifyMe}
               <span>/</span>
-              <NotifyButton profile={sku.issuer} />
+              <NotifyButton profile={$sku.issuer} />
             {/if}
           </div>
-          {#if sku.redeemable}
+          {#if $sku.redeemable}
             <div class="border-t broder-gray-800 w-10" />
             <div class="flex gap-2 items-center">
               <IconRedeem class="bg-white text-black rounded-full border p-1.5" size="1.3" />
@@ -73,8 +68,8 @@
           {/if}
         </div>
       </div>
-      <div class="">
-        <SkuPriceBox {sku} {totalCollectors} {collectors} />
+      <div>
+        <SkuPriceBox sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
       </div>
     </div>
   </div>
@@ -84,7 +79,7 @@
     <div>
       <Accordion title={'Description'} open={true} collapsible={!$media.md}>
         <div class="mt-4 description text-gray-400">
-          {@html xss(sku.description || '')}
+          {@html xss($sku.description || '')}
         </div>
         <div class="mt-4 flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm">
           <div class="flex items-center ">
@@ -101,12 +96,12 @@
       <Accordion open={true} collapsible={!$media.md}>
         <div slot="title" class="flex gap-4 items-center">
           <span>Collectors</span>
-          {#if totalCollectors > 0}<span class="text-gray-400 text-lg">{totalCollectors} Total</span>{/if}
+          {#if $totalCollectors > 0}<span class="text-gray-400 text-lg">{$totalCollectors} Total</span>{/if}
         </div>
-        <SkuCollectorList {collectors} skuId={sku._id} />
+        <SkuCollectorList collectors={$collectors} skuId={$sku._id} />
       </Accordion>
     </div>
-    <PrivateAsset skuId={sku._id} let:total={totalPrivateAssets}>
+    <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
       {#if totalPrivateAssets > 0}
         <div>
           <Accordion title={'Owner Access'} open={true} collapsible={!$media.md}>
@@ -118,12 +113,12 @@
   </div>
 </div>
 
-{#if related.length > 0}
+{#if $related.length > 0}
   <div class="mt-8">
     <div class="container">
       <Tabs items={[{ id: 'related', title: 'Related Releases' }]} itemClass="md:pb-8">
         <Tab id="related">
-          <SkuItemGrid class="mt-4" skus={related} />
+          <SkuItemGrid class="mt-4" skus={$related} />
         </Tab>
       </Tabs>
     </div>

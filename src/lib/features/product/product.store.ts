@@ -6,6 +6,7 @@ import { createPolling } from '$util/effector';
 import { loadProduct, loadProductTransactions } from './product.api';
 import { hasActiveAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
+import { skuBought, sku } from '../sku/sku.store';
 
 export const clearProduct = createEvent();
 
@@ -122,15 +123,27 @@ export const polls = createStore({}).on(pendingBuyCreated, (state, payload) => {
 
 pollTransactionFx.doneData.watch((response) => {
   if (response.transactions.length > 0) {
-    const $product = product.getState();
-    const pendingTx = response.transactions.find((tx) => {
-      return tx.transactionData.listing === $product.listing._id;
-    });
+    if (product.getState() !== null) {
+      const $product = product.getState();
+      const pendingTx = response.transactions.find((tx) => {
+        return tx.transactionData.listing === $product.listing._id;
+      });
 
-    if (pendingTx.status === 'success') {
-      const $polls = polls.getState();
-      $polls[$product._id].stop();
-      productBought({ product: $product });
+      if (pendingTx.status === 'success') {
+        const $polls = polls.getState();
+        $polls[$product._id].stop();
+        productBought({ product: $product });
+      }
+    } else {
+      const $sku = sku.getState();
+      const pendingTx = response.transactions.find((tx) => {
+        return tx.transactionData.listing === $sku.activeSkuListings[0]._id;
+      });
+      if (pendingTx.status === 'success') {
+        const $polls = polls.getState();
+        $polls[$sku._id].stop();
+        skuBought();
+      }
     }
   }
 });
