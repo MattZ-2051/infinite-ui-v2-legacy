@@ -23,7 +23,7 @@
   import { pollPendingTransactions } from '$lib/features/wallet/wallet.poll';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$lib/layout/header/Header.svelte';
-  import Footer from '$lib/layout/footer/Footer.svelte';
+  import Footer from '$project/footer/Footer.svelte';
   import { ToastContainer } from '$ui/toast';
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
@@ -51,7 +51,7 @@
   <Head />
 </svelte:head>
 
-<ThemeContext id="root">
+<ThemeContext display id="root">
   {#if $navigationPathChanging || $isLoading}
     <PreloadIndicator />
   {/if}

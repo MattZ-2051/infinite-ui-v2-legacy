@@ -3,7 +3,7 @@ const { tailwindExtractor } = require('tailwindcss/lib/lib/purgeUnusedStyles');
 module.exports = {
   mode: 'aot', // jit
   purge: {
-    content: ['./src/**/*.{html,js,svelte,ts}'],
+    content: ['./{src,projects}/**/*.{html,js,svelte,ts}'],
     options: {
       defaultExtractor: (content) => [
         // If this stops working, please open an issue at https://github.com/svelte-add/svelte-add/issues rather than bothering Tailwind Labs about it

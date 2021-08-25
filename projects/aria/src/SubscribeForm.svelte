@@ -1,0 +1,66 @@
+<script lang="ts">
+  import { mdiEmail } from '@mdi/js';
+  import { createForm } from 'felte';
+  import * as yup from 'yup';
+  import { validateSchema } from '@felte/validator-yup';
+  import Icon from '$ui/icon/Icon.svelte';
+  import Button from '$lib/components/Button.svelte';
+
+  /**
+   * Class to be added on the title.
+   */
+  export let titleClass = '';
+
+  /**
+   * Class to be added on the form.
+   */
+  let _class = '';
+  export { _class as class };
+
+  const schema = yup.object({
+    email: yup.string().email('Email is not correct'),
+  });
+
+  const { form } = createForm<{ email: string }>({
+    onSubmit: (values) => {
+      // TODO(vasilis): handle submit
+      console.log(values);
+    },
+    validate: validateSchema(schema),
+  });
+</script>
+
+<div class="text-center text-white text-base {titleClass}">Join us to get first pick on upcoming exclusive drops!</div>
+
+<div class="flex justify-center my-7">
+  <form use:form class="flex relative max-w-md w-full rounded-full h-10 {_class}" autocomplete="off">
+    <Icon class="text-gray-300 absolute transform -translate-y-1/2 top-1/2 left-4" path={mdiEmail} />
+    <input
+      class="text-gray-300 placeholder-gray-400 font-extrabold italic text-base pl-14 flex-1 rounded-full focus:outline-none focus:ring-2"
+      name="email"
+      placeholder="email"
+    />
+    <div class="absolute transform -translate-y-1/2 top-1/2 right-0">
+      <Button
+        --button-padding="0.5rem 2.75rem"
+        --button-text-size="0.875rem"
+        --button-line-height="1.25rem"
+        animate={false}
+        class="whitespace-nowrap"
+        type="submit">Sign Up</Button
+      >
+    </div>
+  </form>
+</div>
+
+<div class="text-center text-xs max-w-2xl mx-auto">
+  By providing your email, you are consenting to receive updates from ARIA Exchange on NFT releases, exclusive
+  experiences, updates and other communications from ARIA Exchange and its affiliates and partners.
+</div>
+
+<style lang="postcss">
+  input {
+    @apply border border-transparent bg-origin-border;
+    background: linear-gradient(#191919, #191919) padding-box, linear-gradient(#6734ff, #c000d6) border-box;
+  }
+</style>

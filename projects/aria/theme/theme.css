@@ -1,55 +1,25 @@
-.theme-default {
+:root {
   /* Main */
-  --main-bg-color: #ffffff;
+  --bg-color: #000000;
+  --color: #ffffff;
 
   /* Header */
-  --header-color: #000000;
-  --header-bg-color: #ffffff;
-
-  /* SkuItem */
-  --card-container-color: #ffffff;
-  --card-name-color: #9e9e9e;
-  --card-title-color: #000000;
-  --card-series-color: #000000;
-  --card-serial-number-color: #000000;
-  --bottom-border: 1px solid #ededed;
-
-  /* Menu */
-  --menu-background-color: white;
-  --menu-box-shadow-color: rgba(0, 0, 0, 0.05);
-  --menu-item-background-selected: #f8f8f8;
-  --menu-item-color: #7c7c7c;
-  --menu-item-color-selected: black;
-
-  /* Pagination */
-  --pagination-color: #9e9e9e;
-  --pagination-color-active: #ffffff;
-  --pagination-background-color-active: #000000;
-
-  /* Checkbox */
-  --checkbox-color: #000000;
-  --checkbox-bg: #d6d6d6;
-  --checkbox-hover-bg: #cccccc;
-
-  /* Sort */
-  --sort-color: #000000;
-  --sort-icon-color: #ffffff;
-  --sort-icon-bg-color: #000000;
-
-  /* Tabs */
-  --tab-border-color: #ebebeb;
-  --tab-color: #9e9e9e;
-  --tab-active-border-color: #000000;
-  --tab-active-color: #000000;
-}
-
-.theme-dark {
-  /* Main */
-  --main-bg-color: #1a1a1a;
-
-  /* Header */
-  --header-color: theme('colors.gray.300');
+  --header-color: #ffffff;
   --header-bg-color: #000000;
+  --header-separator-bg-color: linear-gradient(#c000d6 0%, #6734ff 100%);
+  --header-height: 72px;
+  --header-icon-bg-color: #252525;
+
+  /* Footer */
+  --footer-bg-color: #000000;
+  --footer-color: #7c7c7c;
+  --footer-color-hover: #ffffff;
+  --footer-separator-bg-color: linear-gradient(#c000d6 0%, #6734ff 100%);
+  --footer-icon-bg-color: #2e2e2e;
+  --footer-icon-color: #ffffff;
+  --footer-icon-bg-color-hover: #ffffff;
+  --footer-icon-color-hover: #000000;
+  --footer-icon-border-radius: 12px;
 
   /* SkuItem */
   --card-container-color: #232323;
@@ -87,4 +57,8 @@
   --tab-color: #606060;
   --tab-active-border-color: #ffffff;
   --tab-active-color: #ffffff;
+
+  /* Button */
+  --button-primary-bg-color: #6633ff;
+  --button-primary-color-border: var(--button-primary-bg-color);
 }

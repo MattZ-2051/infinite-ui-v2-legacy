@@ -1,7 +1,6 @@
 <script>
   import { Meta, Story } from '@storybook/addon-svelte-csf';
   import { mdiAccountCircleOutline, mdiChevronDown, mdiCreditCardOutline } from '@mdi/js';
-  import { ThemeDecorator } from '$storybook/decorators';
   import Icon from '$ui/icon/Icon.svelte';
   import MenuList from './MenuList.svelte';
   import MenuItem from './MenuItem.svelte';
@@ -14,7 +13,6 @@
 <Meta
   title="UI / Menu"
   component={Menu}
-  decorators={[() => ThemeDecorator]}
   subcomponents={{ MenuTrigger, MenuList, MenuItem }}
   argTypes={{
     visible: {
@@ -48,7 +46,7 @@
   </div>
 </Story>
 
-<Story name="List" let:args>
+<Story name="List">
   <MenuList>
     <MenuItem selected={selected === 'action-1'} on:select={() => (selected = 'action-1')}>Action 1</MenuItem>
     <MenuItem selected={selected === 'action-2'} on:select={() => (selected = 'action-2')}>

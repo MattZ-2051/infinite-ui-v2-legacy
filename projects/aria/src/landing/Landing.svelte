@@ -6,8 +6,6 @@
 
   import TravisScott from '$static/Travis-Scott-iHeart-Radio.png?w=350;500&format=avif;webp;png&metadata';
   // import digital_bg from '$static/digital_bg.png?w=400;800;1200&format=avif;webp;png&metadata';
-
-  import Logo from '$lib/components/Logo.svelte';
   import LandingHero from './LandingHero.svelte';
 
   export let skus: Sku[];
@@ -16,7 +14,7 @@
 <LandingHero />
 
 <div
-  class="relative flex-grow text-white"
+  class="relative flex-grow"
   style="background-color: #0d0a0d; background-image: linear-gradient( #0d0a0d, #000000);"
 >
   <!-- <Image src={digital_bg} class="absolute w-full h-full object-cover -z-1" /> -->
@@ -47,8 +45,6 @@
         <SkuItemGrid {skus} />
       </Tab>
     </Tabs>
-
-    <Logo />
   </div>
 </div>
 

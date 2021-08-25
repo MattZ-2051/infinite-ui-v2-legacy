@@ -13,5 +13,9 @@ export default Object.freeze({
   help: '/help',
   privacy: '/privacy',
   terms: '/terms',
+  about: '/about',
+  careers: '/careers',
+  createAccount: '/create-account',
+  partner: '/partner',
   ...routes,
 });

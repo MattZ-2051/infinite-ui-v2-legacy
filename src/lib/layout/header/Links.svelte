@@ -1,11 +1,12 @@
 <script lang="ts">
-  import { mdiAccountCircleOutline, mdiCreditCardOutline, mdiLogin, mdiLogout } from '@mdi/js';
+  import { mdiAccountCircleOutline, mdiCogOutline, mdiCreditCardOutline, mdiLogout } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
   import { login, isLoading, logout } from '$lib/auth';
   import { user, clearUser } from '$lib/user';
   import routes from '$lib/routes';
   import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
+  import Button from '$lib/components/Button.svelte';
 
   function onLogout() {
     clearUser();
@@ -13,36 +14,45 @@
   }
 </script>
 
-<a sveltekit:prefetch href={routes.marketplace} hover:text-white class:text-white={$page.path === routes.marketplace}
-  >Marketplace</a
->
-
+<a sveltekit:prefetch href={routes.marketplace} class="whitespace-nowrap">Marketplace</a>
 {#if $user}
-  <a
-    sveltekit:prefetch
-    href={routes.collection($user.username)}
-    class="hover:text-white"
-    class:text-white={$page.path === routes.collection($user.username)}>My Collection</a
-  >
-
+  <a sveltekit:prefetch href={routes.collection($user.username)} class="whitespace-nowrap">My Collection</a>
   <Menu placement="bottom-end">
-    <MenuTrigger slot="trigger" class={`hover:text-white ${$page.path === routes.account ? 'text-white' : ''}`}
-      ><Icon path={mdiAccountCircleOutline} class="mr-1" /> {$user.username}</MenuTrigger
+    <MenuTrigger slot="trigger" class="whitespace-nowrap"
+      ><div class="account-icon mr-1">
+        <Icon size={0.8} path={mdiAccountCircleOutline} />
+      </div>
+      {$user.username}</MenuTrigger
     >
     <MenuList slot="menu">
       <MenuItem href={routes.account} class={$page.path === routes.account ? 'hidden' : ''}>
-        <Icon path={mdiAccountCircleOutline} class="flex-shrink-0 float-left mr-3" /> My account
+        <Icon path={mdiCogOutline} class="flex-shrink-0 float-left mr-3" />Account Settings
       </MenuItem>
       <MenuItem href={routes.wallet} class={$page.path === routes.wallet ? 'hidden' : ''}>
-        <Icon path={mdiCreditCardOutline} class="flex-shrink-0 float-left mr-3" /> My wallet
+        <Icon path={mdiCreditCardOutline} class="flex-shrink-0 float-left mr-3" /> My Wallet
       </MenuItem>
       <MenuItem on:select={() => onLogout()}>
-        <Icon path={mdiLogout} class="flex-shrink-0 float-left mr-3" /> Sign out
+        <Icon path={mdiLogout} class="flex-shrink-0 float-left mr-3" /> Sign Out
       </MenuItem>
     </MenuList>
   </Menu>
 {:else}
-  <button class="flex hover:text-white" on:click={async () => await login()} disabled={$isLoading}
-    ><Icon path={mdiLogin} class="mr-1" /> Log in
-  </button>
+  <a sveltekit:prefetch href={routes.about} class="whitespace-nowrap">About Us</a>
+  <button class="flex whitespace-nowrap" on:click={async () => await login()} disabled={$isLoading}> Log In </button>
+  <div class="button-container">
+    <Button
+      --button-padding="0.5rem 1.25rem"
+      --button-text-size="1rem"
+      --button-line-height="1.5rem"
+      href={routes.createAccount}
+      class="whitespace-nowrap">Create Account</Button
+    >
+  </div>
 {/if}
+
+<style lang="postcss">
+  .account-icon {
+    @apply p-1 rounded-xl;
+    background-color: var(--header-icon-bg-color);
+  }
+</style>

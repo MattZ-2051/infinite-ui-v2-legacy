@@ -7,4 +7,3 @@ export const CLIENT_SOCIAL_IMAGE = {
   height: 740,
   alt: 'The ARIA Exchange',
 };
-export const COPYRIGHT = 'ARIA Exchange © 2021 All rights reserved.';

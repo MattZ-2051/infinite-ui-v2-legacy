@@ -3,7 +3,7 @@
   import weAreImage from '$static/we_are_culture.png?w=400;1000;&format=avif;webp;png&metadata';
 </script>
 
-<div class="relative" style="height: min(60vw, 60vh);">
+<div class="relative mt-2" style="height: min(60vw, 60vh);">
   <video src="/aria_preview.mp4" class="absolute w-full h-full object-cover" playsinline loop autoplay muted />
   <Image
     src={weAreImage}

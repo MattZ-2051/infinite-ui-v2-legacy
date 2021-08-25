@@ -1,10 +1,26 @@
+:root {
+  /* Footer */
+  --footer-icon-border-radius: 50%;
+}
+
 .theme-default {
   /* Main */
-  --main-bg-color: #ffffff;
+  --bg-color: #ffffff;
 
   /* Header */
   --header-color: #000000;
   --header-bg-color: #ffffff;
+  --header-separator-bg-color: var(--header-bg-color);
+
+  /* Footer */
+  --footer-bg-color: #ddf874;
+  --footer-color: rgba(0, 0, 0, 0.48);
+  --footer-color-hover: #000000;
+  --footer-separator-bg-color: rgba(0, 0, 0, 0.14);
+  --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
+  --footer-icon-color: rgba(0, 0, 0, 0.5);
+  --footer-icon-bg-color-hover: #000000;
+  --footer-icon-color-hover: #ffffff;
 
   /* SkuItem */
   --card-container-color: #ffffff;
@@ -45,11 +61,22 @@
 
 .theme-dark {
   /* Main */
-  --main-bg-color: #1a1a1a;
+  --bg-color: #1a1a1a;
 
   /* Header */
   --header-color: theme('colors.gray.300');
   --header-bg-color: #000000;
+  --header-separator-bg-color: var(--header-bg-color);
+
+  /* Footer */
+  --footer-bg-color: #000000;
+  --footer-color: #7c7c7c;
+  --footer-color-hover: #ffffff;
+  --footer-separator-bg-color: rgba(0, 0, 0, 0.14);
+  --footer-icon-bg-color: #2e2e2e;
+  --footer-icon-color: #ffffff;
+  --footer-icon-bg-color-hover: #ffffff;
+  --footer-icon-color-hover: #000000;
 
   /* SkuItem */
   --card-container-color: #232323;
@@ -87,4 +114,7 @@
   --tab-color: #606060;
   --tab-active-border-color: #ffffff;
   --tab-active-color: #ffffff;
+
+  /* Button */
+  --button-primary-background-color: #000000;
 }

@@ -3,7 +3,6 @@
   import { Tabs, Tab } from '$ui/tabs';
   import { SkuItemGrid } from '$lib/sku-item';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
-  import Logo from '$lib/components/Logo.svelte';
   import Image from '$ui/image/Image.svelte';
   import { Pagination } from '$ui/pagination';
   import { page } from '$app/stores';
@@ -97,8 +96,6 @@
 
       {#if profile.username === 'Roberto_Clemente'}
         <Image src={clemente21} alt="Clemente's shirt" class="m-auto" />
-      {:else}
-        <Logo />
       {/if}
     </div>
   </div>

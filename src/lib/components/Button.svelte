@@ -19,6 +19,11 @@
   export let disabled = false;
 
   /**
+   * If false, the button won't animate on hover.
+   */
+  export let animate = true;
+
+  /**
    * The appearance of the button.
    */
   export let variant: 'primary' | 'secondary' | 'tertiary' = 'primary';
@@ -35,7 +40,8 @@
     'button inline-block text-center rounded-full w-full',
     _class,
     variant,
-    disabled ? 'opacity-50 pointer-events-none cursor-default' : 'hover:scale-105 transform duration-200'
+    disabled && 'opacity-50 pointer-events-none cursor-default',
+    animate && !disabled && 'hover:scale-105 transform duration-200'
   );
 </script>
 
@@ -62,19 +68,19 @@
 
   .primary {
     color: var(--button-primary-text-color, #ffffff);
-    background-color: var(--button-primary-background-color, #000000);
+    background-color: var(--button-primary-bg-color, #000000);
     border-color: var(--button-primary-color-border, #000000);
   }
 
   .secondary {
     color: var(--button-secondary-text-color, #000000);
-    background-color: var(--button-secondary-background-color, #ffffff);
+    background-color: var(--button-secondary-bg-color, #ffffff);
     border-color: var(--button-neutral-color-border, #000000);
   }
 
   .tertiary {
     color: var(--button-tertiary-text-color, #000000);
-    background-color: var(--button-tertiary-background-color, #ffffff);
+    background-color: var(--button-tertiary-bg-color, #ffffff);
     border-color: var(--button-tertiary-color-border, #ffffff);
   }
 </style>
