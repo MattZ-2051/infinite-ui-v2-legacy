@@ -44,6 +44,6 @@
   }
 </script>
 
-<FullScreenLoader class="fixed top-0 bottom-0 right-0 left-0 bg-black text-white" --lds-size="3.75rem"
+<FullScreenLoader class="fixed top-0 bottom-0 right-0 left-0 bg-black text-white z-∞" --lds-size="3.75rem"
   ><span class="text-2xl">Authorizing...</span>
 </FullScreenLoader>

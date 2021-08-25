@@ -21,6 +21,7 @@ module.exports = {
     extend: {
       zIndex: {
         '-1': '-1',
+        '∞': 999_999_999,
         toast: 10_000,
         modal: 9000,
         menu: 2000,
