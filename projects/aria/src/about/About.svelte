@@ -21,27 +21,27 @@
     { name: 'DAVID BELL', occupation: 'Former CEO/Chairman Interpublic Group' },
     {
       name: 'TOM HARRISON',
-      occupation: "Former CEO/Chairman,Diversified Agency Services (DAS),Omnicom Group's largest division",
+      occupation: "Former CEO/Chairman, Diversified Agency Services (DAS), Omnicom Group's largest division",
     },
     {
       name: 'RAJA RAJAMANNAR',
-      occupation: 'Current Mastercard CMO,President Healthcare; President World Federation of Advertisers',
+      occupation: 'Current Mastercard CMO, President Healthcare; President World Federation of Advertisers',
     },
     {
       name: 'MICHAEL LYNCH',
-      occupation: '17 year Visa exec; leg global sports sponsorships(Olympics,World Cup,NFL,NASCAR,MLB)',
+      occupation: '17 year Visa exec; leg global sports sponsorships (Olympics, World Cup, NFL, NASCAR, MLB)',
     },
     {
       name: 'AMY JO SMITH',
-      occupation: 'CEO Digital Entertainment Group(DEG),the leading trade group for the digital media industry',
+      occupation: 'CEO Digital Entertainment Group (DEG), the leading trade group for the digital media industry',
     },
     {
       name: 'RODERT D. JORDAN',
-      occupation: '30+ year sports industry consultant to teams,venues(Met Life Stadium) and owners',
+      occupation: '30+ year sports industry consultant to teams, venues (Met Life Stadium) and owners',
     },
     {
       name: 'RANDALL BEARD',
-      occupation: 'Former President Nielsen,former CMO of American Expresss,P&amp;G(Americas/China)',
+      occupation: 'Former President Nielsen, former CMO of American Expresss, P&G (Americas/China)',
     },
     {
       name: 'DANNY KAYE',
@@ -49,7 +49,7 @@
     },
     {
       name: 'TOM HUDSON',
-      occupation: "25+ year IBM veteran,led IBM's largest businesses;co-founded IBM Services division",
+      occupation: "25+ year IBM veteran, led IBM's largest businesses; co-founded IBM Services division",
     },
     {
       name: 'JEREMY CAGE',
@@ -81,17 +81,17 @@
   <span class="text-4xl text-center">ADVISORY TEAM</span>
   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
     {#each advisoryTeam as person}
-      <div class="flex flex-col gap-4 items-center text-center advisory">
+      <div class="flex flex-col gap-8 items-center text-center advisory">
         <div class="flex flex-col">
           <span class="text-2xl">{person.name}</span>
-          <span class="px-10">{person.occupation}</span>
+          <span style="max-width: 222px;">{person.occupation}</span>
         </div>
       </div>
     {/each}
   </div>
 </div>
 
-<style>
+<style lang="postcss">
   @screen lg {
     .advisory:nth-child(9) {
       grid-column-start: 2;
