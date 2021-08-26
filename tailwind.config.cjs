@@ -25,6 +25,7 @@ module.exports = {
         toast: 10_000,
         modal: 9000,
         menu: 2000,
+        1: 1,
       },
       fontSize: {
         '2.5xl': ['1.6rem', '2rem'],
