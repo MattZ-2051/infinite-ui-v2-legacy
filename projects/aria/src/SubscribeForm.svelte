@@ -9,7 +9,7 @@
   /**
    * Class to be added on the title.
    */
-  export let titleClass = '';
+  export let titleClass = 'text-base';
 
   /**
    * Class to be added on the form.
@@ -30,7 +30,7 @@
   });
 </script>
 
-<div class="text-center text-white text-base {titleClass}">Join us to get first pick on upcoming exclusive drops!</div>
+<div class="text-center text-white {titleClass}">Join us to get first pick on upcoming exclusive drops!</div>
 
 <div class="flex justify-center my-7">
   <form use:form class="flex relative max-w-md w-full rounded-full h-10 {_class}" autocomplete="off">

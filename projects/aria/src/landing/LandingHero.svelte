@@ -3,12 +3,15 @@
   import weAreImage from '$static/we_are_culture.png?w=400;1000;&format=avif;webp;png&metadata';
 </script>
 
-<div class="relative mt-2" style="height: min(60vw, 60vh);">
+<div class="relative mt-2" style="height: min(70vw, 70vh);">
   <video src="/aria_preview.mp4" class="absolute w-full h-full object-cover" playsinline loop autoplay muted />
   <Image
     src={weAreImage}
     class="absolute top-0 right-0 z-10"
-    style="width: min(72vw, 72vh); transform: rotate(-90deg) translateY(-100%); transform-origin: top right;"
+    style="width: min(60vw, 60vh); transform: rotate(-90deg) translateY(-100%) translateX(-5%); transform-origin: top right;"
     setDimensions={true}
   />
+</div>
+<div class="hidden md:block text-5xl text-center py-8" style="background-color: #0C002F;">
+  <div class="container">Exclusive Roberto Clemente NFT Collection</div>
 </div>
