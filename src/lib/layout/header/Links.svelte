@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mdiAccountCircleOutline, mdiCogOutline, mdiCreditCardOutline, mdiLogout } from '@mdi/js';
+  import { mdiCogOutline, mdiCreditCardOutline, mdiLogout } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
   import { login, isLoading, logout } from '$lib/auth';
@@ -18,10 +18,10 @@
 {#if $user}
   <a sveltekit:prefetch href={routes.collection($user.username)} class="whitespace-nowrap">My Collection</a>
   <Menu placement="bottom-end">
-    <MenuTrigger slot="trigger" class="whitespace-nowrap"
-      ><div class="account-icon mr-1">
-        <Icon size={0.8} path={mdiAccountCircleOutline} />
-      </div>
+    <MenuTrigger slot="trigger" class="whitespace-nowrap">
+      {#if $user.profilePhotoUrl}
+        <img class="w-6 mr-1.5 rounded-full" src={$user.profilePhotoUrl} alt="" />
+      {/if}
       {$user.username}</MenuTrigger
     >
     <MenuList slot="menu">
@@ -49,10 +49,3 @@
     >
   </div>
 {/if}
-
-<style lang="postcss">
-  .account-icon {
-    @apply p-1 rounded-xl;
-    background-color: var(--header-icon-bg-color);
-  }
-</style>
