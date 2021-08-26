@@ -39,7 +39,7 @@ module.exports = {
       alias: {
         ...config.resolve.alias,
         svelte: path.resolve(__dirname, '..', 'node_modules', 'svelte'),
-        $app: path.resolve('./.svelte-kit/dev/runtime/app'),
+        $app: path.resolve('./scripts/test/$app'),
         $lib: path.resolve('./src/lib'),
         ...Object.fromEntries(alias.map(([key, value]) => [key, path.resolve(`./${value}`)])),
       },

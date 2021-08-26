@@ -17,8 +17,10 @@
 </script>
 
 {#if open}
-  <article class="fixed bottom-4 z-40 w-full">
-    <section class="flex gap-28 items-center max-w-max bg-white rounded-xl px-8 py-6 m-auto text-lg shadow-2xl">
+  <article class="fixed bottom-12 z-40 w-full">
+    <section
+      class="flex gap-12 items-center w-11/12 bg-white bg-opacity-95 text-black rounded-lg px-4 md:px-8 py-6 m-auto text-lg shadow-2xl"
+    >
       <div class="flex-grow">
         <p>
           By using this website, you agree to our use of cookies as outlined in our
