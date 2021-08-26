@@ -6,14 +6,14 @@
   /* Header */
   --header-color: #ffffff;
   --header-bg-color: #000000;
-  --header-separator-bg-color: linear-gradient(#c000d6 0%, #6734ff 100%);
+  --header-separator-bg-color: linear-gradient(90deg, #c000d6 0%, #6734ff 100%);
   --header-height: 72px;
 
   /* Footer */
   --footer-bg-color: #000000;
   --footer-color: #7c7c7c;
   --footer-color-hover: #ffffff;
-  --footer-separator-bg-color: linear-gradient(#c000d6 0%, #6734ff 100%);
+  --footer-separator-bg-color: linear-gradient(90deg, #c000d6 0%, #6734ff 100%);
   --footer-icon-bg-color: #2e2e2e;
   --footer-icon-color: #ffffff;
   --footer-icon-bg-color-hover: #ffffff;
