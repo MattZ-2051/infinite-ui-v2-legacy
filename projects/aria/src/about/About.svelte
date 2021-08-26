@@ -13,8 +13,8 @@
     { photo: nadine, name: 'NADINE DIETZ', occupation: 'CHIEF MARKETING & STRATEGY OFFICER' },
     { photo: evan, name: 'EVAN GREENE', occupation: 'CCO' },
     { photo: jimmy, name: 'JIMMY NGUYEN', occupation: 'SVP, GROWTH' },
-    { photo: '', name: 'ILONA STEPANYANTS', occupation: 'SVP, BRAND' },
-    { photo: '', name: 'TRAVIS McMICHAEL III', occupation: 'SVP, CREATIVE' },
+    { photo: jimmy, name: 'ILONA STEPANYANTS', occupation: 'SVP, BRAND' },
+    { photo: jimmy, name: 'TRAVIS McMICHAEL III', occupation: 'SVP, CREATIVE' },
   ];
 
   const advisoryTeam = [
@@ -58,46 +58,61 @@
   ];
 </script>
 
-<div class="container  flex flex-col gap-20">
+<div class="mt-10">
   <Intro />
+</div>
 
-  <span class="text-4xl text-center">MANAGEMENT</span>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-12">
-    {#each managementTeam as person}
-      <div class="flex flex-col gap-4 items-center text-center ">
-        {#if person.photo === ''}
-          <div style="width:192px; height:192px;" class="bg-gray-300" />
-        {:else}
-          <Image src={person.photo} />
-        {/if}
-        <div class="flex flex-col">
-          <span class="text-2xl">{person.name}</span>
-          <span>{person.occupation}</span>
+<div class="container flex flex-col gap-16 md:gap-24 py-20">
+  <div class="flex flex-col gap-8 md:gap-20">
+    <div class="flex justify-center"><h1 class="text-4xl font-bold">LEADERSHIP</h1></div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-12 ">
+      {#each managementTeam as person}
+        <div class="flex flex-col gap-4 items-center text-center">
+          <div class="gradient-border ">
+            <Image src={person.photo} />
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl md:text-2xl">{person.name}</span>
+            <span class="text-sm md:text-base">{person.occupation}</span>
+          </div>
         </div>
-      </div>
-    {/each}
+      {/each}
+    </div>
   </div>
 
-  <span class="text-4xl text-center">ADVISORY TEAM</span>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
-    {#each advisoryTeam as person}
-      <div class="flex flex-col gap-8 items-center text-center advisory">
-        <div class="flex flex-col">
-          <span class="text-2xl">{person.name}</span>
-          <span style="max-width: 222px;">{person.occupation}</span>
+  <div class="flex flex-col gap-14 md:gap-20 ">
+    <div class="flex justify-center"><h1 class="text-4xl font-bold">ADVISORY TEAM</h1></div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-12">
+      {#each advisoryTeam as person}
+        <div class="flex flex-col gap-8 items-center text-center advisory">
+          <div class="flex flex-col">
+            <span class="md:text-2xl text-xl">{person.name}</span>
+            <span style="max-width: 222px;" class="text-sm md:text-base">{person.occupation}</span>
+          </div>
         </div>
-      </div>
-    {/each}
+      {/each}
+    </div>
   </div>
 </div>
 
 <style lang="postcss">
-  @screen lg {
+  @screen md {
     .advisory:nth-child(9) {
       grid-column-start: 2;
     }
     .advisory:nth-child(10) {
       grid-column-start: 3;
     }
+  }
+
+  h1 {
+    background: linear-gradient(88.12deg, #76faf3 14.15%, #8f13ff 116.49%);
+    @apply text-transparent bg-clip-text;
+  }
+
+  .gradient-border {
+    border-width: 4px;
+    border-image: linear-gradient(45deg, #76faf3, #8f13ff);
+    border-image-slice: 1;
   }
 </style>
