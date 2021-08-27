@@ -28,6 +28,7 @@
     "@mdi/js": "5.9.55",
     "@popperjs/core": "2.9.3",
     "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/line-clamp": "^0.2.1",
     "clipboard-copy": "~4.0.1",
     "clsx": "1.1.1",
     "dayjs": "1.10.6",

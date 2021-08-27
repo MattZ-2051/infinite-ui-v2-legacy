@@ -1,4 +1,4 @@
-<div class="theme-container">
+<div class="theme-container" data-theme-context="root">
   <slot />
 </div>
 

@@ -1,29 +1,22 @@
-import type { Sku, Product, Status } from '$lib/sku-item/types';
+import type { Sku, Status } from '$lib/sku-item/types';
+import dayjs from 'dayjs';
 
 export const skuStatus = (sku: Sku): Status => {
-  if (sku?.productListings?.length === 0 && sku?.skuListings?.length === 0) {
-    return 'upcoming';
+  if (dayjs(sku?.minStartDate).isAfter(dayjs())) {
+    if (
+      (sku.productListings?.length === 0 && sku.skuListings?.length === 0) ||
+      dayjs(sku.minStartDate).diff(new Date(), 'day', true) > 3
+    ) {
+      return 'upcoming';
+    }
+    if (sku?.upcomingProductListings?.length !== 0 || sku?.upcomingSkuListings?.length !== 0) {
+      return 'upcoming-soon';
+    }
   }
-  if (
-    new Date(sku?.minStartDate) > new Date() &&
-    (sku?.upcomingProductListings?.length !== 0 || sku?.upcomingSkuListings?.length !== 0)
-  ) {
-    return 'upcoming-soon';
-  }
-  if (sku?.totalSupplyLeft !== 0 && (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0)) {
+  if (sku.totalSupplyLeft !== 0 && (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0)) {
     return 'active';
   }
-  if (sku?.totalSupplyLeft === 0 || sku.activeSkuListings?.length === 0) {
+  if (sku.totalSupplyLeft === 0 || sku.activeSkuListings?.length === 0) {
     return 'no-sale';
   }
-};
-
-export const productStatus = (product: Product): Status => {
-  if (product?.activeProductListings.length === 0 && product?.upcomingProductListings.length === 0) {
-    return 'no-sale';
-  }
-  if (product?.activeProductListings.length > 0) {
-    return 'active';
-  }
-  return 'upcoming-soon';
 };

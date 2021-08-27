@@ -147,6 +147,8 @@ export type Cost = {
   royaltyFee?: number;
 };
 
+export type SupplyType = 'unique' | 'limited' | 'released';
+
 type HederaTransaction = {
   transactionHash: string;
   transactionId: string;

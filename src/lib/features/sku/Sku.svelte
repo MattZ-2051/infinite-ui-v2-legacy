@@ -46,7 +46,7 @@
           <div class="mt-6">
             <div>{$sku?.series?.name || ''}</div>
             <div class="text-gray-400 mt-2">
-              <span>{getSupplyInfo($sku)}</span>
+              <span>{getSupplyInfo($sku)?.label}</span>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ function setTippy(userInput: TooltipInput, instance: Instance<Props>) {
     userInput = { content: userInput };
   }
 
-  const properties = Object.assign({}, userInput);
+  const properties = Object.assign({ appendTo: document.querySelector(`[data-theme-context="root"]`) }, userInput);
   instance.setProps(properties);
   instance.enable();
 }

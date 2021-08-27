@@ -33,7 +33,14 @@ module.exports = {
       listStyleType: {
         circle: 'circle',
       },
+      lineClamp: {
+        7: '7',
+        8: '8',
+        9: '9',
+        10: '10',
+        11: '11',
+      },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/line-clamp')],
 };

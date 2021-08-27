@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { variables } from '../src/lib/variables';
-import { mockSku } from './resolvers/mockSku';
+import { mockSku } from './resolvers/sku/mockSku';
 import { ROPSTEN_API_URL, mockRopsten } from './resolvers/mockRopsten';
 import { mockHederaTransactions } from './resolvers/mockHederaTransactions';
 // import { mockEmptyTransactions } from './resolvers/mockTransactions';

@@ -1,34 +1,39 @@
-import type { Sku, Listing, CollectorProduct } from '$lib/sku-item/types';
+import type { Sku, Listing, CollectorProduct, SupplyType } from '$lib/sku-item/types';
 
-const fixedSupplyInfo = (sku: Sku) => {
+type SupplyInfo = { type: SupplyType; label: string } | undefined;
+const UNIQUE_SUPPLY_INFO = { type: 'unique' as SupplyType, label: '1 of 1' };
+
+const fixedSupplyInfo = (sku: Sku): SupplyInfo => {
   if (sku?.totalSupplyUpcoming > 0) {
-    return `Limited to ${sku.totalSupplyUpcoming} editions`;
+    return { type: 'limited', label: `Limited to ${sku.totalSupplyUpcoming}` };
   }
   if (sku.totalSupply > 0) {
-    return `Limited to ${sku.totalSupply} editions`;
+    return { type: 'limited', label: `Limited to ${sku.totalSupply}` };
   }
   if (sku?.skuListings?.length > 0 && sku?.expiredSkuListings?.length > 0) {
     if (sku?.circulatingSupply === 0) {
-      return '';
+      return undefined;
     }
-    return sku?.circulatingSupply === 1 ? '1 of 1 Limited Edition' : `Limited to ${sku.circulatingSupply} editions`;
+    return sku?.circulatingSupply === 1
+      ? UNIQUE_SUPPLY_INFO
+      : { type: 'limited', label: `Limited to ${sku.circulatingSupply}` };
   }
-  return '';
+  return undefined;
 };
 
-const variableSupplyInfo = (sku: Sku) => {
+const variableSupplyInfo = (sku: Sku): SupplyInfo => {
   if (sku.circulatingSupply > 0) {
-    return `${sku.circulatingSupply} released`;
+    return { type: 'released', label: `${sku.circulatingSupply} released` };
   }
   if (sku.minStartDate > new Date()) {
-    return `${sku.totalSupplyUpcoming} to be released`;
+    return { type: 'released', label: `${sku.totalSupplyUpcoming} to be released` };
   }
-  return '';
+  return undefined;
 };
 
-export const getSupplyInfo = (sku: Sku) => {
+export const getSupplyInfo = (sku: Sku): SupplyInfo => {
   if (sku?.maxSupply === 1) {
-    return '1 of 1 Limited Edition';
+    return UNIQUE_SUPPLY_INFO;
   }
   if (sku?.supplyType === 'fixed') {
     return fixedSupplyInfo(sku);
