@@ -29,7 +29,7 @@
     email: yup.string().email('Please enter valid email.').required('Email is required.'),
   });
 
-  const { form, errors, reset } = createForm({
+  const { form, errors } = createForm({
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onSubmit: () => {},
     validate: validateSchema(schema),
@@ -40,10 +40,8 @@
 
 <div class=" flex flex-col gap-8 text-white bg-black">
   <div class="flex flex-col gap-14 text-center container mt-8">
-    <div class="text-4xl flex flex-col ">
-      <span>ARIA Exchange partners with the world's greatest</span>
-      <span>athletes, celebrities, musicians, and brands to create </span>
-      <span>authentic,one-of-a-kind collectible NFTs. </span>
+    <div class="text-4xl max-w-4xl mx-auto font-medium">
+      ARIA Exchange creates exclusive NFTs for the world's most iconic athletes, entertainers, and brands.
     </div>
     <span class="text-3xl">Partner with us to reach your fans in a whole new way.</span>
   </div>
@@ -52,16 +50,10 @@
     <Image src={travisScottBg} class="absolute h-full w-full z-0 object-cover" />
     <div class="z-1 flex flex-col gap-14">
       <div class="md:py-20  md:mt-16" style="background-color: #0c002f;">
-        <div class="flex flex-col  container text-2xl text-center py-10 ">
-          <span
-            >We bring consumers closer to their favorite heroes. Our mission is to deliver the most mind blowing and</span
-          >
-          <span
-            >unique digital content in the hottest way possible. We’re obsessed with merging our physical and digital</span
-          >
-          <span>
-            worlds in the most innovative way to give our audience unlimited access to their favorite collectibles.</span
-          >
+        <div class="container text-2xl text-center py-10 max-w-6xl">
+          We bring you closer to your favorite icons. Our mission is to deliver the most mind blowing and unique digital
+          content in the hottest way possible. We’re obsessed with merging the physical and digital worlds in the most
+          innovative way to give you unlimited access to the most in demand collectibles.
         </div>
       </div>
 

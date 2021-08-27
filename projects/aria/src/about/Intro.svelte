@@ -15,8 +15,8 @@
   <div class="flex justify-center flex-col items-center text-center gap-8 max-w-4xl mx-auto">
     <div class="text-4xl" style="color: #6734FF;">What is The ARIA Exchange?</div>
     <div class="text-lg">
-      We partner with world class artists, athletes and brands. The ARIA Exchange gives you access to the most
-      collectible assets in the world.
+      Bringing you closer to the most collectible, coveted and rarest mix of digital content and collections in the
+      world. We partner with world class artists, athletes and brands to bring you closer to what you care about most.
     </div>
     <div class="font-bold text-lg">ARIA Exchange redefines the collectible NFT experience!</div>
   </div>
@@ -25,7 +25,7 @@
     <div class="flex flex-col gap-8 items-center">
       <Image src={eye} />
       <span class="text-2xl">TRUST</span>
-      <span>The whole truth and nothing but the truth. You buy it. We trace it. You own it.</span>
+      <span>The whole truth and nothing but the truth. You buy it. We verify it. You own it.</span>
     </div>
 
     <div class="flex flex-col gap-8 items-center">
@@ -33,7 +33,7 @@
       <span class="text-2xl">CARBON NEGATIVE</span>
       <span
         >We care about our planet and we think you should too. Our transactions are the fastest in the industry and we
-        redeposit 2 times the energy we use back into the environment via carbon offsets. We believe we need to make the
+        redeposit 2 times the energy we use back into the environment via carbon offsets. Basically we’re making the
         world a better place.
       </span>
     </div>
@@ -41,14 +41,14 @@
     <div class="flex flex-col gap-8 items-center">
       <Image src={dollar} />
       <span class="text-2xl">CURRENCY</span>
-      <span>We don’t discriminate. We accept all money including Ether, Bitcoin, Credit Cards and USDC. </span>
+      <span>We don't discriminate. We accept Ether, Bitcoin, Credit Cards and USDC.</span>
     </div>
   </div>
 </div>
 
 <div class="mt-8 md:mt-20 lg:mt-32" style="background: #0C002F;">
   <div class="container p-12 flex flex-col gap-10">
-    <span class="text-4xl text-center">Join our community and start collecting today! </span>
+    <span class="text-4xl text-center">Join our collective and let’s build our digital community together! </span>
     <div class="flex items-center justify-center">
       <Button style="max-width:147px;">JOIN ARIA</Button>
     </div>
@@ -63,7 +63,7 @@
           <span>Make deposit</span>
         </div>
       </div>
-      <div class="flex items-center justify-center transform rotate-90 md:transform-none">
+      <div class="flex items-center justify-center transform rotate-90 md:transform-none text-white text-opacity-80">
         <Icon path={mdiArrowRight} size="3" />
       </div>
       <div class="flex flex-col gap-4 items-center flex-grow">
@@ -75,7 +75,7 @@
           <span>bid</span>
         </div>
       </div>
-      <div class="flex items-center justify-center transform rotate-90 md:transform-none">
+      <div class="flex items-center justify-center transform rotate-90 md:transform-none text-white text-opacity-80">
         <Icon path={mdiArrowRight} size="3" />
       </div>
       <div class="flex flex-col gap-4 items-center flex-grow">

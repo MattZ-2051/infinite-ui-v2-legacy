@@ -8,7 +8,7 @@
   export let sku: Sku;
 </script>
 
-<div class="border border-opacity-10 border-white rounded-lg text-white">
+<div class="border border-white border-opacity-20 rounded-lg text-white">
   <div class="p-6 border-b border-opacity-10 border-white flex justify-between">
     <div class="flex flex-col gap-2">
       <div class="text-white text-opacity-50 text-sm">Edition</div>
