@@ -15,7 +15,7 @@
     <span class="flex items-center gap-1">
       <span class:text-red-700={bidExceed}>{bid.sku.name} | #{bid.listing.product.serialNumber}</span>
       {#if bid.sku.redeemable}
-        <IconRedeem size="0.8" class="text-gray-400 p-0.5" />
+        <IconRedeem class="text-gray-400 p-0.5" />
       {/if}
     </span>
     <span class="message italic text-sm font-black">{bid.listing.issuer.username}</span>

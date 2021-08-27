@@ -139,7 +139,7 @@
         <IconRedeem class="text-black bg-white rounded-full mr-2 p-1" />
         <span>Redeemable</span>
       {:else}
-        <IconRedeem size="1.2" color="#636363" class="mr-2 p-1" disabled hasTooltip={false} />
+        <IconRedeem color="#636363" class="mr-2 p-1" disabled hasTooltip={false} />
         <span class="text-gray-600 self-center">Redeemed</span>
       {/if}
     </div>

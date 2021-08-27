@@ -67,7 +67,7 @@
         style="width:32px; height:32px; border:1px solid #EBEBEB;"
         class="rounded-xl  flex justify-center items-center"
       >
-        <IconRedeem size="0.8" />
+        <IconRedeem />
       </div>
     {/if}
   </div>

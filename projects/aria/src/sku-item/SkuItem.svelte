@@ -16,7 +16,7 @@
 
   let clientWidth: number;
   let clientHeight: number;
-  $: activeListing = type === 'sku' ? item.activeSkuListings[0] : item.activeProductListings[0];
+  $: activeListing = type === 'sku' ? item.activeSkuListings?.[0] : item.activeProductListings?.[0];
 </script>
 
 <div class="relative flex flex-col" in:fade={{ duration: 300 }}>
@@ -50,7 +50,7 @@
           <div class="mt-5 mb-2 flex justify-between items-start gap-2">
             <span class="text-2.5xl font-light card-title">{item.name}</span>
             {#if item.redeemable}
-              <IconRedeem size="0.85" />
+              <IconRedeem size={32} />
             {/if}
           </div>
         </div>

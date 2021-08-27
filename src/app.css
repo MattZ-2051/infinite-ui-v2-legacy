@@ -64,8 +64,8 @@ body::-webkit-scrollbar-track {
 
 .text-gradient-primary {
   @apply text-gradient bg-gradient-to-tr;
-  --tw-gradient-to: #e81cff;
-  --tw-gradient-from: #40c9ff;
+  --tw-gradient-to: #c000d6;
+  --tw-gradient-from: #6734ff;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 114, 182, 0));
 }
 

@@ -1,71 +1,30 @@
 <script lang="ts">
   import xss from 'xss';
   import { CLIENT_COMPANY_NAME } from '$project/variables';
-  import Rarity from '$lib/rarity/Rarity.svelte';
   import { Tabs, Tab } from '$ui/tabs';
   import Accordion from '$ui/accordion/Accordion.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
-  import NotifyButton from '$lib/notify/NotifyButton.svelte';
   import { media } from '$lib/media-query.store';
   import Gallery from '$lib/components/Gallery.svelte';
-  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import hedera from '$lib/components/icons/hedera';
-  import UserLink from '$lib/components/UserLink.svelte';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
-  import { SocialShareButton } from '$lib/social';
-  import routes from '$lib/routes';
-  import { getSupplyInfo } from './sku.service';
   import SkuPriceBox from './SkuPriceBox.svelte';
   import SkuCollectorList from './SkuCollectorList.svelte';
+  import SkuInfo from './SkuInfo.svelte';
   import { sku, collectors, totalCollectors, related } from './sku.store';
 </script>
 
-<div class="flex justify-around sku-details">
+<div class="flex justify-around">
   <div class="container py-0 flex items-stretch">
     <div class="w-8/12">
       <Gallery items={$sku.nftPublicAssets} />
     </div>
     <div class="w-4/12 flex flex-col justify-between">
-      <div class="flex flex-col py-5 px-4 gap-4 md:gap-8 text-white">
-        <div>
-          <div class="text-base flex gap-2">
-            <a sveltekit:prefetch href={routes.marketplace}>Marketplace</a>
-            <span class="italic text-gray-300">/</span>
-            <span class="text-gray-300">{$sku.name}</span>
-          </div>
-          <div class="flex justify-between mt-12 text-2.5xl">
-            <UserLink username={$sku.issuer.username} class="text-gray-400">{$sku.issuerName}</UserLink>
-            <Rarity rarity={$sku?.rarity} class="font-semibold" />
-          </div>
-          <div class="flex items-center text-4xl md:text-5xl mt-4">
-            {$sku.name}
-            <SocialShareButton share={{ sku }} class="ml-3" />
-          </div>
-
-          <div class="mt-6">
-            <div>{$sku?.series?.name || ''}</div>
-            <div class="text-gray-400 mt-2">
-              <span>{getSupplyInfo($sku)?.label}</span>
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-col flex-grow gap-3">
-          <div class="flex items-center gap-2">
-            <span class="gray-text">Created by</span>
-            <UserLink username={$sku.issuer.username} />
-            {#if $sku.issuer.showNotifyMe}
-              <span>/</span>
-              <NotifyButton profile={$sku.issuer} />
-            {/if}
-          </div>
-          {#if $sku.redeemable}
-            <div class="border-t broder-gray-800 w-10" />
-            <div class="flex gap-2 items-center">
-              <IconRedeem class="bg-white text-black rounded-full border p-1.5" size="1.3" />
-              Redeemable
-            </div>
-          {/if}
+      <div class="flex flex-col px-4 gap-4 md:gap-8 text-white">
+        <div class="flex flex-col gap-8">
+          <div class="text-gradient-primary text-3xl md:text-4xl font-medium">{$sku.name}</div>
+          <SkuInfo sku={$sku} />
         </div>
       </div>
       <div>
@@ -141,13 +100,5 @@
   .description :global(a) {
     @apply underline;
     @apply text-black;
-  }
-  .gray-text {
-    color: #9e9e9e;
-  }
-  @media only screen and (min-width: 600px) {
-    .sku-details {
-      background: #000000;
-    }
   }
 </style>

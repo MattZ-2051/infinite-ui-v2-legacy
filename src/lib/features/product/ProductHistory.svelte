@@ -63,7 +63,7 @@
                 {:else if transaction.type === 'nft_mint'}
                   NFT Minted
                 {:else if transaction.type === 'nft_redeem'}
-                  <IconRedeem size="0.6" class="inline mr-2" />Redeemed this product
+                  <IconRedeem class="inline mr-2" />Redeemed this product
                 {:else}
                   Received Transfer
                 {/if}

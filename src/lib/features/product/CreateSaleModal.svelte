@@ -81,7 +81,7 @@
                 <span>{product.sku.series.name}</span>
               {/if}
               {#if product.sku?.redeemable}
-                <IconRedeem size="0.7" class="mr-1" />
+                <IconRedeem class="mr-1" />
                 / Redeemable
               {/if}
             </div>

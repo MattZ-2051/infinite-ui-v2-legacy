@@ -11,7 +11,7 @@
 
 {#if isOpen}
   <Modal title="Redeem this item!" on:close={closeModal}>
-    <IconRedeem size="0.7" slot="icon" />
+    <IconRedeem slot="icon" />
     <div class="flex flex-col px-10 py-2">
       <div class="flex gap-8 justify-between gray-border py-1">
         <span class="black-text text-xl my-2">{product.sku.name}</span>
