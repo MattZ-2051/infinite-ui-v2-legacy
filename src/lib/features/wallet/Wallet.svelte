@@ -2,18 +2,21 @@
   import { goto } from '$app/navigation';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
+  import { user } from '$lib/user';
   import DepositCoinbase from '$lib/payment/coinbase/DepositCoinbase.svelte';
   import USDC from '$lib/payment/usdc/USDC.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
   import routes from '$lib/routes';
   import { variables } from '$lib/variables';
+  import Button from '$lib/components/Button.svelte';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
   import WithdrawModal from './withdraw/WithdrawModal.svelte';
-  import { wallet } from './wallet.store';
+  import { wallet, withdrawableBalance } from './wallet.store';
   import { launchKYCPersona } from './kyc/personaClient.service';
+  import { getDailyDepositLimitDisclaimer } from './kyc/kyc.service';
 
   export let tab: 'transactions' | 'bids';
 
@@ -56,28 +59,40 @@
   }
 </script>
 
-<div class="header">
-  <div class="container">
-    <div class="py-5 md:py-10 text-white text-3xl">My Wallet</div>
-  </div>
-</div>
 <div
   class="flex flex-col gap-x-24 gap-y-14 items-center md:flex-row md:justify-between mt-4 md:mt-16 md:items-baseline container"
 >
   <div class="w-full md:w-1/5">
-    <WalletBalance on:deposit={openDepositSelectModal} on:withdraw={() => openModal(WithdrawModal)} />
-    <hr class="h-px my-5" />
-    <div class="flex flex-col gap-2 mx-4">
-      {#if $wallet}
-        <AccountVerification
-          on:verify={launchKYCPersona}
-          on:upgrade={launchKYCPersona}
-          kycMaxLevel={$wallet.kycMaxLevel}
-          kycPending={$wallet.kycPending}
-          dailyDepositLimit={Number(variables.dailyDepositLimit)}
-        />
-      {/if}
-    </div>
+    <WalletBalance
+      balance={$user?.balance}
+      availableBalance={$user?.availableBalance}
+      withdrawableBalance={$withdrawableBalance}
+    >
+      <svelte:fragment slot="kyc">
+        {#if $wallet}
+          <AccountVerification on:upgrade={launchKYCPersona} level={$wallet.kycMaxLevel} pending={$wallet.kycPending} />
+        {/if}
+      </svelte:fragment>
+    </WalletBalance>
+
+    {#if $wallet}
+      <div class="text-xs font-medium text-white text-opacity-50 mt-4">
+        {getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
+      </div>
+    {/if}
+
+    <Button class="flex justify-between" on:click={openDepositSelectModal}>
+      <span>Deposit</span>
+      <!-- <Icon path={mdiArrowRight} size="1.2" /> -->
+    </Button>
+    <Button
+      class="flex justify-between"
+      disabled={!$withdrawableBalance || $withdrawableBalance === 0}
+      on:click={() => openModal(WithdrawModal)}
+    >
+      <span>Withdraw</span>
+      <!-- <Icon path={mdiArrowLeft} size="1.2" /> -->
+    </Button>
   </div>
   <div class="w-full md:w-4/5"><WalletList {tab} /></div>
 </div>
@@ -87,7 +102,4 @@
 {/if}
 
 <style>
-  .header {
-    background: #101010;
-  }
 </style>

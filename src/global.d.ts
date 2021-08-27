@@ -13,6 +13,7 @@ interface ImportMetaEnv {
   VITE_USDC_API_URL: string;
   VITE_USDC_API_KEY: string;
   VITE_USDC_TX_URL: string;
+  VITE_DAILY_DEPOSIT_LIMIT_USD: number;
 }
 
 declare module '*format=avif;webp;png&metadata';

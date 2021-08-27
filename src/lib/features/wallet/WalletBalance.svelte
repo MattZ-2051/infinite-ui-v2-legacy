@@ -1,63 +1,64 @@
 <script lang="ts">
-  import { mdiArrowRight, mdiArrowLeft } from '@mdi/js';
-  import { createEventDispatcher } from 'svelte';
-  import { user } from '$lib/user';
-  import { Tabs, Tab } from '$ui/tabs';
+  import { mdiInformationVariant } from '@mdi/js';
   import { formatCurrency } from '$util/format';
-  import Button from '$lib/components/Button.svelte';
   import Icon from '$ui/icon/Icon.svelte';
-  import { withdrawableBalance } from './wallet.store';
+  import tooltip from '$ui/tooltip';
 
-  const dispatch = createEventDispatcher();
+  export let balance: number = undefined;
+  export let availableBalance: number = undefined;
+  export let withdrawableBalance: number = undefined;
 </script>
 
-<div>
-  <div>
-    <Tabs items={[{ id: 'balance', title: 'Total Balance' }]}>
-      <Tab id="balance" />
-    </Tabs>
-    <div class="text-5xl py-4 tracking-tight">
-      {#if $user}
-        {formatCurrency($user.balance)}
-      {:else}
-        <div class="animate-pulse bg-gray-300 rounded h-10 w-52" />
-      {/if}
+<div class="font-medium">
+  <div class="text-2xl">My Wallet</div>
+  <div class="text-5xl tracking-tight mt-5">
+    {#if balance === undefined}
+      <div class="animate-pulse bg-gray-300 rounded h-10 w-52" />
+    {:else}
+      {formatCurrency(balance)}
+    {/if}
+  </div>
+</div>
+
+<div class="flex flex-col mt-12 rounded-lg" style="border: 1px solid #6633FF;">
+  <div class="p-6 flex flex-col gap-6 font-medium">
+    <div class="flex items-center justify-between">
+      <span class="text-white text-opacity-50">Available</span>
+      <div class="flex items-center gap-2">
+        {#if availableBalance === undefined}
+          <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
+        {:else}
+          {formatCurrency(availableBalance)}
+          <button type="button" use:tooltip={'Excludes pending transactions and active bids'}
+            ><Icon path={mdiInformationVariant} class="px-1 bg-white bg-opacity-10 rounded-full" /></button
+          >
+        {/if}
+      </div>
+    </div>
+
+    <div class="h-px w-full" style="background: var(--separator-bg-color);" />
+
+    <div class="flex items-center justify-between">
+      <span class="text-white text-opacity-50">Withdrawable</span>
+      <div class="flex items-center gap-2">
+        {#if Number.isNaN(withdrawableBalance) || withdrawableBalance === undefined}
+          <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
+        {:else}
+          {formatCurrency(withdrawableBalance)}
+          <button
+            type="button"
+            use:tooltip={'Excludes pending transactions and credit card payments less than 30 days old'}
+            ><Icon path={mdiInformationVariant} class="px-1 bg-white bg-opacity-10 rounded-full" /></button
+          >
+        {/if}
+      </div>
     </div>
   </div>
-  <div class="grid grid-cols-1 gap-4 flex-col mt-6">
-    <div class="text-sm font-medium">
-      <span class="text-gray-400 mr-1">Available:</span>
-      {#if $user}
-        {formatCurrency($user.availableBalance)}
-      {:else}
-        <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
-      {/if}
-      <br />
-      <span class="text-xs text-gray-400">(Excludes pending transactions and active bids)</span>
-    </div>
-    <Button class="flex justify-between" on:click={() => dispatch('deposit')}>
-      <span>Deposit</span>
-      <Icon path={mdiArrowRight} size="1.2" />
-    </Button>
-    <div class="text-sm mt-4">
-      <span class="text-gray-400 mr-1">Withdrawable:</span>
-      {#if Number.isNaN($withdrawableBalance)}
-        <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
-      {:else}
-        {formatCurrency($withdrawableBalance)}
-      {/if}
-      <br />
-      <span class="text-xs text-gray-400"
-        >(Excludes pending transactions and credit card payments less than 30 days old)</span
-      >
-    </div>
-    <Button
-      class="flex justify-between"
-      disabled={!$withdrawableBalance || $withdrawableBalance === 0}
-      on:click={() => dispatch('withdraw')}
-    >
-      <span>Withdraw</span>
-      <Icon path={mdiArrowLeft} size="1.2" />
-    </Button>
+
+  <div class="h-px w-full" style="background-color: #6633FF;" />
+
+  <div class="p-6">
+    <div class="text-white text-opacity-50 text-sm mb-4">Account verification status:</div>
+    <slot name="kyc">yoooo</slot>
   </div>
 </div>
