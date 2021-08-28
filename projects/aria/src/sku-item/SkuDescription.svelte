@@ -12,7 +12,7 @@
       {#if issuer.profilePhotoUrl}
         <img class="w-10 rounded-full" src={issuer.profilePhotoUrl} alt="" />
       {/if}
-      <span class="card-profile-name text-2xl ml-3">{issuer.username}</span>
+      <span class="text-primary text-2xl ml-3">{issuer.username}</span>
     </a>
     <div class="flex-1 overflow-hidden mb-4">
       <div
@@ -30,8 +30,5 @@
   }
   .card-description-inner {
     background: rgba(196, 196, 196, 0.85);
-  }
-  .card-profile-name {
-    color: #6633ff;
   }
 </style>

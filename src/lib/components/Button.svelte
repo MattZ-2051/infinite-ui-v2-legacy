@@ -68,8 +68,8 @@
 
   .primary {
     color: var(--button-primary-text-color, #ffffff);
-    background-color: var(--button-primary-bg-color, #000000);
-    border-color: var(--button-primary-color-border, #000000);
+    background-color: var(--button-primary-bg-color, var(--primary, #000000));
+    border-color: var(--button-primary-color-border, var(--primary, #000000));
   }
 
   .secondary {

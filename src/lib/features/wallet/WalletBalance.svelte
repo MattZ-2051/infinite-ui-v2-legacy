@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div class="flex flex-col mt-12 rounded-lg" style="border: 1px solid #6633FF;">
+<div class="flex flex-col mt-12 rounded-lg border border-primary">
   <div class="p-6 flex flex-col gap-6 font-medium">
     <div class="flex items-center justify-between">
       <span class="text-white-opacity-50">Available</span>
@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <div class="h-px w-full" style="background-color: #6633FF;" />
+  <div class="h-px w-full bg-primary" />
 
   <div class="p-6">
     <div class="text-white-opacity-50 text-sm mb-4">Account verification status:</div>

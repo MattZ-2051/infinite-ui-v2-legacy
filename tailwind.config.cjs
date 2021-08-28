@@ -21,6 +21,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: 'var(--primary)',
+        'primary-dark': 'var(--primary-dark)',
+
         // Grayscale
         'black-opacity': Object.fromEntries(
           [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95].map((opacity) => [

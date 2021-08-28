@@ -49,7 +49,7 @@
   <div class="relative flex flex-col">
     <Image src={travisScottBg} class="absolute h-full w-full z-0 object-cover" />
     <div class="z-1 flex flex-col gap-14">
-      <div class="md:py-20  md:mt-16" style="background-color: #0c002f;">
+      <div class="md:py-20  md:mt-16 bg-primary-dark">
         <div class="container text-2xl text-center py-10 max-w-6xl">
           We bring you closer to your favorite icons. Our mission is to deliver the most mind blowing and unique digital
           content in the hottest way possible. We’re obsessed with merging the physical and digital worlds in the most
@@ -71,7 +71,7 @@
               <span>Social Links</span>
               {#each socialMedia as social}
                 <div class="flex gap-2 items-center">
-                  <div class="rounded-full w-6 h-6 flex items-center justify-center social">
+                  <div class="rounded-full w-6 h-6 flex items-center justify-center bg-primary">
                     <Icon path={social.path} size="0.6" />
                   </div>
                   <FormInput name={social.id} class="flex-grow" />
@@ -80,7 +80,7 @@
             </div>
           </div>
           <div class="text-right mb-8">
-            <button type="submit" class="px-10 rounded-lg py-1">Submit</button>
+            <button type="submit" class="bg-primary px-10 rounded-lg py-1">Submit</button>
           </div>
         </form>
       </div>
@@ -91,9 +91,5 @@
 <style>
   .form {
     background-color: #1d1a54;
-  }
-  button,
-  .social {
-    background-color: #6734ff;
   }
 </style>

@@ -12,6 +12,6 @@
     setDimensions={true}
   />
 </div>
-<div class="hidden md:block text-5xl text-center py-8" style="background-color: #0C002F;">
+<div class="hidden md:block text-5xl text-center py-8 bg-primary-dark">
   <div class="container">Exclusive Roberto Clemente NFT Collection</div>
 </div>
