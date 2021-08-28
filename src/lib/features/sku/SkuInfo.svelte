@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
-  import { mdiBell, mdiShareVariant, mdiCheckDecagram } from '@mdi/js';
+  import { mdiBell, mdiShareVariant } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
 
   export let sku: Sku;
@@ -22,11 +23,7 @@
   <div class="p-6 border-b border-opacity-10 border-white flex justify-between">
     <div class="flex flex-col gap-2">
       <div class="text-white-opacity-50 text-sm">Created by</div>
-      <div class="flex items-center gap-2">
-        <img class="w-6 h-6 rounded-full" src={sku.issuer.profilePhotoUrl} alt="" loading="lazy" />
-        {sku.issuer.username}
-        <Icon path={mdiCheckDecagram} />
-      </div>
+      <TalentLink profile={sku.issuer} />
     </div>
     <div class="flex flex-col gap-2 text-right">
       {#if sku.redeemable}

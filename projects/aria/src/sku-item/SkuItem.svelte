@@ -8,8 +8,8 @@
   import SkuDescription from '$project/sku-item/SkuDescription.svelte';
   import routes from '$lib/routes';
   import { skuStatus } from '$lib/sku-item/status';
-  import circleWavyCheck from '$static/circle_wavy_check.svg';
   import { formatDate } from '$util/format';
+  import TalentLink from '$lib/components/talent/TalentLink.svelte';
 
   export let item: Sku;
   export let type: 'sku' | 'product';
@@ -40,11 +40,8 @@
     <a sveltekit:prefetch href={routes.sku(item._id)}>
       <div class="px-6 pt-2 pb-10 rounded-b-3xl flex flex-col flex-grow justify-between">
         <div>
-          <div class="flex flex-wrap justify-between">
-            <div class="flex">
-              <span class="card-name whitespace-nowrap">{item.issuer.username}</span>
-              <img class="ml-2" src={circleWavyCheck} alt="Verified" />
-            </div>
+          <div class="flex flex-wrap justify-between card-name">
+            <TalentLink profile={item.issuer} hideImage />
             <SkuEdition {item} />
           </div>
           <div class="mt-5 mb-2 flex justify-between items-start gap-2">
