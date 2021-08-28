@@ -11,17 +11,17 @@
 <div class="border border-white border-opacity-20 rounded-lg text-white">
   <div class="p-6 border-b border-opacity-10 border-white flex justify-between">
     <div class="flex flex-col gap-2">
-      <div class="text-white text-opacity-50 text-sm">Edition</div>
+      <div class="text-white-opacity-50 text-sm">Edition</div>
       <div><SkuEdition item={sku} /></div>
     </div>
     <div class="flex flex-col gap-2 text-right">
-      <div class="text-white text-opacity-50 text-sm">Active Auction</div>
+      <div class="text-white-opacity-50 text-sm">Active Auction</div>
       <div>Ends Aug 5th at 12:00 PM PDT</div>
     </div>
   </div>
   <div class="p-6 border-b border-opacity-10 border-white flex justify-between">
     <div class="flex flex-col gap-2">
-      <div class="text-white text-opacity-50 text-sm">Created by</div>
+      <div class="text-white-opacity-50 text-sm">Created by</div>
       <div class="flex items-center gap-2">
         <img class="w-6 h-6 rounded-full" src={sku.issuer.profilePhotoUrl} alt="" loading="lazy" />
         {sku.issuer.username}
@@ -30,7 +30,7 @@
     </div>
     <div class="flex flex-col gap-2 text-right">
       {#if sku.redeemable}
-        <div class="text-white text-opacity-50 text-sm">Status</div>
+        <div class="text-white-opacity-50 text-sm">Status</div>
         <div class="flex items-center gap-2">
           <IconRedeem hasTooltip={false} /> Redeemable
         </div>

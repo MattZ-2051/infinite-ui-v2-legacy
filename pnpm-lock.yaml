@@ -77,6 +77,7 @@ specifiers:
   svelte-previous: ^2.0.0
   svelte-seo: ^1.2.1
   tailwindcss: 2.2.7
+  tinycolor2: ^1.4.2
   tippy.js: 6.3.1
   ts-jest: ~26.5.6
   tslib: 2.3.1
@@ -167,6 +168,7 @@ devDependencies:
   svelte-preprocess: 4.8.0_dfc761dc39da993a4e615b0c42859869
   svelte-seo: 1.2.1_typescript@4.3.5
   tailwindcss: 2.2.7_8b238584a104f535cc123d61e89214a6
+  tinycolor2: 1.4.2
   ts-jest: 26.5.6_jest@26.6.3+typescript@4.3.5
   tslib: 2.3.1
   typescript: 4.3.5
@@ -16035,6 +16037,10 @@ packages:
     dependencies:
       globalyzer: 0.1.0
       globrex: 0.1.2
+
+  /tinycolor2/1.4.2:
+    resolution: {integrity: sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==}
+    dev: true
 
   /tippy.js/6.3.1:
     resolution: {integrity: sha512-JnFncCq+rF1dTURupoJ4yPie5Cof978inW6/4S6kmWV7LL9YOSEVMifED3KdrVPEG+Z/TFH2CDNJcQEfaeuQww==}

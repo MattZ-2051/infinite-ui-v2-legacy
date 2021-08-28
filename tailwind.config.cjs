@@ -1,4 +1,5 @@
 const { tailwindExtractor } = require('tailwindcss/lib/lib/purgeUnusedStyles');
+const tinycolor = require('tinycolor2');
 
 module.exports = {
   mode: 'aot', // jit
@@ -19,6 +20,25 @@ module.exports = {
   },
   theme: {
     extend: {
+      colors: {
+        // Grayscale
+        'black-opacity': Object.fromEntries(
+          [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95].map((opacity) => [
+            opacity,
+            tinycolor('#000000')
+              .setAlpha(opacity / 100)
+              .toRgbString(),
+          ])
+        ),
+        'white-opacity': Object.fromEntries(
+          [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95].map((opacity) => [
+            opacity,
+            tinycolor('#ffffff')
+              .setAlpha(opacity / 100)
+              .toRgbString(),
+          ])
+        ),
+      },
       zIndex: {
         '-1': '-1',
         '∞': 999_999_999,
