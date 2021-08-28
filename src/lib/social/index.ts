@@ -1,1 +1,1 @@
-export { default as SocialShareButton } from './SocialShareButton.svelte';
+export { default as socialShareAction } from './social-share.use';
