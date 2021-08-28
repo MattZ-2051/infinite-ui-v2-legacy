@@ -9,6 +9,8 @@ node_modules
 *.log
 *:Zone.Identifier
 
+.eslintcache
+
 /cypress/screenshots
 /cypress/videos
 
