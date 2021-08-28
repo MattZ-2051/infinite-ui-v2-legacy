@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
+  import { mdiArrowRight } from '@mdi/js';
   import { readable } from 'svelte/store';
+  import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
@@ -36,41 +38,48 @@
 {#if collector}
   <LimitedAuctionPriceBox {collector} />
 {:else if active}
-  <div class="flex flex-col gap-8 px-4 py-5 bg-black md:bg-transparent">
-    <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-x-2 gap-y-4 md:gap-y-8">
-      <div class="flex-grow text-gray-400">
+  <div class="flex flex-col gap-8 px-4 py-5 bg-white font-normal">
+    <div class="grid grid-cols-2 items-center gap-x-2 gap-y-4 md:gap-y-8">
+      <div class="flex-grow text-black">
         <div class="text-2xl">From Creator</div>
-        <div class="text-base">Initial Release</div>
+        <div class="text-black-opacity-50">{sku?.totalSkuListingSupplyLeft} Items left</div>
       </div>
-      <div class="flex-none text-white justify-self-end md:text-center md:justify-self-center">
-        <div class="text-3xl">{formatCurrencyWithOptionalFractionDigits(activeListings[0].price)}</div>
+      <div class="flex text-black justify-end">
+        <div>
+          <div class="text-3xl text-right">{formatCurrencyWithOptionalFractionDigits(activeListings[0].price)}</div>
+          <div class="text-sm text-right text-black-opacity-50">Initial Listing Price</div>
+        </div>
         {#if sku.supplyType === 'fixed'}
           <div class="text-sm">
             {sku?.totalSkuListingSupplyLeft >= 0 && `(${sku?.totalSkuListingSupplyLeft} left)`}
           </div>
         {/if}
+        <div class="pl-8 flex items-center" on:click={onBuy} disabled={$isPolling}>
+          <Icon path={mdiArrowRight} size="2.0" color={$isPolling ? '#9DA1A8' : 'black'} />
+        </div>
       </div>
-      <div class="flex-grow col-span-2 md:col-span-1">
-        <Button on:click={onBuy} variant="tertiary" disabled={$isPolling}
-          >{$isPolling ? 'Processing ...' : 'Buy now'}</Button
-        >
-      </div>
+
       {#if totalCollectors > 0}
         <div class="border-b-2 border-gray-800 col-span-3" />
 
-        <div class="flex-grow text-gray-400">
+        <div class="flex-grow text-black ">
           <div class="text-2xl">From Collectors</div>
-          <div class="text-base">Lowest Listing Price</div>
+          <div class="text-black-opacity-50">Lowest Listing Price</div>
         </div>
-        <div class="flex-none text-white justify-self-end md:text-center md:justify-self-center">
-          <div class="text-3xl">
-            {formatCurrencyWithOptionalFractionDigits(sku.minPrice, { fallback: '—' })}
+        <div class="flex text-black justify-end">
+          <div>
+            <div class="text-3xl text-right ">
+              {formatCurrencyWithOptionalFractionDigits(sku.minPrice, { fallback: '—' })}
+            </div>
+            <div class="text-sm text-right text-black-opacity-50">{`(${sku.countProductListings || 0} for sale)`}</div>
           </div>
-          <div class="text-sm">{`(${sku.countProductListings || 0} for sale)`}</div>
+          <div class="pl-8 flex items-center" on:click={() => window.location.replace(routes.collectors(sku._id))}>
+            <Icon path={mdiArrowRight} size="2.0" color={$isPolling ? '#9DA1A8' : 'black'} />
+          </div>
         </div>
-        <div class="flex-grow col-span-2 md:col-span-1">
+        <!-- <div class="flex-grow col-span-2 md:col-span-1">
           <Button variant="tertiary" href={routes.collectors(sku._id)}>See All</Button>
-        </div>
+        </div> -->
       {/if}
     </div>
   </div>
