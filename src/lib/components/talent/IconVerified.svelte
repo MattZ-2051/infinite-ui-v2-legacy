@@ -19,3 +19,9 @@
     stroke-linejoin="round"
   />
 </svg>
+
+<style>
+  svg {
+    color: var(--verify-icon-color, var(--primary, #000000));
+  }
+</style>

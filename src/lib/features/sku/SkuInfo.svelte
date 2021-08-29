@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
-  import { mdiBellOutline as notifyIcon, mdiShareVariant } from '@mdi/js';
+  import { mdiBellOutline as notifyIcon, mdiShareVariant as shareIcon } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
@@ -48,7 +48,7 @@
       <button
         type="button"
         class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"
-        use:socialShareAction><Icon path={mdiShareVariant} />Share</button
+        use:socialShareAction><Icon path={shareIcon} />Share</button
       >
     </div>
   </div>

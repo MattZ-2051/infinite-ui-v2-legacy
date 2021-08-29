@@ -22,5 +22,5 @@
     />
   {/if}
   <a href={routes.collection(profile.username)} sveltekit:prefetch><slot>{profile.username}</slot></a>
-  <IconVerified class="text-primary" />
+  <IconVerified />
 </div>

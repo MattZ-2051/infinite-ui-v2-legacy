@@ -15,18 +15,16 @@
 
 <ThemeContext id="collection">
   <div class="flex flex-col flex-grow">
-    <div class="container">
+    <div class="container mt-4 md:mt-8">
       {#if profile.username === 'Roberto_Clemente'}
-        <Clemente>
+        <Clemente {profile}>
           <CollectionTabs {isIssuer} />
         </Clemente>
       {:else if isIssuer}
         <CollectionIssuer {profile} />
         <CollectionTabs {isIssuer} />
       {:else}
-        <div class="mt-4 mb-12">
-          <CollectionUser {profile} {own} />
-        </div>
+        <CollectionUser {profile} {own} />
         <CollectionTabs {isIssuer} />
       {/if}
     </div>

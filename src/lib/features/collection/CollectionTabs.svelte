@@ -38,7 +38,7 @@
   }
 </script>
 
-<Tabs {items} defaultSelectedId={tab} class="mb-4" on:select={onSelectTab}>
+<Tabs {items} defaultSelectedId={tab} class="mt-6 md:mt-12 mb-4" on:select={onSelectTab}>
   <Tab id="Releases">
     {#if $skusTotal === 0}
       <div class="text-gray-200  text-center mt-12 text-2xl ">No releases found.</div>
