@@ -2,7 +2,7 @@ import type { Profile, Product, Sku } from '$lib/sku-item/types';
 import { createEffect, createStore, createEvent, forward } from 'effector';
 import { browser } from '$app/env';
 import { gotoQueryParameters } from '$util/queryParameter';
-import { loadProfile, loadSkus, loadProducts } from './celebrity.api';
+import { loadProfile, loadSkus, loadProducts } from './collection.api';
 
 export const changeTab = createEvent<'Releases' | 'NFTs'>();
 export const changePage = createEvent<number>();

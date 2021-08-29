@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   import type { LoadInput } from '@sveltejs/kit';
   import type { Profile } from '$lib/sku-item/types';
-  import { loadProductsFx, loadProfileFx, loadSkusFx } from '$lib/features/celebrity/celebrity.store';
+  import { loadProductsFx, loadProfileFx, loadSkusFx } from '$lib/features/collection/collection.store';
 
   export async function load({ page, fetch }: LoadInput) {
     const { username } = page.params;
@@ -22,7 +22,7 @@
 
 <script lang="ts">
   import { Seo } from '$lib/seo';
-  import Celebrity from '$lib/features/celebrity/Celebrity.svelte';
+  import Collection from '$lib/features/collection/Collection.svelte';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
 
   export let profile: Profile;
@@ -31,7 +31,7 @@
 <Seo title={profile.username} image={profile.bannerPhotoUrl} />
 
 {#if profile}
-  <Celebrity {profile} />
+  <Collection {profile} />
 {:else}
   <FullScreenLoader />
 {/if}

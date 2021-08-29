@@ -6,6 +6,7 @@
   import flag from './flag.svg';
   import clemente from './Clemente.png';
   import clementeVideo from './clamente_1.mp4';
+  import clemente21 from './clemente-21.png?w=640&format=avif;webp;png&metadata';
 </script>
 
 <div class="flex flex-col gap-14 mb-12">
@@ -43,3 +44,5 @@
     </div>
   </div>
 </div>
+<slot />
+<Image src={clemente21} alt="Clemente's shirt" class="m-auto" />
