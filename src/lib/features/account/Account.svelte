@@ -1,26 +1,24 @@
 <script lang="ts">
-  import type { Product } from '$lib/sku-item/types';
-  import { Tabs, Tab } from '$ui/tabs';
-  import { SkuItemGrid } from '$lib/sku-item';
+  import type { User } from '$lib/user/types';
   import { openModal } from '$ui/modals';
-  import AccountHeader from './AccountHeader.svelte';
+  import AccountInfo from './AccountInfo.svelte';
   import AccountInfoModal from './AccountInfoModal.svelte';
+  import AccountDetails from './AccountDetails.svelte';
 
-  export let products: Product[];
+  export let user: User;
 </script>
 
-<AccountHeader on:edit={() => openModal(AccountInfoModal)} />
+<div class="container">
+  <div class="text-2xl font-bold mt-6 mb-4">Account Settings</div>
+  <div style="height: 2px; background-color: #EBEBEB;" />
 
-<div class="container mt-8 lg:mt-12">
-  <Tabs items={[{ id: 'owned', title: 'NFTs owned' }]} class="mb-2">
-    <Tab id="owned">
-      {#if !products}
-        <div class="text-2xl text-center my-16 opacity-60">Loading your NFTs...</div>
-      {:else if products?.length === 0}
-        <div class="text-2xl text-center my-16">You don't own any NFTs yet!</div>
-      {:else}
-        <SkuItemGrid {products} />
-      {/if}
-    </Tab>
-  </Tabs>
+  <div class="flex flex-col items-center md:flex-row md:items-start gap-x-24 gap-y-6 mt-6">
+    <div class="w-full max-w-sm px-5 py-7" style="background-color: #1d1a54;">
+      <AccountInfo {user} on:edit={() => openModal(AccountInfoModal)} />
+    </div>
+
+    <div class="w-full max-w-md px-5">
+      <AccountDetails />
+    </div>
+  </div>
 </div>

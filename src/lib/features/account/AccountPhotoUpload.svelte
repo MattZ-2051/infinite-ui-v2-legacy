@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { toast } from '$ui/toast';
   import { post } from '$lib/api';
   import { updateUser } from '$lib/user';
-  import { toast } from '$ui/toast';
+  import AccountEditButton from './AccountEditButton.svelte';
 
   let avatarUpload: HTMLInputElement;
 
@@ -17,10 +18,9 @@
   }
 </script>
 
-<div
-  class="opacity-0 group-hover:opacity-100 upload absolute bg-black bg-opacity-70	bg-center bg-no-repeat cursor-pointer"
-  on:click={() => avatarUpload.click()}
-/>
+<div class="absolute bottom-2.5 right-2.5 z-10">
+  <AccountEditButton on:click={() => avatarUpload.click()} />
+</div>
 
 <input
   class="hidden"
@@ -29,12 +29,3 @@
   on:change={async () => await onFileSelected()}
   bind:this={avatarUpload}
 />
-
-<style>
-  .upload {
-    width: 32px;
-    height: 32px;
-    border-radius: 20px;
-    background-image: url(/upload-avatar.svg);
-  }
-</style>

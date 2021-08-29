@@ -1,20 +1,11 @@
 <script lang="ts">
-  import type { Product } from '$lib/sku-item/types';
   import Account from '$lib/features/account/Account.svelte';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
-  import { loadMyProducts } from '$lib/features/account/account.api';
-  import { user, userId } from '$lib/user';
-
-  let products: Product[];
-
-  async function load() {
-    products = await loadMyProducts();
-  }
-  $: $userId && load();
+  import { user } from '$lib/user';
 </script>
 
 {#if $user}
-  <Account {products} />
+  <Account user={$user} />
 {:else}
   <FullScreenLoader class="text-black" />
 {/if}
