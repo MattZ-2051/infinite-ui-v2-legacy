@@ -18,10 +18,9 @@ async function run() {
     extends: './tsconfig.base.json',
     compilerOptions: {
       paths: {
-        '$storybook/*': ['.storybook/*'],
         '$project/*': [`projects/${project}/src/*`],
         '$theme/*': [`projects/${project}/theme/*`],
-        '$static/*': [`projects/${project}/static/*`],
+        '$static/*': [`static/${project}/*`],
         '$lib/*': ['src/lib/*'],
         '$ui/*': ['src/ui/*'],
         '$util/*': ['src/util/*'],
