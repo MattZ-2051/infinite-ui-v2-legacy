@@ -40,7 +40,7 @@
 
 <Tabs
   items={[
-    { id: 'transactions', title: 'Latest transactions' },
+    { id: 'transactions', title: 'Transaction History' },
     { id: 'bids', title: 'Active Bids' },
   ]}
   menuBreakpoint="sm"

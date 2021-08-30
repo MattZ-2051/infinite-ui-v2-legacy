@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { mdiArrowRight } from '@mdi/js';
   import { goto } from '$app/navigation';
+  import Icon from '$ui/icon/Icon.svelte';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import { user } from '$lib/user';
@@ -8,7 +10,7 @@
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
   import routes from '$lib/routes';
   import { variables } from '$lib/variables';
-  import Button from '$lib/components/Button.svelte';
+  import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import WalletList from './WalletList.svelte';
@@ -57,12 +59,15 @@
 
     selectedDepositMethod = id;
   }
+
+  $: canWithdraw = $withdrawableBalance > 0;
 </script>
 
-<div
-  class="flex flex-col gap-x-24 gap-y-14 items-center md:flex-row md:justify-between mt-4 md:mt-16 md:items-baseline container"
->
-  <div class="w-full md:w-1/5">
+<StickyColumn reverse>
+  <div slot="onscreen-content" class="p-12">
+    <WalletList {tab} />
+  </div>
+  <div slot="sticky-content" class="h-full p-12" style="background-color: #1D1A54;">
     <WalletBalance
       balance={$user?.balance}
       availableBalance={$user?.availableBalance}
@@ -80,26 +85,36 @@
         {getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
       </div>
     {/if}
-
-    <Button class="flex justify-between" on:click={openDepositSelectModal}>
+  </div>
+  <div slot="sticky-cta" class="text-black">
+    <button
+      type="button"
+      class="flex items-center justify-between py-6 px-12 w-full font-medium text-2xl hover:bg-primary"
+      on:click={openDepositSelectModal}
+    >
       <span>Deposit</span>
-      <!-- <Icon path={mdiArrowRight} size="1.2" /> -->
-    </Button>
-    <Button
-      class="flex justify-between"
-      disabled={!$withdrawableBalance || $withdrawableBalance === 0}
+      <Icon path={mdiArrowRight} size="2" rotate={-45} />
+    </button>
+    <div class="h-px w-full bg-black" />
+    <button
+      type="button"
+      class="flex items-center justify-between py-6 px-12 w-full font-medium text-2xl"
+      class:hover:bg-primary={canWithdraw}
       on:click={() => openModal(WithdrawModal)}
+      disabled={!canWithdraw}
     >
       <span>Withdraw</span>
-      <!-- <Icon path={mdiArrowLeft} size="1.2" /> -->
-    </Button>
+      <Icon path={mdiArrowRight} size="2" rotate={45} />
+    </button>
   </div>
-  <div class="w-full md:w-4/5"><WalletList {tab} /></div>
-</div>
+</StickyColumn>
 
 {#if selectedDepositMethod === 'coinbase'}
   <DepositCoinbase on:checkout-modal-closed={() => (selectedDepositMethod = undefined)} />
 {/if}
 
 <style>
+  button {
+    background-color: #c4c4c4;
+  }
 </style>

@@ -16,7 +16,7 @@
   import { sku, collectors, totalCollectors, related } from './sku.store';
 </script>
 
-<StickyColumn>
+<StickyColumn fitOnScreenContent>
   <div slot="onscreen-content" class="flex flex-col justify-between h-full">
     <Gallery items={$sku.nftPublicAssets} />
   </div>

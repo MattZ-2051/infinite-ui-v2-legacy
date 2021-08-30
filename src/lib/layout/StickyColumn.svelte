@@ -1,14 +1,17 @@
 <script lang="ts">
   import { media } from '$lib/media-query.store';
 
+  export let reverse = false;
+  export let fitOnScreenContent = false;
+
   let ctaHeight: number;
   $: ctaOffset = !$media.md && ctaHeight ? ctaHeight : 0;
 </script>
 
 <div class="container py-0">
-  <div class="flex flex-wrap flex-col items-center md:flex-row md:justify-between">
+  <div class="flex flex-wrap flex-col items-start {reverse ? 'md:flex-row-reverse' : 'md:flex-row'} md:justify-between">
     <div class="w-full md:w-2/3">
-      <div style="height: calc(100vh - {ctaOffset}px - var(--header-height))">
+      <div style={fitOnScreenContent ? `height: calc(100vh - ${ctaOffset}px - var(--header-height))` : ''}>
         <slot name="onscreen-content" />
       </div>
     </div>
