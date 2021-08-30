@@ -1,11 +1,9 @@
 <script context="module" lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
-  import { loadFeatured } from '$lib/features/landing/landing.api';
+  import { loadData } from '$project/landing/landing.api';
 
   export async function load({ fetch }) {
-    const skus = await loadFeatured({ fetch });
     return {
-      props: { skus },
+      props: { data: await loadData({ fetch }) },
     };
   }
 </script>
@@ -14,9 +12,11 @@
   import { Seo } from '$lib/seo';
   import Landing from '$project/landing/Landing.svelte';
 
-  export let skus: Sku[];
+  type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never;
+
+  export let data: Awaited<ReturnType<typeof loadData>>;
 </script>
 
 <Seo />
 
-<Landing {skus} />
+<Landing {...data} />

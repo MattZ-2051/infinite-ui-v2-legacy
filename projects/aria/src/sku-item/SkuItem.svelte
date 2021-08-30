@@ -7,7 +7,6 @@
   import SkuStatus from '$project/sku-item/SkuStatus.svelte';
   import SkuDescription from '$project/sku-item/SkuDescription.svelte';
   import routes from '$lib/routes';
-  import { skuStatus } from '$lib/sku-item/status';
   import { formatDate } from '$util/format';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
 
@@ -33,7 +32,7 @@
           </div>
         {/if}
         {#if item.description}
-          <SkuDescription issuer={item.issuer} description={item.description} />
+          <SkuDescription issuer={item.issuer} />
         {/if}
       </div>
     </div>
@@ -57,7 +56,7 @@
       </div>
       {#if type === 'sku'}
         <div class="absolute bottom-0 transform translate-y-5 left-2 right-2">
-          <SkuStatus startDate={item.minStartDate} status={skuStatus(item)} price={item.minPrice} />
+          <SkuStatus {item} />
         </div>
       {/if}
     </a>

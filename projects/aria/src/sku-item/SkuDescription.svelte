@@ -3,7 +3,6 @@
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
 
   export let issuer: Profile;
-  export let description: string;
 </script>
 
 <div class="card-description absolute inset-0 p-4 opacity-0 hover:opacity-100 transition-opacity duration-300">
@@ -13,7 +12,9 @@
       <div
         class="card-description-text line-clamp-4 sm:line-clamp-9 md:line-clamp-9 lg:line-clamp-6 xl:line-clamp-5 2xl:line-clamp-9"
       >
-        {description}
+        <!-- {sku.description} -->
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci excepturi eius suscipit. Sint, animi assumenda
+        perspiciatis molestias sequi numquam iure ipsam beatae nemo inventore facere recusandae voluptates. Iste, harum itaque!
       </div>
     </div>
   </div>

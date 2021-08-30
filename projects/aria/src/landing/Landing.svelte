@@ -1,15 +1,18 @@
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
+  import type { Profile, Sku } from '$lib/sku-item/types';
   import { user } from '$lib/user';
   import { Tabs, Tab } from '$ui/tabs';
-  import { SkuItemGrid } from '$lib/sku-item';
 
   import SubscribeForm from '$project/SubscribeForm.svelte';
   import Intro from '$project/about/Intro.svelte';
 
-  import LandingHero from './LandingHero.svelte';
+  import LandingHero from './hero/LandingHero.svelte';
+  import LandingTileTalent from './tile/LandingTileTalent.svelte';
+  import LandingTileSku from './tile/LandingTileSku.svelte';
 
-  export let skus: Sku[];
+  export let talents: Profile[];
+  export let drops: Sku[];
+  export let upcomings: Sku[];
 </script>
 
 <LandingHero />
@@ -20,17 +23,44 @@
   </div>
 {/if}
 
-<div class="container mt-10 lg:mt-24">
-  <Tabs items={[{ id: 'latest', title: 'Latest Releases' }]} class="lg:text-3xl mb-4" itemClass="md:pb-8">
-    <Tab id="latest">
-      <SkuItemGrid {skus} />
-    </Tab>
-  </Tabs>
+<div class="container flex flex-col gap-8 md:gap-14 mt-10 lg:mt-24">
+  <div>
+    <Tabs items={[{ id: 'talents', title: 'Featured Talent' }]} class="text-3xl mb-4" itemClass="">
+      <Tab id="talents">
+        <div class="grid grid-cols-3 gap-10">
+          {#each talents as talent}
+            <LandingTileTalent {talent} />
+          {/each}
+        </div>
+      </Tab>
+    </Tabs>
+  </div>
+
+  <div>
+    <Tabs items={[{ id: 'drops', title: 'Featured Drops' }]} class="text-3xl mb-4" itemClass="">
+      <Tab id="drops">
+        <div class="grid grid-cols-3 gap-10">
+          {#each drops as sku}
+            <LandingTileSku {sku} />
+          {/each}
+        </div>
+      </Tab>
+    </Tabs>
+  </div>
+
+  <div>
+    <Tabs items={[{ id: 'upcomings', title: 'Upcoming Drops' }]} class="text-3xl mb-4" itemClass="">
+      <Tab id="upcomings">
+        <div class="grid grid-cols-3 gap-10">
+          {#each upcomings as sku}
+            <LandingTileSku {sku} />
+          {/each}
+        </div>
+      </Tab>
+    </Tabs>
+  </div>
 </div>
 
 <div class="mt-12 md:mt-24 mb-24">
   <Intro />
 </div>
-
-<style>
-</style>

@@ -70,7 +70,7 @@
   setContext('selectedTab', selectedTab);
 </script>
 
-<div class={`tabs flex justify-between text-xl md:text-2xl ${_class}`} {...$$restProps}>
+<div class={`tabs flex justify-between ${_class}`} {...$$restProps}>
   <ul role="tablist" class="flex gap-10" on:keydown={handleKeydown}>
     {#if renderDropdown}
       <TabHeader {...$selectedTab} active={true} class={`pb-5 ${itemClass}`} />

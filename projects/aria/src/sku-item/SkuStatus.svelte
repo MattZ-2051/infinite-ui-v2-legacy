@@ -1,11 +1,13 @@
 <script lang="ts">
-  import type { Status } from '$lib/sku-item/types';
+  import type { Sku, Status } from '$lib/sku-item/types';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
+  import { skuStatus } from '$lib/sku-item/status';
 
-  export let startDate: Date;
-  export let price = 0;
-  export let status: Status = 'active';
+  export let item: Sku;
+
+  let status: Status;
+  $: status = skuStatus(item);
 </script>
 
 <div
@@ -14,16 +16,16 @@
 >
   {#if status === 'upcoming'}
     <span>Upcoming on:</span>
-    <span>{formatDate(startDate, 'MMM D')}</span>
+    <span>{formatDate(item.minStartDate, 'MMM D')}</span>
   {:else if status === 'upcoming-soon'}
     <span>Upcoming in:</span>
-    <TimeDifference date={startDate} />
+    <TimeDifference date={item.minStartDate} />
   {:else if status === 'no-sale'}
     <span>None for sale</span>
   {:else if status === 'active'}
     <span>Starting Price:</span>
     <span>
-      {formatCurrencyWithOptionalFractionDigits(price)}
+      {formatCurrencyWithOptionalFractionDigits(item.minPrice)}
     </span>
   {/if}
 </div>
