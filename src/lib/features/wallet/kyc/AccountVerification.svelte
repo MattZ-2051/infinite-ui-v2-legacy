@@ -42,15 +42,7 @@
   </div>
   {#if hasCta}
     <div class="w-28 button-container ml-2">
-      <Button on:click={() => dispatch('upgrade')}>{level === 0 ? 'Verify' : 'Upgrade'}</Button>
+      <Button class="text-sm" on:click={() => dispatch('upgrade')}>{level === 0 ? 'Verify' : 'Upgrade'}</Button>
     </div>
   {/if}
 </div>
-
-<style lang="postcss">
-  .button-container {
-    --button-padding: 0.5rem;
-    --button-text-size: 1rem;
-    --button-line-height: 1.5rem;
-  }
-</style>

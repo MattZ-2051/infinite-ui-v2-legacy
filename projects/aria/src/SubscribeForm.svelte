@@ -41,13 +41,8 @@
       placeholder="email"
     />
     <div class="absolute transform -translate-y-1/2 top-1/2 right-0">
-      <Button
-        --button-padding="0.5rem 2.75rem"
-        --button-text-size="0.875rem"
-        --button-line-height="1.25rem"
-        animate={false}
-        class="whitespace-nowrap"
-        type="submit">Sign Up</Button
+      <Button --button-padding="10px 48px" animate={false} class="whitespace-nowrap text-sm" type="submit"
+        >Sign Up</Button
       >
     </div>
   </form>

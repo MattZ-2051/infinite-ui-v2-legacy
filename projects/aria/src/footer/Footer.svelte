@@ -23,13 +23,7 @@
 
   <div class="flex flex-col md:flex-row gap-y-4 justify-center items-center md:justify-end text-base text-white my-4">
     Ready to create NFTs with ARIA Exchange?
-    <Button
-      href={routes.partner}
-      --button-padding="0.5rem 1.25rem"
-      --button-text-size="1rem"
-      --button-line-height="1.5rem"
-      class="w-min ml-4 whitespace-nowrap">Partner With Us</Button
-    >
+    <Button href={routes.partner} class="ml-4 whitespace-nowrap">Partner With Us</Button>
   </div>
 </div>
 

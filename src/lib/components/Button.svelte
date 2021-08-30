@@ -37,7 +37,7 @@
   const forwardEvents = forwardEventsBuilder(get_current_component());
 
   $: classes = clsx(
-    'button inline-block text-center rounded-full w-full',
+    'button inline-flex items-center justify-center',
     _class,
     variant,
     disabled && 'opacity-50 pointer-events-none cursor-default',
@@ -60,10 +60,8 @@
 
 <style lang="postcss">
   .button {
-    border-width: var(--button-sizing-border, 2px);
-    padding: var(--button-padding, 1rem);
-    font-size: var(--button-text-size, 1.25rem);
-    line-height: var(--button-line-height, 1.75rem);
+    padding: var(--button-padding, 8px 24px);
+    border-radius: var(--button-border-radius, 20px);
   }
 
   .primary {

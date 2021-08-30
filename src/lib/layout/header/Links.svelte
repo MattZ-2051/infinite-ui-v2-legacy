@@ -40,12 +40,6 @@
   <a sveltekit:prefetch href={routes.about} class="whitespace-nowrap">About Us</a>
   <button class="flex whitespace-nowrap" on:click={async () => await login()} disabled={$isLoading}> Log In </button>
   <div class="button-container">
-    <Button
-      --button-padding="0.5rem 1.25rem"
-      --button-text-size="1rem"
-      --button-line-height="1.5rem"
-      href={routes.createAccount}
-      class="whitespace-nowrap">Create Account</Button
-    >
+    <Button href={routes.createAccount} class="whitespace-nowrap">Create Account</Button>
   </div>
 {/if}

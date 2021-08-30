@@ -49,8 +49,8 @@
 <div class="mt-8 md:mt-20 lg:mt-32 bg-primary-dark">
   <div class="container p-12 flex flex-col gap-10">
     <span class="text-4xl text-center">Join our collective and let’s build our digital community together! </span>
-    <div class="flex items-center justify-center">
-      <Button style="max-width:147px;">JOIN ARIA</Button>
+    <div class="flex justify-center">
+      <Button --button-padding="8px 40px">JOIN ARIA</Button>
     </div>
     <div class="flex flex-col  md:flex-row gap-4" style="font-size:27px;">
       <div class="flex flex-col gap-4 items-center flex-grow">
