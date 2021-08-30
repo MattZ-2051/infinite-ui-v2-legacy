@@ -11,14 +11,14 @@
   let _class = '';
   export { _class as class };
 
-  $: classes = `${_class} ${removable ? 'pr-7' : 'pr-2'} pl-2 py-1 focus:outline-none focus:ring-2 ${
+  $: classes = `${_class} ${removable ? 'pr-8' : 'pr-2'} pl-2 py-1 focus:outline-none focus:ring-2 ${
     hasError ? 'border border-red-600 text-red-600' : ''
   } ${truncate ? 'truncate' : ''}`;
 
   const dispatch = createEventDispatcher();
 </script>
 
-<div transition:fade={{ duration: 100 }} class="relative inline-flex items-center max-w-full">
+<div transition:fade={{ duration: 100 }} class="tag relative inline-flex items-center max-w-full">
   {#if href}
     <a {href} class={classes} {...$$restProps}><slot /></a>
   {:else}
@@ -35,3 +35,9 @@
     </button>
   {/if}
 </div>
+
+<style style="postcss">
+  .tag {
+    background: var(--tag-bg-color);
+  }
+</style>

@@ -3,6 +3,7 @@
   import { CLIENT_COMPANY_NAME } from '$project/variables';
   import { Tabs, Tab } from '$ui/tabs';
   import Accordion from '$ui/accordion/Accordion.svelte';
+  import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
   import { media } from '$lib/media-query.store';
   import Gallery from '$lib/components/Gallery.svelte';
@@ -31,7 +32,7 @@
   <SkuPriceBox slot="sticky-cta" sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
   <div slot="tabs">
     <div class="container grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div>
+      <AccordionGroup multiple>
         <Accordion title={'Description'} open={true} collapsible={!$media.md}>
           <div class="mt-4 description text-gray-400">
             {@html xss($sku.description || '')}
@@ -46,8 +47,6 @@
             <a href="https://support.suku.world/infinite/hedera-hashgraph-hts" class="link">Learn more</a>
           </div>
         </Accordion>
-      </div>
-      <div>
         <Accordion open={true} collapsible={!$media.md}>
           <div slot="title" class="flex gap-4 items-center">
             <span>Collectors</span>
@@ -55,16 +54,16 @@
           </div>
           <SkuCollectorList collectors={$collectors} skuId={$sku._id} />
         </Accordion>
-      </div>
-      <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
-        {#if totalPrivateAssets > 0}
-          <div>
-            <Accordion title={'Owner Access'} open={true} collapsible={!$media.md}>
-              <PrivateAssetList />
-            </Accordion>
-          </div>
-        {/if}
-      </PrivateAsset>
+        <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
+          {#if totalPrivateAssets > 0}
+            <div>
+              <Accordion title={'Owner Access'} open={true} collapsible={!$media.md}>
+                <PrivateAssetList />
+              </Accordion>
+            </div>
+          {/if}
+        </PrivateAsset>
+      </AccordionGroup>
     </div>
   </div>
   <div slot="offscreen-content">

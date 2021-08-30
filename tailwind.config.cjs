@@ -21,12 +21,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--primary)',
-        'primary-dark': 'var(--primary-dark)',
-
         // Grayscale
         'black-opacity': Object.fromEntries(
-          [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95].map((opacity) => [
+          [5, 10, 20, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95].map((opacity) => [
             opacity,
             tinycolor('#000000')
               .setAlpha(opacity / 100)
@@ -34,13 +31,16 @@ module.exports = {
           ])
         ),
         'white-opacity': Object.fromEntries(
-          [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95].map((opacity) => [
+          [5, 10, 20, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95].map((opacity) => [
             opacity,
             tinycolor('#ffffff')
               .setAlpha(opacity / 100)
               .toRgbString(),
           ])
         ),
+        default: 'var(--color)',
+        primary: 'var(--primary)',
+        'primary-dark': 'var(--primary-dark)',
       },
       zIndex: {
         '-1': '-1',

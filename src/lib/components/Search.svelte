@@ -2,6 +2,7 @@
   import debounce from 'just-debounce';
   import { mdiMagnify } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
+  import Input from '$lib/components/Input.svelte';
 
   export let onInput: (value: string) => void | Promise<void>;
   export let value = '';
@@ -17,24 +18,18 @@
       : debounce(async (event) => await onInput(event.target.value), debouncePeriod);
 </script>
 
-<div class="{_class || ''} flex items-center relative w-full">
+<Input let:klass let:id>
   <input
     type="text"
+    {id}
+    autocomplete="off"
+    class="{klass} {_class}"
     on:input={_onInput}
     on:focus
     on:blur
     {value}
     {placeholder}
-    class="px-10 bg-gray-100 py-2 rounded-2xl outline-none w-full"
     {...$$restProps}
   />
-  <Icon path={mdiMagnify} size="1.2" color="gray" class="absolute left-2" />
-</div>
-
-<style>
-  input::placeholder {
-    @apply text-gray-400;
-    @apply font-black;
-    @apply italic;
-  }
-</style>
+  <Icon slot="before" class="text-white-opacity-50" path={mdiMagnify} size="1.2" />
+</Input>

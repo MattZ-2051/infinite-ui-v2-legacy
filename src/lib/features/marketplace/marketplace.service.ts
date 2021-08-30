@@ -11,7 +11,8 @@ export function setFilters(options: Pick<QueryParameterOptions, 'params' | 'rese
 }
 
 export const modeFilters = [
-  { label: 'All', status: '' },
-  { label: 'On Sale', status: 'onsale' },
+  { label: 'All', status: 'all' },
+  { label: 'Available Now', status: '' },
   { label: 'Upcoming', status: 'upcoming' },
+  { label: 'Sold Out', status: 'soldout' },
 ];

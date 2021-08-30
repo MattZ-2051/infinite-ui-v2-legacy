@@ -61,7 +61,7 @@
 
 <style lang="postcss">
   .menu-item {
-    @apply flex items-center flex-grow font-medium p-2 px-4 outline-none cursor-pointer;
+    @apply flex items-center flex-grow font-medium py-3 px-4 outline-none cursor-pointer;
     color: var(--menu-item-color);
     font-size: var(--menu-item-font-size, inherit);
   }
@@ -73,7 +73,6 @@
   .menu-item.selected,
   .menu-item:focus:not(.disabled),
   .menu-item:hover {
-    @apply rounded-3xl;
     background: var(--menu-item-background-selected);
     color: var(--menu-item-color-selected);
   }

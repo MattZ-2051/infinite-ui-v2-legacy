@@ -57,11 +57,11 @@
 
 <div class="container flex gap-8 flex-col pt-6 md:grid marketplace-container">
   <div class={`${showFilters ? 'hidden' : 'flex'} md:flex items-center justify-between`}>
-    <h1 class="text-4xl md:text-5xl title">Marketplace</h1>
+    <h1 class="text-4xl title">Marketplace</h1>
     <button
       type="button"
       on:click={() => (showFilters = true)}
-      class="w-10 h-10 bg-gray-200 rounded-2xl md:hidden flex items-center justify-center"
+      class="w-10 h-10 bg-gray-200 rounded-full md:hidden flex items-center justify-center"
     >
       <img src={filters} alt="Filters" />
     </button>
@@ -71,17 +71,17 @@
       <div class="py-3 flex-1">
         <Search />
       </div>
-      <div class="py-3 ml-4 sort-container">
+      <div class="py-3 ml-12 sort-container">
         <Sort on:select={sort} {sortOptions} />
       </div>
     </div>
   </div>
-  <div class={`md:inline ${!showFilters ? 'hidden' : 'inline'}`}>
+  <div class="sticky md:block {!showFilters ? 'hidden' : 'block'}" style="top: var(--header-height)">
     <Filters {categories} {creators} {series} {total} on:close={closeFilters} />
   </div>
-  <div class={`md:inline ${showFilters ? 'hidden' : 'inline'}`} class:opacity-40={$loading}>
+  <div class="md:inline {showFilters ? 'hidden' : 'inline'}" class:opacity-40={$loading}>
     {#if !$loading && skus.length === 0}
-      <NoResults class="mt-4 md:mt-12 text-gray-400" />
+      <NoResults class="mt-4 md:mt-12" />
     {:else}
       <SkuItemGrid {skus} maxCols={3} />
       <Pagination page={p} {total} perPage={6} class="flex justify-end" on:change={gotoPage} />
@@ -91,7 +91,10 @@
 
 <style lang="postcss">
   .marketplace-container {
-    grid-template-columns: 300px auto;
+    grid-template-columns: 320px auto;
+  }
+  .title {
+    color: var(--marketplace-heading-color);
   }
   .title:container(320 > width) {
     @apply text-2xl;

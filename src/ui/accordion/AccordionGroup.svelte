@@ -1,20 +1,34 @@
 <script context="module" lang="ts">
-  type AccordionCurrent = () => boolean | undefined;
-  export type AccordionContext = { setCurrent: (current: AccordionCurrent) => void };
+  export type ActiveType = string | string[];
+  export type AccordionContext = { multiple: boolean; activeStore: Writable<ActiveType> };
 </script>
 
 <script lang="ts">
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
+  import type { Writable } from 'svelte/store';
 
-  const current = writable<AccordionCurrent>(undefined);
+  /** Whether we allow multiple items open at a time.	*/
+  export let multiple = false;
+
+  /** Id(s) of the active item(s).	*/
+  export let active: ActiveType = [];
+
+  const activeStore = writable<ActiveType>(active);
 
   setContext('Accordion', <AccordionContext>{
-    setCurrent: (function_: AccordionCurrent) => {
-      $current && $current !== function_ && $current();
-      current.set(function_);
-    },
+    multiple,
+    activeStore,
   });
+
+  $: $activeStore = active;
+  $: updateProperties($activeStore);
+
+  function updateProperties(store: ActiveType) {
+    active = store;
+  }
 </script>
 
-<slot />
+<div {...$$restProps}>
+  <slot />
+</div>

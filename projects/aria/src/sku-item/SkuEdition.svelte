@@ -8,18 +8,13 @@
 </script>
 
 {#if supply}
-  <div data-style="container" class="flex items-center whitespace-nowrap">
+  <div class="flex items-center whitespace-nowrap">
     <div class="{supply.type}-badge w-4 h-4 rounded-full mr-2" />
     <span class="{supply.type}-text">{supply.label}</span>
   </div>
 {/if}
 
 <style lang="postcss">
-  [data-style='container'] {
-    --edition-unique: #ffa800;
-    --edition-limited: #e500ff;
-    --edition-released: #0077a6;
-  }
   .unique-text {
     color: var(--edition-unique);
   }

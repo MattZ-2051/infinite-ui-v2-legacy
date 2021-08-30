@@ -12,3 +12,4 @@ export const hubspot = {
   formId: import.meta.env.VITE_HUBSPOT_FORM_ID,
   portalId: import.meta.env.VITE_HUBSPOT_PORTAL_ID,
 };
+export const CLIENT_SUPPORT_EMAIL = 'help@infinite.com';

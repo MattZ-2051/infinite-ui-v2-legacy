@@ -15,11 +15,11 @@
 
   let clientWidth: number;
   let clientHeight: number;
-  $: activeListing = type === 'sku' ? item.activeSkuListings?.[0] : item.activeProductListings?.[0];
+  $: activeListing = type === 'sku' ? item.activeSkuListings[0] : item.activeProductListings[0];
 </script>
 
 <div class="relative flex flex-col" in:fade={{ duration: 300 }}>
-  <div bind:clientWidth bind:clientHeight class="card flex flex-col h-full tracking-tighter relative z-30 mb-11">
+  <div bind:clientWidth bind:clientHeight class="card flex flex-col h-full tracking-tighter relative z-30 mb-14">
     <div class="card-img p-2">
       <div class="relative h-full">
         <FilePreview item={item.nftPublicAssets?.[0]} preview />
@@ -43,15 +43,15 @@
             <TalentLink profile={item.issuer} hideImage />
             <SkuEdition {item} />
           </div>
-          <div class="mt-5 mb-2 flex justify-between items-start gap-2">
-            <span class="text-2.5xl font-light card-title">{item.name}</span>
+          <div class="mt-5 mb-10 flex justify-between items-start gap-2">
+            <span class="text-2.5xl font-light">{item.name}</span>
             {#if item.redeemable}
               <IconRedeem size={32} />
             {/if}
           </div>
         </div>
         {#if item.series}
-          <div class="mt-8 card-series"># {item.series.name}</div>
+          <div class="mb-4"># {item.series.name}</div>
         {/if}
       </div>
       {#if type === 'sku'}
@@ -92,19 +92,9 @@
   .card-name {
     color: #9e9e9e;
   }
-  .card-title {
-    color: #ffffff;
-  }
-  .card-series {
-    @apply mb-4;
-    color: #ffffff;
-  }
   .card-img {
     aspect-ratio: 1 / 1;
   }
-  .card-img:hover {
-  }
-
   .card-end-label {
     @apply border border-transparent bg-origin-border;
     background: linear-gradient(#000000, #000000) padding-box,

@@ -24,6 +24,17 @@ body::-webkit-scrollbar-track {
   background: linear-gradient(90deg, #434343, #434343 1px, #111 0, #111);
 }
 
+/* hide arrows for inputs of type="number" */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 @layer base {
   [data-theme-context='root'] {
     color: var(--color);

@@ -1,11 +1,13 @@
 <script lang="ts">
+  import { mdiWindowClose } from '@mdi/js';
   import type { Profile, Rarity, Series } from '$lib/sku-item/types';
   import { createEventDispatcher } from 'svelte';
-  import { mdiChevronDown, mdiWindowClose } from '@mdi/js';
+  import type { ActiveType } from '$ui/accordion/AccordionGroup.svelte';
+  import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
+  import Input from '$lib/components/Input.svelte';
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
   import { RangeSlider } from '$ui/rangeslider';
-  import { datePicker } from '$ui/datepicker/datepicker';
   import { Checkbox } from '$ui/checkbox';
   import Accordion from '$ui/accordion/Accordion.svelte';
   import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
@@ -44,8 +46,8 @@
     dispatch('close');
   };
 
-  const onPriceRangeChange = (event: { detail: [number, number] }) => {
-    const [minPrice_, maxPrice_] = event.detail;
+  const onPriceRangeChange = (range: [number, number]) => {
+    const [minPrice_, maxPrice_] = range;
     setFilters({
       params: {
         minPrice: minPrice_ > 0 ? minPrice_ : false,
@@ -53,6 +55,14 @@
         page: 1,
       },
     });
+  };
+
+  const onMinPriceChange = (event) => {
+    onPriceRangeChange([event.target.value, priceRange[1]]);
+  };
+
+  const onMaxPriceChange = (event) => {
+    onPriceRangeChange([priceRange[0], event.target.value]);
   };
 
   function removeAllFilters() {
@@ -68,28 +78,23 @@
   export let maxPrice = 10_000;
   export let total = 0;
 
+  let active: ActiveType = [];
+
   const rarityFilters: { id: Rarity; label: string }[] = [
-    { id: 'legendary', label: 'Legendary' },
-    { id: 'epic', label: 'Epic' },
-    { id: 'rare', label: 'Rare' },
-    { id: 'uncommon', label: 'Uncommon' },
+    { id: 'legendary', label: 'One-of-a-Kind' },
+    { id: 'epic', label: 'Limited Edition' },
+    { id: 'rare', label: 'Open Edition' },
   ];
 
-  let sliderInfo: [number, number];
+  let priceRange: [number, number];
 
   function initSlider(min, max) {
-    sliderInfo = [min, max];
+    priceRange = [min, max];
   }
   $: initSlider(+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice);
 
   function toggle(type: 'category' | 'rarity' | 'series' | 'issuerId', id: string, event: Event) {
     toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
-  }
-
-  function toggleDate(type: 'start' | 'end', value: string) {
-    setFilters({
-      params: { [`${type}Date`]: value, page: 1 },
-    });
   }
 
   function toggleCheckboxFilter(type: 'category' | 'rarity' | 'series' | 'issuerId', id: string, value: boolean) {
@@ -134,7 +139,7 @@
     $page.query.has('minPrice') || $page.query.has('maxPrice')
       ? `${formatCurrencyWithOptionalFractionDigits(
           +$page.query.get('minPrice') || 0
-        )} to ${formatCurrencyWithOptionalFractionDigits(+$page.query.get('maxPrice') || maxPrice)}`
+        )}-${formatCurrencyWithOptionalFractionDigits(+$page.query.get('maxPrice') || maxPrice)}`
       : undefined;
 
   $: searchFilter = $page.query.get('search') || '';
@@ -150,137 +155,137 @@
   ];
 </script>
 
-<div class="flex flex-col text-gray-400 gap-8 md:gap-9">
+<div class="flex flex-col gap-7 md:gap-8">
   <div class="flex flex-col md:order-3">
-    <div class="flex items-center gap-2 text-4xl text-black">
+    <div class="flex items-center gap-2 text-lg">
       <span class="flex-auto">Filter by</span>
-      <button type="button" on:click={close}>
-        <Icon path={mdiWindowClose} size="1.66" class="bg-gray-200 rounded-2xl p-1 md:hidden" />
+      <button class="md:hidden" type="button" on:click={close}>
+        <Icon path={mdiWindowClose} size="1.66" class="rounded-2xl p-1" />
       </button>
       {#if filters.length > 0}
-        <div
-          on:click={removeAllFilters}
-          class="hidden gap-1 text-base text-black font-black italic cursor-pointer md:flex"
-        >
+        <div on:click={removeAllFilters} class="hidden gap-1 text-base cursor-pointer md:flex">
           Clear All
           <Icon path={mdiWindowClose} size="0.75" class="self-center cursor-pointer" />
         </div>
       {/if}
     </div>
-    <div class="flex flex-wrap gap-1">
-      {#each filters as filter}
-        <Tag
-          on:remove={() => removeFilter(filter)}
-          class="font-black bg-black text-white italic focus:ring-black rounded-xl"
-        >
-          <span title={filter.label}>{filter.label}</span>
-        </Tag>
-      {/each}
-    </div>
+
+    {#if filters.length > 0}
+      <div class="flex flex-wrap gap-2 mt-4">
+        {#each filters as filter}
+          <Tag on:remove={() => removeFilter(filter)}>
+            <span title={filter.label}>{filter.label}</span>
+          </Tag>
+        {/each}
+      </div>
+    {/if}
   </div>
   <div class="flex flex-col md:order-1">
     {#each modeFilters as { label, status }}
       <div
         use:queryParameter={{ base: routes.marketplace, params: { mode: status, page: '' } }}
-        class="flex gap-2 items-center py-3 cursor-pointer hover:text-gray-500 text-2xl"
+        class="text-white-opacity-50 hover:text-white-opacity-40 flex gap-2 items-center py-3 cursor-pointer text-lg"
         class:active={status ? $page.query.get('mode') === status : !$page.query.get('mode')}
       >
         <span class="label">{label}</span>
       </div>
     {/each}
   </div>
-  <div class="w-10 border border-b-2 border-gray-300 md:order-2" />
-  <div class="flex flex-col gap-4 md:order-4">
-    <div class="flex justify-between text-xl md:text-lg">
-      <div
-        class="flex items-center px-2 py-3 hover:text-black"
-        use:datePicker={{
-          maxDate: endDateSelected,
-          disableMobile: true,
-          onChange: (selectedDates, dateString) => toggleDate('start', dateString),
-        }}
-      >
-        <div class="whitespace-nowrap ">{_formatDate(startDateSelected, 'MM/DD/YY') || 'Start Date'}</div>
-        <Icon path={mdiChevronDown} color="black" />
-      </div>
-      <div class="w-4 flex-shrink border boder-b-2 border-gray-300 self-center" />
-      <div
-        class="flex items-center px-2 py-3 hover:text-black"
-        use:datePicker={{
-          minDate: startDateSelected,
-          disableMobile: true,
-          onChange: (selectedDates, dateString) => toggleDate('end', dateString),
-        }}
-      >
-        <div class="whitespace-nowrap ">{_formatDate(endDateSelected, 'MM/DD/YY') || 'End Date'}</div>
-        <Icon path={mdiChevronDown} color="black" />
-      </div>
-    </div>
-    <Accordion class="flex-grow">
-      <div slot="title" class="flex flex-wrap gap-1 justify-between items-center ">
-        <span class="text-2xl">Price Range</span>
-        {#if $page.query.has('minPrice') || $page.query.has('maxPrice')}
-          <div class="flex">
-            <p class="text-xs font-bold text-black italic whitespace-nowrap">
-              From {formatCurrencyWithOptionalFractionDigits(sliderInfo[0])} to {formatCurrencyWithOptionalFractionDigits(
-                sliderInfo[1]
-              )}
-            </p>
-          </div>
+  <AccordionGroup class="md:order-4" multiple bind:active>
+    <Accordion
+      id="talent"
+      class="border border-white-opacity-20 rounded-t-lg -mb-px {active.includes('talent') ? 'expanded' : ''}"
+    >
+      <span slot="title" class="text-lg leading-8"
+        >Talent
+        {#if creatorsSelected.length}
+          <span class="text-default text-xs align-top">({creatorsSelected.length})</span>
         {/if}
-      </div>
-      <RangeSlider
-        bind:values={sliderInfo}
-        format={formatCurrencyWithOptionalFractionDigits}
-        min={0}
-        max={maxPrice}
-        on:stop={onPriceRangeChange}
-      />
-    </Accordion>
-    <Accordion title={'Category'}>
-      {#each categories as category (category.id)}
-        <Checkbox
-          value={category.id}
-          group={categorySelected}
-          on:change={(event) => toggle('category', category.id, event)}
-          let:checked
-        >
-          <span class="font-black italic" class:text-black={checked}>{category.name}</span>
-        </Checkbox>
-      {/each}
-    </Accordion>
-    <Accordion title={'Rarity'}>
-      {#each rarityFilters as { id, label } (id)}
-        <Checkbox value={id} group={raritySelected} on:change={(event) => toggle('rarity', id, event)} let:checked>
-          <span class="font-black italic" class:text-black={checked}>{label}</span>
-        </Checkbox>
-      {/each}
-    </Accordion>
-    <Accordion title={'Series'}>
-      {#each series as serie}
-        <Checkbox
-          value={serie._id}
-          group={seriesSelected}
-          on:change={(event) => toggle('series', serie._id, event)}
-          let:checked
-        >
-          <span class="font-black italic" class:text-black={checked}>{serie.name}</span>
-        </Checkbox>
-      {/each}
-    </Accordion>
-    <Accordion title={'Creators'}>
+      </span>
       {#each creators as creator}
         <Checkbox
+          class="mb-2"
           value={creator._id}
           group={creatorsSelected}
           on:change={(event) => toggle('issuerId', creator._id, event)}
           let:checked
         >
-          <span class="font-black italic" class:text-black={checked}>{creator.username}</span>
+          <span>{creator.username}</span>
         </Checkbox>
       {/each}
     </Accordion>
-  </div>
+    <Accordion id="price" class="border border-white-opacity-20 -mb-px {active.includes('price') ? 'expanded' : ''}">
+      <span slot="title" class="text-lg leading-8"
+        >Price Range
+        {#if priceSelectedObject}
+          <span class="text-default text-xs align-top">({priceSelectedObject})</span>
+        {/if}
+      </span>
+
+      <RangeSlider
+        bind:values={priceRange}
+        format={formatCurrencyWithOptionalFractionDigits}
+        min={0}
+        max={maxPrice}
+        on:stop={({ detail }) => onPriceRangeChange(detail)}
+      />
+
+      <div class="flex gap-6 mt-10">
+        <Input let:klass let:id>
+          <span class="text-white-opacity-40 mr-4" slot="before">From</span>
+          <input type="number" {id} class={klass} bind:value={priceRange[0]} on:input={onMinPriceChange} />
+        </Input>
+
+        <Input let:klass let:id>
+          <span class="text-white-opacity-40 mr-4" slot="before">To</span>
+          <input type="number" {id} class={klass} bind:value={priceRange[1]} on:input={onMaxPriceChange} />
+        </Input>
+      </div>
+    </Accordion>
+    <Accordion
+      id="edition"
+      class="border border-white-opacity-20 -mb-px {active.includes('edition') ? 'expanded' : ''}"
+    >
+      <span slot="title" class="text-lg leading-8"
+        >Edition
+        {#if raritySelected.length}
+          <span class="text-default text-xs align-top">({raritySelected.length})</span>
+        {/if}
+      </span>
+      {#each rarityFilters as { id, label } (id)}
+        <Checkbox
+          class="mb-2"
+          value={id}
+          group={raritySelected}
+          on:change={(event) => toggle('rarity', id, event)}
+          let:checked
+        >
+          <span class="{id}-text font-medium">{label}</span>
+        </Checkbox>
+      {/each}
+    </Accordion>
+    <Accordion
+      id="category"
+      class="border border-white-opacity-20 rounded-b-lg {active.includes('category') ? 'expanded' : ''}"
+    >
+      <span slot="title" class="text-lg leading-8"
+        >Category {#if categorySelected.length}
+          <span class="text-default text-xs align-top">({categorySelected.length})</span>
+        {/if}
+      </span>
+      {#each categories as category (category.id)}
+        <Checkbox
+          class="mb-2"
+          value={category.id}
+          group={categorySelected}
+          on:change={(event) => toggle('category', category.id, event)}
+          let:checked
+        >
+          <span>{category.name}</span>
+        </Checkbox>
+      {/each}
+    </Accordion>
+  </AccordionGroup>
 
   <button
     type="button"
@@ -291,17 +296,25 @@
   </button>
 </div>
 
-<style>
+<style lang="postcss">
   .active {
     @apply cursor-default;
   }
   .active > .label {
-    @apply text-black;
+    color: var(--filters-color-active);
   }
-  .active:hover {
-    @apply text-gray-400;
+  .legendary-text {
+    color: var(--edition-unique);
   }
-  .active:hover > .label {
-    @apply text-black;
+  .epic-text {
+    color: var(--edition-limited);
+  }
+  .rare-text {
+    color: var(--edition-released);
+  }
+  :global(.expanded) {
+    --accordion-title-color: var(--filters-color-expanded);
+    --accordion-title-icon-color: var(--filters-color-expanded);
+    @apply border-primary relative z-10;
   }
 </style>

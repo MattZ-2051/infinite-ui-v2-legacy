@@ -1,12 +1,17 @@
+<script context="module" lang="ts">
+  let uid = 1;
+</script>
+
 <script lang="ts">
   import { getContext } from 'svelte';
   import type { AccordionContext } from './AccordionGroup.svelte';
   import AccordionHeader from './AccordionHeader.svelte';
+  import { addItemToSelection, isItemActive } from './utils';
 
   /**
-   * Whether the Accordion is open.
+   * HTML element id used as key to define the active item(s).
    */
-  export let open = false;
+  export let id = `accordion-id-${uid++}`;
 
   /**
    * Whether the Accordion can collapse.
@@ -18,25 +23,25 @@
    */
   export let title = '';
 
-  const close = () => (open = false);
-  const toggle = () => {
-    if (collapsible) {
-      open = !open;
-    }
-  };
-  const context: AccordionContext = getContext('Accordion');
-  const setCurrent = context && context.setCurrent;
+  const { multiple, activeStore } = getContext<AccordionContext>('Accordion');
 
-  $: isOpen = collapsible ? open : true;
-  $: isOpen && setCurrent && setCurrent(close);
+  function toggle() {
+    if (collapsible) {
+      $activeStore = addItemToSelection(id, multiple, $activeStore);
+    }
+  }
+
+  $: active = collapsible ? isItemActive(id, multiple, $activeStore) : true;
 </script>
 
-<slot name="header" {toggle} open={isOpen}>
-  <AccordionHeader on:click={toggle} open={isOpen} {collapsible} {...$$restProps}
-    ><slot name="title">{title}</slot></AccordionHeader
+<div {...$$restProps}>
+  <AccordionHeader {id} on:click={toggle} {active} {collapsible}>
+    <slot name="title">{@html title}</slot></AccordionHeader
   >
-</slot>
 
-{#if isOpen}
-  <slot />
-{/if}
+  {#if active}
+    <div class="accordion pb-5 pt-2 px-6">
+      <slot />
+    </div>
+  {/if}
+</div>

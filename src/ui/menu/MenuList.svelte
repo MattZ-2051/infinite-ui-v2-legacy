@@ -56,7 +56,7 @@
   bind:this={selfElement}
   on:keydown={handleKeydown}
   role="menu"
-  class="flex flex-col px-4 py-2 rounded-3xl z-50 outline-none {_class}"
+  class="flex flex-col z-50 outline-none {_class}"
   {...$$restProps}
 >
   <slot />
@@ -65,6 +65,6 @@
 <style>
   ul {
     background: var(--menu-background-color);
-    box-shadow: 0px 0px 20px var(--menu-box-shadow-color);
+    box-shadow: var(--menu-box-shadow);
   }
 </style>

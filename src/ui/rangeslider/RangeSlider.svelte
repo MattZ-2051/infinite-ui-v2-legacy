@@ -76,59 +76,57 @@
 <style>
   .slider {
     position: relative;
-    height: 4px;
+    height: 1px;
     border-radius: 10px;
     text-align: left;
-    margin: 30px 0 10px;
+    margin: 10px 0;
     width: 100%;
   }
   .slider > div {
     position: absolute;
     left: 14px;
     right: 14px;
-    height: 4px;
+    height: 1px;
   }
   .inverse-left {
     position: absolute;
     left: 0;
-    height: 4px;
+    height: 1px;
     border-radius: 10px;
-    background-color: #ededed;
+    background-color: var(--range-slider-bg-color);
     margin: 0 7px;
   }
   .inverse-right {
     position: absolute;
     right: 0;
-    height: 4px;
+    height: 1px;
     border-radius: 10px;
-    background-color: #ededed;
+    background-color: var(--range-slider-bg-color);
     margin: 0 7px;
   }
   .range {
     position: absolute;
     left: 0;
-    height: 4px;
+    height: 1px;
     border-radius: 14px;
-    background-color: #000000;
+    background-color: var(--range-slider-bg-color-selected);
   }
   .thumb {
     position: absolute;
-    top: -10px;
+    top: -7px;
     z-index: 2;
-    height: 24px;
-    width: 24px;
+    height: 15px;
+    width: 15px;
     text-align: left;
     margin-left: -11px;
-    background-color: #fff;
+    border: 2px solid var(--range-slider-bg-color-selected);
+    background-color: var(--range-slider-thumb-bg-color);
     border-radius: 50%;
     outline: none;
-    border: 2px solid #000000;
-    transition: box-shadow 0.2s ease;
   }
 
   .active {
-    background-color: #000000;
-    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.2);
+    background-color: var(--range-slider-thumb-active-color);
   }
 
   input[type='range'] {

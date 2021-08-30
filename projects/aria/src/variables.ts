@@ -7,3 +7,4 @@ export const CLIENT_SOCIAL_IMAGE = {
   height: 740,
   alt: 'The ARIA Exchange',
 };
+export const CLIENT_SUPPORT_EMAIL = 'support@ARIAExchange.com';

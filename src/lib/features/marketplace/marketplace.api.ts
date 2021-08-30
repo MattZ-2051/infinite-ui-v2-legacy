@@ -4,8 +4,11 @@ import { get, getPage, fetchTracker } from '$lib/api';
 export const loading = fetchTracker();
 
 const getModeParameters = (status: string) => {
-  if (status === 'onsale') {
+  if (!status) {
     return { forSale: 'true' };
+  }
+  if (status === 'soldout') {
+    return { forSale: 'false' };
   }
   if (status === 'upcoming') {
     return { status: 'upcoming' };
@@ -45,7 +48,7 @@ export async function loadMarketplaceItems({
     tracker: loading,
     params: {
       page: `${page}`,
-      per_page: `6`,
+      per_page: `9`,
       sortBy,
       ...mode,
       ...(category && { category }),
