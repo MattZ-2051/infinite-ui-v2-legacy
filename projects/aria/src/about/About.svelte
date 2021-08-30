@@ -13,8 +13,6 @@
     { photo: nadine, name: 'NADINE DIETZ', occupation: 'CHIEF MARKETING & STRATEGY OFFICER' },
     { photo: evan, name: 'EVAN GREENE', occupation: 'CCO' },
     { photo: jimmy, name: 'JIMMY NGUYEN', occupation: 'SVP, GROWTH' },
-    { photo: jimmy, name: 'ILONA STEPANYANTS', occupation: 'SVP, BRAND' },
-    { photo: jimmy, name: 'TRAVIS McMICHAEL III', occupation: 'SVP, CREATIVE' },
   ];
 
   const advisoryTeam = [
@@ -65,7 +63,7 @@
 <div class="container flex flex-col gap-16 md:gap-24 py-20">
   <div class="flex flex-col gap-8 md:gap-20">
     <div class="flex justify-center"><h1 class="text-4xl font-bold">LEADERSHIP</h1></div>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-12 ">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-12 max-w-5xl mx-auto">
       {#each managementTeam as person}
         <div class="flex flex-col gap-4 items-center text-center">
           <div class="gradient-border ">
