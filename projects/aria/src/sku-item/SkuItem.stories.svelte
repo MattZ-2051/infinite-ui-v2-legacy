@@ -29,7 +29,10 @@
 />
 <Story
   name="Upcoming Soon"
-  args={{ type: 'sku', item: { ...item, minStartDate: dayjs(new Date()).add(3, 'days').toDate() } }}
+  args={{
+    type: 'sku',
+    item: { ...item, minStartDate: dayjs(new Date()).add(2, 'days').add(6, 'hour').add(5, 'minute').toDate() },
+  }}
 />
 <Story name="No Sale" args={{ type: 'sku', item: { ...item, minStartDate: new Date(), totalSupplyLeft: 0 } }} />
 <Story name="Unique" args={{ type: 'sku', item: { ...item, maxSupply: 1 } }} />

@@ -57,6 +57,7 @@ specifiers:
   jest: ~26.6.3
   js-cookie: ^3.0.0
   just-debounce: 1.1.0
+  mockdate: ^3.0.5
   msw: ~0.35.0
   npm-run-all: ^4.1.5
   p-debounce: ^4.0.0
@@ -153,6 +154,7 @@ devDependencies:
   eslint-plugin-unicorn: 35.0.0_eslint@7.32.0
   husky: 7.0.2
   jest: 26.6.3
+  mockdate: 3.0.5
   msw: 0.35.0
   npm-run-all: 4.1.5
   postcss: 8.3.6
@@ -12217,6 +12219,10 @@ packages:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
     engines: {node: '>=10'}
     hasBin: true
+    dev: true
+
+  /mockdate/3.0.5:
+    resolution: {integrity: sha512-iniQP4rj1FhBdBYS/+eQv7j1tadJ9lJtdzgOpvsOHng/GbcDh2Fhdeq+ZRldrPYdXvCyfFUmFeEwEGXZB5I/AQ==}
     dev: true
 
   /modern-normalize/1.1.0:

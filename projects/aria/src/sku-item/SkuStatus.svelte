@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { Status } from '$lib/sku-item/types';
-  import dayjs from 'dayjs';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
+  import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
 
   export let startDate: Date;
   export let price = 0;
@@ -15,7 +14,7 @@
 >
   {#if status === 'upcoming'}
     <span>Upcoming on:</span>
-    <span>{dayjs(startDate).format('MMM D')} </span>
+    <span>{formatDate(startDate, 'MMM D')}</span>
   {:else if status === 'upcoming-soon'}
     <span>Upcoming in:</span>
     <TimeDifference date={startDate} />
