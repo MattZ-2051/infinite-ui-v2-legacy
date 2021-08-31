@@ -3,12 +3,12 @@
   export let disabled = false;
 </script>
 
-<li class="text-lg rounded-full w-8 h-8" class:disabled class:active>
+<li class="text-lg w-8 h-8" class:disabled class:active>
   <button
     type="button"
     {disabled}
     on:click
-    class="flex items-center justify-center w-full h-full rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
+    class="flex items-center justify-center w-full h-full focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
   >
     <slot /></button
   >
@@ -20,7 +20,8 @@
   }
 
   li:hover:not(.disabled):not(.active) {
-    @apply bg-gray-200;
+    color: var(--pagination-color-hover, var(--pagination-color-active));
+    background-color: var(--pagination-background-color-hover, var(--pagination-background-color-active));
   }
 
   .disabled {
