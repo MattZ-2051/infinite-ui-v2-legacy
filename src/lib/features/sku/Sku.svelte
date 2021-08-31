@@ -1,19 +1,13 @@
 <script lang="ts">
-  import xss from 'xss';
-  import { CLIENT_COMPANY_NAME } from '$project/variables';
   import { Tabs, Tab } from '$ui/tabs';
-  import Accordion from '$ui/accordion/Accordion.svelte';
-  import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
-  import { media } from '$lib/media-query.store';
   import Gallery from '$lib/components/Gallery.svelte';
-  import Icon from '$ui/icon/Icon.svelte';
-  import hedera from '$lib/components/icons/hedera';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import SkuPriceBox from './SkuPriceBox.svelte';
   import SkuCollectorList from './SkuCollectorList.svelte';
   import SkuInfo from './SkuInfo.svelte';
+  import SkuDescription from './SkuDescription.svelte';
   import { sku, collectors, totalCollectors, related } from './sku.store';
 </script>
 
@@ -31,40 +25,38 @@
   </div>
   <SkuPriceBox slot="sticky-cta" sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
   <div slot="tabs">
-    <div class="container grid grid-cols-1 md:grid-cols-2 gap-8">
-      <AccordionGroup multiple>
-        <Accordion title={'Description'} open={true} collapsible={!$media.md}>
-          <div class="mt-4 description text-gray-400">
-            {@html xss($sku.description || '')}
-          </div>
-          <div class="mt-4 flex bg-gray-100 text-gray-400 px-6 py-3 rounded-3xl justify-between items-center text-sm">
-            <div class="flex items-center ">
-              <div class="inline-block bg-black rounded-2xl p-2 mr-4">
-                <Icon path={hedera} size="0.6" />
-              </div>
-              <span>{CLIENT_COMPANY_NAME} NFTs are minted on the Hedera Hashgraph</span>
-            </div>
-            <a href="https://support.suku.world/infinite/hedera-hashgraph-hts" class="link">Learn more</a>
-          </div>
-        </Accordion>
-        <Accordion open={true} collapsible={!$media.md}>
-          <div slot="title" class="flex gap-4 items-center">
-            <span>Collectors</span>
-            {#if $totalCollectors > 0}<span class="text-gray-400 text-lg">{$totalCollectors} Total</span>{/if}
-          </div>
-          <SkuCollectorList collectors={$collectors} skuId={$sku._id} />
-        </Accordion>
+    <Tabs
+      items={[
+        { id: 'description', title: 'Description' },
+        { id: 'details', title: 'Details' },
+        { id: 'collectors', title: 'Collectors' },
+        { id: 'owner', title: 'Owner Access' },
+      ]}
+      class="text-3xl mt-12 md:mt-16 mb-4"
+      itemClass=""
+    >
+      <Tab id="description">
+        <SkuDescription sku={$sku} />
+      </Tab>
+
+      <Tab id="details">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore consequatur ipsam accusantium consectetur, fuga
+        voluptas impedit sequi corporis doloribus earum quis vero officia, qui quidem! Quae sint temporibus facere
+        saepe.
+      </Tab>
+
+      <Tab id="collectors">
+        <SkuCollectorList collectors={$collectors} skuId={$sku._id} />
+      </Tab>
+
+      <Tab id="private">
         <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
           {#if totalPrivateAssets > 0}
-            <div>
-              <Accordion title={'Owner Access'} open={true} collapsible={!$media.md}>
-                <PrivateAssetList />
-              </Accordion>
-            </div>
+            <PrivateAssetList />
           {/if}
         </PrivateAsset>
-      </AccordionGroup>
-    </div>
+      </Tab>
+    </Tabs>
   </div>
   <div slot="offscreen-content">
     {#if $related.length > 0}
@@ -78,22 +70,3 @@
     {/if}
   </div>
 </StickyColumn>
-
-<style lang="postcss">
-  .description :global(h3) {
-    @apply font-bold;
-    @apply text-black;
-  }
-  .description :global(p) {
-    @apply my-4;
-  }
-  .description :global(ul) {
-    @apply my-4;
-    @apply list-disc;
-    @apply pl-5;
-  }
-  .description :global(a) {
-    @apply underline;
-    @apply text-black;
-  }
-</style>
