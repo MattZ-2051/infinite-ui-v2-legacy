@@ -14,6 +14,7 @@
 
 <script lang="ts">
   import { dev } from '$app/env';
+  import { CLIENT_SUPPORT_EMAIL } from '$project/variables';
 
   export let status: number = undefined;
 
@@ -21,18 +22,25 @@
   export let error: Error & { frame?: string } = undefined;
 </script>
 
-<div class="bg-black text-white flex flex-grow items-center justify-center">
+<div class="container flex flex-grow items-center justify-center">
   <div class="flex flex-col gap-2 items-center text-center">
     <div class="text-6xl font-extrabold text-gradient-primary">Oh,no!</div>
-    {#if status === 404}
-      <div class="text-5xl font-bold">This page does not exist.</div>
-      <div class="text-lg max-w-md mt-5 text-gray-300">
-        The page you are looking for was moved, removed, renamed or might never existed!
-      </div>
-    {:else}
-      <div class="text-5xl font-bold">There was an unexpected problem.</div>
-      <div class="text-lg max-w-md mt-5 text-gray-300">Please try again in a few minutes or contact us.</div>
-    {/if}
+    <div class="flex flex-col gap-5 md:gap-10 font-bold">
+      {#if status === 404}
+        <div class="text-2xl md:text-5xl ">This page does not exist.</div>
+        <div class="text-sm md:text-base">
+          Please <a href="mailto:{CLIENT_SUPPORT_EMAIL}" class="hover:underline">contact support</a> if you believe this
+          was an error
+        </div>
+      {:else}
+        <div class="text-2xl md:text-5xl">There was an unexpected problem.</div>
+        <div class="text-sm md:text-base">
+          Please try again in a few minutes or <a href="mailto:{CLIENT_SUPPORT_EMAIL}" class="hover:underline"
+            >contact support</a
+          >
+        </div>
+      {/if}
+    </div>
     <div class="mt-10">
       <a
         href={routes.index}
@@ -50,3 +58,9 @@
     {/if}
   </div>
 </div>
+
+<style>
+  a[href^='mailto:'] {
+    color: var(--no-results-link-color);
+  }
+</style>
