@@ -15,14 +15,16 @@
     <FilePreview item={activeItem} />
   </div>
   <div class="flex flex-wrap w-full justify-left">
-    {#each items as item}
-      <div
-        class="cursor-pointer hover:opacity-100 {activeItem === item ? '' : 'opacity-50'}"
-        on:click={() => (selectedItem = item)}
-      >
-        <FileThumbnail {item} />
-      </div>
-    {/each}
+    {#if items}
+      {#each items as item}
+        <div
+          class="cursor-pointer hover:opacity-100 {activeItem === item ? '' : 'opacity-50'}"
+          on:click={() => (selectedItem = item)}
+        >
+          <FileThumbnail {item} />
+        </div>
+      {/each}
+    {/if}
   </div>
   <div class="absolute top-0 left-0 right-0 bottom-0 -z-1 overflow-hidden">
     <FilePreview item={activeItem} preview blur={20} />

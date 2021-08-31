@@ -1,30 +1,25 @@
 <script context="module" lang="ts">
   import type { LoadInput } from '@sveltejs/kit';
-  import { loadSkuFx, clearSku, sku } from '$lib/features/sku/sku.store';
+  import type { Awaited } from 'ts-essentials';
+  import { loadSkuFx, setSku } from '$lib/features/sku/sku.store';
 
   export async function load({ page, fetch }: LoadInput) {
     const { id } = page.params;
-    await loadSkuFx({ id, fetch });
-    return {};
+    return {
+      props: { data: await loadSkuFx({ id, fetch }) },
+    };
   }
 </script>
 
 <script lang="ts">
   import { Seo, chooseSkuSocialImage } from '$lib/seo';
-  import { navigating } from '$app/stores';
   import SkuContainer from '$lib/features/sku/Sku.svelte';
-  import routes from '$lib/routes';
 
-  function resetStore(path: string) {
-    // Leaving current product page
-    if (path && path !== routes.sku($sku._id)) {
-      setTimeout(() => clearSku(), 500);
-    }
-  }
+  export let data: Awaited<ReturnType<typeof loadSkuFx>>;
 
-  $: resetStore($navigating?.to?.path);
+  $: setSku(data);
 </script>
 
-<Seo title={$sku.name} image={chooseSkuSocialImage($sku)} />
+<Seo title={data.sku.name} image={chooseSkuSocialImage(data.sku)} />
 
 <SkuContainer />
