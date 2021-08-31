@@ -55,7 +55,7 @@
       />
     </IntersectionObserver>
   {:else}
-    <video class="w-full" playsinline autoplay controls={false} loop muted src={item.url} {style} />
+    <video class="w-full" playsinline autoplay controls loop muted src={item.url} {style} />
   {/if}
 {:else if fileType === 'image'}
   <img
