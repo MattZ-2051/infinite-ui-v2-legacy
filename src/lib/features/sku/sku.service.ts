@@ -58,8 +58,18 @@ export const getLimitedAuctionCollector = (sku: Sku, collectors: CollectorProduc
     isLimited(sku) &&
     collectors?.length > 0 &&
     collectors[0].listing?.saleType === 'auction' &&
-    ['upcoming', 'active', 'sold'].includes(collectors[0].listing.status)
+    ['sold'].includes(collectors[0].listing.status)
   ) {
     return collectors[0];
   }
+};
+
+export const getLowestActiveListing = (collectors: CollectorProduct[]): CollectorProduct | undefined => {
+  if (collectors.length === 0) return undefined;
+  return collectors?.reduce((previousListing, currentListing) => {
+    return (previousListing?.listing?.price || previousListing?.listing?.minBid) <
+      (currentListing?.listing?.price || currentListing?.listing?.minBid)
+      ? previousListing
+      : currentListing;
+  });
 };

@@ -86,7 +86,7 @@ export type Listing = {
   canceled?: boolean;
   price: number;
   product: string;
-  saleType: 'auction' | 'fixed';
+  saleType: 'auction' | 'fixed' | 'giveaway';
   startDate: Date;
   status: 'active' | 'upcoming' | 'expired' | 'sold' | 'canceled';
   supply: number;

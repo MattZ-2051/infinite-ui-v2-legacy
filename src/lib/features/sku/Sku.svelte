@@ -4,7 +4,7 @@
   import Gallery from '$lib/components/Gallery.svelte';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
-  import SkuPriceBox from './SkuPriceBox.svelte';
+  import SkuPriceBox from './pricebox/SkuPriceBox.svelte';
   import SkuCollectorList from './SkuCollectorList.svelte';
   import SkuInfo from './SkuInfo.svelte';
   import SkuDescription from './SkuDescription.svelte';
