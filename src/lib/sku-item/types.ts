@@ -77,6 +77,8 @@ export type Profile = {
   descriptionBody: string;
   footerPhotoUrl: string;
   tagline: string;
+  firstName?: string;
+  lastName?: string;
   showNotifyMe?: boolean;
 };
 

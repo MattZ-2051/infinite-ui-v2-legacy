@@ -14,7 +14,8 @@
     changePage,
   } from './collection.store';
 
-  export let isIssuer: boolean;
+  export let isIssuer = false;
+  export let own = false;
 
   const productsLoading = loadProductsFx.pending;
   const skusLoading = loadSkusFx.pending;
@@ -31,14 +32,15 @@
     changePage(event.detail.value);
   }
 
-  let items = [{ id: 'NFTs', title: 'NFTs' }];
-  $: if (isIssuer) {
-    items.unshift({ id: 'Releases', title: 'Releases' });
-    items = items;
-  }
+  let items = [];
+  $: items = [
+    ...(isIssuer ? [{ id: 'Releases', title: 'Collectibles for Sale' }] : []),
+    // prettier-ignore
+    { id: 'NFTs', title: isIssuer ? 'Owned Collectibles' : (own ? 'My Collection' : 'Collection') },
+  ];
 </script>
 
-<Tabs {items} defaultSelectedId={tab} class="mt-6 md:mt-12 mb-4" on:select={onSelectTab}>
+<Tabs {items} defaultSelectedId={tab} class="text-2xl font-medium mt-6 md:mt-12 mb-4" on:select={onSelectTab}>
   <Tab id="Releases">
     {#if $skusTotal === 0}
       <div class="text-gray-200  text-center mt-12 text-2xl ">No releases found.</div>

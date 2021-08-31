@@ -15,7 +15,7 @@
 
   let clientWidth: number;
   let clientHeight: number;
-  $: activeListing = type === 'sku' ? item.activeSkuListings[0] : item.activeProductListings[0];
+  $: activeListing = type === 'sku' ? item.activeSkuListings?.[0] : item.activeProductListings?.[0];
 </script>
 
 <div class="relative flex flex-col" in:fade={{ duration: 300 }}>

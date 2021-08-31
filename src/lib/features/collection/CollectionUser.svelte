@@ -14,7 +14,13 @@
     class="w-24 h-24 p-1 rounded-full"
     use:imageError={() => (profile.profilePhotoUrl = undefined)}
   />
-  <div class="text-xl md:text-2xl font-medium mt-6">@{profile.username}</div>
+  <div class="text-xl md:text-2xl font-medium mt-6">
+    {#if profile.firstName && profile.lastName}
+      {profile.firstName} {profile.lastName}
+    {:else}
+      @{profile.username}
+    {/if}
+  </div>
   {#if profile.tagline}
     <div class="mt-2 text-sm font-medium text-white-opacity-50 text-center">{profile.tagline}</div>
   {/if}
