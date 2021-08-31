@@ -84,6 +84,7 @@ specifiers:
   tslib: 2.3.1
   typescript: 4.3.5
   vite-imagetools: 3.6.8
+  web-social-share: ^7.2.0
   xss: ^1.0.9
   yup: 0.32.9
 
@@ -175,6 +176,7 @@ devDependencies:
   tslib: 2.3.1
   typescript: 4.3.5
   vite-imagetools: 3.6.8
+  web-social-share: 7.2.0
 
 packages:
 
@@ -16853,6 +16855,10 @@ packages:
 
   /web-namespaces/1.1.4:
     resolution: {integrity: sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==}
+    dev: true
+
+  /web-social-share/7.2.0:
+    resolution: {integrity: sha512-PZ737Bgla7maguIe8g8C2N2odq+JALbaG0pMmhDYmjqDwvXY7IRg1XIJmqEMKthN5j11O/MmmV2nQkKnP0crxw==}
     dev: true
 
   /webidl-conversions/5.0.0:

@@ -38,7 +38,7 @@ const config = {
       plugins: [imagetools()],
 
       ssr: {
-        noExternal: ['p-debounce'],
+        noExternal: ['p-debounce', 'web-social-share'],
       },
 
       define: {

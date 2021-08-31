@@ -48,7 +48,7 @@
       <button
         type="button"
         class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"
-        use:socialShareAction><Icon path={shareIcon} />Share</button
+        use:socialShareAction={{ sku }}><Icon path={shareIcon} />Share</button
       >
     </div>
   </div>

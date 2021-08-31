@@ -39,7 +39,7 @@
           <button
             type="button"
             class="flex items-center justify-center gap-2 hover:bg-primary text-center py-3 px-5 w-full h-full"
-            use:socialShareAction><Icon path={shareIcon} />Share</button
+            use:socialShareAction={{ profile }}><Icon path={shareIcon} />Share</button
           >
         </div>
       </div>
