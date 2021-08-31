@@ -36,20 +36,16 @@
       {/if}
     </div>
   </div>
-  <div class="grid grid-cols-2">
-    <div class="border-r border-opacity-20">
-      <button
-        type="button"
-        class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"
-        use:notifyAction={{ profile: sku.issuer }}><Icon path={notifyIcon} />Notify Me</button
-      >
-    </div>
-    <div class="border-r border-opacity-20">
-      <button
-        type="button"
-        class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"
-        use:socialShareAction={{ sku }}><Icon path={shareIcon} />Share</button
-      >
-    </div>
+  <div class="grid grid-cols-2 divide-x divide-white-opacity-20">
+    <button
+      type="button"
+      class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"
+      use:notifyAction={{ profile: sku.issuer }}><Icon path={notifyIcon} />Notify Me</button
+    >
+    <button
+      type="button"
+      class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"
+      use:socialShareAction={{ sku }}><Icon path={shareIcon} />Share</button
+    >
   </div>
 </div>

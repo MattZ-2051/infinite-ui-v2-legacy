@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from '$app/env';
   import { media } from '$lib/media-query.store';
 
   export let reverse = false;
@@ -6,6 +7,13 @@
 
   let ctaHeight: number;
   $: ctaOffset = !$media.md && ctaHeight ? ctaHeight : 0;
+
+  $: if (browser && $$slots['sticky-cta']) {
+    const root = document.querySelector<HTMLElement>(`[data-theme-context="root"]`);
+    if (root) {
+      root.style.paddingBottom = `${ctaOffset}px`;
+    }
+  }
 </script>
 
 <div class="container py-0">
@@ -20,7 +28,7 @@
       </div>
     </div>
     <div class="flex flex-col w-full md:w-1/2 lg:w-1/3 md:sticky" style="top: var(--header-height);">
-      <div style="height: calc(100vh - {ctaHeight}px - var(--header-height))">
+      <div style={$media.md ? `height: calc(100vh - ${ctaHeight}px - var(--header-height))` : ''}>
         <slot name="sticky-content" />
       </div>
       <div class="fixed bottom-0 left-0 right-0 md:static z-50">
@@ -29,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full md:w-2/3">
+    <div class="w-full md:w-1/2 lg:w-2/3">
       <slot name="tabs" />
     </div>
   </div>

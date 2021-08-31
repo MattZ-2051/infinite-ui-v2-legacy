@@ -46,15 +46,15 @@
 
 <style>
   li {
-    color: var(--tab-color, #9e9e9e);
+    color: var(--tab-color);
   }
 
   li:hover:not(.active) {
-    box-shadow: inset 0 -2px var(--tab-color, #9e9e9e);
+    box-shadow: inset 0 -2px var(--tab-color);
   }
 
   .active {
-    box-shadow: inset 0 -2px var(--tab-active-border-color, #000000);
-    color: var(--tab-active-color, #000000);
+    box-shadow: inset 0 -2px var(--tab-active-border-color);
+    color: var(--tab-active-color);
   }
 </style>

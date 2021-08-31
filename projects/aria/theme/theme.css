@@ -8,6 +8,7 @@
   /* Main */
   --bg-color: #000000;
   --color: #ffffff;
+  --link-color: var(--primary);
   --separator-bg-color: linear-gradient(90deg, #c000d6 0%, #6734ff 100%);
 
   /* Filters */
@@ -44,12 +45,6 @@
   --checkbox-bg: #d6d6d6;
   --checkbox-hover-bg: #cccccc;
 
-  /* Tabs */
-  --tab-border-color: #ebebeb;
-  --tab-color: #9e9e9e;
-  --tab-active-border-color: #000000;
-  --tab-active-color: #000000;
-
   /* Header */
   --header-color: #ffffff;
   --header-bg-color: #000000;
@@ -80,10 +75,10 @@
   --pagination-background-color-active: transparent;
 
   /* Tabs */
-  --tab-border-color: #232323;
-  --tab-color: #606060;
-  --tab-active-border-color: #ffffff;
-  --tab-active-color: #ffffff;
+  --tab-border-color: theme('colors.white-opacity.20');
+  --tab-color: theme('colors.white-opacity.40');
+  --tab-active-border-color: var(--color);
+  --tab-active-color: var(--color);
 
   /* Tooltip */
   --tooltip-bg: #ffffff;
@@ -102,4 +97,8 @@
   --menu-item-background-selected: var(--primary);
   --menu-item-color: var(--color);
   --menu-item-color-selected: var(--color);
+
+  /* Tabs */
+  --tab-active-border-color: var(--primary);
+  --tab-active-color: var(--primary);
 }

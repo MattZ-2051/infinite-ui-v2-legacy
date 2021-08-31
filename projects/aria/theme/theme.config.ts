@@ -4,4 +4,5 @@ const Theme = {
 
 export const themeConfig = {
   '*.header': Theme.Brand,
+  '*.sku': Theme.Brand,
 };
