@@ -1,4 +1,5 @@
 <script context="module" lang="ts">
+  import type { Awaited } from 'ts-essentials';
   import { loadData } from '$project/landing/landing.api';
 
   export async function load({ fetch }) {
@@ -11,8 +12,6 @@
 <script lang="ts">
   import { Seo } from '$lib/seo';
   import Landing from '$project/landing/Landing.svelte';
-
-  type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never;
 
   export let data: Awaited<ReturnType<typeof loadData>>;
 </script>
