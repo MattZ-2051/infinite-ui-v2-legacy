@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Transaction } from '$lib/sku-item/types';
-  import { mdiChevronDown } from '@mdi/js';
   import { formatDate, formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
@@ -17,8 +16,6 @@
 
   export let transaction: Transaction;
 
-  let isOpen = false;
-
   $: sku = transaction.transactionData?.sku;
   $: name = sku?.name || '';
   $: serialNumber = transaction.transactionData?.product?.serialNumber || '';
@@ -30,103 +27,109 @@
   $: cost = transaction.transactionData.cost;
 </script>
 
-<div class="grid grid-cols-3 items-center gap-x-4 container-tr py-4 border-b border-gray-200">
-  <div>
+<div class="flex items-center gap-x-4">
+  <div class="hidden lg:block">
     {#if type === 'royalty_fee' || type === 'sale'}
-      <img src={soldNormal} alt="sold" />
+      <img class="h-14 w-14" src={soldNormal} alt="sold" />
     {/if}
 
     {#if type === 'purchase'}
-      <img src={boughtNormal} alt="bought" />
+      <img class="h-14 w-14" src={boughtNormal} alt="bought" />
     {/if}
 
     {#if type === 'withdrawal'}
       <img src={withdrawalFunds} alt="withdrew" />
     {/if}
 
-    {#if type === 'deposit' && deposit.type === 'cc'}
-      <img src={addedFunds} alt="added" />
-    {/if}
+    {#if type === 'deposit'}
+      {#if deposit.type === 'cc'}
+        <img class="h-14 w-14" src={addedFunds} alt="added" />
+      {/if}
 
-    {#if type === 'deposit' && deposit.type === 'circle'}
-      {#if deposit.circleType === 'eth'}
-        <img style="width:32px; height:32px" src={ethcoin} alt="ethcoin" />
-      {:else if deposit.circleType === 'btc'}
-        <img style="width:32px; height:32px" src={bitcoin} alt="bitcoin" />
-      {:else}
-        <img style="width:32px; height:32px" src={usdcoin} alt="usdcoin" />
+      {#if deposit.type === 'circle'}
+        {#if deposit.circleType === 'eth'}
+          <img class="h-14 w-14" src={ethcoin} alt="ethcoin" />
+        {:else if deposit.circleType === 'btc'}
+          <img class="h-14 w-14" src={bitcoin} alt="bitcoin" />
+        {:else}
+          <img class="h-14 w-14" src={usdcoin} alt="usdcoin" />
+        {/if}
+      {/if}
+      {#if deposit.type === 'hbar'}
+        <div class="h-14 w-14 border border-white-opacity-50 rounded-xl flex justify-center items-center">
+          <Icon path={hedera} size="0.6" />
+        </div>
       {/if}
     {/if}
-
-    {#if type === 'deposit' && deposit.type === 'hbar'}
-      <div
-        style="width:32px; height:32px; border:1px solid #EBEBEB;"
-        class="rounded-xl  flex justify-center items-center"
-      >
-        <Icon path={hedera} size="0.6" />
-      </div>
-    {/if}
     {#if type === 'nft_redeem'}
-      <div
-        style="width:32px; height:32px; border:1px solid #EBEBEB;"
-        class="rounded-xl  flex justify-center items-center"
-      >
+      <div class="h-14 w-14 border border-white-opacity-50 rounded-xl flex justify-center items-center">
         <IconRedeem />
       </div>
     {/if}
   </div>
-  <div class="flex-grow">
-    <div class="flex div-style items-center">
-      <div class="container-message grid grid-cols-2  gap-x-10 gap-y-2  w-full items-center">
-        <span class="message">
+
+  <div class="flex flex-1 items-center">
+    <div class="flex flex-col w-full mr-4">
+      <div class="flex justify-between">
+        <span class="text-white-opacity-30 text-sm"
+          >{type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' ')}</span
+        >
+        <span class="whitespace-nowrap flex items-center text-default" class:line-through={status === 'error'}>
+          {#if (type === 'royalty_fee' || type === 'sale' || type === 'deposit') && status === 'success'}
+            +
+          {/if}
+          {#if (type === 'purchase' || type === 'withdrawal') && status === 'success'}
+            -
+          {/if}
+          {#if type === 'royalty_fee'}
+            {formatCurrency(cost?.royaltyFee)}
+          {/if}
+          {#if type === 'sale'}
+            {formatCurrency(+cost?.finalPayout)}
+          {/if}
+          {#if type === 'deposit'}
+            {formatCurrency(+deposit?.amount)}
+          {/if}
+          {#if type === 'purchase'}
+            {formatCurrency(cost?.totalCost)}
+          {/if}
+          {#if type === 'withdrawal'}
+            {formatCurrency(transaction.transactionData.withdraw?.amount)}
+          {/if}
+        </span>
+      </div>
+
+      <div class="flex justify-between">
+        <span class="text-left cursor-default" on:click={(event) => event.stopPropagation()}>
           {#if type === 'royalty_fee'}
             {status === 'error' ? 'You tried to receive' : 'You received'} a royalty payment for the sale of
-            <span class="font-semibold underline hover:no-underline text-black"
-              ><a href={routes.sku(sku?._id)}>{name} </a></span
-            >
-            <span class="font-semibold underline hover:no-underline text-black">
-              <a href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a></span
-            >
+            <a class="link" href={routes.sku(sku?._id)}>{name} </a>
+            <a class="link" href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a>
           {/if}
 
           {#if type === 'purchase'}
-            {status === 'error' ? 'You tried to buy' : 'You bought'}
-            <span class="font-semibold underline hover:no-underline text-black"
-              ><a href={routes.sku(sku?._id)}>{name} </a></span
-            >
-            <span class="font-semibold underline hover:no-underline text-black">
-              <a href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a></span
-            >
-            <UserLink username={sellerUsername} class="font-semibold underline hover:no-underline text-black">
-              <span class="message" slot="prefix">from</span>
+            <a class="link" href={routes.sku(sku?._id)}>{name} </a>
+            <a class="link" href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a>
+            <UserLink username={sellerUsername}>
+              <span class="text-white-opacity-40" slot="prefix">from</span>
             </UserLink>
           {/if}
 
           {#if type === 'sale'}
-            {status === 'error' ? 'You tried to sell' : 'You sold'}
-            <span class="font-semibold underline hover:no-underline text-black"
-              ><a href={routes.sku(sku?._id)}>{name} </a></span
-            >
-            <span class="font-semibold underline hover:no-underline text-black">
-              <a href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a></span
-            >
-            <UserLink
-              username={buyerUsername}
-              class="font-semibold underline hover:no-underline text-black"
-              hasLinkClass={false}
-            >
-              <span class="message" slot="prefix">to</span>
+            <a class="link" href={routes.sku(sku?._id)}>{name} </a>
+            <a class="link" href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a>
+            <UserLink username={buyerUsername} hasLinkClass={true}>
+              <span class="text-white-opacity-40" slot="prefix">to</span>
             </UserLink>
           {/if}
 
           {#if type === 'withdrawal'}
-            {status === 'error' ? 'You tried to withdraw' : 'You withdrew'}
             {#if transaction.transactionData.withdraw.type === 'usdc'}
               USDC to wallet
-              <span class="font-semibold text-black">{transaction.transactionData.withdraw.usdcAddress}</span>
+              <span>{transaction.transactionData.withdraw.usdcAddress}</span>
             {:else}
               funds to bank {transaction.transactionData.withdraw.institution_name} and acount ending in
-              <span class="font-semibold text-black">{transaction.transactionData.withdraw.ach_number}</span>
+              <span>{transaction.transactionData.withdraw.ach_number}</span>
             {/if}
           {/if}
 
@@ -134,12 +137,12 @@
             {status === 'error' ? 'You tried to add funds' : 'You added funds'}
             {#if deposit.type === 'cc'}
               from your
-              <span class="font-semibold text-black">{transaction.transactionData.deposit.card?.network}</span>
+              <span>{transaction.transactionData.deposit.card?.network}</span>
               credit card ending in
-              <span class="font-semibold text-black">{transaction.transactionData.deposit.card?.last4} </span>
+              <span>{transaction.transactionData.deposit.card?.last4} </span>
             {:else if deposit.type === 'circle'}
               by depositing
-              <span class="text-black font-medium">
+              <span>
                 {#if deposit.circleType === 'btc'}
                   BTC
                 {:else if deposit.circleType === 'eth'}
@@ -150,9 +153,9 @@
               </span>
             {:else if deposit.type === 'hbar'}
               by depositing
-              <span class="text-black font-medium"> {formatCurrency(+deposit.amount)} </span>
+              <span> {formatCurrency(+deposit.amount)} </span>
               using
-              <span class="text-black font-medium"> Hbar </span>
+              <span> Hbar </span>
             {/if}
           {/if}
 
@@ -163,80 +166,14 @@
               ><a href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a></span
             >
           {/if}
-
           {#if status === 'pending'}
-            <span class="font-semibold text-black"> (Pending)</span>
+            <span> (Pending)</span>
           {:else if status === 'error'}
-            <span class="font-semibold text-red-600"> (Transaction failed)</span>
+            <span class="text-red-600"> (Transaction failed)</span>
           {/if}
         </span>
-        <div class="flex justify-between gap-x-3">
-          <span class="message-color font-extrabold italic">{formatDate(transaction.createdAt, 'MMMM Do, YYYY ')}</span>
-          <span
-            class="whitespace-nowrap flex items-center "
-            class:withdraw-color={(type === 'purchase' || type === 'withdrawal') && status === 'success'}
-            class:deposit-color={(type === 'royalty_fee' || type === 'sale' || type === 'deposit') &&
-              status === 'success'}
-            class:line-through={status === 'error'}
-          >
-            {#if (type === 'royalty_fee' || type === 'sale' || type === 'deposit') && status === 'success'}
-              +
-            {/if}
-            {#if (type === 'purchase' || type === 'withdrawal') && status === 'success'}
-              -
-            {/if}
-            {#if type === 'royalty_fee'}
-              {formatCurrency(cost?.royaltyFee)}
-            {/if}
-            {#if type === 'sale'}
-              {formatCurrency(+cost?.finalPayout)}
-            {/if}
-            {#if type === 'deposit'}
-              {formatCurrency(+deposit?.amount)}
-            {/if}
-            {#if type === 'purchase'}
-              {formatCurrency(cost?.totalCost)}
-            {/if}
-            {#if type === 'withdrawal'}
-              {formatCurrency(transaction.transactionData.withdraw?.amount)}
-            {/if}
-          </span>
-        </div>
+        <span class="text-white-opacity-40 text-sm">{formatDate(transaction.createdAt, 'MMMM Do, YYYY ')}</span>
       </div>
     </div>
   </div>
-  <div
-    class="cursor-pointer"
-    on:click={() => {
-      isOpen = !isOpen;
-    }}
-  >
-    <Icon flip={isOpen ? 'v' : false} path={mdiChevronDown} />
-  </div>
-  {#if isOpen}
-    <div />
-    <div class="py-2"><span class="message">Transaction ID: </span>{transaction._id}</div>
-  {/if}
 </div>
-
-<style>
-  .message-color {
-    color: #9e9e9e;
-  }
-  .message {
-    color: #9e9e9e;
-    font-weight: 500;
-  }
-  .deposit-color {
-    color: #00c44f;
-  }
-  .withdraw-color {
-    color: #da1010;
-  }
-  .container-message {
-    grid-template-columns: 2.6fr 1fr;
-  }
-  .container-tr {
-    grid-template-columns: 32px 9999fr 32px;
-  }
-</style>

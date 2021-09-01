@@ -63,7 +63,7 @@
 </script>
 
 <StickyColumn reverse>
-  <div slot="onscreen-content" class="p-12">
+  <div slot="onscreen-content" class="py-12 md:pl-12">
     <WalletList {tab} />
   </div>
   <div slot="sticky-content" class="h-full p-12" style="background-color: #1D1A54;">
@@ -80,7 +80,7 @@
     </WalletBalance>
 
     {#if $wallet}
-      <div class="text-xs font-medium text-white-opacity-50 mt-4">
+      <div class="text-sm text-white-opacity-50 mt-4">
         {getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
       </div>
     {/if}

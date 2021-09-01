@@ -48,14 +48,12 @@
   /* Header */
   --header-color: #ffffff;
   --header-bg-color: #000000;
-  --header-separator-bg-color: var(--separator-bg-color);
   --header-height: 72px;
 
   /* Footer */
   --footer-bg-color: #000000;
   --footer-color: #7c7c7c;
   --footer-color-hover: #ffffff;
-  --footer-separator-bg-color: var(--separator-bg-color);
   --footer-icon-bg-color: #2e2e2e;
   --footer-icon-color: #ffffff;
   --footer-icon-bg-color-hover: #ffffff;
@@ -76,9 +74,10 @@
 
   /* Tabs */
   --tab-border-color: theme('colors.white-opacity.20');
-  --tab-color: theme('colors.white-opacity.40');
-  --tab-active-border-color: var(--color);
-  --tab-active-color: var(--color);
+  --tab-color: theme('colors.white-opacity.50');
+  --tab-border-color-active: var(--color);
+  --tab-color-active: var(--color);
+  --tab-color-hover: var(--color);
 
   /* Tooltip */
   --tooltip-bg: #ffffff;
@@ -99,6 +98,7 @@
   --menu-item-color-selected: var(--color);
 
   /* Tabs */
-  --tab-active-border-color: var(--primary);
-  --tab-active-color: var(--primary);
+  --tab-border-color-active: var(--primary);
+  --tab-color-active: var(--primary);
+  --tab-color-hover: var(--color);
 }

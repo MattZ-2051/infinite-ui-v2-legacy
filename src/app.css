@@ -101,3 +101,8 @@ input[type='number'] {
   width: 100%;
   opacity: 1;
 }
+
+.separator {
+  @apply h-px w-full;
+  background: var(--separator-bg-color);
+}

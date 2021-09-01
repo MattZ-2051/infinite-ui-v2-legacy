@@ -9,13 +9,17 @@
 </script>
 
 <div
-  class="flex items-center justify-between py-4 px-6 {_class}"
+  class="w-full flex items-center justify-between {_class}"
   on:click
   class:cursor-pointer={collapsible}
   {...$$restProps}
 >
-  <button type="button" style="color: var(--accordion-title-color)"><slot /> </button>
+  <span class="flex-1" style="color: var(--accordion-title-color)">
+    <slot />
+  </span>
   {#if collapsible}
-    <Icon color="var(--accordion-title-icon-color)" path={mdiChevronDown} size="1.3" flip={active} />
+    <button type="button"
+      ><Icon color="var(--accordion-title-icon-color)" path={mdiChevronDown} size="1.3" flip={active} /></button
+    >
   {/if}
 </div>

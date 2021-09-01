@@ -29,7 +29,7 @@
 <Menu placement="bottom-end">
   <MenuTrigger slot="trigger" class="gap-2" data-testid="sort-container">
     <div class="flex-col items-end hidden lg:flex">
-      <div class="text-white-opacity-50">{label}</div>
+      <div class="text-white-opacity-50 text-sm">{label}</div>
       <div>
         {selected.name}
         <Icon class="inline" path={mdiChevronDown} />

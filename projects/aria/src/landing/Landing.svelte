@@ -25,7 +25,7 @@
 
 <div class="container flex flex-col gap-8 md:gap-14 mt-10 lg:mt-24">
   <div>
-    <Tabs items={[{ id: 'talents', title: 'Featured Talent' }]} class="text-3xl mb-4" itemClass="">
+    <Tabs items={[{ id: 'talents', title: 'Featured Talent' }]} class="text-3xl mb-4">
       <Tab id="talents">
         <div class="grid grid-cols-3 gap-10">
           {#each talents as talent}
@@ -37,7 +37,7 @@
   </div>
 
   <div>
-    <Tabs items={[{ id: 'drops', title: 'Featured Drops' }]} class="text-3xl mb-4" itemClass="">
+    <Tabs items={[{ id: 'drops', title: 'Featured Drops' }]} class="text-3xl mb-4">
       <Tab id="drops">
         <div class="grid grid-cols-3 gap-10">
           {#each drops as sku}
@@ -49,7 +49,7 @@
   </div>
 
   <div>
-    <Tabs items={[{ id: 'upcomings', title: 'Upcoming Drops' }]} class="text-3xl mb-4" itemClass="">
+    <Tabs items={[{ id: 'upcomings', title: 'Upcoming Drops' }]} class="text-3xl mb-4">
       <Tab id="upcomings">
         <div class="grid grid-cols-3 gap-10">
           {#each upcomings as sku}

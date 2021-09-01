@@ -25,10 +25,3 @@
   </div>
   <div class="separator" />
 </div>
-
-<style lang="postcss">
-  .separator {
-    @apply h-px w-full;
-    background: var(--separator-bg-color);
-  }
-</style>

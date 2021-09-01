@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div class="h-px w-full" style="background: var(--separator-bg-color);" />
+    <div class="separator" />
 
     <div class="flex items-center justify-between">
       <span class="text-white-opacity-50">Withdrawable</span>

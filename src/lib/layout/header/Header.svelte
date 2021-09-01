@@ -40,8 +40,4 @@
     background-color: var(--header-bg-color);
     height: var(--header-height);
   }
-  .separator {
-    @apply h-px w-full;
-    background: var(--header-separator-bg-color);
-  }
 </style>

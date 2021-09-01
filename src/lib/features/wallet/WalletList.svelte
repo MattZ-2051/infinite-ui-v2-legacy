@@ -39,17 +39,21 @@
 </script>
 
 <Tabs
+  class="items-center"
   items={[
     { id: 'transactions', title: 'Transaction History' },
     { id: 'bids', title: 'Active Bids' },
   ]}
-  menuBreakpoint="sm"
+  menuBreakpoint="lg"
   defaultSelectedId={tab}
+  itemClass="text-xl lg:text-2xl items-center"
   on:select={redirect}
+  --tab-border-color="transparent"
+  --tab-border-color-active="transparent"
 >
   <Tab id="transactions"><TransactionList /></Tab>
   <Tab id="bids"><BidList /></Tab>
-  <div slot="extra" class="justify-self-end self-center text-lg">
+  <div slot="extra" class="justify-self-end self-center text-lg mb-4">
     <Sort on:select={sort} {sortOptions} />
   </div>
 </Tabs>

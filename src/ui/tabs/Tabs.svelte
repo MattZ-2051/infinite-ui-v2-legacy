@@ -4,6 +4,7 @@
   import type { TabItem } from './types';
   import type { Screens } from '$lib/media-query.store';
   import { media } from '$lib/media-query.store';
+  import { browser } from '$app/env';
   import TabHeader from './TabHeader.svelte';
   import TabMenu from './TabMenu.svelte';
 
@@ -37,7 +38,7 @@
   const dispatch = createEventDispatcher<{ select: string }>();
 
   let selectedTab = writable<TabItem>(items.find((item) => item.id === defaultSelectedId) || items[0]);
-  $: renderDropdown = items.length > 1 && menuBreakpoint && !$media[menuBreakpoint];
+  $: renderDropdown = browser && items.length > 1 && menuBreakpoint && !$media[menuBreakpoint];
   $: dropdownItems = items.filter((item) => item.id !== $selectedTab.id);
 
   function activate(item: TabItem, initial = false) {

@@ -28,7 +28,7 @@
             class="card-end-label opacity-90 text-base font-medium absolute bottom-4 left-4 py-2 px-4 rounded-md flex gap-2"
           >
             <span class="opacity-50">Ends</span>
-            {formatDate(activeListing.endDate, 'MMM D, h:mm A')}
+            {formatDate(activeListing.endDate, 'MMM Do, h:mm A')}
           </div>
         {/if}
         {#if item.description}

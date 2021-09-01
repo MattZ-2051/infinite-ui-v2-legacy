@@ -26,7 +26,7 @@
   class:active
   {title}
   role="presentation"
-  class="cursor-pointer whitespace-nowrap transition-all ease-out duration-300 {_class || ''}"
+  class="flex cursor-pointer whitespace-nowrap transition-all ease-out duration-300 {_class || ''}"
 >
   <a
     bind:this={anchorElement}
@@ -50,11 +50,11 @@
   }
 
   li:hover:not(.active) {
-    box-shadow: inset 0 -2px var(--tab-color);
+    color: var(--tab-color-hover);
   }
 
   .active {
-    box-shadow: inset 0 -2px var(--tab-active-border-color);
-    color: var(--tab-active-color);
+    box-shadow: inset 0 -2px var(--tab-border-color-active);
+    color: var(--tab-color-active);
   }
 </style>

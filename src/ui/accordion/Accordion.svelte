@@ -23,6 +23,11 @@
    */
   export let title = '';
 
+  /**
+   * Class to be added on each AccordionHeader.
+   */
+  export let titleClass = '';
+
   const { multiple, activeStore } = getContext<AccordionContext>('Accordion');
 
   function toggle() {
@@ -35,7 +40,7 @@
 </script>
 
 <div {...$$restProps}>
-  <AccordionHeader {id} on:click={toggle} {active} {collapsible}>
+  <AccordionHeader {id} on:click={toggle} {active} {collapsible} class={titleClass}>
     <slot name="title">{@html title}</slot></AccordionHeader
   >
 

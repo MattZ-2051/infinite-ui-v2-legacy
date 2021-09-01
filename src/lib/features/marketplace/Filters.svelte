@@ -4,12 +4,12 @@
   import { createEventDispatcher } from 'svelte';
   import type { ActiveType } from '$ui/accordion/AccordionGroup.svelte';
   import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
+  import Accordion from '$ui/accordion/Accordion.svelte';
   import Input from '$lib/components/Input.svelte';
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
   import { RangeSlider } from '$ui/rangeslider';
   import { Checkbox } from '$ui/checkbox';
-  import Accordion from '$ui/accordion/Accordion.svelte';
   import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { queryParameter } from '$util/queryParameter';
   import Tag from '$ui/Tag/Tag.svelte';
@@ -194,14 +194,15 @@
   <AccordionGroup class="md:order-4" multiple bind:active>
     <Accordion
       id="talent"
+      titleClass="py-4 px-6"
       class="border border-white-opacity-20 rounded-t-lg -mb-px {active.includes('talent') ? 'expanded' : ''}"
     >
-      <span slot="title" class="text-lg leading-8"
-        >Talent
+      <div slot="title" class="text-lg leading-8 text-left">
+        Talent
         {#if creatorsSelected.length}
           <span class="text-default text-xs align-top">({creatorsSelected.length})</span>
         {/if}
-      </span>
+      </div>
       {#each creators as creator}
         <Checkbox
           class="mb-2"
@@ -214,13 +215,17 @@
         </Checkbox>
       {/each}
     </Accordion>
-    <Accordion id="price" class="border border-white-opacity-20 -mb-px {active.includes('price') ? 'expanded' : ''}">
-      <span slot="title" class="text-lg leading-8"
-        >Price Range
+    <Accordion
+      id="price"
+      titleClass="py-4 px-6"
+      class="border border-white-opacity-20 -mb-px {active.includes('price') ? 'expanded' : ''}"
+    >
+      <div slot="title" class="text-lg leading-8 text-left">
+        Price Range
         {#if priceSelectedObject}
           <span class="text-default text-xs align-top">({priceSelectedObject})</span>
         {/if}
-      </span>
+      </div>
 
       <RangeSlider
         bind:values={priceRange}
@@ -244,14 +249,15 @@
     </Accordion>
     <Accordion
       id="edition"
+      titleClass="py-4 px-6"
       class="border border-white-opacity-20 -mb-px {active.includes('edition') ? 'expanded' : ''}"
     >
-      <span slot="title" class="text-lg leading-8"
-        >Edition
+      <div slot="title" class="text-lg leading-8 text-left">
+        Edition
         {#if raritySelected.length}
           <span class="text-default text-xs align-top">({raritySelected.length})</span>
         {/if}
-      </span>
+      </div>
       {#each rarityFilters as { id, label } (id)}
         <Checkbox
           class="mb-2"
@@ -266,13 +272,14 @@
     </Accordion>
     <Accordion
       id="category"
+      titleClass="py-4 px-6"
       class="border border-white-opacity-20 rounded-b-lg {active.includes('category') ? 'expanded' : ''}"
     >
-      <span slot="title" class="text-lg leading-8"
-        >Category {#if categorySelected.length}
+      <div slot="title" class="text-lg leading-8 text-left">
+        Category {#if categorySelected.length}
           <span class="text-default text-xs align-top">({categorySelected.length})</span>
         {/if}
-      </span>
+      </div>
       {#each categories as category (category.id)}
         <Checkbox
           class="mb-2"

@@ -20,21 +20,19 @@
 
 <div class:opacity-40={$loading}>
   {#if $myBidsTotal > 0}
-    <div>
-      <div class="mt-3">
-        {#each $myBids as bid}
-          <div
-            class="cursor-pointer"
-            on:click={() => {
-              goto(routes.product(bid.listing.product._id));
-            }}
-          >
-            <BidItem {bid} />
-          </div>
-        {/each}
+    <div class="separator" />
+    {#each $myBids as bid}
+      <div
+        class="cursor-pointer"
+        on:click={() => {
+          goto(routes.product(bid.listing.product._id));
+        }}
+      >
+        <BidItem {bid} />
       </div>
-      <Pagination total={$myBidsTotal} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
-    </div>
+      <div class="separator" />
+    {/each}
+    <Pagination total={$myBidsTotal} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
   {:else if $myBidsTotal === 0 && !$loading}
     <div class="flex justify-center items-center text-2xl text-gray-400 pt-20">No active bids found</div>
   {/if}

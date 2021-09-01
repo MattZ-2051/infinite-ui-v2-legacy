@@ -41,7 +41,7 @@
     <SkuPriceBox slot="sticky-cta" sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
     <div slot="tabs" class="pr-4" style="min-height: 300px">
       <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
-        <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-xl" class="mt-12 md:mt-16 mb-4">
+        <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-2xl" class="mt-12 md:mt-16 mb-4">
           <Tab id="description">
             <SkuDescription content={$sku.description} />
 

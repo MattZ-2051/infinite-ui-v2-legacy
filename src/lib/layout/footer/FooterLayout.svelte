@@ -16,8 +16,4 @@
     color: var(--footer-color);
     background-color: var(--footer-bg-color);
   }
-  .separator {
-    @apply h-px w-full;
-    background: var(--header-separator-bg-color);
-  }
 </style>
