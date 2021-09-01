@@ -8,9 +8,9 @@
 </script>
 
 {#if supply}
-  <div class="flex items-center whitespace-nowrap">
+  <section class="flex items-center whitespace-nowrap">
     <span>{supply.label}</span>
-  </div>
+  </section>
 {/if}
 
 <style lang="postcss"></style>
