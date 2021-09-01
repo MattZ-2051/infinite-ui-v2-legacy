@@ -20,7 +20,7 @@ function setTippy(userInput: TooltipInput, instance: Instance<Props>) {
   instance.enable();
 }
 
-export default function tooltip(node: HTMLElement, userInput: TooltipInput) {
+export default function tooltip(node: HTMLElement | SVGSVGElement, userInput: TooltipInput) {
   const instance = tippy(node, {});
   setTippy(userInput, instance);
   return {
