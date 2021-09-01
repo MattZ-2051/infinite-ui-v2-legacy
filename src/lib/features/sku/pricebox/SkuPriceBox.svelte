@@ -7,10 +7,10 @@
     getLimitedAuctionCollector,
     getLowestActiveListing,
   } from '../sku.service';
-  import LimitedAuction from './LimitedAuction.svelte';
   import { loadProduct } from '../../product/product.api';
-  import FromCreator from './FromCreator.svelte';
-  import FromCollectors from './FromCollectors.svelte';
+  import FromCreator from './button/FromCreator.svelte';
+  import FromCollectors from './button/FromCollectors.svelte';
+  import LimitedAuction from './button/LimitedAuction.svelte';
 
   export let sku: Sku;
   export let totalCollectors: number;
