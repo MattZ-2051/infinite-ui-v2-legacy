@@ -1,16 +1,27 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
-  import { getSupplyInfo } from '$lib/features/sku/sku.service';
+  import { createMessageType } from '$lib/features/sku/sku.service';
 
   export let item: Sku;
 
-  $: supply = getSupplyInfo(item);
+  $: supply = createMessageType(item);
+
+  const createMessage = (messageType: string, quantity: number): string | undefined => {
+    switch (messageType) {
+      case 'limited':
+        return `Limited to ${quantity} Editions`;
+      case 'released':
+        return item.minStartDate > new Date() ? `${quantity} to be Released` : `${quantity} Released`;
+      case 'unique':
+        return '1 of 1 Limited Edition';
+      default:
+        return undefined;
+    }
+  };
 </script>
 
 {#if supply}
-  <section class="flex items-center whitespace-nowrap">
-    <span>{supply.label}</span>
-  </section>
+  <div class="flex items-center whitespace-nowrap">
+    <span>{createMessage(supply.type, supply.quantity)}</span>
+  </div>
 {/if}
-
-<style lang="postcss"></style>

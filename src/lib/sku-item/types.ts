@@ -28,6 +28,7 @@ export type Sku = {
   totalSupply: number;
   totalSupplyLeft: number;
   totalSkuSupplyLeft: number;
+  totalUpcomingSupply: number;
   totalSupplyUpcoming: number;
   totalSkuListingSupplyLeft: number;
   totalSkuListingSupply?: number;

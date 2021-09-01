@@ -1,45 +1,6 @@
-import type { Sku, Listing, CollectorProduct, SupplyType } from '$lib/sku-item/types';
+import type { Sku, Listing, CollectorProduct } from '$lib/sku-item/types';
 
-type SupplyInfo = { type: SupplyType; label: string } | undefined;
-const UNIQUE_SUPPLY_INFO = { type: 'unique' as SupplyType, label: '1 of 1' };
-
-const fixedSupplyInfo = (sku: Sku): SupplyInfo => {
-  if (sku?.totalSupplyUpcoming > 0) {
-    return { type: 'limited', label: `Limited to ${sku.totalSupplyUpcoming}` };
-  }
-  if (sku.totalSupply > 0) {
-    return { type: 'limited', label: `Limited to ${sku.totalSupply}` };
-  }
-  if (sku?.skuListings?.length > 0 && sku?.expiredSkuListings?.length > 0) {
-    if (sku?.circulatingSupply === 0) {
-      return undefined;
-    }
-    return sku?.circulatingSupply === 1
-      ? UNIQUE_SUPPLY_INFO
-      : { type: 'limited', label: `Limited to ${sku.circulatingSupply}` };
-  }
-  return undefined;
-};
-
-const variableSupplyInfo = (sku: Sku): SupplyInfo => {
-  if (sku.circulatingSupply > 0) {
-    return { type: 'released', label: `${sku.circulatingSupply} released` };
-  }
-  if (sku.minStartDate > new Date()) {
-    return { type: 'released', label: `${sku.totalSupplyUpcoming} to be released` };
-  }
-  return undefined;
-};
-
-export const getSupplyInfo = (sku: Sku): SupplyInfo => {
-  if (sku?.maxSupply === 1) {
-    return UNIQUE_SUPPLY_INFO;
-  }
-  if (sku?.supplyType === 'fixed') {
-    return fixedSupplyInfo(sku);
-  }
-  return variableSupplyInfo(sku);
-};
+type SupplyInfo = { type: string; quantity: number } | undefined;
 
 export const getActiveListings = (sku: Sku): Listing[] => {
   return sku.activeSkuListings.filter((skuListing) => !skuListing.canceled);
@@ -72,4 +33,48 @@ export const getLowestActiveListing = (collectors: CollectorProduct[]): Collecto
       ? previousListing
       : currentListing;
   });
+};
+
+const limitedEditionMessageSelector = (quantity: number): SupplyInfo => {
+  if (quantity === 1) return { type: 'unique', quantity: 1 };
+  return limitedEditions(quantity);
+};
+
+const limitedEditions = (quantity: number): SupplyInfo => {
+  return { type: 'limited', quantity: quantity };
+};
+
+export const createMessageType = (sku: Sku): SupplyInfo => {
+  if (sku) {
+    const isFixed = sku.supplyType === 'fixed';
+    const hasListings = sku.skuListings?.length > 0;
+    const hasExpiredListings = sku.expiredSkuListings?.length > 0;
+    const isVariable = sku.supplyType === 'variable';
+    if (sku.maxSupply === 1) return { type: 'unique', quantity: sku.maxSupply };
+
+    if (isFixed && sku.totalUpcomingSupply > 0) {
+      if (hasListings) return limitedEditions(sku.totalUpcomingSupply + sku.totalSupply);
+      return limitedEditions(sku.totalUpcomingSupply);
+    }
+
+    if (isFixed && sku.totalSupply > 0) {
+      if (hasListings) return limitedEditionMessageSelector(sku.totalSupply);
+      return limitedEditions(sku.totalSupply);
+    }
+
+    if (isFixed && hasListings && hasExpiredListings) {
+      if (sku.circulatingSupply === 0) return undefined;
+      return limitedEditionMessageSelector(sku.circulatingSupply);
+    }
+
+    if (isVariable) {
+      if (sku.circulatingSupply > 0) return { type: 'released', quantity: sku.circulatingSupply };
+      if (sku.minStartDate > new Date()) {
+        return { type: 'released', quantity: sku.totalUpcomingSupply };
+      }
+    }
+    return undefined;
+  } else {
+    return undefined;
+  }
 };

@@ -9,7 +9,6 @@
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 
   export let sku: Sku;
-
   $: status = skuStatus(sku);
 </script>
 
