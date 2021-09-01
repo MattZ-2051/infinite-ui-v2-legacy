@@ -172,21 +172,23 @@ describe('API', () => {
         'content-range': '20-2/140',
       };
 
+      const headers = {
+        has: (key) => key in responseHeaders,
+        get: (key) => responseHeaders[key],
+      };
+
       mockFetch.mockReturnValueOnce(
         Promise.resolve({
           json: () => {
             return ['a', 'b', 'c'];
           },
-          headers: {
-            has: (key) => key in responseHeaders,
-            get: (key) => responseHeaders[key],
-          },
+          headers,
         })
       );
 
       const response = await getPage('my/path', { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'GET' }));
-      expect(response).toEqual({ data: ['a', 'b', 'c'], total: 140 });
+      expect(response).toEqual({ data: ['a', 'b', 'c'], total: 140, headers });
     });
   });
 

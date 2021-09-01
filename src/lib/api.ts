@@ -69,12 +69,12 @@ export async function get<T>(path: string, options?: ApiOptions): Promise<T> {
   return await send<T>(path, { ...options, method: 'GET' }).then((r) => r.body);
 }
 
-export async function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: T[]; total: number }> {
+export async function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: T[]; total: number; headers }> {
   return await send<T[]>(path, { ...options, method: 'GET' }).then(async (response) => {
     const { headers, body } = response;
     const total = +headers.get('content-range').split('/')[1];
 
-    return { data: body, total };
+    return { data: body, total, headers };
   });
 }
 
