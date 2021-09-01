@@ -75,7 +75,7 @@
   export let categories: { id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
-  export let maxPrice = 10_000;
+  export let maxPrice: number;
   export let total = 0;
 
   let active: ActiveType = [];

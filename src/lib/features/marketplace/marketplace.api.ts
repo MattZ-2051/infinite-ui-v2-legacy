@@ -24,13 +24,15 @@ export async function loadMarketplaceFilters({ fetch }: { fetch: Fetch }) {
   return { categories, creators, series };
 }
 
+export const perPage = 9;
+
 export async function loadMarketplaceItems({
   fetch,
   query,
 }: {
   fetch: Fetch;
   query: URLSearchParams;
-}): Promise<{ total: number; data: Sku[] }> {
+}): Promise<{ total: number; data: Sku[]; maxPrice: number }> {
   const page: number = +query.get('page') || 1;
   const mode = getModeParameters(query.get('mode'));
   const category: string = query.get('category');
@@ -43,12 +45,12 @@ export async function loadMarketplaceItems({
   const endDate: string = query.get('endDate');
   const search: string = query.get('search');
   const sortBy: string = query.get('sortBy') || 'startDate:1';
-  const { data, total } = await getPage<Sku>(`skus/tiles/`, {
+  const { data, total, headers } = await getPage<Sku>(`skus/tiles/`, {
     fetch,
     tracker: loading,
     params: {
       page: `${page}`,
-      per_page: `9`,
+      per_page: `${perPage}`,
       sortBy,
       ...mode,
       ...(category && { category }),
@@ -63,5 +65,5 @@ export async function loadMarketplaceItems({
     },
   });
 
-  return { data, total };
+  return { data, total, maxPrice: +headers.get('max-skus-min-price') || 100_000 };
 }

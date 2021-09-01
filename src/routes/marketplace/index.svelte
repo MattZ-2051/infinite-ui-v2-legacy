@@ -11,13 +11,14 @@
         loadMarketplaceFilters({ fetch }),
         loadMarketplaceItems({ fetch, query: page.query }),
       ]);
-      const { data, total } = items;
+      const { data, total, maxPrice } = items;
 
       return {
         props: {
           ...filters,
           skus: data,
           total,
+          maxPrice,
         },
       };
     },
@@ -31,6 +32,7 @@
 
   export let skus: Sku[];
   export let total: number;
+  export let maxPrice: number;
   export let categories: { id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
@@ -38,4 +40,4 @@
 
 <Seo title="Marketplace" />
 
-<Marketplace {skus} {total} {categories} {creators} {series} />
+<Marketplace {skus} {total} {maxPrice} {categories} {creators} {series} />

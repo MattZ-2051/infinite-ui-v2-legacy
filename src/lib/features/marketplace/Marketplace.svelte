@@ -8,11 +8,12 @@
   import { Pagination } from '$ui/pagination';
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
-  import { loading } from './marketplace.api';
+  import { loading, perPage } from './marketplace.api';
   import { setFilters } from './marketplace.service';
 
   export let skus: Sku[];
   export let total: number;
+  export let maxPrice: number;
   export let categories: { id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
@@ -77,14 +78,14 @@
     </div>
   </div>
   <div class="sticky md:block {!showFilters ? 'hidden' : 'block'}" style="top: var(--header-height)">
-    <Filters {categories} {creators} {series} {total} on:close={closeFilters} />
+    <Filters {categories} {creators} {series} {total} {maxPrice} on:close={closeFilters} />
   </div>
   <div class="md:inline {showFilters ? 'hidden' : 'inline'}" class:opacity-40={$loading}>
     {#if !$loading && skus.length === 0}
       <NoResults class="mt-4 md:mt-12" />
     {:else}
       <SkuItemGrid {skus} maxCols={3} />
-      <Pagination page={p} {total} perPage={6} class="flex justify-end" on:change={gotoPage} />
+      <Pagination page={p} {total} {perPage} class="flex justify-end" on:change={gotoPage} />
     {/if}
   </div>
 </div>
