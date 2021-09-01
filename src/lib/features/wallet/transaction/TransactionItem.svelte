@@ -13,6 +13,7 @@
   import usdcoin from './assets/usdcoin.png';
   import bitcoin from './assets/bitcoin.png';
   import ethcoin from './assets/ethcoin.png';
+  import addedFundsCoinbase from './assets/added-funds-coinbase.png';
 
   export let transaction: Transaction;
 
@@ -55,12 +56,18 @@
           <img class="h-14 w-14" src={usdcoin} alt="usdcoin" />
         {/if}
       {/if}
+
       {#if deposit.type === 'hbar'}
         <div class="h-14 w-14 border border-white-opacity-50 rounded-xl flex justify-center items-center">
           <Icon path={hedera} size="0.6" />
         </div>
       {/if}
+
+      {#if deposit.type === 'coinbase'}
+        <img class="h-14 w-14" src={addedFundsCoinbase} alt="coinbase" />
+      {/if}
     {/if}
+
     {#if type === 'nft_redeem'}
       <div class="h-14 w-14 border border-white-opacity-50 rounded-xl flex justify-center items-center">
         <IconRedeem />
@@ -151,11 +158,13 @@
                   USDC
                 {/if}
               </span>
-            {:else if deposit.type === 'hbar'}
+            {:else if deposit.type === 'hbar' || deposit.type === 'coinbase'}
               by depositing
               <span> {formatCurrency(+deposit.amount)} </span>
               using
-              <span> Hbar </span>
+              <span>
+                {deposit.type === 'coinbase' ? 'Coinbase' : 'Hbar'}
+              </span>
             {/if}
           {/if}
 
