@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { mdiArrowRight } from '@mdi/js';
   import { goto } from '$app/navigation';
-  import Icon from '$ui/icon/Icon.svelte';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import { user } from '$lib/user';
@@ -15,6 +13,7 @@
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
   import WithdrawModal from './withdraw/WithdrawModal.svelte';
+  import WalletButtons from './WalletButtons.svelte';
   import { wallet, withdrawableBalance } from './wallet.store';
   import { launchKYCPersona } from './kyc/personaClient.service';
   import { getDailyDepositLimitDisclaimer } from './kyc/kyc.service';
@@ -85,31 +84,10 @@
       </div>
     {/if}
   </div>
-  <div slot="sticky-cta" class="text-black">
-    <button
-      type="button"
-      class="flex items-center justify-between py-6 px-12 w-full font-medium text-2xl hover:bg-primary"
-      on:click={openDepositSelectModal}
-    >
-      <span>Deposit</span>
-      <Icon path={mdiArrowRight} size="2" rotate={-45} />
-    </button>
-    <div class="h-px w-full bg-black" />
-    <button
-      type="button"
-      class="flex items-center justify-between py-6 px-12 w-full font-medium text-2xl"
-      class:hover:bg-primary={canWithdraw}
-      on:click={() => openModal(WithdrawModal)}
-      disabled={!canWithdraw}
-    >
-      <span>Withdraw</span>
-      <Icon path={mdiArrowRight} size="2" rotate={45} />
-    </button>
-  </div>
+  <WalletButtons
+    slot="sticky-cta"
+    {canWithdraw}
+    on:deposit={openDepositSelectModal}
+    on:withdraw={() => openModal(WithdrawModal)}
+  />
 </StickyColumn>
-
-<style>
-  button {
-    background-color: #c4c4c4;
-  }
-</style>

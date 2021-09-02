@@ -22,7 +22,7 @@
   export let polling = false;
 
   $: classes = clsx(
-    'group block w-full text-left bg-white text-black px-8 py-5 font-normal',
+    'group block w-full text-left text-black px-8 py-5 font-normal',
     action || href ? 'flex items-center hover:bg-primary hover:text-white' : '',
     polling && 'opacity-50',
     _class

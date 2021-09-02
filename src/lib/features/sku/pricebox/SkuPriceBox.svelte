@@ -44,28 +44,36 @@
     lowestListingCollector?.listing?.saleType === 'auction' && lowestListingCollector?.listing?.status === 'upcoming';
 </script>
 
-{#if collector}
-  <LimitedAuction {collector} />
-{:else if active}
-  <FromCreator {sku} state="active" {activeListings} {onBuy} />
-{:else if upcoming}
-  <FromCreator {sku} state="upcoming" {upcomingSkuListings} {onBuy} />
-{:else if upcomingNftGiveAway}
-  <FromCreator {sku} state="upcomingNftGiveAway" {upcomingSkuListings} {onBuy} />
-{:else if activeNftGiveAway}
-  <FromCreator {sku} state="activeNftGiveAway" {activeListings} {onBuy} />
-{:else if noSale}
-  <FromCreator state="noSale" {sku} {onBuy} />
-{/if}
-
-{#if totalCollectors > 0}
-  {#if isActiveSale}
-    <FromCollectors {sku} collector={lowestListingCollector} status="activeSale" />
-  {:else if isActiveAuction}
-    <FromCollectors {sku} collector={lowestListingCollector} status="activeAuction" />
-  {:else if isUpcomingAuction}
-    <FromCollectors {sku} collector={lowestListingCollector} status="upcomingAuction" />
-  {:else if noCollectorSales}
-    <FromCollectors {sku} collector={lowestListingCollector} status="noneForSale" />
+<div class="flex flex-col divide-y divide-black">
+  {#if collector}
+    <LimitedAuction {collector} />
+  {:else if active}
+    <FromCreator {sku} state="active" {activeListings} {onBuy} />
+  {:else if upcoming}
+    <FromCreator {sku} state="upcoming" {upcomingSkuListings} {onBuy} />
+  {:else if upcomingNftGiveAway}
+    <FromCreator {sku} state="upcomingNftGiveAway" {upcomingSkuListings} {onBuy} />
+  {:else if activeNftGiveAway}
+    <FromCreator {sku} state="activeNftGiveAway" {activeListings} {onBuy} />
+  {:else if noSale}
+    <FromCreator state="noSale" {sku} {onBuy} />
   {/if}
-{/if}
+
+  {#if totalCollectors > 0}
+    {#if isActiveSale}
+      <FromCollectors {sku} collector={lowestListingCollector} status="activeSale" />
+    {:else if isActiveAuction}
+      <FromCollectors {sku} collector={lowestListingCollector} status="activeAuction" />
+    {:else if isUpcomingAuction}
+      <FromCollectors {sku} collector={lowestListingCollector} status="upcomingAuction" />
+    {:else if noCollectorSales}
+      <FromCollectors {sku} collector={lowestListingCollector} status="noneForSale" />
+    {/if}
+  {/if}
+</div>
+
+<style>
+  div {
+    background-color: var(--sku-cta-bg, #ffffff);
+  }
+</style>

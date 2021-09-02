@@ -18,7 +18,6 @@
   const href = status === 'noneForSale' ? routes.collectors(sku._id) : routes.product(collectorListing.product);
 </script>
 
-<div class="border-b-2 border-gray-800 bg-white" />
 <SkuPriceBoxButton {href} polling={$isPolling}>
   <div class="flex justify-between gap-2">
     {#if status === 'activeSale'}

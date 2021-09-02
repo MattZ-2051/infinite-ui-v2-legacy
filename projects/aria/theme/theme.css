@@ -87,6 +87,9 @@
   --icon-redeem-color: #ffffff;
   --icon-redeem-border-radius: 16px;
   --icon-redeem-bg: #2d2d2d;
+
+  /* SKU CTA */
+  --sku-cta-bg: #c4c4c4;
 }
 
 .theme-brand {
