@@ -20,9 +20,9 @@
     <label for={id} class="text-sm font-medium text-white-opacity-40"><slot name="label">{label}</slot></label>
   {/if}
   <div
-    class="flex flex-cols-{cols} items-center border-b-2 border-white-opacity-30 text-white-opacity-80 {error
+    class="flex flex-cols-{cols} items-center border-b text-default px-0.5 pb-1 {error
       ? 'border-red-500'
-      : 'border-gray-200'} px-0.5 pb-1"
+      : 'border-white-opacity-30 focus-within:border-default'}"
   >
     {#if $$slots.before || before}
       <div class="flex-none mr-4"><slot name="before" class="flex-none">{before}</slot></div>
