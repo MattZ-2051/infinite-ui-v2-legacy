@@ -27,9 +27,10 @@
   $: _sku = product ? product.sku : sku;
 
   let acceptedTerms = false;
+  let acceptedTermsNft = false;
 
   async function submitOrder() {
-    if (!acceptedTerms) {
+    if (!acceptedTerms || (sku?.customNftTerms && !acceptedTermsNft)) {
       toast.danger('Please agree to the terms and conditions.');
       return;
     }
@@ -118,7 +119,9 @@
           <span> You need more founds to make this purchase. </span>
           <Button href={routes.wallet}>Add Funds</Button>
         {:else}
-          <div class="flex items-center justify-center py-4 my-4">
+          <div
+            class="flex items-center justify-start pt-4 mt-4 {!sku?.customNftTerms ? 'pb-4 mb-4 justify-center' : ''}"
+          >
             <label class="inline-flex items-center">
               <input
                 type="checkbox"
@@ -128,6 +131,18 @@
               I accept the <a href={routes.terms} class="ml-1 underline">Terms & Conditions</a>
             </label>
           </div>
+          {#if sku?.customNftTerms}
+            <div class="flex items-center justify-start pt-1 my-1 pb-4 mb-4">
+              <label class="inline-flex items-center">
+                <input
+                  type="checkbox"
+                  bind:checked={acceptedTermsNft}
+                  class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
+                />
+                I accept the <a href={sku.customNftTerms} class="ml-1 underline">Nft Terms & Conditions</a>
+              </label>
+            </div>
+          {/if}
           <span class="font-bold text-center">
             <!-- <div class="text-black">
               Royalty fee per unit aprox {formatCurrency(royaltyFee)} ({_sku.royaltyFeePercentage}%)

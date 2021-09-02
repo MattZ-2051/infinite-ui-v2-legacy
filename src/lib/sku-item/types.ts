@@ -63,6 +63,7 @@ export type Sku = {
   soldSkuListings?: Listing[];
   nftPublicAssets: FileAsset[];
   minSkuPrice?: number;
+  customNftTerms?: string;
 };
 
 export type Profile = {
