@@ -11,7 +11,7 @@
 <div class="flex flex-col divide-y divide-black">
   <button
     type="button"
-    class="flex items-center justify-between py-6 px-12 w-full font-medium text-2xl text-black hover:bg-primary hover:text-white"
+    class="flex items-center justify-between py-4 px-10 w-full font-medium text-2xl text-black hover:bg-primary hover:text-white"
     on:click={() => dispatch('deposit')}
   >
     <span>Deposit</span>
@@ -19,7 +19,7 @@
   </button>
   <button
     type="button"
-    class="flex items-center justify-between py-6 px-12 w-full font-medium text-2xl text-black {canWithdraw
+    class="flex items-center justify-between py-4 px-10 w-full font-medium text-2xl text-black {canWithdraw
       ? 'hover:bg-primary hover:text-white'
       : ''}"
     on:click={() => dispatch('withdraw')}

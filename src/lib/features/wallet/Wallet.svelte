@@ -65,7 +65,11 @@
   <div slot="onscreen-content" class="py-12 md:pl-12">
     <WalletList {tab} />
   </div>
-  <div slot="sticky-content" class="h-full p-12" style="background-color: #1D1A54;">
+  <div
+    slot="sticky-content"
+    class="h-full px-4 py-6 md:px-8 md:py-12 -container-x md:-container-none"
+    style="background-color: #1D1A54;"
+  >
     <WalletBalance
       balance={$user?.balance}
       availableBalance={$user?.availableBalance}
