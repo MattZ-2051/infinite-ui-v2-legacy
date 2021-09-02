@@ -7,7 +7,7 @@
 
 <div class="w-full">
   <div class="separator" />
-  <div class="flex py-5 justify-between gap-2 items-center text-sm leading-8">
+  <div class="flex py-5 justify-between gap-2 items-center text-sm leading-8 flex-col sm:flex-row">
     <div class="flex gap-4 items-center">
       <div class="rounded-full bg-default p-3">
         <Icon path={hedera} size="0.75" color="var(--bg-color)" />
