@@ -200,7 +200,7 @@
     position: absolute;
     top: -28px;
     z-index: 3;
-    color: #000000;
+    color: var(--color);
     /* height: 28px; */
     align-items: center;
     justify-content: center;
