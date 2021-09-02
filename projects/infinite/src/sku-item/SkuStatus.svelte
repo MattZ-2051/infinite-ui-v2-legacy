@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Sku, Status } from '$lib/sku-item/types';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
+  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { skuStatus } from '$lib/sku-item/status';
 
   export let item: Sku;
@@ -12,8 +12,7 @@
 
 <section>
   {#if status === 'upcoming'}
-    <span class="opacity-50">Upcoming on:</span>
-    <span>{formatDate(item.minStartDate, 'MMM D')}</span>
+    <span class="opacity-50">Upcoming</span>
   {:else if status === 'upcoming-soon'}
     <span class="opacity-50">Upcoming in:</span>
     <TimeDifference date={item.minStartDate} />
