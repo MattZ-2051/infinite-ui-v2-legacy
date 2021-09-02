@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Profile } from '$lib/sku-item/types';
-  import imageError from '$util/imageError';
   import routes from '$lib/routes';
 
   export let profile: Profile;
@@ -8,12 +7,9 @@
 </script>
 
 <div class="flex flex-col justify-center items-center">
-  <img
-    src={`${profile.profilePhotoUrl}?t=${profile.updatedAt}`}
-    alt=""
-    class="w-24 h-24 p-1 rounded-full"
-    use:imageError={() => (profile.profilePhotoUrl = undefined)}
-  />
+  {#if profile.profilePhotoUrl}
+    <img src={`${profile.profilePhotoUrl}?t=${profile.updatedAt}`} alt="" class="w-24 h-24 p-1 rounded-full" />
+  {/if}
   <div class="text-xl md:text-2xl font-medium mt-6">
     {#if profile.firstName && profile.lastName}
       {profile.firstName} {profile.lastName}
@@ -43,10 +39,3 @@
     </div>
   {/if}
 </div>
-
-<!-- <div class="py-3 px-5 divide-x-2 bg-black bg-opacity-70 rounded-full text-white">
-  <UserLink username={$user.username} class="mr-3">My Collection</UserLink>
-  <span class="border-l border-gray-500 pl-4"
-    ><a href={routes.wallet} sveltekit:prefetch class="link">My wallet</a></span
-  >
-</div> -->

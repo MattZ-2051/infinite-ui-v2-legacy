@@ -8,10 +8,23 @@ export async function loadProfile({ username, fetch }: { username: string; fetch
   return profile;
 }
 
-export async function loadSkus({ profileId, page, fetch }: { profileId: string; page: number; fetch?: Fetch }) {
+export async function loadSkus({
+  profileId,
+  page,
+  sortBy,
+  fetch,
+}: {
+  profileId: string;
+  page: number;
+  sortBy: string;
+  fetch?: Fetch;
+}) {
   const { data: skus, total: totalSkus } = await getPage<Sku>(
-    `skus/tiles/?issuerId=${profileId}&page=${page}&per_page=8&sortBy=startDate:1`,
+    `skus/tiles/?issuerId=${profileId}&page=${page}&per_page=8`,
     {
+      params: {
+        ...(sortBy && { sortBy }),
+      },
       fetch,
     }
   );
@@ -19,10 +32,23 @@ export async function loadSkus({ profileId, page, fetch }: { profileId: string; 
   return { skus, totalSkus };
 }
 
-export async function loadProducts({ profileId, page, fetch }: { profileId: string; page: number; fetch?: Fetch }) {
+export async function loadProducts({
+  profileId,
+  page,
+  sortBy,
+  fetch,
+}: {
+  profileId: string;
+  page: number;
+  sortBy: string;
+  fetch?: Fetch;
+}) {
   const { data: products, total: totalProducts } = await getPage<Product>(
     `products?owner=${profileId}&includeFunctions=true&page=${page}&per_page=8`,
     {
+      params: {
+        ...(sortBy && { sortBy }),
+      },
       fetch,
     }
   );

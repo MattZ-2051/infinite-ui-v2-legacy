@@ -11,16 +11,18 @@
   export { _class as class };
 </script>
 
-<div class="flex items-center gap-2 whitespace-nowrap {_class || ''}" {...$$restProps}>
-  {#if !hideImage && profile.profilePhotoUrl}
-    <img
-      class="{imageClass} rounded-full"
-      src={profile.profilePhotoUrl}
-      alt=""
-      loading="lazy"
-      use:imageError={() => (hideImage = true)}
-    />
-  {/if}
-  <a href={routes.collection(profile.username)} sveltekit:prefetch><slot>{profile.username}</slot></a>
-  <IconVerified />
-</div>
+{#if profile}
+  <div class="flex items-center gap-2 whitespace-nowrap {_class || ''}" {...$$restProps}>
+    {#if !hideImage && profile.profilePhotoUrl}
+      <img
+        class="{imageClass} rounded-full"
+        src={profile.profilePhotoUrl}
+        alt=""
+        loading="lazy"
+        use:imageError={() => (hideImage = true)}
+      />
+    {/if}
+    <a href={routes.collection(profile.username)} sveltekit:prefetch><slot>{profile.username}</slot></a>
+    <IconVerified />
+  </div>
+{/if}

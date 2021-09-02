@@ -1,21 +1,23 @@
 <script context="module" lang="ts">
   import type { LoadInput } from '@sveltejs/kit';
-  import type { Profile } from '$lib/sku-item/types';
-  import { loadProductsFx, loadProfileFx, loadSkusFx } from '$lib/features/collection/collection.store';
+  import type { Awaited } from 'ts-essentials';
+  import { loadCollectionFx, setCollection } from '$lib/features/collection/collection.store';
 
   export async function load({ page, fetch }: LoadInput) {
     const { username } = page.params;
-    const profile = await loadProfileFx({ username, fetch });
-    const tab = page.query.get(`tab`) || (profile.role === 'issuer' ? 'Releases' : 'NFTs');
     const _page = +page.query.get(`page`) || 1;
+    const sortBy: string = page.query.get('sortBy');
 
-    if (tab === 'Releases') {
-      await loadSkusFx({ page: _page, profileId: profile._id, fetch });
-    } else if (tab === 'NFTs') {
-      await loadProductsFx({ page: _page, profileId: profile._id, fetch });
-    }
+    const data = await loadCollectionFx({
+      username,
+      tab: page.query.get(`tab`) as 'Releases' | 'NFTs',
+      page: _page,
+      sortBy,
+      fetch,
+    });
+
     return {
-      props: { profile },
+      props: { data },
     };
   }
 </script>
@@ -23,15 +25,12 @@
 <script lang="ts">
   import { Seo } from '$lib/seo';
   import Collection from '$lib/features/collection/Collection.svelte';
-  import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
 
-  export let profile: Profile;
+  export let data: Awaited<ReturnType<typeof loadCollectionFx>>;
+
+  $: setCollection(data);
 </script>
 
-<Seo title={profile.username} image={profile.bannerPhotoUrl} />
+<Seo title={data.profile.username} image={data.profile.bannerPhotoUrl} />
 
-{#if profile}
-  <Collection {profile} />
-{:else}
-  <FullScreenLoader />
-{/if}
+<Collection />
