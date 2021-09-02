@@ -14,5 +14,5 @@ export type CryptoAddressWaiterOptions = {
   txLinkStore: Writable<string>;
   timeoutStore: Writable<ReturnType<typeof setTimeout>>;
   requestFilters?: Record<string, string>;
-  responseFilter?: (txResponse: any) => boolean;
+  responseFilter?: (txResponse: unknown) => boolean;
 };

@@ -55,7 +55,7 @@ async function _waitForTx(waiterOptions: CryptoAddressWaiterOptions, startBlock:
     ...requestFilters,
   });
 
-  const responseFilter = waiterOptions.responseFilter || ((_) => true);
+  const responseFilter = waiterOptions.responseFilter || (() => true);
 
   const filteredTxs = txList.filter(
     (txResponse) => responseFilter(txResponse) && Number.parseInt(txResponse.blockNumber) > startBlock

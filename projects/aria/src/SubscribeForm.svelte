@@ -42,7 +42,7 @@
     />
     <div class="absolute transform -translate-y-1/2 top-1/2 right-0">
       <Button --button-padding="10px 48px" animate={false} class="whitespace-nowrap text-sm" type="submit"
-        >Sign Up</Button
+        >Join now</Button
       >
     </div>
   </form>
