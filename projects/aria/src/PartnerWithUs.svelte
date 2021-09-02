@@ -62,8 +62,8 @@
           <span class="border-b-2  py-4 text-2xl">Talent Details</span>
           <div class="flex justify-between flex-col md:flex-row  gap-16">
             <div class="flex flex-col gap-4 text-lg" style="flex-grow:6;">
-              <FormInput name="talent" label="Talent Name" placeholder="John Brown" />
-              <FormInput name="email" label="Email Address" placeholder="john.brown@example.com" />
+              <FormInput name="talent" label="Talent Name *" placeholder="John Brown" />
+              <FormInput name="email" label="Email Address *" placeholder="john.brown@example.com" />
               <FormInput name="expYear" label="Relationship to Talent" placeholder="Self or Other" />
               <FormInput name="industry" label="Industry" placeholder="Art,Music,Sport etc." />
             </div>
