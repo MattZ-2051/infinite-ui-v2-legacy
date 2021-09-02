@@ -77,6 +77,7 @@ specifiers:
   svelte-preprocess: 4.8.0
   svelte-previous: ^2.0.0
   svelte-seo: ^1.2.1
+  swiper: ^7.0.2
   tailwindcss: 2.2.9
   tinycolor2: ^1.4.2
   tippy.js: 6.3.1
@@ -110,6 +111,7 @@ dependencies:
   svelte-media: 0.1.5_svelte@3.42.4
   svelte-popperjs: 1.2.6_@popperjs+core@2.9.3
   svelte-previous: 2.0.0
+  swiper: 7.0.2
   tippy.js: 6.3.1
   xss: 1.0.9
   yup: 0.32.9
@@ -8046,6 +8048,12 @@ packages:
     resolution: {integrity: sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w==}
     dev: true
 
+  /dom7/4.0.0:
+    resolution: {integrity: sha512-xOJ0LAHFwktyj8Xljz4R2wzRI+Y9mR0plkMP0WlqtwqAkqn/vbdAyRifiW/w8mXe17LGktntcAwsQ5fKVDBNYg==}
+    dependencies:
+      ssr-window: 4.0.0
+    dev: false
+
   /domain-browser/1.2.0:
     resolution: {integrity: sha512-jnjyiM6eRyZl2H+W8Q/zLMA481hzi0eszAaBUzIVnmYVDBbnLxVNnfu1HgEBvCbL+71FrxMl3E6lpKH7Ge3OXA==}
     engines: {node: '>=0.4', npm: '>=1.2'}
@@ -15239,6 +15247,10 @@ packages:
       tweetnacl: 0.14.5
     dev: true
 
+  /ssr-window/4.0.0:
+    resolution: {integrity: sha512-qCg6wJNeGNTVcPK2KFNfwtHU1gA3UZDZdxogu+Ys5+Ue5PMOENxUb7sscpAWWo4mWOBkJRCwQ50IlyA7qZ0hxw==}
+    dev: false
+
   /ssri/6.0.2:
     resolution: {integrity: sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==}
     dependencies:
@@ -15780,6 +15792,15 @@ packages:
       csso: 4.2.0
       stable: 0.1.8
     dev: true
+
+  /swiper/7.0.2:
+    resolution: {integrity: sha512-cPqpW3s5tPxeH5CXPh+ZiS4hILhF3nZ9ukb34Sdfm94oFso5cIT2i6Y3yAe1g1/7bGKneNSqKkLNokj1WnO4Xg==}
+    engines: {node: '>= 4.7.0'}
+    requiresBuild: true
+    dependencies:
+      dom7: 4.0.0
+      ssr-window: 4.0.0
+    dev: false
 
   /symbol-observable/1.2.0:
     resolution: {integrity: sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==}

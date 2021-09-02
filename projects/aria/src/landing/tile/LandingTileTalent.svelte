@@ -8,7 +8,7 @@
 
 <div class="flex flex-col gap-4">
   <div class="relative">
-    <img src={talent.bannerPhotoUrl} alt="" class="w-full" style="aspect-ratio: 1/1;" />
+    <img src={talent.bannerPhotoUrl} alt="" class="w-full object-cover" style="aspect-ratio: 1/1;" />
     <SkuDescription issuer={talent} />
   </div>
   <TalentLink profile={talent} />
