@@ -27,8 +27,8 @@
         <slot name="onscreen-content" />
       </div>
     </div>
-    <div class="flex flex-col w-full md:w-1/2 lg:w-1/3 md:sticky" style="top: var(--header-height);">
-      <div style={$media.md ? `height: calc(100vh - ${ctaHeight}px - var(--header-height))` : ''}>
+    <div class="sticky-content-wrapper flex flex-col w-full md:w-1/2 lg:w-1/3 md:sticky">
+      <div class="sticky-content">
         <slot name="sticky-content" />
       </div>
       <div class="fixed bottom-0 left-0 right-0 md:static z-50">
@@ -44,3 +44,18 @@
 
   <slot name="offscreen-content" />
 </div>
+
+<style lang="postcss">
+  .sticky-content-wrapper {
+    top: var(--header-height);
+  }
+
+  @screen md {
+    .sticky-content-wrapper {
+      height: calc(100vh - var(--header-height));
+    }
+    .sticky-content {
+      flex: 1;
+    }
+  }
+</style>
