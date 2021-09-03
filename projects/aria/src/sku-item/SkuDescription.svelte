@@ -11,10 +11,7 @@
       <TalentLink profile={issuer} class="text-primary text-2xl mb-4" imageClass="w-10 h-10" />
       <div class="flex-1 overflow-hidden mb-4">
         <div class="card-description-text">
-          <!-- {sku.description} -->
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci excepturi eius suscipit. Sint, animi assumenda
-          perspiciatis molestias sequi numquam iure ipsam beatae nemo inventore facere recusandae voluptates. Iste, harum
-          itaque!
+          {#if issuer.descriptionShort}{issuer.descriptionShort}{/if}
         </div>
       </div>
     </div>

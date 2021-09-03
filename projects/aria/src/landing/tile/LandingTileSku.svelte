@@ -38,10 +38,7 @@
               {/if}
 
               <div class="flex-1 overflow-hidden mb-4">
-                <!-- {sku.description} -->
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi magni ipsam cumque atque culpa, unde
-                sit recusandae, molestias, corporis illum temporibus praesentium quo id nesciunt voluptatibus corrupti necessitatibus
-                reiciendis itaque.
+                {#if sku.descriptionShort}{sku.descriptionShort}{/if}
               </div>
             </div>
             <div class="flex justify-between">

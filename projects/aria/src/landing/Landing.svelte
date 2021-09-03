@@ -89,19 +89,21 @@
     </Tabs>
   </div>
 
-  <Tabs items={[{ id: 'upcomings', title: 'Upcoming Drops' }]} class="text-3xl mb-4">
-    <Tab id="upcomings">
-      <div class="-mr-4 sm:mr-0">
-        <svelte:component this={Swiper} {...swiperConfig}>
-          {#each upcomings as sku}
-            <svelte:component this={SwiperSlide}>
-              <LandingTileSku {sku} />
-            </svelte:component>
-          {/each}
-        </svelte:component>
-      </div>
-    </Tab>
-  </Tabs>
+  {#if upcomings.length > 0}
+    <Tabs items={[{ id: 'upcomings', title: 'Upcoming Drops' }]} class="text-3xl mb-4">
+      <Tab id="upcomings">
+        <div class="-mr-4 sm:mr-0">
+          <svelte:component this={Swiper} {...swiperConfig}>
+            {#each upcomings as sku}
+              <svelte:component this={SwiperSlide}>
+                <LandingTileSku {sku} />
+              </svelte:component>
+            {/each}
+          </svelte:component>
+        </div>
+      </Tab>
+    </Tabs>
+  {/if}
 </div>
 
 <div class="mt-12 md:mt-24 mb-24">

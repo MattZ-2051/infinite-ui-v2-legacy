@@ -115,7 +115,7 @@ input[type='number'] {
   scrollbar-width: none;
 }
 .scrollbox {
-  @apply overflow-scroll h-full;
+  @apply overflow-scroll h-full w-full;
   background:
   /* Shadow covers */ linear-gradient(rgb(196, 196, 196) 0%, rgba(255, 255, 255, 0)),
     linear-gradient(rgba(255, 255, 255, 0), rgb(196, 196, 196) 0%) 0 100%,

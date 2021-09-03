@@ -2,6 +2,8 @@
   import { mdiArrowRight } from '@mdi/js';
   import Image from '$ui/image/Image.svelte';
   import Icon from '$ui/icon/Icon.svelte';
+  import { user } from '$lib/user';
+  import routes from '$lib/routes';
   import Button from '$lib/components/Button.svelte';
   import eye from './assets/eye.png?w=87&format=avif;webp;png&metadata';
   import flame from './assets/flame.png?w=87&format=avif;webp;png&metadata';
@@ -49,9 +51,11 @@
 <div class="mt-8 md:mt-20 lg:mt-32 bg-primary-dark">
   <div class="container p-12 flex flex-col gap-10">
     <span class="text-4xl text-center">Join our collective and let’s build our digital community together! </span>
-    <div class="flex justify-center">
-      <Button --button-padding="8px 40px">JOIN ARIA</Button>
-    </div>
+    {#if !$user}
+      <div class="flex justify-center">
+        <Button href={routes.signup} --button-padding="8px 40px">JOIN ARIA</Button>
+      </div>
+    {/if}
     <div class="flex flex-col  md:flex-row gap-4" style="font-size:27px;">
       <div class="flex flex-col gap-4 items-center flex-grow">
         <div class="h-36 flex items-center">

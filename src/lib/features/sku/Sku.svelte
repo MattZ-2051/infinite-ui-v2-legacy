@@ -12,10 +12,11 @@
   import { sku, collectors, totalCollectors, related } from './sku.store';
 
   function getItems(totalPrivateAssets: number) {
-    let items = [
-      { id: 'description', title: 'Description' },
-      { id: 'details', title: 'Details' },
-    ];
+    let items = [{ id: 'description', title: 'Description' }];
+
+    if ($sku.details) {
+      items.push({ id: 'details', title: 'Details' });
+    }
 
     if (totalPrivateAssets > 0) {
       items.push({ id: 'owner', title: 'Owner Access' });
@@ -51,11 +52,7 @@
           </Tab>
 
           <Tab id="details">
-            <SkuDescription
-              content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore consequatur ipsam accusantium consectetur,
-          fuga voluptas impedit sequi corporis doloribus earum quis vero officia, qui quidem! Quae sint temporibus
-          facere saepe."
-            />
+            <SkuDescription content={$sku.details} />
           </Tab>
 
           <Tab id="owner">

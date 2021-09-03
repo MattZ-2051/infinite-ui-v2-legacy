@@ -15,7 +15,9 @@ export default Object.freeze({
   terms: '/terms',
   about: '/about',
   careers: '/careers',
-  createAccount: '/create-account',
+  signin: '/auth/signin',
+  signout: '/auth/signout',
+  signup: '/auth/signup',
   partner: '/partner',
   ...routes,
 });

@@ -9,6 +9,8 @@ export type Sku = {
   rarity: Rarity;
   name: string;
   description: string;
+  descriptionShort?: string;
+  details?: string;
   display: boolean;
   supplyType: 'variable' | 'fixed'; // TODO: add more supply types
   featured: boolean;
@@ -82,6 +84,7 @@ export type Profile = {
   firstName?: string;
   lastName?: string;
   showNotifyMe?: boolean;
+  descriptionShort?: string;
 };
 
 export type Listing = {
