@@ -122,7 +122,7 @@
     activeSkuListings: [],
     minStartDate: dummyDate,
     supplyType: 'fixed',
-    totalSupplyUpcoming: 10,
+    totalUpcomingSupply: 10,
   };
 
   const noSaleSku = {

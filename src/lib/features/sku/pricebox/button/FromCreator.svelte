@@ -48,7 +48,7 @@
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
         <div class="text-xl">Upcoming</div>
-        <div class="text-black-opacity-50 text-sm">{sku?.totalSupplyUpcoming} NFT</div>
+        <div class="text-black-opacity-50 text-sm">{sku?.totalUpcomingSupply} NFT</div>
       </div>
       <div class="flex-grow justify-center text-right text-xl">
         <TimeDifference date={sku?.minStartDate} />
