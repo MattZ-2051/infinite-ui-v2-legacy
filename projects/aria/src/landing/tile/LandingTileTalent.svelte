@@ -6,7 +6,7 @@
   export let talent: Profile;
 
   let photoUrl: string;
-  $: photoUrl = talent.profilePhotoUrls.find(({ position }) => position === '1')?.url;
+  $: photoUrl = talent.profilePhotoUrls.find(({ position }) => position === '2')?.url;
 </script>
 
 <div class="flex flex-col gap-4">
