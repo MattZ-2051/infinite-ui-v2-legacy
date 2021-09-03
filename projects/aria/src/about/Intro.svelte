@@ -5,9 +5,9 @@
   import { user } from '$lib/user';
   import routes from '$lib/routes';
   import Button from '$lib/components/Button.svelte';
-  import eye from './assets/eye.png?w=87&format=avif;webp;png&metadata';
-  import flame from './assets/flame.png?w=87&format=avif;webp;png&metadata';
-  import dollar from './assets/dollar.png?w=87&format=avif;webp;png&metadata';
+  import trust from './assets/trust.png?w=184&format=avif;webp;png&metadata';
+  import carbon from './assets/carbon.png?w=135&format=avif;webp;png&metadata';
+  import currency from './assets/currency.png?w=283&format=avif;webp;png&metadata';
   import deposit from './assets/deposit.png?w=173&format=avif;webp;png&metadata';
   import purchase from './assets/purchase.png?w=173&format=avif;webp;png&metadata';
   import social from './assets/social.png?w=173&format=avif;webp;png&metadata';
@@ -25,13 +25,17 @@
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-x-24 gap-y-8 text-center text-lg">
     <div class="flex flex-col gap-8 items-center">
-      <Image src={eye} />
+      <div class="h-44 flex items-center">
+        <Image src={trust} />
+      </div>
       <span class="text-2xl">TRUST</span>
       <span>The whole truth and nothing but the truth. You buy it. We verify it. You own it.</span>
     </div>
 
     <div class="flex flex-col gap-8 items-center">
-      <Image src={flame} />
+      <div class="h-44 flex items-center">
+        <Image src={carbon} />
+      </div>
       <span class="text-2xl">CARBON NEGATIVE</span>
       <span
         >We care about our planet and we think you should too. Our transactions are the fastest in the industry and we
@@ -41,7 +45,9 @@
     </div>
 
     <div class="flex flex-col gap-8 items-center">
-      <Image src={dollar} />
+      <div class="h-44 flex items-center">
+        <Image src={currency} />
+      </div>
       <span class="text-2xl">CURRENCY</span>
       <span>We don't discriminate. We accept Ether, Bitcoin, Credit Cards and USDC.</span>
     </div>
@@ -76,7 +82,7 @@
         </div>
         <div class="flex flex-col text-center ">
           <span>Purchase or</span>
-          <span>bid</span>
+          <span>place a bid</span>
         </div>
       </div>
       <div class="flex items-center justify-center transform rotate-90 md:transform-none text-white-opacity-80">
