@@ -19,6 +19,7 @@
       hederaAccount: '0.0.1894157',
       createdAt: '2021-06-09T20:59:22.410Z',
       updatedAt: '2021-06-09T21:01:19.569Z',
+      verified: true,
       __v: 0,
     },
     issuerName: 'Nike',

@@ -21,6 +21,7 @@ export const item = {
   issuer: {
     username: 'Nike',
     profilePhotoUrl: 'https://infinite-digital-dev.s3.amazonaws.com/6048e601782c593a7c6dffc0-profilePhoto.jpeg',
+    verified: true,
   },
   maxSupply: 5,
   supplyType: 'fixed',

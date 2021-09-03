@@ -2,7 +2,11 @@
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
   import TalentLink from './TalentLink.svelte';
 
-  const profile = { username: 'username', profilePhotoUrl: 'https://image.flaticon.com/icons/png/512/147/147144.png' };
+  const profile = {
+    username: 'username',
+    profilePhotoUrl: 'https://image.flaticon.com/icons/png/512/147/147144.png',
+    verified: true,
+  };
 </script>
 
 <Meta title="Lib / components / TalentLink" />
@@ -12,6 +16,7 @@
     <TalentLink {profile} />
     <TalentLink {profile} hideImage />
     <TalentLink {profile} class="text-red-600 text-3xl font-bold" imageClass="w-10 h-10" />
+    <TalentLink profile={{ ...profile, verified: false }} />
   </div>
 </Template>
 
