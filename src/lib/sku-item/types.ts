@@ -85,6 +85,8 @@ export type Profile = {
   lastName?: string;
   showNotifyMe?: boolean;
   descriptionShort?: string;
+  profilePhotoUrls?: [{ url: string; position: string }];
+  profileTextFields?: [{ text: string; position: string }];
 };
 
 export type Listing = {

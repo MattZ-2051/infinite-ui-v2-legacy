@@ -38,7 +38,7 @@
               {/if}
 
               <div class="flex-1 overflow-hidden mb-4">
-                {#if sku.descriptionShort}{sku.descriptionShort}{/if}
+                {sku.descriptionShort || ''}
               </div>
             </div>
             <div class="flex justify-between">

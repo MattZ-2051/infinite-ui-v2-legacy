@@ -4,11 +4,14 @@
   import SkuDescription from '$project/sku-item/SkuDescription.svelte';
 
   export let talent: Profile;
+
+  let photoUrl: string;
+  $: photoUrl = talent.profilePhotoUrls.find(({ position }) => position === '1')?.url;
 </script>
 
 <div class="flex flex-col gap-4">
   <div class="relative">
-    <img src={talent.bannerPhotoUrl} alt="" class="w-full object-cover" style="aspect-ratio: 1/1;" />
+    <img src={photoUrl} alt="" class="w-full object-cover" style="aspect-ratio: 1/1;" />
     <SkuDescription issuer={talent} />
   </div>
   <TalentLink profile={talent} />
