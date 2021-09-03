@@ -6,6 +6,7 @@
   import { Pagination } from '$ui/pagination';
   import { gotoQueryParameters } from '$util/queryParameter';
   import TransactionItem from './TransactionItem.svelte';
+  import TransactionDetails from './TransactionDetails.svelte';
   import { myTransactions, myTransactionsTotal, loadMyTransactionsFx } from '../wallet.store';
 
   function gotoPage(event: CustomEvent) {
@@ -27,7 +28,7 @@
       {#each $myTransactions as transaction}
         <Accordion titleClass="py-6">
           <TransactionItem slot="title" {transaction} />
-          <div class="py-2"><span class="message">Transaction ID: </span>{transaction._id}</div>
+          <TransactionDetails {transaction} />
         </Accordion>
         <div class="separator" />
       {/each}
