@@ -10,6 +10,7 @@
   --color: #ffffff;
   --link-color: var(--primary);
   --separator-bg-color: linear-gradient(90deg, #c000d6 0%, #6734ff 100%);
+  --icon-bg-color: #2d2d2d;
 
   /* Filters */
   --filters-color-active: var(--color);
@@ -54,7 +55,7 @@
   --footer-bg-color: #000000;
   --footer-color: #7c7c7c;
   --footer-color-hover: #ffffff;
-  --footer-icon-bg-color: #2e2e2e;
+  --footer-icon-bg-color: var(--icon-bg-color);
   --footer-icon-color: #ffffff;
   --footer-icon-bg-color-hover: #ffffff;
   --footer-icon-color-hover: #000000;
@@ -86,7 +87,7 @@
   /* Icon Redeem */
   --icon-redeem-color: #ffffff;
   --icon-redeem-border-radius: 16px;
-  --icon-redeem-bg: #2d2d2d;
+  --icon-redeem-bg-color: var(--icon-bg-color);
 
   /* SKU CTA */
   --sku-cta-bg: #c4c4c4;

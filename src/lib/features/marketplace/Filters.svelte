@@ -236,13 +236,11 @@
       />
 
       <div class="flex gap-6 mt-10">
-        <Input let:klass let:id>
-          <span class="text-white-opacity-40 mr-4" slot="before">From</span>
+        <Input label="From" let:klass let:id>
           <input type="number" {id} class={klass} bind:value={priceRange[0]} on:input={onMinPriceChange} />
         </Input>
 
-        <Input let:klass let:id>
-          <span class="text-white-opacity-40 mr-4" slot="before">To</span>
+        <Input label="To" let:klass let:id>
           <input type="number" {id} class={klass} bind:value={priceRange[1]} on:input={onMaxPriceChange} />
         </Input>
       </div>

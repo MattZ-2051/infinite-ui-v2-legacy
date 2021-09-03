@@ -20,6 +20,6 @@
   .redeem-trigger {
     color: var(--icon-redeem-color);
     border-radius: var(--icon-redeem-border-radius);
-    background: var(--icon-redeem-bg);
+    background: var(--icon-redeem-bg-color);
   }
 </style>

@@ -45,7 +45,7 @@ export async function loadMarketplaceItems({
   const endDate: string = query.get('endDate');
   const search: string = query.get('search');
   const sortBy: string = query.get('sortBy') || 'startDate:1';
-  const { data, total, headers } = await getPage<Sku>(`skus/tiles/`, {
+  const { data, total } = await getPage<Sku>(`skus/tiles/`, {
     fetch,
     tracker: loading,
     params: {
@@ -65,5 +65,5 @@ export async function loadMarketplaceItems({
     },
   });
 
-  return { data, total, maxPrice: +headers.get('max-skus-min-price') || 100_000 };
+  return { data, total, maxPrice: /* +headers.get('max-skus-min-price') || */ 100_000 };
 }
