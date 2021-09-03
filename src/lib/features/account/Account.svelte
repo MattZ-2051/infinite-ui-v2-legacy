@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { User } from '$lib/user/types';
-  import { openModal } from '$ui/modals';
   import AccountInfo from './AccountInfo.svelte';
-  import AccountInfoModal from './AccountInfoModal.svelte';
   import AccountDetails from './AccountDetails.svelte';
 
   export let user: User;
@@ -14,11 +12,11 @@
 
   <div class="flex flex-col items-center md:flex-row md:items-start gap-x-24 gap-y-6 mt-6">
     <div class="w-full max-w-sm px-5 py-7" style="background-color: #1d1a54;">
-      <AccountInfo {user} on:edit={() => openModal(AccountInfoModal)} />
+      <AccountInfo {user} />
     </div>
 
     <div class="w-full max-w-md px-5">
-      <AccountDetails />
+      <AccountDetails {user} />
     </div>
   </div>
 </div>

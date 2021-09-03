@@ -3,7 +3,7 @@ import type { Readable } from 'svelte/store';
 import { derived, writable, get as getStoreValue } from 'svelte/store';
 import { isAuthenticated, initAuth, userExternalId } from '$lib/auth';
 import { localStorageWritable } from '$util/localstorage-store';
-import { post, send } from '$lib/api';
+import { patch, post, send } from '$lib/api';
 
 // Keep a reference between the external (Auth0) id
 const externalIdMap = localStorageWritable<Pick<User, '_id' | 'externalId'>>('user:id', undefined);
@@ -28,6 +28,11 @@ export async function updateUser(): Promise<User> {
   user.set(me);
 
   return me;
+}
+
+export async function patchUser(data: Partial<User>) {
+  const me = await patch<User>('users/me', data);
+  user.set({ ...getStoreValue(user), ...me });
 }
 
 export function clearUser(): void {

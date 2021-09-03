@@ -8,12 +8,13 @@
   export let label = '';
   export let value = '';
   export let placeholder = '';
+  export let disabled = false;
 
   const errors = getContext('errors') as Writable<unknown>;
 </script>
 
 <Input let:klass let:id {label} error={getPathValue(name, $errors)} {...$$restProps}>
-  <input {id} class={klass} {name} {value} {placeholder} />
+  <input {id} class={klass} {name} {value} {placeholder} {disabled} />
 </Input>
 
 <style>
