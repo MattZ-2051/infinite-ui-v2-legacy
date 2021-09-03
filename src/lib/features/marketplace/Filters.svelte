@@ -1,6 +1,6 @@
 <script lang="ts">
   import { mdiWindowClose } from '@mdi/js';
-  import type { Profile, Rarity, Series } from '$lib/sku-item/types';
+  import type { Profile, Edition, Series } from '$lib/sku-item/types';
   import { createEventDispatcher } from 'svelte';
   import type { ActiveType } from '$ui/accordion/AccordionGroup.svelte';
   import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
@@ -80,10 +80,10 @@
 
   let active: ActiveType = [];
 
-  const rarityFilters: { id: Rarity; label: string }[] = [
-    { id: 'legendary', label: 'One-of-a-Kind' },
-    { id: 'epic', label: 'Limited Edition' },
-    { id: 'rare', label: 'Open Edition' },
+  const editionFilters: { id: Edition; label: string }[] = [
+    { id: 'single', label: 'One-of-a-Kind' },
+    { id: 'limited', label: 'Limited Edition' },
+    { id: 'open', label: 'Open Edition' },
   ];
 
   let priceRange: [number, number];
@@ -93,11 +93,11 @@
   }
   $: initSlider(+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice);
 
-  function toggle(type: 'category' | 'rarity' | 'series' | 'issuerId', id: string, event: Event) {
+  function toggle(type: 'category' | 'typeEdition' | 'series' | 'issuerId', id: string, event: Event) {
     toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
   }
 
-  function toggleCheckboxFilter(type: 'category' | 'rarity' | 'series' | 'issuerId', id: string, value: boolean) {
+  function toggleCheckboxFilter(type: 'category' | 'typeEdition' | 'series' | 'issuerId', id: string, value: boolean) {
     setFilters({
       params: { [`${type}:${id}`]: value, page: 1 },
     });
@@ -125,8 +125,8 @@
   $: seriesSelected = $page.query.get('series') ? $page.query.get('series').split(',') : [];
   $: seriesSelectedObject = seriesSelected.map((id) => series.find((c) => c._id === id)).filter(Boolean);
 
-  $: raritySelected = $page.query.get('rarity') ? $page.query.get('rarity').split(',') : [];
-  $: raritySelectedObject = raritySelected.map((id) => rarityFilters.find((c) => c.id === id)).filter(Boolean);
+  $: editionSelected = $page.query.get('typeEdition') ? $page.query.get('typeEdition').split(',') : [];
+  $: editionSelectedObject = editionSelected.map((id) => editionFilters.find((c) => c.id === id)).filter(Boolean);
 
   $: creatorsSelected = $page.query.get('issuerId') ? $page.query.get('issuerId').split(',') : [];
   $: creatorsSelectedObject = creatorsSelected.map((_id) => creators.find((c) => c._id === _id)).filter(Boolean);
@@ -147,7 +147,7 @@
   $: filters = <FilterType[]>[
     ...(searchFilter ? [{ type: 'search', label: searchFilter }] : []),
     ...categorySelectedObject.map((v) => ({ type: 'category', label: v.name, id: v.id })),
-    ...raritySelectedObject.map((v) => ({ type: 'rarity', label: v.label, id: v.id })),
+    ...editionSelectedObject.map((v) => ({ type: 'typeEdition', label: v.label, id: v.id })),
     ...seriesSelectedObject.map((v) => ({ type: 'series', label: v.name, id: v._id })),
     ...creatorsSelectedObject.map((v) => ({ type: 'issuerId', label: v.username, id: v._id })),
     ...(priceSelectedObject ? [{ type: 'price', label: priceSelectedObject }] : []),
@@ -248,22 +248,22 @@
       </div>
     </Accordion>
     <Accordion
-      id="edition"
+      id="typeEdition"
       titleClass="py-4 px-6"
-      class="border border-white-opacity-20 -mb-px {active.includes('edition') ? 'expanded' : ''}"
+      class="border border-white-opacity-20 -mb-px {active.includes('typeEdition') ? 'expanded' : ''}"
     >
       <div slot="title" class="text-lg leading-8 text-left">
         Edition
-        {#if raritySelected.length}
-          <span class="text-default text-xs align-top">({raritySelected.length})</span>
+        {#if editionSelected.length}
+          <span class="text-default text-xs align-top">({editionSelected.length})</span>
         {/if}
       </div>
-      {#each rarityFilters as { id, label } (id)}
+      {#each editionFilters as { id, label } (id)}
         <Checkbox
           class="mb-2"
           value={id}
-          group={raritySelected}
-          on:change={(event) => toggle('rarity', id, event)}
+          group={editionSelected}
+          on:change={(event) => toggle('typeEdition', id, event)}
           let:checked
         >
           <span class="{id}-text font-medium">{label}</span>
@@ -310,14 +310,14 @@
   .active > .label {
     color: var(--filters-color-active);
   }
-  .legendary-text {
-    color: var(--edition-unique);
+  .single-text {
+    color: var(--edition-single);
   }
-  .epic-text {
+  .limited-text {
     color: var(--edition-limited);
   }
-  .rare-text {
-    color: var(--edition-released);
+  .open-text {
+    color: var(--edition-open);
   }
   :global(.expanded) {
     --accordion-title-color: var(--filters-color-expanded);

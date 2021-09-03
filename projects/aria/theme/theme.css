@@ -1,9 +1,9 @@
 :root {
   --primary: #6633ff;
   --primary-dark: #0c002f;
-  --edition-unique: #ffa800;
+  --edition-single: #ffa800;
   --edition-limited: #e500ff;
-  --edition-released: #0077a6;
+  --edition-open: #0077a6;
 
   /* Main */
   --bg-color: #000000;

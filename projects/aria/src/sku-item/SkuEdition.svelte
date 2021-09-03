@@ -29,10 +29,10 @@
 
 <style lang="postcss">
   .unique-text {
-    color: var(--edition-unique);
+    color: var(--edition-single);
   }
   .unique-badge {
-    background: var(--edition-unique);
+    background: var(--edition-single);
   }
   .limited-text {
     color: var(--edition-limited);
@@ -41,9 +41,9 @@
     background: var(--edition-limited);
   }
   .released-text {
-    color: var(--edition-released);
+    color: var(--edition-open);
   }
   .released-badge {
-    background: var(--edition-released);
+    background: var(--edition-open);
   }
 </style>

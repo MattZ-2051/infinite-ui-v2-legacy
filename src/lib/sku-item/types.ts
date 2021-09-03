@@ -2,6 +2,7 @@ import type { User } from '$lib/user/types';
 import type { FileAsset } from '$ui/file/types';
 
 export type Rarity = 'uncommon' | 'common' | 'rare' | 'epic' | 'legendary';
+export type Edition = 'single' | 'limited' | 'open';
 
 export type Sku = {
   _id: string;

@@ -36,7 +36,7 @@ export async function loadMarketplaceItems({
   const page: number = +query.get('page') || 1;
   const mode = getModeParameters(query.get('mode'));
   const category: string = query.get('category');
-  const rarity: string = query.get('rarity');
+  const typeEdition: string = query.get('typeEdition');
   const series: string = query.get('series');
   const issuerId: string = query.get('issuerId');
   const minPrice: string = query.get('minPrice');
@@ -54,7 +54,7 @@ export async function loadMarketplaceItems({
       sortBy,
       ...mode,
       ...(category && { category }),
-      ...(rarity && { rarity }),
+      ...(typeEdition && { typeEdition }),
       ...(series && { series }),
       ...(issuerId && { issuerId }),
       ...(minPrice && { minPrice }),
