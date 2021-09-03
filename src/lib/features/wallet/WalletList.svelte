@@ -3,7 +3,7 @@
   import { gotoQueryParameters } from '$util/queryParameter';
   import Sort from '$lib/components/Sort.svelte';
   import TransactionList from './transaction/TransactionList.svelte';
-  import BidList from './BidList.svelte';
+  import BidList from './bid/BidList.svelte';
 
   export let tab: 'transactions' | 'bids';
 

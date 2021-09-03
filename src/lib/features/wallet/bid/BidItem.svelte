@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Bid } from '$lib/sku-item/types';
   import { mdiChevronRight } from '@mdi/js';
+  import routes from '$lib/routes';
   import { formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
@@ -9,10 +10,10 @@
   const bidExceed = bid.listing.highestBid.bidAmt > bid.bidAmt;
 </script>
 
-<div class="py-6 flex li-style justify-between font-medium">
+<a href={routes.product(bid.listing.product._id)} class="py-6 flex li-style justify-between font-medium">
   <div class="flex flex-col">
     <span class="text-sm text-white-opacity-40">Bid</span>
-    <span class="text-sm flex gap-1"
+    <span class="flex gap-1"
       >{bid.sku.name} (#{bid.listing.product.serialNumber}) <span class="text-white-opacity-40">by</span>
       {bid.listing.issuer.username}</span
     >
@@ -37,4 +38,4 @@
     </div>
     <Icon path={mdiChevronRight} />
   </div>
-</div>
+</a>

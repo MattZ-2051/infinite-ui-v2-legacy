@@ -2,10 +2,8 @@
   import { page } from '$app/stores';
   import { Pagination } from '$ui/pagination';
   import { gotoQueryParameters } from '$util/queryParameter';
-  import { goto } from '$app/navigation';
-  import routes from '$lib/routes';
+  import { myBids, myBidsTotal, loadMyBidsFx } from '../wallet.store';
   import BidItem from './BidItem.svelte';
-  import { myBids, myBidsTotal, loadMyBidsFx } from './wallet.store';
 
   function gotoPage(event: CustomEvent) {
     gotoQueryParameters({
@@ -22,14 +20,7 @@
   {#if $myBidsTotal > 0}
     <div class="separator" />
     {#each $myBids as bid}
-      <div
-        class="cursor-pointer"
-        on:click={() => {
-          goto(routes.product(bid.listing.product._id));
-        }}
-      >
-        <BidItem {bid} />
-      </div>
+      <BidItem {bid} />
       <div class="separator" />
     {/each}
     <Pagination total={$myBidsTotal} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
