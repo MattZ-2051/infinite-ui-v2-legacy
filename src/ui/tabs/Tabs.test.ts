@@ -23,6 +23,7 @@ describe('Tabs', () => {
   } => {
     const utils = render(TabsTest, {
       props: {
+        menuBreakpoint: '',
         ...props,
         'data-testid': 'myid',
       },

@@ -16,7 +16,7 @@
   /**
    * Below this size, Tabs will be rendered as Menu.
    */
-  export let menuBreakpoint: keyof Screens = undefined;
+  export let menuBreakpoint: keyof Screens = 'sm';
 
   /**
    * The tab id that is selected initially.
