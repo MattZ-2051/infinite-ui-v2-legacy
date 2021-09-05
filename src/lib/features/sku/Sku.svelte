@@ -28,11 +28,11 @@
 
 <ThemeContext id="sku">
   <StickyColumn fitOnScreenContent>
-    <div slot="onscreen-content" class="flex flex-col justify-between h-full">
+    <div slot="onscreen-content" class="flex flex-col justify-between h-full -container-x md:-container-none">
       <Gallery items={$sku.nftPublicAssets} />
     </div>
     <div slot="sticky-content" class="h-full">
-      <div class="flex flex-col px-4 md:px-8 gap-4 md:gap-8 text-white mt-8 md:mt-16 mb-8 md:mb-0">
+      <div class="flex flex-col md:px-8 gap-4 md:gap-8 text-white mt-8 md:mt-16 mb-8 md:mb-0">
         <div class="flex flex-col gap-8">
           <div class="text-gradient-primary text-3xl md:text-4xl font-medium">{$sku.name}</div>
           <SkuInfo sku={$sku} />
