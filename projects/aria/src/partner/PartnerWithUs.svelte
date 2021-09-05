@@ -8,7 +8,7 @@
   import FormInput from '$lib/components/form/FormInput.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
-  import travisScottBg from '$static/travis-scott-bg.png?w=400;800;1200;&format=avif;webp;png&metadata';
+  import travisScottBg from './travis-scott-bg.png?w=400;800;1200;&format=avif;webp;png&metadata';
 
   const socialMedia = [
     { id: 'instagram', path: mdiInstagram },

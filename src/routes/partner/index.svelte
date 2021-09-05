@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PartnerWithUs from '$project/PartnerWithUs.svelte';
+  import PartnerWithUs from '$project/partner/PartnerWithUs.svelte';
 </script>
 
 <PartnerWithUs />

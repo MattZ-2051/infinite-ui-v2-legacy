@@ -1,10 +1,11 @@
 <script lang="ts">
   import type { Sku, Profile, Series } from '$lib/sku-item/types';
+  import { mdiTuneVariant } from '@mdi/js';
   import { page } from '$app/stores';
+  import Icon from '$ui/icon/Icon.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
   import NoResults from '$lib/components/NoResults.svelte';
   import Sort from '$lib/components/Sort.svelte';
-  import filters from '$static/filters.svg';
   import { Pagination } from '$ui/pagination';
   import Search from './Search.svelte';
   import Filters from './Filters.svelte';
@@ -64,7 +65,7 @@
       on:click={() => (showFilters = true)}
       class="w-10 h-10 bg-gray-200 rounded-full md:hidden flex items-center justify-center"
     >
-      <img src={filters} alt="Filters" />
+      <Icon path={mdiTuneVariant} class="text-black" />
     </button>
   </div>
   <div class="gap-2 {showFilters ? 'hidden' : 'flex'}">

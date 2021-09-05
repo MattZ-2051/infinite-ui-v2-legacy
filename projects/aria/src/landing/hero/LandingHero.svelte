@@ -1,6 +1,6 @@
 <script lang="ts">
   import Image from '$ui/image/Image.svelte';
-  import weAreImage from '$static/we_are_culture.png?w=400;1000;&format=avif;webp;png&metadata';
+  import weAreImage from './we_are_culture.png?w=400;1000;&format=avif;webp;png&metadata';
 </script>
 
 <div class="relative mt-2" style="height: min(70vw, 70vh);">

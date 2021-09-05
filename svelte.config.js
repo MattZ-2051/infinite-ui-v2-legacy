@@ -25,7 +25,7 @@ const config = {
     target: '#svelte',
 
     files: {
-      assets: alias.find(([key]) => key === '$static')[1],
+      assets: `static/${project}`,
     },
 
     vite: {

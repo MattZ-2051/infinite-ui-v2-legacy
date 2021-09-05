@@ -6,7 +6,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
   import { styles } from '$util/styles';
-  import fallback from '$static/fallback.png?w=700&format=avif;webp;png&metadata';
+  import fallback from '$project/assets/fallback.png?w=700&format=avif;webp;png&metadata';
   import { getFileType, getAspectRatioStyle } from './file-utils';
 
   /**
