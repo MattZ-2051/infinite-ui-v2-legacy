@@ -1,12 +1,11 @@
 <script lang="ts">
+  import type { ToastSeverity } from './types';
   import { createEventDispatcher, onMount } from 'svelte';
   import { fly } from 'svelte/transition';
   import { tweened } from 'svelte/motion';
   import { get } from 'svelte/store';
   import { mdiClose } from '@mdi/js';
-  import type { ToastSeverity } from './types';
   import Icon from '$ui/icon/Icon.svelte';
-  import { getThemeStyle } from './themes';
 
   /**
    * Useful to manually remove the Toast using toast.remove(toastId).
@@ -94,8 +93,7 @@
 <svelte:window on:focus={resumeToast} on:blur={pauseToast} />
 
 <div
-  class="shadow relative"
-  style={getThemeStyle(severity)}
+  class="shadow relative toast toast-{severity}"
   on:mouseenter={pauseOnHover ? pauseToast : undefined}
   on:mouseleave={pauseOnHover ? resumeToast : undefined}
   in:fly={{ x: 250 }}
@@ -125,6 +123,23 @@
 </div>
 
 <style>
+  .toast {
+    color: #000000;
+  }
+
+  .toast-danger {
+    background: linear-gradient(89.89deg, #fb5543 0%, #f24c66 100%), #fc5746;
+  }
+  .toast-success {
+    background: linear-gradient(89.89deg, #00eb7c 0%, #11d6ec 100%);
+  }
+  .toast-warning {
+    background: linear-gradient(45deg, #ffae12, #f0da16 98.96%);
+  }
+  .toast-info {
+    background: #5bc0de;
+  }
+
   .toast-message :global(a) {
     text-decoration: underline;
   }
