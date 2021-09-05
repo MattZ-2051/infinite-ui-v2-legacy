@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Action, ActionType } from './types';
+  import type { Product } from '$lib/sku-item/types';
+  import type { Action } from './types';
   import { mdiDotsVertical } from '@mdi/js';
-  import { createEventDispatcher } from 'svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import iconSale from '$lib/components/icons/sale';
   import iconRedeem from '$lib/components/icons/redeem';
@@ -9,49 +9,60 @@
   import iconCancelAuction from '$lib/components/icons/cancel-auction';
   import iconTransfer from '$lib/components/icons/transfer';
   import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
+  import {
+    canCreateSale,
+    canCancelSale,
+    canStartAuction,
+    canCancelAuction,
+    canRedeem,
+    canTransfer,
+  } from '../product.service';
+  import { onAction } from './product-actions.service';
 
-  export let actions: ActionType[];
+  export let product: Product;
+  export let userId: string;
+  export let totalBids: number;
 
-  const dispatch = createEventDispatcher();
+  $: hasCreateSellAction = canCreateSale(product, userId);
+  $: hasCancelSaleAction = canCancelSale(product, userId);
+  $: hasStartAuctionAction = canStartAuction(product, userId);
+  $: hasCancelAuctionAction = canCancelAuction(product, userId, totalBids);
+  $: hasRedeemAction = canRedeem(product, userId);
+  $: hasTransferAction = canTransfer(product, userId);
 
-  const availableActions: { [key: string]: Action } = {
-    redeem: {
+  let visibleActions: Action[];
+  $: visibleActions = [
+    hasRedeemAction && {
       type: 'redeem',
       label: 'Redeem',
       icon: iconRedeem,
     },
-    auction: {
+    hasStartAuctionAction && {
       type: 'auction',
       label: 'Start Auction',
       icon: iconAuction,
     },
-    'cancel-auction': {
+    hasCancelAuctionAction && {
       type: 'cancel-auction',
       label: 'Cancel Auction',
       icon: iconCancelAuction,
     },
-    'create-sale': {
+    hasCreateSellAction && {
       type: 'create-sale',
       label: 'Sell Your NFT',
       icon: iconSale,
     },
-    'cancel-sale': {
+    hasCancelSaleAction && {
       type: 'cancel-sale',
       label: 'Cancel Sale',
       icon: iconSale,
     },
-    transfer: {
+    hasTransferAction && {
       type: 'transfer',
       label: 'Transfer',
       icon: iconTransfer,
     },
-  };
-
-  $: visibleActions = actions.filter(Boolean).map((key) => availableActions[key]);
-
-  function onAction(type: ActionType) {
-    dispatch('action', type);
-  }
+  ].filter(Boolean) as Action[];
 </script>
 
 {#if visibleActions.length > 0}
@@ -64,7 +75,7 @@
       </MenuTrigger>
       <MenuList slot="menu">
         {#each visibleActions as { type, label, icon } (type)}
-          <MenuItem class="flex gap-6 justify-between" on:select={() => onAction(type)}>
+          <MenuItem class="flex gap-6 justify-between" on:select={() => onAction(type, product)}>
             {label}
             {#if icon}
               <Icon class="inline" path={icon} />

@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
-  import SkuDetails from '$lib/sku-item/SkuDetails.svelte';
+  import routes from '$lib/routes';
+  import StickyColumn from '$lib/layout/StickyColumn.svelte';
+  import Gallery from '$lib/components/Gallery.svelte';
   import CollectorsSummary from './CollectorsSummary.svelte';
 
   export let sku: Sku;
@@ -12,15 +14,23 @@
   export let perPage: number;
 </script>
 
-<div class="flex flex-grow">
-  <div class="flex container py-0">
-    <div class="flex flex-col flex-auto lg:flex-row">
-      <div class="lg:max-w-md -container-x lg:-container-none">
-        <SkuDetails {sku} />
+<StickyColumn reverse>
+  <Gallery slot="sticky-content" items={sku.nftPublicAssets} />
+  <div slot="onscreen-content">
+    <div class="pl-8 mt-8 md:mt-10">
+      <div class="flex items-center text-4xl font-medium">
+        <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
+        <span class="mx-3 text-white-opacity-30">/</span>
+        <span class="text-gradient-primary">Collectors</span>
       </div>
-      <div class="flex-grow pt-6 pl-0 pb-16 lg:pl-16 lg:pb-0">
-        <CollectorsSummary {sku} {collectors} {page} {forSale} {search} {total} {perPage} />
-      </div>
+
+      <!-- <div class="mt-6">
+        <ProductInfo product={$product} />
+      </div> -->
+    </div>
+
+    <div class="mt-12 pl-8">
+      <CollectorsSummary {sku} {collectors} {page} {forSale} {search} {total} {perPage} />
     </div>
   </div>
-</div>
+</StickyColumn>

@@ -1,18 +1,36 @@
 <script lang="ts">
-  import SkuDetails from '$lib/sku-item/SkuDetails.svelte';
-  import ProductSummary from './ProductSummary.svelte';
-  import { product } from './product.store';
+  import { userId } from '$lib/user';
+  import routes from '$lib/routes';
+  import StickyColumn from '$lib/layout/StickyColumn.svelte';
+  import Gallery from '$lib/components/Gallery.svelte';
+  import ProductTabs from './ProductTabs.svelte';
+  import ProductInfo from './ProductInfo.svelte';
+  import ProductStatusButton from './ProductStatusButton.svelte';
+  import ProductActions from './actions/ProductActions.svelte';
+  import { product, totalBids } from './product.store';
 </script>
 
-<div class="flex flex-grow">
-  <div class="flex container py-0">
-    <div class="flex flex-col flex-auto lg:flex-row">
-      <div class="lg:max-w-md -container-x lg:-container-none">
-        <SkuDetails product={$product} />
+<StickyColumn reverse>
+  <Gallery slot="sticky-content" items={$product.sku.nftPublicAssets} />
+  <div slot="onscreen-content">
+    <div class="pl-8 mt-8 md:mt-10">
+      <div class="flex items-center text-4xl font-medium">
+        <a sveltekit:prefetch href={routes.sku($product.sku._id)} class="text-gradient-primary">{$product.sku.name}</a>
+        <span class="mx-3 text-white-opacity-30">/</span>
+        <span class="text-gradient-primary">#{$product.serialNumber}</span>
       </div>
-      <div class="flex-grow pt-6 pl-0 pb-16 lg:pl-16 lg:pb-0">
-        <ProductSummary product={$product} />
+
+      <div class="mt-6">
+        <ProductInfo product={$product} />
       </div>
+      <ProductActions product={$product} userId={$userId} totalBids={$totalBids} />
+    </div>
+
+    <div class="mt-12 pl-8">
+      <!-- this will be moved to the sticky footer-->
+      <ProductStatusButton product={$product} />
+
+      <ProductTabs product={$product} />
     </div>
   </div>
-</div>
+</StickyColumn>

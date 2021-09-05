@@ -6,9 +6,7 @@
   import { Pagination } from '$ui/pagination';
   import Sort from '$lib/components/Sort.svelte';
   import { Checkbox } from '$ui/checkbox';
-  import { Breadcrumb, BreadcrumbItem } from '$ui/breadcrumbs';
   import { gotoQueryParameters } from '$util/queryParameter';
-  import routes from '$lib/routes';
   import CollectorItem from './CollectorItem.svelte';
   import { loading } from './collectors.api';
 
@@ -62,15 +60,6 @@
   }
 </script>
 
-<div class="flex justify-evenly flex-col h-48 text-white">
-  <Breadcrumb class="font-black italic" --breadcrumb-color="#7C7C7C">
-    <BreadcrumbItem><a href={routes.marketplace}>Marketplace</a></BreadcrumbItem>
-    <BreadcrumbItem><a href={routes.sku(sku._id)}>{sku.name}</a></BreadcrumbItem>
-    <BreadcrumbItem class="text-gray-500">Collectors</BreadcrumbItem>
-  </Breadcrumb>
-
-  <div class="text-5xl">Collectors</div>
-</div>
 <div class="text-gray-500">
   <div class="flex flex-col justify-between w-full items-center md:flex-row gap-8 border-b border-gray-800 pb-3">
     <div class="flex flex-grow md:w-1/4 input">
