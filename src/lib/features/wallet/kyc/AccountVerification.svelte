@@ -41,8 +41,6 @@
     {/if}
   </div>
   {#if hasCta}
-    <div class="w-28 button-container ml-2">
-      <Button class="text-sm" on:click={() => dispatch('upgrade')}>{level === 0 ? 'Verify' : 'Upgrade'}</Button>
-    </div>
+    <Button class="text-sm" on:click={() => dispatch('upgrade')}>{level === 0 ? 'Verify' : 'Upgrade'}</Button>
   {/if}
 </div>

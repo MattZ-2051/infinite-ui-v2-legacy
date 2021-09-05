@@ -39,7 +39,7 @@
 </script>
 
 <Tabs
-  class="items-center"
+  class="items-end"
   items={[
     { id: 'transactions', title: 'Transaction History' },
     { id: 'bids', title: 'Active Bids' },
@@ -53,7 +53,7 @@
 >
   <Tab id="transactions"><TransactionList /></Tab>
   <Tab id="bids"><BidList /></Tab>
-  <div slot="extra" class="justify-self-end self-center text-lg mb-4">
+  <div slot="extra" class="mb-5">
     <Sort on:select={sort} {sortOptions} />
   </div>
 </Tabs>
