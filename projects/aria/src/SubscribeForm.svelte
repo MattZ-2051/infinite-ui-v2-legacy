@@ -22,9 +22,8 @@
   });
 
   const { form } = createForm<{ email: string }>({
-    onSubmit: (values) => {
+    onSubmit: (/*values*/) => {
       // TODO(vasilis): handle submit
-      console.log(values);
     },
     validate: validateSchema(schema),
   });
