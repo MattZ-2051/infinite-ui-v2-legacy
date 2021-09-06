@@ -4,6 +4,10 @@ import type { FileAsset } from '$ui/file/types';
 export type Rarity = 'uncommon' | 'common' | 'rare' | 'epic' | 'legendary';
 export type Edition = 'single' | 'limited' | 'open';
 
+export type SocialFileAsset = FileAsset & {
+  platform: 'all' | 'facebook' | 'instagram' | 'twitter' | 'discord' | 'reddit' | 'telegram' | 'tiktok';
+};
+
 export type Sku = {
   _id: string;
   rarity: Rarity;
@@ -87,6 +91,7 @@ export type Profile = {
   descriptionShort?: string;
   profilePhotoUrls?: [{ url: string; position: string }];
   profileTextFields?: [{ text: string; position: string }];
+  nftSocialAssets?: SocialFileAsset[];
 };
 
 export type Listing = {

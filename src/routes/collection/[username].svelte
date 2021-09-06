@@ -23,7 +23,7 @@
 </script>
 
 <script lang="ts">
-  import { Seo } from '$lib/seo';
+  import { Seo, chooseProfileSocialImage } from '$lib/seo';
   import Collection from '$lib/features/collection/Collection.svelte';
 
   export let data: Awaited<ReturnType<typeof loadCollectionFx>>;
@@ -31,6 +31,6 @@
   $: setCollection(data);
 </script>
 
-<Seo title={data.profile.username} image={data.profile.bannerPhotoUrl} />
+<Seo title={data.profile.username} image={chooseProfileSocialImage(data.profile)} />
 
 <Collection />
