@@ -7,6 +7,7 @@ import { mockHederaTransactions } from './resolvers/mockHederaTransactions';
 // import { mockEmptyTransactions } from './resolvers/mockTransactions';
 // import { mockPendingTransactions } from './resolvers/mockTransactions';
 // import { mockEmptyBids } from './resolvers/mockBids';
+// import { mockProfile } from './resolvers/mockProfile';
 
 const API_URL = variables.apiUrl;
 
@@ -18,4 +19,5 @@ export const handlers = [
   // rest.get(`${API_URL}/users/me/transactions`, mockPendingTransactions(3)),
   // rest.get(`${API_URL}/users/me/transactions`, mockEmptyTransactions),
   // rest.get(`${API_URL}/bids/active`, mockEmptyBids),
+  // rest.get(`${API_URL}/users`, mockProfile),
 ];

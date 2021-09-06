@@ -15,7 +15,7 @@
   <div class="flex flex-col flex-grow">
     <div class="container mt-4 md:mt-8">
       {#if isIssuer && $profile.username === 'Roberto_Clemente'}
-        <Clemente {profile}>
+        <Clemente profile={$profile}>
           <CollectionTabs {isIssuer} />
         </Clemente>
       {:else if isIssuer}
