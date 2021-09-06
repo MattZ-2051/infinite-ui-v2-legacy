@@ -9,9 +9,9 @@
   $: activeItem = selectedItem || items?.[0];
 </script>
 
-<div class="flex flex-col gap-2 justify-between items-center h-full p-6 text-white relative z-0">
+<div class="flex flex-col gap-4 justify-between items-center h-full p-6 text-white relative z-0">
   <div><!-- empty --></div>
-  <div class="p-8 max-w-2xl">
+  <div class="relative flex-1 w-full max-w-2xl">
     <FilePreview item={activeItem} />
   </div>
   <div class="flex flex-wrap w-full justify-left">
