@@ -9,15 +9,15 @@
 
   export let profile: Profile;
 
-  const images = Object.fromEntries(
-    profile.profilePhotoUrls.map((p) => {
-      return [p.position, p.url];
+  const photos = Object.fromEntries(
+    profile.profilePhotoUrls.map(({ position, url }) => {
+      return [position, { url }];
     })
   );
 
-  const text = Object.fromEntries(
-    profile.profileTextFields.map((p) => {
-      return [p.position, p.text];
+  const textFields = Object.fromEntries(
+    profile.profileTextFields.map(({ position, text }) => {
+      return [position, text];
     })
   );
 </script>
@@ -54,28 +54,30 @@
       </div>
     </div>
 
-    <div class="flex flex-col justify-evenly md:flex-row">
-      <div class="flex md:justify-end mt-8 flex-shrink">
+    <div class="flex flex-col md:grid md:grid-cols-2 gap-2">
+      <div class="flex md:justify-end md:mt-12">
         <div class="flex flex-col gap-5">
-          <h1 class="text-4xl md:text-6xl text-yellow-200 font-medium text-center md:text-left md:whitespace-nowrap">
-            {text[1] || ''}
+          <h1 class="text-4xl md:text-6xl text-yellow-200 font-medium text-center md:text-left">
+            {textFields[1] || ''}
           </h1>
           <div class="relative text-white text-3xl font-medium">
-            <span>{text[2] || ''}</span>
-            <img src={images[1]} alt="signature" class="float-right" />
+            <span>{textFields[2] || ''}</span>
+            <img src={photos[1].url} alt="signature" class="float-right" />
           </div>
 
           <div class="text-white-opacity-60 text-xl">
-            {text[3] || ''}
+            {textFields[3] || ''}
           </div>
         </div>
       </div>
-      <img src={images[2]} alt="" />
+      <div class="px-6">
+        <img src={photos[2].url} alt="" />
+      </div>
     </div>
-    <video src={images[3]} playsinline autoplay loop muted style="object-fit: cover; margin:auto;" />
+    <video src={photos[3].url} playsinline autoplay loop muted style="object-fit: cover; margin:auto;" />
   </div>
   <slot />
-  {#if images[4]}
-    <img src={images[4]} alt="" class="m-auto" />
+  {#if photos[4].url}
+    <img src={photos[4].url} alt="" class="m-auto" />
   {/if}
 </ThemeContext>
