@@ -16,22 +16,20 @@ export default function clickOutside(
 
   function update({ enabled }: { enabled: boolean }) {
     if (enabled) {
-      window.addEventListener('click', handleOutsideClick);
+      document.addEventListener('click', handleOutsideClick, { passive: true, capture: true });
     } else {
-      window.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener('click', handleOutsideClick, { capture: true });
     }
   }
 
   if (initialEnabled) {
-    setTimeout(() => {
-      update({ enabled: initialEnabled });
-    });
+    update({ enabled: initialEnabled });
   }
 
   return {
     update,
     destroy() {
-      window.removeEventListener('click', handleOutsideClick);
+      update({ enabled: false });
     },
   };
 }

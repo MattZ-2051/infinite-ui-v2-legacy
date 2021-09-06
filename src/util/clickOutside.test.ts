@@ -5,7 +5,6 @@ describe('clickOutside', () => {
   let sibling: HTMLElement;
 
   beforeEach(() => {
-    jest.useFakeTimers();
     element = document.createElement('div');
     sibling = document.createElement('div');
     document.body.append(element);
@@ -13,14 +12,13 @@ describe('clickOutside', () => {
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    jest.clearAllMocks();
     element.remove();
     sibling.remove();
   });
 
   function setup(parameters) {
     const action = clickOutside(element, parameters);
-    jest.runAllTimers();
     return action;
   }
 
