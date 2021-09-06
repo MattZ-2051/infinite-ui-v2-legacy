@@ -12,15 +12,17 @@ export async function loadSkus({
   profileId,
   page,
   sortBy,
+  perPage,
   fetch,
 }: {
   profileId: string;
   page: number;
   sortBy: string;
+  perPage: number;
   fetch?: Fetch;
 }) {
   const { data: skus, total: totalSkus } = await getPage<Sku>(
-    `skus/tiles/?issuerId=${profileId}&page=${page}&per_page=8`,
+    `skus/tiles/?issuerId=${profileId}&page=${page}&per_page=${perPage}`,
     {
       params: {
         ...(sortBy && { sortBy }),
@@ -36,15 +38,17 @@ export async function loadProducts({
   profileId,
   page,
   sortBy,
+  perPage,
   fetch,
 }: {
   profileId: string;
   page: number;
   sortBy: string;
+  perPage: number;
   fetch?: Fetch;
 }) {
   const { data: products, total: totalProducts } = await getPage<Product>(
-    `products?owner=${profileId}&includeFunctions=true&page=${page}&per_page=8`,
+    `products?owner=${profileId}&includeFunctions=true&page=${page}&per_page=${perPage}`,
     {
       params: {
         ...(sortBy && { sortBy }),

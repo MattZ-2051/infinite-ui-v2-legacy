@@ -10,6 +10,9 @@ export const changePage = createEvent<number>();
 export const changeSort = createEvent<string>();
 export const setCollection = createEvent<Awaited<ReturnType<typeof loadCollectionFx>>>();
 
+export const perPageIssuer = 4;
+export const perPageUser = 8;
+
 export const loadCollectionFx = createEffect(
   async ({
     username,
@@ -28,7 +31,13 @@ export const loadCollectionFx = createEffect(
     const _profile = browser && username === current?.username ? current : await loadProfile({ username, fetch });
 
     tab = tab || (_profile.role === 'issuer' ? 'Releases' : 'NFTs');
-    const parameters = { page, profileId: _profile._id, sortBy, fetch };
+    const parameters = {
+      page,
+      profileId: _profile._id,
+      sortBy,
+      perPage: _profile.role === 'issuer' ? perPageIssuer : perPageUser,
+      fetch,
+    };
     if (tab === 'Releases') {
       const { skus, totalSkus } = await loadSkusFx(parameters);
       return { profile: _profile, skus, totalSkus };
@@ -47,17 +56,19 @@ const loadSkusFx = createEffect(
     page,
     profileId,
     sortBy,
+    perPage,
     fetch,
   }: {
     page: number;
     profileId: string;
     sortBy: string;
+    perPage: number;
     fetch: Fetch;
   }): Promise<{
     totalSkus: number;
     skus: Sku[];
   }> => {
-    return await loadSkus({ profileId, page, sortBy, fetch });
+    return await loadSkus({ profileId, page, sortBy, perPage, fetch });
   }
 );
 
@@ -78,17 +89,19 @@ const loadProductsFx = createEffect(
     page,
     profileId,
     sortBy,
+    perPage,
     fetch,
   }: {
     page: number;
     profileId: string;
     sortBy: string;
+    perPage: number;
     fetch: Fetch;
   }): Promise<{
     totalProducts: number;
     products: Product[];
   }> => {
-    return await loadProducts({ profileId, page, sortBy, fetch });
+    return await loadProducts({ profileId, page, sortBy, perPage, fetch });
   }
 );
 

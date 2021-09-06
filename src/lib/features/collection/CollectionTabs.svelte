@@ -4,7 +4,17 @@
   import { Tabs, Tab } from '$ui/tabs';
   import { SkuItemGrid } from '$lib/sku-item';
   import Sort from '$lib/components/Sort.svelte';
-  import { products, productsTotal, skus, skusTotal, changeTab, changePage, changeSort } from './collection.store';
+  import {
+    products,
+    productsTotal,
+    skus,
+    skusTotal,
+    changeTab,
+    changePage,
+    changeSort,
+    perPageIssuer,
+    perPageUser,
+  } from './collection.store';
 
   export let isIssuer = false;
   export let own = false;
@@ -12,6 +22,8 @@
   $: p = +$page.query.get(`page`) || 1;
 
   $: tab = $page.query.get(`tab`) || (isIssuer ? 'Releases' : 'NFTs');
+
+  const perPage = isIssuer ? perPageIssuer : perPageUser;
 
   function onSelectTab({ detail }: CustomEvent<'Releases' | 'NFTs'>) {
     changeTab(detail);
@@ -55,7 +67,7 @@
       <div class="text-gray-200 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
     {:else}
       <SkuItemGrid skus={$skus} />
-      <Pagination perPage={8} total={$skusTotal} page={p} class="mt-4 flex justify-end" on:change={onChangePage} />
+      <Pagination {perPage} total={$skusTotal} page={p} class="mt-4 flex justify-end" on:change={onChangePage} />
     {/if}
   </Tab>
   <Tab id="NFTs">
@@ -65,7 +77,7 @@
       <div class="text-gray-200 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
     {:else}
       <SkuItemGrid products={$products} />
-      <Pagination perPage={8} total={$productsTotal} page={p} class="mt-4 flex justify-end" on:change={onChangePage} />
+      <Pagination {perPage} total={$productsTotal} page={p} class="mt-4 flex justify-end" on:change={onChangePage} />
     {/if}
   </Tab>
   <div slot="extra" class="justify-self-end self-center text-lg mb-4">
