@@ -32,7 +32,6 @@ export type Sku = {
   totalSupplyLeft: number;
   totalSkuSupplyLeft: number;
   totalUpcomingSupply: number;
-  totalSupplyUpcoming: number;
   totalSkuListingSupplyLeft: number;
   totalSkuListingSupply?: number;
   countSkuListings: number;
@@ -200,7 +199,7 @@ type CircleReceipt = {
 
 export type CircleType = 'usdc' | 'btc' | 'eth';
 
-type TransactionData = {
+export type TransactionData = {
   product?: Product;
   sku: Sku;
   listing?: string;
@@ -247,6 +246,7 @@ type TransactionData = {
     payout: string;
     type: string;
     usdcAddress?: string;
+    institution_logo?: string;
   };
   saleType: 'fixed' | 'auction';
 };

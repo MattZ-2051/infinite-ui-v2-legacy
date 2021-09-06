@@ -5,7 +5,7 @@
   import { page } from '$app/stores';
   import { Pagination } from '$ui/pagination';
   import { gotoQueryParameters } from '$util/queryParameter';
-  import TransactionItem from './TransactionItem.svelte';
+  import TransactionItem from './item/TransactionItem.svelte';
   import TransactionDetails from './TransactionDetails.svelte';
   import { myTransactions, myTransactionsTotal, loadMyTransactionsFx } from '../wallet.store';
 
@@ -25,7 +25,7 @@
   {#if $myTransactionsTotal > 0}
     <AccordionGroup multiple bind:active --accordion-title-color="var(--color)">
       <div class="separator" />
-      {#each $myTransactions as transaction}
+      {#each $myTransactions as transaction (transaction._id)}
         <Accordion titleClass="py-6">
           <TransactionItem slot="title" {transaction} />
           <TransactionDetails {transaction} />
