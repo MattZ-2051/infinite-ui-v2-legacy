@@ -118,7 +118,6 @@
     @apply text-gray-400;
   }
   .cvv-container {
-    --form-placeholder-weight: normal;
-    --form-input-align: center;
+    --input-text-align: center;
   }
 </style>

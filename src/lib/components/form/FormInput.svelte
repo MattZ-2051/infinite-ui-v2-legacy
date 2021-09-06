@@ -16,13 +16,3 @@
 <Input let:klass let:id {label} error={getPathValue(name, $errors)} {...$$restProps}>
   <input {id} class={klass} {name} {value} {placeholder} {disabled} />
 </Input>
-
-<style>
-  input {
-    color: var(--form-input-color, theme('colors.gray.700'));
-    text-align: var(--form-input-align, left);
-  }
-  input::placeholder {
-    font-weight: var(--form-placeholder-weight);
-  }
-</style>

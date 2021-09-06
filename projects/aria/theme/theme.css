@@ -91,6 +91,22 @@
 
   /* SKU CTA */
   --sku-cta-bg: #c4c4c4;
+
+  /* Input */
+  --input-container-border-color-focus: var(--color);
+  --input-container-border-color: theme('colors.white-opacity.30');
+  --input-container-border-color-error: theme('colors.red.500');
+  --input-container-border-width: 1px;
+  --input-label-color: theme('colors.white-opacity.40');
+  --input-label-font-size: 14px;
+  --input-label-font-weight: 400;
+  --input-color: var(--color);
+  --input-text-align: left;
+  --input-bg-color: #000000;
+  --input-border-radius: 0px;
+  --input-placeholder-color: theme('colors.white-opacity.50');
+  --input-padding: 0 0.125rem;
+  --input-margin-bottom: 0.125rem;
 }
 
 .theme-brand {
@@ -105,4 +121,13 @@
   --tab-border-color-active: var(--primary);
   --tab-color-active: var(--primary);
   --tab-color-hover: var(--color);
+
+  /* Input */
+  --input-container-border-width: 0px;
+  --input-color: #000000;
+  --input-bg-color: #ffffff;
+  --input-placeholder-color: #7d7d7d;
+  --input-border-radius: 5px;
+  --input-padding: 0 0.75rem;
+  --input-margin-bottom: 0;
 }

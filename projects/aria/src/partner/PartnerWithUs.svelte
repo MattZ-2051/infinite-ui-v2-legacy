@@ -8,17 +8,18 @@
   import FormInput from '$lib/components/form/FormInput.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
+  import tooltip from '$ui/tooltip';
   import travisScottBg from './travis-scott-bg.png?w=400;800;1200;&format=avif;webp;png&metadata';
 
   const socialMedia = [
-    { id: 'instagram', path: mdiInstagram },
-    { id: 'facebook', path: mdiFacebook },
-    { id: 'youtube', path: mdiYoutube },
-    { id: 'twitter', path: mdiTwitter },
-    { id: 'tiktok', path: tiktok.path },
-    { id: 'snapchat', path: mdiSnapchat },
-    { id: 'linkedin', path: mdiLinkedin },
-    { id: 'discord', path: mdiDiscord },
+    { id: 'instagram', label: 'Instagram', path: mdiInstagram },
+    { id: 'facebook', label: 'Facebook', path: mdiFacebook },
+    { id: 'youtube', label: 'YouTube', path: mdiYoutube },
+    { id: 'twitter', label: 'Twitter', path: mdiTwitter },
+    { id: 'tiktok', label: 'TikTok', path: tiktok.path },
+    { id: 'snapchat', label: 'Snapchat', path: mdiSnapchat },
+    { id: 'linkedin', label: 'LinkedIn', path: mdiLinkedin },
+    { id: 'discord', label: 'Discord', path: mdiDiscord },
   ];
 
   const schema = yup.object({
@@ -38,7 +39,7 @@
   setContext('errors', errors);
 </script>
 
-<div class=" flex flex-col gap-8 text-white bg-black">
+<div data-style="container" class="flex flex-col gap-8 text-white bg-black">
   <div class="flex flex-col gap-14 text-center container mt-8">
     <div class="text-4xl max-w-4xl mx-auto font-medium">
       ARIA Exchange creates exclusive NFTs for the world's most iconic athletes, entertainers, and brands.
@@ -58,23 +59,27 @@
       </div>
 
       <div class="container">
-        <form use:form class="form flex flex-col gap-8  lg:mx-32 xl:mx-40 px-10 md:mb-16" autocomplete="off">
-          <span class="border-b-2  py-4 text-2xl">Talent Details</span>
-          <div class="flex justify-between flex-col md:flex-row  gap-16">
-            <div class="flex flex-col gap-4 text-lg" style="flex-grow:6;">
+        <form use:form class="form flex flex-col gap-8 lg:mx-32 xl:mx-40 px-10 md:mb-16" autocomplete="off">
+          <span class="border-b-2 pb-4 pt-7 text-2xl">Talent Details</span>
+          <div class="flex justify-between flex-col md:flex-row gap-16">
+            <div class="flex flex-col gap-6 text-lg" style="flex-grow:6;">
               <FormInput name="talent" label="Talent Name *" placeholder="John Brown" />
               <FormInput name="email" label="Email Address *" placeholder="john.brown@example.com" />
               <FormInput name="expYear" label="Relationship to Talent" placeholder="Self or Other" />
               <FormInput name="industry" label="Industry" placeholder="Art,Music,Sport etc." />
             </div>
-            <div class="flex flex-col flex-grow gap-1 text-lg">
+            <div class="flex flex-col flex-grow gap-1.5 text-lg">
               <span>Social Links</span>
-              {#each socialMedia as social}
+              {#each socialMedia as { id, label, path } (id)}
                 <div class="flex gap-2 items-center">
-                  <div class="rounded-full w-6 h-6 flex items-center justify-center bg-primary">
-                    <Icon path={social.path} size="0.6" />
-                  </div>
-                  <FormInput name={social.id} class="flex-grow" />
+                  <label
+                    use:tooltip={label}
+                    for={id}
+                    class="rounded-full w-6 h-6 flex items-center justify-center bg-primary"
+                  >
+                    <Icon {path} size="0.6" />
+                  </label>
+                  <FormInput {id} name={id} class="flex-grow" />
                 </div>
               {/each}
             </div>
@@ -89,6 +94,10 @@
 </div>
 
 <style>
+  [data-style='container'] {
+    --input-label-color: var(--color);
+    --input-label-font-size: 18px;
+  }
   .form {
     background-color: #1d1a54;
   }

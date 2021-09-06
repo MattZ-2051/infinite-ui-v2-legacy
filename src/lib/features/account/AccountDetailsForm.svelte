@@ -25,13 +25,15 @@
       .matches(/^[ A-Za-z]*$/, 'Please enter valid last name.'),
   });
 
-  const { form, errors } = createForm({
-    initialValues: {
-      firstName: user.firstName || '',
-      lastName: user.lastName || '',
-      phoneNumber: user.phoneNumber || '',
-      phoneNumberConsentGiven: user.phoneNumberConsentGiven || false,
-    },
+  const initialValues = {
+    firstName: user.firstName || '',
+    lastName: user.lastName || '',
+    phoneNumber: user.phoneNumber || '',
+    phoneNumberConsentGiven: user.phoneNumberConsentGiven || false,
+  };
+
+  const { form, errors, setFields } = createForm({
+    initialValues,
     onSubmit: async (values) => {
       try {
         await (saving = patchUser(values));
@@ -48,15 +50,22 @@
   setContext('errors', errors);
 </script>
 
-<form use:form autocomplete="off" class="flex flex-col gap-3 ">
+<form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3" class:disabled>
   <FormInput label="First name" name="firstName" {disabled} />
   <FormInput label="Last name" name="lastName" {disabled} />
   <FormInput label="Phone Number" name="phoneNumber" {disabled} />
   <div class="flex gap-3 mb-4">
-    <input type="checkbox" name="phoneNumberConsentGiven" class="w-5 h-5 mt-1" value="check" {disabled} />
-    <span class="text-gray-300 text-sm"
+    <input
+      id="consent"
+      type="checkbox"
+      name="phoneNumberConsentGiven"
+      class="w-5 h-5 mt-1 text-black bg-white"
+      value="check"
+      {disabled}
+    />
+    <label for="consent" class="text-gray-300 text-sm"
       >By providing your phone number, you are consenting to receiving updates from ARIA Exchange on NFT releases,
-      exclusive experiences, updates and other communications from ARIA Exchange and its affiliates and partners.</span
+      exclusive experiences, updates and other communications from ARIA Exchange and its affiliates and partners.</label
     >
   </div>
   <div style="height: 1px; background-color: #EBEBEB;" />
@@ -65,9 +74,26 @@
       class=" bg-primary p-1 w-16 text-sm  rounded-sm"
       disabled={!!saving}
       on:click|preventDefault={() => {
+        setFields(initialValues);
         dispatch('closeForm');
       }}>Cancel</button
     >
-    <button type="submit" disabled={!!saving} class=" bg-primary p-1 w-16 text-sm  rounded-sm">Save</button>
+    <button type="submit" disabled={!!saving} class=" bg-primary p-1 w-16 text-sm rounded-sm">Save</button>
   </div>
 </form>
+
+<style>
+  [data-style='container'] {
+    --input-label-color: #7d7d7d;
+    --input-label-font-weight: 500;
+  }
+  [data-style='container'].disabled {
+    --input-container-border-width: 1px;
+    --input-bg-color: transparent;
+    --input-color: #7d7d7d;
+    --input-padding: 0;
+  }
+  .disabled input[type='checkbox'] {
+    background-color: theme('colors.gray.400');
+  }
+</style>
