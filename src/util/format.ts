@@ -29,7 +29,7 @@ function numberFormat(value: number | string, options: FormatNumberOptions) {
   return Number.isNaN(+value) ? options.fallback || '' : new Intl.NumberFormat('en-US', options).format(+value);
 }
 
-export function formatDate(value: Date | string | number, format = `MMMM Do, YYYY [at] hh:mm A`) {
+export function formatDate(value: Date | string | number, format = `MMM Do, YYYY [at] hh:mm A`) {
   return dayjs(new Date(value)).format(format);
 }
 

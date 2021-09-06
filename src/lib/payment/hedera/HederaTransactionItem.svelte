@@ -16,7 +16,7 @@
   <span class="text-black font-bold">Hbar</span>
 </div>
 <span class="font-bold">
-  {formatDate(transaction.rawTransaction.consensusAt, 'MMMM Do, YYYY')}
+  {formatDate(transaction.rawTransaction.consensusAt, 'MMM Do, YYYY')}
 </span>
 <span class="hidden {transaction.depositStatus} md:inline justify-self-center">
   {getTransactionStatus(transaction.depositStatus)}
