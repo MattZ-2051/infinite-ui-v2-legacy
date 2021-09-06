@@ -3,13 +3,18 @@ import { send, get, post, del, put, getPage } from './api';
 
 jest.mock('$lib/variables', () => ({ variables: { apiUrl: 'http://api' } }));
 
+function mockHeaders(responseHeaders) {
+  return {
+    has: (key) => key in responseHeaders,
+    get: (key) => responseHeaders[key],
+  };
+}
+
 describe('API', () => {
   const mockFetch = jest.fn().mockReturnValue(
     Promise.resolve({
       json: () => ({}),
-      headers: {
-        has: () => false,
-      },
+      headers: mockHeaders({}),
     })
   );
 
@@ -115,18 +120,14 @@ describe('API', () => {
 
     it('throw based on response status', async () => {
       const data = { error: 'Conflict' };
-      const responseHeaders = {
-        'content-length': 1,
-      };
       mockFetch.mockReturnValueOnce(
         Promise.resolve({
           status: 404,
           statusText: 'Not found!',
           json: () => data,
-          headers: {
-            has: (key) => key in responseHeaders,
-            get: (key) => responseHeaders[key],
-          },
+          headers: mockHeaders({
+            'content-length': 1,
+          }),
         })
       );
       expect.assertions(1);
@@ -146,17 +147,12 @@ describe('API', () => {
     });
 
     it('should parse text responses', async () => {
-      const responseHeaders = {
-        'content-type': 'text/html',
-      };
-
       mockFetch.mockReturnValueOnce(
         Promise.resolve({
           text: () => 'abcd',
-          headers: {
-            has: (key) => key in responseHeaders,
-            get: (key) => responseHeaders[key],
-          },
+          headers: mockHeaders({
+            'content-type': 'text/html',
+          }),
         })
       );
 
@@ -167,15 +163,10 @@ describe('API', () => {
 
   describe('`getPage`', () => {
     it('should parse response for pagination information', async () => {
-      const responseHeaders = {
+      const headers = mockHeaders({
         'content-length': 1,
         'content-range': '20-2/140',
-      };
-
-      const headers = {
-        has: (key) => key in responseHeaders,
-        get: (key) => responseHeaders[key],
-      };
+      });
 
       mockFetch.mockReturnValueOnce(
         Promise.resolve({
@@ -189,6 +180,25 @@ describe('API', () => {
       const response = await getPage('my/path', { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'GET' }));
       expect(response).toEqual({ data: ['a', 'b', 'c'], total: 140, headers });
+    });
+
+    it('should not throw if `content-range` is missing', async () => {
+      const headers = mockHeaders({
+        'content-length': 1,
+      });
+
+      mockFetch.mockReturnValueOnce(
+        Promise.resolve({
+          json: () => {
+            return ['a', 'b', 'c'];
+          },
+          headers,
+        })
+      );
+
+      const response = await getPage('my/path', { fetch: mockFetch });
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'GET' }));
+      expect(response).toEqual({ data: ['a', 'b', 'c'], total: undefined, headers });
     });
   });
 
@@ -233,10 +243,9 @@ describe('API', () => {
           json: () => {
             throw Error;
           },
-          headers: {
-            has: () => true,
-            get: () => 0, // Content-length
-          },
+          headers: mockHeaders({
+            'content-length': 0,
+          }),
         })
       );
 

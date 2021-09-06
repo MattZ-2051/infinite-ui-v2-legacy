@@ -72,7 +72,7 @@ export async function get<T>(path: string, options?: ApiOptions): Promise<T> {
 export async function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: T[]; total: number; headers }> {
   return await send<T[]>(path, { ...options, method: 'GET' }).then(async (response) => {
     const { headers, body } = response;
-    const total = +headers.get('content-range').split('/')[1];
+    const total = headers.has('content-range') ? +headers.get('content-range').split('/')[1] : undefined;
 
     return { data: body, total, headers };
   });
