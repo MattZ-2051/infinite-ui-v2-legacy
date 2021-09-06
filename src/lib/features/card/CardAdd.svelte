@@ -15,6 +15,10 @@
 
   $: isDistrictRequired = ['US', 'CA'].includes(selectedCountryISO2);
 
+  const phoneOrEmailValidateFunction = function () {
+    return this.parent.phone || this.parent.email;
+  };
+
   const schema = yup.object({
     cardNumber: yup
       .string()
@@ -42,34 +46,48 @@
         return isDistrictRequired ? yup.string().required('State/Province is required') : yup.string().notRequired();
       }),
     }),
+    metadata: yup.object({
+      phone: yup.string().test('emailOrPhone', 'Email or phone is required', phoneOrEmailValidateFunction),
+      email: yup
+        .string()
+        .email('Is not a valid email')
+        .test('emailOrPhone', 'Phone or email is required', phoneOrEmailValidateFunction),
+    }),
   });
 
   let selectedCountryISO2: string;
   const saving = creditCardInsertFx.pending;
 
   const { form, errors, reset } = createForm<NewCreditCard>({
-    // initialValues: {
-    //   cardNumber: '4757140000000001',
-    //   expMonth: '01',
-    //   expYear: '2025',
-    //   cvv: '123',
-    //   billingDetails: {
-    //     name: 'Test Name',
-    //     line1: 'My Line 1',
-    //     line2: '',
-    //     postalCode: '12345',
-    //     city: 'My city',
-    //     country: 'AU',
-    //     district: '',
-    //   },
-    // },
+    initialValues: {
+      cardNumber: '',
+      expMonth: '',
+      expYear: '',
+      cvv: '',
+      metadata: {
+        email: $user.email,
+        phone: '',
+      },
+      billingDetails: {
+        name: '',
+        line1: '',
+        line2: '',
+        postalCode: '',
+        city: '',
+        country: '',
+        district: '',
+      },
+    },
     onSubmit: async (values) => {
       await creditCardInsertFx({
         ...values,
         expMonth: +values.expMonth,
         expYear: +values.expYear,
         cvv: values.cvv,
-        metadata: { email: $user.email },
+        metadata: {
+          email: values.metadata.email,
+          phone: values.metadata.phone,
+        },
       });
       reset();
     },
@@ -87,6 +105,8 @@
     <FormInput name="expYear" label="Exp year *" />
     <FormInput name="cvv" label="CCV *" />
     <FormInput name="billingDetails.name" label="Cardholder name *" />
+    <FormInput name="metadata.email" label="Email" />
+    <FormInput name="metadata.phone" label="Phone Number" />
     <FormInput name="billingDetails.line1" label="Address Line 1 *" />
     <FormInput name="billingDetails.line2" label="Address Line 2" />
     <FormInput name="billingDetails.postalCode" label="Postal Code *" />

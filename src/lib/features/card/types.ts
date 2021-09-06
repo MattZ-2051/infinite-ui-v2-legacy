@@ -5,6 +5,7 @@ export interface NewCreditCard extends Record<string, unknown> {
   expYear: number;
   metadata: {
     email: string;
+    phone: string;
   };
   billingDetails: {
     name: string;
