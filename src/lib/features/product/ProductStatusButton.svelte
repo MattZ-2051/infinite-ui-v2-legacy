@@ -23,8 +23,6 @@
   import { onOrderIntent } from '../order/order.service';
 
   export let product: Product;
-  let _class = '';
-  export { _class as class };
 
   function onBuy() {
     onOrderIntent({ product: product, listing: product.activeProductListings[0] });
@@ -54,7 +52,7 @@
   $: isActive = $polls[product._id]?.$isActive || readable(false);
 </script>
 
-<div class="px-12 {_class}" {...$$restProps}>
+<div {...$$restProps}>
   <form
     use:form
     class="flex flex-col md:flex-row relative w-full h-full md:rounded-lg overflow-hidden"

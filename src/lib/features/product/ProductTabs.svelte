@@ -57,7 +57,7 @@
     <ProductActions slot="extra" {product} {userId} {totalBids} />
   </Tabs>
 
-  <div class="bg-white-opacity-10 h-full px-4 lg:px-12 pb-12">
+  <div class="bg-white-opacity-10 flex-grow px-4 lg:px-12 pb-12">
     {#if tab === 'auction'}
       <ProductAuction {product} canBid={!userOwnsProduct} />
     {/if}
