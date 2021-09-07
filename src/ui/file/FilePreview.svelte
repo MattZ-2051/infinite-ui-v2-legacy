@@ -56,28 +56,32 @@
       />
     </IntersectionObserver>
   {:else}
-    <video
-      class="absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-full object-contain"
-      playsinline
-      autoplay
-      controls
-      loop
-      muted
-      src={item.url}
-      {style}
-    />
+    <div class="relative h-full w-full">
+      <video
+        class="absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-full object-contain"
+        playsinline
+        autoplay
+        controls
+        loop
+        muted
+        src={item.url}
+        {style}
+      />
+    </div>
   {/if}
 {:else if fileType === 'image'}
-  <img
-    src={preview && item.previewUrl ? item.previewUrl : item.url}
-    alt="preview"
-    class={preview
-      ? 'w-full h-full object-cover'
-      : 'absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-full object-contain'}
-    on:error={() => (showFallbackImage = true)}
-    loading="lazy"
-    {style}
-  />
+  <div class="relative h-full w-full">
+    <img
+      src={preview && item.previewUrl ? item.previewUrl : item.url}
+      alt="preview"
+      class={preview
+        ? 'w-full h-full object-cover'
+        : 'absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-full object-contain'}
+      on:error={() => (showFallbackImage = true)}
+      loading="lazy"
+      {style}
+    />
+  </div>
 {:else if fileType === 'audio'}
   {#if preview}
     <Icon path={mdiVolumeSource} size="3" />

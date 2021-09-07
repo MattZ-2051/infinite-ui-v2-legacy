@@ -33,7 +33,7 @@
 <Meta title="Lib / components / Gallery" component={Gallery} />
 
 <Template let:args>
-  <div class="max-w-5xl">
+  <div class="max-w-5xl" style="height: min(500px, 100%);">
     <Gallery {...args} />
   </div>
 </Template>

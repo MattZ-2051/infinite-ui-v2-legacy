@@ -32,6 +32,10 @@
   <div class="w-96 h-96">
     <FilePreview {...args} />
   </div>
+
+  <div class="w-36 h-36">
+    <FilePreview {...args} preview />
+  </div>
 </Template>
 
 <Story name="Image" args={{ item: imageAsset }} />
