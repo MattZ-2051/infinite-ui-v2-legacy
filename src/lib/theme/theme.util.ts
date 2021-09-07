@@ -6,7 +6,7 @@ const _matchers = parseMatchers(themeConfig);
 export function getCurrentPage(page: Page) {
   return (
     page.path
-      .split('/')
+      ?.split('/')
       .filter(Boolean)
       .map((part) => `$${part}`)
       .join('.') || '$index'

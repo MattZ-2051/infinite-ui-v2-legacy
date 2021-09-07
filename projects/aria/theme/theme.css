@@ -141,3 +141,12 @@
   --input-border-radius: 5px;
   --input-padding: 0 0.75rem;
 }
+
+.theme-modal {
+  --input-container-border-color: theme('colors.black-opacity.30');
+  --input-container-border-color-focus: #000000;
+  --input-label-color: theme('colors.black-opacity.95');
+  --input-placeholder-color: theme('colors.black-opacity.50');
+  --input-bg-color: #ffffff;
+  --input-color: #000000;
+}

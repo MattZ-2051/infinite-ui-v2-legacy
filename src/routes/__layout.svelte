@@ -17,9 +17,9 @@
 </script>
 
 <script lang="ts">
-  import { navigating } from '$app/stores';
+  import { navigating, page } from '$app/stores';
   import { isLoading } from '$lib/auth';
-  import { initUserAuth, user } from '$lib/user';
+  import { initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { pollPendingTransactions } from '$lib/features/wallet/wallet.poll';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$lib/layout/header/Header.svelte';
@@ -45,6 +45,7 @@
   );
 
   $: $user && pollPendingTransactions();
+  $: mustSetupAccount($user, $page.path);
 </script>
 
 <svelte:head>
