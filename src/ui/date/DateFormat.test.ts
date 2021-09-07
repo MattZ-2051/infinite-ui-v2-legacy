@@ -11,16 +11,16 @@ describe('DateFormat', () => {
     }));
   });
   it('renders correctly', async () => {
-    expect(container).toHaveTextContent('Sep 30, 2010 at 03:00 PM');
+    expect(container).toHaveTextContent('Sep 30, 2010, 3:00 PM');
   });
 
   it('updates correctly', async () => {
     await component.$set({ value: new Date(2013, 7, 11, 10, 30, 10) });
-    expect(container).toHaveTextContent('Aug 11, 2013 at 10:30 AM');
+    expect(container).toHaveTextContent('Aug 11, 2013, 10:30 AM');
   });
 
   it('handles ISO string', async () => {
     await component.$set({ value: '2014-10-23T09:00:00.000Z' });
-    expect(container).toHaveTextContent('Oct 23, 2014 at 09:00 AM');
+    expect(container).toHaveTextContent('Oct 23, 2014, 9:00 AM');
   });
 });

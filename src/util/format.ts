@@ -29,8 +29,13 @@ function numberFormat(value: number | string, options: FormatNumberOptions) {
   return Number.isNaN(+value) ? options.fallback || '' : new Intl.NumberFormat('en-US', options).format(+value);
 }
 
-export function formatDate(value: Date | string | number, format = `MMM D, YYYY [at] hh:mm A`) {
-  return dayjs(new Date(value)).format(format);
+const currentYear = new Date().getFullYear();
+export function formatDate(value: Date | string | number, format?: string) {
+  const date = new Date(value);
+  if (!format) {
+    format = date.getFullYear() === currentYear ? `MMM D, h:mm A` : `MMM D, YYYY, h:mm A`;
+  }
+  return dayjs(date).format(format);
 }
 
 export function formatBytes(bytes: number) {
