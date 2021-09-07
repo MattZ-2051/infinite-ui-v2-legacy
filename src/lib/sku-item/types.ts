@@ -65,6 +65,7 @@ export type Sku = {
   soldProductListings?: Listing[];
   soldSkuListings?: Listing[];
   nftPublicAssets: FileAsset[];
+  nftSocialAssets?: SocialFileAsset[];
   minSkuPrice?: number;
   customNftTerms?: string;
 };
