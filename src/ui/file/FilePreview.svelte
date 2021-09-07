@@ -72,7 +72,7 @@
     src={preview && item.previewUrl ? item.previewUrl : item.url}
     alt="preview"
     class={preview
-      ? 'h-full object-cover'
+      ? 'w-full h-full object-cover'
       : 'absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-full object-contain'}
     on:error={() => (showFallbackImage = true)}
     loading="lazy"
