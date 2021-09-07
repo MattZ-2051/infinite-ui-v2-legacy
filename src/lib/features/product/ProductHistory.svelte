@@ -9,7 +9,6 @@
   import { openModal } from '$ui/modals';
   import iconAuction from '$lib/components/icons/auction';
   import UserLink from '$lib/components/UserLink.svelte';
-  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import AuctionHistoryModal from '$lib/features/product/auction/AuctionHistoryModal.svelte';
   import { loadingTransactions } from './product.api';
   import { product, transactions, totalTransactions } from './product.store';
@@ -35,18 +34,16 @@
 
 <div class:opacity-40={$loadingTransactions}>
   {#if $totalTransactions > 0}
-    <div class="text-gray-500 ">
+    <div class="text-default">
       {#each $transactions as transaction}
-        <div
-          class="group flex flex-wrap justify-end items-center gap-1 border-b border-gray-500 hover:border-white py-4"
-        >
+        <div class="flex flex-wrap justify-end items-center gap-1 border-b border-white-opacity-10 py-4">
           <div class="flex gap-3 mr-auto">
-            <UserLink username={transaction.owner?.username} class="font-black italic group-hover:text-white" />
+            <UserLink username={transaction.owner?.username} />
           </div>
 
           <div class="flex items-center">
             <div class="flex flex-col gap-1 text-right">
-              <span class="group-hover:text-white">
+              <span>
                 {#if transaction.type === 'purchase' && transaction.status === 'success'}
                   {#if transaction.transactionData.saleType === 'auction'}
                     <Icon
@@ -63,12 +60,12 @@
                 {:else if transaction.type === 'nft_mint'}
                   NFT Minted
                 {:else if transaction.type === 'nft_redeem'}
-                  <IconRedeem class="inline mr-2" />Redeemed this product
+                  Redeemed this product
                 {:else}
                   Received Transfer
                 {/if}
               </span>
-              <span class="font-black italic text-sm"><DateFormat value={transaction.updatedAt} /></span>
+              <span class="text-sm text-white-opacity-40"><DateFormat value={transaction.updatedAt} /></span>
             </div>
             <div class="w-16 flex items-center justify-center">
               {#if transaction?.transactionData?.explorerLink}
@@ -77,7 +74,7 @@
                     tooltip={{ content: 'View transaction', theme: 'white' }}
                     path={mdiLinkVariant}
                     size="0.8"
-                    class="w-6 justify-self-center group-hover:text-white"
+                    class="w-6 justify-self-center text-white-opacity-20 hover:text-default"
                   />
                 </a>
               {/if}

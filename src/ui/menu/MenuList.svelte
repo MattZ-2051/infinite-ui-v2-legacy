@@ -65,6 +65,5 @@
 <style>
   ul {
     background: var(--menu-background-color);
-    box-shadow: var(--menu-box-shadow);
   }
 </style>

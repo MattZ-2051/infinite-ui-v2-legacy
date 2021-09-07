@@ -74,10 +74,10 @@ input[type='number'] {
 }
 
 .text-gradient-primary {
-  @apply text-gradient bg-gradient-to-tr;
-  --tw-gradient-to: #c000d6;
-  --tw-gradient-from: #6734ff;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 114, 182, 0));
+  @apply text-gradient bg-gradient-to-r;
+  --tw-gradient-to: #6734ff;
+  --tw-gradient-from: #c000d6;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .link {

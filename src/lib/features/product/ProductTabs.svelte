@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
-  import { Tabs, Tab } from '$ui/tabs';
-  import { userId } from '$lib/user';
+  import { Tabs } from '$ui/tabs';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
@@ -9,10 +8,13 @@
   import ProductHistory from './ProductHistory.svelte';
   import ProductAuction from './auction/ProductAuction.svelte';
   import { hasAuction, isOwner } from './product.service';
+  import ProductActions from './actions/ProductActions.svelte';
 
   export let product: Product;
+  export let userId: string;
+  export let totalBids: number;
 
-  $: userOwnsProduct = isOwner(product, $userId);
+  $: userOwnsProduct = isOwner(product, userId);
   $: showAuction = hasAuction(product);
 
   function redirect({ detail }: CustomEvent<'auction' | 'history' | 'owner'>) {
@@ -43,15 +45,27 @@
 </script>
 
 <PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
-  <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" defaultSelectedId={tab} on:select={redirect}>
-    <Tab id="auction">
-      <ProductAuction {product} canBid={!userOwnsProduct} />
-    </Tab>
-    <Tab id="history">
-      <ProductHistory />
-    </Tab>
-    <Tab id="owner">
-      <PrivateAssetList />
-    </Tab>
+  <Tabs
+    class="px-4 md:pl-8"
+    items={getItems(totalPrivateAssets)}
+    itemClass="text-xl lg:text-2xl items-center"
+    menuBreakpoint="sm"
+    defaultSelectedId={tab}
+    on:select={redirect}
+    --tab-border-color-active="transparent"
+  >
+    <ProductActions slot="extra" {product} {userId} {totalBids} />
   </Tabs>
+
+  <div class="bg-white-opacity-10 h-full px-4 lg:px-12 pb-12">
+    {#if tab === 'auction'}
+      <ProductAuction {product} canBid={!userOwnsProduct} />
+    {/if}
+    {#if tab === 'history'}
+      <ProductHistory />
+    {/if}
+    {#if tab === 'owner'}
+      <PrivateAssetList />
+    {/if}
+  </div>
 </PrivateAsset>

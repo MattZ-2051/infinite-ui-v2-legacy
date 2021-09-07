@@ -63,7 +63,6 @@
 
   /* Menu */
   --menu-background-color: #ffffff;
-  --menu-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.13);
   --menu-item-background-selected: #6633ff;
   --menu-item-color: theme('colors.black-opacity.50');
   --menu-item-color-selected: #ffffff;
@@ -112,7 +111,6 @@
 .theme-brand {
   /* Menu */
   --menu-background-color: #000000;
-  --menu-box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.13);
   --menu-item-background-selected: var(--primary);
   --menu-item-color: var(--color);
   --menu-item-color-selected: var(--color);

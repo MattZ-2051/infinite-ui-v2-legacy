@@ -10,7 +10,7 @@
 
 {#if $selectedTab.id === id}
   {#key id}
-    <div in:fade>
+    <div in:fade {...$$restProps}>
       <slot />
     </div>
   {/key}

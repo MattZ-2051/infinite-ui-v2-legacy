@@ -3,13 +3,18 @@
   import { FileThumbnail, FilePreview } from '$ui/file';
 
   export let items: FileAsset[] = [];
+  let _class = '';
+  export { _class as class };
 
   let selectedItem: FileAsset;
 
   $: activeItem = selectedItem || items?.[0];
 </script>
 
-<div class="flex flex-col gap-4 justify-between items-center h-full p-6 text-white relative z-0">
+<div
+  class="flex flex-col gap-4 justify-between items-center h-full p-6 text-white relative z-0 {_class}"
+  {...$$restProps}
+>
   <div><!-- empty --></div>
   <div class="relative flex-1 w-full max-w-2xl">
     <FilePreview item={activeItem} />

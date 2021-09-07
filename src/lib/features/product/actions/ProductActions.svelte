@@ -66,12 +66,14 @@
 </script>
 
 {#if visibleActions.length > 0}
-  <div class="flex items-center font-medium text-lg text-gray-500">
+  <div class="flex items-center font-medium text-lg text-white-opacity-50">
     Actions
 
     <Menu placement="bottom-end">
-      <MenuTrigger slot="trigger" class="rounded-2xl bg-gray-800 hover:bg-white hover:text-black ml-2.5 p-2">
-        <Icon path={mdiDotsVertical} />
+      <MenuTrigger slot="trigger" class="ml-2.5">
+        <div class="bg-white text-black rounded-full">
+          <Icon path={mdiDotsVertical} size="1.5" class="p-1 rounded-full" />
+        </div>
       </MenuTrigger>
       <MenuList slot="menu">
         {#each visibleActions as { type, label, icon } (type)}

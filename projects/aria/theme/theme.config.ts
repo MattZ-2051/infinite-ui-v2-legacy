@@ -9,4 +9,5 @@ export const themeConfig = {
   '$u.$wallet.*': Theme.Brand,
   '$u.$account.*': Theme.Brand,
   '$partner.*.root': Theme.Brand,
+  '$product.*': Theme.Brand,
 };
