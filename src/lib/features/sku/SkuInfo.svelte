@@ -26,13 +26,13 @@
     {#if isActiveAuction}
       <div class="flex flex-col gap-2 text-right">
         <div class="text-white-opacity-50 text-sm">Active Auction:</div>
-        <div>Ends {formatDate(activeProduct.endDate, 'MMM Do [at] h:mm A')}</div>
+        <div>Ends {formatDate(activeProduct.endDate, 'MMM D [at] h:mm A')}</div>
       </div>
     {/if}
     {#if isActiveSale}
       <div class="flex flex-col gap-2 text-right">
         <div class="text-white-opacity-50 text-sm">Active Sale:</div>
-        <div>Started {formatDate(activeProduct?.startDate || activeSku?.startDate, 'MMM Do [at] h:mm A')}</div>
+        <div>Started {formatDate(activeProduct?.startDate || activeSku?.startDate, 'MMM D [at] h:mm A')}</div>
       </div>
     {/if}
   </div>

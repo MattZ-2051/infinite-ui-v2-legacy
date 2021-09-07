@@ -43,7 +43,7 @@
 
       <div class="flex justify-between">
         <TransactionItemSentence {transaction} />
-        <span class="text-white-opacity-40 text-sm">{formatDate(transaction.createdAt, 'MMM Do, YYYY ')}</span>
+        <span class="text-white-opacity-40 text-sm">{formatDate(transaction.createdAt, 'MMM D, YYYY ')}</span>
       </div>
     </div>
   </div>
