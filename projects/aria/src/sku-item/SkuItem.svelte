@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import type { Sku } from '$lib/sku-item/types';
+  import type { Sku, Product } from '$lib/sku-item/types';
   import { FilePreview } from '$ui/file';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
@@ -10,19 +10,21 @@
   import { formatDate } from '$util/format';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
 
-  export let item: Sku;
-  export let type: 'sku' | 'product';
+  let _sku: Sku = undefined;
+  export { _sku as sku };
+  export let product: Product = undefined;
 
   let clientWidth: number;
   let clientHeight: number;
-  $: activeListing = type === 'sku' ? item.activeSkuListings?.[0] : item.activeProductListings?.[0];
+  $: sku = product ? product.sku : _sku;
+  $: activeListing = product ? sku.activeProductListings?.[0] : sku.activeSkuListings?.[0];
 </script>
 
 <div class="relative flex flex-col" in:fade={{ duration: 300 }}>
   <div bind:clientWidth bind:clientHeight class="card flex flex-col h-full tracking-tighter relative z-30 mb-14">
     <div class="card-img p-2">
       <div class="relative h-full">
-        <FilePreview item={item.nftPublicAssets?.[0]} preview />
+        <FilePreview item={sku.nftPublicAssets?.[0]} preview />
         {#if activeListing?.endDate}
           <div
             class="card-end-label opacity-90 text-base font-medium absolute bottom-4 left-4 py-2 px-4 rounded-md flex gap-2"
@@ -31,38 +33,43 @@
             {formatDate(activeListing.endDate)}
           </div>
         {/if}
-        {#if item.description}
-          <SkuDescription issuer={item.issuer} />
+        {#if sku.description}
+          <SkuDescription issuer={sku.issuer} />
         {/if}
       </div>
     </div>
-    <a sveltekit:prefetch href={routes.sku(item._id)}>
+    <a sveltekit:prefetch href={product ? routes.product(product._id) : routes.sku(sku._id)}>
       <div class="px-6 pt-2 pb-10 rounded-b-3xl flex flex-col flex-grow justify-between">
         <div>
           <div class="flex flex-wrap justify-between card-name">
-            <TalentLink profile={item.issuer} hideImage />
-            <SkuEdition {item} />
+            <TalentLink profile={sku.issuer} hideImage />
+            <SkuEdition item={sku} />
           </div>
           <div class="mt-5 mb-10 flex justify-between items-start gap-2">
-            <span class="text-2.5xl font-light">{item.name}</span>
-            {#if item.redeemable}
+            <span class="text-2.5xl font-light">{sku.name}</span>
+            {#if sku.redeemable}
               <IconRedeem size={32} />
             {/if}
           </div>
         </div>
-        {#if item.series}
-          <div class="mb-4"># {item.series.name}</div>
-        {/if}
+        <div class="mb-4 flex items-center gap-2 justify-between">
+          {#if sku.series}
+            <div>{sku.series.name}</div>
+          {/if}
+          {#if product?.serialNumber}
+            <div>#{product.serialNumber}</div>
+          {/if}
+        </div>
       </div>
-      {#if type === 'sku'}
+      {#if !product}
         <div class="absolute bottom-0 transform translate-y-5 left-2 right-2">
-          <SkuStatus {item} />
+          <SkuStatus item={sku} />
         </div>
       {/if}
     </a>
   </div>
 
-  {#if type === 'sku' && item.totalSupply > 1}
+  {#if !product && sku.totalSupply > 1}
     <div
       style="width: {clientWidth}px; height: {clientHeight}px"
       class="card card-1 absolute transform translate-x-2 translate-y-2 z-20"

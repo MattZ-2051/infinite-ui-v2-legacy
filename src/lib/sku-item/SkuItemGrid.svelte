@@ -35,11 +35,11 @@
   >
     {#if productList.length}
       {#each productList as item (item._id)}
-        <SkuItem item={item.sku} type="product" />
+        <SkuItem product={item} />
       {/each}
     {:else}
       {#each skuList as item (item._id)}
-        <SkuItem {item} type="sku" />
+        <SkuItem sku={item} />
       {/each}
     {/if}
   </div>

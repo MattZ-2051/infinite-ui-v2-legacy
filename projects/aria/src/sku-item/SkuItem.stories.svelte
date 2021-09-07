@@ -18,14 +18,14 @@
 
 <Template let:args>
   <div class="max-w-sm m-4">
-    <SkuItem {item} {...args} />
+    <SkuItem sku={item} {...args} />
   </div></Template
 >
 
-<Story name="Active" args={{ type: 'sku', item }} />
+<Story name="Active" args={{ item }} />
 <Story
   name="Upcoming"
-  args={{ type: 'sku', item: { ...item, minStartDate: dayjs(new Date()).add(3, 'days').add(1, 'hour').toDate() } }}
+  args={{ item: { ...item, minStartDate: dayjs(new Date()).add(3, 'days').add(1, 'hour').toDate() } }}
 />
 <Story
   name="Upcoming Soon"
@@ -34,15 +34,14 @@
     item: { ...item, minStartDate: dayjs(new Date()).add(2, 'days').add(6, 'hour').add(5, 'minute').toDate() },
   }}
 />
-<Story name="No Sale" args={{ type: 'sku', item: { ...item, minStartDate: new Date(), totalSupplyLeft: 0 } }} />
-<Story name="Unique" args={{ type: 'sku', item: { ...item, maxSupply: 1 } }} />
-<Story name="Limited" args={{ type: 'sku', item: { ...item, totalSupply: 1 } }} />
-<Story name="Released" args={{ type: 'sku', item: { ...item, supplyType: 'variable', circulatingSupply: 1 } }} />
-<Story name="Multiple" args={{ type: 'sku', item: { ...item, totalSupply: 2 } }} />
+<Story name="No Sale" args={{ item: { ...item, minStartDate: new Date(), totalSupplyLeft: 0 } }} />
+<Story name="Unique" args={{ item: { ...item, maxSupply: 1 } }} />
+<Story name="Limited" args={{ item: { ...item, totalSupply: 1 } }} />
+<Story name="Released" args={{ item: { ...item, supplyType: 'variable', circulatingSupply: 1 } }} />
+<Story name="Multiple" args={{ item: { ...item, totalSupply: 2 } }} />
 <Story
   name="Long Description"
   args={{
-    type: 'sku',
     item: {
       ...item,
       description:
