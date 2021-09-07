@@ -40,7 +40,8 @@
         <AccountEditButton on:click={() => (editing = true)} />
       </div>
     </div>
-    {#if user.tagline}<span class="text-white-opacity-70 font-black mb-5 text-center">{user.tagline}</span>{/if}
+    {#if user.tagline}<span class="text-white-opacity-70 font-black mb-5 text-center break-words">{user.tagline}</span
+      >{/if}
   </div>
 {:else}
   <AccountInfoForm on:closeForm={() => (editing = false)} {user} />

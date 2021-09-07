@@ -51,8 +51,8 @@
 </script>
 
 <form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3" class:disabled>
-  <FormInput label="First name" name="firstName" {disabled} />
-  <FormInput label="Last name" name="lastName" {disabled} />
+  <FormInput label={`First name${disabled ? '' : ' *'}`} name="firstName" {disabled} />
+  <FormInput label={`Last name${disabled ? '' : ' *'}`} name="lastName" {disabled} />
   <FormInput label="Phone Number" name="phoneNumber" {disabled} />
   <div class="flex gap-3 mb-4">
     <input

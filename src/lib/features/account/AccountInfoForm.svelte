@@ -15,7 +15,12 @@
   let saving;
 
   const schema = yup.object({
-    username: yup.string().required('Username is required.'),
+    username: yup
+      .string()
+      .required('Username is required.')
+      .min(3, 'Username is too short.')
+      .max(18, 'Username is too long.'),
+    tagline: yup.string().max(150, 'Tagline must be at most 150 characters.'),
   });
 
   const { form, errors } = createForm({
