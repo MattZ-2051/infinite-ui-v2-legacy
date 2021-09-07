@@ -1,5 +1,6 @@
 const Theme = {
   Brand: 'theme-brand',
+  Form: 'theme-form',
 };
 
 export const themeConfig = {
@@ -7,7 +8,7 @@ export const themeConfig = {
   '*.sku': Theme.Brand,
   '*.issuer': Theme.Brand,
   '$u.$wallet.*': Theme.Brand,
-  '$u.$account.*': Theme.Brand,
-  '$partner.*.root': Theme.Brand,
+  '$u.$account.*': Theme.Form,
+  '$partner.*.root': Theme.Form,
   '$product.*': Theme.Brand,
 };

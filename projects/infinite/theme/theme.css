@@ -62,6 +62,12 @@
   /* Tooltip */
   --tooltip-bg: #000000;
   --tooltip-color: #ffffff;
+
+  /* Select */
+  --select-color: initial;
+  --select-bg-color: initial;
+  --select-option-color: initial;
+  --select-option-bg-color: initial;
 }
 
 .theme-dark {
@@ -123,4 +129,9 @@
   /* Tooltip */
   --tooltip-bg: #ffffff;
   --tooltip-color: #000000;
+
+  /* Dropdown */
+  --dropdown-bg-color: black;
+  --dropdown-color: white;
+  --dropdown-color-selected: black;
 }

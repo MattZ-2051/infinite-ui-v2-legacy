@@ -106,6 +106,13 @@
   --input-placeholder-color: theme('colors.white-opacity.50');
   --input-padding: 0 0.125rem;
   --input-margin-bottom: 0.125rem;
+  --input-height: 1.875rem;
+
+  /* Select */
+  --select-color: var(--color);
+  --select-bg-color: var(--bg-color);
+  --select-option-color: #000000;
+  --select-option-bg-color: #ffffff;
 }
 
 .theme-brand {
@@ -119,7 +126,9 @@
   --tab-border-color-active: var(--primary);
   --tab-color-active: var(--primary);
   --tab-color-hover: var(--color);
+}
 
+.theme-form {
   /* Input */
   --input-container-border-width: 0px;
   --input-color: #000000;

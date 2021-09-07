@@ -53,11 +53,20 @@
     color: var(--input-placeholder-color);
   }
   .input-container :global(input) {
-    min-height: 1.875rem;
+    min-height: var(--input-height);
     padding: var(--input-padding);
     background-color: var(--input-bg-color);
     border-radius: var(--input-border-radius);
     color: var(--input-color);
     margin-bottom: var(--input-margin-bottom);
+  }
+  .input-container :global(select) {
+    min-height: var(--input-height);
+    background-color: var(--select-bg-color);
+    color: var(--select-color);
+  }
+  .input-container :global(option) {
+    color: var(--select-option-color);
+    background-color: var(--select-option-bg-color);
   }
 </style>
