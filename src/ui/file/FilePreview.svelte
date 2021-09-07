@@ -28,13 +28,14 @@
   let videoElement: HTMLVideoElement;
 
   $: fileType = getFileType(item);
-  $: style = item
-    ? styles({ ...getAspectRatioStyle(item, preview), filter: blur > 0 ? `blur(${blur}px)` : undefined })
-    : '';
+  $: style = styles({
+    ...(item ? getAspectRatioStyle(item, preview) : {}),
+    filter: blur > 0 ? `blur(${blur}px)` : undefined,
+  });
 </script>
 
 {#if !item || showFallbackImage}
-  <Image src={fallback} alt="N/A" class="w-full h-full object-contain p-8" />
+  <Image src={fallback} alt="N/A" class="w-full h-full object-contain p-8" {style} />
 {:else if fileType === 'video'}
   {#if preview}
     <IntersectionObserver
@@ -70,7 +71,9 @@
   <img
     src={preview && item.previewUrl ? item.previewUrl : item.url}
     alt="preview"
-    class="w-full {preview ? 'h-full object-cover' : 'object-contain'}"
+    class={preview
+      ? 'h-full object-cover'
+      : 'absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-full object-contain'}
     on:error={() => (showFallbackImage = true)}
     loading="lazy"
     {style}
