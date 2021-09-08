@@ -15,7 +15,10 @@
 
   const collectorListing = collector.listing;
 
-  const href = status === 'noneForSale' ? routes.collectors(sku._id) : routes.product(collectorListing.product);
+  // TODO: let’s always link to the collector’s page for now
+  const href = /* status === 'noneForSale' ? */ routes.collectors(
+    sku._id
+  ); /* : routes.product(collectorListing.product) */
 </script>
 
 <SkuPriceBoxButton {href} polling={$isPolling}>
