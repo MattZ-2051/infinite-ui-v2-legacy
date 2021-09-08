@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { User } from '$lib/user/types';
-  import { mdiAccount } from '@mdi/js';
+  import { mdiAccount, mdiInformationVariant } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import imageError from '$util/imageError';
+  import tooltip from '$ui/tooltip';
   import { passwordResetRequested } from './account.store';
   import AccountPhotoUpload from './AccountPhotoUpload.svelte';
   import AccountEditButton from './AccountEditButton.svelte';
@@ -47,7 +48,12 @@
 <div class="flex flex-col gap-2 items-center mt-4 md:mt-24">
   <div class="flex flex-col gap-2 w-full">
     <span class="text-sm" style="color:#7D7D7D">Email</span>
-    <span class="font-bold">@{user.email}</span>
+    <div class="flex justify-between">
+      <span class="font-bold">{user.email}</span>
+      <div use:tooltip={'Your email uniquely identifies your account and cannot be changed.'}>
+        <Icon path={mdiInformationVariant} class="px-1 bg-white bg-opacity-10 rounded-full" />
+      </div>
+    </div>
     <div style="height: 1px; background-color: #EBEBEB;" />
   </div>
   <button type="button" on:click={onResetPassword} class="mt-4 text-white link text-sm ">Reset password</button>
