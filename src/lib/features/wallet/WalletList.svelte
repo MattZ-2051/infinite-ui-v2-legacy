@@ -74,45 +74,9 @@
     },
     {
       id: 9,
-      name: 'Transfer out',
-      order: '',
-      value: 'transfer_out',
-    },
-    {
-      id: 10,
-      name: 'Transfer in',
-      order: '',
-      value: 'transfer_in',
-    },
-    {
-      id: 11,
-      name: 'Nft mint',
-      order: '',
-      value: 'nft_mint',
-    },
-    {
-      id: 12,
-      name: 'Nft transfer',
-      order: '',
-      value: 'nft_transfer',
-    },
-    {
-      id: 13,
-      name: 'Nft transfer manual',
-      order: '',
-      value: 'nft_transfer_manual',
-    },
-    {
-      id: 14,
       name: 'Nft redeem',
       order: '',
       value: 'nft_redeem',
-    },
-    {
-      id: 15,
-      name: 'Nft claim giveaway',
-      order: '',
-      value: 'nft_claim_giveaway',
     },
   ];
 

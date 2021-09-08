@@ -12,12 +12,6 @@ const filterWithStatus = {
     { type: 'withdrawal' },
     { type: 'nft_redeem' },
     { type: 'claim' },
-    { type: 'transfer_out' },
-    { type: 'transfer_in' },
-    { type: 'nft_mint' },
-    { type: 'nft_transfer' },
-    { type: 'nft_transfer_manual' },
-    { type: 'nft_claim_giveaway' },
     { type: 'auction' },
   ],
 };

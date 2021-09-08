@@ -126,6 +126,7 @@ const getDummyTransaction = (): Transaction => {
       resaleSellersFeePercentage: 3,
       serviceEarnings: 1,
       totalCost: 10,
+      royaltyFee: 12,
     },
     withdraw: {
       ach_number: 3,
@@ -140,7 +141,7 @@ const getDummyTransaction = (): Transaction => {
     deposit: {
       id: 'depositId',
       type: 'cc',
-      amount: 'depositNumber',
+      amount: '100',
       card: {
         createdAt: new Date(),
         expMonth: 11,
