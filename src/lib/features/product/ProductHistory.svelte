@@ -71,7 +71,7 @@
               {#if transaction?.transactionData?.explorerLink}
                 <a href={transaction?.transactionData?.explorerLink} target="_blank" rel="noreferrer">
                   <Icon
-                    tooltip={{ content: 'View transaction', theme: 'white' }}
+                    tooltip={{ content: 'View transaction' }}
                     path={mdiLinkVariant}
                     size="0.8"
                     class="w-6 justify-self-center text-white-opacity-20 hover:text-default"
@@ -85,6 +85,6 @@
     </div>
     <Pagination perPage={5} total={$totalTransactions} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
   {:else if $totalTransactions === 0 && !$loadingTransactions}
-    <div class="flex justify-center items-center text-2xl text-gray-400 pt-20">No records found</div>
+    <div class="no-results">No records found</div>
   {/if}
 </div>

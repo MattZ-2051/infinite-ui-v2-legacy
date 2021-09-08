@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { mdiCheckCircle } from '@mdi/js';
+  import debounce from 'p-debounce';
   import type { Profile } from '$lib/sku-item/types';
   import { onMount } from 'svelte';
-  import { mdiCheckCircle } from '@mdi/js';
+  import { browser } from '$app/env';
   import { user } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import Pagination from '$ui/pagination/Pagination.svelte';
@@ -18,18 +20,22 @@
   let search: string = undefined;
   const loading = searchUsersFx.pending;
 
-  async function getUsers(page_ = 1) {
-    selectedUser = undefined;
-    page = page_;
+  const getUsers = debounce(
+    async (page_: number) => {
+      selectedUser = undefined;
+      page = page_ || 1;
 
-    ({ total, data: users } = await searchUsersFx({ search, page, perPage }));
-  }
+      ({ total, data: users } = await searchUsersFx({ search, page, perPage }));
+    },
+    browser ? 300 : 0
+  );
 
   async function onPaginationChanged(page_: number) {
     await getUsers(page_);
   }
 
-  async function onInput(value: string) {
+  async function handleInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
     search = value && value.trim() !== '' ? value : undefined;
 
     await getUsers(1);
@@ -50,7 +56,7 @@
 
 <div class="grid grid-cols-1 gap-4">
   <div class="font-medium text-xl text-center">Select a user</div>
-  <Search {onInput} placeholder={'Search for a user'} debouncePeriod={300} data-initial-focus />
+  <Search placeholder={'Search for a user'} on:input={handleInput} data-initial-focus />
   <div class="grid grid-cols-1 gap-2" class:opacity-50={$loading}>
     {#each users as user_}
       <button

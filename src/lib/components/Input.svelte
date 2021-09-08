@@ -9,7 +9,7 @@
   export let after = '';
   export let error: string | string[] = '';
 
-  const klass = 'flex-grow appearance-none w-full focus:outline-none border-0 focus:ring-0 text-current';
+  const klass = 'flex-grow appearance-none w-full border-0 focus:ring-0 text-current';
 
   $: cols = +($$slots.before || before) + 1 + +($$slots.after || after);
 </script>
@@ -44,6 +44,7 @@
   .input-container {
     border-color: var(--input-container-border-color);
     border-bottom-width: var(--input-container-border-width);
+    padding-bottom: var(--input-container-padding-bottom);
   }
   .input-error {
     border-color: var(--input-container-border-color-error);
@@ -64,7 +65,6 @@
     background-color: var(--input-bg-color);
     border-radius: var(--input-border-radius);
     color: var(--input-color);
-    margin-bottom: var(--input-margin-bottom);
     text-align: var(--input-text-align);
   }
   .input-container :global(select) {

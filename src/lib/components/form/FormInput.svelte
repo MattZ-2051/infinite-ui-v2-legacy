@@ -11,10 +11,12 @@
   export let value = '';
   export let placeholder = '';
   export let disabled = false;
+  let _class = '';
+  export { _class as class };
 
   const errors = getContext('errors') as Writable<unknown>;
 </script>
 
-<Input let:klass let:id {label} {before} {after} error={getPathValue(name, $errors)}>
+<Input let:klass let:id {label} {before} {after} class={_class} error={getPathValue(name, $errors)}>
   <input {id} class={klass} {name} {value} {placeholder} {disabled} {...$$restProps} />
 </Input>

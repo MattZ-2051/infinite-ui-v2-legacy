@@ -67,7 +67,7 @@
       </div>
       <Pagination perPage={5} total={$totalBids} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
     {:else if $totalBids === 0 && !$loadingBids}
-      <div class="flex justify-center items-center text-2xl text-gray-400 my-20">No bids found</div>
+      <div class="no-results">No bids found</div>
     {/if}
   </div>
   <div class="text-center  text-gray-500   py-6 ">

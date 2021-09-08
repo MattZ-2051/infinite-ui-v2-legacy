@@ -4,10 +4,10 @@
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
-  import NoResults from '$lib/components/NoResults.svelte';
   import Sort from '$lib/components/Sort.svelte';
+  import Search from '$lib/components/Search.svelte';
   import { Pagination } from '$ui/pagination';
-  import Search from './Search.svelte';
+  import NoResults from './NoResults.svelte';
   import Filters from './Filters.svelte';
   import { loading, perPage } from './marketplace.api';
   import { setFilters } from './marketplace.service';
@@ -32,6 +32,8 @@
   const sort = (event: CustomEvent) => {
     setFilters({ params: { sortBy: `${event.detail.value}:${event.detail.order}` } });
   };
+
+  const handleInput = (event: Event) => setFilters({ params: { search: (event.target as HTMLInputElement).value } });
 
   const sortOptions = [
     {
@@ -71,7 +73,7 @@
   <div class="gap-2 {showFilters ? 'hidden' : 'flex'}">
     <div class="flex flex-wrap items-center justify-end md:justify-between w-full">
       <div class="py-3 flex-1">
-        <Search />
+        <Search on:input={handleInput} value={$page.query.get('search') || ''} />
       </div>
       <div class="py-3 ml-12 sort-container">
         <Sort on:select={sort} {sortOptions} />

@@ -15,7 +15,9 @@
 </script>
 
 <StickyColumn reverse>
-  <Gallery slot="sticky-content" items={sku.nftPublicAssets} />
+  <div slot="sticky-content" class="sticky-content">
+    <Gallery items={sku.nftPublicAssets} />
+  </div>
   <div slot="onscreen-content">
     <div class="pl-8 mt-8 md:mt-10">
       <div class="flex items-center text-4xl font-medium">
@@ -29,8 +31,19 @@
       </div> -->
     </div>
 
-    <div class="mt-12 pl-8">
+    <div class="mt-20 pl-8">
       <CollectorsSummary {sku} {collectors} {page} {forSale} {search} {total} {perPage} />
     </div>
   </div>
 </StickyColumn>
+
+<style lang="postcss">
+  .sticky-content {
+    height: 60vh;
+  }
+  @screen md {
+    .sticky-content {
+      height: 100%;
+    }
+  }
+</style>

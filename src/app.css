@@ -127,3 +127,7 @@ input[type='number'] {
   /* Opera doesn't support this in the shorthand */
   background-attachment: local, local, scroll, scroll;
 }
+
+.no-results {
+  @apply flex justify-center items-center text-2xl text-default mt-20;
+}
