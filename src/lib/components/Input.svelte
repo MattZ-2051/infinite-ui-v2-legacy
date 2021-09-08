@@ -9,7 +9,7 @@
   export let after = '';
   export let error: string | string[] = '';
 
-  const klass = 'flex-grow appearance-none w-full focus:outline-none px-0.5 border-0 focus:ring-0 text-current';
+  const klass = 'flex-grow appearance-none w-full focus:outline-none border-0 focus:ring-0 text-current';
 
   $: cols = +($$slots.before || before) + 1 + +($$slots.after || after);
 </script>
@@ -20,15 +20,15 @@
   {/if}
   <div class="input-container flex flex-cols-{cols} items-center text-default {error ? 'input-error' : ''}">
     {#if $$slots.before || before}
-      <div class="flex-none mr-4"><slot name="before" class="flex-none">{before}</slot></div>
+      <div class="input-icon flex-none mr-4"><slot name="before" class="flex-none">{before}</slot></div>
     {/if}
     <slot {klass} {id} />
     {#if $$slots.after || after}
-      <div class="flex-none"><slot name="after" class="flex-none">{after}</slot></div>
+      <div class="input-icon flex-none"><slot name="after" class="flex-none">{after}</slot></div>
     {/if}
   </div>
   {#if error}
-    <div class="text-red-500 text-sm pt-1">{error}</div>
+    <div class="input-text-error text-red-500 text-sm pt-1">{error}</div>
   {/if}
 </div>
 
@@ -38,12 +38,18 @@
     font-size: var(--input-label-font-size);
     font-weight: var(--input-label-font-weight);
   }
+  .input-icon {
+    color: var(--input-placeholder-color);
+  }
   .input-container {
     border-color: var(--input-container-border-color);
     border-bottom-width: var(--input-container-border-width);
   }
   .input-error {
     border-color: var(--input-container-border-color-error);
+  }
+  .input-text-error {
+    text-align: var(--input-text-align);
   }
   .input-container:focus-within {
     border-color: var(--input-container-border-color-focus);
@@ -59,6 +65,7 @@
     border-radius: var(--input-border-radius);
     color: var(--input-color);
     margin-bottom: var(--input-margin-bottom);
+    text-align: var(--input-text-align);
   }
   .input-container :global(select) {
     min-height: var(--input-height);

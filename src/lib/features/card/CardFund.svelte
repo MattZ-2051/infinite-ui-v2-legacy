@@ -56,17 +56,17 @@
 </script>
 
 <CircleContainer>
-  <div class="text-gray-500 font-extrabold italic my-6">Add funds into your wallet</div>
+  <div class="text-white-opacity-50 my-6">Add funds into your wallet</div>
 
   <CreditCardComponent {card} />
 
   <div class="flex justify-between mt-3">
-    <span class="text-sm font-extrabold italic text-black"
+    <span class="text-sm text-white"
       >Credit Card
       {#if isActive}
         <span class="text-green-500">(Active)</span>
       {:else if card.status === 'pending'}
-        <span class="text-gray-400">(Pending)</span>
+        <span class="text-white-opacity-40">(Pending)</span>
       {:else}
         <span class="text-red-500">(Failed)</span>
       {/if}
@@ -80,43 +80,23 @@
           onConfirm: removeCard,
         })}
       disabled={$removing}
-      class="text-sm font-extrabold italic text-gray-500 hover:text-black">Remove card</button
+      class="text-sm text-white-opacity-40 hover:text-default">Remove card</button
     >
   </div>
 
-  <form use:form class="mt-6 flex flex-col gap-6 items-center" autocomplete="off">
+  <form data-style="container" use:form class="mt-6 flex flex-col gap-6 items-center" autocomplete="off">
     <div class="cvv-container">
       <FormInput name="cvv" placeholder="Enter CVV" />
     </div>
-    <span class="text-gray-400 text-center"
+    <span class="text-white-opacity-60 text-center"
       >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
     >
-    <div class="input-container w-full flex flex-col items-center relative">
-      <input
-        name="amount"
-        type="number"
-        placeholder="Enter Amount"
-        class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-full text-center border-0 text-xl"
-        class:border-red-600={!!$errors.amount}
-      />
-    </div>
-    {#if $errors.amount}
-      <div class="text-red-500 font-extrabold italic text-sm">{$errors.amount}</div>
-    {/if}
+    <FormInput name="amount" type="number" placeholder="Enter Amount" before="$" />
     <Button type="submit" disabled={!isActive || $saving}>Add Funds</Button>
   </form>
 </CircleContainer>
 
 <style>
-  .input-container::before {
-    content: '$';
-    position: absolute;
-    left: 12px;
-    bottom: 12px;
-    z-index: 1;
-    @apply text-xl;
-    @apply text-gray-400;
-  }
   .cvv-container {
     --input-text-align: center;
   }

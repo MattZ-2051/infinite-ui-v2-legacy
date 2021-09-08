@@ -34,7 +34,7 @@
   $: logo = logos[card.network.toLowerCase()];
 </script>
 
-<div class="flex flex-col justify-between bg-black text-gray-500 w-80 h-44 rounded-2xl px-6 py-5 font-extrabold">
+<div class="flex flex-col justify-between bg-white-opacity-20 text-white w-80 h-44 rounded-2xl px-6 py-5 font-medium">
   <div class="flex justify-between items-center">
     <div class="flex justify-between rounded-sm items-center">
       <img src={logos.chip} alt="card chip" class="w-8" />
@@ -46,7 +46,7 @@
     {/if}
   </div>
   <div class="leading-none">
-    <div class="text-xs italic leading-none">CARD NUMBER</div>
+    <div class="text-xs leading-none">CARD NUMBER</div>
     <div class="flex text-lg items-center gap-3 tracking-widest font-bold font-mono leading-none">
       <span>••••</span><span>••••</span><span>••••</span><span class="text-white text-xl font-normal">{card.last4}</span
       >
@@ -54,8 +54,8 @@
   </div>
   <div class="flex justify-end mr-3">
     <div class="leading-none">
-      <div class="text-xs italic leading-none">EXP</div>
-      <div class="text-white text-lg font-extrabold font-mono leading-none">
+      <div class="text-xs leading-none">EXP</div>
+      <div class="text-white text-lg font-medium font-mono leading-none">
         {`${card.expMonth}`.padStart(2, '0')}/{`${card.expYear}`.slice(-2)}
       </div>
     </div>

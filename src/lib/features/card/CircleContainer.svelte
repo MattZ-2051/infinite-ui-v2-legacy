@@ -22,7 +22,7 @@
           type="button"
           on:click={onClose}
           class="bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full p-0.5 inline-flex items-center justify-center"
-          ><Icon path={mdiClose} size="0.6" /></button
+          ><Icon path={mdiClose} size="0.8" /></button
         >
       </div>
     </div>
