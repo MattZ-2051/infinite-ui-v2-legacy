@@ -33,15 +33,19 @@
   $: active = activeListings.length > 0 && sku.totalSkuListingSupplyLeft;
   $: activeNftGiveAway = activeListings[0]?.saleType === 'giveaway';
   $: upcomingNftGiveAway = upcomingSkuListings[0]?.saleType === 'giveaway';
-  $: noSale = sku.totalSkuListingSupplyLeft === 0 && sku.skuListings.length === 0;
-  $: noCollectorSales = sku.activeProductListings?.length === 0 && sku?.upcomingProductListings?.length === 0;
-  $: lowestListingCollector = getLowestActiveListing(collectors);
+  $: noSale =
+    sku.totalSkuListingSupplyLeft === 0 && sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
+  $: noCollectorSales = sku.activeProductListings?.length === 0 && sku.upcomingProductListings?.length === 0;
+  $: lowestPriceListingCollector = getLowestActiveListing(collectors);
   $: isActiveSale =
-    lowestListingCollector?.listing?.saleType === 'fixed' && lowestListingCollector?.listing?.status === 'active';
+    lowestPriceListingCollector?.listing?.saleType === 'fixed' &&
+    lowestPriceListingCollector?.listing?.status === 'active';
   $: isActiveAuction =
-    lowestListingCollector?.listing?.saleType === 'auction' && lowestListingCollector?.listing?.status === 'active';
+    lowestPriceListingCollector?.listing?.saleType === 'auction' &&
+    lowestPriceListingCollector?.listing?.status === 'active';
   $: isUpcomingAuction =
-    lowestListingCollector?.listing?.saleType === 'auction' && lowestListingCollector?.listing?.status === 'upcoming';
+    lowestPriceListingCollector?.listing?.saleType === 'auction' &&
+    lowestPriceListingCollector?.listing?.status === 'upcoming';
 </script>
 
 <div class="flex flex-col divide-y divide-black">
@@ -61,13 +65,13 @@
 
   {#if totalCollectors > 0}
     {#if isActiveSale}
-      <FromCollectors {sku} collector={lowestListingCollector} status="activeSale" />
+      <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeSale" />
     {:else if isActiveAuction}
-      <FromCollectors {sku} collector={lowestListingCollector} status="activeAuction" />
+      <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeAuction" />
     {:else if isUpcomingAuction}
-      <FromCollectors {sku} collector={lowestListingCollector} status="upcomingAuction" />
+      <FromCollectors {sku} collector={lowestPriceListingCollector} status="upcomingAuction" />
     {:else if noCollectorSales}
-      <FromCollectors {sku} collector={lowestListingCollector} status="noneForSale" />
+      <FromCollectors {sku} collector={lowestPriceListingCollector} status="noneForSale" />
     {/if}
   {/if}
 </div>

@@ -108,6 +108,25 @@
       },
     },
   ];
+
+  const noSaleCollectors = [
+    {
+      listing: {
+        saleType: 'auction',
+        status: 'expired',
+        minBid: 10,
+        endDate: dummyDate,
+      },
+    },
+    {
+      listing: {
+        saleType: 'fixed',
+        status: 'sold',
+        price: 10,
+        endDate: dummyDate,
+      },
+    },
+  ];
   const activeSku = {
     activeSkuListings: activeSkuListings,
     upcomingSkuListings: [],
@@ -198,5 +217,5 @@
 <!-- Default Case where there are no active listings or upcoming listings -->
 <Story
   name="From Creator - None for sale, From Collectors - Default"
-  args={{ sku: activeSku, totalCollectors: 3, collectors: limitedCollector }}
+  args={{ sku: activeSku, totalCollectors: 2, collectors: noSaleCollectors }}
 />

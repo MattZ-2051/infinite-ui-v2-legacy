@@ -27,12 +27,20 @@ export const getLimitedAuctionCollector = (sku: Sku, collectors: CollectorProduc
 
 export const getLowestActiveListing = (collectors: CollectorProduct[]): CollectorProduct | undefined => {
   if (collectors.length === 0) return undefined;
-  return collectors?.reduce((previousListing, currentListing) => {
-    return (previousListing?.listing?.price || previousListing?.listing?.minBid) <
-      (currentListing?.listing?.price || currentListing?.listing?.minBid)
-      ? previousListing
-      : currentListing;
+  const collectorsWithListings = collectors?.filter((collector) => {
+    const saleType = collector?.listing?.saleType;
+    const status = collector?.listing?.status;
+    return (saleType === 'auction' || saleType === 'fixed') && (status === 'upcoming' || status === 'active');
   });
+
+  return collectorsWithListings?.length > 0
+    ? collectorsWithListings?.reduce((previousListing, currentListing) => {
+        return (previousListing?.listing?.price || previousListing?.listing?.minBid) <
+          (currentListing?.listing?.price || currentListing?.listing?.minBid)
+          ? previousListing
+          : currentListing;
+      })
+    : undefined;
 };
 
 const limitedEditionMessageSelector = (quantity: number): SupplyInfo => {

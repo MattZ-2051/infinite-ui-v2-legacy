@@ -13,7 +13,7 @@
   export let sku: Sku;
   export let collector: CollectorProduct;
 
-  const collectorListing = collector.listing;
+  const collectorListing = collector?.listing;
 
   // TODO: let’s always link to the collector’s page for now
   const href = /* status === 'noneForSale' ? */ routes.collectors(
