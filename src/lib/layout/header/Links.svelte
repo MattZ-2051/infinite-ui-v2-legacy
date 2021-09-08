@@ -38,7 +38,7 @@
   </Menu>
 {:else}
   <a sveltekit:prefetch href={routes.about} class="whitespace-nowrap">About Us</a>
-  <button class="flex whitespace-nowrap" on:click={async () => await login()} disabled={$isLoading}> Log In </button>
+  <button class="flex whitespace-nowrap" on:click={async () => await login()} disabled={$isLoading}>Sign in</button>
   <div class="button-container">
     <Button href={routes.signup} class="whitespace-nowrap">Sign up</Button>
   </div>
