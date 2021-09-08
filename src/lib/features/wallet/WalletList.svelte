@@ -22,19 +22,119 @@
     },
   ];
 
-  function redirect({ detail }: CustomEvent<'transactions' | 'bids'>) {
+  const transactionTypes = [
+    {
+      id: 1,
+      name: 'All types',
+      order: '',
+      value: '',
+    },
+    {
+      id: 2,
+      name: 'Deposit',
+      order: '',
+      value: 'deposit',
+    },
+    {
+      id: 3,
+      name: 'Withdrawal',
+      order: '',
+      value: 'withdrawal',
+    },
+
+    {
+      id: 4,
+      name: 'Purchase',
+      order: '',
+      value: 'purchase',
+    },
+    {
+      id: 5,
+      name: 'Sale',
+      order: '',
+      value: 'sale',
+    },
+    {
+      id: 6,
+      name: 'Royalty fee',
+      order: '',
+      value: 'royalty_fee',
+    },
+    {
+      id: 7,
+      name: 'Auction',
+      order: '',
+      value: 'auction',
+    },
+    {
+      id: 8,
+      name: 'Claim',
+      order: '',
+      value: 'claim',
+    },
+    {
+      id: 9,
+      name: 'Transfer out',
+      order: '',
+      value: 'transfer_out',
+    },
+    {
+      id: 10,
+      name: 'Transfer in',
+      order: '',
+      value: 'transfer_in',
+    },
+    {
+      id: 11,
+      name: 'Nft mint',
+      order: '',
+      value: 'nft_mint',
+    },
+    {
+      id: 12,
+      name: 'Nft transfer',
+      order: '',
+      value: 'nft_transfer',
+    },
+    {
+      id: 13,
+      name: 'Nft transfer manual',
+      order: '',
+      value: 'nft_transfer_manual',
+    },
+    {
+      id: 14,
+      name: 'Nft redeem',
+      order: '',
+      value: 'nft_redeem',
+    },
+    {
+      id: 15,
+      name: 'Nft claim giveaway',
+      order: '',
+      value: 'nft_claim_giveaway',
+    },
+  ];
+
+  function redirect(parameters) {
     gotoQueryParameters(
       {
-        params: { tab: detail, page: false },
+        params: parameters,
       },
       { keepfocus: true }
     );
   }
 
+  function changeTab({ detail }: CustomEvent<'transactions' | 'bids'>) {
+    redirect({ tab: detail, page: false });
+  }
+
   const sort = (event: CustomEvent) => {
-    gotoQueryParameters({
-      params: { sortBy: `${event.detail.value}:${event.detail.order}` },
-    });
+    redirect({ sortBy: `${event.detail.value}:${event.detail.order}` });
+  };
+
+  const type = (event: CustomEvent) => {
+    redirect({ type: `${event.detail.value}`, page: false });
   };
 </script>
 
@@ -47,13 +147,23 @@
   menuBreakpoint="lg"
   defaultSelectedId={tab}
   itemClass="text-xl lg:text-2xl items-center"
-  on:select={redirect}
+  on:select={changeTab}
   --tab-border-color="transparent"
   --tab-border-color-active="transparent"
 >
   <Tab id="transactions"><TransactionList /></Tab>
   <Tab id="bids"><BidList /></Tab>
   <div slot="extra" class="mb-5">
-    <Sort on:select={sort} {sortOptions} />
+    <div class="flex gap-6 ">
+      {#if tab === 'transactions'}
+        <Sort
+          on:select={type}
+          sortOptions={transactionTypes}
+          label="Transaction type:"
+          selected={transactionTypes[0]}
+        />
+      {/if}
+      <Sort on:select={sort} {sortOptions} selected={sortOptions[0]} />
+    </div>
   </div>
 </Tabs>

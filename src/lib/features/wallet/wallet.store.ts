@@ -16,11 +16,15 @@ export const withdrawableBalance = wallet.map(($wallet) =>
 );
 
 export const loadMyTransactionsFx = createEffect(
-  async ({ page = +getQueryParameters().get('page'), sortBy = getQueryParameters().get('sortBy') } = {}): Promise<{
+  async ({
+    page = +getQueryParameters().get('page'),
+    sortBy = getQueryParameters().get('sortBy'),
+    type = getQueryParameters().get('type'),
+  } = {}): Promise<{
     total: number;
     transactions: Transaction[];
   }> => {
-    return await loadMyTransactions({ page, sortBy });
+    return await loadMyTransactions({ page, sortBy, type });
   }
 );
 

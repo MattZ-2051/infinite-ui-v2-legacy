@@ -258,22 +258,20 @@ export type TransactionData = {
 };
 
 export type TransactionType =
-  | 'deposit'
-  | 'transfer'
-  | 'mint'
-  | 'topup'
   | 'purchase'
-  | 'payment'
-  | 'redeem'
+  | 'deposit'
   | 'sale'
-  | 'nft_transfer'
-  | 'withdrawal'
-  | 'nft_transfer_manual'
   | 'royalty_fee'
-  | 'nft_mint'
-  | 'bid'
+  | 'withdrawal'
+  | 'nft_redeem'
   | 'claim'
-  | 'nft_redeem';
+  | 'transfer_out'
+  | 'transfer_in'
+  | 'nft_mint'
+  | 'nft_transfer'
+  | 'nft_transfer_manual'
+  | 'nft_claim_giveaway'
+  | 'auction';
 
 export type TransactionStatus = 'success' | 'error' | 'pending';
 

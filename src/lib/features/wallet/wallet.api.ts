@@ -12,6 +12,13 @@ const filterWithStatus = {
     { type: 'withdrawal' },
     { type: 'nft_redeem' },
     { type: 'claim' },
+    { type: 'transfer_out' },
+    { type: 'transfer_in' },
+    { type: 'nft_mint' },
+    { type: 'nft_transfer' },
+    { type: 'nft_transfer_manual' },
+    { type: 'nft_claim_giveaway' },
+    { type: 'auction' },
   ],
 };
 
@@ -31,11 +38,13 @@ export async function loadWallet() {
 export async function loadMyTransactions({
   page,
   sortBy,
+  type,
 }: {
   page: number;
   sortBy?: string;
+  type?: string;
 }): Promise<{ total: number; transactions: Transaction[] }> {
-  return await loadTransactionsWithFilter(filterWithStatus, page, sortBy);
+  return await loadTransactionsWithFilter(filterWithStatus, page, sortBy, type);
 }
 
 export async function loadPendingTransactions(): Promise<{ total: number; transactions: Transaction[] }> {
@@ -69,13 +78,15 @@ export async function checkHbarDeposits(): Promise<HbarTransaction[]> {
 async function loadTransactionsWithFilter(
   filter: unknown,
   page?: number,
-  sortBy?: string
+  sortBy?: string,
+  type?: string
 ): Promise<{ total: number; transactions: Transaction[] }> {
   const { data: transactions, total } = await getPage<Transaction>(`users/me/transactions`, {
     params: {
       filter: JSON.stringify(filter),
       ...(page && { page: `${page}`, per_page: '10' }),
       ...(sortBy && { sortBy }),
+      ...(type && { type }),
     },
   });
 
