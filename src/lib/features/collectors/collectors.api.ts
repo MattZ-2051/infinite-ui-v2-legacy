@@ -27,8 +27,8 @@ export async function loadCollectorProducts({
         page: `${page}`,
         per_page: `${perPage}`,
         sortBy: sortBy,
-        forSale: `${forSale}`,
-        search: search,
+        ...(forSale && { forSale: 'true' }),
+        ...(search && { search }),
       },
     }),
   ]);
