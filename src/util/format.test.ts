@@ -6,6 +6,7 @@ import {
   formatDecimal,
   formatDate,
   formatBytes,
+  capitalizeFirstLetter,
 } from './format';
 
 describe('format', () => {
@@ -58,5 +59,19 @@ describe('format', () => {
 
   it('should handle bytes', async () => {
     expect(formatBytes(63_023)).toEqual('62 KB');
+  });
+
+  describe('string', () => {
+    it('capitalize first letter', () => {
+      expect(capitalizeFirstLetter('hello123')).toEqual('Hello123');
+    });
+
+    it('capitalize first letter and replace underscore with space', () => {
+      expect(capitalizeFirstLetter('hello_123')).toEqual('Hello 123');
+    });
+
+    it('works on string with first letter capital', () => {
+      expect(capitalizeFirstLetter('Hello_123')).toEqual('Hello 123');
+    });
   });
 });

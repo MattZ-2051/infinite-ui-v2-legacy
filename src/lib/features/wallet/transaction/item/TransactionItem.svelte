@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Transaction } from '$lib/sku-item/types';
-  import { formatDate, formatCurrency } from '$util/format';
+  import { formatDate, formatCurrency, capitalizeFirstLetter } from '$util/format';
 
   import TransactionItemLogo from './TransactionItemLogo.svelte';
   import TransactionItemSentence from './TransactionItemSentence.svelte';
@@ -8,7 +8,7 @@
   export let transaction: Transaction;
 
   $: ({ type, status, transactionData } = transaction);
-  $: typeText = type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' ');
+  $: typeText = capitalizeFirstLetter(type);
 
   const getCurrencyFormatted = (): string => {
     switch (type) {

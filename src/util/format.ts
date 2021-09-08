@@ -44,3 +44,7 @@ export function formatBytes(bytes: number) {
   const index = Math.floor(Math.log(bytes) / Math.log(1024));
   return Math.round(bytes / Math.pow(1024, index)) + ' ' + sizes[index];
 }
+
+export function capitalizeFirstLetter(word: string) {
+  return word.charAt(0).toUpperCase() + word.slice(1).replace('_', ' ');
+}

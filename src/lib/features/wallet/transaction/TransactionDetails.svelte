@@ -3,13 +3,13 @@
   import copy from 'clipboard-copy';
   import { mdiContentCopy } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
-  import { formatDate } from '$util/format';
+  import { formatDate, capitalizeFirstLetter } from '$util/format';
 
   export let transaction: Transaction;
 
   const details = [
-    { label: 'Transaction Type', value: transaction.type },
-    { label: 'Transaction Status', value: transaction.status },
+    { label: 'Transaction Type', value: capitalizeFirstLetter(transaction.type) },
+    { label: 'Transaction Status', value: capitalizeFirstLetter(transaction.status) },
     { label: 'Date', value: formatDate(transaction.createdAt, `MMM D, YYYY`) },
     { label: 'Time', value: formatDate(transaction.createdAt, `hh:mm A`) },
   ];
@@ -21,8 +21,8 @@
       <div class="label">Transaction ID</div>
       <div>{transaction._id}</div>
     </div>
-    <button type="button" class="p-2.5 rounded-full bg-white-opacity-40" on:click={() => copy(transaction._id)}>
-      <Icon path={mdiContentCopy} />
+    <button type="button" class="p-2.5 rounded-full" on:click={() => copy(transaction._id)}>
+      <Icon path={mdiContentCopy} flip="h" />
     </button>
   </div>
 </div>
@@ -39,5 +39,9 @@
 <style lang="postcss">
   .label {
     @apply text-white-opacity-40;
+  }
+
+  button {
+    background: var(--transaction-details-copy-bg, theme('colors.white-opacity.40'));
   }
 </style>
