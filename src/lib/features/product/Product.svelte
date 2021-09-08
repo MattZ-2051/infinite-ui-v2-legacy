@@ -7,7 +7,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import ProductTabs from './ProductTabs.svelte';
   import ProductInfo from './ProductInfo.svelte';
-  import ProductStatusButton from './ProductStatusButton.svelte';
+  import ProductStatus from './status/ProductStatus.svelte';
   import { product, totalBids } from './product.store';
 </script>
 
@@ -38,9 +38,10 @@
       <ProductTabs product={$product} userId={$userId} totalBids={$totalBids} />
     </div>
 
-    <ProductStatusButton
+    <ProductStatus
       class="sticky w-screen md:w-full left-0 bottom-0 md:pb-4 -container-x md:-container-none md:px-12"
       product={$product}
+      userId={$userId}
     />
   </div>
 </StickyColumn>

@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
-  import type { User } from '$lib/user/types';
   import { closeModal, Modal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
+  import { user } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import routes from '$lib/routes';
@@ -13,7 +13,6 @@
   export let isOpen = false;
   export let product: Product;
   export let amount: number;
-  export let user: User;
 
   const marketplaceFee = getBiddingFee(product);
   const waitingForAPI = placeBidFx.pending;
@@ -39,7 +38,7 @@
   <Modal on:close={closeModal}>
     <div class="text-2xl font-medium" slot="title">Confirm your bid</div>
     <div class="px-10 pb-6 text-center font-medium text-green-500">
-      Your current balance {formatCurrency(user.availableBalance)}
+      Your current balance {formatCurrency($user.availableBalance)}
     </div>
     <div class="flex flex-col px-10 py-2">
       <div class="flex gap-8 justify-between border-solid border-t border-b border-gray-200 py-4">

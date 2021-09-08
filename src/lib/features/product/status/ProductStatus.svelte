@@ -1,0 +1,140 @@
+<script lang="ts">
+  import type { Product } from '$lib/sku-item/types';
+  import { readable } from 'svelte/store';
+  import { mdiArrowRight, mdiClose } from '@mdi/js';
+  import Icon from '$ui/icon/Icon.svelte';
+  import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
+  import { formatCurrency, formatDate } from '$util/format';
+  import { polls, totalBids } from '$lib/features/product/product.store';
+  import {
+    hasActiveSale,
+    hasUpcomingSale,
+    hasActiveAuction,
+    isOwner,
+    hasUpcomingAuction,
+    canCancelAuction as canCancelAuctionFunction,
+  } from '../product.service';
+  import { maxPlacedBid } from '../product.store';
+  import BidForm from '../auction/BidForm.svelte';
+  import { onOrderIntent } from '../../order/order.service';
+  import { onAction, onBid } from '../actions/product-actions.service';
+  import ProductStatusUpcoming from './ProductStatusUpcoming.svelte';
+
+  export let product: Product;
+  export let userId: string;
+
+  function onBuy() {
+    onOrderIntent({ product: product, listing: product.activeProductListings[0] });
+  }
+
+  $: showActiveSale = hasActiveSale(product);
+  $: showUpcomingSale = hasUpcomingSale(product);
+  $: isActive = $polls[product._id]?.$isActive || readable(false);
+  $: isProductOwner = isOwner(product, userId);
+  $: showUpcomingAuction = hasUpcomingAuction(product);
+  $: showActiveAuction = hasActiveAuction(product);
+  $: canCancelAuction = canCancelAuctionFunction(product, userId, $totalBids);
+
+  $: activeProductListing = product?.activeProductListings?.[0];
+  $: upcomingProductListing = product?.upcomingProductListings?.[0];
+</script>
+
+<div {...$$restProps}>
+  {#if showActiveSale}
+    <div class="flex flex-row w-full h-full rounded-lg overflow-hidden" style="background-color: #313131;">
+      <div class="flex flex-grow px-6 py-4 justify-between items-center">
+        <div class="flex flex-col gap-2">
+          <div class="text-sm text-white-opacity-50">Active Sale:</div>
+          <div class="flex gap-1">
+            Started on
+            <div class="text-white-opacity-30">
+              {formatDate(activeProductListing?.startDate)}
+            </div>
+          </div>
+        </div>
+        {#if isProductOwner}
+          <div class="text-2xl">
+            Selling for {formatCurrency(activeProductListing?.price)}
+          </div>
+        {/if}
+      </div>
+
+      {#if isProductOwner}
+        <button
+          type="button"
+          on:click={() => onAction('cancel-sale', product)}
+          class="flex items-center gap-2 text-2xl px-6 bg-white text-black"
+          >Cancel Sale<Icon size="1.2" path={mdiClose} /></button
+        >
+      {:else}
+        <button
+          type="button"
+          disabled={$isActive}
+          on:click={onBuy}
+          class="flex items-center gap-2 text-2xl px-6 bg-white text-black"
+        >
+          {$isActive ? 'Processing...' : `Buy Now for ${formatCurrency(activeProductListing?.price)}`}<Icon
+            size="1.2"
+            path={mdiArrowRight}
+          /></button
+        >
+      {/if}
+    </div>
+  {/if}
+
+  {#if showUpcomingSale}
+    <ProductStatusUpcoming
+      type="sale"
+      startDate={upcomingProductListing?.startDate}
+      price={upcomingProductListing?.price}
+      {isProductOwner}
+      on:cancel={() => onAction('cancel-sale', product)}
+    />
+  {/if}
+
+  {#if showUpcomingAuction}
+    <ProductStatusUpcoming
+      type="auction"
+      startDate={upcomingProductListing?.startDate}
+      price={upcomingProductListing?.minBid}
+      {isProductOwner}
+      on:cancel={() => onAction('cancel-auction', product)}
+    />
+  {/if}
+
+  {#if showActiveAuction}
+    {#if isProductOwner}
+      <div class="flex flex-row w-full h-full rounded-lg overflow-hidden" style="background-color: #313131;">
+        <div class="flex flex-grow px-6 py-4 justify-between items-center">
+          <div class="flex flex-col gap-2">
+            <div class="text-sm text-white-opacity-50">Auction ends in:</div>
+            <div class="flex gap-1">
+              <TimeDifference date={activeProductListing?.endDate} />
+              <div class="text-white-opacity-30">
+                — {formatDate(activeProductListing?.endDate)}
+              </div>
+            </div>
+          </div>
+          <div class="text-2xl">
+            Current bid {formatCurrency($maxPlacedBid)}
+          </div>
+        </div>
+
+        {#if canCancelAuction}
+          <button
+            type="button"
+            on:click={() => onAction('cancel-auction', product)}
+            class="flex items-center gap-2 text-2xl px-6 bg-white text-black"
+            >Cancel Auction<Icon size="1.2" path={mdiClose} /></button
+          >
+        {/if}
+      </div>
+    {:else}
+      <BidForm
+        maxPlacedBid={$maxPlacedBid}
+        listing={activeProductListing}
+        on:place-bid={(event) => onBid(event.detail.amount, product)}
+      />
+    {/if}
+  {/if}
+</div>

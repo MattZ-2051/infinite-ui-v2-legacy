@@ -4,20 +4,15 @@
   import UserLink from '$lib/components/UserLink.svelte';
   import { Pagination } from '$ui/pagination';
   import { page } from '$app/stores';
-  import { user } from '$lib/user';
   import DateFormat from '$ui/date/DateFormat.svelte';
-  import { openModal } from '$ui/modals';
   import { formatCurrency } from '$util/format';
   import { loadingBids } from './auction.api';
   import { bids, totalBids, auctionStarted } from '../product.store';
-  import BidForm from './BidForm.svelte';
-  import BidModal from './BidModal.svelte';
   import UpcomingBid from './UpcomingBid.svelte';
   import NoAuction from './NoAuction.svelte';
   import { hasAuction } from '../product.service';
 
   export let product: Product;
-  export let canBid: boolean;
 
   $: listing = hasAuction(product) && (product.activeProductListings?.[0] || product.upcomingProductListings?.[0]);
   $: p = +$page.query.get(`page`) || 1;
@@ -30,20 +25,9 @@
       { noscroll: true, keepfocus: true }
     );
   };
-
-  function onPlaceBid({ detail: { amount } }: { detail: { amount: number } }) {
-    openModal(BidModal, {
-      product,
-      amount,
-      user: $user,
-    });
-  }
 </script>
 
 {#if listing?.status === 'active'}
-  {#if canBid}
-    <BidForm {listing} on:place-bid={onPlaceBid} />
-  {/if}
   <div class:opacity-40={$loadingBids}>
     {#if $totalBids > 0}
       <div class="mt-3">

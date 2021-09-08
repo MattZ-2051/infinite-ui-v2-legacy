@@ -7,14 +7,13 @@
   import routes from '$lib/routes';
   import ProductHistory from './ProductHistory.svelte';
   import ProductAuction from './auction/ProductAuction.svelte';
-  import { hasAuction, isOwner } from './product.service';
+  import { hasAuction } from './product.service';
   import ProductActions from './actions/ProductActions.svelte';
 
   export let product: Product;
   export let userId: string;
   export let totalBids: number;
 
-  $: userOwnsProduct = isOwner(product, userId);
   $: showAuction = hasAuction(product);
 
   function redirect({ detail }: CustomEvent<'auction' | 'history' | 'owner'>) {
@@ -59,7 +58,7 @@
 
   <div class="bg-white-opacity-10 flex-grow px-4 lg:px-12 pb-12">
     {#if tab === 'auction'}
-      <ProductAuction {product} canBid={!userOwnsProduct} />
+      <ProductAuction {product} />
     {/if}
     {#if tab === 'history'}
       <ProductHistory />

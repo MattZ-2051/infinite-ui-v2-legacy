@@ -6,6 +6,7 @@ import CancelSaleModal from '../CancelSaleModal.svelte';
 import RedeemModal from '../redeem/RedeemModal.svelte';
 import AuctionModal from '../auction/AuctionModal.svelte';
 import CancelAuctionModal from '../auction/CancelAuctionModal.svelte';
+import BidModal from '../auction/BidModal.svelte';
 import ProductTransferModal from '../transfer/ProductTransferModal.svelte';
 
 export function onAction(type: ActionType, product: Product) {
@@ -38,4 +39,11 @@ export function onAction(type: ActionType, product: Product) {
       break;
     }
   }
+}
+
+export function onBid(amount: number, product: Product) {
+  openModal(BidModal, {
+    product,
+    amount,
+  });
 }
