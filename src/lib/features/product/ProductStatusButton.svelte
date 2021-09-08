@@ -1,28 +1,30 @@
 <script lang="ts">
   import { createForm } from 'felte';
-  import { mdiArrowRight } from '@mdi/js';
+  import { mdiArrowRight, mdiMinus, mdiClose } from '@mdi/js';
   import * as yup from 'yup';
   import { validateSchema } from '@felte/validator-yup';
   import { readable } from 'svelte/store';
   import type { Product } from '$lib/sku-item/types';
   import Icon from '$ui/icon/Icon.svelte';
   import notifications from '$ui/toast/toast.store';
-  import Button from '$lib/components/Button.svelte';
+  import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { userId } from '$lib/user';
-  import { formatCurrency } from '$util/format';
-  import { polls } from '$lib/features/product/product.store';
+  import { formatCurrency, formatDate } from '$util/format';
+  import { polls, totalBids } from '$lib/features/product/product.store';
   import {
     hasActiveSale,
-    canBuy,
-    hasNoSale,
     hasUpcomingSale,
-    hasUpcomingAuction,
     hasActiveAuction,
+    isOwner,
+    hasUpcomingAuction,
+    canCancelAuction as canCancelAuctionFunction,
   } from './product.service';
   import { maxPlacedBid } from './product.store';
   import { onOrderIntent } from '../order/order.service';
 
   export let product: Product;
+  let _class = '';
+  export { _class as class };
 
   function onBuy() {
     onOrderIntent({ product: product, listing: product.activeProductListings[0] });
@@ -46,89 +48,180 @@
   });
 
   $: showActiveSale = hasActiveSale(product);
-  $: showBuy = canBuy(product, $userId);
-  $: showNoSale = hasNoSale(product, $userId);
-  $: showUpcoming = hasUpcomingSale(product);
+  $: showUpcomingSale = hasUpcomingSale(product);
   $: isActive = $polls[product._id]?.$isActive || readable(false);
+  $: isProductOwner = isOwner(product, $userId);
+  $: showUpcomingAuction = hasUpcomingAuction(product);
+  $: showActiveAuction = hasActiveAuction(product);
+  $: canCancelAuction = canCancelAuctionFunction(product, $userId, $totalBids);
+
+  $: activeProductListing = product?.activeProductListings?.[0];
+  $: upcomingProductListing = product?.upcomingProductListings?.[0];
 </script>
 
-<div {...$$restProps}>
-  <form
-    use:form
-    class="flex flex-col md:flex-row relative w-full h-full md:rounded-lg overflow-hidden"
-    autocomplete="off"
-  >
-    <input
-      type="number"
-      class="h-20 mr-0 md:mr-40 lg:mr-96 md:rounded-l-lg w-full text-default placeholder-white-opacity-40 text-xl pl-10 focus:outline-none focus:ring-2"
-      name="bid"
-      placeholder="Bid Amount $$"
-    />
-    <div class="md:absolute md:transform md:-translate-y-1/2 md:top-1/2 md:right-0">
-      <Button
-        animate={false}
-        class="bid-button whitespace-nowrap text-lg h-20 w-full md:w-40 lg:w-96"
-        type="submit"
-        --button-border-radius="0"
-        on:click={handleClick}>Place a bid <Icon class="ml-2" path={mdiArrowRight} size="1.5" /></Button
-      >
-    </div>
-  </form>
-
+<div class=" {_class}" {...$$restProps}>
   {#if showActiveSale}
-    <div class="flex flex-col items-start pb-3.5">
-      <span class="text-gray-400 text-xs">Active Sale</span>
-      <span class="text-xl font-semibold">{formatCurrency(product.activeProductListings[0].price)}</span>
-    </div>
-  {/if}
-  {#if showBuy}
-    <button
-      type="button"
-      class="block text-center bg-gray-700 text-gray-200 text-sm font-semibold hover:bg-white hover:text-black rounded-full py-2 px-4"
-      disabled={$isActive}
-      on:click={onBuy}
-    >
-      {$isActive ? 'Processing ...' : 'Buy now'}
-    </button>
-  {/if}
-  {#if showNoSale}
-    <button
-      type="button"
-      disabled={true}
-      class="text-center cursor-default bg-gray-700 text-gray-200 text-sm font-semibold rounded-full py-2 px-4"
-    >
-      Not for sale
-    </button>
-  {/if}
-  {#if showUpcoming}
-    <button
-      type="button"
-      disabled={true}
-      class="text-center cursor-default bg-gray-700 text-gray-200 text-sm font-semibold rounded-full py-2 px-4"
-    >
-      Upcoming
-    </button>
-  {/if}
-  {#if hasUpcomingAuction(product)}
-    <div class="flex flex-col text-gray-400">
-      <span class="text-xs ">Upcoming auction</span>
-      <div class="font-semibold text-xl ">
-        <span class="text-white"> {formatCurrency(product?.upcomingProductListings[0]?.minBid)}</span>
+    <div class="flex flex-row items-center w-full h-full bg-white bg-opacity-10 px-12 font-normal">
+      <div class="bg-white-opacity-10 flex p-4 rounded-l-lg w-7/12 h-3/4 justify-between items-center">
+        <div class="flex flex-col p-4">
+          <div class="text-sm text-white-opacity-50 pb-2">Active Sale:</div>
+          <div class="flex">
+            <div class="text-base">Started on</div>
+            <Icon size="1" path={mdiMinus} color="rgba(255,255,255,0.1);" />
+            <div style="color: rgba(255, 255, 255, 0.3); text-base">{formatDate(activeProductListing?.startDate)}</div>
+          </div>
+        </div>
+        {#if isProductOwner}
+          <div class="text-2xl pr-2">Selling for {formatCurrency(activeProductListing?.price)}</div>
+        {/if}
+      </div>
+      <div
+        class="bg-white-opacity-10 w-5/12 p-4 h-3/4 rounded-r-lg flex items-center justify-center text-white hover:bg-white cursor-pointer hover:text-black"
+      >
+        {#if !isProductOwner}
+          <button class="text-center font-normal text-2xl mr-6">
+            {$isActive ? 'Processing...' : `Buy Now for ${formatCurrency(activeProductListing?.price)}`}
+          </button>
+          <Icon size="2" path={mdiArrowRight} />
+        {/if}
+        {#if isProductOwner}
+          <button class="text-center font-normal text-2xl mr-6"> Cancel Sale </button>
+          <Icon size="1.5" path={mdiClose} />
+        {/if}
       </div>
     </div>
   {/if}
-  {#if hasActiveAuction(product)}
-    <div class="font-semibold text-xl text-gray-400">
-      {$maxPlacedBid ? 'Highest Bid:' : 'Minimum Bid:'}
-      <span class="text-white"> {formatCurrency($maxPlacedBid ? $maxPlacedBid : product.listing.minBid)}</span>
+
+  {#if showUpcomingSale}
+    <div class="flex flex-row items-center w-full h-full bg-white-opacity-10 px-12 font-normal">
+      <div class="bg-white-opacity-10 flex p-4 rounded-l-lg w-2/3 h-3/4 justify-between items-center">
+        <div class="flex flex-col p-4">
+          <div class="text-sm text-white-opacity-50 pb-2">Sale Starts in:</div>
+          <div class="flex">
+            <TimeDifference date={upcomingProductListing?.startDate} />
+            <Icon size="1" path={mdiMinus} color="rgba(255,255,255,0.1);" />
+            <div style="color: rgba(255, 255, 255, 0.3); text-base">
+              {formatDate(upcomingProductListing?.startDate)}
+            </div>
+          </div>
+        </div>
+        {#if isProductOwner}
+          <div class="text-2xl pr-2 text-right">Selling for {formatCurrency(upcomingProductListing?.price)}</div>
+        {/if}
+      </div>
+
+      <div
+        class={`bg-white-opacity-10 w-1/3 p-4 h-3/4 rounded-r-lg flex items-center justify-center text-white ${
+          isProductOwner && `hover:bg-white hover:cursor-pointer hover:text-black hover:cursor-pointer`
+        }`}
+      >
+        {#if !isProductOwner}
+          <div class="text-center font-normal text-2xl">
+            Coming soon at {formatCurrency(upcomingProductListing?.price)}
+          </div>
+        {/if}
+        {#if isProductOwner}
+          <button class="text-center font-normal text-2xl mr-6">Cancel Sale </button>
+          <Icon size="1.5" path={mdiClose} />
+        {/if}
+      </div>
+    </div>
+  {/if}
+
+  {#if showUpcomingAuction || (showActiveAuction && canCancelAuction && isProductOwner)}
+    <div class="flex flex-row items-center w-full h-full bg-white bg-opacity-10 px-12 font-normal">
+      <div class="bg-white-opacity-10 flex p-4 rounded-l-lg w-2/3 h-3/4 justify-between items-center">
+        <div class="flex flex-col p-4">
+          <div class="text-sm text-white-opacity-50 pb-2">Auction starts in:</div>
+          <div class="flex">
+            <TimeDifference date={upcomingProductListing?.startDate || activeProductListing?.startDate} />
+            <Icon size="1" path={mdiMinus} color="rgba(255,255,255,0.1);" />
+            <div style="color: rgba(255, 255, 255, 0.3); text-base">
+              {formatDate(upcomingProductListing?.startDate || activeProductListing?.startDate)}
+            </div>
+          </div>
+        </div>
+        {#if isProductOwner}
+          <div class="text-2xl pr-2">
+            Starting price {formatCurrency(upcomingProductListing?.minBid || activeProductListing?.minBid)}
+          </div>
+        {/if}
+      </div>
+      <div
+        class={`bg-white-opacity-10 w-1/3 p-4 h-3/4 rounded-r-lg flex items-center justify-center text-white ${
+          isProductOwner && `hover:bg-white hover:cursor-pointer hover:text-black`
+        }`}
+      >
+        {#if !isProductOwner}
+          <div class="text-center font-normal text-2xl">
+            Starts soon at {formatCurrency(upcomingProductListing?.minBid || activeProductListing?.minBid)}
+          </div>
+        {/if}
+        {#if isProductOwner}
+          <button class="text-center font-normal text-2xl mr-6">Cancel Auction</button>
+          <Icon size="1.5" path={mdiClose} />
+        {/if}
+      </div>
+    </div>
+  {/if}
+
+  {#if showActiveAuction && !isProductOwner}
+    <div class="flex flex-row items-center w-full h-full bg-white bg-opacity-10 px-12 font-normal">
+      <div class="bg-white-opacity-10 flex p-4 rounded-l-lg w-2/4 h-3/4 justify-between items-center">
+        <div class="flex flex-col p-4">
+          <div class="text-sm text-white-opacity-50 pb-2">Auction ends in:</div>
+          <div class="flex">
+            <TimeDifference date={activeProductListing?.endDate} />
+            <Icon size="1" path={mdiMinus} color="rgba(255,255,255,0.1);" />
+            <div style="color: rgba(255, 255, 255, 0.3); text-base">{formatDate(activeProductListing?.endDate)}</div>
+          </div>
+        </div>
+      </div>
+      <div class="w-7/12 h-3/4">
+        <input
+          type="number"
+          class="h-full m-0 w-full border-none text-default placeholder-white-opacity-40 bg-white-opacity-5 pl-6 text-xl focus:outline-none"
+          name="bid"
+          placeholder="$ Place a higher bid here"
+        />
+      </div>
+      <div
+        class={`bg-white-opacity-10 w-5/12 p-4 h-3/4 rounded-r-lg flex items-center justify-center text-white ${
+          !isProductOwner && `hover:bg-white hover:cursor-pointer hover:text-black`
+        }`}
+      >
+        {#if $isActive}
+          <div class="text-center font-normal text-2xl">
+            {'Processing...'}
+          </div>
+        {:else}
+          <button class="text-center font-normal text-2xl mr-6"> Place Bid </button>
+          <Icon size="1.5" path={mdiArrowRight} />
+        {/if}
+      </div>
+    </div>
+  {/if}
+
+  {#if showActiveAuction && isProductOwner && !canCancelAuction}
+    <div class="flex flex-row items-center w-full h-full bg-white-opacity-10 px-12 font-normal">
+      <div class="bg-white-opacity-10 flex p-4 rounded-l-lg w-2/3 h-3/4 justify-between items-center">
+        <div class="flex flex-col p-4">
+          <div class="text-sm text-white-opacity-50 pb-2">Auction ends in:</div>
+          <div class="flex">
+            <TimeDifference date={activeProductListing?.endDate} />
+            <Icon size="1" path={mdiMinus} color="rgba(255,255,255,0.1);" />
+            <div style="color: rgba(255, 255, 255, 0.3); text-base">
+              {formatDate(activeProductListing?.endDate)}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white-opacity-10 w-1/3 p-4 h-3/4 rounded-r-lg flex items-center justify-center text-white">
+        <div class="text-center font-normal text-2xl">
+          Current bid {formatCurrency(activeProductListing?.minBid)}
+        </div>
+      </div>
     </div>
   {/if}
 </div>
-
-<style lang="postcss">
-  input {
-    @apply border border-transparent bg-origin-border;
-    background: linear-gradient(#101010, #101010) padding-box,
-      linear-gradient(90deg, #c000d6 0%, #6734ff 100%) border-box;
-  }
-</style>
