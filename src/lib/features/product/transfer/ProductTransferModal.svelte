@@ -58,7 +58,7 @@
       </div>
       {#if status !== 'transfer-error'}
         <div class="border-t border-b border-gray-200 py-4">
-          <ProductModalInfo {sku} {serial} />
+          <ProductModalInfo {sku} />
         </div>
       {/if}
       <div class="w-full">

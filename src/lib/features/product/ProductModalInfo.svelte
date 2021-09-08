@@ -1,47 +1,35 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
-  import Rarity from '$lib/rarity/Rarity.svelte';
-  import { formatCurrency } from '$util/format';
-  import { Breadcrumb, BreadcrumbItem } from '$ui/breadcrumbs';
+  import TalentLink from '$lib/components/talent/TalentLink.svelte';
+  import SkuEdition from '$project/sku-item/SkuEdition.svelte';
 
   export let sku: Sku;
-  export let price: number = undefined;
-  export let serial: string = undefined;
 </script>
 
-<div class="grid grid-cols-2 gap-1 w-full">
-  <div class="font-medium text-gray-400">
-    {sku.issuerName}
+<div class="flex flex-col border border-gray-300 rounded-md">
+  <div class="grid grid-cols-2 border-b border-gray-300 p-4 gap-4">
+    <div class="flex flex-col gap-2 ">
+      <span class="text-sm text-gray-400">Name</span>
+      <span>{sku.name}</span>
+    </div>
+    <div class="flex flex-col gap-2  items-end">
+      <span class="text-sm text-gray-400">Edition</span>
+      <SkuEdition item={sku} />
+    </div>
   </div>
-  <div class="text-right font-medium">
-    <Rarity rarity={sku.rarity} />
-  </div>
-  <div class="font-medium">
-    <span class="text-xl">{sku.name}</span>
-  </div>
-  <div class="text-right text-2xl">
-    {#if price}
-      {formatCurrency(price)}
-    {/if}
-  </div>
-  <div class="flex">
-    <Breadcrumb>
-      {#if sku.series?.name}
-        <BreadcrumbItem class="text-gray-500 font-medium">{sku.series.name}</BreadcrumbItem>
-      {/if}
-      {#if sku.redeemable}
-        <BreadcrumbItem>
-          <IconRedeem class="text-black bg-white rounded-full mr-1 p-1 border" />
-          <span>Redeemable</span>
-        </BreadcrumbItem>
-      {/if}
-    </Breadcrumb>
-  </div>
-  <div class="text-right">
-    {#if serial}
-      <span class="font-bold italic text-gray-500">Serial:</span>
-      <span class="font-bold">#{serial}</span>
+  <div class="grid grid-cols-2 p-4 gap-4">
+    <div class="flex flex-col gap-2">
+      <span class="text-sm text-gray-400">Created by</span>
+      <TalentLink profile={sku.issuer} />
+    </div>
+    {#if sku.redeemable}
+      <div class="flex flex-col gap-2 items-end">
+        <span class="text-sm text-gray-400">Status</span>
+        <div class="flex gap-2 items-center">
+          <IconRedeem size={18} hasTooltip={false} /> Redeemable
+        </div>
+      </div>
     {/if}
   </div>
 </div>

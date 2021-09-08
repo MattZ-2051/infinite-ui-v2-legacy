@@ -50,7 +50,7 @@
     </div>
     <div class="w-full px-10">
       <div class="border border-gray-200 border-l-0 border-r-0 py-6">
-        <ProductModalInfo sku={product.sku} serial={product.serialNumber} />
+        <ProductModalInfo sku={product.sku} />
       </div>
       {#if bids.length > 0}
         {#each bids as bid}

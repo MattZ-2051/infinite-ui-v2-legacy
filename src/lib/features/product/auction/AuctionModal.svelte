@@ -98,7 +98,7 @@
       </div>
       <div class="flex flex-col px-10 py-2">
         <div class="flex gap-8 justify-between border-solid border-t border-b border-gray-200 py-4">
-          <ProductModalInfo sku={product.sku} serial={product.serialNumber} />
+          <ProductModalInfo sku={product.sku} />
         </div>
         <div class="flex py-4 text-center">
           <div class="flex-grow flex flex-col">

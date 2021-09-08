@@ -18,7 +18,6 @@
   export let isOpen: boolean;
   export let sku: Sku = undefined;
   export let product: Product = undefined;
-  export let serial: string = undefined;
   export let listing: Listing;
   export let user: User;
 
@@ -91,7 +90,7 @@
         {/if}
       </div>
       <div>
-        <ProductModalInfo sku={_sku} {serial} />
+        <ProductModalInfo sku={_sku} />
         {#if !result}
           <hr class="h-px w-full my-4" />
           <OrderProductPricing price={listing.price} {marketplaceFee} />
