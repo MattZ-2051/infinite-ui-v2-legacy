@@ -1,5 +1,6 @@
 import path from 'node:path';
 import process from 'node:process';
+import fs from 'node:fs';
 import preprocess from 'svelte-preprocess';
 import { imagetools } from 'vite-imagetools';
 import netlifyAdapter from '@sveltejs/adapter-netlify';
@@ -26,6 +27,7 @@ const config = {
 
     files: {
       assets: `static/${project}`,
+      template: fs.existsSync(`projects/${project}/app.html`) ? `projects/${project}/app.html` : 'src/app.html',
     },
 
     vite: {
