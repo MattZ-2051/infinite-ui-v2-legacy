@@ -12,7 +12,6 @@ const filterWithStatus = {
     { type: 'withdrawal' },
     { type: 'nft_redeem' },
     { type: 'claim' },
-    { type: 'auction' },
   ],
 };
 

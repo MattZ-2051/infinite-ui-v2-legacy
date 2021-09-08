@@ -62,18 +62,12 @@
     },
     {
       id: 7,
-      name: 'Auction',
-      order: '',
-      value: 'auction',
-    },
-    {
-      id: 8,
       name: 'Claim',
       order: '',
       value: 'claim',
     },
     {
-      id: 9,
+      id: 8,
       name: 'Nft redeem',
       order: '',
       value: 'nft_redeem',
