@@ -1,14 +1,17 @@
 <script lang="ts">
-  import type { FileAsset } from '$ui/file';
-  import { FileThumbnail, FilePreview } from '$ui/file';
+  import type { FileAsset, FileType } from '$ui/file';
+  import { FileThumbnail, FilePreview, getFileType } from '$ui/file';
 
   export let items: FileAsset[] = [];
   let _class = '';
   export { _class as class };
 
   let selectedItem: FileAsset;
+  let fileType: FileType;
 
   $: activeItem = selectedItem || items?.[0];
+  $: fileType = getFileType(activeItem);
+  $: useBlurBackground = fileType === 'image' || fileType === 'video';
 </script>
 
 <div
@@ -17,7 +20,7 @@
 >
   <div><!-- empty --></div>
   <div class="relative flex-1 w-full max-w-2xl">
-    <FilePreview item={activeItem} />
+    <FilePreview item={activeItem} {fileType} />
   </div>
   <div class="flex flex-wrap w-full justify-left">
     {#if items}
@@ -31,7 +34,12 @@
       {/each}
     {/if}
   </div>
-  <div class="absolute top-0 left-0 right-0 bottom-0 -z-1 overflow-hidden">
-    <FilePreview item={activeItem} preview blur={20} />
+  <div
+    class="absolute top-0 left-0 right-0 bottom-0 -z-1 overflow-hidden"
+    class:bg-white-opacity-10={!useBlurBackground}
+  >
+    {#if useBlurBackground}
+      <FilePreview item={activeItem} {fileType} preview blur={20} />
+    {/if}
   </div>
 </div>

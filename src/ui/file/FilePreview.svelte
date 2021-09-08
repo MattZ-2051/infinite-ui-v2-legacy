@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { FileAsset } from './types';
+  import type { FileAsset, FileType } from './types';
   import { mdiVolumeSource } from '@mdi/js';
   import IntersectionObserver from 'svelte-intersection-observer';
 
@@ -24,10 +24,15 @@
    */
   export let blur = 0;
 
+  /**
+   * File type.
+   * If not provided it will be derived from file extension.
+   */
+  export let fileType: FileType = getFileType(item);
+
   let showFallbackImage = false;
   let videoElement: HTMLVideoElement;
 
-  $: fileType = getFileType(item);
   $: style = styles({
     ...(item ? getAspectRatioStyle(item, preview) : {}),
     filter: blur > 0 ? `blur(${blur}px)` : undefined,

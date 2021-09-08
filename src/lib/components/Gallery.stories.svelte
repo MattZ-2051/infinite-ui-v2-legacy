@@ -27,6 +27,9 @@
       url: 'https://static01.nyt.com/images/2017/07/01/upshot/up30-video-games/up30-video-games-facebookJumbo.jpg',
       width: 1050,
     },
+    {
+      url: 'https://www.vectary.com/viewer/v1/?model=914e2a1a-abf1-4fd7-9cd6-87e5a9ba2142&env=studio3',
+    },
   ];
 </script>
 
