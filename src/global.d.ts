@@ -3,7 +3,8 @@
 interface ImportMetaEnv {
   VITE_API_URL: string;
   VITE_API_MOCKING: 'enabled' | '';
-  VITE_KYC_PERSONA_TEMPLATE: string;
+  VITE_KYC_PERSONA_TEMPLATE_LVL_1: string;
+  VITE_KYC_PERSONA_TEMPLATE_LVL_2: string;
   VITE_KYC_PERSONA_ENVIRONMENT: string;
   VITE_AUTH0_DOMAIN: string;
   VITE_AUTH0_CLIENT_ID: string;

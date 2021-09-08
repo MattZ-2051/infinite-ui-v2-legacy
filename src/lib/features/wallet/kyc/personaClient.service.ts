@@ -2,13 +2,12 @@ import { variables } from '$lib/variables';
 import { toast } from '$ui/toast';
 import { getPersonalToken } from '$lib/user';
 import injectScript from '$util/injectScript';
-import { loadWalletFx } from '../wallet.store';
 
-let personaClient;
+const personaClients = {};
 
-function getPersonaClient(referenceId: string) {
+function getPersonaClient(referenceId: string, templateId: string, onComplete: (inquiryId: string) => void) {
   const client = new Persona.Client({
-    templateId: variables.persona.templateId,
+    templateId,
     environment: variables.persona.environment,
     referenceId,
     onLoad: (error) => {
@@ -17,15 +16,14 @@ function getPersonaClient(referenceId: string) {
       }
       client.render();
     },
-    // onStart: (inquiryId) => {}
-    onComplete: (/*inquiryId*/) => loadWalletFx(),
-    // onEvent: (name, meta) => {}
+    onComplete,
   });
   return client;
 }
 
-export async function launchKYCPersona() {
+export async function launchKYCPersona(templateId, onComplete) {
   await injectScript({ id: 'persona', url: 'https://cdn.withpersona.com/dist/persona-v3.10.0.js' });
-  personaClient = personaClient || getPersonaClient(await getPersonalToken());
-  personaClient.open();
+  personaClients[templateId] =
+    personaClients[templateId] || getPersonaClient(await getPersonalToken(), templateId, onComplete);
+  personaClients[templateId].open();
 }

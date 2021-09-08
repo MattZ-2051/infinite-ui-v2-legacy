@@ -14,7 +14,7 @@
   import AccountVerification from './kyc/AccountVerification.svelte';
   import WithdrawModal from './withdraw/WithdrawModal.svelte';
   import WalletButtons from './WalletButtons.svelte';
-  import { wallet, withdrawableBalance } from './wallet.store';
+  import { kycIsPending, wallet, withdrawableBalance } from './wallet.store';
   import { launchKYCPersona } from './kyc/personaClient.service';
   import { getDailyDepositLimitDisclaimer } from './kyc/kyc.service';
 
@@ -25,6 +25,15 @@
 
   function openDepositSelectModal() {
     openModal(WalletDepositModal, { onDepositSelect });
+  }
+
+  function openUpgradeKYCLevel() {
+    launchKYCPersona(
+      $wallet.kycMaxLevel === 1 ? variables.persona.templateIdLevel2 : variables.persona.templateIdLevel1,
+      (inquiryId) => {
+        kycIsPending(inquiryId);
+      }
+    );
   }
 
   function onDepositSelect(id: 'circle' | 'usdc' | 'btc' | 'eth' | 'hbar') {
@@ -41,7 +50,7 @@
         : `<a data-toast="verificationStepsCb" class="cursor-pointer">click here</a> to complete the required account validation steps. <a href="https://support.suku.world/infinite/how-does-kyc-work">Learn more.</a>`;
 
       toast.warning(`To deposit cryptocurrency, please, ${prompt}`, {
-        onClick: { verificationStepsCb: launchKYCPersona },
+        onClick: { verificationStepsCb: openUpgradeKYCLevel },
       });
       return;
     }
@@ -77,7 +86,11 @@
     >
       <svelte:fragment slot="kyc">
         {#if $wallet}
-          <AccountVerification on:upgrade={launchKYCPersona} level={$wallet.kycMaxLevel} pending={$wallet.kycPending} />
+          <AccountVerification
+            on:upgrade={openUpgradeKYCLevel}
+            level={$wallet.kycMaxLevel}
+            pending={$wallet.kycPending}
+          />
         {/if}
       </svelte:fragment>
     </WalletBalance>

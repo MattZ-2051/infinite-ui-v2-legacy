@@ -1,12 +1,15 @@
-export interface Wallet {
+export interface KycInfo {
+  kycMaxLevel: number;
+  kycPending: boolean;
+  kycRecords: KycRecord[];
+}
+
+export interface Wallet extends KycInfo {
   cards: CreditCard[];
   balance: {
     amount: string;
     currency: string;
   };
-  kycMaxLevel: number;
-  kycPending: boolean;
-  kycRecords: KycRecord[];
 }
 
 export type CreditCard = {

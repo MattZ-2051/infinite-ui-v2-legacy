@@ -7,7 +7,8 @@ export const variables = {
     audience: import.meta.env.VITE_AUTH0_AUDIENCE,
   },
   persona: {
-    templateId: import.meta.env.VITE_KYC_PERSONA_TEMPLATE,
+    templateIdLevel1: import.meta.env.VITE_KYC_PERSONA_TEMPLATE_LVL_1,
+    templateIdLevel2: import.meta.env.VITE_KYC_PERSONA_TEMPLATE_LVL_2,
     environment: import.meta.env.VITE_KYC_PERSONA_ENVIRONMENT,
   },
   ethNetwork: {

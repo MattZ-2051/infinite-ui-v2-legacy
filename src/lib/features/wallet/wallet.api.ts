@@ -1,4 +1,4 @@
-import type { BalanceInfo, Wallet, HbarDeposits, HbarTransaction } from './types';
+import type { BalanceInfo, Wallet, HbarDeposits, HbarTransaction, KycInfo } from './types';
 import type { Transaction, Bid } from '$lib/sku-item/types';
 import { get, getPage, fetchTracker, post } from '$lib/api';
 
@@ -26,6 +26,10 @@ const filterWithPendingStatus = {
 export async function loadWallet() {
   const [walletData, balanceInfo] = await Promise.all([get<Wallet>('wallet'), get<BalanceInfo>('wallet/balance')]);
   return { ...walletData, balanceInfo };
+}
+
+export async function loadKycInfo() {
+  return get<KycInfo>('wallet/kyc');
 }
 
 export async function loadMyTransactions({
