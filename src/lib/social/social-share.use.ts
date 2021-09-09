@@ -33,7 +33,7 @@ export default function socialShare(node: HTMLButtonElement, data: { profile?: P
 
     let title = 'Share';
     if (data.sku) {
-      title = 'Share this NFT';
+      title = 'Share this Collectible';
     }
     openModal(SocialShareModal, { text, url, title });
   };

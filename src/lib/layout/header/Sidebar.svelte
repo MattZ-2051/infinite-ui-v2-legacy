@@ -23,8 +23,8 @@
 
 <div class="w-full h-full flex light justify-end" on:click|self={onClose}>
   <div class="w-72 bg-black h-full " transition:fly={{ x: 200, duration: 700 }}>
-    <div class="mt-40 text-xl flex flex-col items-center gap-10">
-      <Links />
+    <div class="mt-36 text-xl flex flex-col items-center gap-10">
+      <Links flatten />
     </div>
   </div>
 </div>
