@@ -1,4 +1,4 @@
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, existsSync } from 'node:fs';
 import enquirer from 'enquirer';
 import ci from 'ci-info';
 
@@ -14,10 +14,22 @@ async function run() {
     }
   }
 
+  // Custom path mappings
+  let paths = {};
+  if (existsSync(`projects/${project}/paths.js`)) {
+    ({ paths } = await import(`../../projects/${project}/paths.js`));
+    paths = Object.fromEntries(
+      Object.entries(paths).map(([path, resolution]) => {
+        return [`$project/${path}`, [resolution]];
+      })
+    );
+  }
+
   const data = {
     extends: './tsconfig.base.json',
     compilerOptions: {
       paths: {
+        ...paths,
         '$project/*': [`projects/${project}/src/*`],
         '$theme/*': [`projects/${project}/theme/*`],
         '$lib/*': ['src/lib/*'],
