@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import type { Profile, Sku } from '$lib/sku-item/types';
+  import { Swiper, SwiperSlide } from 'swiper/svelte';
+  import { Navigation } from 'swiper';
   import { user } from '$lib/user';
   import { Tabs, Tab } from '$ui/tabs';
   import SubscribeForm from '$project/SubscribeForm.svelte';
@@ -14,39 +15,26 @@
   export let drops: Sku[];
   export let upcomings: Sku[];
 
-  let Swiper;
-  let SwiperSlide;
-  let swiperConfig = {};
-
-  onMount(async () => {
-    // dynamically import swiper module
-    const SwiperSvelteModule = await import('swiper/svelte');
-    const { Navigation } = await import('swiper');
-
-    Swiper = SwiperSvelteModule.Swiper;
-    SwiperSlide = SwiperSvelteModule.SwiperSlide;
-
-    swiperConfig = {
-      modules: [Navigation],
-      spaceBetween: 12,
-      slidesPerView: 1.33,
-      navigation: true,
-      breakpoints: {
-        '640': {
-          slidesPerView: 1.5,
-          spaceBetween: 18,
-        },
-        '768': {
-          slidesPerView: 2,
-          spaceBetween: 18,
-        },
-        '1024': {
-          slidesPerView: 3,
-          spaceBetween: 36,
-        },
+  const swiperConfig = {
+    modules: [Navigation],
+    spaceBetween: 12,
+    slidesPerView: 1.33,
+    navigation: true,
+    breakpoints: {
+      '640': {
+        slidesPerView: 1.5,
+        spaceBetween: 18,
       },
-    };
-  });
+      '768': {
+        slidesPerView: 2,
+        spaceBetween: 18,
+      },
+      '1024': {
+        slidesPerView: 3,
+        spaceBetween: 36,
+      },
+    },
+  };
 </script>
 
 <LandingHero />
@@ -62,13 +50,13 @@
     <Tabs items={[{ id: 'talents', title: 'Featured Talent' }]} class="text-3xl mb-4">
       <Tab id="talents">
         <div class="-mr-4 sm:mr-0">
-          <svelte:component this={Swiper} {...swiperConfig}>
+          <Swiper {...swiperConfig}>
             {#each talents as talent}
-              <svelte:component this={SwiperSlide}>
+              <SwiperSlide>
                 <LandingTileTalent {talent} />
-              </svelte:component>
+              </SwiperSlide>
             {/each}
-          </svelte:component>
+          </Swiper>
         </div>
       </Tab>
     </Tabs>
@@ -77,13 +65,13 @@
     <Tabs items={[{ id: 'drops', title: 'Featured Drops' }]} class="text-3xl mb-4">
       <Tab id="drops">
         <div class="-mr-4 sm:mr-0">
-          <svelte:component this={Swiper} {...swiperConfig}>
+          <Swiper {...swiperConfig}>
             {#each drops as sku}
-              <svelte:component this={SwiperSlide}>
+              <SwiperSlide>
                 <LandingTileSku {sku} />
-              </svelte:component>
+              </SwiperSlide>
             {/each}
-          </svelte:component>
+          </Swiper>
         </div>
       </Tab>
     </Tabs>
@@ -93,13 +81,13 @@
     <Tabs items={[{ id: 'upcomings', title: 'Upcoming Drops' }]} class="text-3xl mb-4">
       <Tab id="upcomings">
         <div class="-mr-4 sm:mr-0">
-          <svelte:component this={Swiper} {...swiperConfig}>
+          <Swiper {...swiperConfig}>
             {#each upcomings as sku}
-              <svelte:component this={SwiperSlide}>
+              <SwiperSlide>
                 <LandingTileSku {sku} />
-              </svelte:component>
+              </SwiperSlide>
             {/each}
-          </svelte:component>
+          </Swiper>
         </div>
       </Tab>
     </Tabs>
