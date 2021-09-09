@@ -115,9 +115,15 @@
               </div>
             </div>
           </div>
-          <div class="text-2xl">
-            Current bid {formatCurrency($maxPlacedBid)}
-          </div>
+          {#if !canCancelAuction}
+            <div class="text-2xl">
+              Current bid {formatCurrency($maxPlacedBid)}
+            </div>
+          {:else}
+            <div class="text-2xl">
+              Starting price {formatCurrency(activeProductListing?.minBid)}
+            </div>
+          {/if}
         </div>
 
         {#if canCancelAuction}

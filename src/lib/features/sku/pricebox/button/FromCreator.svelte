@@ -91,15 +91,14 @@
         <div class="text-black-opacity-50 text-sm">Ends {formatDate(activeListings[0]?.startDate)}</div>
       </div>
       <div class="flex justify-end">
-        {#if !sku?.maxSupply}
+        {#if sku.supplyType === 'variable'}
           <div>
             <div class="flex justify-end">
               <Icon path={mdiInfinity} size="1.5" />
             </div>
             <div class="text-sm text-right text-black-opacity-50">Open Edition</div>
           </div>
-        {/if}
-        {#if sku?.maxSupply > 0}
+        {:else}
           <div>
             <div class="text-xl text-right">{sku?.maxSupply}</div>
             <div class="text-sm text-right text-black-opacity-50">Remaining</div>
