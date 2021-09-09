@@ -11,19 +11,19 @@
 </script>
 
 <div
-  class="card-status text-lg flex gap-2 justify-center items-center rounded-full py-3 mx-3 whitespace-nowrap px-6"
+  class="card-status text-xl flex gap-2 justify-center items-center rounded-full py-3 mx-3 whitespace-nowrap px-6"
   class:no-sale={status === 'no-sale'}
 >
   {#if status === 'upcoming'}
-    <span>Upcoming on:</span>
+    <span class="font-bold">Dropping:</span>
     <span>{formatDate(item.minStartDate, 'MMM D')}</span>
   {:else if status === 'upcoming-soon'}
-    <span>Upcoming in:</span>
+    <span class="font-bold">Dropping:</span>
     <TimeDifference date={item.minStartDate} />
   {:else if status === 'no-sale'}
-    <span>None for sale</span>
+    <span class="font-bold">None for sale</span>
   {:else if status === 'active'}
-    <span>Starting Price:</span>
+    <span class="font-bold">Starting Price:</span>
     <span>
       {formatCurrencyWithOptionalFractionDigits(item.minPrice)}
     </span>
