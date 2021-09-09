@@ -7,6 +7,7 @@ export const variables = {
     audience: import.meta.env.VITE_AUTH0_AUDIENCE,
   },
   persona: {
+    tenantName: import.meta.env.VITE_KYC_PERSONA_TENANT,
     templateIdLevel1: import.meta.env.VITE_KYC_PERSONA_TEMPLATE_LVL_1,
     templateIdLevel2: import.meta.env.VITE_KYC_PERSONA_TEMPLATE_LVL_2,
     environment: import.meta.env.VITE_KYC_PERSONA_ENVIRONMENT,
@@ -22,4 +23,5 @@ export const variables = {
     explorerBaseUrl: import.meta.env.VITE_BTC_EXPLORER_BASE_URL,
   },
   dailyDepositLimit: import.meta.env.VITE_DAILY_DEPOSIT_LIMIT_USD,
+  initialBuyersFeePercentage: import.meta.env.INITIAL_BUYERS_FEE_PERCENTAGE / 100 || 0,
 };

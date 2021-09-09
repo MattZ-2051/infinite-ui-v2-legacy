@@ -55,6 +55,7 @@ declare namespace Persona {
     phoneNumber?: string;
     emailAddress?: string;
     identificationNumber?: string;
+    tenant?: string;
   }
   declare interface InquiryError {
     status: number;

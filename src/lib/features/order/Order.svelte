@@ -2,6 +2,7 @@
   import type { Listing, Sku, Product } from '$lib/sku-item/types';
   import type { SkuPurchaseTransaction } from './types';
   import type { User } from '$lib/user/types';
+  import { variables } from '$lib/variables';
   import { closeModal, Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
   import { formatCurrency } from '$util/format';
@@ -64,7 +65,7 @@
     }
   }
 
-  $: marketplaceFee = product ? getBuyingFee(product) : user.initialBuyersFeePercentage;
+  $: marketplaceFee = product ? getBuyingFee(product) : variables.initialBuyersFeePercentage;
   $: total = listing.price * (1 + marketplaceFee);
   $: insufficientFunds = total > user.availableBalance;
 </script>

@@ -10,6 +10,9 @@ function getPersonaClient(referenceId: string, templateId: string, onComplete: (
     templateId,
     environment: variables.persona.environment,
     referenceId,
+    prefill: {
+      tenant: variables.persona.tenantName,
+    },
     onLoad: (error) => {
       if (error) {
         toast.danger('Failed to load the KYC verification form. Please, try again.');

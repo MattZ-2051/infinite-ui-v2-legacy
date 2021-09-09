@@ -25,7 +25,6 @@ export type User = {
   errorMessage?: string;
   showNotifyMe?: boolean;
   auctionBidIncrement?: string;
-  initialBuyersFeePercentage?: number;
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;

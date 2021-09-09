@@ -3,6 +3,7 @@
 interface ImportMetaEnv {
   VITE_API_URL: string;
   VITE_API_MOCKING: 'enabled' | '';
+  VITE_KYC_PERSONA_TENANT: string;
   VITE_KYC_PERSONA_TEMPLATE_LVL_1: string;
   VITE_KYC_PERSONA_TEMPLATE_LVL_2: string;
   VITE_KYC_PERSONA_ENVIRONMENT: string;
@@ -10,6 +11,7 @@ interface ImportMetaEnv {
   VITE_AUTH0_CLIENT_ID: string;
   VITE_AUTH0_AUDIENCE: string;
   VITE_DAILY_DEPOSIT_LIMIT_USD: number;
+  INITIAL_BUYERS_FEE_PERCENTAGE: number;
   VITE_USDC_CONTRACT_ADDRESS: string;
   VITE_ETHERSCAN_API_URL: string;
   VITE_ETHERSCAN_API_KEY: string;

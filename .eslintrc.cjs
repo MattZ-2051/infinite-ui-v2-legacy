@@ -24,6 +24,7 @@ module.exports = {
         },
       },
     ],
+    '@typescript-eslint/no-unused-vars': 'error',
     'no-console': 'warn',
     // disable the rule for all files
     '@typescript-eslint/explicit-module-boundary-types': 'off',

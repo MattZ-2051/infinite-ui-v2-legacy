@@ -4,7 +4,7 @@ import type { Readable } from 'svelte/store';
 import { derived, writable, get as getStoreValue } from 'svelte/store';
 import { isAuthenticated, initAuth, userExternalId } from '$lib/auth';
 import { localStorageWritable } from '$util/localstorage-store';
-import { patch, post, send } from '$lib/api';
+import { patch, post, get } from '$lib/api';
 import routes from '$lib/routes';
 import { openModal } from '$ui/modals';
 
@@ -23,15 +23,10 @@ export const userId: Readable<string> = derived(
 );
 
 export async function updateUser(): Promise<User> {
-  const { body: me, headers } = await send<User>('users/me');
-  const initialBuyersFeePercentage = Number.parseInt(headers.get('initial-buyers-fee-percentage')) / 100 || 0;
-
-  me.initialBuyersFeePercentage = initialBuyersFeePercentage;
-
+  const me = await get<User>('users/me');
   userExternalId.set(me.externalId);
   externalIdMap.set({ _id: me._id, externalId: me.externalId });
   user.set(me);
-
   return me;
 }
 
