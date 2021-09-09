@@ -62,7 +62,7 @@
         <Button href={routes.signup} --button-padding="8px 40px">JOIN ARIA</Button>
       </div>
     {/if}
-    <div class="flex flex-col  md:flex-row gap-4" style="font-size:27px;">
+    <div class="intro-grid grid gap-x-1 gap-y-4">
       <div class="flex flex-col gap-4 items-center flex-grow">
         <div class="h-36 flex items-center">
           <Image src={deposit} />
@@ -100,3 +100,16 @@
     </div>
   </div>
 </div>
+
+<style lang="postcss">
+  .intro-grid {
+    font-size: 27px;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  @screen md {
+    .intro-grid {
+      grid-template-columns: 1fr 72px 1fr 72px 1fr;
+    }
+  }
+</style>
