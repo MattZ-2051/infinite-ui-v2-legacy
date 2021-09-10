@@ -86,7 +86,8 @@
     @apply border border-transparent bg-origin-border;
     border-bottom-left-radius: 3.75rem;
     border-bottom-right-radius: 3.75rem;
-    background: linear-gradient(#000000, #000000) padding-box, linear-gradient(#c000d6 0%, #6734ff 100%) border-box;
+    background: linear-gradient(#000000, #000000) padding-box,
+      linear-gradient(var(--gradient-start) 0%, var(--gradient-end) 100%) border-box;
   }
   .card-1 {
     border-bottom-left-radius: 4rem;
@@ -105,6 +106,6 @@
   .card-end-label {
     @apply border border-transparent bg-origin-border;
     background: linear-gradient(#000000, #000000) padding-box,
-      linear-gradient(90deg, #c000d6 0%, #6734ff 100%) border-box;
+      linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%) border-box;
   }
 </style>

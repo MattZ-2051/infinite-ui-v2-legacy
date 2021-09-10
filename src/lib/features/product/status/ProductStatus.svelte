@@ -6,6 +6,7 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatCurrency, formatDate } from '$util/format';
   import { polls, totalBids } from '$lib/features/product/product.store';
+  import Button from '$lib/components/Button.svelte';
   import {
     hasActiveSale,
     hasUpcomingSale,
@@ -37,13 +38,20 @@
 
   $: activeProductListing = product?.activeProductListings?.[0];
   $: upcomingProductListing = product?.upcomingProductListings?.[0];
+
+  const textClass = 'text-2xl md:text-xl lg:text-2xl';
 </script>
 
 <div {...$$restProps}>
   {#if showActiveSale}
-    <div class="flex flex-row w-full h-full rounded-lg overflow-hidden" style="background-color: #313131;">
-      <div class="flex flex-grow px-6 py-4 justify-between items-center">
-        <div class="flex flex-col gap-2">
+    <div
+      class="flex flex-col md:flex-row w-full h-full md:rounded-lg md:rounded-lg overflow-hidden whitespace-nowrap"
+      style="background-color: #313131;"
+    >
+      <div
+        class="flex flex-grow flex-col md:flex-row md:px-6 py-2 md:py-4 justify-center md:justify-between items-center"
+      >
+        <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
           <div class="text-sm text-white-opacity-50">Active Sale:</div>
           <div class="flex gap-1">
             Started on
@@ -53,30 +61,32 @@
           </div>
         </div>
         {#if isProductOwner}
-          <div class="text-2xl">
+          <div class={textClass}>
             Selling for {formatCurrency(activeProductListing?.price)}
           </div>
         {/if}
       </div>
 
       {#if isProductOwner}
-        <button
-          type="button"
+        <Button
+          --button-border-radius="0"
+          animate={false}
           on:click={() => onAction('cancel-sale', product)}
-          class="flex items-center gap-2 text-2xl px-6 bg-white text-black"
-          >Cancel Sale<Icon size="1.2" path={mdiClose} /></button
+          class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
+          >Cancel Sale<Icon size="1.2" path={mdiClose} /></Button
         >
       {:else}
-        <button
-          type="button"
+        <Button
+          --button-border-radius="0"
+          animate={false}
           disabled={$isActive}
           on:click={onBuy}
-          class="flex items-center gap-2 text-2xl px-6 bg-white text-black"
+          class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
         >
           {$isActive ? 'Processing...' : `Buy Now for ${formatCurrency(activeProductListing?.price)}`}<Icon
             size="1.2"
             path={mdiArrowRight}
-          /></button
+          /></Button
         >
       {/if}
     </div>
@@ -104,9 +114,14 @@
 
   {#if showActiveAuction}
     {#if isProductOwner}
-      <div class="flex flex-row w-full h-full rounded-lg overflow-hidden" style="background-color: #313131;">
-        <div class="flex flex-grow px-6 py-4 justify-between items-center">
-          <div class="flex flex-col gap-2">
+      <div
+        class="flex flex-col md:flex-row w-full h-full md:rounded-lg md:rounded-lg overflow-hidden"
+        style="background-color: #313131;"
+      >
+        <div
+          class="flex flex-grow flex-col md:flex-row md:px-6 py-2 md:py-4 justify-center md:justify-between items-center"
+        >
+          <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
             <div class="text-sm text-white-opacity-50">Auction ends in:</div>
             <div class="flex gap-1">
               <TimeDifference date={activeProductListing?.endDate} />
@@ -116,22 +131,23 @@
             </div>
           </div>
           {#if !canCancelAuction}
-            <div class="text-2xl">
+            <div class={textClass}>
               Current bid {formatCurrency($maxPlacedBid)}
             </div>
           {:else}
-            <div class="text-2xl">
+            <div class={textClass}>
               Starting price {formatCurrency(activeProductListing?.minBid)}
             </div>
           {/if}
         </div>
 
         {#if canCancelAuction}
-          <button
-            type="button"
+          <Button
+            --button-border-radius="0"
+            animate={false}
             on:click={() => onAction('cancel-auction', product)}
-            class="flex items-center gap-2 text-2xl px-6 bg-white text-black"
-            >Cancel Auction<Icon size="1.2" path={mdiClose} /></button
+            class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
+            >Cancel Auction<Icon size="1.2" path={mdiClose} /></Button
           >
         {/if}
       </div>

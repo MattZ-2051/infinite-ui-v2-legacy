@@ -4,12 +4,14 @@
   --edition-single: #ffa800;
   --edition-limited: #e500ff;
   --edition-open: #0077a6;
+  --gradient-start: #c000d6;
+  --gradient-end: #6734ff;
 
   /* Main */
   --bg-color: #000000;
   --color: #ffffff;
   --link-color: var(--primary);
-  --separator-bg-color: linear-gradient(90deg, #c000d6 0%, #6734ff 100%);
+  --separator-bg-color: linear-gradient(var(--gradient-start) 0%, var(--gradient-end) 100%);
   --icon-bg-color: #2d2d2d;
 
   /* Filters */
@@ -114,8 +116,8 @@
   --select-option-color: #000000;
   --select-option-bg-color: #ffffff;
 
-  /* Transaction item */
-  --transaction-details-copy-bg: linear-gradient(90deg, #c000d6 7.48%, #6734ff 79.51%);
+  /* TransactionItem */
+  --transaction-details-copy-bg: linear-gradient(90deg, var(--gradient-start) 7.48%, var(--gradient-end) 79.51%);
 }
 
 .theme-brand {

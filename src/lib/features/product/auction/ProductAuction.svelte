@@ -30,7 +30,7 @@
 {#if listing?.status === 'active'}
   <div class:opacity-40={$loadingBids}>
     {#if $totalBids > 0}
-      <div class="mt-3">
+      <div class="pt-3">
         <div class="text-gray-500">
           {#each $bids as bid}
             <div
@@ -54,16 +54,20 @@
       <div class="no-results">No bids found</div>
     {/if}
   </div>
-  <div class="text-center  text-gray-500   py-6 ">
+  <div class="text-center text-gray-500 py-6">
     Started at <span class="text-white">{formatCurrency(listing.minBid)}</span> on
     <span class="font-black italic text-sm whitespace-nowrap"><DateFormat value={listing.startDate} /></span>
   </div>
 {:else if listing?.status === 'upcoming'}
-  <UpcomingBid
-    minBidPrice={listing.minBid}
-    bidStartDate={listing.startDate}
-    on:zero={() => auctionStarted({ product })}
-  />
+  <div class="pt-12">
+    <UpcomingBid
+      minBidPrice={listing.minBid}
+      bidStartDate={listing.startDate}
+      on:zero={() => auctionStarted({ product })}
+    />
+  </div>
 {:else}
-  <NoAuction {product} />
+  <div class="pt-12">
+    <NoAuction {product} />
+  </div>
 {/if}

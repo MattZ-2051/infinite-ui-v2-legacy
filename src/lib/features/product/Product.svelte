@@ -15,7 +15,11 @@
   <div slot="sticky-content" class="sticky-content">
     <Gallery items={$product.sku.nftPublicAssets} />
   </div>
-  <div class="flex flex-col" slot="onscreen-content" style="min-height: calc(100vh - var(--header-height));">
+  <div
+    class="flex flex-col -container-x px-4 md:-container-none md:px-0"
+    slot="onscreen-content"
+    style="min-height: calc(100vh - var(--header-height));"
+  >
     <div class="md:pl-8 mt-8 md:mt-10">
       <div class="flex items-center text-4xl font-medium justify-between">
         <div class="flex items-center">
@@ -39,7 +43,8 @@
     </div>
 
     <ProductStatus
-      class="sticky w-screen md:w-full left-0 bottom-0 md:pb-4 -container-x md:-container-none md:px-12"
+      class="sticky md:w-full left-0 bottom-0 md:pb-4 lg:pb-12 md:px-4 lg:px-12 -container-x md:-container-none"
+      style="background-color: #1A1A1A"
       product={$product}
       userId={$userId}
     />

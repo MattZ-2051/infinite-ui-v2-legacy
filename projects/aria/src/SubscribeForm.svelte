@@ -55,6 +55,7 @@
 <style lang="postcss">
   input {
     @apply border border-transparent bg-origin-border;
-    background: linear-gradient(#191919, #191919) padding-box, linear-gradient(#6734ff, #c000d6) border-box;
+    background: linear-gradient(#191919, #191919) padding-box,
+      linear-gradient(360deg, var(--gradient-start), var(--gradient-end)) border-box;
   }
 </style>

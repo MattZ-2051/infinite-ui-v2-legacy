@@ -56,7 +56,7 @@
     <ProductActions slot="extra" {product} {userId} {totalBids} />
   </Tabs>
 
-  <div class="bg-white-opacity-10 flex-grow px-4 lg:px-12 pb-12">
+  <div class="flex-grow px-4 lg:px-12 pb-4 lg:pb-12" style="background-color: #1A1A1A">
     {#if tab === 'auction'}
       <ProductAuction {product} />
     {/if}

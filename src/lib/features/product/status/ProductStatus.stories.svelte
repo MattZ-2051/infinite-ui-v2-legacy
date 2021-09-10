@@ -60,10 +60,17 @@
   };
 </script>
 
-<Meta title="Lib / features / status / ProductStatus" component={ProductStatus} args={{ userId: '1' }} />
+<Meta
+  title="Lib / features / status / ProductStatus"
+  component={ProductStatus}
+  args={{ userId: '1' }}
+  parameters={{
+    chromatic: { viewports: [640, 1024] },
+  }}
+/>
 
 <Template let:args>
-  <div>
+  <div class="p-10">
     <ProductStatus {...args} />
   </div>
 </Template>

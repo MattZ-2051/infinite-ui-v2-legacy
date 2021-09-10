@@ -50,9 +50,13 @@
   });
 </script>
 
-<form use:form class="flex flex-row w-full h-full rounded-lg overflow-hidden" style="background-color: #313131;">
-  <div class="flex px-6 py-4 justify-between items-center">
-    <div class="flex flex-col gap-1">
+<form
+  use:form
+  class="flex flex-col md:flex-row w-full h-full md:rounded-lg overflow-hidden whitespace-nowrap"
+  style="background-color: #313131;"
+>
+  <div class="flex md:px-6 py-2 md:py-4 justify-center md:justify-between items-center">
+    <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
       <div class="text-sm text-white-opacity-50">Auction ends in:</div>
       <div class="flex gap-1">
         <TimeDifference date={listing?.endDate} />
@@ -64,12 +68,25 @@
   </div>
 
   <input
-    type="text"
-    class="flex-grow text-black placeholder-white-opacity-40 text-xl focus:outline-none focus:ring-2"
+    type="number"
+    autocomplete="off"
+    class="h-20 md:h-auto w-full text-default placeholder-white-opacity-40 text-2xl text-center md:pl-10 md:text-left focus:outline-none focus:border-blue-500 bg-transparent"
     name="placeBid"
     placeholder="Bid Amount $$"
   />
-  <Button animate={false} class="bid-button flex gap-2 text-xl w-64" type="submit" --button-border-radius="0"
-    >Place a bid <Icon class="ml-2" path={mdiArrowRight} size="1.5" />
+  <Button
+    animate={false}
+    class="flex gap-2 h-20 md:h-auto w-full md:w-48 lg:w-96 text-2xl"
+    type="submit"
+    --button-border-radius="0"
+    >Place a bid <Icon path={mdiArrowRight} size="1.5" />
   </Button>
 </form>
+
+<style lang="postcss">
+  input {
+    @apply border border-transparent bg-origin-border;
+    background: linear-gradient(#101010, #101010) padding-box,
+      linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%) border-box;
+  }
+</style>

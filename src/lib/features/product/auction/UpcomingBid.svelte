@@ -7,7 +7,7 @@
   export let bidStartDate: Date;
 </script>
 
-<div class="mt-12 h-24 rounded-xl flex flex-col items-center justify-center bg-white">
+<div class="h-24 rounded-xl flex flex-col items-center justify-center bg-white">
   <div class="text-lg">
     <span>Starts at {formatCurrency(minBidPrice)} in <TimeDifference date={new Date(bidStartDate)} on:zero /></span>
   </div>
