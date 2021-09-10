@@ -1,14 +1,16 @@
 <script lang="ts">
   import Image from '$ui/image/Image.svelte';
   import weAreImage from './we_are_culture.png?w=400;1000;&format=avif;webp;png&metadata';
+
+  const videoHeight = `min(70vw, 70vh)`;
 </script>
 
-<div class="relative mt-2" style="height: min(70vw, 70vh);">
+<div class="relative mt-2" style="height: {videoHeight};">
   <video src="/aria_preview.mp4" class="absolute w-full h-full object-cover" playsinline loop autoplay muted />
   <Image
     src={weAreImage}
     class="absolute top-0 right-0 z-10"
-    style="width: min(60vw, 60vh); transform: rotate(-90deg) translateY(-100%) translateX(-5%); transform-origin: top right;"
+    style="width: calc({videoHeight} - 20px); transform: rotate(-90deg) translateY(-100%) translateX(-10px); transform-origin: top right;"
     setDimensions={true}
   />
 </div>
