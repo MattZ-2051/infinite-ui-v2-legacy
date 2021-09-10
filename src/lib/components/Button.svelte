@@ -73,7 +73,7 @@
   .secondary {
     color: var(--button-secondary-text-color, #000000);
     background-color: var(--button-secondary-bg-color, #ffffff);
-    border-color: var(--button-neutral-color-border, #000000);
+    border: var(--button-secondary-border, 1px solid var(--button-secondary-color-border, var(--primary, #000000)));
   }
 
   .tertiary {
