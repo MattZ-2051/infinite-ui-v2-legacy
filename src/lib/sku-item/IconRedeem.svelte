@@ -10,7 +10,7 @@
 
   $: iconPath = disabled ? iconRedeemed : iconRedeem;
   $: tooltipMessage = hasTooltip ? 'Redeemable' : '';
-  $: padding = size / 5.333_333;
+  $: padding = Math.floor(size / 5.333_333);
 </script>
 
 <span class="redeem-trigger relative inline-flex" use:tooltip={tooltipMessage} style="padding: {padding}px"
