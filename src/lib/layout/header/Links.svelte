@@ -20,10 +20,8 @@
 {#if $user}
   <a sveltekit:prefetch href={routes.collection($user.username)} class="whitespace-nowrap">My Collection</a>
   {#if flatten}
-    <a sveltekit:prefetch href={routes.account} class={$page.path === routes.account ? 'hidden' : ''}
-      >Account Settings</a
-    >
-    <a sveltekit:prefetch href={routes.wallet} class={$page.path === routes.wallet ? 'hidden' : ''}>My Wallet</a>
+    <a sveltekit:prefetch href={routes.account}>Account Settings</a>
+    <a sveltekit:prefetch href={routes.wallet}>My Wallet</a>
     <button type="button" on:click={() => onLogout()}>Sign Out</button>
   {:else}
     <Menu placement="bottom-end">

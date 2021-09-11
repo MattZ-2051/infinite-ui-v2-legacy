@@ -10,7 +10,7 @@
   {#if profile.profilePhotoUrl}
     <img src={`${profile.profilePhotoUrl}?t=${profile.updatedAt}`} alt="" class="w-24 h-24 p-1 rounded-full" />
   {/if}
-  <div class="text-xl md:text-2xl font-medium mt-6">
+  <div class="text-xl md:text-2xl font-medium text-center mt-6">
     {#if profile.firstName && profile.lastName}
       {profile.firstName} {profile.lastName}
     {:else}
