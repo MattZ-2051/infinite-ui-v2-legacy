@@ -15,7 +15,7 @@
       <Image src={ariaLogo} alt="Aria" />
     </div>
     {#if !$user}
-      <div class="mt-10">
+      <div class="mt-6">
         <SubscribeForm />
       </div>
     {/if}

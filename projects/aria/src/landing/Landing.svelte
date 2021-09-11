@@ -41,7 +41,7 @@
 
 {#if !$user}
   <div class="container mt-14">
-    <SubscribeForm titleClass="text-3xl" />
+    <SubscribeForm titleClass="text-3xl pb-2" />
   </div>
 {/if}
 

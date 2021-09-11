@@ -9,7 +9,7 @@
   /**
    * Class to be added on the title.
    */
-  export let titleClass = 'text-base';
+  export let titleClass = 'text-base font-medium';
 
   /**
    * Class to be added on the form.
@@ -29,9 +29,9 @@
   });
 </script>
 
-<div class="text-center text-white {titleClass}">Join us to get first pick on upcoming exclusive drops!</div>
+<div class="text-center text-white {titleClass}">Never miss an exclusive drop!</div>
 
-<div class="flex justify-center my-7">
+<div class="flex justify-center my-6">
   <form use:form class="flex relative max-w-md w-full rounded-full h-10 {_class}" autocomplete="off">
     <Icon class="text-gray-300 absolute transform -translate-y-1/2 top-1/2 left-4" path={mdiEmail} />
     <input
