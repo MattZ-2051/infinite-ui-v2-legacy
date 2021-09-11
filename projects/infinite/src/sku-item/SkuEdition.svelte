@@ -1,27 +1,27 @@
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
-  import { createMessageType } from '$lib/features/sku/sku.service';
+  import type { Sku, Product } from '$lib/sku-item/types';
+  import {
+    createSkuMessageType,
+    createProductMessageType,
+    createSkuMessage,
+    createProductMessage,
+  } from '$lib/features/sku/sku.service';
 
-  export let item: Sku;
+  export let sku: Sku = undefined;
+  export let product: Product = undefined;
 
-  $: supply = createMessageType(item);
-
-  const createMessage = (messageType: string, quantity: number): string | undefined => {
-    switch (messageType) {
-      case 'limited':
-        return `Limited to ${quantity} Editions`;
-      case 'released':
-        return item.minStartDate > new Date() ? `${quantity} to be Released` : `${quantity} Released`;
-      case 'unique':
-        return '1 of 1 Limited Edition';
-      default:
-        return undefined;
-    }
-  };
+  $: skuSupply = createSkuMessageType(sku);
+  $: productSupply = createProductMessageType(product);
 </script>
 
-{#if supply}
+{#if skuSupply}
   <div class="flex items-center whitespace-nowrap">
-    <span>{createMessage(supply.type, supply.quantity)}</span>
+    <span>{createSkuMessage(skuSupply.type, skuSupply.quantity, sku)}</span>
+  </div>
+{/if}
+
+{#if productSupply}
+  <div class="flex items-center whitespace-nowrap">
+    <span>{createProductMessage(productSupply.type, productSupply.quantity, product)}</span>
   </div>
 {/if}

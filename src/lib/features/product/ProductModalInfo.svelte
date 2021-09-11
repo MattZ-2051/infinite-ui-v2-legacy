@@ -15,7 +15,7 @@
     </div>
     <div class="flex flex-col gap-2  items-end">
       <span class="text-sm text-gray-400">Edition</span>
-      <SkuEdition item={sku} />
+      <SkuEdition {sku} />
     </div>
   </div>
   <div class="grid grid-cols-2 p-4 gap-4">

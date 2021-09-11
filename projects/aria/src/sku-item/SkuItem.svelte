@@ -17,6 +17,7 @@
   let clientWidth: number;
   let clientHeight: number;
   $: sku = product ? product.sku : _sku;
+  $: totalSupply = product ? product.totalSupply : _sku.totalSupply;
   $: activeListing = product ? sku.activeProductListings?.[0] : sku.activeSkuListings?.[0];
 </script>
 
@@ -43,7 +44,7 @@
         <div>
           <div class="flex flex-wrap justify-between card-name">
             <TalentLink profile={sku.issuer} hideImage />
-            <SkuEdition item={sku} />
+            <SkuEdition {sku} {product} />
           </div>
           <div class="mt-5 mb-10 flex justify-between items-start gap-2">
             <span class="text-2.5xl font-light">{sku.name}</span>
@@ -61,15 +62,13 @@
           {/if}
         </div>
       </div>
-      {#if !product}
-        <div class="absolute bottom-0 transform translate-y-5 left-2 right-2">
-          <SkuStatus item={sku} />
-        </div>
-      {/if}
+      <div class="absolute bottom-0 transform translate-y-5 left-2 right-2">
+        <SkuStatus {sku} {product} />
+      </div>
     </a>
   </div>
 
-  {#if !product && sku.totalSupply > 1}
+  {#if totalSupply > 1}
     <div
       style="width: {clientWidth}px; height: {clientHeight}px"
       class="card card-1 absolute transform translate-x-2 translate-y-2 z-20"

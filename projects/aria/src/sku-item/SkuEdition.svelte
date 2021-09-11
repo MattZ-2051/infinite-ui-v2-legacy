@@ -1,29 +1,31 @@
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
-  import { createMessageType } from '$lib/features/sku/sku.service';
+  import type { Sku, Product } from '$lib/sku-item/types';
+  import {
+    createSkuMessageType,
+    createProductMessageType,
+    createSkuMessage,
+    createProductMessage,
+  } from '$lib/features/sku/sku.service';
 
-  export let item: Sku;
+  export let sku: Sku = undefined;
+  export let product: Product = undefined;
 
-  $: supply = createMessageType(item);
-
-  const createMessage = (messageType: string, quantity: number): string | undefined => {
-    switch (messageType) {
-      case 'limited':
-        return `Limited to ${quantity}`;
-      case 'released':
-        return item.minStartDate > new Date() ? `${quantity} to be released` : `${quantity} released`;
-      case 'unique':
-        return '1 of 1';
-      default:
-        return undefined;
-    }
-  };
+  $: skuSupply = createSkuMessageType(sku);
+  $: productSupply = createProductMessageType(product);
 </script>
 
-{#if supply}
+{#if skuSupply}
   <div class="flex items-center whitespace-nowrap">
-    <div class="{supply.type}-badge w-4 h-4 rounded-full mr-2" />
-    <span class="{supply.type}-text">{createMessage(supply.type, supply.quantity)}</span>
+    <div class="{skuSupply.type}-badge w-4 h-4 rounded-full mr-2" />
+    <span class="{skuSupply.type}-text">{createSkuMessage(skuSupply.type, skuSupply.quantity, sku)}</span>
+  </div>
+{/if}
+{#if productSupply}
+  <div class="flex items-center whitespace-nowrap">
+    <div class="{productSupply.type}-badge w-4 h-4 rounded-full mr-2" />
+    <span class="{productSupply.type}-text"
+      >{createProductMessage(productSupply.type, productSupply.quantity, product)}</span
+    >
   </div>
 {/if}
 

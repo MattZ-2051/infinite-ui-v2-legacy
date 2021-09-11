@@ -24,7 +24,7 @@
       <div class="flex-grow">
         <div class="text-xl">From Creator</div>
         {#if state === 'active'}
-          <div class="text-black-opacity-50 text-sm">{sku?.totalSkuListingSupplyLeft} Items left</div>
+          <div class="text-black-opacity-50 text-sm">{sku?.totalSupplyLeft} Items left</div>
         {/if}
         {#if state === 'noSale'}
           <div class="text-black-opacity-50 text-sm">Initial Listing Price</div>

@@ -1,31 +1,32 @@
 <script lang="ts">
-  import type { Sku, Status } from '$lib/sku-item/types';
+  import type { Sku, Status, Product } from '$lib/sku-item/types';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
-  import { skuStatus } from '$lib/sku-item/status';
+  import { skuStatus, productStatus } from '$lib/sku-item/status';
 
-  export let item: Sku;
+  export let sku: Sku;
+  export let product: Product;
 
-  let status: Status;
-  $: status = skuStatus(item);
+  let tileInfo: Status;
+  $: tileInfo = product ? productStatus(product) : skuStatus(sku);
 </script>
 
 <div
   class="card-status text-xl flex gap-2 justify-center items-center rounded-full py-3 mx-3 whitespace-nowrap px-6"
-  class:no-sale={status === 'no-sale'}
+  class:no-sale={tileInfo.status === 'no-sale'}
 >
-  {#if status === 'upcoming'}
+  {#if tileInfo.status === 'upcoming'}
     <span class="font-bold">Dropping:</span>
-    <span>{formatDate(item.minStartDate, 'MMM D')}</span>
-  {:else if status === 'upcoming-soon'}
+    <span>{formatDate(tileInfo.minStartDate, 'MMM D')}</span>
+  {:else if tileInfo.status === 'upcoming-soon'}
     <span class="font-bold">Dropping:</span>
-    <TimeDifference date={item.minStartDate} />
-  {:else if status === 'no-sale'}
-    <span class="font-bold">None for sale</span>
-  {:else if status === 'active'}
-    <span class="font-bold">Starting Price:</span>
+    <TimeDifference date={tileInfo.minStartDate} />
+  {:else if tileInfo.status === 'no-sale'}
+    <span class="font-bold">{product ? 'Not for sale' : 'None for sale'}</span>
+  {:else if tileInfo.status === 'active'}
     <span>
-      {formatCurrencyWithOptionalFractionDigits(item.minPrice)}
+      <span class="font-bold">{product ? 'Selling for:' : 'Starting Price:'}</span>
+      {formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice)}
     </span>
   {/if}
 </div>

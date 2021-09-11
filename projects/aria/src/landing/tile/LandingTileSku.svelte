@@ -9,7 +9,7 @@
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 
   export let sku: Sku;
-  $: status = skuStatus(sku);
+  $: status = skuStatus(sku).status;
 </script>
 
 <div class="flex flex-col gap-4">
@@ -22,7 +22,7 @@
             <div>
               <div class="flex flex-wrap items-center justify-between mb-4">
                 <a href={routes.sku(sku._id)} class="text-primary text-2xl font-medium">{sku.name}</a>
-                <SkuEdition item={sku} />
+                <SkuEdition {sku} />
               </div>
               <TalentLink profile={sku.issuer} class="text-xl mb-4" style="color: #717171" />
 

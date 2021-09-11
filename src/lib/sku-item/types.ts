@@ -146,6 +146,15 @@ export type Product = {
   tokenId: string;
   explorerLink?: string;
   initialBuyersFeePercentage: number;
+  minStartDate: Date;
+  skuListings: Listing[];
+  expiredSkuListings: Listing[];
+  totalUpcomingSupply: number;
+  productListings: Listing[];
+  upcomingSkuListings: Listing[];
+  totalSupplyLeft: number;
+  activeSkuListings: Listing[];
+  minPrice: number;
 };
 
 export type Cost = {
@@ -327,6 +336,12 @@ export type Bid = {
   sku: Sku;
 };
 
-export type Status = 'upcoming' | 'upcoming-soon' | 'no-sale' | 'active' | undefined;
+export type StatusType = 'upcoming' | 'upcoming-soon' | 'no-sale' | 'active' | undefined;
 
 export type Media = 'video' | 'image' | 'audio' | 'vector' | undefined;
+
+export interface Status {
+  status: StatusType;
+  minStartDate?: Date;
+  minPrice?: number;
+}

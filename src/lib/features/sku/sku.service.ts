@@ -1,4 +1,4 @@
-import type { Sku, Listing, CollectorProduct } from '$lib/sku-item/types';
+import type { Sku, Listing, CollectorProduct, Product } from '$lib/sku-item/types';
 
 type SupplyInfo = { type: string; quantity: number } | undefined;
 
@@ -52,7 +52,7 @@ const limitedEditions = (quantity: number): SupplyInfo => {
   return { type: 'limited', quantity: quantity };
 };
 
-export const createMessageType = (sku: Sku): SupplyInfo => {
+export const createSkuMessageType = (sku: Sku): SupplyInfo => {
   if (sku) {
     const isFixed = sku.supplyType === 'fixed';
     const hasListings = sku.skuListings?.length > 0;
@@ -84,5 +84,67 @@ export const createMessageType = (sku: Sku): SupplyInfo => {
     return undefined;
   } else {
     return undefined;
+  }
+};
+
+export const createProductMessageType = (product: Product): SupplyInfo => {
+  if (product) {
+    const sku = product.sku;
+    const isFixed = sku?.supplyType === 'fixed';
+    const hasListings = product.skuListings?.length > 0;
+    const hasExpiredListings = product.expiredSkuListings?.length > 0;
+    const isVariable = sku?.supplyType === 'variable';
+    if (sku?.maxSupply === 1) return { type: 'unique', quantity: sku?.maxSupply };
+
+    if (isFixed && product.totalUpcomingSupply > 0) {
+      if (hasListings) return limitedEditions(product.totalUpcomingSupply + product.totalSupply);
+      return limitedEditions(product.totalUpcomingSupply);
+    }
+
+    if (isFixed && product.totalSupply > 0) {
+      if (hasListings) return limitedEditionMessageSelector(product.totalSupply);
+      return limitedEditions(product.totalSupply);
+    }
+
+    if (isFixed && hasListings && hasExpiredListings) {
+      if (product.circulatingSupply === 0) return undefined;
+      return limitedEditionMessageSelector(product.circulatingSupply);
+    }
+
+    if (isVariable) {
+      if (product.circulatingSupply > 0) return { type: 'released', quantity: product.circulatingSupply };
+      if (product.minStartDate > new Date()) {
+        return { type: 'released', quantity: product.totalUpcomingSupply };
+      }
+    }
+    return undefined;
+  } else {
+    return undefined;
+  }
+};
+
+export const createSkuMessage = (messageType: string, quantity: number, sku: Sku): string | undefined => {
+  switch (messageType) {
+    case 'limited':
+      return `Limited to ${quantity}`;
+    case 'released':
+      return sku.minStartDate > new Date() ? `${quantity} to be released` : `${quantity} released`;
+    case 'unique':
+      return '1 of 1';
+    default:
+      return undefined;
+  }
+};
+
+export const createProductMessage = (messageType: string, quantity: number, product: Product): string | undefined => {
+  switch (messageType) {
+    case 'limited':
+      return `Limited to ${quantity}`;
+    case 'released':
+      return product.minStartDate > new Date() ? `${quantity} to be released` : `${quantity} released`;
+    case 'unique':
+      return '1 of 1';
+    default:
+      return undefined;
   }
 };

@@ -21,7 +21,7 @@
   <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
     <div class="flex flex-col gap-2">
       <div class="text-white-opacity-50 text-sm">Edition:</div>
-      <div><SkuEdition item={sku} /></div>
+      <div><SkuEdition {sku} /></div>
     </div>
     {#if isActiveAuction}
       <div class="flex flex-col gap-2 text-right">

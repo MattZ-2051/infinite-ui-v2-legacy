@@ -22,7 +22,6 @@
   export let product: Product = undefined;
 
   $: sku = product ? product.sku : _sku;
-
   // $: activeListing = type === 'sku' ? item.activeSkuListings?.[0] : item.activeProductListings?.[0];
 </script>
 
@@ -47,11 +46,11 @@
     <header>
       <h2 class="text-2xl line-clamp-2">{sku.name}</h2>
     </header>
-    <SkuEdition item={sku} />
+    <SkuEdition {sku} {product} />
   </div>
   <div class="mt-5 mx-6 pt-4 flex flex-row items-center border-current border-solid border-t-2 text-lg">
     {#if !product}
-      <SkuStatus item={sku} />
+      <SkuStatus {sku} {product} />
     {/if}
     <a sveltekit:prefetch href={routes.sku(sku._id)} class="ml-auto" aria-label="Product details">
       <Icon path={mdiArrowRightCircle} size={1.5} />

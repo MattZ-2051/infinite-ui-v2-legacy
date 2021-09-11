@@ -130,7 +130,7 @@
   const activeSku = {
     activeSkuListings: activeSkuListings,
     upcomingSkuListings: [],
-    totalSkuListingSupplyLeft: 3,
+    totalSupplyLeft: 3,
     activeProductListings: [],
     upcomingProductListings: [],
     soldSkuListings: [],
@@ -145,7 +145,7 @@
   };
 
   const noSaleSku = {
-    totalSkuListingSupplyLeft: 0,
+    totalSupplyLeft: 0,
     activeSkuListings: [],
     upcomingSkuListings: [],
     skuListings: [],

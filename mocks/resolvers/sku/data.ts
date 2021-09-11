@@ -49,4 +49,5 @@ export const item = {
     },
   ],
   minPrice: 200,
+  minSkuPrice: 100,
 } as unknown as Sku;
