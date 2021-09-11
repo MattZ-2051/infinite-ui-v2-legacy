@@ -11,7 +11,7 @@
 
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
 
   import SkuDescription from './SkuDescription.svelte';
   import SkuEdition from './SkuEdition.svelte';

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Profile } from '$lib/sku-item/types';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
 
   export let profile: Profile;
   export let own: boolean;

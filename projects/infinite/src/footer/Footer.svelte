@@ -1,5 +1,5 @@
 <script lang="ts">
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { SocialLinks, FooterLayout } from '$lib/layout/footer';
   import { links } from './social-links';
 </script>

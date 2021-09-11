@@ -5,7 +5,7 @@ import { createEffect } from 'effector';
 import { goto } from '$app/navigation';
 import { toast } from '$ui/toast';
 import { updateUser } from '$lib/user';
-import routes from '$lib/routes';
+import routes from '$project/routes';
 import { addCreditCard, addCreditCardFunds, deleteCreditCard } from './card.api';
 import { loadWalletFx } from '../wallet/wallet.store';
 

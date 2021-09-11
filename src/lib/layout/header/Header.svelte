@@ -2,7 +2,7 @@
   import Logo from '$project/Logo.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import SidebarToggle from '$ui/sidebar-toggle/SidebarToggle.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import Links from './Links.svelte';
   import Sidebar from './Sidebar.svelte';
 

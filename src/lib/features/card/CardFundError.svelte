@@ -1,7 +1,7 @@
 <script lang="ts">
   import { closeModal, Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
 
   export let isOpen;
   export let error: { status: number; data: { message: string } };

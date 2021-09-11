@@ -1,7 +1,7 @@
 <script lang="ts">
   import { mdiClose } from '@mdi/js';
   import { userId } from '$lib/user';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
   import Icon from '$ui/icon/Icon.svelte';

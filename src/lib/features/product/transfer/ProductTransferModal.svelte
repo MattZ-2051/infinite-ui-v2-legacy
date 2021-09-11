@@ -5,7 +5,7 @@
   import { closeModal, Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import SelectUser from './SelectUser.svelte';
   import { transferProductFx } from './product-transfer.store';
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Transaction } from '$lib/sku-item/types';
   import UserLink from '$lib/components/UserLink.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { formatCurrency } from '$util/format';
 
   export let transaction: Transaction;

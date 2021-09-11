@@ -4,7 +4,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import CollectorItemStatus from '$lib/features/collectors/CollectorItemStatus.svelte';
   import imageError from '$util/imageError';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
 
   export let collector: CollectorProduct;
 </script>

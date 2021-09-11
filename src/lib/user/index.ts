@@ -5,7 +5,7 @@ import { derived, writable, get as getStoreValue } from 'svelte/store';
 import { isAuthenticated, initAuth, userExternalId } from '$lib/auth';
 import { localStorageWritable } from '$util/localstorage-store';
 import { patch, post, get } from '$lib/api';
-import routes from '$lib/routes';
+import routes from '$project/routes';
 import { openModal } from '$ui/modals';
 
 import AccountInitialSetupModal from '$lib/features/account/AccountInitialSetupModal.svelte';

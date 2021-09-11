@@ -1,6 +1,6 @@
 <script lang="ts">
   import imageError from '$util/imageError';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import IconVerified from './IconVerified.svelte';
 
   export let profile: { username: string; profilePhotoUrl: string; verified?: boolean };

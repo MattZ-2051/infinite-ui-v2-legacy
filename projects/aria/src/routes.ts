@@ -1,5 +1,8 @@
-const routes = {
-  faq: 'https://support.suku.world/infinite-powered-by-suku',
-};
+// eslint-disable-next-line no-restricted-imports
+import routes from '$lib/routes';
 
-export default routes;
+export default {
+  ...routes,
+  faq: 'https://aria-network.force.com/support/s/',
+  help: 'https://aria-network.force.com/support/s/',
+};

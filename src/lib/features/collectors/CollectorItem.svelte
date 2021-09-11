@@ -3,7 +3,7 @@
   import { mdiChevronRight } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import UserLink from '$lib/components/UserLink.svelte';
   import CollectorItemStatus from './CollectorItemStatus.svelte';
 

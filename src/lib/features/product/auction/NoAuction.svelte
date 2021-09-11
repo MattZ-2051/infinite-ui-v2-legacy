@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
   import { mdiChevronRight } from '@mdi/js';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import Icon from '$ui/icon/Icon.svelte';
 
   export let product: Product;

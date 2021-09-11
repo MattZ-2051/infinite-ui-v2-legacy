@@ -1,6 +1,4 @@
-import routes from '$project/routes';
-
-export default Object.freeze({
+export default {
   index: '/',
   marketplace: '/marketplace',
   sku: (skuId) => `/marketplace/${skuId}`,
@@ -19,5 +17,4 @@ export default Object.freeze({
   signout: '/auth/signout',
   signup: '/auth/signup',
   partner: '/partner',
-  ...routes,
-});
+};

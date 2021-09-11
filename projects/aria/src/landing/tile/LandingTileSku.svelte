@@ -4,7 +4,7 @@
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { skuStatus } from '$lib/sku-item/status';
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 

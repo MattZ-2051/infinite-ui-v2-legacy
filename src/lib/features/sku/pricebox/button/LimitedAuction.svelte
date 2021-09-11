@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { CollectorProduct } from '$lib/sku-item/types';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
 
   export let collector: CollectorProduct;

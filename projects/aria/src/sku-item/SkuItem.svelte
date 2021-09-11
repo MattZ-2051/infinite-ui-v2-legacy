@@ -6,7 +6,7 @@
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
   import SkuStatus from '$project/sku-item/SkuStatus.svelte';
   import SkuDescription from '$project/sku-item/SkuDescription.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { formatDate } from '$util/format';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
 

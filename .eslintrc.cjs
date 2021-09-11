@@ -14,6 +14,17 @@ module.exports = {
     eqeqeq: 'error',
     'no-empty': ['error', { allowEmptyCatch: true }],
     'no-multiple-empty-lines': 'error',
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: '$lib/routes',
+            message: 'Please use $project/routes instead.',
+          },
+        ],
+      },
+    ],
     'no-shadow': 'error',
     'unicorn/no-useless-undefined': ['error', { checkArguments: false }],
     'unicorn/prevent-abbreviations': [

@@ -4,7 +4,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import ProductHistory from './ProductHistory.svelte';
   import ProductAuction from './auction/ProductAuction.svelte';
   import { hasAuction } from './product.service';

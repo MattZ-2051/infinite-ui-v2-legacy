@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
   import CollectorsSummary from './CollectorsSummary.svelte';

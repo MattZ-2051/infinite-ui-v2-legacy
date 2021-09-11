@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Bid } from '$lib/sku-item/types';
   import { mdiChevronRight } from '@mdi/js';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';

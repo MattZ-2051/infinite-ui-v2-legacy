@@ -5,7 +5,7 @@
   import { user } from '$lib/user';
   import CryptoCurrency from '$lib/payment/crypto/CryptoCurrency.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { variables } from '$lib/variables';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import WalletBalance from './WalletBalance.svelte';

@@ -2,7 +2,7 @@
   import Cookies from 'js-cookie';
   import { mdiClose } from '@mdi/js';
   import { browser } from '$app/env';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
 
   import Icon from '$ui/icon/Icon.svelte';
 

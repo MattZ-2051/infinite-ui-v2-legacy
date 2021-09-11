@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import type { ErrorLoadInput } from '@sveltejs/kit';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
 
   export function load({ error, status }: ErrorLoadInput): { props: Partial<ErrorLoadInput> } {
     return {

@@ -2,7 +2,7 @@
   import type { LoadInput } from '@sveltejs/kit';
   import ProductPage from '$lib/features/product/Product.svelte';
   import { product, fetchProductFx, clearProduct } from '$lib/features/product/product.store';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
 
   export async function load({ page: location, fetch }: LoadInput) {
     const { id } = location.params;

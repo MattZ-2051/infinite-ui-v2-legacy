@@ -3,7 +3,7 @@
   import Image from '$ui/image/Image.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import { user } from '$lib/user';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import Button from '$lib/components/Button.svelte';
   import trust from './assets/trust.png?w=184&format=avif;webp;png&metadata';
   import carbon from './assets/carbon.png?w=135&format=avif;webp;png&metadata';

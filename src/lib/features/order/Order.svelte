@@ -11,7 +11,7 @@
   import { productBought, pendingBuyCreated } from '$lib/features/product/product.store';
   import { getBuyingFee } from '$lib/features/product/product.fee';
   import { toast } from '$ui/toast';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { skuBought } from '$lib/features/sku/sku.store';
   import OrderProductPricing from './OrderProductPricing.svelte';
   import { purchaseSkuListing } from './order.api';

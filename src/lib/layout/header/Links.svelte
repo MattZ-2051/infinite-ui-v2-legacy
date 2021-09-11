@@ -4,7 +4,7 @@
   import { page } from '$app/stores';
   import { login, isLoading, logout } from '$lib/auth';
   import { user, clearUser } from '$lib/user';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
   import Button from '$lib/components/Button.svelte';
 

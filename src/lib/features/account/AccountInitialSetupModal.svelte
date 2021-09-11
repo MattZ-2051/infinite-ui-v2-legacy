@@ -16,7 +16,7 @@
   import notifications from '$ui/toast/toast.store';
   import { closeModal, Modal } from '$ui/modals';
   import { logout } from '$lib/auth';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { clearUser, patchUser } from '$lib/user';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import Button from '$lib/components/Button.svelte';

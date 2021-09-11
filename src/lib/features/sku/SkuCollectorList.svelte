@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { CollectorProduct } from '$lib/sku-item/types';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import SkuCollectorListItem from './SkuCollectorListItem.svelte';
 
   export let collectors: CollectorProduct[];

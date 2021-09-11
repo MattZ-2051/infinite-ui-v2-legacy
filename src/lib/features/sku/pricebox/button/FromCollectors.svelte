@@ -3,7 +3,7 @@
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
   import { polls } from '$lib/features/product/product.store';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
 
   type FromCollectorStatus = 'activeSale' | 'activeAuction' | 'upcomingAuction' | 'noneForSale' | '';

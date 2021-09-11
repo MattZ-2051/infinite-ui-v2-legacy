@@ -6,7 +6,7 @@
   import { user } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { placeBidFx } from './auction.store';
   import { getBiddingFee } from '../product.fee';
 

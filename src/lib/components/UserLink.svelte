@@ -1,5 +1,5 @@
 <script lang="ts">
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
 
   export let username: string;
   export let prefix: string = undefined;

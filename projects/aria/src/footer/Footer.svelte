@@ -1,5 +1,5 @@
 <script lang="ts">
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { SocialLinks, FooterLayout } from '$lib/layout/footer';
   import { user } from '$lib/user';
   import Image from '$ui/image/Image.svelte';

@@ -13,7 +13,7 @@
   import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { queryParameter } from '$util/queryParameter';
   import Tag from '$ui/Tag/Tag.svelte';
-  import routes from '$lib/routes';
+  import routes from '$project/routes';
   import { setFilters, modeFilters } from './marketplace.service';
 
   const dispatch = createEventDispatcher();
