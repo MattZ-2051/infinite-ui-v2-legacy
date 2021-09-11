@@ -18,7 +18,7 @@
 
   const dispatch = createEventDispatcher();
 
-  $: isDistrictRequired = ['US', 'CA'].includes(selectedCountryISO2);
+  $: isDistrictRequired = ['US', 'CA'].includes($data.country);
 
   const schema = yup.object({
     holderName: yup
@@ -39,12 +39,14 @@
       ),
   });
 
-  let selectedCountryISO2: string;
   let submit: HTMLElement;
   let showBackdrop = false;
   let destroyPlaid;
 
-  const { form, errors, reset } = createForm<NewBankAccount>({
+  const { form, errors, data, reset } = createForm<NewBankAccount>({
+    initialValues: {
+      country: 'US',
+    },
     onSubmit: async (formValues: NewBankAccount) => {
       await getAchLinkToken()
         .then(async (linkToken: PlaidLinkToken) => {
@@ -110,9 +112,9 @@
         <FormInput name="city" label="City *" />
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <FormCountriesSelect bind:value={selectedCountryISO2} name="country" label="Country *" />
+        <FormCountriesSelect name="country" label="Country *" />
         <FormDistrictsSelect
-          countryISO2={selectedCountryISO2}
+          countryISO2={$data.country}
           name="district"
           label="State/Province{isDistrictRequired ? ' *' : ''}"
         />
