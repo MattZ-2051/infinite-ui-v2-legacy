@@ -43,7 +43,7 @@
             </div>
             <div class="flex justify-between">
               <div class="flex items-center gap-2 font-medium text-lg">
-                {#if sku.redeemable}<IconRedeem size={32} /><span class="hidden md:block">Redeemable</span>{/if}
+                {#if sku.redeemable}<IconRedeem size={32} />{/if}
               </div>
               <a href={routes.sku(sku._id)} class="text-primary text-lg">Learn more</a>
             </div>

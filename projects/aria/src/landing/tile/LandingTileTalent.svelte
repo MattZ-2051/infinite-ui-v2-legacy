@@ -12,7 +12,7 @@
 <div class="flex flex-col gap-4">
   <div class="relative">
     <img src={photoUrl} alt="" class="w-full object-cover" style="aspect-ratio: 1/1;" />
-    <SkuDescription issuer={talent} />
+    <SkuDescription issuer={talent} showBottomLink />
   </div>
   <TalentLink profile={talent} />
 </div>
