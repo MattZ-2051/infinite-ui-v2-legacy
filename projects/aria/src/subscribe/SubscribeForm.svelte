@@ -5,6 +5,7 @@
   import { validateSchema } from '@felte/validator-yup';
   import Icon from '$ui/icon/Icon.svelte';
   import Button from '$lib/components/Button.svelte';
+  import { subscribe } from './subscribe.api';
 
   /**
    * Class to be added on the title.
@@ -22,8 +23,8 @@
   });
 
   const { form } = createForm<{ email: string }>({
-    onSubmit: (/*values*/) => {
-      // TODO(vasilis): handle submit
+    onSubmit: async (values) => {
+      await subscribe(values.email);
     },
     validate: validateSchema(schema),
   });

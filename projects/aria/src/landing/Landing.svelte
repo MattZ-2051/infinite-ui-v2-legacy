@@ -4,7 +4,7 @@
   import { Navigation } from 'swiper';
   import { user } from '$lib/user';
   import { Tabs, Tab } from '$ui/tabs';
-  import SubscribeForm from '$project/SubscribeForm.svelte';
+  import SubscribeForm from '$project/subscribe/SubscribeForm.svelte';
   import Intro from '$project/about/Intro.svelte';
   import LandingHero from './hero/LandingHero.svelte';
   import LandingTileTalent from './tile/LandingTileTalent.svelte';
