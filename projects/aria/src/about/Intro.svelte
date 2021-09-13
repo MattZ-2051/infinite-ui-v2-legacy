@@ -56,7 +56,9 @@
 
 <div class="mt-8 md:mt-20 lg:mt-32 bg-primary-dark">
   <div class="container p-12 flex flex-col gap-10">
-    <span class="text-4xl text-center">Join our collective and let’s build our digital community together! </span>
+    <span class="text-2xl lg:text-4xl text-center"
+      >Join our collective and let’s build our digital community together!
+    </span>
     {#if !$user}
       <div class="flex justify-center">
         <Button href={routes.signup} --button-padding="8px 40px">JOIN ARIA</Button>
