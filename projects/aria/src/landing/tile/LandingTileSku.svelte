@@ -45,7 +45,7 @@
               <div class="flex items-center gap-2 font-medium text-lg">
                 {#if sku.redeemable}<IconRedeem size={32} />{/if}
               </div>
-              <a href={routes.sku(sku._id)} class="text-primary text-lg">Learn more</a>
+              <a href={routes.sku(sku._id)} class="text-primary text-lg font-medium">Learn more</a>
             </div>
           </div>
         </div>
