@@ -101,9 +101,10 @@ forward({
 
 export const auctionStarted = createEvent<{ product: Product }>();
 export const auctionCancelled = createEvent<{ listingId: string }>();
+export const auctionEnded = createEvent();
 
 forward({
-  from: [auctionStarted, auctionCancelled],
+  from: [auctionStarted, auctionCancelled, auctionEnded],
   to: refetchProductFx,
 });
 

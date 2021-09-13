@@ -15,7 +15,7 @@
     hasUpcomingAuction,
     canCancelAuction as canCancelAuctionFunction,
   } from '../product.service';
-  import { maxPlacedBid } from '../product.store';
+  import { maxPlacedBid, auctionEnded } from '../product.store';
   import BidForm from '../auction/BidForm.svelte';
   import { onOrderIntent } from '../../order/order.service';
   import { onAction, onBid } from '../actions/product-actions.service';
@@ -45,7 +45,7 @@
 <div {...$$restProps}>
   {#if showActiveSale}
     <div
-      class="flex flex-col md:flex-row w-full h-full md:rounded-lg md:rounded-lg overflow-hidden whitespace-nowrap"
+      class="flex flex-col md:flex-row w-full h-full md:rounded-lg overflow-hidden whitespace-nowrap"
       style="background-color: #313131;"
     >
       <div
@@ -115,7 +115,7 @@
   {#if showActiveAuction}
     {#if isProductOwner}
       <div
-        class="flex flex-col md:flex-row w-full h-full md:rounded-lg md:rounded-lg overflow-hidden"
+        class="flex flex-col md:flex-row w-full h-full md:rounded-lg overflow-hidden"
         style="background-color: #313131;"
       >
         <div
@@ -124,7 +124,7 @@
           <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
             <div class="text-sm text-white-opacity-50">Auction ends in:</div>
             <div class="flex gap-1">
-              <TimeDifference date={activeProductListing?.endDate} />
+              <TimeDifference date={activeProductListing?.endDate} on:zero={() => auctionEnded()} />
               <div class="text-white-opacity-30">
                 — {formatDate(activeProductListing?.endDate)}
               </div>
