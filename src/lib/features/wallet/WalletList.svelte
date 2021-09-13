@@ -68,7 +68,7 @@
     },
     {
       id: 8,
-      name: 'Nft redeem',
+      name: 'NFT redeem',
       order: '',
       value: 'nft_redeem',
     },
