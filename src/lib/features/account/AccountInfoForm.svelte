@@ -5,8 +5,8 @@
   import * as yup from 'yup';
   import { createForm } from 'felte';
   import FormInput from '$lib/components/form/FormInput.svelte';
-  import { toast } from '$ui/toast';
   import { patchUser } from '$lib/user';
+  import { handleUserApiError } from './account.service';
 
   export let user: User;
 
@@ -20,10 +20,10 @@
       .required('Username is required.')
       .min(3, 'Username is too short.')
       .max(18, 'Username is too long.'),
-    tagline: yup.string().max(150, 'Tagline must be at most 150 characters.'),
+    tagline: yup.string().max(150, 'About me must be at most 150 characters.'),
   });
 
-  const { form, errors } = createForm({
+  const { form, errors } = createForm<{ username?: string; tagline: string }>({
     initialValues: {
       username: user.username || '',
       tagline: user.tagline || '',
@@ -31,30 +31,14 @@
     onSubmit: async (values) => {
       // Backend API is failing if using the same username
       if (values.username === user.username) {
-        delete values.username;
+        const { username, ...rest } = values;
+        values = rest;
       }
       try {
         await (saving = patchUser(values));
         dispatch('closeForm');
       } catch (error) {
-        let message;
-        switch (error?.data?.appCode) {
-          case 'USERNAME_RULES_TAKEN':
-            message = 'The username you selected is already taken. Please choose a diffent one.';
-            break;
-          case 'USERNAME_RULES_TOO_SHORT':
-            message = 'Username must have between 3 and 18 characters length.';
-            break;
-          case 'USERNAME_RULES_WEIRD_CHARS':
-            message = 'Username can only contain letters, digits and special characters.';
-            break;
-          case 'USERNAME_RULES_BLANKS':
-            message = 'Username cannot contain blank spaces.';
-            break;
-          default:
-            message = 'There was an error submitting your request. Please try again.';
-        }
-        toast.danger(message);
+        handleUserApiError(error);
       } finally {
         saving = undefined;
       }

@@ -1,27 +1,19 @@
-<script lang="ts" context="module">
-  export type Values = {
-    firstName: string;
-    lastName: string;
-    tagline: string;
-    username: string;
-    phoneNumber: string;
-  };
-</script>
-
 <script lang="ts">
+  import type { User } from '$lib/user/types';
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import { setContext } from 'svelte';
   import * as yup from 'yup';
-  import notifications from '$ui/toast/toast.store';
   import { closeModal, Modal } from '$ui/modals';
   import { logout } from '$lib/auth';
   import routes from '$project/routes';
   import { clearUser, patchUser } from '$lib/user';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import Button from '$lib/components/Button.svelte';
+  import { handleUserApiError } from './account.service';
 
   export let isOpen: boolean;
+  export let user: User;
 
   const schema = yup.object({
     firstName: yup
@@ -32,47 +24,56 @@
       .string()
       .required('Last name is required.')
       .matches(/^[ A-Za-z]*$/, 'Please enter valid last name.'),
+    username: yup
+      .string()
+      .required('Username is required.')
+      .min(3, 'Username is too short.')
+      .max(18, 'Username is too long.'),
+    tagline: yup.string().max(150, 'About me must be at most 150 characters.'),
   });
 
-  const initialValues: Values = {
-    firstName: '',
-    lastName: '',
-    tagline: '',
-    username: '',
-    phoneNumber: '',
-  };
-
-  const { form, errors, isSubmitting } = createForm<Values>({
-    initialValues,
+  const { form, errors, isSubmitting, data } = createForm<{
+    firstName: string;
+    lastName: string;
+    tagline: string;
+    username?: string;
+    phoneNumber: string;
+    phoneNumberConsentGiven: boolean;
+  }>({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      tagline: '',
+      username: user?.username || '',
+      phoneNumber: '',
+      phoneNumberConsentGiven: false,
+    },
     onSubmit: async (values) => {
+      // Backend API is failing if using the same username
+      if (values.username === user.username) {
+        let { username, ...rest } = values;
+        values = rest;
+      }
       try {
-        await patchUser(filterValues(values));
-
+        await patchUser(values);
         closeModal();
-      } catch {
-        notifications.danger(`There was a problem saving the profile details.`);
+      } catch (error) {
+        handleUserApiError(error);
       }
     },
     validate: validateSchema(schema),
   });
 
-  let phoneNumberConsentGiven: boolean;
   let termsAndConditionsConsentGiven: boolean;
   let privacyPolicyConsentGiven: boolean;
 
-  $: canSave = phoneNumberConsentGiven && termsAndConditionsConsentGiven && privacyPolicyConsentGiven;
+  $: canSave = termsAndConditionsConsentGiven && privacyPolicyConsentGiven;
 
   setContext('errors', errors);
 
   function onLogout() {
     clearUser();
     logout(`${window.location.origin}`);
-  }
-
-  /** Remove consent flags and empty inputs from the final payload */
-  function filterValues(values: Values) {
-    const fiteredEntries = Object.entries(values).filter(([, value]) => value?.trim());
-    return Object.fromEntries(fiteredEntries);
   }
 </script>
 
@@ -88,16 +89,17 @@
       <form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3">
         <FormInput label="First name *" name="firstName" />
         <FormInput label="Last name *" name="lastName" />
-        <FormInput label="Tag Line" name="tagline" />
-        <FormInput label="New Username" name="username" />
+        <FormInput label="About me" name="tagline" placeholder="Enter short bio" textarea rows="4" />
+        <FormInput label="Username *" name="username" />
         <FormInput label="Phone Number" name="phoneNumber" />
         <div class="flex gap-4 justify-end" />
         <div class="flex gap-3 mb-4">
           <input
             id="phoneNumberConsentGiven"
             type="checkbox"
+            name="phoneNumberConsentGiven"
             class="w-5 h-5 text-black bg-white"
-            bind:checked={phoneNumberConsentGiven}
+            disabled={$data.phoneNumber === ''}
           />
           <label for="phoneNumberConsentGiven" class="text-black-opacity-90 text-sm"
             >By providing your phone number, you are consenting to receiving updates from ARIA Exchange on NFT releases,

@@ -35,7 +35,7 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
     'no-console': 'warn',
     // disable the rule for all files
     '@typescript-eslint/explicit-module-boundary-types': 'off',
