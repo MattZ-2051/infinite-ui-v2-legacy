@@ -35,7 +35,7 @@
           </div>
         {/if}
         {#if sku.description}
-          <SkuDescription issuer={sku.issuer} />
+          <SkuDescription issuer={sku.issuer} bottomLink={routes.sku(sku._id)} />
         {/if}
       </div>
     </div>

@@ -22,7 +22,8 @@
         use:imageError={() => (hideImage = true)}
       />
     {/if}
-    <a href={routes.collection(profile.username)} sveltekit:prefetch><slot>{profile.username}</slot></a>
+    <a href={routes.collection(profile.username)} sveltekit:prefetch class="truncate"><slot>{profile.username}</slot></a
+    >
     {#if profile.verified}
       <IconVerified />
     {/if}
