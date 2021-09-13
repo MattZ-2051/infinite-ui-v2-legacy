@@ -11,7 +11,7 @@
   --bg-color: #000000;
   --color: #ffffff;
   --link-color: var(--primary);
-  --separator-bg-color: linear-gradient(var(--gradient-start) 0%, var(--gradient-end) 100%);
+  --separator-bg-color: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
   --icon-bg-color: #2d2d2d;
 
   /* Filters */
@@ -85,7 +85,7 @@
   --tooltip-bg: #ffffff;
   --tooltip-color: #000000;
 
-  /* Icon Redeem */
+  /* IconRedeem */
   --icon-redeem-color: #ffffff;
   --icon-redeem-border-radius: 16px;
   --icon-redeem-bg-color: var(--icon-bg-color);
@@ -145,10 +145,22 @@
 }
 
 .theme-modal {
+  /* Input */
   --input-container-border-color: theme('colors.black-opacity.30');
   --input-container-border-color-focus: #000000;
   --input-label-color: theme('colors.black-opacity.95');
   --input-placeholder-color: theme('colors.black-opacity.50');
   --input-bg-color: #ffffff;
   --input-color: #000000;
+
+  /* Select */
+  --select-color: #000000;
+  --select-bg-color: #ffffff;
+
+  /* Pagination */
+  --pagination-color: #9e9e9e;
+  --pagination-color-hover: #000000;
+  --pagination-color-active: #ffffff;
+  --pagination-background-color-active: #000000;
+  --pagination-background-color-hover: transparent;
 }

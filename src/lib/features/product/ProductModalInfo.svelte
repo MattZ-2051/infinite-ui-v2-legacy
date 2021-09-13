@@ -1,32 +1,38 @@
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
+  import type { Sku, Product } from '$lib/sku-item/types';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
 
-  export let sku: Sku;
+  export let sku: Sku = undefined;
+  export let product: Product = undefined;
 </script>
 
-<div class="flex flex-col border border-gray-300 rounded-md">
-  <div class="grid grid-cols-2 border-b border-gray-300 p-4 gap-4">
-    <div class="flex flex-col gap-2 ">
-      <span class="text-sm text-gray-400">Name</span>
-      <span>{sku.name}</span>
+<div class="flex flex-col border border-black-opacity-10 rounded-md w-full">
+  <div class="grid grid-cols-2 border-b border-black-opacity-10 p-4 gap-4">
+    <div class="flex flex-col gap-2">
+      <span class="text-sm text-black-opacity-50">Name</span>
+      <div class="flex items-center gap-2">
+        <div>{sku.name}</div>
+        {#if product?.serialNumber}
+          <div>#{product.serialNumber}</div>
+        {/if}
+      </div>
     </div>
-    <div class="flex flex-col gap-2  items-end">
-      <span class="text-sm text-gray-400">Edition</span>
-      <SkuEdition {sku} />
+    <div class="flex flex-col gap-2 items-end">
+      <span class="text-sm text-black-opacity-50">Edition</span>
+      <SkuEdition {sku} {product} />
     </div>
   </div>
   <div class="grid grid-cols-2 p-4 gap-4">
     <div class="flex flex-col gap-2">
-      <span class="text-sm text-gray-400">Created by</span>
+      <span class="text-sm text-black-opacity-50">Created by</span>
       <TalentLink profile={sku.issuer} />
     </div>
     {#if sku.redeemable}
       <div class="flex flex-col gap-2 items-end">
-        <span class="text-sm text-gray-400">Status</span>
-        <div class="flex gap-2 items-center">
+        <span class="text-sm text-black-opacity-50">Status</span>
+        <div class="flex gap-1 items-center">
           <IconRedeem size={18} hasTooltip={false} /> Redeemable
         </div>
       </div>

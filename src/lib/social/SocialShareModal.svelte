@@ -63,11 +63,7 @@
 </script>
 
 {#if isOpen}
-  <Modal on:close={closeModal} title="" style="width:512px; height:441px;">
-    <svelte:fragment slot="title"
-      ><span class="text-3xl font-medium border-b-2 w-full text-center border-gray-200 pb-4">{title}</span
-      ></svelte:fragment
-    >
+  <Modal {title} on:close={closeModal} style="width:512px; height:441px;">
     <div class="flex flex-wrap items-center justify-center font-medium ">
       {#each socialMedia as social}
         <button

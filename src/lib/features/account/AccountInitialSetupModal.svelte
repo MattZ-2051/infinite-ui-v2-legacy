@@ -81,7 +81,7 @@
   <Modal title="Profile Details" on:close={closeModal} persistent={true} closeButton={false}>
     <div class="flex flex-col max-w-sm border-t border-black-opacity-20 justify-evenly gap-5 px-10 py-6 relative">
       {#if $isSubmitting}
-        <div class="absolute top-0 bottom-0 left-0 right-0 z-20" />
+        <div class="form-overlay" />
       {/if}
       <span class="text-base text-black-opacity-95 text-center">
         Please, provide the following information to setup your profile.
@@ -132,7 +132,7 @@
             >.</label
           >
         </div>
-        <div class="flex flex-col gap-4 px-2 pt-6 border-t border-black-opacity-20">
+        <div class="flex flex-col gap-4 pt-6 border-t border-black-opacity-20">
           <Button disabled={!canSave} type="submit">Save</Button>
           <Button on:click={onLogout}>Logout</Button>
         </div>

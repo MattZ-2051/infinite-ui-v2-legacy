@@ -24,7 +24,7 @@
   export let id: string;
   const dispatch = createEventDispatcher();
 
-  const { form, errors, reset } = createForm<RedeemInfo>({
+  const { form, errors, reset, isSubmitting } = createForm<RedeemInfo>({
     onSubmit: async (values) => {
       try {
         await (saving = redeemItem({ ...values }, id));
@@ -43,29 +43,25 @@
   setContext('errors', errors);
 </script>
 
-<div class="flex flex-col gap-2">
-  <div class="flex gap-2 text-xl border-b-2 border-black pb-3 w-full">Shipping Information</div>
-  <form use:form class="mt-2 flex flex-col gap-3" autocomplete="off">
-    <FormInput name="addressLine1" label="Address Line 1" />
+<div class="flex flex-col gap-2 relative">
+  {#if $isSubmitting}
+    <div class="form-overlay" />
+  {/if}
+
+  <div class="flex gap-2 text-xl w-full">Shipping Information</div>
+  <form use:form class="mt-2 flex flex-col gap-4" autocomplete="off">
+    <FormInput name="addressLine1" label="Address Line 1  *" />
     <FormInput name="addressLine2" label="Address Line 2" />
-    <FormInput name="postalCode" label="Postal Code" />
-    <FormInput name="city" label="City" />
-    <FormCountriesSelect name="country" label="Country" />
-    <FormInput name="district" label="State/Province" />
+    <FormInput name="postalCode" label="Postal Code *" />
+    <FormInput name="city" label="City *" />
+    <FormCountriesSelect name="country" label="Country *" />
+    <FormInput name="district" label="State/Province *" />
     <FormInput name="shippingNotes" label="Shipping Notes" />
 
-    <div style="font-size:12px; line-height:19.2px;" class="gray-text flex flex-col items-center">
-      <span>Redeem this item and receive a copy on the following</span>
-      <span>address.</span>
-      <span>Keep in mind that,by confirming this action,the digital</span>
-      <span>and physical versions may suffer a price decrease.</span>
+    <div class="text-xs text-black-opacity-60 max-w-sm">
+      Redeem this item and receive a copy on the following adress. Keep in mind that, by confirming this action, the
+      digital and physical versions may suffer a price decrease.
     </div>
-    <Button type="submit" disabled={!!saving} class="mt-2">Redeem Now</Button>
+    <Button type="submit" disabled={!!saving} class="mt-6">Redeem Now</Button>
   </form>
 </div>
-
-<style>
-  .gray-text {
-    color: #9e9e9e;
-  }
-</style>

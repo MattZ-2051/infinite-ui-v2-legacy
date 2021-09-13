@@ -37,7 +37,7 @@
   const forwardEvents = forwardEventsBuilder(get_current_component());
 
   $: classes = clsx(
-    'button inline-flex items-center justify-center',
+    'button inline-flex items-center justify-center border',
     _class,
     variant,
     disabled && 'opacity-50 pointer-events-none cursor-default',
@@ -65,20 +65,20 @@
   }
 
   .primary {
-    color: var(--button-primary-text-color, #ffffff);
+    color: var(--button-primary-color, #ffffff);
     background-color: var(--button-primary-bg-color, var(--primary, #000000));
-    border-color: var(--button-primary-color-border, var(--primary, #000000));
+    border-color: var(--button-primary-border-color, var(--primary, #000000));
   }
 
   .secondary {
-    color: var(--button-secondary-text-color, #000000);
+    color: var(--button-secondary-color, #000000);
     background-color: var(--button-secondary-bg-color, #ffffff);
-    border: var(--button-secondary-border, 1px solid var(--button-secondary-color-border, var(--primary, #000000)));
+    border-color: var(--button-secondary-border-color, var(--button-secondary-color-border, var(--primary, #000000)));
   }
 
   .tertiary {
-    color: var(--button-tertiary-text-color, #000000);
+    color: var(--button-tertiary-color, #000000);
     background-color: var(--button-tertiary-bg-color, #ffffff);
-    border-color: var(--button-tertiary-color-border, #ffffff);
+    border-color: var(--button-tertiary-border-color, #ffffff);
   }
 </style>

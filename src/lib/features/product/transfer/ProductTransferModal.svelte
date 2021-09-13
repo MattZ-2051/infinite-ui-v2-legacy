@@ -3,7 +3,9 @@
   import { goto } from '$app/navigation';
   import { user } from '$lib/user';
   import { closeModal, Modal } from '$ui/modals';
+  import { FilePreview } from '$ui/file';
   import Button from '$lib/components/Button.svelte';
+  import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import routes from '$project/routes';
   import SelectUser from './SelectUser.svelte';
@@ -12,15 +14,23 @@
   export let isOpen: boolean;
   export let product: Product;
 
-  let status: 'select-user' | 'confirm-user' | 'transfer-success' | 'transfer-error' = 'select-user';
+  let status: 'select-user' | 'confirm-user' | 'transfer-success' | 'transfer-pending' | 'transfer-error' =
+    'select-user';
   let selectedUser: Profile = undefined;
   const waitingForAPI = transferProductFx.pending;
+  const titleMap = {
+    'select-user': 'Transfer to a user',
+    'confirm-user': 'Are you sure?',
+    'transfer-success': 'NFT transfered!',
+    'transfer-pending': 'Transferring...',
+    'transfer-error': 'Whoops, something went wrong!',
+  };
 
   $: sku = product.sku;
-  $: serial = product.serialNumber;
 
   async function onConfirmTransfer(toUser: Profile) {
     try {
+      status = 'transfer-pending';
       await transferProductFx({ product, user: toUser });
       status = 'transfer-success';
     } catch {
@@ -30,60 +40,40 @@
 </script>
 
 {#if isOpen}
-  <Modal on:close={closeModal} class="max-w-md">
-    <div class="px-8 py-6 flex flex-col items-center gap-4">
-      <div class="flex flex-col gap-4 items-center font-medium">
-        <div class="text-2xl">
-          {#if status === 'select-user'}
-            👋 Transfer NFT to user
-          {:else if status === 'confirm-user'}
-            ✋ Are you sure?
-          {:else if status === 'transfer-success'}
-            👏 NFT transfered!
-          {:else}
-            😬 Whoops, something went wrong!
-          {/if}
-        </div>
-        <div class="text-gray-400">
-          {#if status === 'select-user'}
-            Search for a user and send the following item.
-          {:else if status === 'confirm-user'}
-            You are about to transfer...
-          {:else if status === 'transfer-success'}
-            You sucessfully sent the following item!
-          {:else}
-            There was an error processing your transaction, please try again or contact support if the issue persists.
-          {/if}
-        </div>
-      </div>
+  <Modal title={titleMap[status]} on:close={closeModal} class="max-w-md">
+    <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
       {#if status !== 'transfer-error'}
-        <div class="border-t border-b border-gray-200 py-4">
-          <ProductModalInfo {sku} />
+        <div class="flex justify-center items-center bg-black h-72">
+          <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+        </div>
+        {#if status !== 'transfer-pending'}
+          <ProductModalInfo {sku} {product} />
+        {/if}
+      {/if}
+      {#if status === 'select-user'}
+        <SelectUser bind:selectedUser />
+      {:else if status === 'confirm-user' || status === 'transfer-success'}
+        <div class="flex gap-2">
+          <span class="text-black-opacity-40">to</span>
+          <span>
+            {`@${selectedUser.username}`}
+          </span>
+        </div>
+        <div class="text-black-opacity-40 text-sm">
+          {#if status === 'confirm-user'}
+            Transferring a product will change ownership from you to the selected user.
+          {:else if status === 'transfer-success'}
+            The transfer will remain as pending while is validated & we will let you know once is complete.
+          {/if}
         </div>
       {/if}
-      <div class="w-full">
-        {#if status === 'select-user'}
-          <SelectUser bind:selectedUser />
-        {:else if status === 'confirm-user' || status === 'transfer-success'}
-          <div class="grid grid-cols-1 gap-4 text-center">
-            <div class="text-gray-400">to</div>
-            <div class="text-2xl font-medium">
-              {`@${selectedUser.username}`}
-            </div>
-            <div class="text-gray-400 text-center">
-              {#if status === 'confirm-user'}
-                Transferring a product will change ownership from you to the selected user.
-              {:else if status === 'transfer-success'}
-                The transfer will remain as pending while is validated & we will let you know once is complete.
-              {/if}
-            </div>
-          </div>
-        {/if}
-      </div>
       <div class="w-full pt-4">
         {#if status === 'select-user'}
-          <Button type="button" disabled={selectedUser === undefined} on:click={() => (status = 'confirm-user')}
-            >Transfer NFT</Button
+          <Button
+            class="w-full mt-6"
+            type="button"
+            disabled={selectedUser === undefined}
+            on:click={() => (status = 'confirm-user')}>Transfer NFT</Button
           >
         {:else if status === 'confirm-user'}
           <div class="grid grid-cols-1 gap-4">
@@ -111,6 +101,13 @@
               disabled={$waitingForAPI}
               on:click={() => goto(routes.marketplace)}>Back to Marketplace</Button
             >
+          </div>
+        {:else if status === 'transfer-pending'}
+          <div class="flex flex-col items-center gap-4">
+            <DualRingLoader />
+            <div class="text-black-opacity-40 flex flex-col text-center">
+              <span>Processing your request.</span><span>Do not close this window.</span>
+            </div>
           </div>
         {:else}
           <div class="grid grid-cols-1 gap-4">

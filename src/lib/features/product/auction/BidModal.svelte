@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
   import { closeModal, Modal } from '$ui/modals';
-  import { toast } from '$ui/toast';
+  import { FilePreview } from '$ui/file';
   import { formatCurrency } from '$util/format';
   import { user } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
@@ -24,63 +24,54 @@
   let acceptedTerms = false;
 
   async function onPlaceBid() {
-    if (!acceptedTerms) {
-      toast.danger('Please agree to the terms and conditions.');
-      return;
-    }
-
     await placeBidFx({ listing, amount });
     closeModal();
   }
 </script>
 
 {#if isOpen}
-  <Modal on:close={closeModal}>
-    <div class="text-2xl font-medium" slot="title">Confirm your bid</div>
-    <div class="px-10 pb-6 text-center font-medium text-green-500">
-      Your current balance {formatCurrency($user.availableBalance)}
-    </div>
-    <div class="flex flex-col px-10 py-2">
-      <div class="flex gap-8 justify-between border-solid border-t border-b border-gray-200 py-4">
-        <ProductModalInfo sku={product.sku} />
+  <Modal title="Confirm your bid:" on:close={closeModal}>
+    <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
+      <div class="flex justify-center items-center bg-black h-72">
+        <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
       </div>
-      <div class="flex justify-between border-solid pt-4 mb-2 text-gray-400 font-medium">
-        <span>Your Bid:</span>
-        <span class="text-black">{bid}</span>
+      <div class="text-green-500">
+        Your current balance {formatCurrency($user.availableBalance)}
       </div>
-      <div class="flex justify-between border-solid border-b border-gray-200 pb-4 text-gray-400 font-medium">
-        <span>MarketPlace fee ({marketplaceFee * 100}%)</span>
+      <ProductModalInfo {product} sku={product.sku} />
+      <div class="flex justify-between border-solid font-medium">
+        <span class="text-black-opacity-50">Your Bid:</span>
+        <span>{bid}</span>
+      </div>
+      <div class="flex justify-between border-solid border-b border-gray-200 pb-4 font-medium">
+        <span class="text-black-opacity-50">MarketPlace fee ({marketplaceFee * 100}%)</span>
         <span>{formatCurrency(marketplaceFee * amount)}</span>
       </div>
-      <div class="flex justify-between font-medium pt-4">
-        <span>Total cost <span class="text-gray-400">(if you win)</span>:</span>
-        <span class="font-semibold text-xl">{total}</span>
+      <div class="flex justify-between font-medium">
+        <span>Total cost (if you win):</span>
+        <span>{total}</span>
       </div>
-    </div>
-    <div class="bg-gray-100 text-gray-500 my-4 py-6">
-      <div class="max-w-md m-auto text-center">
+      <div class="max-w-md text-black-opacity-60 text-sm">
         Placing a bid will freeze the associated funds from your wallet until the auction ends. Bids cannot be canceled
         but can be increased as the auction progresses.
       </div>
-    </div>
-    <div class="flex items-center justify-center py-4 my-4">
-      <label class="inline-flex items-center">
-        <input
-          type="checkbox"
-          bind:checked={acceptedTerms}
-          class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
-        />
-        I accept the <a href={routes.terms} class="ml-1 underline">Terms & Conditions</a>
-      </label>
-    </div>
-    <div class="text-gray-400 px-10 py-4 my-4">
-      <div class="max-w-md m-auto text-center">
+      <div class="flex items-center">
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            bind:checked={acceptedTerms}
+            class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
+          />
+          I accept the <a href={routes.terms} class="ml-1 underline">Terms & Conditions</a>
+        </label>
+      </div>
+      <div class="max-w-md text-black-opacity-60 text-sm">
         All resales of this product are subject to a {product.sku.royaltyFeePercentage}% royalty fee set by and to be
         paid to the original creator.
       </div>
-    </div>
-    <div class="w-full px-10  mb-6">
-      <Button type="button" disabled={$waitingForAPI} on:click={onPlaceBid}>Place Bid</Button>
+      <Button class="w-full mt-6" type="button" disabled={$waitingForAPI || !acceptedTerms} on:click={onPlaceBid}
+        >Place Bid</Button
+      >
     </div>
   </Modal>
 {/if}

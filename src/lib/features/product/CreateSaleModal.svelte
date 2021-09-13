@@ -4,11 +4,11 @@
   import * as yup from 'yup';
   import { createForm } from 'felte';
   import { toast } from '$ui/toast';
-  import Rarity from '$lib/rarity/Rarity.svelte';
   import Button from '$lib/components/Button.svelte';
   import { closeModal, Modal } from '$ui/modals';
+  import { FilePreview } from '$ui/file';
   import { formatCurrency } from '$util/format';
-  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import { saleStarted } from './product.store';
   import { createSale } from './product.api';
   import { getSellingFee, getRoyaltyFee } from './product.fee';
@@ -68,69 +68,49 @@
 {#if isOpen}
   <Modal title="List your NFT for sale" on:close={closeModal} class="max-w-md">
     <form use:form>
-      <div class="flex flex-col px-10 mb-4">
-        <div class="flex flex-col justify-evenly gap-3 py-5 align-middle border-t border-b border-gray-200">
-          <div class="flex justify-between">
-            <span>{product.sku.issuerName}</span>
-            <Rarity rarity={product.sku.rarity} />
-          </div>
-          <span class="text-xl">{product.sku.name}</span>
-          <div class="flex justify-between">
-            <div class="flex items-center flex-wrap flex-grow">
-              {#if product.sku?.series?.name}
-                <span>{product.sku.series.name}</span>
-              {/if}
-              {#if product.sku?.redeemable}
-                <IconRedeem class="mr-1" />
-                / Redeemable
-              {/if}
-            </div>
-            <div class="flex justify-self-end ml-4">
-              <span class="text-gray-400">Serial:</span>
-              <span>#{product.serialNumber}</span>
-            </div>
-          </div>
+      <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
+        <div class="flex justify-center items-center bg-black h-72">
+          <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
         </div>
-        <div class="flex flex-col gap-2 my-6">
-          <div class="input-container flex flex-col items-center relative">
+        <ProductModalInfo {product} sku={product.sku} />
+        <div class="flex flex-col gap-2">
+          <div class="input-container flex flex-col items-center mt-4 mb-2 relative">
             <input
               data-initial-focus
               name="price"
               type="number"
               bind:value={price}
               placeholder="Enter price"
-              class="relative w-full bg-gray-100 py-3 pl-8 pr-2 outline-none rounded-2xl text-center border-0 text-xl"
+              class="relative w-full bg-black-opacity-5 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
               class:border-red-600={!!$errors.price}
             />
           </div>
           {#if $errors.price}
-            <div class="text-red-500 font-extrabold italic text-sm ">{$errors.price}</div>
+            <div class="text-red-500 text-sm">{$errors.price}</div>
           {/if}
-          <div class="flex justify-between text-gray-400">
+        </div>
+        <div class="border-b border-black-opacity-20 text-black-opacity-40 font-medium mb-2">
+          <div class="flex justify-between pb-1 mb-1">
             <span>Marketplace fee ({marketplaceFee}%):</span>
             <span>{formatCurrency(marketplaceFeePrice)}</span>
           </div>
           {#if royaltyFee > 0}
-            <div class="flex justify-between text-gray-400">
+            <div class="flex justify-between pb-1 mb-1">
               <span>Creator royalty fee ({royaltyFee}%):</span>
               <span>{formatCurrency(royaltyFeePrice)}</span>
             </div>
           {/if}
         </div>
-        <div class="flex flex-col gap-5 pt-5 border-t border-gray-200">
-          <div class="flex justify-between  font-bold">
-            <span>Final Payout:</span>
-            <span class="text-xl">{formatCurrency(total)}</span>
-          </div>
-          <div class="flex flex-col text-gray-400 justify-items-center items-center">
-            <span class="text-center">
-              If your NFT is bought on the marketplace, payment will be transferred to your INFINITE wallet.
-            </span>
+        <div class="flex flex-col">
+          <div class="flex justify-between">
+            <span class="font-semibold">Final Payout:</span>
+            <span class="font-bold">{formatCurrency(total)}</span>
           </div>
         </div>
-        <div class="flex items-center py-4">
-          <Button type="submit" {disabled}>Start Sale</Button>
+        <div class="text-sm text-black-opacity-40">
+          If your NFT is bought on the marketplace, payment will be transferred to your INFINITE wallet.
         </div>
+        <Button class="w-full mt-6" type="submit" {disabled}>Start Sale</Button>
       </div>
     </form>
   </Modal>

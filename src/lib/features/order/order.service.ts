@@ -4,7 +4,7 @@ import { get as getStoreValue } from 'svelte/store';
 import { toast } from '$ui/toast';
 import { user } from '$lib/user';
 import { openModal } from '$ui/modals';
-import Order from '$lib/features/order/Order.svelte';
+import OrderModal from '$lib/features/order/OrderModal.svelte';
 
 export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: Product; listing: Listing }): void {
   const currentUser = getStoreValue<User>(user);
@@ -21,7 +21,7 @@ export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: 
     toast.danger('Cannot purchase your own product');
     return;
   }
-  openModal(Order, {
+  openModal(OrderModal, {
     sku,
     product,
     listing,

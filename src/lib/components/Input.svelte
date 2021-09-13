@@ -39,7 +39,7 @@
     font-weight: var(--input-label-font-weight);
   }
   .input-icon {
-    color: var(--input-placeholder-color);
+    color: var(--input-icon-color, var(--input-placeholder-color));
   }
   .input-container {
     border-color: var(--input-container-border-color);
@@ -70,6 +70,9 @@
     text-align: var(--input-text-align);
   }
   .input-container :global(select) {
+    padding-bottom: 0;
+    padding-left: 0;
+    background-position: right 0rem center;
     min-height: var(--input-height);
     background-color: var(--select-bg-color);
     color: var(--select-color);

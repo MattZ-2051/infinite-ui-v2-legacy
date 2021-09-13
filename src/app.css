@@ -131,3 +131,7 @@ input[type='number'] {
 .no-results {
   @apply flex justify-center items-center text-2xl text-default mt-20;
 }
+
+.form-overlay {
+  @apply absolute top-0 bottom-0 left-0 right-0 z-20;
+}

@@ -55,14 +55,14 @@
             on:click={() => onClose('close')}
             data-style="close"
             title="Close"
-            class="absolute right-3 top-3 bg-black bg-opacity-30 hover:bg-opacity-50 text-white rounded-full p-0.5 inline-flex items-center justify-center z-10"
-            ><Icon path={mdiClose} size={0.8} /></button
+            class="absolute absolute right-10 top-8 text-black py-1 inline-flex items-center justify-center"
+            ><Icon path={mdiClose} /></button
           >
         {/if}
         {#if $$slots.header || $$slots.title || title || $$slots.icon}
           <slot name="header">
-            <header class="flex items-center justify-center gap-2 pt-8 pb-4 px-10">
-              <slot name="icon" /><slot name="title"><div class="text-2xl text-center font-normal">{title}</div></slot>
+            <header class="flex items-center gap-2 pt-8 pb-4 px-10">
+              <slot name="icon" /><slot name="title"><div class="text-2xl font-normal pr-8">{title}</div></slot>
             </header>
           </slot>
         {/if}

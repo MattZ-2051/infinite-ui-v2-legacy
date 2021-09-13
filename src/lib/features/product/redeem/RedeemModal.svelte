@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
   import { closeModal, Modal } from '$ui/modals';
-  import Rarity from '$lib/rarity/Rarity.svelte';
-  import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import { FilePreview } from '$ui/file';
+  import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import RedeemForm from './RedeemForm.svelte';
 
   export let isOpen = false;
@@ -11,26 +11,14 @@
 
 {#if isOpen}
   <Modal title="Redeem this item!" on:close={closeModal}>
-    <IconRedeem slot="icon" />
-    <div class="flex flex-col px-10 py-2">
-      <div class="flex gap-8 justify-between gray-border py-1">
-        <span class="black-text text-xl my-2">{product.sku.name}</span>
-        <Rarity rarity={product.sku.rarity} />
+    <div class="px-10 flex flex-col gap-6 max-w-md">
+      <div class="flex justify-center items-center bg-black h-72">
+        <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
       </div>
-      <div class="px-2 py-4">
+      <ProductModalInfo sku={product.sku} {product} />
+      <div class="pb-10">
         <RedeemForm id={product._id} on:close={closeModal} />
       </div>
     </div>
   </Modal>
 {/if}
-
-<style>
-  .black-text {
-    color: #000000;
-  }
-
-  .gray-border {
-    border-top: 1px solid #ebebeb;
-    border-bottom: 1px solid #ebebeb;
-  }
-</style>

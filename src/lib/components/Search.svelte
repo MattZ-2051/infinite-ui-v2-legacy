@@ -23,5 +23,5 @@
     {placeholder}
     {...$$restProps}
   />
-  <Icon slot="before" class="text-white-opacity-50" path={mdiMagnify} size="1.2" />
+  <Icon slot="before" path={mdiMagnify} size="1.2" />
 </Input>

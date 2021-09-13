@@ -38,7 +38,6 @@
     purchasing = true;
     try {
       result = await purchaseSkuListing(listing._id);
-      // result = { status: 'pending' } as any;
       if (product) {
         if (result?.status === 'pending') {
           pendingBuyCreated(product._id);
@@ -68,43 +67,43 @@
   $: marketplaceFee = product ? getBuyingFee(product) : variables.initialBuyersFeePercentage;
   $: total = listing.price * (1 + marketplaceFee);
   $: insufficientFunds = total > user.availableBalance;
+
+  let title = '';
+  $: if (result?.status === 'success') {
+    title === 'Yeah! Payment successful.';
+  } else if (result?.status === 'pending') {
+    title = `We're processing your order!`;
+  } else if (insufficientFunds) {
+    title = 'Whoops, insufficient funds!';
+  } else {
+    title = 'Confirm your order:';
+  }
 </script>
 
 {#if isOpen}
-  <Modal on:close={closeModal} class="max-w-md">
-    <div class="flex justify-center items-center bg-black h-56">
-      <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
-    </div>
-    <div class="px-8 py-6 flex flex-col items-center gap-5">
-      <div class="flex flex-col gap-1 items-center font-medium">
-        {#if result?.status === 'success'}
-          <div class="text-2xl">🤘 Yeah! Payment successful.</div>
-        {:else if result?.status === 'pending'}
-          <div class="text-2xl">We're processing your order!</div>
-        {:else}
-          <div class="text-2xl">
-            {#if insufficientFunds}⚠️ Whoops, insufficient funds!{:else}Confirm your order:{/if}
-          </div>
-          <div class={insufficientFunds ? 'text-red-500' : 'text-green-500'}>
-            Your current balance {formatCurrency(user.availableBalance)}
-          </div>
-        {/if}
+  <Modal {title} class="max-w-md" on:close={closeModal}>
+    <div class="px-10 flex flex-col gap-4 pb-10">
+      <div class="flex justify-center items-center bg-black h-72">
+        <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
       </div>
-      <div>
-        <ProductModalInfo sku={_sku} />
-        {#if !result}
+      <div class={insufficientFunds ? 'text-red-500' : 'text-green-500'}>
+        Your current balance {formatCurrency(user.availableBalance)}
+      </div>
+      <ProductModalInfo sku={_sku} />
+      {#if !result}
+        <div>
           <hr class="h-px w-full my-4" />
           <OrderProductPricing price={listing.price} {marketplaceFee} />
-        {/if}
-      </div>
-      <div class="flex flex-col max-w-xs gap-5 text-gray-500 font-bold text-center">
+        </div>
+      {/if}
+      <div class="flex flex-col gap-5 text-black-opacity-40">
         {#if result?.status === 'success'}
           <span>You successfully bought this item, and now is part of your collection.</span>
           <div class="flex flex-col gap-5">
             {#if result.product._id}
-              <a href={routes.product(result.product._id)}><Button type="button">View Your Product</Button></a>
+              <a href={routes.product(result.product._id)}>View Your Product</a>
             {/if}
-            <a class="font-medium justify-self-center" href={routes.marketplace}> Back to Marketplace </a>
+            <a class="font-medium self-center" href={routes.marketplace}> Back to Marketplace </a>
           </div>
         {:else if result?.status === 'pending'}
           <span
@@ -112,44 +111,39 @@
             status.</span
           >
           <div class="flex flex-col gap-5">
-            <Button type="button" on:click={closeModal}>Continue</Button>
-            <a class="font-medium justify-self-center" href={routes.wallet}>View Pending Transactions</a>
+            <Button class="mt-6" type="button" on:click={closeModal}>Continue</Button>
+            <a class="font-medium self-center" href={routes.wallet}>View Pending Transactions</a>
           </div>
         {:else if insufficientFunds}
           <span> You need more founds to make this purchase. </span>
-          <Button href={routes.wallet}>Add Funds</Button>
+          <Button class="mt-6" href={routes.wallet}>Add Funds</Button>
         {:else}
-          <div
-            class="flex items-center justify-start pt-4 mt-4 {!sku?.customNftTerms ? 'pb-4 mb-4 justify-center' : ''}"
-          >
+          <div class="flex items-center justify-start">
             <label class="inline-flex items-center">
               <input
                 type="checkbox"
                 bind:checked={acceptedTerms}
-                class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
+                class="border-black-opacity-40 border-2 text-black mr-2"
               />
               I accept the <a href={routes.terms} class="ml-1 underline">Terms & Conditions</a>
             </label>
           </div>
           {#if sku?.customNftTerms}
-            <div class="flex items-center justify-start pt-1 my-1 pb-4 mb-4">
+            <div class="flex items-center justify-start">
               <label class="inline-flex items-center">
                 <input
                   type="checkbox"
                   bind:checked={acceptedTermsNft}
-                  class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
+                  class="border-black-opacity-40 border-2 text-black mr-2"
                 />
                 I accept the <a href={sku.customNftTerms} class="ml-1 underline">Nft Terms & Conditions</a>
               </label>
             </div>
           {/if}
-          <span class="font-bold text-center">
-            <!-- <div class="text-black">
-              Royalty fee per unit aprox {formatCurrency(royaltyFee)} ({_sku.royaltyFeePercentage}%)
-            </div> -->
-            <div>Confirming this action will deduct the associated funds from your wallet.</div>
-          </span>
-          <Button type="button" disabled={purchasing} on:click={submitOrder}>Place Order</Button>
+          <div class="text-sm text-black-opacity-40">
+            Confirming this action will deduct the associated funds from your wallet.
+          </div>
+          <Button class="mt-6" type="button" disabled={purchasing} on:click={submitOrder}>Place Order</Button>
         {/if}
       </div>
     </div>
