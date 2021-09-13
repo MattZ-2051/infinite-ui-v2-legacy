@@ -62,7 +62,7 @@
               <FormInput name="talent" label="Talent Name *" placeholder="John Brown" />
               <FormInput name="email" label="Your Email Address *" placeholder="john.brown@example.com" />
               <FormInput name="expYear" label="Relationship to Talent" placeholder="Self, Manager, etc." />
-              <FormInput name="industry" label="Industry" placeholder="Art, Music, Sport etc." />
+              <FormInput name="industry" label="Industry" placeholder="Art, Music, Sport, etc." />
             </div>
             <div class="flex flex-col flex-grow gap-1.5 text-lg">
               <span>Social Links</span>
