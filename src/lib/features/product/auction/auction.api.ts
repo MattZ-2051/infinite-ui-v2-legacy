@@ -28,7 +28,7 @@ export async function startAuction(
 }
 
 export async function cancelAuction(listingId: string) {
-  await patch(`listings/${listingId}`, { canceled: true });
+  await patch(`listings/${listingId}/cancel`, undefined);
 }
 
 export async function placeBid(listingId: string, amount: number): Promise<Partial<Bid>> {
