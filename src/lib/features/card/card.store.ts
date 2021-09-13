@@ -40,6 +40,7 @@ export const creditCardRemoveFx = createEffect(async ({ card }: { card: CreditCa
 });
 
 creditCardRemoveFx.done.watch(() => {
+  loadWalletFx();
   toast.success('Card was removed successfully.');
   goto(routes.wallet);
 });
