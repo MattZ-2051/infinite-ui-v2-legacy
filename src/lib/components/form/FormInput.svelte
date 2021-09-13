@@ -11,6 +11,7 @@
   export let value = '';
   export let placeholder = '';
   export let disabled = false;
+  export let textarea = false;
   let _class = '';
   export { _class as class };
 
@@ -18,5 +19,9 @@
 </script>
 
 <Input let:klass let:id {label} {before} {after} class={_class} error={getPathValue(name, $errors)}>
-  <input {id} class={klass} {name} {value} {placeholder} {disabled} {...$$restProps} />
+  {#if textarea}
+    <textarea {id} class={klass} {name} {value} {placeholder} {disabled} {...$$restProps} />
+  {:else}
+    <input {id} class={klass} {name} {value} {placeholder} {disabled} {...$$restProps} />
+  {/if}
 </Input>

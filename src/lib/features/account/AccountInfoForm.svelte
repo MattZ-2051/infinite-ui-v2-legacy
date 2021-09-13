@@ -66,8 +66,8 @@
 </script>
 
 <form use:form autocomplete="off" class="flex flex-col gap-3 ">
-  <FormInput name="username" />
-  <FormInput name="tagline" />
+  <FormInput name="username" label="Username" />
+  <FormInput name="tagline" placeholder="Enter short bio" label="About me" textarea rows="4" />
   <div class="flex gap-4 justify-end">
     <button
       class="bg-primary p-1 w-16 text-sm  rounded-sm"

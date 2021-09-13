@@ -55,11 +55,13 @@
   .input-container:focus-within {
     border-color: var(--input-container-border-color-focus);
   }
-  .input-container :global(input)::placeholder {
+  .input-container :global(input)::placeholder,
+  .input-container :global(textarea)::placeholder {
     @apply text-base;
     color: var(--input-placeholder-color);
   }
-  .input-container :global(input) {
+  .input-container :global(input),
+  .input-container :global(textarea) {
     min-height: var(--input-height);
     padding: var(--input-padding);
     background-color: var(--input-bg-color);
