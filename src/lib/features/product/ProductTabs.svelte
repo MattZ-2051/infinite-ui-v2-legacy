@@ -8,11 +8,8 @@
   import ProductHistory from './ProductHistory.svelte';
   import ProductAuction from './auction/ProductAuction.svelte';
   import { hasAuction } from './product.service';
-  import ProductActions from './actions/ProductActions.svelte';
 
   export let product: Product;
-  export let userId: string;
-  export let totalBids: number;
 
   $: showAuction = hasAuction(product);
 
@@ -52,9 +49,7 @@
     defaultSelectedId={tab}
     on:select={redirect}
     --tab-border-color-active="transparent"
-  >
-    <ProductActions slot="extra" {product} {userId} {totalBids} />
-  </Tabs>
+  />
 
   <div class="flex-grow px-4 lg:px-12 pb-4 lg:pb-12" style="background-color: #1A1A1A">
     {#if tab === 'auction'}

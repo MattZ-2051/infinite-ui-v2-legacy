@@ -8,7 +8,7 @@
   import ProductTabs from './ProductTabs.svelte';
   import ProductInfo from './ProductInfo.svelte';
   import ProductStatus from './status/ProductStatus.svelte';
-  import { product, totalBids } from './product.store';
+  import { product } from './product.store';
 </script>
 
 <StickyColumn reverse>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="mt-12 -mx-4 md:mx-0 flex flex-col flex-grow">
-      <ProductTabs product={$product} userId={$userId} totalBids={$totalBids} />
+      <ProductTabs product={$product} />
     </div>
 
     <ProductStatus

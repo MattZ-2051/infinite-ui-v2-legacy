@@ -1,8 +1,10 @@
 <script lang="ts">
   import type { Product, Sku } from '$lib/sku-item/types';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import { userId } from '$lib/user';
   import UserLink from '$lib/components/UserLink.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
+  import ProductActions from './actions/ProductActions.svelte';
 
   export let product: Product;
 
@@ -14,9 +16,9 @@
 </script>
 
 <div
-  class="rounded-lg border border-white-opacity-20 text-white overflow-hidden grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:divide-x lg:divide-white-opacity-20"
+  class="rounded-lg border border-white-opacity-20 text-white overflow-hidden grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:divide-x lg:divide-white-opacity-20 flex-grow"
 >
-  <div class="{cellClass} rounded-l-lg">
+  <div class={cellClass}>
     <div class={headerClass}>Owner</div>
     <div><UserLink username={product.owner.username} /></div>
   </div>
@@ -37,4 +39,5 @@
     <div class={headerClass}>Hedera Token</div>
     <div class="truncate"><a class="link" href={product.explorerLink}>{product.tokenId}</a></div>
   </div>
+  <ProductActions {product} userId={$userId} />
 </div>
