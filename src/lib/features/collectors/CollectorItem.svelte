@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { CollectorProduct } from '$lib/sku-item/types';
-  import { mdiChevronRight } from '@mdi/js';
+  import { mdiAccountCircle, mdiChevronRight } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import imageError from '$util/imageError';
   import routes from '$project/routes';
   import UserLink from '$lib/components/UserLink.svelte';
   import CollectorItemStatus from './CollectorItemStatus.svelte';
@@ -13,27 +14,35 @@
 
 <a href={routes.product(collector._id)}>
   <div class="flex flex-wrap justify-end items-center gap-1 border-b border-white-opacity-10 py-4">
-    <div class="flex flex-col gap-1 mr-auto">
-      <div class="flex items-center gap-3 " />
-      <UserLink username={collector.owner?.username} />
+    <div class="flex gap-3 md:gap-5 mr-auto">
+      {#if collector?.owner?.profilePhotoUrl}
+        <img
+          class="w-12 h-12 rounded-full"
+          src={collector.owner.profilePhotoUrl}
+          alt=""
+          use:imageError={() => (collector.owner.profilePhotoUrl = undefined)}
+          loading="lazy"
+        />
+      {:else}
+        <Icon path={mdiAccountCircle} size="2" />
+      {/if}
+      <div class="flex flex-col">
+        <div class="flex items-center gap-2">
+          #{collector.serialNumber}
+          {#if redeemable}
+            <IconRedeem disabled={collector.redeemedStatus === 'redeemed'} size={20} />
+          {/if}
+        </div>
+        <UserLink username={collector.owner?.username} class="text-sm text-white-opacity-40" />
+      </div>
     </div>
 
     <div class="flex items-center gap-6">
       <div class="flex flex-col gap-1 text-right">
-        <div>
-          <span class="text-white font-normal mr-2">#{collector.serialNumber}</span>
-          {#if redeemable}
-            <IconRedeem disabled={collector.redeemedStatus === 'redeemed'} />
-          {/if}
-        </div>
         <CollectorItemStatus {collector} />
       </div>
 
-      <div class="flex items-center justify-center">
-        <a href={routes.product(collector._id)}>
-          <Icon path={mdiChevronRight} class="justify-self-center" />
-        </a>
-      </div>
+      <Icon path={mdiChevronRight} class="justify-self-center" />
     </div>
   </div></a
 >

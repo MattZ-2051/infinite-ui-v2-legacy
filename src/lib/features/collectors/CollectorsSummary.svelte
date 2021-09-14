@@ -61,7 +61,7 @@
 <div class="flex flex-col md:flex-row justify-between w-full items-center gap-8 pb-10">
   <div class="flex w-full">
     <div class="flex-1">
-      <Search placeholder="Select an owner to place a bid" value={search} on:input={handleInput} />
+      <Search placeholder="Search an owner" value={search} on:input={handleInput} />
     </div>
   </div>
   <div class="flex gap-8">

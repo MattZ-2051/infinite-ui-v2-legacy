@@ -21,7 +21,7 @@
   {:else if hasUpcomingListing(collector)}
     <div>Upcoming</div>
     {#if collector.upcomingProductListing?.startDate}
-      <div class="text-sm">
+      <div class="text-sm text-white-opacity-40">
         Starts in
         <TimeDifference date={new Date(collector.upcomingProductListing.startDate)} />
       </div>
@@ -40,7 +40,7 @@
       >
     </div>
     {#if collector.activeProductListing?.endDate}
-      <div>
+      <div class="text-sm text-white-opacity-40">
         Expires in
         <TimeDifference date={new Date(collector.activeProductListing.endDate)} />
       </div>
