@@ -2,11 +2,8 @@
   background-color: var(--tooltip-bg);
   color: var(--tooltip-color);
   font-weight: 400;
-  border-radius: 1.5rem;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-right: 5px;
-  padding-left: 5px;
+  padding: var(--tooltip-padding, 8px 16px);
+  border-radius: var(--tooltip-border-radius, 4px);
   font-size: medium;
 }
 
