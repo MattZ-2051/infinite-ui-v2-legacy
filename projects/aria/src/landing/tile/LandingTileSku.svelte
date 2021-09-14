@@ -15,7 +15,9 @@
 <div class="flex flex-col gap-4">
   <div class="relative">
     <FilePreview item={sku.nftPublicAssets?.[0]} preview />
-    <div class="bg-white-opacity-75 absolute inset-0 p-4 opacity-0 hover:opacity-100 transition-opacity duration-300">
+    <div
+      class="hidden md:block bg-white-opacity-75 absolute inset-0 p-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
+    >
       <div class="card-description-inner p-4 lg:py-10 lg:px-8 text-white h-full flex">
         <div class="scrollbox">
           <div class="flex flex-col justify-between w-full h-full">
