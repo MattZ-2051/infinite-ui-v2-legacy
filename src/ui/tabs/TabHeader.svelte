@@ -1,11 +1,13 @@
 <script lang="ts">
   import { usePrevious } from 'svelte-previous';
   import Icon from '$ui/icon/Icon.svelte';
+  import addTooltip from '$ui/tooltip';
 
   export let id: string;
   export let active = false;
   export let title = '';
   export let icon = undefined;
+  export let tooltip = '';
   let _class = '';
   export { _class as class };
 
@@ -27,6 +29,7 @@
   {title}
   role="presentation"
   class="flex cursor-pointer whitespace-nowrap transition-all ease-out duration-300 {_class || ''}"
+  use:addTooltip={tooltip}
 >
   <a
     bind:this={anchorElement}

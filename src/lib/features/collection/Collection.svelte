@@ -9,6 +9,7 @@
 
   $: isIssuer = $profile.role === 'issuer';
   $: own = $user?._id === $profile._id;
+  $: owner = $profile.username;
 </script>
 
 <ThemeContext id="collection">
@@ -16,14 +17,14 @@
     <div class="container mt-4 md:mt-8">
       {#if isIssuer && $profile.username === 'Roberto_Clemente'}
         <Clemente profile={$profile}>
-          <CollectionTabs {isIssuer} />
+          <CollectionTabs {isIssuer} {owner} />
         </Clemente>
       {:else if isIssuer}
         <CollectionIssuer profile={$profile} />
-        <CollectionTabs {isIssuer} />
+        <CollectionTabs {isIssuer} {owner} />
       {:else}
         <CollectionUser profile={$profile} {own} />
-        <CollectionTabs {isIssuer} {own} />
+        <CollectionTabs {isIssuer} {own} {owner} />
       {/if}
     </div>
   </div>
