@@ -5,10 +5,9 @@
   import { Pagination } from '$ui/pagination';
   import { page } from '$app/stores';
   import DateFormat from '$ui/date/DateFormat.svelte';
-  import { formatCurrency } from '$util/format';
+  import { formatCurrency, formatDate } from '$util/format';
   import { loadingBids } from './auction.api';
-  import { bids, totalBids, auctionStarted } from '../product.store';
-  import UpcomingBid from './UpcomingBid.svelte';
+  import { bids, totalBids } from '../product.store';
   import NoAuction from './NoAuction.svelte';
   import { hasAuction } from '../product.service';
 
@@ -59,12 +58,8 @@
     <span class="font-black italic text-sm whitespace-nowrap"><DateFormat value={listing.startDate} /></span>
   </div>
 {:else if listing?.status === 'upcoming'}
-  <div class="pt-12">
-    <UpcomingBid
-      minBidPrice={listing.minBid}
-      bidStartDate={listing.startDate}
-      on:zero={() => auctionStarted({ product })}
-    />
+  <div class="pt-12 no-results">
+    Auction starts at {formatDate(listing.startDate)}
   </div>
 {:else}
   <div class="pt-12">

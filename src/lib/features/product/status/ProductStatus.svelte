@@ -5,7 +5,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatCurrency, formatDate } from '$util/format';
-  import { polls, totalBids } from '$lib/features/product/product.store';
+  import { auctionStarted, polls, saleStarted, totalBids } from '$lib/features/product/product.store';
   import Button from '$lib/components/Button.svelte';
   import {
     hasActiveSale,
@@ -98,6 +98,7 @@
       startDate={upcomingProductListing?.startDate}
       price={upcomingProductListing?.price}
       {isProductOwner}
+      on:zero={() => saleStarted({ product })}
       on:cancel={() => onAction('cancel-sale', product)}
     />
   {/if}
@@ -108,6 +109,7 @@
       startDate={upcomingProductListing?.startDate}
       price={upcomingProductListing?.minBid}
       {isProductOwner}
+      on:zero={() => auctionStarted({ product })}
       on:cancel={() => onAction('cancel-auction', product)}
     />
   {/if}
