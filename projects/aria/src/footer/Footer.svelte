@@ -25,7 +25,7 @@
     class="flex flex-col md:flex-row gap-y-4 justify-center items-center md:justify-end text-sm text-white font-medium my-4"
   >
     Ready to create NFTs with ARIA Exchange?
-    <Button href={routes.partner} class="ml-4 whitespace-nowrap">Partner With Us</Button>
+    <Button href={routes.partner} class="ml-4 whitespace-nowrap text-base font-normal">Partner With Us</Button>
   </div>
 </div>
 
