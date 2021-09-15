@@ -5,7 +5,7 @@
   export let marketplaceFee: number;
 </script>
 
-<div class="grid grid-cols-2 text-black-opacity-40 font-medium w-full">
+<div class="grid grid-cols-2 text-gray-400 font-medium w-full">
   <div class="mb-2">Seller price:</div>
   <div class="text-right">{formatCurrency(price)}</div>
   <div>Marketplace fee ({marketplaceFee * 100}%):</div>

@@ -20,37 +20,37 @@
 <div class="border border-white border-opacity-20 rounded-lg text-white overflow-hidden">
   <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
     <div class="flex flex-col gap-2">
-      <div class="text-white-opacity-50 text-sm">Edition:</div>
+      <div class="text-gray-500 text-sm">Edition:</div>
       <div><SkuEdition {sku} /></div>
     </div>
     {#if isActiveAuction}
       <div class="flex flex-col gap-2 text-right">
-        <div class="text-white-opacity-50 text-sm">Active Auction:</div>
+        <div class="text-gray-500 text-sm">Active Auction:</div>
         <div>Ends {formatDate(activeProduct.endDate)}</div>
       </div>
     {/if}
     {#if isActiveSale}
       <div class="flex flex-col gap-2 text-right">
-        <div class="text-white-opacity-50 text-sm">Active Sale:</div>
+        <div class="text-gray-500 text-sm">Active Sale:</div>
         <div>Started {formatDate(activeProduct?.startDate || activeSku?.startDate)}</div>
       </div>
     {/if}
   </div>
   <div class="p-6 border-b border-opacity-20 flex justify-between">
     <div class="flex flex-col gap-2">
-      <div class="text-white-opacity-50 text-sm">Created by</div>
+      <div class="text-gray-500 text-sm">Created by</div>
       <TalentLink profile={sku.issuer} />
     </div>
     <div class="flex flex-col gap-2 text-right">
       {#if sku.redeemable}
-        <div class="text-white-opacity-50 text-sm">Status</div>
+        <div class="text-gray-500 text-sm">Status</div>
         <div class="flex items-center gap-2">
           <IconRedeem hasTooltip={false} /> Redeemable
         </div>
       {/if}
     </div>
   </div>
-  <div class="grid grid-cols-2 divide-x divide-white-opacity-20">
+  <div class="grid grid-cols-2 divide-x divide-gray-200">
     <button
       type="button"
       class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"

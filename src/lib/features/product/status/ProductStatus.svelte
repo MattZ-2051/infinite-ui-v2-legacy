@@ -52,10 +52,10 @@
         class="flex flex-grow flex-col md:flex-row md:px-6 py-2 md:py-4 justify-center md:justify-between items-center"
       >
         <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
-          <div class="text-sm text-white-opacity-50">Active Sale:</div>
+          <div class="text-sm text-gray-600">Active Sale:</div>
           <div class="flex gap-1">
             Started on
-            <div class="text-white-opacity-30">
+            <div class="text-gray-400">
               {formatDate(activeProductListing?.startDate)}
             </div>
           </div>
@@ -124,10 +124,10 @@
           class="flex flex-grow flex-col md:flex-row md:px-6 py-2 md:py-4 justify-center md:justify-between items-center"
         >
           <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
-            <div class="text-sm text-white-opacity-50">Auction ends in:</div>
+            <div class="text-sm text-gray-600">Auction ends in:</div>
             <div class="flex gap-1">
               <TimeDifference date={activeProductListing?.endDate} on:zero={() => auctionEnded()} />
-              <div class="text-white-opacity-30">
+              <div class="text-gray-400">
                 — {formatDate(activeProductListing?.endDate)}
               </div>
             </div>

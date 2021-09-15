@@ -63,7 +63,7 @@
       value="check"
       {disabled}
     />
-    <label for="consent" class="text-gray-300 text-sm"
+    <label for="consent" class="text-gray-800 text-sm"
       >By providing your phone number, you are consenting to receiving updates from ARIA Exchange on NFT releases,
       exclusive experiences, updates and other communications from ARIA Exchange and its affiliates and partners.</label
     >
@@ -71,7 +71,7 @@
   <div style="height: 1px; background-color: #EBEBEB;" />
   <div class="flex gap-4 justify-end" class:hidden={disabled}>
     <button
-      class=" bg-primary p-1 w-16 text-sm  rounded-sm"
+      class=" bg-primary p-1 w-16 text-sm rounded-sm"
       disabled={!!saving}
       on:click|preventDefault={() => {
         setFields(initialValues);
@@ -84,13 +84,13 @@
 
 <style>
   [data-style='container'] {
-    --input-label-color: #7d7d7d;
+    --input-label-color: theme('colors.gray.500');
     --input-label-font-weight: 500;
   }
   [data-style='container'].disabled {
     --input-container-border-width: 1px;
     --input-bg-color: transparent;
-    --input-color: #7d7d7d;
+    --input-color: theme('colors.gray.500');
     --input-padding: 0;
   }
   .disabled input[type='checkbox'] {

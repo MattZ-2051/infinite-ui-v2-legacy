@@ -39,15 +39,14 @@
       <span class="text-2xl font-bold">@{user.username}</span>
       <AccountEditButton on:click={() => (editing = true)} />
     </div>
-    {#if user.tagline}<span class="text-white-opacity-70 font-black mb-5 text-center break-words">{user.tagline}</span
-      >{/if}
+    {#if user.tagline}<span class="text-gray-700 font-black mb-5 text-center break-words">{user.tagline}</span>{/if}
   </div>
 {:else}
   <AccountInfoForm on:closeForm={() => (editing = false)} {user} />
 {/if}
 <div class="flex flex-col gap-2 items-center mt-4 md:mt-24">
   <div class="flex flex-col gap-2 w-full">
-    <span class="text-sm" style="color:#7D7D7D">Email</span>
+    <span class="text-sm text-gray-500">Email</span>
     <div class="flex justify-between">
       <span class="font-bold">{user.email}</span>
       <div use:tooltip={'Your email uniquely identifies your account and cannot be changed.'}>

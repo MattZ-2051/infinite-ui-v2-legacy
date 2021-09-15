@@ -23,7 +23,7 @@
 <div class="flex flex-col mt-6 md:mt-12 rounded-lg border border-primary">
   <div class="p-6 flex flex-col gap-6 font-medium">
     <div class="flex items-center justify-between">
-      <span class="text-white-opacity-50">Available</span>
+      <span class="text-gray-700">Available</span>
       <div class="flex items-center gap-2">
         {#if availableBalance === undefined}
           <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
@@ -39,7 +39,7 @@
     <div class="separator" />
 
     <div class="flex items-center justify-between">
-      <span class="text-white-opacity-50">Withdrawable</span>
+      <span class="text-gray-700">Withdrawable</span>
       <div class="flex items-center gap-2">
         {#if Number.isNaN(withdrawableBalance) || withdrawableBalance === undefined}
           <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
@@ -58,7 +58,7 @@
   <div class="h-px w-full bg-primary" />
 
   <div class="p-6">
-    <div class="text-white-opacity-50 text-sm mb-4">Account verification status:</div>
+    <div class="text-gray-700 text-sm mb-4">Account verification status:</div>
     <slot name="kyc">yoooo</slot>
   </div>
 </div>

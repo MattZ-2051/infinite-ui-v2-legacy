@@ -22,7 +22,7 @@
     <div class="pl-8 mt-8 md:mt-10">
       <div class="flex items-center text-4xl font-medium">
         <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
-        <span class="mx-3 text-white-opacity-30">/</span>
+        <span class="mx-3 text-gray-300">/</span>
         <span class="text-gradient-primary">Collectors</span>
       </div>
 

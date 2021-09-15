@@ -4,7 +4,7 @@
   export let content = '';
 </script>
 
-<div class="description text-white-opacity-70">
+<div class="description text-gray-700">
   {@html xss(content || '')}
 </div>
 

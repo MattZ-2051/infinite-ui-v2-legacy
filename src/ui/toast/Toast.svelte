@@ -107,7 +107,7 @@
         type="button"
         on:click={close}
         title="Close"
-        class="bg-black bg-opacity-30 text-gray-100 hover:bg-opacity-60 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-600 rounded-full p-1 inline-flex items-center justify-center"
+        class="bg-black bg-opacity-30 text-gray-900 hover:bg-opacity-60 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-full p-1 inline-flex items-center justify-center"
         ><Icon path={mdiClose} /></button
       >
     {/if}

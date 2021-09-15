@@ -137,9 +137,9 @@
 }
 
 .theme-modal {
-  --input-label-color: theme('colors.black-opacity.40');
-  --input-placeholder-color: theme('colors.black-opacity.50');
-  --input-container-border-color: theme('colors.black-opacity.30');
+  --input-label-color: theme('colors.gray.400');
+  --input-placeholder-color: theme('colors.gray.500');
+  --input-container-border-color: theme('colors.gray.300');
   --input-container-border-width: 1px;
   --input-bg-color: #ffffff;
   --input-color: #000000;

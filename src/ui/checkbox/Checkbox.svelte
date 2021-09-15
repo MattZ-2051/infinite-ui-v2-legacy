@@ -36,7 +36,7 @@
 
 <label class="flex gap-2 items-center cursor-pointer select-none {_class || ''}" {...$$restProps}>
   <input class="sr-only" type="checkbox" bind:checked {value} use:forwardEvents />
-  <span class="flex-none relative checkmark border border-white-opacity-20" />
+  <span class="flex-none relative checkmark border border-gray-200" />
   <div class="flex-grow"><slot {checked} /></div>
 </label>
 

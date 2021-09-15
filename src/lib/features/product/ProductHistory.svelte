@@ -36,7 +36,7 @@
   {#if $totalTransactions > 0}
     <div class="text-default">
       {#each $transactions as transaction}
-        <div class="flex flex-wrap justify-end items-center gap-1 border-b border-white-opacity-10 py-4">
+        <div class="flex flex-wrap justify-end items-center gap-1 border-b border-gray-200 py-4">
           <div class="flex gap-3 mr-auto">
             <UserLink username={transaction.owner?.username} />
           </div>
@@ -65,7 +65,7 @@
                   Received Transfer
                 {/if}
               </span>
-              <span class="text-sm text-white-opacity-40"><DateFormat value={transaction.updatedAt} /></span>
+              <span class="text-sm text-gray-400"><DateFormat value={transaction.updatedAt} /></span>
             </div>
             <div class="w-16 flex items-center justify-center">
               {#if transaction?.transactionData?.explorerLink}
@@ -74,7 +74,7 @@
                     tooltip={{ content: 'View transaction' }}
                     path={mdiLinkVariant}
                     size="0.8"
-                    class="w-6 justify-self-center text-white-opacity-20 hover:text-default"
+                    class="w-6 justify-self-center text-gray-200 hover:text-default"
                   />
                 </a>
               {/if}

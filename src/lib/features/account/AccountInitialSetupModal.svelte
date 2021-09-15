@@ -79,11 +79,11 @@
 
 {#if isOpen}
   <Modal title="Profile Details" on:close={closeModal} persistent={true} closeButton={false}>
-    <div class="flex flex-col max-w-sm border-t border-black-opacity-20 justify-evenly gap-5 px-10 py-6 relative">
+    <div class="flex flex-col max-w-sm border-t border-gray-200 justify-evenly gap-5 px-10 py-6 relative">
       {#if $isSubmitting}
         <div class="form-overlay" />
       {/if}
-      <span class="text-base text-black-opacity-95 text-center">
+      <span class="text-base text-gray-900 text-center">
         Please, provide the following information to setup your profile.
       </span>
       <form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3">
@@ -101,7 +101,7 @@
             class="w-5 h-5 text-black bg-white"
             disabled={$data.phoneNumber === ''}
           />
-          <label for="phoneNumberConsentGiven" class="text-black-opacity-90 text-sm"
+          <label for="phoneNumberConsentGiven" class="text-gray-900 text-sm"
             >By providing your phone number, you are consenting to receiving updates from ARIA Exchange on NFT releases,
             exclusive experiences, updates and other communications from ARIA Exchange and its affiliates and partners.</label
           >
@@ -113,7 +113,7 @@
             class="w-5 h-5 text-black bg-white"
             bind:checked={termsAndConditionsConsentGiven}
           />
-          <label for="termsAndConditionsConsentGiven" class="text-black-opacity-90 text-sm"
+          <label for="termsAndConditionsConsentGiven" class="text-gray-900 text-sm"
             >I accept the <a href={routes.terms} target="_blank" class="underline hover:no-underline"
               >Terms and Conditions</a
             >.</label
@@ -126,13 +126,13 @@
             class="w-5 h-5 text-black bg-white"
             bind:checked={privacyPolicyConsentGiven}
           />
-          <label for="privacyPolicyConsentGiven" class="text-black-opacity-90 text-sm"
+          <label for="privacyPolicyConsentGiven" class="text-gray-900 text-sm"
             >I accept the <a href={routes.privacy} target="_blank" class="underline hover:no-underline"
               >Privacy Policy</a
             >.</label
           >
         </div>
-        <div class="flex flex-col gap-4 pt-6 border-t border-black-opacity-20">
+        <div class="flex flex-col gap-4 pt-6 border-t border-gray-200">
           <Button disabled={!canSave} type="submit">Save</Button>
           <Button on:click={onLogout}>Logout</Button>
         </div>

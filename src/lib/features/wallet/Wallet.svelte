@@ -96,7 +96,7 @@
     </WalletBalance>
 
     {#if $wallet}
-      <div class="text-sm text-white-opacity-50 mt-4">
+      <div class="text-sm text-gray-700 mt-4">
         {getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
       </div>
     {/if}

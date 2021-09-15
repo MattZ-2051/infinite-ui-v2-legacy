@@ -12,9 +12,9 @@
 
 <a href={routes.product(bid.listing.product._id)} class="py-6 flex li-style justify-between font-medium">
   <div class="flex flex-col">
-    <span class="text-sm text-white-opacity-40">Bid</span>
+    <span class="text-sm text-gray-400">Bid</span>
     <span class="flex gap-1"
-      >{bid.sku.name} (#{bid.listing.product.serialNumber}) <span class="text-white-opacity-40">by</span>
+      >{bid.sku.name} (#{bid.listing.product.serialNumber}) <span class="text-gray-400">by</span>
       {bid.listing.issuer.username}</span
     >
   </div>
@@ -31,9 +31,7 @@
         {/if}
       </div>
       <div class="text-right">
-        <span class="text-sm text-white-opacity-40"
-          >Expires in <TimeDifference date={new Date(bid.listing.endDate)} /></span
-        >
+        <span class="text-sm text-gray-400">Expires in <TimeDifference date={new Date(bid.listing.endDate)} /></span>
       </div>
     </div>
     <Icon path={mdiChevronRight} />

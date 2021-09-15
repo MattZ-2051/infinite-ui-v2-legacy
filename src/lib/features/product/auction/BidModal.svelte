@@ -40,18 +40,18 @@
       </div>
       <ProductModalInfo {product} sku={product.sku} />
       <div class="flex justify-between border-solid font-medium">
-        <span class="text-black-opacity-50">Your Bid:</span>
+        <span class="text-gray-500">Your Bid:</span>
         <span>{bid}</span>
       </div>
       <div class="flex justify-between border-solid border-b border-gray-200 pb-4 font-medium">
-        <span class="text-black-opacity-50">MarketPlace fee ({marketplaceFee * 100}%)</span>
+        <span class="text-gray-500">MarketPlace fee ({marketplaceFee * 100}%)</span>
         <span>{formatCurrency(marketplaceFee * amount)}</span>
       </div>
       <div class="flex justify-between font-medium">
         <span>Total cost (if you win):</span>
         <span>{total}</span>
       </div>
-      <div class="max-w-md text-black-opacity-60 text-sm">
+      <div class="max-w-md text-gray-600 text-sm">
         Placing a bid will freeze the associated funds from your wallet until the auction ends. Bids cannot be canceled
         but can be increased as the auction progresses.
       </div>
@@ -65,7 +65,7 @@
           I accept the <a href={routes.terms} class="ml-1 underline">Terms & Conditions</a>
         </label>
       </div>
-      <div class="max-w-md text-black-opacity-60 text-sm">
+      <div class="max-w-md text-gray-600 text-sm">
         All resales of this product are subject to a {product.sku.royaltyFeePercentage}% royalty fee set by and to be
         paid to the original creator.
       </div>

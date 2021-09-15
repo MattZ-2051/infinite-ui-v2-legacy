@@ -44,7 +44,7 @@
 {#if isOpen}
   <Modal title="Auction Bids" on:close={closeModal}>
     <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
-      <div class="text-black-opacity-60 text-sm mt-4">
+      <div class="text-gray-600 text-sm mt-4">
         Closed on {formatDate(listing.endDate)}
       </div>
       <ProductModalInfo {product} sku={product.sku} />
@@ -55,7 +55,7 @@
         {#if bids.length > 0}
           {#each bids as bid}
             <div class="py-6 grid grid-cols-2 gap-2 items-center border-b border-gray-200" class:opacity-50={$loading}>
-              <div class="text-lg" class:text-black-opacity-40={bid.status !== 'winner'}>
+              <div class="text-lg" class:text-gray-400={bid.status !== 'winner'}>
                 @{bid.owner.username}
               </div>
               <div class="grid grid-cols-1 gap-1 justify-items-end">
@@ -63,11 +63,11 @@
                   {#if bid.status === 'winner'}
                     <Icon path={mdiStar} color="black" /> Won with {formatCurrency(bid.bidAmt)}
                   {:else}
-                    <span class="text-black-opacity-40">Bid for </span>
+                    <span class="text-gray-400">Bid for </span>
                     {formatCurrency(bid.bidAmt)}
                   {/if}
                 </div>
-                <div class="text-black-opacity-40 text-sm">
+                <div class="text-gray-400 text-sm">
                   {formatDate(bid.updatedAt)}
                 </div>
               </div>

@@ -97,7 +97,7 @@
 </script>
 
 <CircleContainer>
-  <div class="text-gray-500 font-extrabold italic mt-4">Enter the card details below</div>
+  <div class="text-gray-600 font-extrabold mt-4">Enter the card details below</div>
   <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
     <FormInput name="cardNumber" label="Credit card number *" />
     <FormInput name="expMonth" label="Exp month *" />

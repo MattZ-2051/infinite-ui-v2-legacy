@@ -47,9 +47,9 @@
 
 <div class="flex flex-col items-center justify-center my-6">
   <form use:form class="flex relative max-w-md w-full rounded-full h-10 {_class}" autocomplete="off">
-    <Icon class="text-gray-300 absolute transform -translate-y-1/2 top-1/2 left-4" path={mdiEmail} />
+    <Icon class="text-gray-700 absolute transform -translate-y-1/2 top-1/2 left-4" path={mdiEmail} />
     <input
-      class="text-gray-300 placeholder-gray-400 font-extrabold italic text-base pl-14 flex-1 rounded-full focus:outline-none focus:ring-2"
+      class="text-gray-700 placeholder-gray-600 font-extrabold italic text-base pl-14 flex-1 rounded-full focus:outline-none focus:ring-2"
       name="email"
       placeholder="email"
     />

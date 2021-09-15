@@ -54,12 +54,12 @@
         <SelectUser bind:selectedUser />
       {:else if status === 'confirm-user' || status === 'transfer-success'}
         <div class="flex gap-2">
-          <span class="text-black-opacity-40">to</span>
+          <span class="text-gray-400">to</span>
           <span>
             {`@${selectedUser.username}`}
           </span>
         </div>
-        <div class="text-black-opacity-40 text-sm">
+        <div class="text-gray-400 text-sm">
           {#if status === 'confirm-user'}
             Transferring a product will change ownership from you to the selected user.
           {:else if status === 'transfer-success'}
@@ -105,7 +105,7 @@
         {:else if status === 'transfer-pending'}
           <div class="flex flex-col items-center gap-4">
             <DualRingLoader />
-            <div class="text-black-opacity-40 flex flex-col text-center">
+            <div class="text-gray-400 flex flex-col text-center">
               <span>Processing your request.</span><span>Do not close this window.</span>
             </div>
           </div>

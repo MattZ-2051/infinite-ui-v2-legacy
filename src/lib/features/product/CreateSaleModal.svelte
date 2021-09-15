@@ -81,7 +81,7 @@
               type="number"
               bind:value={price}
               placeholder="Enter price"
-              class="relative w-full bg-black-opacity-5 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
+              class="relative w-full bg-gray-50 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
               class:border-red-600={!!$errors.price}
             />
           </div>
@@ -89,7 +89,7 @@
             <div class="text-red-500 text-sm">{$errors.price}</div>
           {/if}
         </div>
-        <div class="border-b border-black-opacity-20 text-black-opacity-40 font-medium mb-2">
+        <div class="border-b border-gray-200 text-gray-400 font-medium mb-2">
           <div class="flex justify-between pb-1 mb-1">
             <span>Marketplace fee ({marketplaceFee}%):</span>
             <span>{formatCurrency(marketplaceFeePrice)}</span>
@@ -107,7 +107,7 @@
             <span class="font-bold">{formatCurrency(total)}</span>
           </div>
         </div>
-        <div class="text-sm text-black-opacity-40">
+        <div class="text-sm text-gray-400">
           If your NFT is bought on the marketplace, payment will be transferred to your INFINITE wallet.
         </div>
         <Button class="w-full mt-6" type="submit" {disabled}>Start Sale</Button>

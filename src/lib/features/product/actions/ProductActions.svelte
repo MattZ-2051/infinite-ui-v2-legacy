@@ -19,22 +19,22 @@
 
   let visibleActions: Action[] = [];
   $: visibleActions = [
-    hasRedeemAction && {
+    {
       type: 'redeem',
       label: 'Redeem',
       icon: iconRedeem,
     },
-    hasTransferAction && {
+    {
       type: 'transfer',
       label: 'Transfer',
       icon: iconTransfer,
     },
-    hasCreateSellAction && {
+    {
       type: 'create-sale',
       label: 'Sell',
       icon: iconSale,
     },
-    hasStartAuctionAction && {
+    {
       type: 'auction',
       label: 'Auction',
       icon: iconAuction,
@@ -48,7 +48,7 @@
       <button
         type="button"
         on:click={() => onAction(type, product)}
-        class="flex flex-grow flex-col items-center justify-center text-sm gap-2 p-4 w-20 bg-white-opacity-5 hover:bg-primary"
+        class="flex flex-grow flex-col items-center justify-center text-sm gap-2 p-4 w-20 bg-gray-50 hover:bg-primary"
       >
         <Icon class="inline" path={icon} />
         <span>{label}</span>

@@ -98,7 +98,7 @@
           <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
         </div>
         <ProductModalInfo sku={product.sku} {product} />
-        <div class="max-w-sm text-black-opacity-40">
+        <div class="max-w-sm text-gray-400">
           You won’t be able to transfer or redeem this item while your auction is in progress.
         </div>
         <div class="flex py-4 text-center">
@@ -143,7 +143,7 @@
             data-initial-focus
             type="number"
             name="price"
-            class="relative w-full bg-black-opacity-5 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
+            class="relative w-full bg-gray-50 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
             bind:value={price}
             placeholder="Enter min bid price"
           />
@@ -151,7 +151,7 @@
         {#if errors?.price}
           <div class="text-red-500 text-sm mb-2">{errors.price}</div>
         {/if}
-        <div class="border-b border-black-opacity-20 text-black-opacity-40 font-medium mb-2">
+        <div class="border-b border-gray-200 text-gray-400 font-medium mb-2">
           <div class="flex justify-between pb-1 mb-1">
             <span>MarketPlace fee ({marketplaceFee * 100}%)</span>
             <span>{formatCurrency(marketplaceFeePrice)}</span>
@@ -168,7 +168,7 @@
           <span class="font-semibold">{formatCurrency(total)}</span>
         </div>
         {#if royaltyFee > 0}
-          <div class="text-sm text-black-opacity-40 text-center pt-6">
+          <div class="text-sm text-gray-400 text-center pt-6">
             All resales of this product a subject to a {royaltyFee * 100}%<br />
             royalty fee set by and to be paid to the original<br />
             creator.

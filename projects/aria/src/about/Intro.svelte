@@ -75,7 +75,7 @@
           <span>Make deposit</span>
         </div>
       </div>
-      <div class="flex items-center justify-center transform rotate-90 md:transform-none text-white-opacity-80">
+      <div class="flex items-center justify-center transform rotate-90 md:transform-none text-gray-800">
         <Icon path={mdiArrowRight} size="3" />
       </div>
       <div class="flex flex-col gap-4 items-center flex-grow">
@@ -87,7 +87,7 @@
           <span>place a bid</span>
         </div>
       </div>
-      <div class="flex items-center justify-center transform rotate-90 md:transform-none text-white-opacity-80">
+      <div class="flex items-center justify-center transform rotate-90 md:transform-none text-gray-800">
         <Icon path={mdiArrowRight} size="3" />
       </div>
       <div class="flex flex-col gap-4 items-center flex-grow">

@@ -35,7 +35,7 @@
   <div class="flex flex-1 items-center">
     <div class="flex flex-col w-full mr-4">
       <div class="flex justify-between">
-        <span class="text-white-opacity-30 text-sm">{typeText}</span>
+        <span class="text-gray-300 text-sm">{typeText}</span>
         <span class="whitespace-nowrap flex items-center text-default" class:line-through={status === 'error'}>
           {getCurrencyFormatted()}
         </span>
@@ -43,7 +43,7 @@
 
       <div class="flex justify-between">
         <TransactionItemSentence {transaction} />
-        <span class="text-white-opacity-40 text-sm">{formatDate(transaction.createdAt, 'MMM D, YYYY ')}</span>
+        <span class="text-gray-400 text-sm">{formatDate(transaction.createdAt, 'MMM D, YYYY ')}</span>
       </div>
     </div>
   </div>

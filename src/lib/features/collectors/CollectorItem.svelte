@@ -13,7 +13,7 @@
 </script>
 
 <a href={routes.product(collector._id)}>
-  <div class="flex flex-wrap justify-end items-center gap-1 border-b border-white-opacity-10 py-4">
+  <div class="flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 py-4">
     <div class="flex gap-3 md:gap-5 mr-auto">
       {#if collector?.owner?.profilePhotoUrl}
         <img
@@ -33,7 +33,7 @@
             <IconRedeem disabled={collector.redeemedStatus === 'redeemed'} size={20} />
           {/if}
         </div>
-        <UserLink username={collector.owner?.username} class="text-sm text-white-opacity-40" />
+        <UserLink username={collector.owner?.username} class="text-sm text-gray-400" />
       </div>
     </div>
 

@@ -8,7 +8,7 @@
 </script>
 
 <div class="h-24 rounded-xl flex justify-between items-center text-lg bg-color px-10">
-  <span class="text-white-opacity-40">No active or upcoming auction</span>
+  <span class="text-gray-400">No active or upcoming auction</span>
   <a href={routes.collectors(product.sku._id)} class="text-white flex items-center"
     >Find others <Icon path={mdiChevronRight} size="1.4" /></a
   >

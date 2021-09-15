@@ -12,11 +12,11 @@
   $: sku = product.sku;
 
   const cellClass = 'flex flex-col gap-1.5 py-4 px-6 overflow-hidden';
-  const headerClass = 'text-white-opacity-50 text-sm';
+  const headerClass = 'text-gray-500 text-sm';
 </script>
 
 <div
-  class="rounded-lg border border-white-opacity-20 text-white overflow-hidden grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:divide-x lg:divide-white-opacity-20 flex-grow"
+  class="rounded-lg border border-gray-200 text-white overflow-hidden grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:divide-x lg:divide-gray-200 flex-grow"
 >
   <div class={cellClass}>
     <div class={headerClass}>Owner</div>

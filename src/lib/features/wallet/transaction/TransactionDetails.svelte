@@ -15,7 +15,7 @@
   ];
 </script>
 
-<div class="py-4 border-t border-b border-white-opacity-50">
+<div class="py-4 border-t border-b border-gray-500">
   <div class="flex items-center justify-between">
     <div class="flex flex-col gap-2">
       <div class="label">Transaction ID</div>
@@ -38,10 +38,10 @@
 
 <style lang="postcss">
   .label {
-    @apply text-white-opacity-40;
+    @apply text-gray-400;
   }
 
   button {
-    background: var(--transaction-details-copy-bg, theme('colors.white-opacity.40'));
+    background: var(--transaction-details-copy-bg, theme('colors.gray.400'));
   }
 </style>

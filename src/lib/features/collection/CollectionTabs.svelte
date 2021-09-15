@@ -75,19 +75,19 @@
 <Tabs {items} defaultSelectedId={tab} class="text-2xl font-medium mt-6 md:mt-12 mb-4" on:select={onSelectTab}>
   <Tab id="Releases">
     {#if $skusTotal === 0}
-      <div class="text-gray-200  text-center mt-12 text-2xl ">No releases found.</div>
+      <div class="text-gray-500  text-center mt-12 text-2xl ">No releases found.</div>
     {:else if $skusTotal === null}
-      <div class="text-gray-200 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+      <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
     {:else}
       <SkuItemGrid skus={$skus} />
       <Pagination {perPage} total={$skusTotal} page={p} class="mt-4 flex justify-end" on:change={onChangePage} />
     {/if}
   </Tab>
   <Tab id="NFTs">
-    {#if $productsTotal === 0}
-      <div class="text-gray-200  text-center mt-12 text-2xl ">No NFTs found.</div>
+    {#if $productsTotal !== 0}
+      <div class="text-gray-500  text-center mt-12 text-2xl ">No NFTs found.</div>
     {:else if $productsTotal === null}
-      <div class="text-gray-200 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+      <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
     {:else}
       <SkuItemGrid products={$products} />
       <Pagination {perPage} total={$productsTotal} page={p} class="mt-4 flex justify-end" on:change={onChangePage} />

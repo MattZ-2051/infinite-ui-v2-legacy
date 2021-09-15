@@ -57,10 +57,10 @@
 >
   <div class="flex md:px-6 py-2 md:py-4 justify-center md:justify-between items-center">
     <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
-      <div class="text-sm text-white-opacity-50">Auction ends in:</div>
+      <div class="text-sm text-gray-600">Auction ends in:</div>
       <div class="flex gap-1">
         <TimeDifference date={listing?.endDate} />
-        <div class="text-white-opacity-30">
+        <div class="text-gray-400">
           — {formatDate(listing?.endDate)}
         </div>
       </div>
@@ -70,7 +70,7 @@
   <input
     type="number"
     autocomplete="off"
-    class="h-20 md:h-auto w-full text-default placeholder-white-opacity-40 text-2xl text-center md:pl-10 md:text-left focus:outline-none focus:border-blue-500 bg-transparent"
+    class="h-20 md:h-auto w-full text-default placeholder-gray-400 text-2xl text-center md:pl-10 md:text-left focus:outline-none focus:border-blue-500 bg-transparent"
     name="placeBid"
     placeholder="Bid Amount $$"
   />

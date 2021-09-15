@@ -63,7 +63,7 @@
         class="flex justify-between items-center font-medium w-full px-4 py-2 border-b hover:text-black {selectedUser?._id ===
         user_._id
           ? 'text-black'
-          : 'text-black-opacity-40'}"
+          : 'text-gray-400'}"
         class:cursor-default={user_._id === $user._id}
         class:cursor-pointer={user_._id !== $user._id}
         on:click={() => onSelectUser(user_)}
@@ -82,7 +82,7 @@
       </button>
     {/each}
     {#if search && (!users || users.length === 0)}
-      <div class="text-black-opacity-40 text-center w-full font-medium py-4">No Users Found</div>
+      <div class="text-gray-400 text-center w-full font-medium py-4">No Users Found</div>
     {/if}
   </div>
   {#if total}

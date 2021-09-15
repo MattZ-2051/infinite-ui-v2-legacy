@@ -11,9 +11,9 @@
     <div>
       <div class="flex flex-grow items-baseline">
         <div class="text-base">#{collector?.serialNumber}</div>
-        <div class="text-base text-black-opacity-50 pl-2">/</div>
+        <div class="text-base text-gray-400 pl-2">/</div>
         <div class="flex-col pl-2">
-          <div class="text-base text-black-opacity-50">Owner</div>
+          <div class="text-base text-gray-400">Owner</div>
           <div class="text-sm">@{collector?.owner?.username}</div>
         </div>
       </div>

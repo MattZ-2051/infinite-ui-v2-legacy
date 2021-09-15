@@ -59,7 +59,7 @@
           min="0"
           max={withdrawableAmount}
           placeholder="Enter amount"
-          class="relative w-full bg-black-opacity-5 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
+          class="relative w-full bg-gray-50 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
           data-initial-focus
           bind:value={amount}
           on:change={onPriceChange}

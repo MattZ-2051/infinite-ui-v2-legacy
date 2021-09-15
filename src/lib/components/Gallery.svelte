@@ -34,10 +34,7 @@
       {/each}
     {/if}
   </div>
-  <div
-    class="absolute top-0 left-0 right-0 bottom-0 -z-1 overflow-hidden"
-    class:bg-white-opacity-10={!useBlurBackground}
-  >
+  <div class="absolute top-0 left-0 right-0 bottom-0 -z-1 overflow-hidden" class:bg-gray-100={!useBlurBackground}>
     {#if useBlurBackground}
       <FilePreview item={activeItem} {fileType} preview blur={20} />
     {/if}

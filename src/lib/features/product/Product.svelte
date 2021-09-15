@@ -25,7 +25,7 @@
         <div class="flex items-center">
           <a sveltekit:prefetch href={routes.sku($product.sku._id)} class="text-gradient-primary">{$product.sku.name}</a
           >
-          <span class="mx-3 text-white-opacity-30">/</span>
+          <span class="mx-3 text-gray-300">/</span>
           <span class="text-gradient-primary">#{$product.serialNumber}</span>
         </div>
         <a sveltekit:prefetch href={routes.sku($product.sku._id)} class="rounded-full bg-white text-black">
@@ -43,8 +43,7 @@
     </div>
 
     <ProductStatus
-      class="sticky md:w-full left-0 bottom-0 md:pb-4 lg:pb-12 md:px-4 lg:px-12 -container-x md:-container-none"
-      style="background-color: #1A1A1A"
+      class="sticky md:w-full left-0 bottom-0 md:pb-4 lg:pb-12 md:px-4 lg:px-12 -container-x md:-container-none bg-gray-100"
       product={$product}
       userId={$userId}
     />

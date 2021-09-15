@@ -56,7 +56,7 @@
 </script>
 
 <CircleContainer>
-  <div class="text-white-opacity-50 my-6">Add funds into your wallet</div>
+  <div class="text-gray-500 my-6">Add funds into your wallet</div>
 
   <CreditCardComponent {card} />
 
@@ -66,7 +66,7 @@
       {#if isActive}
         <span class="text-green-500">(Active)</span>
       {:else if card.status === 'pending'}
-        <span class="text-white-opacity-40">(Pending)</span>
+        <span class="text-gray-400">(Pending)</span>
       {:else}
         <span class="text-red-500">(Failed)</span>
       {/if}
@@ -80,7 +80,7 @@
           onConfirm: removeCard,
         })}
       disabled={$removing}
-      class="text-sm text-white-opacity-40 hover:text-default">Remove card</button
+      class="text-sm text-gray-400 hover:text-default">Remove card</button
     >
   </div>
 
@@ -88,7 +88,7 @@
     <div class="cvv-container">
       <FormInput name="cvv" placeholder="Enter CVV" />
     </div>
-    <span class="text-white-opacity-60 text-center"
+    <span class="text-gray-600 text-center"
       >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
     >
     <FormInput name="amount" type="number" placeholder="Enter Amount" before="$" />

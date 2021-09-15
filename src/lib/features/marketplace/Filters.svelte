@@ -184,7 +184,7 @@
     {#each modeFilters as { label, status }}
       <div
         use:queryParameter={{ base: routes.marketplace, params: { mode: status, page: '' } }}
-        class="text-white-opacity-50 hover:text-white-opacity-40 flex gap-2 items-center py-3 cursor-pointer text-lg"
+        class="text-gray-500 hover:text-gray-400 flex gap-2 items-center py-3 cursor-pointer text-lg"
         class:active={status ? $page.query.get('mode') === status : !$page.query.get('mode')}
       >
         <span class="label">{label}</span>
@@ -195,7 +195,7 @@
     <Accordion
       id="talent"
       titleClass="py-4 px-6"
-      class="border border-white-opacity-20 rounded-t-lg -mb-px {active.includes('talent') ? 'expanded' : ''}"
+      class="border border-gray-200 rounded-t-lg -mb-px {active.includes('talent') ? 'expanded' : ''}"
     >
       <div slot="title" class="text-lg leading-8 text-left">
         Talent
@@ -218,7 +218,7 @@
     <Accordion
       id="price"
       titleClass="py-4 px-6"
-      class="border border-white-opacity-20 -mb-px {active.includes('price') ? 'expanded' : ''}"
+      class="border border-gray-200 -mb-px {active.includes('price') ? 'expanded' : ''}"
     >
       <div slot="title" class="text-lg leading-8 text-left">
         Price Range
@@ -248,7 +248,7 @@
     <Accordion
       id="typeEdition"
       titleClass="py-4 px-6"
-      class="border border-white-opacity-20 -mb-px {active.includes('typeEdition') ? 'expanded' : ''}"
+      class="border border-gray-200 -mb-px {active.includes('typeEdition') ? 'expanded' : ''}"
     >
       <div slot="title" class="text-lg leading-8 text-left">
         Edition
@@ -271,7 +271,7 @@
     <Accordion
       id="category"
       titleClass="py-4 px-6"
-      class="border border-white-opacity-20 rounded-b-lg {active.includes('category') ? 'expanded' : ''}"
+      class="border border-gray-200 rounded-b-lg {active.includes('category') ? 'expanded' : ''}"
     >
       <div slot="title" class="text-lg leading-8 text-left">
         Category {#if categorySelected.length}

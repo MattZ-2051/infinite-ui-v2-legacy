@@ -96,7 +96,7 @@
           <OrderProductPricing price={listing.price} {marketplaceFee} />
         </div>
       {/if}
-      <div class="flex flex-col gap-5 text-black-opacity-40">
+      <div class="flex flex-col gap-5 text-gray-400">
         {#if result?.status === 'success'}
           <span>You successfully bought this item, and now is part of your collection.</span>
           <div class="flex flex-col gap-5">
@@ -120,11 +120,7 @@
         {:else}
           <div class="flex items-center justify-start">
             <label class="inline-flex items-center">
-              <input
-                type="checkbox"
-                bind:checked={acceptedTerms}
-                class="border-black-opacity-40 border-2 text-black mr-2"
-              />
+              <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
               I accept the <a href={routes.terms} class="ml-1 underline">Terms & Conditions</a>
             </label>
           </div>
@@ -134,13 +130,13 @@
                 <input
                   type="checkbox"
                   bind:checked={acceptedTermsNft}
-                  class="border-black-opacity-40 border-2 text-black mr-2"
+                  class="border-gray-400 border-2 text-black mr-2"
                 />
                 I accept the <a href={sku.customNftTerms} class="ml-1 underline">Nft Terms & Conditions</a>
               </label>
             </div>
           {/if}
-          <div class="text-sm text-black-opacity-40">
+          <div class="text-sm text-gray-400">
             Confirming this action will deduct the associated funds from your wallet.
           </div>
           <Button class="mt-6" type="button" disabled={purchasing} on:click={submitOrder}>Place Order</Button>

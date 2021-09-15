@@ -18,7 +18,7 @@
     {/if}
   </div>
   {#if profile.tagline}
-    <div class="mt-2 text-sm font-medium text-white-opacity-50 text-center">{profile.tagline}</div>
+    <div class="mt-2 text-sm font-medium text-gray-500 text-center">{profile.tagline}</div>
   {/if}
   {#if own}
     <div class="flex border border-opacity-20 rounded-md overflow-hidden mt-6">

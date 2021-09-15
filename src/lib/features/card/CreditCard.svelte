@@ -34,7 +34,7 @@
   $: logo = logos[card.network.toLowerCase()];
 </script>
 
-<div class="flex flex-col justify-between bg-white-opacity-20 text-white w-80 h-44 rounded-2xl px-6 py-5 font-medium">
+<div class="flex flex-col justify-between bg-gray-200 text-white w-80 h-44 rounded-2xl px-6 py-5 font-medium">
   <div class="flex justify-between items-center">
     <div class="flex justify-between rounded-sm items-center">
       <img src={logos.chip} alt="card chip" class="w-8" />

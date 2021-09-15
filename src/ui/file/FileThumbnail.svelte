@@ -25,12 +25,12 @@
 {:else if fileType === 'audio'}
   <div class="bg-black flex items-center justify-center" {style}><Icon path={mdiVolumeHigh} /></div>
 {:else if fileType === 'vector'}
-  <div class="relative flex items-center gap-4 bg-white-opacity-50 text-white text-lg md:px-2">
+  <div class="relative flex items-center gap-4 bg-gray-500 text-white text-lg md:px-2">
     <img src={getVectorThumbImage()} {alt} loading="lazy" class="object-cover md:object-contain" {style} />
     <div class="hidden md:flex items-center gap-2">
       Experience AR
       <Icon path={mdiArrowRight} size="1.2" />
     </div>
-    <div class="md:hidden absolute top-0.5 right-0.5 text-sm font-medium text-white-opacity-50">AR</div>
+    <div class="md:hidden absolute top-0.5 right-0.5 text-sm font-medium text-gray-500">AR</div>
   </div>
 {/if}

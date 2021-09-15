@@ -25,13 +25,13 @@
     <a class="link" href={routes.sku(sku?._id)}>{name} </a>
     <a class="link" href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a>
     <UserLink username={sellerUsername}>
-      <span class="text-white-opacity-40" slot="prefix">from</span>
+      <span class="text-gray-400" slot="prefix">from</span>
     </UserLink>
   {:else if type === 'sale'}
     <a class="link" href={routes.sku(sku?._id)}>{name} </a>
     <a class="link" href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a>
     <UserLink username={buyerUsername} hasLinkClass={true}>
-      <span class="text-white-opacity-40" slot="prefix">to</span>
+      <span class="text-gray-400" slot="prefix">to</span>
     </UserLink>
   {:else if type === 'withdrawal'}
     {#if transaction.transactionData.withdraw.type === 'usdc'}

@@ -65,7 +65,7 @@
             <img src={photos[1].url} alt="signature" class="float-right" />
           </div>
 
-          <div class="text-white-opacity-60 text-xl">
+          <div class="text-gray-600 text-xl">
             {textFields[3] || ''}
           </div>
         </div>

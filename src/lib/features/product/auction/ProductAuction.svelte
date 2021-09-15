@@ -33,15 +33,15 @@
         <div class="text-gray-500">
           {#each $bids as bid}
             <div
-              class="grid-container group grid grid-cols-2 gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
+              class="grid-container group grid grid-cols-2 gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-200 hover:border-white"
             >
-              <span class="self-end font-black italic group-hover:text-white">
+              <span class="self-end font-black group-hover:text-white">
                 <UserLink username={bid.owner?.username} class="font-semibold underline hover:no-underline" />
               </span>
               <div class="justify-self-end">
                 Bid for <span class="text-white px-1">{formatCurrency(bid.bidAmt)}</span>
               </div>
-              <span class="col-span-2 justify-self-end self-start font-black italic text-sm">
+              <span class="col-span-2 justify-self-end self-start font-black text-sm">
                 <DateFormat value={bid.createdAt} />
               </span>
             </div>
