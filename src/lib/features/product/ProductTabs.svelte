@@ -51,7 +51,7 @@
     --tab-border-color-active="transparent"
   />
 
-  <div class="flex-grow px-4 lg:px-12 pb-4 lg:pb-12 bg-gray-100">
+  <div class="flex-grow px-4 lg:px-12 pb-4 lg:pb-12" style="background-color: var(--product-tabs-bg);">
     {#if tab === 'auction'}
       <ProductAuction {product} />
     {/if}

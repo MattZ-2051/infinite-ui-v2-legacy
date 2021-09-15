@@ -43,7 +43,8 @@
     </div>
 
     <ProductStatus
-      class="sticky md:w-full left-0 bottom-0 md:pb-4 lg:pb-12 md:px-4 lg:px-12 -container-x md:-container-none bg-gray-100"
+      class="sticky md:w-full left-0 bottom-0 md:pb-4 lg:pb-12 md:px-4 lg:px-12 -container-x md:-container-none"
+      style="background-color: var(--product-tabs-bg);"
       product={$product}
       userId={$userId}
     />

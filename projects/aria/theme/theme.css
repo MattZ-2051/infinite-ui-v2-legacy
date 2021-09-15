@@ -128,6 +128,9 @@
 
   /* TransactionItem */
   --transaction-details-copy-bg: linear-gradient(90deg, var(--gradient-start) 7.48%, var(--gradient-end) 79.51%);
+
+  /* Product Tabs */
+  --product-tabs-bg: #1a1a1a;
 }
 
 .theme-tabs {
