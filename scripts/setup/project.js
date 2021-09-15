@@ -37,6 +37,16 @@ async function run() {
         '$util/*': ['src/util/*'],
       },
     },
+    include: [
+      'src/**/*.d.ts',
+      'src/**/*.js',
+      'src/**/*.ts',
+      'src/**/*.svelte',
+      `projects/${project}/src/**/*.d.ts`,
+      `projects/${project}/src/**/*.js`,
+      `projects/${project}/src/**/*.ts`,
+      `projects/${project}/src/**/*.svelte`,
+    ],
   };
   writeFileSync(
     'tsconfig.json',

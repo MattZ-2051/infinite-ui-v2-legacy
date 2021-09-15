@@ -1,6 +1,6 @@
 /// <reference types="@sveltejs/kit" />
 
-interface ImportMetaEnv {
+interface CommonImportMetaEnvironment {
   VITE_API_URL: string;
   VITE_API_MOCKING: 'enabled' | '';
   VITE_KYC_PERSONA_TENANT: string;

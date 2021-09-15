@@ -4,5 +4,5 @@
     "isolatedModules": false,
     "lib": ["es2020", "DOM"]
   },
-  "include": ["src/**/*.d.ts", "src/**/*.test.ts"]
+  "include": ["src/**/*.d.ts", "src/**/*.test.ts", "projects/*/src/**/*.d.ts", "projects/*/src/**/*.test.ts"]
 }
