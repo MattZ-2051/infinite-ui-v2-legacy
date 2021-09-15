@@ -9,7 +9,7 @@
   <span>New Deposits</span>
   <span>{transactions.length > 0 ? transactions.length : 'No transactions found'}</span>
 </div>
-<div class="grid grid-cols-4 grid-container justify-items-start gap-x-2 gap-y-6 text-gray-400 md:gap-x-10">
+<div class="grid grid-cols-4 grid-container justify-items-start gap-x-2 gap-y-6 text-gray-500 md:gap-x-10">
   {#each transactions as transaction}
     <HederaTransactionItem {transaction} />
   {/each}

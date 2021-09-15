@@ -96,7 +96,7 @@
           <OrderProductPricing price={listing.price} {marketplaceFee} />
         </div>
       {/if}
-      <div class="flex flex-col gap-5 text-gray-400">
+      <div class="flex flex-col gap-5 text-gray-500">
         {#if result?.status === 'success'}
           <span>You successfully bought this item, and now is part of your collection.</span>
           <div class="flex flex-col gap-5">
@@ -136,7 +136,7 @@
               </label>
             </div>
           {/if}
-          <div class="text-sm text-gray-400">
+          <div class="text-sm text-gray-500">
             Confirming this action will deduct the associated funds from your wallet.
           </div>
           <Button class="mt-6" type="button" disabled={purchasing} on:click={submitOrder}>Place Order</Button>

@@ -36,7 +36,7 @@
   {#if $totalTransactions > 0}
     <div class="text-default">
       {#each $transactions as transaction}
-        <div class="flex flex-wrap justify-end items-center gap-1 border-b border-gray-200 py-4">
+        <div class="flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 py-4">
           <div class="flex gap-3 mr-auto">
             <UserLink username={transaction.owner?.username} />
           </div>

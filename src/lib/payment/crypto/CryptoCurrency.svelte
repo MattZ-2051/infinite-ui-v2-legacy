@@ -73,7 +73,7 @@
 {#if isOpen}
   <Modal title={`${coinName} Deposit`} on:close={onClose}>
     <p slot="title" class="font-medium text-3xl text-center px-8 py-6">{`${coinName} Deposit`}</p>
-    <div class="p-10 text-gray-400">
+    <div class="p-10 text-gray-500">
       <p class="m-auto w-max max-w-sm text-center">
         Funds sent to the following address will be automatically credited to your account.
       </p>

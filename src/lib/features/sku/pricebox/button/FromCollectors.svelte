@@ -26,7 +26,7 @@
     {#if status === 'activeSale'}
       <div>
         <div class="text-xl">Active Sale</div>
-        <div class="text-gray-400 text-sm">Started {formatDate(collectorListing.startDate)}</div>
+        <div class="text-gray-500 text-sm">Started {formatDate(collectorListing.startDate)}</div>
       </div>
       <div class="flex justify-end items-center">
         <div>
@@ -38,12 +38,12 @@
     {#if status === 'activeAuction'}
       <div>
         <div class="text-xl">From Collector</div>
-        <div class="text-gray-400 text-sm">Auction active</div>
+        <div class="text-gray-500 text-sm">Auction active</div>
       </div>
       <div class="flex justify-end items-center">
         <div>
           <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(collectorListing.minBid)}</div>
-          <div class="text-gray-400 text-sm">Starting at</div>
+          <div class="text-gray-500 text-sm">Starting at</div>
         </div>
       </div>
     {/if}
@@ -51,12 +51,12 @@
     {#if status === 'upcomingAuction'}
       <div>
         <div class="text-xl">Upcoming Auction</div>
-        <div class="text-gray-400 text-sm">Starts {formatDate(collectorListing.startDate)}</div>
+        <div class="text-gray-500 text-sm">Starts {formatDate(collectorListing.startDate)}</div>
       </div>
       <div class="flex items-center justify-end">
         <div>
           <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(collectorListing.minBid)}</div>
-          <div class="text-gray-400 text-sm">Starting at</div>
+          <div class="text-gray-500 text-sm">Starting at</div>
         </div>
       </div>
     {/if}
@@ -66,7 +66,7 @@
       <div class="flex justify-end items-center">
         <div>
           <div class="text-xl text-right">-</div>
-          <div class="text-gray-400 text-sm">0 on Sale</div>
+          <div class="text-gray-500 text-sm">0 on Sale</div>
         </div>
       </div>
     {/if}

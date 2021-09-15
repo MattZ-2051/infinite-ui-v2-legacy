@@ -44,7 +44,7 @@
     </div>
     <div class="flex gap-6 flex-col p-10" class:opacity-40={$loadingHbarTransactions}>
       {#if transactionsView}
-        <div class="flex flex-grow items-center justify-between text-sm text-gray-400">
+        <div class="flex flex-grow items-center justify-between text-sm text-gray-500">
           <span>Deposits will be made to...</span>
           <ExplorerLink {explorerLink} />
         </div>
@@ -55,14 +55,14 @@
       {:else}
         <div class="flex flex-col gap-1">
           <span>Step 1:</span>
-          <span class="text-gray-400">Send an hbar deposit to your INFINITE wallet address</span>
-          <span class="text-gray-400 text-sm"> (provided below) </span>
+          <span class="text-gray-500">Send an hbar deposit to your INFINITE wallet address</span>
+          <span class="text-gray-500 text-sm"> (provided below) </span>
         </div>
         <ExplorerLink {explorerLink} />
         <WalletAddress />
         <div class="flex flex-col gap-1">
           <span>Step 2:</span>
-          <span class="text-gray-400">Check for new transactions to credit them to your account</span>
+          <span class="text-gray-500">Check for new transactions to credit them to your account</span>
         </div>
         <Button on:click={checkPayments}>Check for new HBAR deposits</Button>
       {/if}

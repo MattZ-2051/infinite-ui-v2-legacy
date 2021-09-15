@@ -23,7 +23,7 @@
         <Icon path={mdiShieldHalfFull} />
         <span>Level {level}</span>
         <Icon path={mdiArrowRight} />
-        <div class="flex gap-1 text-gray-700">
+        <div class="flex gap-1 text-gray-600">
           <Icon path={mdiShieldSync} />
           <span>Pending...</span>
         </div>

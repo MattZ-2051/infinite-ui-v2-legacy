@@ -71,7 +71,7 @@
           on:click={() => onShare(social.id)}
           class="group w-36 h-36 flex flex-col gap-2 items-center justify-center rounded-lg hover:bg-primary"
         >
-          <div class="w-12 h-12 rounded-full bg-gray-800 group-hover:bg-white flex items-center justify-center">
+          <div class="w-12 h-12 rounded-full bg-gray-700 group-hover:bg-white flex items-center justify-center">
             <Icon path={social.path} class="group-hover:text-primary text-white" />
           </div>
           <div class="group-hover:text-white">{social.label}</div>

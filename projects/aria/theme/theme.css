@@ -6,16 +6,16 @@
   --edition-open: #0077a6;
   --gradient-start: #c000d6;
   --gradient-end: #6734ff;
-  --gray-50: #0d0d0d;
-  --gray-100: #1a1a1a;
-  --gray-200: #333333;
-  --gray-300: #4d4d4d;
-  --gray-400: #666666;
-  --gray-500: #808080;
-  --gray-600: #999999;
-  --gray-700: #b3b3b3;
-  --gray-800: #cccccc;
-  --gray-900: #e6e6e6;
+  --gray-50: rgba(255, 255, 255, 0.05);
+  --gray-100: rgba(255, 255, 255, 0.1);
+  --gray-200: rgba(255, 255, 255, 0.2);
+  --gray-300: rgba(255, 255, 255, 0.3);
+  --gray-400: rgba(255, 255, 255, 0.4);
+  --gray-500: rgba(255, 255, 255, 0.5);
+  --gray-600: rgba(255, 255, 255, 0.6);
+  --gray-700: rgba(255, 255, 255, 0.7);
+  --gray-800: rgba(255, 255, 255, 0.8);
+  --gray-900: rgba(255, 255, 255, 0.9);
 
   /* Main */
   --bg-color: #000000;
@@ -75,8 +75,8 @@
 
   /* Menu */
   --menu-background-color: #ffffff;
-  --menu-item-background-selected: #6633ff;
-  --menu-item-color: theme('colors.gray.500');
+  --menu-item-background-selected: var(--primary);
+  --menu-item-color: rgba(0, 0, 0, 0.5);
   --menu-item-color-selected: #ffffff;
 
   /* Pagination */
@@ -130,13 +130,7 @@
   --transaction-details-copy-bg: linear-gradient(90deg, var(--gradient-start) 7.48%, var(--gradient-end) 79.51%);
 }
 
-.theme-brand {
-  /* Menu */
-  --menu-background-color: #000000;
-  --menu-item-background-selected: var(--primary);
-  --menu-item-color: var(--color);
-  --menu-item-color-selected: var(--color);
-
+.theme-tabs {
   /* Tabs */
   --tab-border-color-active: var(--primary);
   --tab-color-active: var(--primary);
@@ -154,17 +148,17 @@
   --input-padding: 0 0.75rem;
 }
 
-.theme-modal {
-  --gray-50: #f2f2f2;
-  --gray-100: #e6e6e6;
-  --gray-200: #cccccc;
-  --gray-300: #b3b3b3;
-  --gray-400: #999999;
-  --gray-500: #808080;
-  --gray-600: #666666;
-  --gray-700: #4d4d4d;
-  --gray-800: #333333;
-  --gray-900: #1a1a1a;
+.theme-light {
+  --gray-50: rgba(0, 0, 0, 0.05);
+  --gray-100: rgba(0, 0, 0, 0.1);
+  --gray-200: rgba(0, 0, 0, 0.2);
+  --gray-300: rgba(0, 0, 0, 0.3);
+  --gray-400: rgba(0, 0, 0, 0.4);
+  --gray-500: rgba(0, 0, 0, 0.5);
+  --gray-600: rgba(0, 0, 0, 0.6);
+  --gray-700: rgba(0, 0, 0, 0.7);
+  --gray-800: rgba(0, 0, 0, 0.8);
+  --gray-900: rgba(0, 0, 0, 0.9);
 
   /* Input */
   --input-container-border-color: theme('colors.gray.300');

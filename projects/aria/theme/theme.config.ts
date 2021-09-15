@@ -1,16 +1,16 @@
 const Theme = {
-  Brand: 'theme-brand',
+  Tabs: 'theme-tabs',
   Form: 'theme-form',
-  Modal: 'theme-modal',
+  Light: 'theme-light',
 };
 
 export const themeConfig = {
-  '*.header': Theme.Brand,
-  '*.sku': Theme.Brand,
-  '*.issuer': Theme.Brand,
-  '$u.$wallet.*': Theme.Brand,
+  '*.issuer': Theme.Tabs,
+  '*.sku': Theme.Tabs,
+  '*.sku-pricebox': Theme.Light,
+  '$u.$wallet.*': Theme.Tabs,
   '$u.$account.*': Theme.Form,
   '$partner.*.root': Theme.Form,
-  '$product.*': Theme.Brand,
-  '*.modal': Theme.Modal,
+  '$product.*': Theme.Tabs,
+  '*.modal': Theme.Light,
 };

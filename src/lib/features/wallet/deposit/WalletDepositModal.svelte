@@ -54,7 +54,7 @@
           <Image src={option.image} class="flex-none w-12 h-12" />
           <div class="flex-grow ">
             <div class="text-black">{option.title}</div>
-            <div class="text-gray-400 font-extrabold italic">{option.subtitle}</div>
+            <div class="text-gray-500 font-bold">{option.subtitle}</div>
           </div>
           <div class="flex-none opacity-50 group-hover:opacity-100">
             <Icon path={mdiChevronRight} size="1.4" />

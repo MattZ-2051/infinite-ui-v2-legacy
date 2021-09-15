@@ -26,9 +26,9 @@
     <span class="flex items-center gap-2"><Icon path={mdiBell} /><span>Notify me</span></span>
   </div>
   <div slot="message" class="flex flex-col items-center py-5 gray-border font-semibold mb-10">
-    <span class="text-gray-400">Subscribe and stay up to date on the newest</span>
+    <span class="text-gray-500">Subscribe and stay up to date on the newest</span>
     <div>
-      <span class="text-gray-400">updates from</span>
+      <span class="text-gray-500">updates from</span>
       <UserLink username={profile.username} />
     </div>
   </div>

@@ -33,7 +33,7 @@
         <div class="text-gray-500">
           {#each $bids as bid}
             <div
-              class="grid-container group grid grid-cols-2 gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-200 hover:border-white"
+              class="grid-container group grid grid-cols-2 gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
             >
               <span class="self-end font-black group-hover:text-white">
                 <UserLink username={bid.owner?.username} class="font-semibold underline hover:no-underline" />

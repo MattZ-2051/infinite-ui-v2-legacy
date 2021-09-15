@@ -5,7 +5,7 @@
   export let explorerLink: string;
 </script>
 
-<a class="flex gap-1 items-center text-sm self-end text-gray-400" href={explorerLink} target="_blank">
+<a class="flex gap-1 items-center text-sm self-end text-gray-500" href={explorerLink} target="_blank">
   View wallet in explorer
   <Icon path={mdiLinkVariant} />
 </a>

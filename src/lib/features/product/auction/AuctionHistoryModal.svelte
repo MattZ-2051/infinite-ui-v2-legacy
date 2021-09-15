@@ -55,7 +55,7 @@
         {#if bids.length > 0}
           {#each bids as bid}
             <div class="py-6 grid grid-cols-2 gap-2 items-center border-b border-gray-200" class:opacity-50={$loading}>
-              <div class="text-lg" class:text-gray-400={bid.status !== 'winner'}>
+              <div class="text-lg" class:text-gray-500={bid.status !== 'winner'}>
                 @{bid.owner.username}
               </div>
               <div class="grid grid-cols-1 gap-1 justify-items-end">
@@ -63,11 +63,11 @@
                   {#if bid.status === 'winner'}
                     <Icon path={mdiStar} color="black" /> Won with {formatCurrency(bid.bidAmt)}
                   {:else}
-                    <span class="text-gray-400">Bid for </span>
+                    <span class="text-gray-500">Bid for </span>
                     {formatCurrency(bid.bidAmt)}
                   {/if}
                 </div>
-                <div class="text-gray-400 text-sm">
+                <div class="text-gray-500 text-sm">
                   {formatDate(bid.updatedAt)}
                 </div>
               </div>

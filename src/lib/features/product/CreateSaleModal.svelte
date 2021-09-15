@@ -89,7 +89,7 @@
             <div class="text-red-500 text-sm">{$errors.price}</div>
           {/if}
         </div>
-        <div class="border-b border-gray-200 text-gray-400 font-medium mb-2">
+        <div class="border-b border-gray-200 text-gray-500 font-medium mb-2">
           <div class="flex justify-between pb-1 mb-1">
             <span>Marketplace fee ({marketplaceFee}%):</span>
             <span>{formatCurrency(marketplaceFeePrice)}</span>
@@ -107,7 +107,7 @@
             <span class="font-bold">{formatCurrency(total)}</span>
           </div>
         </div>
-        <div class="text-sm text-gray-400">
+        <div class="text-sm text-gray-500">
           If your NFT is bought on the marketplace, payment will be transferred to your INFINITE wallet.
         </div>
         <Button class="w-full mt-6" type="submit" {disabled}>Start Sale</Button>

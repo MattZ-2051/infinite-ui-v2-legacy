@@ -8,7 +8,7 @@
 
 {#if isOpen}
   <Modal title="Yeah! Funds added." on:close={closeModal}>
-    <div class="flex flex-col justify-center items-center gap-4 mt-2 text-base max-w-sm text-center py-4 px-10">
+    <div class="flex flex-col justify-center items-center gap-4 mt-2 text-base max-w-sm text-center py-4 px-10 m-auto">
       <div class="text-gray-500 text-base">
         Check your open tabs to refresh your previous screen to see your added funds<br />
         or

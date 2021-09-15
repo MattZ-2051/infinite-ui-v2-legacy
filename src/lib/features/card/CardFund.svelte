@@ -66,7 +66,7 @@
       {#if isActive}
         <span class="text-green-500">(Active)</span>
       {:else if card.status === 'pending'}
-        <span class="text-gray-400">(Pending)</span>
+        <span class="text-gray-500">(Pending)</span>
       {:else}
         <span class="text-red-500">(Failed)</span>
       {/if}
@@ -80,7 +80,7 @@
           onConfirm: removeCard,
         })}
       disabled={$removing}
-      class="text-sm text-gray-400 hover:text-default">Remove card</button
+      class="text-sm text-gray-500 hover:text-default">Remove card</button
     >
   </div>
 

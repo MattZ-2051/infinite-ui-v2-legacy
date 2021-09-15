@@ -57,10 +57,10 @@
 >
   <div class="flex md:px-6 py-2 md:py-4 justify-center md:justify-between items-center">
     <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
-      <div class="text-sm text-gray-600">Auction ends in:</div>
+      <div class="text-sm text-gray-500">Auction ends in:</div>
       <div class="flex gap-1">
         <TimeDifference date={listing?.endDate} />
-        <div class="text-gray-400">
+        <div class="text-gray-300">
           — {formatDate(listing?.endDate)}
         </div>
       </div>
