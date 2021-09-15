@@ -17,7 +17,7 @@
     <div class="flex gap-3 md:gap-5 mr-auto">
       {#if collector?.owner?.profilePhotoUrl}
         <img
-          class="w-12 h-12 rounded-full"
+          class="w-12 h-12 rounded-full object-cover"
           src={collector.owner.profilePhotoUrl}
           alt=""
           use:imageError={() => (collector.owner.profilePhotoUrl = undefined)}
