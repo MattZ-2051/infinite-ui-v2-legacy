@@ -1,11 +1,12 @@
-import { get } from '$lib/api';
+import { post } from '$lib/api';
 
-export async function subscribe(email: string) {
-  return await get(`https://webto.salesforce.com/servlet/servlet.WebToLead`, {
-    params: {
-      encoding: 'UTF-8',
-      oid: '00D5e000003VgsD',
-      email,
-    },
-  });
+export async function subscribe(values: { [key: string]: string }) {
+  return await post(
+    `https://uat-thearianetwork.cs219.force.com/arex/services/apexrest/v1/lead/follow`,
+    {},
+    {
+      params: values,
+      parseResponseAsText: true,
+    }
+  );
 }

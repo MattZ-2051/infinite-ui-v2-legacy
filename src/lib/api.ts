@@ -13,6 +13,7 @@ type ApiOptions = RequestInit & {
   authorization?: boolean;
   params?: string | string[][] | Record<string, string> | URLSearchParams;
   tracker?: ApiFetchTracker;
+  parseResponseAsText?: boolean;
 };
 
 export async function send<T>(path: string, _options?: ApiOptions): Promise<{ headers: Headers; body: T }> {
@@ -56,12 +57,12 @@ export async function send<T>(path: string, _options?: ApiOptions): Promise<{ he
     if (status < 200 || status > 299) {
       let data: unknown;
       try {
-        data = await parseBody(r);
+        data = await parseBody(r, options);
       } catch {}
       throw <ApiError>{ status, statusText, url, data };
     }
 
-    return { headers, body: await parseBody<T>(r) };
+    return { headers, body: await parseBody<T>(r, options) };
   });
 }
 
@@ -119,13 +120,13 @@ export function fetchTracker({ showDelay = 0, hideDelay = 50 } = {}): ApiFetchTr
   };
 }
 
-async function parseBody<T>(response: Response): Promise<T> {
+async function parseBody<T>(response: Response, { parseResponseAsText }: ApiOptions): Promise<T> {
   const { headers } = response;
   if (headers.has('content-length') && +headers.get('content-length') === 0) {
     return;
   }
 
-  if (headers.has('content-type') && headers.get('content-type').indexOf('text') === 0) {
+  if (parseResponseAsText || (headers.has('content-type') && headers.get('content-type').indexOf('text') === 0)) {
     return response.text() as never;
   }
 

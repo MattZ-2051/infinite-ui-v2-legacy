@@ -9,6 +9,9 @@
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
   import tooltip from '$ui/tooltip';
+  import { toast } from '$ui/toast';
+  import Button from '$lib/components/Button.svelte';
+  import { subscribe } from '$project/subscribe/subscribe.api';
   import travisScottBg from './travis-scott-bg.png?w=400;800;1200;&format=avif;webp;png&metadata';
 
   const socialMedia = [
@@ -17,22 +20,32 @@
     { id: 'youtube', label: 'YouTube', path: mdiYoutube },
     { id: 'twitter', label: 'Twitter', path: mdiTwitter },
     { id: 'tiktok', label: 'TikTok', path: tiktok.path },
-    { id: 'snapchat', label: 'Snapchat', path: mdiSnapchat },
+    { id: 'snap', label: 'Snapchat', path: mdiSnapchat },
     { id: 'linkedin', label: 'LinkedIn', path: mdiLinkedin },
     { id: 'discord', label: 'Discord', path: mdiDiscord },
   ];
 
   const schema = yup.object({
-    talent: yup
-      .string()
-      .required('Talent name is required.')
-      .matches(/^[ A-Za-z]*$/, 'Please enter valid name.'),
+    talent: yup.string().required('Talent name is required.'),
     email: yup.string().email('Please enter valid email.').required('Email is required.'),
   });
 
-  const { form, errors } = createForm({
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onSubmit: () => {},
+  const { form, errors, reset, isSubmitting } = createForm<{ email: string }>({
+    onSubmit: async (values) => {
+      const toastId = 'partner-form';
+      try {
+        await subscribe(values);
+        toast.success(`Thank you for your interest! We've received your submission and will be in touch shortly.`, {
+          toastId,
+        });
+        reset();
+      } catch {
+        toast.danger(
+          `Whoops! There was an issue with your submission. Please double-check your answers or reach out to support@ARIAexchange.com if this continues.`,
+          { toastId }
+        );
+      }
+    },
     validate: validateSchema(schema),
   });
 
@@ -61,7 +74,7 @@
             <div class="flex flex-col gap-6 text-lg" style="flex-grow:6;">
               <FormInput name="talent" label="Talent Name *" placeholder="John Brown" />
               <FormInput name="email" label="Your Email Address *" placeholder="john.brown@example.com" />
-              <FormInput name="expYear" label="Relationship to Talent" placeholder="Self, Manager, etc." />
+              <FormInput name="relationship" label="Relationship to Talent" placeholder="Self, Manager, etc." />
               <FormInput name="industry" label="Industry" placeholder="Art, Music, Sport, etc." />
             </div>
             <div class="flex flex-col flex-grow gap-1.5 text-lg">
@@ -81,7 +94,13 @@
             </div>
           </div>
           <div class="text-right mb-8">
-            <button type="submit" class="bg-primary px-10 rounded-lg py-1">Submit</button>
+            <Button
+              type="submit"
+              --button-padding="5px 40px"
+              --button-border-radius="8px"
+              animate={false}
+              disabled={$isSubmitting}>Submit</Button
+            >
           </div>
         </form>
       </div>
