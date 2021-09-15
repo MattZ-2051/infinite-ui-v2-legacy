@@ -19,22 +19,22 @@
 
   let visibleActions: Action[] = [];
   $: visibleActions = [
-    {
+    hasRedeemAction && {
       type: 'redeem',
       label: 'Redeem',
       icon: iconRedeem,
     },
-    {
+    hasTransferAction && {
       type: 'transfer',
       label: 'Transfer',
       icon: iconTransfer,
     },
-    {
+    hasCreateSellAction && {
       type: 'create-sale',
       label: 'Sell',
       icon: iconSale,
     },
-    {
+    hasStartAuctionAction && {
       type: 'auction',
       label: 'Auction',
       icon: iconAuction,
