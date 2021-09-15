@@ -1,6 +1,7 @@
 import type { Transaction, Product, Bid } from '$lib/sku-item/types';
 import { createEffect, createStore, createEvent, forward } from 'effector';
 import { browser } from '$app/env';
+import { getQueryParameters } from '$util/queryParameter';
 import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
 import { createPolling } from '$util/effector';
 import { loadProduct, loadProductTransactions } from './product.api';
@@ -95,8 +96,21 @@ export const saleCancelled = createEvent<{ listingId: string }>();
 export const productBought = createEvent<{ product: Product }>();
 
 forward({
-  from: [saleStarted, saleCancelled, productBought],
+  from: [saleStarted, saleCancelled],
   to: refetchProductFx,
+});
+
+const productBoughtFx = createEffect(async ({ product: _product }: { product: Product }) => {
+  const query = getQueryParameters();
+  return await Promise.all([
+    refetchProductFx(),
+    fetchProductTransactionsFx({ id: _product._id, page: +query.get('page') || 1 }),
+  ]);
+});
+
+forward({
+  from: productBought,
+  to: productBoughtFx,
 });
 
 export const auctionStarted = createEvent<{ product: Product }>();
@@ -122,7 +136,7 @@ export const polls = createStore({}).on(pendingBuyCreated, (state, payload) => {
   return { ...state, [payload]: poll };
 });
 
-pollTransactionFx.doneData.watch((response) => {
+pollTransactionFx.doneData.watch(async (response) => {
   if (response.transactions.length > 0) {
     if (product.getState() !== null) {
       const $product = product.getState();
@@ -131,9 +145,9 @@ pollTransactionFx.doneData.watch((response) => {
       });
 
       if (pendingTx.status === 'success') {
+        await productBoughtFx({ product: $product });
         const $polls = polls.getState();
         $polls[$product._id].stop();
-        productBought({ product: $product });
       }
     } else {
       const $sku = sku.getState();
