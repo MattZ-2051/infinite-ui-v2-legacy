@@ -18,7 +18,7 @@
 
   export let isIssuer = false;
   export let own = false;
-  export let owner: string;
+  export let owner: string; // owner's username
 
   $: p = +$page.query.get(`page`) || 1;
 
@@ -41,7 +41,7 @@
           {
             id: 'Releases',
             title: 'Collectibles for Sale',
-            tooltip: `These Collectibles were created by ${owner} and are available for sale`,
+            tooltip: `These Collectibles were created by @${owner} and are available for sale`,
           },
         ]
       : []),
@@ -49,7 +49,7 @@
       id: 'NFTs',
       // prettier-ignore
       title: isIssuer ? 'Owned Collectibles' : (own ? 'My Collection' : 'Collection'),
-      tooltip: isIssuer ? `These Collectibles are owned by ${owner}` : '',
+      tooltip: isIssuer ? `These Collectibles are owned by @${owner}` : '',
     },
   ];
 

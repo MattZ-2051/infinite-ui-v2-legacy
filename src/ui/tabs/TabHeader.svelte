@@ -26,7 +26,7 @@
 <li
   on:click
   class:active
-  {title}
+  title={tooltip ? '' : title}
   role="presentation"
   class="flex cursor-pointer whitespace-nowrap transition-all ease-out duration-300 {_class || ''}"
   use:addTooltip={tooltip}
