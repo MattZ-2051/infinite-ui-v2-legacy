@@ -84,7 +84,7 @@
     {/if}
   </Tab>
   <Tab id="NFTs">
-    {#if $productsTotal !== 0}
+    {#if $productsTotal === 0}
       <div class="text-gray-500  text-center mt-12 text-2xl ">No NFTs found.</div>
     {:else if $productsTotal === null}
       <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
