@@ -27,11 +27,11 @@
       <div class="relative h-full">
         <FilePreview item={sku.nftPublicAssets?.[0]} preview />
         {#if activeListing?.endDate}
-          <div
-            class="card-end-label opacity-90 text-base font-medium absolute bottom-4 left-4 py-2 px-4 rounded-md flex gap-2"
-          >
-            <span class="opacity-50">Ends</span>
-            {formatDate(activeListing.endDate)}
+          <div class="card-end-label opacity-90 text-base font-medium absolute bottom-4 left-4 py-2 px-4 rounded-md">
+            <div class="flex gap-1" style="position: relative; top: 1px">
+              <span class="opacity-50">Ends</span>
+              {formatDate(activeListing.endDate)}
+            </div>
           </div>
         {/if}
         {#if sku.description}
