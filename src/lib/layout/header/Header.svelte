@@ -2,6 +2,7 @@
   import Logo from '$project/Logo.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import SidebarToggle from '$ui/sidebar-toggle/SidebarToggle.svelte';
+  import { user } from '$lib/user';
   import routes from '$project/routes';
   import Links from './Links.svelte';
   import Sidebar from './Sidebar.svelte';
@@ -14,7 +15,7 @@
     <div class="w-full h-full flex">
       {#if showSidebar}
         <div class="fixed top-0 right-0 left-0 bottom-0 z-40 md:hidden">
-          <Sidebar on:close={() => (showSidebar = false)} />
+          <Sidebar user={$user} on:close={() => (showSidebar = false)} />
         </div>
       {/if}
       <div class="container flex justify-between items-center md:items-end py-3">
@@ -25,7 +26,7 @@
           class="md:hidden hover:text-white"
         />
         <div class="hidden md:flex gap-1 md:gap-5 lg:gap-12 md:items-center">
-          <Links />
+          <Links user={$user} />
         </div>
       </div>
     </div>
