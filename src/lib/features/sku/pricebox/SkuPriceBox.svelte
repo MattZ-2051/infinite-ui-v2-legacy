@@ -31,7 +31,7 @@
   $: collector = getLimitedAuctionCollector(sku, collectors);
   $: upcoming =
     upcomingSkuListings.length > 0 && activeListings.length === 0 && upcomingSkuListings[0]?.saleType !== 'giveaway';
-  $: active = activeListings.length > 0 && sku.totalSupplyLeft;
+  $: active = activeListings.length > 0 && sku.totalSupplyLeft && activeListings?.[0]?.saleType !== 'giveaway';
   $: activeNftGiveAway = activeListings[0]?.saleType === 'giveaway';
   $: upcomingNftGiveAway = upcomingSkuListings[0]?.saleType === 'giveaway';
   $: noSale = sku.totalSupplyLeft === 0 && sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
