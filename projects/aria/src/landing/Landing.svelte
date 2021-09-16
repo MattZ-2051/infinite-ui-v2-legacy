@@ -33,6 +33,10 @@
         slidesPerView: 3,
         spaceBetween: 36,
       },
+      '1280': {
+        slidesPerView: 4,
+        spaceBetween: 36,
+      },
     },
   };
 </script>
@@ -102,5 +106,9 @@
   :global(.swiper-button-next),
   :global(.swiper-button-prev) {
     top: calc((100% - 2.5rem) / 2);
+  }
+  :global(.swiper-button-prev.swiper-button-disabled),
+  :global(.swiper-button-next.swiper-button-disabled) {
+    display: none;
   }
 </style>
