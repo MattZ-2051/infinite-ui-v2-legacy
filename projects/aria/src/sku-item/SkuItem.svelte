@@ -19,13 +19,16 @@
   $: sku = product ? product.sku : _sku;
   $: totalSupply = product ? product.totalSupply : _sku.totalSupply;
   $: activeListing = product ? sku.activeProductListings?.[0] : sku.activeSkuListings?.[0];
+  $: href = product ? routes.product(product._id) : routes.sku(sku._id);
 </script>
 
 <div class="relative flex flex-col" in:fade={{ duration: 300 }}>
   <div bind:clientWidth bind:clientHeight class="card flex flex-col h-full tracking-tighter relative z-30 mb-5">
     <div class="card-img p-2">
       <div class="relative h-full">
-        <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+        <a sveltekit:prefetch {href}>
+          <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+        </a>
         {#if activeListing?.endDate}
           <div class="card-end-label opacity-90 text-base font-medium absolute bottom-4 left-4 py-2 px-4 rounded-md">
             <div class="flex gap-1" style="position: relative; top: 1px">
@@ -39,7 +42,7 @@
         {/if}
       </div>
     </div>
-    <a sveltekit:prefetch href={product ? routes.product(product._id) : routes.sku(sku._id)}>
+    <a sveltekit:prefetch {href}>
       <div class="px-6 pt-2 pb-10 rounded-b-3xl flex flex-col flex-grow justify-between">
         <div>
           <div class="flex flex-wrap justify-between card-name">

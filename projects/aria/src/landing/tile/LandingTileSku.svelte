@@ -10,11 +10,14 @@
 
   export let sku: Sku;
   $: status = skuStatus(sku).status;
+  $: href = routes.sku(sku._id);
 </script>
 
 <div class="flex flex-col gap-4">
   <div class="relative">
-    <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+    <a sveltekit:prefetch {href}>
+      <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+    </a>
     <div
       class="hidden md:block bg-white-opacity-75 absolute inset-0 p-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
     >
@@ -23,7 +26,7 @@
           <div class="flex flex-col justify-between w-full h-full">
             <div>
               <div class="flex flex-wrap items-center justify-between mb-4">
-                <a href={routes.sku(sku._id)} class="text-primary text-2xl font-medium">{sku.name}</a>
+                <a {href} class="text-primary text-2xl font-medium">{sku.name}</a>
                 <SkuEdition {sku} />
               </div>
               <TalentLink profile={sku.issuer} class="text-xl mb-4" style="color: #717171" />
@@ -47,7 +50,7 @@
               <div class="flex items-center gap-2 font-medium text-lg">
                 {#if sku.redeemable}<IconRedeem size={32} />{/if}
               </div>
-              <a href={routes.sku(sku._id)} class="text-primary text-lg font-medium">Learn more</a>
+              <a {href} class="text-primary text-lg font-medium">Learn more</a>
             </div>
           </div>
         </div>
@@ -56,7 +59,7 @@
   </div>
 
   <div class="flex gap-4">
-    <a href={routes.sku(sku._id)}>{sku.name}</a>
+    <a {href}>{sku.name}</a>
     {#if sku.redeemable}<IconRedeem />{/if}
   </div>
 </div>
