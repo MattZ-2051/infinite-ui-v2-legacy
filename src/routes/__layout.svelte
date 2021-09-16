@@ -48,9 +48,7 @@
   $: mustSetupAccount($user, $page.path);
 </script>
 
-<svelte:head>
-  <Head />
-</svelte:head>
+<Head />
 
 <ThemeContext display id="root">
   {#if $navigationPathChanging || $isLoading}
