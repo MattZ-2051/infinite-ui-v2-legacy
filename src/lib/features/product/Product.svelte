@@ -1,5 +1,6 @@
 <script lang="ts">
   import { mdiClose } from '@mdi/js';
+  import { browser } from '$app/env';
   import { userId } from '$lib/user';
   import routes from '$project/routes';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
@@ -9,6 +10,10 @@
   import ProductInfo from './ProductInfo.svelte';
   import ProductStatus from './status/ProductStatus.svelte';
   import { product } from './product.store';
+
+  function onClose() {
+    history.back();
+  }
 </script>
 
 <StickyColumn reverse>
@@ -28,9 +33,11 @@
           <span class="mx-3 text-gray-300">/</span>
           <span class="text-gradient-primary">#{$product.serialNumber}</span>
         </div>
-        <a sveltekit:prefetch href={routes.sku($product.sku._id)} class="rounded-full bg-white text-black">
-          <Icon path={mdiClose} size="1.33" class="p-1 rounded-full" />
-        </a>
+        {#if browser && history.length > 1}
+          <button type="button" on:click={onClose} class="rounded-full bg-white text-black">
+            <Icon path={mdiClose} size="1.33" class="p-1 rounded-full" />
+          </button>
+        {/if}
       </div>
 
       <div class="mt-6">
