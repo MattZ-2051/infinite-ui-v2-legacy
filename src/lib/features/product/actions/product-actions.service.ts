@@ -56,8 +56,19 @@ export function onAction(type: ActionType, product: Product) {
             await cancelSale({ id: listingId });
             toast.success('Sale successfully cancelled.');
             saleCancelled({ listingId });
-          } catch {
-            toast.danger(`Whoops, something went wrong - please try again.`);
+          } catch (error) {
+            switch (error?.data?.appCode) {
+              case 'LISTING_NOT_ACTIVE':
+                toast.danger(
+                  `Whoops! Can't cancel the listing because it is not active right now. Please reload the page.`
+                );
+                break;
+              case 'LISTING_ALREADY_SOLD':
+                toast.danger(`Whoops! Can't cancel the listing because it was already sold. Please reload the page.`);
+                break;
+              default:
+                toast.danger(`Whoops, something went wrong - please try again.`);
+            }
           }
         },
       });
