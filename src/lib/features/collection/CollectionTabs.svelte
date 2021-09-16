@@ -80,7 +80,7 @@
       <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
     {:else}
       <SkuItemGrid skus={$skus} />
-      <Pagination {perPage} total={$skusTotal} page={p} class="mt-4 flex justify-end" on:change={onChangePage} />
+      <Pagination {perPage} total={$skusTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
     {/if}
   </Tab>
   <Tab id="NFTs">
@@ -90,7 +90,7 @@
       <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
     {:else}
       <SkuItemGrid products={$products} />
-      <Pagination {perPage} total={$productsTotal} page={p} class="mt-4 flex justify-end" on:change={onChangePage} />
+      <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
     {/if}
   </Tab>
   <div slot="extra" class="justify-self-end self-center text-lg mb-4">

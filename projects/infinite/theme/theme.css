@@ -1,42 +1,73 @@
 :root {
-  /* Footer */
-  --footer-icon-border-radius: 50%;
-
-  /* Icon Redeem */
-  --icon-redeem-border-radius: 50%;
-  --icon-redeem-bg-color: transparent;
-}
-
-.theme-default {
-  /* Main */
   --bg-color: #ffffff;
+  --color: #000000;
+  --primary: #000000;
+  --link-color: var(--primary);
+  --separator-bg-color: var(--gray-100);
+  --icon-bg-color: #2d2d2d;
+  --edition-single: #000000;
+  --edition-limited: #000000;
+  --edition-open: #000000;
 
-  /* Header */
-  --header-color: #000000;
-  --header-bg-color: #ffffff;
+  /* Grayscale */
+  --gray-50: rgba(0, 0, 0, 0.05);
+  --gray-100: rgba(0, 0, 0, 0.1);
+  --gray-200: rgba(0, 0, 0, 0.2);
+  --gray-300: rgba(0, 0, 0, 0.3);
+  --gray-400: rgba(0, 0, 0, 0.4);
+  --gray-500: rgba(0, 0, 0, 0.5);
+  --gray-600: rgba(0, 0, 0, 0.6);
+  --gray-700: rgba(0, 0, 0, 0.7);
+  --gray-800: rgba(0, 0, 0, 0.8);
+  --gray-900: rgba(0, 0, 0, 0.9);
+
+  /* Menu */
+  --menu-list-background-color: #ffffff;
+  --menu-item-background-selected: #000000;
+  --menu-item-color: theme('colors.gray.500');
+  --menu-item-color-selected: #ffffff;
+
+  /* Filters */
+  --filters-color-expanded: var(--primary);
+
+  /* Input */
+  --input-container-border-color-focus: var(--color);
+  --input-container-border-color: theme('colors.gray.300');
+  --input-container-border-color-error: theme('colors.red.500');
+  --input-container-border-width: 1px;
+  --input-container-padding-bottom: 0.125rem;
+  --input-label-color: theme('colors.gray.500');
+  --input-label-font-size: 14px;
+  --input-label-font-weight: 400;
+  --input-color: var(--color);
+  --input-text-align: left;
+  --input-bg-color: transparent;
+  --input-border-radius: 0px;
+  --input-placeholder-color: theme('colors.gray.500');
+  --input-padding: 0 0.125rem;
+  --input-height: 1.875rem;
+
+  /* Tag */
+  --tag-color: #ffffff;
+  --tag-bg-color: var(--primary);
+
+  /* Accordion */
+  --accordion-title-color: theme('colors.gray.500');
+  --accordion-title-icon-color: var(--color);
 
   /* Footer */
-  --footer-bg-color: #ddf874;
-  --footer-color: rgba(0, 0, 0, 0.48);
+  --footer-bg-color: #ffffff;
+  --footer-color: theme('colors.black-opacity.50');
   --footer-color-hover: #000000;
   --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
   --footer-icon-color: rgba(0, 0, 0, 0.5);
   --footer-icon-bg-color-hover: #000000;
   --footer-icon-color-hover: #ffffff;
+  --footer-icon-border-radius: 50%;
 
-  /* SkuItem */
-  --card-container-color: #ffffff;
-  --card-name-color: #9e9e9e;
-  --card-title-color: #000000;
-  --card-series-color: #000000;
-  --card-serial-number-color: #000000;
-  --bottom-border: 1px solid #ededed;
-
-  /* Menu */
-  --menu-background-color: white;
-  --menu-item-background-selected: #f8f8f8;
-  --menu-item-color: #7c7c7c;
-  --menu-item-color-selected: black;
+  /* IconRedeem */
+  --icon-redeem-border-radius: 50%;
+  --icon-redeem-bg-color: transparent;
 
   /* Pagination */
   --pagination-color: #9e9e9e;
@@ -47,6 +78,8 @@
   --checkbox-color: #000000;
   --checkbox-bg: #d6d6d6;
   --checkbox-hover-bg: #cccccc;
+  --checkbox-border-color: theme('colors.gray.200');
+  --checkbox-checkmark-color: var(--color);
 
   /* Sort */
   --sort-color: #000000;
@@ -68,15 +101,34 @@
   --select-bg-color: initial;
   --select-option-color: initial;
   --select-option-bg-color: initial;
+
+  /* RangeSlider */
+  --range-slider-bg-color: theme('colors.black-opacity.20');
+  --range-slider-bg-color-selected: #000000;
+  --range-slider-thumb-bg-color: #ffffff;
+  --range-slider-thumb-active-color: #000000;
 }
 
 .theme-dark {
-  /* Main */
-  --bg-color: #1a1a1a;
+  --color: #ffffff;
+  --bg-color: #000000;
+
+  /* Grayscale */
+  --gray-50: rgba(255, 255, 255, 0.05);
+  --gray-100: rgba(255, 255, 255, 0.1);
+  --gray-200: rgba(255, 255, 255, 0.2);
+  --gray-300: rgba(255, 255, 255, 0.3);
+  --gray-400: rgba(255, 255, 255, 0.4);
+  --gray-500: rgba(255, 255, 255, 0.5);
+  --gray-600: rgba(255, 255, 255, 0.6);
+  --gray-700: rgba(255, 255, 255, 0.7);
+  --gray-800: rgba(255, 255, 255, 0.8);
+  --gray-900: rgba(255, 255, 255, 0.9);
 
   /* Header */
-  --header-color: theme('colors.gray.300');
+  --header-color: theme('colors.gray.500');
   --header-bg-color: #000000;
+  --header-height: 72px;
 
   /* Footer */
   --footer-bg-color: #000000;
@@ -86,21 +138,6 @@
   --footer-icon-color: #ffffff;
   --footer-icon-bg-color-hover: #ffffff;
   --footer-icon-color-hover: #000000;
-
-  /* SkuItem */
-  --card-container-color: #232323;
-  --card-name-color: #717171;
-  --card-title-color: #dddddd;
-  --card-series-color: #717171;
-  --card-serial-number-color: #ffffff;
-  --card-status-color: #2d2d2d;
-  --bottom-border: 0;
-
-  /* Menu */
-  --menu-background-color: #252525;
-  --menu-item-background-selected: #3a3a3a;
-  --menu-item-color: #7c7c7c;
-  --menu-item-color-selected: white;
 
   /* Pagination */
   --pagination-color: #9e9e9e;
@@ -129,18 +166,4 @@
   /* Tooltip */
   --tooltip-bg: #ffffff;
   --tooltip-color: #000000;
-
-  /* Dropdown */
-  --dropdown-bg-color: black;
-  --dropdown-color: white;
-  --dropdown-color-selected: black;
-}
-
-.theme-modal {
-  --input-label-color: theme('colors.gray.400');
-  --input-placeholder-color: theme('colors.gray.500');
-  --input-container-border-color: theme('colors.gray.300');
-  --input-container-border-width: 1px;
-  --input-bg-color: #ffffff;
-  --input-color: #000000;
 }

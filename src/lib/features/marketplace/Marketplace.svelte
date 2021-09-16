@@ -65,9 +65,9 @@
     <button
       type="button"
       on:click={() => (showFilters = true)}
-      class="w-10 h-10 bg-gray-800 rounded-full md:hidden flex items-center justify-center"
+      class="w-10 h-10 bg-gray-200 rounded-full md:hidden flex items-center justify-center"
     >
-      <Icon path={mdiTuneVariant} class="text-black" />
+      <Icon path={mdiTuneVariant} />
     </button>
   </div>
   <div class="gap-2 {showFilters ? 'hidden' : 'flex'}">
@@ -88,7 +88,7 @@
       <NoResults class="mt-4 md:mt-12" />
     {:else}
       <SkuItemGrid {skus} maxCols={3} />
-      <Pagination page={p} {total} {perPage} class="flex justify-end" on:change={gotoPage} />
+      <Pagination page={p} {total} {perPage} class="my-8 flex justify-end" on:change={gotoPage} />
     {/if}
   </div>
 </div>

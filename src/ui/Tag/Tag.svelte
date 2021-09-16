@@ -38,6 +38,7 @@
 
 <style style="postcss">
   .tag {
+    color: var(--tag-color);
     background: var(--tag-bg-color);
   }
 </style>

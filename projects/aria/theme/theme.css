@@ -6,6 +6,13 @@
   --edition-open: #0077a6;
   --gradient-start: #c000d6;
   --gradient-end: #6734ff;
+  --bg-color: #000000;
+  --color: #ffffff;
+  --inverse-color: #000000;
+  --link-color: var(--primary);
+  --separator-bg-color: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  --icon-bg-color: #2d2d2d;
+
   --gray-50: rgba(255, 255, 255, 0.05);
   --gray-100: rgba(255, 255, 255, 0.1);
   --gray-200: rgba(255, 255, 255, 0.2);
@@ -17,25 +24,18 @@
   --gray-800: rgba(255, 255, 255, 0.8);
   --gray-900: rgba(255, 255, 255, 0.9);
 
-  /* Main */
-  --bg-color: #000000;
-  --color: #ffffff;
-  --link-color: var(--primary);
-  --separator-bg-color: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-  --icon-bg-color: #2d2d2d;
+  /* SkuItemGrid */
+  --sku-item-grid-row-gap: 2rem;
+  --sku-item-grid-column-gap: 2rem;
 
   /* Filters */
-  --filters-color-active: var(--color);
   --filters-color-expanded: var(--primary);
 
   /* NoResults */
   --no-results-link-color: #11d6ec;
 
-  /* Header */
-  --header-color: #000000;
-  --header-bg-color: #ffffff;
-
   /* Tag */
+  --tag-color: var(--color);
   --tag-bg-color: var(--primary);
 
   /* Accordion */
@@ -57,6 +57,8 @@
   --checkbox-color: #000000;
   --checkbox-bg: #d6d6d6;
   --checkbox-hover-bg: #cccccc;
+  --checkbox-border-color: theme('colors.gray.200');
+  --checkbox-checkmark-color: var(--color);
 
   /* Header */
   --header-color: #ffffff;
@@ -74,7 +76,7 @@
   --footer-icon-border-radius: 12px;
 
   /* Menu */
-  --menu-background-color: #ffffff;
+  --menu-list-background-color: #ffffff;
   --menu-item-background-selected: var(--primary);
   --menu-item-color: rgba(0, 0, 0, 0.5);
   --menu-item-color-selected: #ffffff;
@@ -152,6 +154,7 @@
 }
 
 .theme-light {
+  /* Grayscale */
   --gray-50: rgba(0, 0, 0, 0.05);
   --gray-100: rgba(0, 0, 0, 0.1);
   --gray-200: rgba(0, 0, 0, 0.2);

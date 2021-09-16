@@ -30,9 +30,7 @@
 </script>
 
 <ThemeContext id="sku-grid">
-  <div
-    class="grid grid-cols-1 gap-2 max-w-sm mx-auto md:max-w-none md:gap-y-4 md:gap-x-8 {gridResponsiveClass} {$$props.class}"
-  >
+  <div class="sku-grid grid grid-cols-1 max-w-sm mx-auto md:max-w-none {gridResponsiveClass} {$$props.class}">
     {#if productList.length}
       {#each productList as item (item._id)}
         <SkuItem product={item} />
@@ -44,3 +42,10 @@
     {/if}
   </div>
 </ThemeContext>
+
+<style>
+  .sku-grid {
+    row-gap: var(--sku-item-grid-row-gap, 1.5rem);
+    column-gap: var(--sku-item-grid-column-gap, 1.5rem);
+  }
+</style>

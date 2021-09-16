@@ -22,7 +22,7 @@
 </script>
 
 <div class="relative flex flex-col" in:fade={{ duration: 300 }}>
-  <div bind:clientWidth bind:clientHeight class="card flex flex-col h-full tracking-tighter relative z-30 mb-14">
+  <div bind:clientWidth bind:clientHeight class="card flex flex-col h-full tracking-tighter relative z-30 mb-5">
     <div class="card-img p-2">
       <div class="relative h-full">
         <FilePreview item={sku.nftPublicAssets?.[0]} preview />

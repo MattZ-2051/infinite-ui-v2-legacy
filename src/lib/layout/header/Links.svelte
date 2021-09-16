@@ -12,22 +12,36 @@
   export let flatten = false;
   export let user: User;
 
+  $: isRoute = function (route: string) {
+    return new RegExp(`^${route}(?:/|$)`).test($page.path);
+  };
+
   function onLogout() {
     clearUser();
     logout(`${window.location.origin}`);
   }
 </script>
 
-<a sveltekit:prefetch href={routes.marketplace} class="whitespace-nowrap">Marketplace</a>
+<a
+  sveltekit:prefetch
+  href={routes.marketplace}
+  class="whitespace-nowrap header-link"
+  class:active={isRoute(routes.marketplace)}>Marketplace</a
+>
 {#if user}
-  <a sveltekit:prefetch href={routes.collection(user.username)} class="whitespace-nowrap">My Collection</a>
+  <a
+    sveltekit:prefetch
+    href={routes.collection(user.username)}
+    class="whitespace-nowrap header-link"
+    class:active={isRoute(routes.collection(user.username))}>My Collection</a
+  >
   {#if flatten}
-    <a sveltekit:prefetch href={routes.account}>Account Settings</a>
-    <a sveltekit:prefetch href={routes.wallet}>My Wallet</a>
+    <a sveltekit:prefetch href={routes.account} class:hidden={isRoute(routes.account)}>Account Settings</a>
+    <a sveltekit:prefetch href={routes.wallet} class:hidden={isRoute(routes.wallet)}>My Wallet</a>
     <button type="button" on:click={() => onLogout()}>Sign Out</button>
   {:else}
     <Menu placement="bottom-end">
-      <MenuTrigger slot="trigger" class="whitespace-nowrap">
+      <MenuTrigger slot="trigger" class="header-link whitespace-nowrap">
         <div class="flex gap-1.5 ">
           {#if user.profilePhotoUrl}
             <img class="w-6 object-cover rounded-full" src={user.profilePhotoUrl} alt="" />
@@ -51,9 +65,26 @@
     </Menu>
   {/if}
 {:else}
-  <a sveltekit:prefetch href={routes.about} class="whitespace-nowrap">About Us</a>
-  <button class="flex whitespace-nowrap" on:click={async () => await login()} disabled={$isLoading}>Sign in</button>
+  <a sveltekit:prefetch href={routes.about} class="whitespace-nowrap header-link" class:active={isRoute(routes.about)}
+    >About Us</a
+  >
+  <button class="flex whitespace-nowrap header-link" on:click={async () => await login()} disabled={$isLoading}
+    >Sign in</button
+  >
   <div class="button-container">
-    <Button href={routes.signup} class="whitespace-nowrap">Sign up</Button>
+    <Button animate={false} href={routes.signup} class="whitespace-nowrap header-link">Sign up</Button>
   </div>
 {/if}
+
+<style>
+  :global(.header-link) {
+    --button-primary-color: var(--header-color);
+    color: var(--header-color);
+  }
+
+  .active,
+  :global(.header-link):hover {
+    --button-primary-color: var(--color);
+    color: var(--color);
+  }
+</style>

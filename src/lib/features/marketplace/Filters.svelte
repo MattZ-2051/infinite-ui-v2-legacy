@@ -306,7 +306,7 @@
     @apply cursor-default;
   }
   .active > .label {
-    color: var(--filters-color-active);
+    color: var(--color);
   }
   .single-text {
     color: var(--edition-single);

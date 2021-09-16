@@ -23,7 +23,7 @@
         <SidebarToggle
           isOpen={showSidebar}
           on:toggle={(event) => (showSidebar = event.detail)}
-          class="md:hidden hover:text-white"
+          class="md:hidden text-default"
         />
         <div class="hidden md:flex gap-1 md:gap-5 lg:gap-12 md:items-center">
           <Links user={$user} />
@@ -37,7 +37,6 @@
 <style lang="postcss">
   header {
     @apply sticky top-0 z-40;
-    color: var(--header-color);
     background-color: var(--header-bg-color);
     height: var(--header-height);
   }
