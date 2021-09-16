@@ -16,8 +16,6 @@
       sticky cta that becomes fixed when viewport width is less than 768px
     </div>
     <div slot="tabs" class="h-60 bg-pink-200">tabs</div>
-    <div slot="offscreen-content" style="height: 200vh" class="bg-green-900">
-      off screen content without sticky panel
-    </div>
   </StickyColumn>
+  <div style="height: 200vh" class="bg-green-900">off screen content without sticky panel</div>
 </Story>

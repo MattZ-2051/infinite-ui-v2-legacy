@@ -16,33 +16,29 @@
   }
 </script>
 
-<div class="container py-0">
-  <div
-    class="flex flex-wrap items-start {reverse ? 'flex-col-reverse' : 'flex-col'} {reverse
-      ? `md:flex-row-reverse`
-      : `md:flex-row`} md:justify-between"
-  >
-    <div class="w-full md:w-1/2 lg:w-2/3">
-      <div style={fitOnScreenContent ? `height: calc(100vh - ${ctaOffset}px - var(--header-height))` : ''}>
-        <slot name="onscreen-content" />
-      </div>
-    </div>
-    <div class="sticky-content-wrapper flex flex-col w-full md:w-1/2 lg:w-1/3 md:sticky">
-      <div class="sticky-content">
-        <slot name="sticky-content" />
-      </div>
-      <div class="fixed bottom-0 left-0 right-0 md:static z-50">
-        <div bind:clientHeight={ctaHeight}>
-          <slot name="sticky-cta" />
-        </div>
-      </div>
-    </div>
-    <div class="w-full md:w-1/2 lg:w-2/3">
-      <slot name="tabs" />
+<div
+  class="container py-0 flex flex-wrap items-start {reverse ? 'flex-col-reverse' : 'flex-col'} {reverse
+    ? `md:flex-row-reverse`
+    : `md:flex-row`} md:justify-between"
+>
+  <div class="w-full md:w-1/2 lg:w-2/3">
+    <div style={fitOnScreenContent ? `height: calc(100vh - ${ctaOffset}px - var(--header-height))` : ''}>
+      <slot name="onscreen-content" />
     </div>
   </div>
-
-  <slot name="offscreen-content" />
+  <div class="sticky-content-wrapper flex flex-col w-full md:w-1/2 lg:w-1/3 md:sticky">
+    <div class="sticky-content">
+      <slot name="sticky-content" />
+    </div>
+    <div class="fixed bottom-0 left-0 right-0 md:static z-50">
+      <div bind:clientHeight={ctaHeight}>
+        <slot name="sticky-cta" />
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-1/2 lg:w-2/3">
+    <slot name="tabs" />
+  </div>
 </div>
 
 <style lang="postcss">
