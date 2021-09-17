@@ -1,5 +1,5 @@
 <script lang="ts">
-  import tooltip from '$ui/tooltip';
+  import tooltipAction from '$ui/tooltip';
   import Icon from '$ui/icon/Icon.svelte';
   import iconRedeem from '$lib/components/icons/redeem';
   import iconRedeemed from '$lib/components/icons/redeemed';
@@ -9,13 +9,26 @@
   export let size = 24;
 
   $: iconPath = disabled ? iconRedeemed : iconRedeem;
-  $: tooltipMessage = hasTooltip ? 'Redeemable' : '';
+  $: tooltipMessage = hasTooltip
+    ? {
+        content:
+          'Learn more about redeemable collectibles <a class="underline" href="https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT">here</a>.',
+        allowHTML: true,
+        interactive: true,
+        maxWidth: 270,
+      }
+    : '';
   $: padding = Math.floor(size / 5.333_333);
 </script>
 
-<span class="redeem-trigger relative inline-flex" use:tooltip={tooltipMessage} style="padding: {padding}px"
-  ><Icon path={iconPath} size={`${size - 2 * padding}px`} {...$$restProps} /></span
+<span
+  class="redeem-trigger relative inline-flex"
+  use:tooltipAction={tooltipMessage}
+  on:click|preventDefault|stopPropagation
+  style="padding: {padding}px"
 >
+  <Icon path={iconPath} size={`${size - 2 * padding}px`} {...$$restProps} />
+</span>
 
 <style lang="postcss">
   .redeem-trigger {
