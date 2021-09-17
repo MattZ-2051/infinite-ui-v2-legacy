@@ -42,7 +42,7 @@
         {/if}
       </div>
     </div>
-    <a sveltekit:prefetch {href}>
+    <a sveltekit:prefetch {href} class="flex flex-grow">
       <div class="px-6 pt-2 pb-10 rounded-b-3xl flex flex-col flex-grow justify-between">
         <div>
           <div class="flex flex-wrap justify-between card-name">
