@@ -20,12 +20,16 @@
   export { _class as class };
 
   const schema = yup.object({
-    email: yup.string().required('Please fill your email').email('Email is not correct'),
+    email: yup.string().email('Please enter a properly formatted email address'),
   });
 
   const { form, errors, reset, isSubmitting } = createForm<{ email: string }>({
     onSubmit: async (values) => {
       const toastId = 'subscribe-form';
+      if (!values.email) {
+        return toast.danger('Please enter your email address.', { toastId });
+      }
+
       try {
         await subscribe(values);
         toast.success('You have successfully joined our newsletter! Check your email for more information.', {
@@ -46,18 +50,22 @@
 <div class="text-center text-white {titleClass}">Never miss an exclusive drop!</div>
 
 <div class="flex flex-col items-center justify-center my-6">
-  <form use:form class="flex relative max-w-md w-full rounded-full h-10 {_class}" autocomplete="off">
+  <form
+    use:form
+    class="focus-within:ring-2 flex relative max-w-lg w-full rounded-full h-10 {_class}"
+    autocomplete="off"
+  >
     <Icon class="text-gray-700 absolute transform -translate-y-1/2 top-1/2 left-4" path={mdiEmail} />
     <input
-      class="text-gray-700 placeholder-gray-600 font-extrabold italic text-base pl-14 flex-1 rounded-full focus:outline-none focus:ring-2"
+      class="bg-transparent min-w-0 text-gray-700 placeholder-gray-600 font-extrabold italic text-base pl-12 flex-1 rounded-full focus:outline-none"
       name="email"
       placeholder="email"
     />
-    <div class="absolute transform -translate-y-1/2 top-1/2 right-0">
+    <div class="">
       <Button
-        --button-padding="7px 48px"
+        --button-padding="7px 0"
         animate={false}
-        class="whitespace-nowrap"
+        class="whitespace-nowrap w-28 md:w-40 relative -top-px -right-px"
         type="submit"
         disabled={$isSubmitting}
         >{#if $isSubmitting}Joining...{:else}Join now{/if}</Button
@@ -75,7 +83,7 @@
 </div>
 
 <style lang="postcss">
-  input {
+  form {
     @apply border border-transparent bg-origin-border;
     background: linear-gradient(#191919, #191919) padding-box,
       linear-gradient(360deg, var(--gradient-start), var(--gradient-end)) border-box;
