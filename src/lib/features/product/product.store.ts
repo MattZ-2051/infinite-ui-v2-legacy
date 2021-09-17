@@ -113,6 +113,13 @@ forward({
   to: productBoughtFx,
 });
 
+export const productRedeemed = createEvent();
+
+forward({
+  from: productRedeemed,
+  to: refetchProductFx,
+});
+
 export const auctionStarted = createEvent<{ product: Product }>();
 export const auctionCancelled = createEvent<{ listingId: string }>();
 export const auctionEnded = createEvent();

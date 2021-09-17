@@ -9,9 +9,10 @@
   import FormInput from '$lib/components/form/FormInput.svelte';
   import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
   import { redeemItem } from './redeem.api';
+  import { productRedeemed } from '../product.store';
 
   const schema = yup.object({
-    addressLine1: yup.string().required('Adress is required.'),
+    addressLine1: yup.string().required('Address is required.'),
     addressLine2: yup.string(),
     postalCode: yup.string().required('Postal code is required.'),
     city: yup.string().required('City is required.'),
@@ -30,6 +31,7 @@
         await (saving = redeemItem({ ...values }, id));
         notifications.success('Product has been redeemed successfully.');
         reset();
+        productRedeemed();
         dispatch('close');
       } catch {
         notifications.danger(`There was a problem redeeming your product.`);

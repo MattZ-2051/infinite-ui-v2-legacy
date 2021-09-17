@@ -39,7 +39,6 @@
           </button>
         {/if}
       </div>
-
       <div class="mt-6">
         <ProductInfo product={$product} />
       </div>
