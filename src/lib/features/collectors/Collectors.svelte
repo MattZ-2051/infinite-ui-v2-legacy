@@ -19,11 +19,13 @@
     <Gallery items={sku.nftPublicAssets} />
   </div>
   <div slot="onscreen-content">
-    <div class="pl-8 mt-8 md:mt-10">
-      <div class="flex items-center text-4xl font-medium">
+    <div class="md:pl-8 mt-8 md:mt-10">
+      <div class="flex flex-wrap gap-2 md:gap-0 md:items-center text-3xl md:text-4xl font-medium">
         <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
-        <span class="mx-3 text-gray-300">/</span>
-        <span class="text-gradient-primary">Collectors</span>
+        <div class="flex items-center">
+          <span class="mx-3 text-gray-300">/</span>
+          <span class="text-gradient-primary">Collectors</span>
+        </div>
       </div>
 
       <!-- <div class="mt-6">
@@ -31,7 +33,7 @@
       </div> -->
     </div>
 
-    <div class="mt-20 pl-8">
+    <div class="mt-20 md:pl-8">
       <CollectorsSummary {sku} {collectors} {page} {forSale} {search} {total} {perPage} />
     </div>
   </div>
