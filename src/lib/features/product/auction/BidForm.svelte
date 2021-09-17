@@ -12,6 +12,7 @@
 
   export let listing: Listing;
   export let maxPlacedBid: number;
+  export let fee: number;
 
   const dispatch = createEventDispatcher();
 
@@ -19,7 +20,7 @@
 
   // this could suffer from rounding issues
   // ie, not accepting the exact displayed available balance due to upwards rounding
-  $: availableBalanceForBiding = $user?.availableBalance || Number.MAX_SAFE_INTEGER;
+  $: availableBalanceForBiding = $user?.availableBalance;
 
   const { form, reset } = createForm({
     onSubmit: async ({ placeBid }: { placeBid: string }) => {
@@ -38,7 +39,7 @@
       if (amount < acceptedBidPrice) {
         return toast.danger(`Amount must be greater or equal than ${formatCurrency(acceptedBidPrice)}.`);
       }
-      if (amount > availableBalanceForBiding) {
+      if (amount + amount * fee > availableBalanceForBiding) {
         return toast.danger(
           `Amount must be less or equal than your available balance ${formatCurrency(availableBalanceForBiding)}.`
         );

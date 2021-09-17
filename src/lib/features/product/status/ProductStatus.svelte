@@ -20,6 +20,7 @@
   import { onOrderIntent } from '../../order/order.service';
   import { onAction, onBid } from '../actions/product-actions.service';
   import ProductStatusUpcoming from './ProductStatusUpcoming.svelte';
+  import { getBiddingFee } from '../product.fee';
 
   export let product: Product;
   export let userId: string;
@@ -157,6 +158,7 @@
       <BidForm
         maxPlacedBid={$maxPlacedBid}
         listing={activeProductListing}
+        fee={getBiddingFee(product)}
         on:place-bid={(event) => onBid(event.detail.amount, product)}
       />
     {/if}
