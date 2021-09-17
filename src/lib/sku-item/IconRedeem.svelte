@@ -4,21 +4,19 @@
   import iconRedeem from '$lib/components/icons/redeem';
   import iconRedeemed from '$lib/components/icons/redeemed';
 
-  export let hasTooltip = true;
   export let disabled = false;
   export let size = 24;
 
   $: iconPath = disabled ? iconRedeemed : iconRedeem;
-  $: tooltipMessage = hasTooltip
-    ? {
-        content:
-          'Learn more about redeemable collectibles <a class="underline" href="https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT">here</a>.',
-        allowHTML: true,
-        interactive: true,
-        maxWidth: 270,
-      }
-    : '';
   $: padding = Math.floor(size / 5.333_333);
+
+  const tooltipMessage = {
+    content:
+      'Learn more about redeemable collectibles <a class="underline" href="https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT">here</a>',
+    allowHTML: true,
+    interactive: true,
+    maxWidth: 270,
+  };
 </script>
 
 <span

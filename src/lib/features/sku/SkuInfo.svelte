@@ -45,7 +45,7 @@
       {#if sku.redeemable}
         <div class="text-gray-500 text-sm">Status</div>
         <div class="flex items-center gap-2">
-          <IconRedeem hasTooltip={false} /> Redeemable
+          <IconRedeem /> Redeemable
         </div>
       {/if}
     </div>
