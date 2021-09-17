@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
-  import { mdiBellOutline as notifyIcon, mdiShareVariant as shareIcon } from '@mdi/js';
+  import { mdiShareVariant as shareIcon } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
-  import { notifyAction } from '$lib/notify';
+  import { NotifyMeButton } from '$lib/notify';
   import { socialShareAction } from '$lib/social';
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
   import { formatDate } from '$util/format';
@@ -50,11 +50,7 @@
     </div>
   </div>
   <div class="grid grid-cols-2 divide-x divide-gray-200">
-    <button
-      type="button"
-      class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"
-      use:notifyAction={{ profile: sku.issuer }}><Icon path={notifyIcon} />Notify Me</button
-    >
+    <NotifyMeButton profile={sku.issuer} />
     <button
       type="button"
       class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"

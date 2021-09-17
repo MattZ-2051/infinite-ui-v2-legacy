@@ -1,1 +1,1 @@
-export { default as notifyAction } from './notify.use';
+export { default as NotifyMeButton } from './NotifyMeButton.svelte';

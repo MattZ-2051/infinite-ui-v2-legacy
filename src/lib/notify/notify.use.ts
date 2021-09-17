@@ -13,7 +13,7 @@ export default function notify(node: HTMLButtonElement, data: { profile: Profile
       toast.danger(`Please sign in or create an account to subscribe for notifications.`);
       return;
     }
-    openModal(NotifyModal, { ...data, email: currentUser.email });
+    openModal(NotifyModal, { ...data });
   };
 
   node.addEventListener('click', handleNotify);

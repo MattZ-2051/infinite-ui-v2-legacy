@@ -1,32 +1,46 @@
 <script lang="ts">
   import type { Profile } from '$lib/sku-item/types';
+  import type { Subscription } from '$lib/notify/types';
   import { mdiBell } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import UserLink from '$lib/components/UserLink.svelte';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
-  import { toast } from '$ui/toast';
-  import { notifyItem } from './notify.api';
+  import { subscription, createSubscriptionFx, deleteSubscriptionFx } from './subscriptions.store';
 
   export let isOpen = false;
   export let profile: Profile;
-  export let email: string;
 
   async function handleNotify() {
-    try {
-      await notifyItem({ email });
-      toast.success('You will now be notified of upcoming news from this creator.');
-    } catch {
-      toast.danger(`There was a problem with your subscription.`);
-    }
+    await ($subscription
+      ? deleteSubscriptionFx(($subscription as Subscription)._id)
+      : createSubscriptionFx(profile._id));
   }
 </script>
 
-<ConfirmModal labels={{ cancel: 'Go back', confirm: 'Subscribe' }} onConfirm={handleNotify} {isOpen}>
+<ConfirmModal
+  labels={{ cancel: 'Go back', confirm: !$subscription ? 'Subscribe' : 'Unsubscribe' }}
+  onConfirm={handleNotify}
+  {isOpen}
+>
   <div slot="title" class="text-2xl">
-    <span class="flex items-center gap-2"><Icon path={mdiBell} /><span>Notify me</span></span>
+    <span class="flex items-center gap-2"
+      ><Icon path={mdiBell} /><span>
+        {#if !$subscription}
+          Notify me
+        {:else}
+          Unsubscribe
+        {/if}
+      </span></span
+    >
   </div>
   <div slot="message" class="flex flex-col items-center py-5 gray-border font-semibold mb-10">
-    <span class="text-gray-500">Subscribe and stay up to date on the newest</span>
+    <span class="text-gray-500">
+      {#if !$subscription}
+        Subscribe and stay up to date on the newest
+      {:else}
+        Unsubscribe of
+      {/if}
+    </span>
     <div>
       <span class="text-gray-500">updates from</span>
       <UserLink username={profile.username} />

@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Profile } from '$lib/sku-item/types';
-  import { mdiBellOutline as notifyIcon, mdiShareVariant as shareIcon } from '@mdi/js';
+  import { mdiShareVariant as shareIcon } from '@mdi/js';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
-  import { notifyAction } from '$lib/notify';
+  import { NotifyMeButton } from '$lib/notify';
   import { socialShareAction } from '$lib/social';
   import IconVerified from '$lib/components/talent/IconVerified.svelte';
   import Icon from '$ui/icon/Icon.svelte';
@@ -37,11 +37,7 @@
       <div class="relative">
         <div class="grid grid-cols-2  border border-opacity-20 rounded-md overflow-hidden">
           <div class="border-r border-opacity-20">
-            <button
-              type="button"
-              class="flex items-center justify-center gap-2 hover:bg-primary text-center py-3 px-5 w-full h-full"
-              use:notifyAction={{ profile }}><Icon path={notifyIcon} />Notify Me</button
-            >
+            <NotifyMeButton {profile} />
           </div>
           <div class="border-r border-opacity-20">
             <button
