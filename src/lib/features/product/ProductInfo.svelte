@@ -22,15 +22,15 @@
     <div class={headerClass}>Owner</div>
     <div><UserLink username={product.owner.username} /></div>
   </div>
-  <div class={cellClass}>
-    <div class={headerClass}>Status</div>
-    <div class="flex gap-2">
-      {#if sku.redeemable || true}
+  {#if sku.redeemable}
+    <div class={cellClass}>
+      <div class={headerClass}>Status</div>
+      <div class="flex gap-2">
         <IconRedeem />
-        <span>Redeemable</span>
-      {/if}
+        <span>{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span>
+      </div>
     </div>
-  </div>
+  {/if}
   <div class={cellClass}>
     <div class={headerClass}>Created by</div>
     <div><TalentLink profile={sku.issuer} /></div>

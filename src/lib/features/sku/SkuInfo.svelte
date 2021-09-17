@@ -28,8 +28,7 @@
         <div class="text-gray-500 text-sm">Active Auction:</div>
         <div>Ends {formatDate(activeProduct.endDate)}</div>
       </div>
-    {/if}
-    {#if isActiveSale}
+    {:else if isActiveSale}
       <div class="flex flex-col gap-2 text-right">
         <div class="text-gray-500 text-sm">Active Sale:</div>
         <div>Started {formatDate(activeProduct?.startDate || activeSku?.startDate)}</div>
