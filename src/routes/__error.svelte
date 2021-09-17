@@ -24,7 +24,7 @@
 
 <div class="container flex flex-grow items-center justify-center">
   <div class="flex flex-col gap-2 items-center text-center">
-    <div class="text-6xl font-extrabold text-gradient-primary">Oh,no!</div>
+    <div class="text-6xl font-extrabold text-gradient-primary">Oh, no!</div>
     <div class="flex flex-col gap-5 md:gap-10 font-bold">
       {#if status === 404}
         <div class="text-2xl md:text-5xl ">This page does not exist.</div>

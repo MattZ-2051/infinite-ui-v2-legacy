@@ -49,7 +49,7 @@
   </div>
 {/if}
 
-<div class="container flex flex-col gap-8 md:gap-14 mt-10 lg:mt-24">
+<div class="container flex flex-col gap-8 md:gap-14 mt-8 lg:mt-14">
   <div class="mb-16">
     <Tabs items={[{ id: 'talents', title: 'Featured Talent' }]} class="text-3xl mb-4">
       <Tab id="talents">

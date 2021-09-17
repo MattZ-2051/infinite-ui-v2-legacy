@@ -84,7 +84,7 @@
         <div class="form-overlay" />
       {/if}
       <span class="text-base text-gray-900 text-center">
-        Please, provide the following information to setup your profile.
+        Please provide the following information to complete your profile.
       </span>
       <form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3">
         <FormInput label="First name *" name="firstName" />

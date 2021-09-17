@@ -67,7 +67,7 @@
   <div>
     {#if $related.length > 0}
       <div class="container mt-12 md:mt-20 md:mb-40">
-        <Tabs items={[{ id: 'related', title: 'Related Releases' }]} itemClass="text-2xl">
+        <Tabs items={[{ id: 'related', title: 'Related Collectibles' }]} itemClass="text-2xl">
           <Tab id="related">
             <SkuItemGrid class="mt-4" skus={$related} />
           </Tab>

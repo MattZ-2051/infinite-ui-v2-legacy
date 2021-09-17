@@ -27,7 +27,7 @@
 </script>
 
 {#if !isOwner}
-  <div class="text-lg py-4">Only owners of this NFT are granted access to download these assets.</div>
+  <div class="text-lg py-4">Only owners of this collectible are granted access to download these assets.</div>
 {/if}
 {#if assetList.length > 0}
   <div class="divide-y divide-white divide-opacity-25">

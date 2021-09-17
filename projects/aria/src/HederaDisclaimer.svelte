@@ -16,7 +16,7 @@
     </div>
     <div class="flex flex-col sm:flex-row gap-2 items-center">
       <a
-        href="https://support.suku.world/infinite/hedera-hashgraph-hts"
+        href="https://aria-network.force.com/support/s/article/What-is-Hedera-Hashgraph"
         class="link text-primary text-base whitespace-nowrap"
         >Read more
       </a>

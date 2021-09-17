@@ -74,7 +74,7 @@
         <img src={photos[2].url} alt="" />
       </div>
     </div>
-    <video src={photos[3].url} playsinline autoplay loop muted style="object-fit: cover; margin:auto;" />
+    <video src={photos[3].url} playsinline autoplay loop muted controls style="object-fit: cover; margin:auto;" />
   </div>
   <slot />
   {#if photos[4].url}

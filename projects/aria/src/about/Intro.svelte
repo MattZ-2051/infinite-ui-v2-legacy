@@ -15,7 +15,7 @@
 
 <div class="container py-0 flex flex-col gap-6 md:gap-12">
   <div class="flex justify-center flex-col items-center text-center gap-8 max-w-4xl mx-auto">
-    <div class="text-4xl text-primary">What is The ARIA Exchange?</div>
+    <div class="text-4xl text-gradient-primary">What is The ARIA Exchange?</div>
     <div class="text-lg">
       Bringing you closer to the most collectible, coveted and rarest mix of digital content and collections in the
       world. We partner with world class artists, athletes and brands to bring you closer to what you care about most.
