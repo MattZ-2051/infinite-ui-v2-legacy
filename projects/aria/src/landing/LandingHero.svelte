@@ -14,6 +14,6 @@
     setDimensions={true}
   />
 </div>
-<div class="hidden md:block text-center py-4 bg-primary-dark" style="font-size: 69px;">
+<div class="hidden md:block text-center py-3 bg-primary-dark" style="font-size: 69px;">
   <div class="container">Exclusive Roberto Clemente NFT Collection</div>
 </div>

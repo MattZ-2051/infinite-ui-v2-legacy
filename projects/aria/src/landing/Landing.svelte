@@ -6,7 +6,7 @@
   import { Tabs, Tab } from '$ui/tabs';
   import SubscribeForm from '$project/subscribe/SubscribeForm.svelte';
   import Intro from '$project/about/Intro.svelte';
-  import LandingHero from './hero/LandingHero.svelte';
+  import LandingHero from './LandingHero.svelte';
   import LandingTileTalent from './tile/LandingTileTalent.svelte';
   import LandingTileSku from './tile/LandingTileSku.svelte';
   import './swiper.css';
@@ -44,12 +44,12 @@
 <LandingHero />
 
 {#if !$user}
-  <div class="container mt-14">
+  <div class="container mt-8">
     <SubscribeForm titleClass="text-3xl pb-2" />
   </div>
 {/if}
 
-<div class="container flex flex-col gap-8 md:gap-14 mt-8 lg:mt-14">
+<div class="container flex flex-col gap-8 md:gap-14 mt-8">
   <div class="mb-16">
     <Tabs items={[{ id: 'talents', title: 'Featured Talent' }]} class="text-3xl mb-4">
       <Tab id="talents">
