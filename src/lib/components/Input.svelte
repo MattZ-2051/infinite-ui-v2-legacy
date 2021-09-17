@@ -37,6 +37,8 @@
     color: var(--input-label-color);
     font-size: var(--input-label-font-size);
     font-weight: var(--input-label-font-weight);
+    display: flex;
+    padding-bottom: 1px;
   }
   .input-icon {
     color: var(--input-icon-color, var(--input-placeholder-color));
