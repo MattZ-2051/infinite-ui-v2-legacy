@@ -40,9 +40,7 @@
         return toast.danger(`Amount must be greater or equal than ${formatCurrency(acceptedBidPrice)}.`);
       }
       if (amount + amount * fee > availableBalanceForBiding) {
-        return toast.danger(
-          `Amount must be less or equal than your available balance ${formatCurrency(availableBalanceForBiding)}.`
-        );
+        return toast.danger(`You do not have sufficient funds in your wallet.`);
       }
 
       dispatch('place-bid', { amount });
