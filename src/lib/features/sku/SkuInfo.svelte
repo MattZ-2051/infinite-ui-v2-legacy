@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
-  import { mdiShareVariant as shareIcon } from '@mdi/js';
+  import { mdiBellOffOutline, mdiBellOutline, mdiShareVariant as shareIcon } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
-  import { NotifyMeButton } from '$lib/notify';
+  import { Notify } from '$lib/notify';
   import { socialShareAction } from '$lib/social';
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
   import { formatDate } from '$util/format';
@@ -20,12 +20,12 @@
 <div class="border border-white border-opacity-20 rounded-lg text-white overflow-hidden">
   <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
     <div class="flex flex-col gap-2">
-      <div class="text-gray-500 text-sm">Edition:</div>
+      <div class="text-gray-500 text-sm">Edition</div>
       <div><SkuEdition {sku} /></div>
     </div>
     {#if isActiveAuction}
       <div class="flex flex-col gap-2 text-right">
-        <div class="text-gray-500 text-sm">Active Auction:</div>
+        <div class="text-gray-500 text-sm">Active Auction</div>
         <div>Ends {formatDate(activeProduct.endDate)}</div>
       </div>
     {:else if isActiveSale}
@@ -50,7 +50,16 @@
     </div>
   </div>
   <div class="grid grid-cols-2 divide-x divide-gray-200">
-    <NotifyMeButton profile={sku.issuer} />
+    <Notify profile={sku.issuer} let:loading let:subscription let:notifyHandler>
+      <button
+        type="button"
+        class="flex items-center justify-center gap-2 hover:bg-primary text-center py-3 px-5 w-full h-full"
+        disabled={loading}
+        on:click={notifyHandler}
+        ><Icon path={subscription ? mdiBellOffOutline : mdiBellOutline} />
+        {#if subscription}Unsubscribe{:else}Notify Me{/if}
+      </button>
+    </Notify>
     <button
       type="button"
       class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"

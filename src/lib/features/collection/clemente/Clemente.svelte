@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Profile } from '$lib/sku-item/types';
-  import { mdiShareVariant as shareIcon } from '@mdi/js';
+  import { mdiBellOffOutline, mdiBellOutline, mdiShareVariant as shareIcon } from '@mdi/js';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
-  import { NotifyMeButton } from '$lib/notify';
+  import { Notify } from '$lib/notify';
   import { socialShareAction } from '$lib/social';
   import IconVerified from '$lib/components/talent/IconVerified.svelte';
   import Icon from '$ui/icon/Icon.svelte';
@@ -37,7 +37,16 @@
       <div class="relative">
         <div class="grid grid-cols-2  border border-opacity-20 rounded-md overflow-hidden">
           <div class="border-r border-opacity-20">
-            <NotifyMeButton {profile} />
+            <Notify {profile} let:loading let:subscription let:notifyHandler>
+              <button
+                type="button"
+                class="flex items-center justify-center gap-2 hover:bg-primary text-center py-3 px-5 w-full h-full"
+                disabled={loading}
+                on:click={notifyHandler}
+                ><Icon path={subscription ? mdiBellOffOutline : mdiBellOutline} />
+                {#if subscription}Unsubscribe{:else}Notify Me{/if}
+              </button>
+            </Notify>
           </div>
           <div class="border-r border-opacity-20">
             <button

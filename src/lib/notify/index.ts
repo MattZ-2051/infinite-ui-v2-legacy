@@ -1,1 +1,1 @@
-export { default as NotifyMeButton } from './NotifyMeButton.svelte';
+export { default as Notify } from './Notify.svelte';
