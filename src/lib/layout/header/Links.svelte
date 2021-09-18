@@ -72,19 +72,17 @@
     >Sign in</button
   >
   <div class="button-container">
-    <Button animate={false} href={routes.signup} class="whitespace-nowrap header-link">Sign up</Button>
+    <Button animate={false} href={routes.signup} class="whitespace-nowrap">Sign up</Button>
   </div>
 {/if}
 
 <style>
   :global(.header-link) {
-    --button-primary-color: var(--header-color);
     color: var(--header-color);
   }
 
   .active,
   :global(.header-link):hover {
-    --button-primary-color: var(--color);
     color: var(--color);
   }
 </style>

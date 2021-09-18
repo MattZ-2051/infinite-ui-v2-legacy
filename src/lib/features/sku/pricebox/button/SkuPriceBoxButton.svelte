@@ -22,8 +22,8 @@
   export let polling = false;
 
   $: classes = clsx(
-    'group block w-full text-left text-black px-8 py-5 font-normal',
-    action || href ? 'flex items-center hover:bg-primary hover:text-white' : '',
+    'price-box group block w-full text-left px-8 py-5 font-normal',
+    action || href ? 'flex items-center interactive' : '',
     polling && 'opacity-50',
     _class
   );
@@ -48,3 +48,15 @@
 {:else}
   <div class={classes} {...$$restProps}><slot /></div>
 {/if}
+
+<style>
+  .price-box {
+    background-color: var(--sku-price-box-bg-color);
+    color: var(--sku-price-box-color);
+  }
+
+  .price-box.interactive:hover {
+    background-color: var(--sku-price-box-bg-color-hover);
+    color: var(--sku-price-box-color-hover);
+  }
+</style>

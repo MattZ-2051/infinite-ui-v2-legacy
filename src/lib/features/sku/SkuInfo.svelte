@@ -53,7 +53,7 @@
     <Notify profile={sku.issuer} let:loading let:subscription let:notifyHandler>
       <button
         type="button"
-        class="flex items-center justify-center gap-2 hover:bg-primary text-center py-3 px-5 w-full h-full"
+        class="flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
         disabled={loading}
         on:click={notifyHandler}
         ><Icon path={subscription ? mdiBellOffOutline : mdiBellOutline} />
@@ -62,8 +62,19 @@
     </Notify>
     <button
       type="button"
-      class="flex items-center justify-center gap-2 hover:bg-primary text-center px-2 py-5 w-full h-full"
+      class="flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
       use:socialShareAction={{ sku }}><Icon path={shareIcon} />Share</button
     >
   </div>
 </div>
+
+<style>
+  button {
+    color: var(--sku-info-button-color);
+    background-color: var(--sku-info-button-bg-color);
+  }
+  button:hover {
+    color: var(--sku-info-button-color-hover);
+    background-color: var(--sku-info-button-bg-color-hover);
+  }
+</style>

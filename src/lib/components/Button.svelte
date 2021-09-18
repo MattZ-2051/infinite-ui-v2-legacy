@@ -60,25 +60,25 @@
 
 <style lang="postcss">
   .button {
-    padding: var(--button-padding, 8px 24px);
-    border-radius: var(--button-border-radius, 20px);
+    padding: var(--button-padding);
+    border-radius: var(--button-border-radius);
   }
 
   .primary {
-    color: var(--button-primary-color, #ffffff);
-    background-color: var(--button-primary-bg-color, var(--primary, #000000));
-    border-color: var(--button-primary-border-color, var(--primary, #000000));
+    color: var(--button-primary-color);
+    background-color: var(--button-primary-bg-color);
+    border-color: var(--button-primary-border-color);
   }
 
   .secondary {
-    color: var(--button-secondary-color, #000000);
-    background-color: var(--button-secondary-bg-color, #ffffff);
-    border-color: var(--button-secondary-border-color, var(--button-secondary-color-border, var(--primary, #000000)));
+    color: var(--button-secondary-color);
+    background-color: var(--button-secondary-bg-color);
+    border-color: var(--button-secondary-border-color);
   }
 
   .tertiary {
-    color: var(--button-tertiary-color, #000000);
-    background-color: var(--button-tertiary-bg-color, #ffffff);
-    border-color: var(--button-tertiary-border-color, #ffffff);
+    color: var(--button-tertiary-color);
+    background-color: var(--button-tertiary-bg-color);
+    border-color: var(--button-tertiary-border-color);
   }
 </style>

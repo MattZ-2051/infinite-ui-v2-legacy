@@ -22,10 +22,10 @@
   </figure>
   <div class="info mx-6 space-y-4">
     <section class="text-current flex flex-row items-center">
-      <TalentLink profile={sku.issuer} hideImage class="opacity-50" />
+      <TalentLink profile={sku.issuer} hideImage class="text-gray-500" />
       {#if sku.redeemable}
-        <div class="flex flex-row flex-nowrap items-center space-x-2 ml-auto opacity-70">
-          <IconRedeem size={24} /><span>Redeemable</span>
+        <div class="flex flex-row flex-nowrap items-center space-x-2 ml-auto">
+          <IconRedeem size={24} /><span class="text-gray-700">Redeemable</span>
         </div>
       {/if}
     </section>
@@ -48,6 +48,11 @@
 </article>
 
 <style>
+  article {
+    color: var(--sku-item-color);
+    background-color: var(--sku-item-bg-color);
+  }
+
   .info {
     min-height: 9.5rem;
   }

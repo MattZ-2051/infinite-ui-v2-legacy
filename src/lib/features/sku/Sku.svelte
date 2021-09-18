@@ -5,7 +5,7 @@
   import Gallery from '$lib/components/Gallery.svelte';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
-  import HederaDisclaimer from '$project/HederaDisclaimer.svelte';
+  import HederaDisclaimer from './HederaDisclaimer.svelte';
   import SkuPriceBox from './pricebox/SkuPriceBox.svelte';
   import SkuInfo from './SkuInfo.svelte';
   import SkuDescription from './SkuDescription.svelte';
@@ -26,23 +26,23 @@
   }
 </script>
 
-<ThemeContext id="sku">
-  <StickyColumn fitOnScreenContent>
-    <div slot="onscreen-content" class="flex flex-col justify-between h-full -container-x md:-container-none">
-      <Gallery items={$sku.nftPublicAssets} />
-    </div>
-    <div slot="sticky-content" class="h-full">
-      <div class="flex flex-col md:px-8 gap-4 md:gap-8 text-white mt-8 md:mt-16 mb-8 md:mb-0">
-        <div class="flex flex-col gap-8">
-          <div class="text-gradient-primary text-3xl md:text-4xl font-medium">{$sku.name}</div>
-          <SkuInfo sku={$sku} />
-        </div>
+<StickyColumn fitOnScreenContent>
+  <div slot="onscreen-content" class="flex flex-col justify-between h-full -container-x md:-container-none">
+    <Gallery items={$sku.nftPublicAssets} />
+  </div>
+  <div slot="sticky-content" class="h-full sku-sticky-content">
+    <div class="flex flex-col md:px-8 gap-4 md:gap-8 mt-8 md:mt-16 mb-8 md:mb-0">
+      <div class="flex flex-col gap-8">
+        <div class="text-gradient-primary text-3xl md:text-4xl font-medium">{$sku.name}</div>
+        <SkuInfo sku={$sku} />
       </div>
     </div>
-    <SkuPriceBox slot="sticky-cta" sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
-    <div slot="tabs" class="pr-4" style="min-height: 300px">
+  </div>
+  <SkuPriceBox slot="sticky-cta" sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
+  <ThemeContext id="sku-tabs" slot="tabs">
+    <div class="pt-12 pd:pt-16 pb-4 pr-4" style="min-height: 300px">
       <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
-        <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-2xl" class="mt-12 md:mt-16 mb-4">
+        <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-2xl">
           <Tab id="description">
             <SkuDescription content={$sku.description} />
 
@@ -62,17 +62,19 @@
           </Tab>
         </Tabs>
       </PrivateAsset>
-    </div>
-  </StickyColumn>
-  <div>
-    {#if $related.length > 0}
-      <div class="container mt-12 md:mt-20 md:mb-40">
+    </div></ThemeContext
+  >
+</StickyColumn>
+{#if $related.length > 0}
+  <ThemeContext id="sku-offsreen">
+    <div style="background-color: var(--sku-offscreen-bg-color)">
+      <div class="container mt-12 md:pt-20 md:pb-40">
         <Tabs items={[{ id: 'related', title: 'Related Collectibles' }]} itemClass="text-2xl">
           <Tab id="related">
             <SkuItemGrid class="mt-4" skus={$related} />
           </Tab>
         </Tabs>
       </div>
-    {/if}
-  </div>
-</ThemeContext>
+    </div></ThemeContext
+  >
+{/if}

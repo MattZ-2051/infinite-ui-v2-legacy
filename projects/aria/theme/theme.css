@@ -1,4 +1,5 @@
 :root {
+  /* Common */
   --primary: #6633ff;
   --primary-dark: #0c002f;
   --edition-single: #ffa800;
@@ -8,7 +9,6 @@
   --gradient-end: #6734ff;
   --bg-color: #000000;
   --color: #ffffff;
-  --inverse-color: #000000;
   --link-color: var(--primary);
   --separator-bg-color: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
   --icon-bg-color: #2d2d2d;
@@ -60,6 +60,19 @@
   --checkbox-border-color: theme('colors.gray.200');
   --checkbox-checkmark-color: var(--color);
 
+  /* Button */
+  --button-padding: 8px 24px;
+  --button-border-radius: 20px;
+  --button-primary-color: #ffffff;
+  --button-primary-bg-color: var(--primary);
+  --button-primary-border-color: var(--primary);
+  --button-secondary-color: #000000;
+  --button-secondary-bg-color: #ffffff;
+  --button-secondary-border-color: var(--primary);
+  --button-tertiary-color: #000000;
+  --button-tertiary-bg-color: #ffffff;
+  --button-tertiary-border-color: #ffffff;
+
   /* Header */
   --header-color: #ffffff;
   --header-bg-color: #000000;
@@ -94,7 +107,7 @@
   --tab-color-hover: var(--color);
 
   /* Tooltip */
-  --tooltip-bg: #ffffff;
+  --tooltip-bg-color: #ffffff;
   --tooltip-color: #000000;
 
   /* IconRedeem */
@@ -102,8 +115,17 @@
   --icon-redeem-border-radius: 16px;
   --icon-redeem-bg-color: var(--icon-bg-color);
 
-  /* SKU CTA */
-  --sku-cta-bg: #c4c4c4;
+  /* SkuPriceBox */
+  --sku-price-box-bg-color: #c4c4c4;
+  --sku-price-box-bg-color-hover: var(--primary);
+  --sku-price-box-color-hover: #ffffff;
+  --sku-price-box-color: #000000;
+
+  /* SkuInfo */
+  --sku-info-button-color: var(--color);
+  --sku-info-button-bg-color: var(--bg-color);
+  --sku-info-button-color-hover: var(--color);
+  --sku-info-button-bg-color-hover: var(--primary);
 
   /* Input */
   --input-container-border-color-focus: var(--color);
@@ -135,14 +157,14 @@
   --product-tabs-bg: #1a1a1a;
 }
 
-.theme-tabs {
+.theme-brand-tabs {
   /* Tabs */
   --tab-border-color-active: var(--primary);
   --tab-color-active: var(--primary);
   --tab-color-hover: var(--color);
 }
 
-.theme-form {
+.theme-brand-forms {
   /* Input */
   --input-container-border-width: 0;
   --input-container-padding-bottom: 0;

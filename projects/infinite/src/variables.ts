@@ -13,3 +13,4 @@ export const hubspot = {
   portalId: import.meta.env.VITE_HUBSPOT_PORTAL_ID,
 };
 export const CLIENT_SUPPORT_EMAIL = 'help@infinite.com';
+export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-hashgraph-hts';

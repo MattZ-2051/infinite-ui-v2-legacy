@@ -48,7 +48,7 @@
     lowestPriceListingCollector?.listing?.status === 'upcoming';
 </script>
 
-<ThemeContext id="sku-pricebox">
+<ThemeContext id="sku-price-box">
   <div class="flex flex-col divide-y divide-black">
     {#if collector}
       <LimitedAuction {collector} />
@@ -80,6 +80,6 @@
 
 <style>
   div {
-    background-color: var(--sku-cta-bg, #ffffff);
+    background-color: var(--sku-price-box-bg-color);
   }
 </style>

@@ -75,8 +75,8 @@ input[type='number'] {
 
 .text-gradient-primary {
   @apply text-gradient bg-gradient-to-r;
-  --tw-gradient-to: #6734ff;
-  --tw-gradient-from: #c000d6;
+  --tw-gradient-to: var(--gradient-end);
+  --tw-gradient-from: var(--gradient-start);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 

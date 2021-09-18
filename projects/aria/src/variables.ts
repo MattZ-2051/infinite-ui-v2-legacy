@@ -8,3 +8,4 @@ export const CLIENT_SOCIAL_IMAGE = {
   alt: 'The ARIA Exchange',
 };
 export const CLIENT_SUPPORT_EMAIL = 'support@ARIAExchange.com';
+export const CLIENT_HEDERA_URL = 'https://aria-network.force.com/support/s/article/What-is-Hedera-Hashgraph';

@@ -27,3 +27,10 @@
 </script>
 
 <div {style} class={classes} data-theme-context={context.join('.')} {...$$restProps}><slot /></div>
+
+<style>
+  div {
+    color: var(--color);
+    background-color: var(--bg-color);
+  }
+</style>

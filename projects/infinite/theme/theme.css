@@ -1,31 +1,64 @@
 :root {
+  /* Header */
+  --header-height: 72px;
+
+  /* Footer */
+  --footer-icon-border-radius: 50%;
+
+  /* IconRedeem */
+  --icon-redeem-border-radius: 50%;
+
+  /* Menu */
+  --menu-list-background-color: #ffffff;
+  --menu-item-background-selected: #000000;
+  --menu-item-color: rgba(0, 0, 0, 0.5);
+  --menu-item-color-selected: #ffffff;
+
+  /* Button */
+  --button-padding: 8px 24px;
+  --button-border-radius: 0;
+
+  /* SkuPriceBox */
+  --sku-price-box-bg-color: #ffffff;
+  --sku-price-box-bg-color-hover: #ddf874;
+  --sku-price-box-color-hover: #000000;
+  --sku-price-box-color: #000000;
+
+  /* SkuInfo */
+  --sku-info-button-color: #ffffff;
+  --sku-info-button-bg-color: #000000;
+  --sku-info-button-color-hover: #000000;
+  --sku-info-button-bg-color-hover: #ffffff;
+
+  /* Sku */
+  --sku-offscreen-bg-color: rgba(255, 255, 255, 0.95);
+}
+
+.theme-light {
+  /* Common */
   --bg-color: #ffffff;
   --color: #000000;
   --primary: #000000;
-  --link-color: var(--primary);
+  --link-color: var(--color);
   --separator-bg-color: var(--gray-100);
   --icon-bg-color: #2d2d2d;
   --edition-single: #000000;
   --edition-limited: #000000;
   --edition-open: #000000;
+  --gradient-start: #000000;
+  --gradient-end: #000000;
 
   /* Grayscale */
   --gray-50: rgba(0, 0, 0, 0.05);
   --gray-100: rgba(0, 0, 0, 0.1);
   --gray-200: rgba(0, 0, 0, 0.2);
-  --gray-300: rgba(0, 0, 0, 0.3);
+  --gray-300: rgba(83, 48, 48, 0.3);
   --gray-400: rgba(0, 0, 0, 0.4);
   --gray-500: rgba(0, 0, 0, 0.5);
   --gray-600: rgba(0, 0, 0, 0.6);
   --gray-700: rgba(0, 0, 0, 0.7);
   --gray-800: rgba(0, 0, 0, 0.8);
   --gray-900: rgba(0, 0, 0, 0.9);
-
-  /* Menu */
-  --menu-list-background-color: #ffffff;
-  --menu-item-background-selected: #000000;
-  --menu-item-color: theme('colors.gray.500');
-  --menu-item-color-selected: #ffffff;
 
   /* Filters */
   --filters-color-expanded: var(--primary);
@@ -57,16 +90,19 @@
 
   /* Footer */
   --footer-bg-color: #ffffff;
-  --footer-color: theme('colors.black-opacity.50');
+  --footer-color: theme('colors.gray.500');
   --footer-color-hover: #000000;
   --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
   --footer-icon-color: rgba(0, 0, 0, 0.5);
   --footer-icon-bg-color-hover: #000000;
   --footer-icon-color-hover: #ffffff;
-  --footer-icon-border-radius: 50%;
 
   /* IconRedeem */
-  --icon-redeem-border-radius: 50%;
+  --icon-redeem-color: #ffffff;
+  --icon-redeem-bg-color: var(--icon-bg-color);
+
+  /* IconRedeem */
+  --icon-redeem-color: var(--color);
   --icon-redeem-bg-color: transparent;
 
   /* Pagination */
@@ -87,13 +123,14 @@
   --sort-icon-bg-color: #000000;
 
   /* Tabs */
-  --tab-border-color: #ebebeb;
-  --tab-color: #9e9e9e;
-  --tab-border-color-active: #000000;
-  --tab-color-active: #000000;
+  --tab-border-color: theme('colors.gray.200');
+  --tab-color: theme('colors.gray.500');
+  --tab-border-color-active: var(--color);
+  --tab-color-active: var(--color);
+  --tab-color-hover: var(--color);
 
   /* Tooltip */
-  --tooltip-bg: #000000;
+  --tooltip-bg-color: #000000;
   --tooltip-color: #ffffff;
 
   /* Select */
@@ -107,11 +144,36 @@
   --range-slider-bg-color-selected: #000000;
   --range-slider-thumb-bg-color: #ffffff;
   --range-slider-thumb-active-color: #000000;
+
+  /* SkuItem */
+  --sku-item-color: var(--color);
+  --sku-item-bg-color: var(--bg-color);
+
+  /* Button */
+  --button-primary-color: #ffffff;
+  --button-primary-bg-color: #000000;
+  --button-primary-border-color: #000000;
+  --button-secondary-color: #000000;
+  --button-secondary-bg-color: #ffffff;
+  --button-secondary-border-color: #000000;
+  --button-tertiary-color: #000000;
+  --button-tertiary-bg-color: #ffffff;
+  --button-tertiary-border-color: #ffffff;
 }
 
 .theme-dark {
+  /* Common */
   --color: #ffffff;
   --bg-color: #000000;
+  --primary: #ffffff;
+  --link-color: var(--color);
+  --separator-bg-color: var(--gray-100);
+  --icon-bg-color: #ffffff;
+  --edition-single: #ffffff;
+  --edition-limited: #ffffff;
+  --edition-open: #ffffff;
+  --gradient-start: #ffffff;
+  --gradient-end: #ffffff;
 
   /* Grayscale */
   --gray-50: rgba(255, 255, 255, 0.05);
@@ -128,14 +190,13 @@
   /* Header */
   --header-color: theme('colors.gray.500');
   --header-bg-color: #000000;
-  --header-height: 72px;
 
   /* Footer */
   --footer-bg-color: #000000;
   --footer-color: #7c7c7c;
   --footer-color-hover: #ffffff;
   --footer-icon-bg-color: #2e2e2e;
-  --footer-icon-color: #ffffff;
+  --footer-icon-color: var(--icon-bg-color);
   --footer-icon-bg-color-hover: #ffffff;
   --footer-icon-color-hover: #000000;
 
@@ -160,10 +221,35 @@
   --tab-border-color-active: #ffffff;
   --tab-color-active: #ffffff;
 
-  /* Button */
-  --button-primary-background-color: #000000;
-
   /* Tooltip */
-  --tooltip-bg: #ffffff;
+  --tooltip-bg-color: #ffffff;
   --tooltip-color: #000000;
+
+  /* SkuItem */
+  --sku-item-bg-color: var(--bg-color);
+
+  /* Button */
+  --button-primary-color: #000000;
+  --button-primary-bg-color: var(--primary);
+  --button-primary-border-color: var(--primary);
+  --button-secondary-color: #000000;
+  --button-secondary-bg-color: #ffffff;
+  --button-secondary-border-color: var(--primary);
+  --button-tertiary-color: #000000;
+  --button-tertiary-bg-color: #ffffff;
+  --button-tertiary-border-color: #ffffff;
+}
+
+.theme-brand-footer {
+  /* Common */
+  --separator-bg-color: rgba(0, 0, 0, 0.16);
+
+  /* Footer */
+  --footer-bg-color: #ddf874;
+  --footer-color: rgba(0, 0, 0, 0.5);
+  --footer-color-hover: #000000;
+  --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
+  --footer-icon-color: rgba(0, 0, 0, 0.5);
+  --footer-icon-bg-color-hover: #000000;
+  --footer-icon-color-hover: #ffffff;
 }
