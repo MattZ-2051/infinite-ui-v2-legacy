@@ -9,6 +9,18 @@
 
 <div class="flex flex-col" {...$$restProps}>
   {#each $toast as { key, ...rest } (key)}
-    <Toast on:close={handleOnClose} {...rest} />
+    <Toast
+      on:close={handleOnClose}
+      {...rest}
+      let:severity
+      let:message
+      let:onMessageClick
+      let:closeable
+      let:close
+      let:showProgressBar
+      let:progress
+    >
+      <slot {severity} {message} {onMessageClick} {closeable} {close} {showProgressBar} {progress} />
+    </Toast>
   {/each}
 </div>

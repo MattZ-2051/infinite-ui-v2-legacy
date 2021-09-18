@@ -24,7 +24,7 @@
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$lib/layout/header/Header.svelte';
   import Footer from '$project/footer/Footer.svelte';
-  import { ToastContainer } from '$ui/toast';
+  import Toast from '$project/toast/Toast.svelte';
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
   import GdprBanner from '$lib/components/GdprBanner.svelte';
@@ -61,7 +61,7 @@
     <Header />
 
     <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-toast">
-      <ToastContainer class="absolute top-0 left-0 right-0 overflow-hidden text-xl italic font-extrabold" />
+      <Toast />
     </div>
 
     <main class="relative flex flex-col flex-grow">

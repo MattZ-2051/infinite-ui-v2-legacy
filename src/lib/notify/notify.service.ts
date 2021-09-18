@@ -9,7 +9,7 @@ import NotifyModal from './NotifyModal.svelte';
 export function handleNotify(data: { profile: Profile }) {
   const currentUser = getStoreValue<User>(user);
   if (!currentUser) {
-    toast.danger(`Please sign in or create an account to subscribe for notifications.`);
+    toast.warning(`Please sign in or create an account to subscribe for notifications.`, { toastId: 'NOTIFY_SIGNIN' });
     return;
   }
   openModal(NotifyModal, { ...data });

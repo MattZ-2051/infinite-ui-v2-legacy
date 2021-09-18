@@ -4,8 +4,6 @@
   import { fly } from 'svelte/transition';
   import { tweened } from 'svelte/motion';
   import { get } from 'svelte/store';
-  import { mdiClose } from '@mdi/js';
-  import Icon from '$ui/icon/Icon.svelte';
 
   /**
    * Useful to manually remove the Toast using toast.remove(toastId).
@@ -93,58 +91,11 @@
 <svelte:window on:focus={resumeToast} on:blur={pauseToast} />
 
 <div
-  class="shadow relative toast toast-{severity}"
   on:mouseenter={pauseOnHover ? pauseToast : undefined}
   on:mouseleave={pauseOnHover ? resumeToast : undefined}
   in:fly={{ x: 250 }}
   out:fly={$progress === MAX_VALUE ? { x: 250 } : { duration: 0 }}
   role="status"
 >
-  <div class="container flex items-center justify-between">
-    <div class="toast-message" on:click={onMessageClick}>{@html message}</div>
-    {#if closeable}
-      <button
-        type="button"
-        on:click={close}
-        title="Close"
-        class="bg-black bg-opacity-30 text-gray-900 hover:bg-opacity-60 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-full p-1 inline-flex items-center justify-center"
-        ><Icon path={mdiClose} /></button
-      >
-    {/if}
-  </div>
-  {#if showProgressBar}
-    <div
-      role="progressbar"
-      aria-label="notification timer"
-      class="absolute bg-black bg-opacity-40 h-1 bottom-0 left-0"
-      style="width: {$progress * 100}%"
-    />
-  {/if}
+  <slot {severity} {message} {onMessageClick} {closeable} {close} {showProgressBar} progress={$progress} />
 </div>
-
-<style>
-  .toast {
-    color: #000000;
-  }
-
-  .toast-danger {
-    background: linear-gradient(89.89deg, #fb5543 0%, #f24c66 100%), #fc5746;
-  }
-  .toast-success {
-    background: linear-gradient(89.89deg, #00eb7c 0%, #11d6ec 100%);
-  }
-  .toast-warning {
-    background: linear-gradient(45deg, #ffae12, #f0da16 98.96%);
-  }
-  .toast-info {
-    background: #5bc0de;
-  }
-
-  .toast-message :global(a) {
-    text-decoration: underline;
-  }
-
-  .toast-message :global(a):hover {
-    text-decoration: none;
-  }
-</style>
