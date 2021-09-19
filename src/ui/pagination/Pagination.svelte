@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { mdiChevronDoubleLeft, mdiChevronDoubleRight, mdiChevronLeft, mdiChevronRight } from '@mdi/js';
+  import { mdiChevronDoubleLeft, mdiChevronLeft } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import PaginationItem from './PaginationItem.svelte';
   import PaginationEllipsis from './PaginationEllipsis.svelte';
@@ -116,12 +116,12 @@
 
       {#if previousButtons}
         <PaginationItem on:click={() => go(page + 1)} disabled={isLastPage}>
-          <slot name="next"><Icon path={mdiChevronRight} /></slot>
+          <slot name="next"><Icon path={mdiChevronLeft} flip="h" /></slot>
         </PaginationItem>
       {/if}
       {#if boundaryLinks}
         <PaginationItem on:click={() => go(pages)} disabled={isLastPage}>
-          <slot name="last"><Icon path={mdiChevronDoubleRight} /></slot>
+          <slot name="last"><Icon path={mdiChevronDoubleLeft} flip="h" /></slot>
         </PaginationItem>
       {/if}
     </ul>
