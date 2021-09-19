@@ -24,11 +24,11 @@
   --sku-price-box-color-hover: #000000;
   --sku-price-box-color: #000000;
 
-  /* SkuInfo */
-  --sku-info-button-color: #ffffff;
-  --sku-info-button-bg-color: #000000;
-  --sku-info-button-color-hover: #000000;
-  --sku-info-button-bg-color-hover: #ffffff;
+  /* ButtonGroup */
+  --button-group-color: #ffffff;
+  --button-group-bg-color: #000000;
+  --button-group-color-hover: #000000;
+  --button-group-bg-color-hover: #ffffff;
 
   /* Sku */
   --sku-offscreen-bg-color: rgba(255, 255, 255, 0.95);

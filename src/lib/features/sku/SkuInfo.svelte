@@ -2,6 +2,7 @@
   import type { Sku } from '$lib/sku-item/types';
   import { mdiBellOffOutline, mdiBellOutline, mdiShareVariant as shareIcon } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
+  import ButtonGroup from '$lib/components/ButtonGroup.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import { Notify } from '$lib/notify';
@@ -49,7 +50,7 @@
       {/if}
     </div>
   </div>
-  <div class="grid grid-cols-2 divide-x divide-gray-200">
+  <ButtonGroup class="grid grid-cols-2 divide-x divide-gray-200">
     <Notify profile={sku.issuer} let:loading let:subscription let:notifyHandler>
       <button
         type="button"
@@ -65,16 +66,5 @@
       class="flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
       use:socialShareAction={{ sku }}><Icon path={shareIcon} />Share</button
     >
-  </div>
+  </ButtonGroup>
 </div>
-
-<style>
-  button {
-    color: var(--sku-info-button-color);
-    background-color: var(--sku-info-button-bg-color);
-  }
-  button:hover {
-    color: var(--sku-info-button-color-hover);
-    background-color: var(--sku-info-button-bg-color-hover);
-  }
-</style>

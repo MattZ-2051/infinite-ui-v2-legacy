@@ -73,6 +73,12 @@
   --button-tertiary-bg-color: #ffffff;
   --button-tertiary-border-color: #ffffff;
 
+  /* ButtonGroup */
+  --button-group-color: var(--color);
+  --button-group-bg-color: var(--bg-color);
+  --button-group-color-hover: var(--color);
+  --button-group-bg-color-hover: var(--primary);
+
   /* Header */
   --header-color: #ffffff;
   --header-bg-color: #000000;
@@ -120,12 +126,6 @@
   --sku-price-box-bg-color-hover: var(--primary);
   --sku-price-box-color-hover: #ffffff;
   --sku-price-box-color: #000000;
-
-  /* SkuInfo */
-  --sku-info-button-color: var(--color);
-  --sku-info-button-bg-color: var(--bg-color);
-  --sku-info-button-color-hover: var(--color);
-  --sku-info-button-bg-color-hover: var(--primary);
 
   /* Input */
   --input-container-border-color-focus: var(--color);

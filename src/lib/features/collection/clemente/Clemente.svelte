@@ -2,6 +2,7 @@
   import type { Profile } from '$lib/sku-item/types';
   import { mdiBellOffOutline, mdiBellOutline, mdiShareVariant as shareIcon } from '@mdi/js';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
+  import ButtonGroup from '$lib/components/ButtonGroup.svelte';
   import { Notify } from '$lib/notify';
   import { socialShareAction } from '$lib/social';
   import IconVerified from '$lib/components/talent/IconVerified.svelte';
@@ -34,31 +35,24 @@
         <IconVerified size={32} />
       </div>
       <div class="text-2xl">@{profile.username}</div>
-      <div class="relative">
-        <div class="grid grid-cols-2  border border-opacity-20 rounded-md overflow-hidden">
-          <div class="border-r border-opacity-20">
-            <Notify {profile} let:loading let:subscription let:notifyHandler>
-              <button
-                type="button"
-                class="flex items-center justify-center gap-2 hover:bg-primary text-center py-3 px-5 w-full h-full"
-                disabled={loading}
-                on:click={notifyHandler}
-                ><Icon path={subscription ? mdiBellOffOutline : mdiBellOutline} />
-                {#if subscription}Unsubscribe{:else}Notify Me{/if}
-              </button>
-            </Notify>
-          </div>
-          <div class="border-r border-opacity-20">
-            <button
-              type="button"
-              class="flex items-center justify-center gap-2 hover:bg-primary text-center py-3 px-5 w-full h-full"
-              use:socialShareAction={{ profile }}><Icon path={shareIcon} />Share</button
-            >
-          </div>
-        </div>
-      </div>
+      <ButtonGroup class="grid grid-cols-2 divide-x divide-gray-200 border border-gray-200 rounded-md overflow-hidden">
+        <Notify {profile} let:loading let:subscription let:notifyHandler>
+          <button
+            type="button"
+            class="flex items-center justify-center gap-2 text-center py-3 px-5 w-full h-full"
+            disabled={loading}
+            on:click={notifyHandler}
+            ><Icon path={subscription ? mdiBellOffOutline : mdiBellOutline} />
+            {#if subscription}Unsubscribe{:else}Notify Me{/if}
+          </button>
+        </Notify>
+        <button
+          type="button"
+          class="flex items-center justify-center gap-2 text-center py-3 px-5 w-full h-full"
+          use:socialShareAction={{ profile }}><Icon path={shareIcon} />Share</button
+        >
+      </ButtonGroup>
     </div>
-
     <div class="flex flex-col md:grid md:grid-cols-2 gap-2">
       <div class="flex md:justify-end md:mt-12">
         <div class="flex flex-col gap-5">
