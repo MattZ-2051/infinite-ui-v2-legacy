@@ -6,13 +6,10 @@ const Theme = {
 
 export const themeConfig = {
   '*.header': Theme.Dark,
-  '$index.*.root': Theme.Dark,
-  '$collection.*.root': Theme.Dark,
   '$marketplace.root': Theme.Light,
-  '$marketplace.*.root': [Theme.Dark, Theme.BrandFooter],
+  '$marketplace.*.footer': Theme.BrandFooter,
   '*.sku-price-box': Theme.Light,
   '*.sku-offsreen': Theme.Light,
-  '$product.*.root': Theme.Dark,
-  '$collectors.*.root': Theme.Dark,
+  '*.wallet-list': Theme.Light,
   '*.modal': Theme.Light,
 };

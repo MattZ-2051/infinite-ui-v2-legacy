@@ -1,9 +1,83 @@
-:root {
+:root,
+.theme-dark {
+  /* Common */
+  --color: #ffffff;
+  --bg-color: #000000;
+  --primary: #ffffff;
+  --link-color: var(--color);
+  --separator-bg-color: var(--gray-100);
+  --icon-bg-color: #ffffff;
+  --edition-single: #ffffff;
+  --edition-limited: #ffffff;
+  --edition-open: #ffffff;
+  --gradient-start: #ffffff;
+  --gradient-end: #ffffff;
+
+  /* Grayscale */
+  --gray-50: rgba(255, 255, 255, 0.05);
+  --gray-100: rgba(255, 255, 255, 0.1);
+  --gray-200: rgba(255, 255, 255, 0.2);
+  --gray-300: rgba(255, 255, 255, 0.3);
+  --gray-400: rgba(255, 255, 255, 0.4);
+  --gray-500: rgba(255, 255, 255, 0.5);
+  --gray-600: rgba(255, 255, 255, 0.6);
+  --gray-700: rgba(255, 255, 255, 0.7);
+  --gray-800: rgba(255, 255, 255, 0.8);
+  --gray-900: rgba(255, 255, 255, 0.9);
+
   /* Header */
+  --header-color: theme('colors.gray.500');
+  --header-bg-color: #000000;
   --header-height: 72px;
 
   /* Footer */
+  --footer-bg-color: #000000;
+  --footer-color: #7c7c7c;
+  --footer-color-hover: #ffffff;
+  --footer-icon-bg-color: #2e2e2e;
+  --footer-icon-color: var(--icon-bg-color);
+  --footer-icon-bg-color-hover: #ffffff;
+  --footer-icon-color-hover: #000000;
   --footer-icon-border-radius: 50%;
+
+  /* Pagination */
+  --pagination-color: #9e9e9e;
+  --pagination-color-active: #000000;
+  --pagination-background-color-active: #ffffff;
+
+  /* Checkbox */
+  --checkbox-color: #ffffff;
+  --checkbox-bg: #696969;
+  --checkbox-hover-bg: #4e4e4e;
+
+  /* Sort */
+  --sort-color: #ffffff;
+  --sort-icon-color: #000000;
+  --sort-icon-bg-color: #ffffff;
+
+  /* Tabs */
+  --tab-border-color: #232323;
+  --tab-color: #606060;
+  --tab-border-color-active: #ffffff;
+  --tab-color-active: #ffffff;
+
+  /* Tooltip */
+  --tooltip-bg-color: #ffffff;
+  --tooltip-color: #000000;
+
+  /* SkuItem */
+  --sku-item-bg-color: var(--bg-color);
+
+  /* Button */
+  --button-primary-color: #000000;
+  --button-primary-bg-color: var(--primary);
+  --button-primary-border-color: var(--primary);
+  --button-secondary-color: #000000;
+  --button-secondary-bg-color: #ffffff;
+  --button-secondary-border-color: var(--primary);
+  --button-tertiary-color: #000000;
+  --button-tertiary-bg-color: #ffffff;
+  --button-tertiary-border-color: #ffffff;
 
   /* IconRedeem */
   --icon-redeem-border-radius: 50%;
@@ -18,11 +92,11 @@
   --button-padding: 8px 24px;
   --button-border-radius: 0;
 
-  /* SkuPriceBox */
-  --sku-price-box-bg-color: #ffffff;
-  --sku-price-box-bg-color-hover: #ddf874;
-  --sku-price-box-color-hover: #000000;
-  --sku-price-box-color: #000000;
+  /* SkuPriceBox, WalletButtons */
+  --sticky-cta-bg-color: #ffffff;
+  --sticky-cta-bg-color-hover: #ddf874;
+  --sticky-cta-color-hover: #000000;
+  --sticky-cta-color: #000000;
 
   /* ButtonGroup */
   --button-group-color: #ffffff;
@@ -32,6 +106,10 @@
 
   /* Sku */
   --sku-offscreen-bg-color: rgba(255, 255, 255, 0.95);
+
+  /* WalletBalance */
+  --wallet-balance-bg-color: rgba(255, 255, 255, 0.05);
+  --wallet-balance-heading-color: #ddf874;
 }
 
 .theme-light {
@@ -98,10 +176,6 @@
   --footer-icon-color-hover: #ffffff;
 
   /* IconRedeem */
-  --icon-redeem-color: #ffffff;
-  --icon-redeem-bg-color: var(--icon-bg-color);
-
-  /* IconRedeem */
   --icon-redeem-color: var(--color);
   --icon-redeem-bg-color: transparent;
 
@@ -156,85 +230,6 @@
   --button-secondary-color: #000000;
   --button-secondary-bg-color: #ffffff;
   --button-secondary-border-color: #000000;
-  --button-tertiary-color: #000000;
-  --button-tertiary-bg-color: #ffffff;
-  --button-tertiary-border-color: #ffffff;
-}
-
-.theme-dark {
-  /* Common */
-  --color: #ffffff;
-  --bg-color: #000000;
-  --primary: #ffffff;
-  --link-color: var(--color);
-  --separator-bg-color: var(--gray-100);
-  --icon-bg-color: #ffffff;
-  --edition-single: #ffffff;
-  --edition-limited: #ffffff;
-  --edition-open: #ffffff;
-  --gradient-start: #ffffff;
-  --gradient-end: #ffffff;
-
-  /* Grayscale */
-  --gray-50: rgba(255, 255, 255, 0.05);
-  --gray-100: rgba(255, 255, 255, 0.1);
-  --gray-200: rgba(255, 255, 255, 0.2);
-  --gray-300: rgba(255, 255, 255, 0.3);
-  --gray-400: rgba(255, 255, 255, 0.4);
-  --gray-500: rgba(255, 255, 255, 0.5);
-  --gray-600: rgba(255, 255, 255, 0.6);
-  --gray-700: rgba(255, 255, 255, 0.7);
-  --gray-800: rgba(255, 255, 255, 0.8);
-  --gray-900: rgba(255, 255, 255, 0.9);
-
-  /* Header */
-  --header-color: theme('colors.gray.500');
-  --header-bg-color: #000000;
-
-  /* Footer */
-  --footer-bg-color: #000000;
-  --footer-color: #7c7c7c;
-  --footer-color-hover: #ffffff;
-  --footer-icon-bg-color: #2e2e2e;
-  --footer-icon-color: var(--icon-bg-color);
-  --footer-icon-bg-color-hover: #ffffff;
-  --footer-icon-color-hover: #000000;
-
-  /* Pagination */
-  --pagination-color: #9e9e9e;
-  --pagination-color-active: #000000;
-  --pagination-background-color-active: #ffffff;
-
-  /* Checkbox */
-  --checkbox-color: #ffffff;
-  --checkbox-bg: #696969;
-  --checkbox-hover-bg: #4e4e4e;
-
-  /* Sort */
-  --sort-color: #ffffff;
-  --sort-icon-color: #000000;
-  --sort-icon-bg-color: #ffffff;
-
-  /* Tabs */
-  --tab-border-color: #232323;
-  --tab-color: #606060;
-  --tab-border-color-active: #ffffff;
-  --tab-color-active: #ffffff;
-
-  /* Tooltip */
-  --tooltip-bg-color: #ffffff;
-  --tooltip-color: #000000;
-
-  /* SkuItem */
-  --sku-item-bg-color: var(--bg-color);
-
-  /* Button */
-  --button-primary-color: #000000;
-  --button-primary-bg-color: var(--primary);
-  --button-primary-border-color: var(--primary);
-  --button-secondary-color: #000000;
-  --button-secondary-bg-color: #ffffff;
-  --button-secondary-border-color: var(--primary);
   --button-tertiary-color: #000000;
   --button-tertiary-bg-color: #ffffff;
   --button-tertiary-border-color: #ffffff;

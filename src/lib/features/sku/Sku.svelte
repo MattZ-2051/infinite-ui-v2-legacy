@@ -39,31 +39,29 @@
     </div>
   </div>
   <SkuPriceBox slot="sticky-cta" sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
-  <ThemeContext id="sku-tabs" slot="tabs">
-    <div class="pt-12 pd:pt-16 pb-4 pr-4" style="min-height: 300px">
-      <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
-        <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-2xl">
-          <Tab id="description">
-            <SkuDescription content={$sku.description} />
+  <div slot="tabs" class="pt-12 pd:pt-16 pb-4 pr-4" style="min-height: 300px">
+    <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
+      <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-2xl">
+        <Tab id="description">
+          <SkuDescription content={$sku.description} />
 
-            <div class="mt-8">
-              <HederaDisclaimer />
-            </div>
-          </Tab>
+          <div class="mt-8">
+            <HederaDisclaimer />
+          </div>
+        </Tab>
 
-          <Tab id="details">
-            <SkuDescription content={$sku.details} />
-          </Tab>
+        <Tab id="details">
+          <SkuDescription content={$sku.details} />
+        </Tab>
 
-          <Tab id="owner">
-            {#if totalPrivateAssets > 0}
-              <PrivateAssetList />
-            {/if}
-          </Tab>
-        </Tabs>
-      </PrivateAsset>
-    </div></ThemeContext
-  >
+        <Tab id="owner">
+          {#if totalPrivateAssets > 0}
+            <PrivateAssetList />
+          {/if}
+        </Tab>
+      </Tabs>
+    </PrivateAsset>
+  </div>
 </StickyColumn>
 {#if $related.length > 0}
   <ThemeContext id="sku-offsreen">

@@ -17,10 +17,10 @@
   }
 </script>
 
-<div class="flex flex-col divide-y divide-black">
+<div class="flex flex-col divide-y divide-black border-t md-border-t-0 md:border-r border-black">
   <button
     type="button"
-    class="flex items-center justify-between py-4 px-10 w-full font-medium text-2xl text-black hover:bg-primary hover:text-white"
+    class="sticky-cta flex items-center justify-between py-4 px-10 w-full font-medium text-2xl"
     on:click={() => dispatch('deposit')}
   >
     <span>Deposit</span>
@@ -28,16 +28,10 @@
   </button>
   <button
     type="button"
-    class="flex items-center justify-between py-4 px-10 w-full font-medium text-2xl text-black hover:bg-primary hover:text-white"
+    class="sticky-cta flex items-center justify-between py-4 px-10 w-full font-medium text-2xl"
     on:click={() => handleWithdraw()}
   >
     <span>Withdraw</span>
     <Icon path={mdiArrowRight} size="2" rotate={45} />
   </button>
 </div>
-
-<style>
-  button {
-    background-color: var(--sku-cta-bg, #ffffff);
-  }
-</style>

@@ -13,6 +13,7 @@
   --separator-bg-color: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
   --icon-bg-color: #2d2d2d;
 
+  /* Grayscale */
   --gray-50: rgba(255, 255, 255, 0.05);
   --gray-100: rgba(255, 255, 255, 0.1);
   --gray-200: rgba(255, 255, 255, 0.2);
@@ -121,11 +122,11 @@
   --icon-redeem-border-radius: 16px;
   --icon-redeem-bg-color: var(--icon-bg-color);
 
-  /* SkuPriceBox */
-  --sku-price-box-bg-color: #c4c4c4;
-  --sku-price-box-bg-color-hover: var(--primary);
-  --sku-price-box-color-hover: #ffffff;
-  --sku-price-box-color: #000000;
+  /* SkuPriceBox, WalletButtons */
+  --sticky-cta-bg-color: #c4c4c4;
+  --sticky-cta-bg-color-hover: var(--primary);
+  --sticky-cta-color-hover: #ffffff;
+  --sticky-cta-color: #000000;
 
   /* Input */
   --input-container-border-color-focus: var(--color);
@@ -153,8 +154,12 @@
   /* TransactionItem */
   --transaction-details-copy-bg: linear-gradient(90deg, var(--gradient-start) 7.48%, var(--gradient-end) 79.51%);
 
-  /* Product Tabs */
+  /* ProductTabs */
   --product-tabs-bg: #1a1a1a;
+
+  /* WalletBalance */
+  --wallet-balance-bg-color: #1d1a54;
+  --wallet-balance-heading-color: var(--color);
 }
 
 .theme-brand-tabs {

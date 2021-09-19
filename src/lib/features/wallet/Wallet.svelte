@@ -5,6 +5,7 @@
   import { user } from '$lib/user';
   import CryptoCurrency from '$lib/payment/crypto/CryptoCurrency.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
+  import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import routes from '$project/routes';
   import { variables } from '$lib/variables';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
@@ -71,13 +72,18 @@
 </script>
 
 <StickyColumn reverse>
-  <div slot="onscreen-content" class="py-12 md:pl-12">
+  <ThemeContext
+    display
+    id="wallet-list"
+    slot="onscreen-content"
+    class="-container-x md:-container-none px-4 md:px-0 py-12 md:pl-12"
+  >
     <WalletList {tab} />
-  </div>
+  </ThemeContext>
   <div
     slot="sticky-content"
     class="h-full px-4 py-6 md:px-8 md:py-12 -container-x md:-container-none"
-    style="background-color: #1D1A54;"
+    style="background-color: var(--wallet-balance-bg-color);"
   >
     <WalletBalance
       balance={$user?.balance}
