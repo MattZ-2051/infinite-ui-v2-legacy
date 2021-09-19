@@ -1,6 +1,6 @@
-# Aria UI
+# Infinite UI v2
 
-Aria NFT Marketplace and Social Marketing Platform
+NFT Marketplace and Social Marketing Platform white label solution.
 
 ## Contributing
 
