@@ -40,6 +40,30 @@
   --footer-icon-color-hover: #000000;
   --footer-icon-border-radius: 50%;
 
+  /* Input */
+  --input-container-border-color-focus: var(--color);
+  --input-container-border-color: theme('colors.gray.300');
+  --input-container-border-color-error: theme('colors.red.500');
+  --input-container-border-width: 1px;
+  --input-container-padding-bottom: 0.125rem;
+  --input-label-color: theme('colors.gray.500');
+  --input-label-font-size: 14px;
+  --input-label-font-weight: 400;
+  --input-color: var(--color);
+  --input-text-align: left;
+  --input-bg-color: transparent;
+  --input-border-radius: 0px;
+  --input-placeholder-color: theme('colors.gray.500');
+  --input-padding: 0 0.125rem;
+  --input-height: 1.875rem;
+
+  /* Checkbox */
+  --checkbox-color: #000000;
+  --checkbox-bg: #d6d6d6;
+  --checkbox-hover-bg: #cccccc;
+  --checkbox-border-color: theme('colors.gray.200');
+  --checkbox-checkmark-color: var(--color);
+
   /* Pagination */
   --pagination-color: #9e9e9e;
   --pagination-color-active: #000000;
@@ -110,6 +134,9 @@
   /* WalletBalance */
   --wallet-balance-bg-color: rgba(255, 255, 255, 0.05);
   --wallet-balance-heading-color: #ddf874;
+
+  /* AccountInfo */
+  --account-info-bg-color: rgba(255, 255, 255, 0.05);
 }
 
 .theme-light {
@@ -141,23 +168,6 @@
   /* Filters */
   --filters-color-expanded: var(--primary);
 
-  /* Input */
-  --input-container-border-color-focus: var(--color);
-  --input-container-border-color: theme('colors.gray.300');
-  --input-container-border-color-error: theme('colors.red.500');
-  --input-container-border-width: 1px;
-  --input-container-padding-bottom: 0.125rem;
-  --input-label-color: theme('colors.gray.500');
-  --input-label-font-size: 14px;
-  --input-label-font-weight: 400;
-  --input-color: var(--color);
-  --input-text-align: left;
-  --input-bg-color: transparent;
-  --input-border-radius: 0px;
-  --input-placeholder-color: theme('colors.gray.500');
-  --input-padding: 0 0.125rem;
-  --input-height: 1.875rem;
-
   /* Tag */
   --tag-color: #ffffff;
   --tag-bg-color: var(--primary);
@@ -183,13 +193,6 @@
   --pagination-color: #9e9e9e;
   --pagination-color-active: #ffffff;
   --pagination-background-color-active: #000000;
-
-  /* Checkbox */
-  --checkbox-color: #000000;
-  --checkbox-bg: #d6d6d6;
-  --checkbox-hover-bg: #cccccc;
-  --checkbox-border-color: theme('colors.gray.200');
-  --checkbox-checkmark-color: var(--color);
 
   /* Sort */
   --sort-color: #000000;

@@ -5,6 +5,7 @@
   import * as yup from 'yup';
   import { createForm } from 'felte';
   import FormInput from '$lib/components/form/FormInput.svelte';
+  import Button from '$lib/components/Button.svelte';
   import notifications from '$ui/toast/toast.store';
   import { patchUser } from '$lib/user';
 
@@ -70,15 +71,17 @@
   </div>
   <div style="height: 1px; background-color: #EBEBEB;" />
   <div class="flex gap-4 justify-end" class:hidden={disabled}>
-    <button
-      class=" bg-primary p-1 w-16 text-sm rounded-sm"
+    <Button
+      animate={false}
+      class="w-16 text-sm rounded-sm"
       disabled={!!saving}
-      on:click|preventDefault={() => {
+      on:click={(event) => {
+        event.preventDefault();
         setFields(initialValues);
         dispatch('closeForm');
-      }}>Cancel</button
+      }}>Cancel</Button
     >
-    <button type="submit" disabled={!!saving} class=" bg-primary p-1 w-16 text-sm rounded-sm">Save</button>
+    <Button animate={false} type="submit" disabled={!!saving} class="w-16 text-sm rounded-sm">Save</Button>
   </div>
 </form>
 
@@ -86,6 +89,7 @@
   [data-style='container'] {
     --input-label-color: theme('colors.gray.500');
     --input-label-font-weight: 500;
+    --button-padding: 6px 24px;
   }
   [data-style='container'].disabled {
     --input-container-border-width: 1px;

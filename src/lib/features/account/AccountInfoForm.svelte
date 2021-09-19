@@ -5,6 +5,7 @@
   import * as yup from 'yup';
   import { createForm } from 'felte';
   import FormInput from '$lib/components/form/FormInput.svelte';
+  import Button from '$lib/components/Button.svelte';
   import { patchUser } from '$lib/user';
   import { handleUserApiError } from './account.service';
 
@@ -49,17 +50,25 @@
   setContext('errors', errors);
 </script>
 
-<form use:form autocomplete="off" class="flex flex-col gap-3 ">
+<form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3 ">
   <FormInput name="username" label="Username" />
   <FormInput name="tagline" placeholder="Enter short bio" label="About me" textarea rows="4" />
   <div class="flex gap-4 justify-end">
-    <button
-      class="bg-primary p-1 w-16 text-sm  rounded-sm"
+    <Button
+      animate={false}
+      class="w-16 text-sm rounded-sm"
       disabled={!!saving}
-      on:click|preventDefault={() => {
+      on:click={(event) => {
+        event.preventDefault();
         dispatch('closeForm');
-      }}>Cancel</button
+      }}>Cancel</Button
     >
-    <button type="submit" disabled={!!saving} class=" bg-primary p-1 w-16 text-sm  rounded-sm">Save</button>
+    <Button animate={false} type="submit" disabled={!!saving} class=" w-16 text-sm  rounded-sm">Save</Button>
   </div>
 </form>
+
+<style>
+  [data-style='container'] {
+    --button-padding: 6px 24px;
+  }
+</style>

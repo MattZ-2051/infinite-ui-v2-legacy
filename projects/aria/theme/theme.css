@@ -160,6 +160,9 @@
   /* WalletBalance */
   --wallet-balance-bg-color: #1d1a54;
   --wallet-balance-heading-color: var(--color);
+
+  /* AccountInfo */
+  --account-info-bg-color: #1d1a54;
 }
 
 .theme-brand-tabs {
