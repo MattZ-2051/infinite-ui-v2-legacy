@@ -34,16 +34,14 @@
     >
   </div>
   <div slot="message" class="flex flex-col items-center py-5 gray-border font-semibold mb-10">
-    <span class="text-gray-500">
-      {#if !$subscription}
-        Subscribe and stay up to date on the newest
-      {:else}
-        Unsubscribe of
-      {/if}
-    </span>
     <div>
-      <span class="text-gray-500">updates from</span>
-      <UserLink username={profile.username} />
+      {#if !$subscription}
+        <span class="text-gray-500">Subscribe and stay up to date on the newest updates from</span>
+        <UserLink username={profile.username} />
+      {:else}
+        <span class="text-gray-500">Unsubscribe from</span>
+        <UserLink username={profile.username} /> <span class="text-gray-500">updates</span>
+      {/if}
     </div>
   </div>
 </ConfirmModal>
