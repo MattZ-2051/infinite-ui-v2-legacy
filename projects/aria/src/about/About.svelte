@@ -12,10 +12,10 @@
   import cathy from './assets/cathy.jpg?w=192&format=avif;webp;jpg&metadata';
 
   const managementTeam = [
-    { photo: darren, name: 'DARREN MAN', occupation: 'CO-CEO' },
+    { photo: darren, name: 'DARREN MANN', occupation: 'CO-CEO' },
     { photo: rebecca, name: 'REBECCA JONAH', occupation: 'CO-CEO' },
     { photo: nadine, name: 'NADINE DIETZ', occupation: 'CMO / CSO' },
-    { photo: evan, name: 'EVAN GREENE', occupation: 'CBO' },
+    { photo: evan, name: 'EVAN GREEN', occupation: 'CBO' },
     { photo: jason, name: 'JASON TURNER', occupation: 'COO' },
     { photo: jimmy, name: 'JIMMY NGUYEN', occupation: 'SVP, GROWTH' },
     { photo: ilona, name: 'ILONA STEPANYANTS', occupation: 'SVP, BRAND AND PARTNERSHIPS' },
