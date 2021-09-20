@@ -135,13 +135,3 @@ input[type='number'] {
 .form-overlay {
   @apply absolute top-0 bottom-0 left-0 right-0 z-20;
 }
-
-.sticky-cta {
-  background-color: var(--sticky-cta-bg-color);
-  color: var(--sticky-cta-color);
-}
-a.sticky-cta:hover,
-button.sticky-cta:hover {
-  background-color: var(--sticky-cta-bg-color-hover);
-  color: var(--sticky-cta-color-hover);
-}

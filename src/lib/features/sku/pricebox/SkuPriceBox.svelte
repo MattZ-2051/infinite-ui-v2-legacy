@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
-  import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import {
     getActiveListings,
@@ -48,35 +47,33 @@
     lowestPriceListingCollector?.listing?.status === 'upcoming';
 </script>
 
-<ThemeContext id="sku-price-box">
-  <div class="flex flex-col divide-y divide-black">
-    {#if collector}
-      <LimitedAuction {collector} />
-    {:else if active}
-      <FromCreator {sku} state="active" {activeListings} {onBuy} />
-    {:else if upcoming}
-      <FromCreator {sku} state="upcoming" {upcomingSkuListings} {onBuy} />
-    {:else if upcomingNftGiveAway}
-      <FromCreator {sku} state="upcomingNftGiveAway" {upcomingSkuListings} {onBuy} />
-    {:else if activeNftGiveAway}
-      <FromCreator {sku} state="activeNftGiveAway" {activeListings} {onBuy} />
-    {:else if noSale}
-      <FromCreator state="noSale" {sku} {onBuy} />
-    {/if}
+<div class="flex flex-col divide-y divide-black">
+  {#if collector}
+    <LimitedAuction {collector} />
+  {:else if active}
+    <FromCreator {sku} state="active" {activeListings} {onBuy} />
+  {:else if upcoming}
+    <FromCreator {sku} state="upcoming" {upcomingSkuListings} {onBuy} />
+  {:else if upcomingNftGiveAway}
+    <FromCreator {sku} state="upcomingNftGiveAway" {upcomingSkuListings} {onBuy} />
+  {:else if activeNftGiveAway}
+    <FromCreator {sku} state="activeNftGiveAway" {activeListings} {onBuy} />
+  {:else if noSale}
+    <FromCreator state="noSale" {sku} {onBuy} />
+  {/if}
 
-    {#if totalCollectors > 0}
-      {#if isActiveSale}
-        <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeSale" />
-      {:else if isActiveAuction}
-        <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeAuction" />
-      {:else if isUpcomingAuction}
-        <FromCollectors {sku} collector={lowestPriceListingCollector} status="upcomingAuction" />
-      {:else if noCollectorSales}
-        <FromCollectors {sku} collector={lowestPriceListingCollector} status="noneForSale" />
-      {/if}
+  {#if totalCollectors > 0}
+    {#if isActiveSale}
+      <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeSale" />
+    {:else if isActiveAuction}
+      <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeAuction" />
+    {:else if isUpcomingAuction}
+      <FromCollectors {sku} collector={lowestPriceListingCollector} status="upcomingAuction" />
+    {:else if noCollectorSales}
+      <FromCollectors {sku} collector={lowestPriceListingCollector} status="noneForSale" />
     {/if}
-  </div>
-</ThemeContext>
+  {/if}
+</div>
 
 <style>
   div {

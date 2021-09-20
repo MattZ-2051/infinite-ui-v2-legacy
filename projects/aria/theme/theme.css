@@ -122,12 +122,6 @@
   --icon-redeem-border-radius: 16px;
   --icon-redeem-bg-color: var(--icon-bg-color);
 
-  /* SkuPriceBox, WalletButtons */
-  --sticky-cta-bg-color: #c4c4c4;
-  --sticky-cta-bg-color-hover: var(--primary);
-  --sticky-cta-color-hover: #ffffff;
-  --sticky-cta-color: #000000;
-
   /* Input */
   --input-container-border-color-focus: var(--color);
   --input-container-border-color: theme('colors.gray.300');

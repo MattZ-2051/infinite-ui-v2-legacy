@@ -116,12 +116,6 @@
   --button-padding: 8px 24px;
   --button-border-radius: 0;
 
-  /* SkuPriceBox, WalletButtons */
-  --sticky-cta-bg-color: #ffffff;
-  --sticky-cta-bg-color-hover: #ddf874;
-  --sticky-cta-color-hover: #000000;
-  --sticky-cta-color: #000000;
-
   /* ButtonGroup */
   --button-group-color: #ffffff;
   --button-group-bg-color: #000000;
