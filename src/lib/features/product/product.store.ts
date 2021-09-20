@@ -4,6 +4,7 @@ import { browser } from '$app/env';
 import { getQueryParameters } from '$util/queryParameter';
 import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
 import { createPolling } from '$util/effector';
+import { toast } from '$ui/toast';
 import { loadProduct, loadProductTransactions } from './product.api';
 import { hasActiveAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
@@ -168,4 +169,13 @@ pollTransactionFx.doneData.watch(async (response) => {
       }
     }
   }
+});
+
+const productBoughtSuccessFx = createEffect(() => {
+  toast.success('Your order has been completed.');
+});
+
+forward({
+  from: [productBought, skuBought],
+  to: productBoughtSuccessFx,
 });
