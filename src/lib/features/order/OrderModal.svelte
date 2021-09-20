@@ -115,7 +115,7 @@
             <a class="font-medium self-center" href={routes.wallet}>View Pending Transactions</a>
           </div>
         {:else if insufficientFunds}
-          <span> You need more founds to make this purchase. </span>
+          <span> You need more funds to make this purchase. </span>
           <Button class="mt-6" href={routes.wallet}>Add Funds</Button>
         {:else}
           <div class="flex items-center justify-start">
