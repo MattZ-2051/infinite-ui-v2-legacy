@@ -22,6 +22,7 @@ interface CommonImportMetaEnvironment {
 
 declare module '*format=avif;webp;png&metadata';
 declare module '*format=avif;webp;jpeg&metadata';
+declare module '*format=avif;webp;jpg&metadata';
 
 type SvelteAction = (node: HTMLElement | SVGSVGElement, parameters?: unknown) => SvelteActionReturn;
 

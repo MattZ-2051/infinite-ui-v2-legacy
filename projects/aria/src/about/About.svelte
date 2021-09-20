@@ -1,18 +1,26 @@
 <script lang="ts">
   import Image from '$ui/image/Image.svelte';
   import Intro from './Intro.svelte';
-  import darren from './assets/darren.png?w=192&format=avif;webp;png&metadata';
-  import rebecca from './assets/rebecca.png?w=192&format=avif;webp;png&metadata';
-  import nadine from './assets/nadine.png?w=192&format=avif;webp;png&metadata';
-  import evan from './assets/evan.png?w=192&format=avif;webp;png&metadata';
-  import jimmy from './assets/jimmy.png?w=192&format=avif;webp;png&metadata';
+  import darren from './assets/darren.jpg?w=192&format=avif;webp;jpg&metadata';
+  import rebecca from './assets/rebecca.jpg?w=192&format=avif;webp;jpg&metadata';
+  import nadine from './assets/nadine.jpg?w=192&format=avif;webp;jpg&metadata';
+  import evan from './assets/evan.jpg?w=192&format=avif;webp;jpg&metadata';
+  import jason from './assets/jason.jpg?w=192&format=avif;webp;jpg&metadata';
+  import jimmy from './assets/jimmy.jpg?w=192&format=avif;webp;jpg&metadata';
+  import ilona from './assets/ilona.jpg?w=192&format=avif;webp;jpg&metadata';
+  import travis from './assets/travis.jpg?w=192&format=avif;webp;jpg&metadata';
+  import cathy from './assets/cathy.jpg?w=192&format=avif;webp;jpg&metadata';
 
   const managementTeam = [
     { photo: darren, name: 'DARREN MAN', occupation: 'CO-CEO' },
     { photo: rebecca, name: 'REBECCA JONAH', occupation: 'CO-CEO' },
-    { photo: nadine, name: 'NADINE DIETZ', occupation: 'CHIEF MARKETING & STRATEGY OFFICER' },
-    { photo: evan, name: 'EVAN GREENE', occupation: 'CCO' },
+    { photo: nadine, name: 'NADINE DIETZ', occupation: 'CMO / CSO' },
+    { photo: evan, name: 'EVAN GREENE', occupation: 'CBO' },
+    { photo: jason, name: 'JASON TURNER', occupation: 'COO' },
     { photo: jimmy, name: 'JIMMY NGUYEN', occupation: 'SVP, GROWTH' },
+    { photo: ilona, name: 'ILONA STEPANYANTS', occupation: 'SVP, BRAND AND PARTNERSHIPS' },
+    { photo: travis, name: 'TRAVIS McMICHAEL III', occupation: 'SVP, CREATIVE' },
+    { photo: cathy, name: 'CATHY HACKL', occupation: 'FUTURIST IN RESIDENCE' },
   ];
 
   const advisoryTeam = [
@@ -63,7 +71,7 @@
 <div class="container flex flex-col gap-16 md:gap-24 py-20">
   <div class="flex flex-col gap-8 md:gap-20">
     <div class="flex justify-center"><h1 class="text-4xl font-bold">LEADERSHIP</h1></div>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-12 max-w-5xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-12 max-w-5xl mx-auto">
       {#each managementTeam as person}
         <div class="flex flex-col gap-4 items-center text-center">
           <div class="gradient-border ">
