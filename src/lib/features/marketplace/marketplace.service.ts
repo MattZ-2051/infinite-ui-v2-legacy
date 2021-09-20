@@ -1,12 +1,15 @@
 import type { QueryParameterOptions } from '$util/queryParameter';
 import { gotoQueryParameters } from '$util/queryParameter';
 
-export function setFilters(options: Pick<QueryParameterOptions, 'params' | 'reset'>): void {
+export function setFilters(
+  options: Pick<QueryParameterOptions, 'params' | 'reset'>,
+  { noscroll = true, keepfocus = true } = {}
+): void {
   gotoQueryParameters(
     {
       ...options,
     },
-    { noscroll: true, keepfocus: true }
+    { noscroll, keepfocus }
   );
 }
 

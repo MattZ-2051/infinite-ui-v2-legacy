@@ -26,7 +26,7 @@
   };
 
   function gotoPage(event: CustomEvent) {
-    setFilters({ params: { page: event.detail.value } });
+    setFilters({ params: { page: event.detail.value } }, { noscroll: false });
   }
 
   const sort = (event: CustomEvent) => {
