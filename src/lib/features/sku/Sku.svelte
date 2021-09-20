@@ -27,11 +27,11 @@
 </script>
 
 <StickyColumn fitOnScreenContent>
-  <div slot="onscreen-content" class="flex flex-col justify-between h-full -container-x md:-container-none">
+  <div slot="onscreen-content" class="flex flex-col justify-between h-full">
     <Gallery items={$sku.nftPublicAssets} />
   </div>
   <div slot="sticky-content" class="h-full sku-sticky-content">
-    <div class="flex flex-col md:px-8 gap-4 md:gap-8 mt-8 md:mt-16 mb-8 md:mb-0">
+    <div class="flex flex-col px-4 md:px-8 gap-4 md:gap-8 mt-8 md:mt-16 mb-8 md:mb-0">
       <div class="flex flex-col gap-8">
         <div class="text-gradient-primary text-3xl md:text-4xl font-medium">{$sku.name}</div>
         <SkuInfo sku={$sku} />
@@ -39,7 +39,7 @@
     </div>
   </div>
   <SkuPriceBox slot="sticky-cta" sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
-  <div slot="tabs" class="pt-12 pd:pt-16 pb-4 pr-4" style="min-height: 300px">
+  <div slot="tabs" class="px-4 pt-12 pd:pt-16 pb-4" style="min-height: 300px">
     <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
       <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-2xl">
         <Tab id="description">

@@ -1,4 +1,6 @@
 :root {
+  --container-max-width: 1536px;
+
   /* Common */
   --primary: #6633ff;
   --primary-dark: #0c002f;

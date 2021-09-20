@@ -71,46 +71,42 @@
   $: canWithdraw = $withdrawableBalance > 0;
 </script>
 
-<StickyColumn reverse>
-  <ThemeContext
-    display
-    id="wallet-list"
-    slot="onscreen-content"
-    class="-container-x md:-container-none px-4 md:px-0 py-12 md:pl-12"
-  >
-    <WalletList {tab} />
-  </ThemeContext>
-  <div
-    slot="sticky-content"
-    class="h-full px-4 py-6 md:px-8 md:py-12 -container-x md:-container-none"
-    style="background-color: var(--wallet-balance-bg-color);"
-  >
-    <WalletBalance
-      balance={$user?.balance}
-      availableBalance={$user?.availableBalance}
-      withdrawableBalance={$withdrawableBalance}
-    >
-      <svelte:fragment slot="kyc">
-        {#if $wallet}
-          <AccountVerification
-            on:upgrade={openUpgradeKYCLevel}
-            level={$wallet.kycMaxLevel}
-            pending={$wallet.kycPending}
-          />
-        {/if}
-      </svelte:fragment>
-    </WalletBalance>
+<div
+  class="contents"
+  style="--sticky-content-bg: var(--wallet-balance-bg-color); --sticky-scroll-bg: var(--wallet-tabs-bg-color);"
+>
+  <StickyColumn reverse>
+    <ThemeContext display id="wallet-list" slot="onscreen-content" class="px-4 md:px-0 py-12 md:pl-12">
+      <WalletList {tab} />
+    </ThemeContext>
+    <div slot="sticky-content" class="h-full px-4 py-6 md:px-8 md:py-12">
+      <WalletBalance
+        balance={$user?.balance}
+        availableBalance={$user?.availableBalance}
+        withdrawableBalance={$withdrawableBalance}
+      >
+        <svelte:fragment slot="kyc">
+          {#if $wallet}
+            <AccountVerification
+              on:upgrade={openUpgradeKYCLevel}
+              level={$wallet.kycMaxLevel}
+              pending={$wallet.kycPending}
+            />
+          {/if}
+        </svelte:fragment>
+      </WalletBalance>
 
-    {#if $wallet}
-      <div class="text-sm text-gray-500 mt-4">
-        {getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
-      </div>
-    {/if}
-  </div>
-  <WalletButtons
-    slot="sticky-cta"
-    {canWithdraw}
-    on:deposit={openDepositSelectModal}
-    on:withdraw={() => openModal(WithdrawModal)}
-  />
-</StickyColumn>
+      {#if $wallet}
+        <div class="text-sm text-gray-500 mt-4">
+          {getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
+        </div>
+      {/if}
+    </div>
+    <WalletButtons
+      slot="sticky-cta"
+      {canWithdraw}
+      on:deposit={openDepositSelectModal}
+      on:withdraw={() => openModal(WithdrawModal)}
+    />
+  </StickyColumn>
+</div>

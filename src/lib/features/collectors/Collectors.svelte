@@ -18,7 +18,7 @@
   <div slot="sticky-content" class="sticky-content">
     <Gallery items={sku.nftPublicAssets} />
   </div>
-  <div slot="onscreen-content">
+  <div class="mr-4 ml-4 md:ml-0" slot="onscreen-content">
     <div class="md:pl-8 mt-8 md:mt-10">
       <div class="flex flex-wrap gap-2 md:gap-0 md:items-center text-3xl md:text-4xl font-medium">
         <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
