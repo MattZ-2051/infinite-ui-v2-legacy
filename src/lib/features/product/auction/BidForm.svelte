@@ -27,8 +27,8 @@
       if (!$user) {
         return toast.danger('Please, login to place a bid.');
       }
-      if (placeBid === '') {
-        return toast.danger(`Bid amount is required.`);
+      if (!placeBid) {
+        return toast.danger(`Whoops! You must enter a bid amount.`);
       }
 
       const amount = Number.parseFloat(placeBid);
