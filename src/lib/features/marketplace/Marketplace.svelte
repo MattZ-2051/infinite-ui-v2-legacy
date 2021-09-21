@@ -30,7 +30,7 @@
   }
 
   const sort = (event: CustomEvent) => {
-    setFilters({ params: { sortBy: `${event.detail.value}:${event.detail.order}` } });
+    setFilters({ params: { sortBy: `${event.detail.value}:${event.detail.order}`, page: false } });
   };
 
   const handleInput = (event: Event) => setFilters({ params: { search: (event.target as HTMLInputElement).value } });
