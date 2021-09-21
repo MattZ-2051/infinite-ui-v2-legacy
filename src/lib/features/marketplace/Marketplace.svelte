@@ -6,6 +6,7 @@
   import { SkuItemGrid } from '$lib/sku-item';
   import Sort from '$lib/components/Sort.svelte';
   import Search from '$lib/components/Search.svelte';
+  import { media } from '$lib/media-query.store';
   import { Pagination } from '$ui/pagination';
   import NoResults from './NoResults.svelte';
   import Filters from './Filters.svelte';
@@ -20,9 +21,11 @@
   export let series: Series[];
 
   let showFilters = false;
+  let scrollY: number;
 
   const closeFilters = (): void => {
     showFilters = false;
+    scrollY = 0;
   };
 
   function gotoPage(event: CustomEvent) {
@@ -59,8 +62,10 @@
   $: p = +$page.query.get('page') || 1;
 </script>
 
+<svelte:window bind:scrollY />
+
 <div class="container flex gap-8 flex-col pt-6 md:grid marketplace-container">
-  <div class={`${showFilters ? 'hidden' : 'flex'} md:flex items-center justify-between`}>
+  <div class={`${showFilters && !$media.md ? 'hidden' : 'flex'} md:flex items-center justify-between`}>
     <h1 class="text-4xl title">Marketplace</h1>
     <button
       type="button"
@@ -70,7 +75,7 @@
       <Icon path={mdiTuneVariant} />
     </button>
   </div>
-  <div class="gap-2 {showFilters ? 'hidden' : 'flex'}">
+  <div class="gap-2 {showFilters && !$media.md ? 'hidden' : 'flex'}">
     <div class="flex flex-wrap items-center justify-end md:justify-between w-full">
       <div class="py-3 flex-1">
         <Search on:input={handleInput} value={$page.query.get('search') || ''} />
@@ -80,10 +85,10 @@
       </div>
     </div>
   </div>
-  <div class="sticky md:block {!showFilters ? 'hidden' : 'block'}" style="top: var(--header-height)">
+  <div class:hidden={!showFilters} class="md:block">
     <Filters {categories} {creators} {series} {total} {maxPrice} on:close={closeFilters} />
   </div>
-  <div class="md:inline {showFilters ? 'hidden' : 'inline'}" class:opacity-40={$loading}>
+  <div class="inline" class:opacity-40={$loading}>
     {#if !$loading && skus.length === 0}
       <NoResults class="mt-4 md:mt-12" />
     {:else}

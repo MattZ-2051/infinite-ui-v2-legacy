@@ -234,9 +234,9 @@
   --button-secondary-color: #000000;
   --button-secondary-bg-color: #ffffff;
   --button-secondary-border-color: #000000;
-  --button-tertiary-color: #000000;
-  --button-tertiary-bg-color: #ffffff;
-  --button-tertiary-border-color: #ffffff;
+  --button-tertiary-color: #ffffff;
+  --button-tertiary-bg-color: #000000;
+  --button-tertiary-border-color: #000000;
 }
 
 .theme-brand-footer {

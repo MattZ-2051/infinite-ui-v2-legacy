@@ -6,6 +6,7 @@
   import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
   import Accordion from '$ui/accordion/Accordion.svelte';
   import Input from '$lib/components/Input.svelte';
+  import Button from '$lib/components/Button.svelte';
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
   import { RangeSlider } from '$ui/rangeslider';
@@ -292,13 +293,9 @@
     </Accordion>
   </AccordionGroup>
 
-  <button
-    type="button"
-    on:click={close}
-    class="self-center w-full py-3 max-w-xl bg-black text-white text-2xl text-center rounded-3xl md:hidden"
-  >
+  <Button variant="tertiary" on:click={close} class="self-center w-full py-3 max-w-xl text-2xl text-center md:hidden">
     {total > 0 ? `View Matching Results (${total})` : 'No Matching Results'}
-  </button>
+  </Button>
 </div>
 
 <style lang="postcss">

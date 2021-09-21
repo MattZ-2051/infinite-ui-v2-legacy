@@ -105,9 +105,9 @@
           {/if}
         </div>
       {:else}
-        <div class="flex flex-col items-center my-12 gap-3">
+        <div class="flex flex-col mt-12 gap-3">
           <Button on:click={onGenerateCryptoAddress}>Generate {coinName} Address</Button>
-          <Button on:click={onClose} variant="tertiary" class="font-bold">Back to Wallet</Button>
+          <Button on:click={onClose} variant="secondary" class="font-bold">Back to Wallet</Button>
         </div>
       {/if}
     </div>
