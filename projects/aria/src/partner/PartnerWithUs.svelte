@@ -11,7 +11,7 @@
   import tooltip from '$ui/tooltip';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
-  import { subscribe } from '$project/subscribe/subscribe.api';
+  import { subscribe } from './partner.api';
   import travisScottBg from './travis-scott-bg.png?w=400;800;1200;&format=avif;webp;png&metadata';
 
   const socialMedia = [
