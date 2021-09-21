@@ -55,8 +55,8 @@
       {:else}
         <div class="flex flex-col gap-1">
           <span>Step 1:</span>
-          <span class="text-gray-500">Send an hbar deposit to your INFINITE wallet address</span>
-          <span class="text-gray-500 text-sm"> (provided below) </span>
+          <span class="text-gray-500">Send an hbar deposit to your wallet address</span>
+          <span class="text-gray-500 text-sm">(provided below)</span>
         </div>
         <ExplorerLink {explorerLink} />
         <WalletAddress />

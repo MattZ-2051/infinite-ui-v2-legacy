@@ -18,7 +18,7 @@
 <button
   type="button"
   on:click={onCopyLink}
-  class="flex flex-grow justify-between bg-gray-200 p-4 rounded-full font-bold text-black text-lg group"
+  class="flex flex-grow justify-between bg-gray-200 p-4 rounded-lg font-bold text-lg group"
 >
   <span>Wallet Address</span>
   <div class="flex gap-2">
