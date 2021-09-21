@@ -76,10 +76,14 @@
   style="--sticky-content-bg: var(--wallet-balance-bg-color); --sticky-scroll-bg: var(--wallet-tabs-bg-color);"
 >
   <StickyColumn reverse>
-    <ThemeContext display id="wallet-list" slot="onscreen-content" class="px-4 md:px-0 py-12 md:pl-12">
+    <ThemeContext display id="wallet-list" slot="onscreen-content" class="px-4 py-12 md:pl-12">
       <WalletList {tab} />
     </ThemeContext>
-    <div slot="sticky-content" class="h-full px-4 py-6 md:px-8 md:py-12">
+    <div
+      slot="sticky-content"
+      class="h-full px-4 py-6 md:px-8 md:py-12"
+      style="background: var(--wallet-balance-content-bg-color);"
+    >
       <WalletBalance
         balance={$user?.balance}
         availableBalance={$user?.availableBalance}

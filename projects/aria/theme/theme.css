@@ -98,7 +98,7 @@
   /* Menu */
   --menu-list-background-color: #ffffff;
   --menu-item-background-selected: var(--primary);
-  --menu-item-color: rgba(0, 0, 0, 0.5);
+  --menu-item-color: rgba(0, 0, 0, 0.8);
   --menu-item-color-selected: #ffffff;
 
   /* Pagination */
@@ -152,7 +152,7 @@
   --product-tabs-bg: #1a1a1a;
 
   /* WalletBalance */
-  --wallet-balance-bg-color: #1d1a54;
+  --wallet-balance-content-bg-color: #1d1a54;
   --wallet-balance-heading-color: var(--color);
 
   /* AccountInfo */
