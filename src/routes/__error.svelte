@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
   import type { ErrorLoadInput } from '@sveltejs/kit';
+  import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
 
   export function load({ error, status }: ErrorLoadInput): { props: Partial<ErrorLoadInput> } {
@@ -23,31 +24,24 @@
 </script>
 
 <div class="container flex flex-grow items-center justify-center">
-  <div class="flex flex-col gap-2 items-center text-center">
-    <div class="text-6xl font-extrabold text-gradient-primary">Oh, no!</div>
-    <div class="flex flex-col gap-5 md:gap-10 font-bold">
+  <div class="flex flex-col gap-5 md:gap-10 items-center text-center">
+    <div class="text-6xl font-extrabold text-gradient-primary font-bold">Oh, no!</div>
+    <div class="flex flex-col gap-4 md:gap-8">
       {#if status === 404}
-        <div class="text-2xl md:text-5xl ">This page does not exist.</div>
-        <div class="text-sm md:text-base">
-          Please <a href="mailto:{CLIENT_SUPPORT_EMAIL}" class="hover:underline">contact support</a> if you believe this
-          was an error
+        <div class="text-2xl md:text-5xl font-semibold">This page does not exist.</div>
+        <div class="text-sm md:text-base text-gray-500">
+          The page you are looking for was moved, removed, renamed or might never existed!
         </div>
       {:else}
-        <div class="text-2xl md:text-5xl">There was an unexpected problem.</div>
-        <div class="text-sm md:text-base">
+        <div class="text-2xl md:text-5xl font-semibold">There was an unexpected problem.</div>
+        <div class="text-sm md:text-base text-gray-500">
           Please try again in a few minutes or <a href="mailto:{CLIENT_SUPPORT_EMAIL}" class="hover:underline"
             >contact support</a
           >
         </div>
       {/if}
     </div>
-    <div class="mt-10">
-      <a
-        href={routes.index}
-        class="bg-white text-black hover:bg-gray-500 hover:text-white rounded-full font-bold text-base px-6 py-3"
-        >Go to homepage</a
-      >
-    </div>
+    <Button href={routes.index}>Go to homepage</Button>
     {#if dev}
       {#if error.frame}
         <pre class="m-4 p-4 border whitespace-pre-line">{error.frame}</pre>

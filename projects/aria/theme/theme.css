@@ -12,6 +12,7 @@
   --bg-color: #000000;
   --color: #ffffff;
   --link-color: var(--primary);
+  --no-results-link-color: #11d6ec;
   --separator-bg-color: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
   --icon-bg-color: #2d2d2d;
 
@@ -33,9 +34,6 @@
 
   /* Filters */
   --filters-color-expanded: var(--primary);
-
-  /* NoResults */
-  --no-results-link-color: #11d6ec;
 
   /* Tag */
   --tag-color: var(--color);
