@@ -6,6 +6,7 @@
   import iconRedeem from '$lib/components/icons/redeem';
   import iconAuction from '$lib/components/icons/auction';
   import iconTransfer from '$lib/components/icons/transfer';
+  import ButtonGroup from '$lib/components/ButtonGroup.svelte';
   import { canCreateSale, canStartAuction, canRedeem, canTransfer } from '../product.service';
   import { onAction } from './product-actions.service';
 
@@ -43,7 +44,7 @@
 </script>
 
 {#if visibleActions.length > 0}
-  <div class="flex col-span-2 lg:col-span-1">
+  <ButtonGroup class="flex col-span-2 lg:col-span-1">
     {#each visibleActions as { type, label, icon } (type)}
       <button
         type="button"
@@ -54,5 +55,5 @@
         <span>{label}</span>
       </button>
     {/each}
-  </div>
+  </ButtonGroup>
 {/if}

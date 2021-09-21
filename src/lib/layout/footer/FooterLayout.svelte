@@ -3,8 +3,8 @@
 </script>
 
 <ThemeContext id="footer">
-  <div class="separator" />
   <footer>
+    <div class="separator" />
     <div class="container flex flex-col gap-y-8 justify-evenly items-center text-sm md:flex-row md:justify-between">
       <div class="flex flex-wrap items-center justify-center gap-4 md:gap-4">
         <slot name="start" />

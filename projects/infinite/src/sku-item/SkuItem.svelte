@@ -40,9 +40,7 @@
     class="mt-5 mx-6 pt-4 flex flex-row items-center border-current border-solid border-t text-lg"
     aria-label="Product details"
   >
-    {#if !product}
-      <SkuStatus {sku} {product} />
-    {/if}
+    <SkuStatus {sku} {product} />
     <Icon class="ml-auto" path={mdiArrowRightCircle} size={1.5} />
   </a>
 </article>

@@ -58,8 +58,6 @@
 
   /* Checkbox */
   --checkbox-color: #000000;
-  --checkbox-bg: #d6d6d6;
-  --checkbox-hover-bg: #cccccc;
   --checkbox-border-color: theme('colors.gray.200');
   --checkbox-checkmark-color: var(--color);
 
