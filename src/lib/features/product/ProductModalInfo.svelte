@@ -32,9 +32,7 @@
     {#if sku.redeemable}
       <div class="flex flex-col gap-2 items-end">
         <span class="text-sm text-gray-500">Status</span>
-        <div class="flex gap-1 items-center">
-          <IconRedeem size={18} /> Redeemable
-        </div>
+        <IconRedeem size={18}>Redeemable</IconRedeem>
       </div>
     {/if}
   </div>

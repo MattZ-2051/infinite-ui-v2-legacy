@@ -26,8 +26,9 @@
     <div class={cellClass}>
       <div class={headerClass}>Status</div>
       <div class="flex gap-2">
-        <IconRedeem />
-        <span>{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span>
+        <IconRedeem>
+          {product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}
+        </IconRedeem>
       </div>
     </div>
   {/if}

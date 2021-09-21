@@ -12,21 +12,23 @@
 
   const tooltipMessage = {
     content:
-      'Learn more about redeemable collectibles <a class="underline" href="https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT">here</a>',
+      'Learn more about redeemable collectibles <a class="underline" target="_blank" rel="noreferrer" href="https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT">here</a>',
     allowHTML: true,
     interactive: true,
     maxWidth: 270,
   };
 </script>
 
-<span
-  class="redeem-trigger relative inline-flex"
-  use:tooltipAction={tooltipMessage}
-  on:click|preventDefault|stopPropagation
-  style="padding: {padding}px"
->
-  <Icon path={iconPath} size={`${size - 2 * padding}px`} {...$$restProps} />
-</span>
+<div class="inline-flex items-center gap-2" use:tooltipAction={tooltipMessage}>
+  <span
+    class="redeem-trigger relative inline-flex"
+    on:click|preventDefault|stopPropagation
+    style="padding: {padding}px"
+  >
+    <Icon path={iconPath} size={`${size - 2 * padding}px`} {...$$restProps} />
+  </span>
+  <slot />
+</div>
 
 <style lang="postcss">
   .redeem-trigger {

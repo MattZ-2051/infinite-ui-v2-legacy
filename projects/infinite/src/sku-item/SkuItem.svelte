@@ -25,7 +25,7 @@
       <TalentLink profile={sku.issuer} hideImage class="text-gray-500" />
       {#if sku.redeemable}
         <div class="flex flex-row flex-nowrap items-center space-x-2 ml-auto">
-          <IconRedeem size={24} /><span class="text-gray-700">Redeemable</span>
+          <IconRedeem size={24}><span class="text-gray-700">Redeemable</span></IconRedeem>
         </div>
       {/if}
     </section>

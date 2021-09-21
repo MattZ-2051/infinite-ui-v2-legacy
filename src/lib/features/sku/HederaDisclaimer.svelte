@@ -15,7 +15,9 @@
       <span class="text-default">{CLIENT_COMPANY_NAME} NFTs are minted on the Hedera Hashgraph</span>
     </div>
     <div class="flex flex-col sm:flex-row gap-2 items-center">
-      <a href={CLIENT_HEDERA_URL} class="link text-primary text-base whitespace-nowrap">Read more </a>
+      <a href={CLIENT_HEDERA_URL} target="_blank" rel="noreferrer" class="link text-primary text-base whitespace-nowrap"
+        >Read more
+      </a>
       <span class="p-px" style="background-color: var(--button-primary-bg-color)">
         <Icon path={mdiArrowRight} size="0.9" color="var(--button-primary-color)" />
       </span>
