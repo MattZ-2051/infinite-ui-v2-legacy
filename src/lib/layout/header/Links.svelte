@@ -22,26 +22,25 @@
   }
 </script>
 
-<a
-  sveltekit:prefetch
-  href={routes.marketplace}
-  class="whitespace-nowrap header-link"
-  class:active={isRoute(routes.marketplace)}>Marketplace</a
+<a sveltekit:prefetch href={routes.marketplace} class="header-link" class:active={isRoute(routes.marketplace)}
+  >Marketplace</a
 >
 {#if user}
   <a
     sveltekit:prefetch
     href={routes.collection(user.username)}
-    class="whitespace-nowrap header-link"
+    class="header-link"
     class:active={isRoute(routes.collection(user.username))}>My Collection</a
   >
   {#if flatten}
-    <a sveltekit:prefetch href={routes.account} class:hidden={isRoute(routes.account)}>Account Settings</a>
-    <a sveltekit:prefetch href={routes.wallet} class:hidden={isRoute(routes.wallet)}>My Wallet</a>
-    <button type="button" on:click={() => onLogout()}>Sign Out</button>
+    <a sveltekit:prefetch href={routes.account} class="header-link" class:hidden={isRoute(routes.account)}
+      >Account Settings</a
+    >
+    <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
+    <button type="button" class="header-link" on:click={() => onLogout()}>Sign Out</button>
   {:else}
     <Menu placement="bottom-end">
-      <MenuTrigger slot="trigger" class="header-link whitespace-nowrap">
+      <MenuTrigger slot="trigger" class="header-link">
         <div class="flex gap-1.5 ">
           {#if user.profilePhotoUrl}
             <img class="w-6 object-cover rounded-full" src={user.profilePhotoUrl} alt="" />
@@ -65,19 +64,14 @@
     </Menu>
   {/if}
 {:else}
-  <a sveltekit:prefetch href={routes.about} class="whitespace-nowrap header-link" class:active={isRoute(routes.about)}
-    >About Us</a
-  >
-  <button class="flex whitespace-nowrap header-link" on:click={async () => await login()} disabled={$isLoading}
-    >Sign in</button
-  >
-  <div class="button-container">
-    <Button animate={false} href={routes.signup} class="whitespace-nowrap">Sign up</Button>
-  </div>
+  <a sveltekit:prefetch href={routes.about} class="header-link" class:active={isRoute(routes.about)}>About Us</a>
+  <button class="flex header-link" on:click={async () => await login()} disabled={$isLoading}>Sign in</button>
+  <Button animate={false} href={routes.signup} class="whitespace-nowrap">Sign up</Button>
 {/if}
 
-<style>
+<style lang="postcss">
   :global(.header-link) {
+    @apply whitespace-nowrap;
     color: var(--header-color);
   }
 
