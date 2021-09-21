@@ -13,6 +13,7 @@
   export let title = 'Share';
   export let text: string;
   export let url: string;
+  export let image = '';
 
   let copiedLink = false;
 
@@ -54,7 +55,7 @@
         reddit({ socialShareUrl: url, socialSharePopupWidth: 600, socialSharePopupHeight: 800 });
         return;
       case 'pinterest':
-        pinterest({ socialShareText: text, socialShareUrl: url });
+        pinterest({ socialShareText: text, socialShareUrl: url, socialShareMedia: image });
         return;
       default:
         return;

@@ -16,20 +16,8 @@ describe('chooseSkuSocialImage', () => {
     ).toEqual({ ...imageAsset, platform: 'all' });
   });
 
-  describe('with no `nftSocialAssets`', () => {
-    it('should pick the first image', () => {
-      expect(chooseSkuSocialImage({ nftPublicAssets: [imageAsset, imageAsset2, videoAsset] } as Sku)).toBe(imageAsset);
-      expect(chooseSkuSocialImage({ nftPublicAssets: [imageAsset2, imageAsset, videoAsset] } as Sku)).toBe(imageAsset2);
-      expect(chooseSkuSocialImage({ nftPublicAssets: [videoAsset, imageAsset] } as Sku)).toBe(imageAsset);
-    });
-
-    it('should ignore assets with missing type', () => {
-      expect(chooseSkuSocialImage({ nftPublicAssets: [{}, imageAsset] } as Sku)).toBe(imageAsset);
-    });
-
-    it('should handle missing/empty `nftPublicAssets`', () => {
-      expect(chooseSkuSocialImage({ nftPublicAssets: [] } as Sku)).toBeUndefined();
-      expect(chooseSkuSocialImage({} as Sku)).toBeUndefined();
-    });
+  it('should handle missing/empty `nftPublicAssets`', () => {
+    expect(chooseSkuSocialImage({ nftPublicAssets: [] } as Sku)).toBeUndefined();
+    expect(chooseSkuSocialImage({} as Sku)).toBeUndefined();
   });
 });
