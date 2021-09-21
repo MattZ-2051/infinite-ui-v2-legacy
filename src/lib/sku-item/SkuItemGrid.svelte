@@ -11,13 +11,11 @@
   function getGridResponsiveClasses(cols: number): string {
     switch (cols) {
       case 3:
-        return 'md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3';
+        return 'grid-max-cols-3';
 
       case 4:
-        return 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
-
       default:
-        return '';
+        return 'grid-max-cols-4';
     }
   }
 
@@ -30,7 +28,7 @@
 </script>
 
 <ThemeContext id="sku-grid">
-  <div class="sku-grid grid grid-cols-1 max-w-sm mx-auto md:max-w-none {gridResponsiveClass} {$$props.class}">
+  <div class="sku-grid grid grid-cols-1 max-w-sm mx-auto {gridResponsiveClass} {$$props.class || ''}">
     {#if productList.length}
       {#each productList as item (item._id)}
         <SkuItem product={item} />
@@ -43,9 +41,39 @@
   </div>
 </ThemeContext>
 
-<style>
+<style lang="postcss">
   .sku-grid {
     row-gap: var(--sku-item-grid-row-gap, 1.5rem);
     column-gap: var(--sku-item-grid-column-gap, 1.5rem);
+  }
+
+  @screen md {
+    .grid-max-cols-4 {
+      @apply grid-cols-2 max-w-none;
+    }
+  }
+
+  @screen lg {
+    .grid-max-cols-4 {
+      @apply grid-cols-3;
+    }
+  }
+
+  @screen xl {
+    .grid-max-cols-4 {
+      @apply grid-cols-4;
+    }
+  }
+
+  @media (min-width: 950px) {
+    .grid-max-cols-3 {
+      @apply grid-cols-2 max-w-none;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .grid-max-cols-3 {
+      @apply grid-cols-3;
+    }
   }
 </style>
