@@ -27,7 +27,10 @@
       .matches(/^[A-Za-z]+\s+([A-Za-z]+\s*)+$/, 'Please enter a valid name'),
     addressLine1: yup.string().required('Address is required'),
     addressLine2: yup.string().optional(),
-    phoneNumber: yup.string().required('Phone number is required'),
+    phoneNumber: yup
+      .string()
+      .required('Phone number is required')
+      .matches(/^[\d #*+-]*$/, 'Please enter a valid phone number.'),
     email: yup.string().email().required('Email is required'),
     postalCode: yup.string().required('Postal code is required'),
     city: yup.string().required('City is required'),

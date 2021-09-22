@@ -30,6 +30,10 @@
       .min(3, 'Username is too short.')
       .max(18, 'Username is too long.'),
     tagline: yup.string().max(150, 'About me must be at most 150 characters.'),
+    phoneNumber: yup
+      .string()
+      .matches(/^[\d #*+-]*$/, 'Please enter a valid phone number.')
+      .optional(),
   });
 
   const { form, errors, isSubmitting, data } = createForm<{

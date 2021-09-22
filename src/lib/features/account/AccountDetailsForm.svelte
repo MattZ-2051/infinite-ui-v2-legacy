@@ -24,6 +24,10 @@
       .string()
       .required('Last name is required.')
       .matches(/^[ A-Za-z]*$/, 'Please enter valid last name.'),
+    phoneNumber: yup
+      .string()
+      .matches(/^[\d #*+-]*$/, 'Please enter a valid phone number.')
+      .optional(),
   });
 
   const initialValues = {
