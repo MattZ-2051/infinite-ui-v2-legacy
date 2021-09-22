@@ -17,6 +17,7 @@ async function getCurrentBlock(): Promise<number> {
 
 async function getTxList({ address, startBlock }: { address: string; startBlock: number }) {
   const rr = await get<AddressInfoResponse>(`${apiUrl}/addrs/${address}`, {
+    credentials: 'omit',
     params: {
       after: startBlock.toString(10),
       limit: Number(1).toString(10),

@@ -13,6 +13,7 @@ const apiKey = variables.ethNetwork.apiKey;
 
 async function getCurrentBlock() {
   const rr = await get<EtherscanResponse<string>>(apiUrl, {
+    credentials: 'omit',
     params: {
       module: 'block',
       action: 'getblocknobytime',
@@ -31,6 +32,7 @@ async function getCurrentBlock() {
 
 async function getTxList(parameters: Record<string, string>) {
   const rr = await get<EtherscanResponse<TokenTxResponse[]>>(apiUrl, {
+    credentials: 'omit',
     params: {
       sort: 'asc',
       ...parameters,
