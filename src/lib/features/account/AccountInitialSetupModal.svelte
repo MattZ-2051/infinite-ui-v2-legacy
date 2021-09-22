@@ -48,7 +48,7 @@
       firstName: '',
       lastName: '',
       tagline: '',
-      username: user?.username || '',
+      username: '',
       phoneNumber: '',
       phoneNumberConsentGiven: false,
     },
