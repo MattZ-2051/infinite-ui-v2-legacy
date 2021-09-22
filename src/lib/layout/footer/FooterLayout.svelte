@@ -9,7 +9,7 @@
       <div class="flex flex-wrap items-center justify-center gap-4 md:gap-4">
         <slot name="start" />
       </div>
-      <span class="px-4 flex flex-wrap gap-1 justify-center">
+      <span class="px-4 flex flex-wrap gap-1 justify-center text-center">
         <slot name="copyright" />
       </span>
       <div class="flex flex-wrap items-center justify-center text-center gap-x-8 gap-y-4 md:gap-5">

@@ -33,10 +33,9 @@
   <SocialLinks slot="start" {links} />
   <svelte:fragment slot="copyright">© 2021 Virtual Rights Management, LLC All Rights Reserved</svelte:fragment>
   <svelte:fragment slot="end">
-    <a href={routes.faq} target="_blank">FAQ</a>
-    <a href={routes.help}>Help</a>
+    <a href={routes.help} target="_blank" rel="noreferrer">Help</a>
     <a href={routes.about}>About Us</a>
-    <a href={routes.careers}>Careers</a>
+    <a href={routes.careers} target="_blank" rel="noreferrer">Careers</a>
     <a href={routes.terms}>Terms & Conditions</a>
     <a href={routes.privacy}>Privacy Policy</a>
   </svelte:fragment>
