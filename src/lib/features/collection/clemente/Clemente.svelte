@@ -53,8 +53,8 @@
         >
       </ButtonGroup>
     </div>
-    <div class="flex flex-col md:grid md:grid-cols-2 gap-2">
-      <div class="flex md:justify-end md:mt-12">
+    <div class="flex flex-col md:flex-row gap-2">
+      <div class="flex md:justify-end md:mt-12 w-1/1 md:w-1/2 lg:w-7/12">
         <div class="flex flex-col gap-5">
           <h1 class="text-4xl md:text-6xl text-yellow-200 font-medium text-center md:text-left">
             {textFields[1] || ''}
@@ -69,7 +69,7 @@
           </div>
         </div>
       </div>
-      <div class="px-6">
+      <div class="px-6 w-1/1 md:w-1/2 lg:w-5/12">
         <img src={photos[2].url} alt="" />
       </div>
     </div>
