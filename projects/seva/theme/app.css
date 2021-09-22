@@ -1,0 +1,13 @@
+body {
+  font-family: 'Ubuntu';
+}
+
+.sticky-cta {
+  background-color: #ffffff;
+  color: #000000;
+  --gray-500: rgba(0, 0, 0, 0.5);
+}
+a.sticky-cta:hover,
+button.sticky-cta:hover {
+  background-color: #ffd54e;
+}

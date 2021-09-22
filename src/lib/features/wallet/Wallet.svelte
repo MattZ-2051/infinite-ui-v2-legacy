@@ -73,7 +73,7 @@
 
 <div
   class="contents"
-  style="--sticky-content-bg: var(--wallet-balance-bg-color); --sticky-scroll-bg: var(--wallet-tabs-bg-color);"
+  style="--sticky-content-bg: var(--wallet-balance-bg-color); --sticky-scroll-bg: var(--wallet-list-bg-color);"
 >
   <StickyColumn reverse>
     <ThemeContext display id="wallet-list" slot="onscreen-content" class="px-4 py-12 md:pl-12">

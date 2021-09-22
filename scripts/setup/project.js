@@ -64,6 +64,7 @@ async function resolveProject() {
       choices: [
         { name: 'aria', message: 'Aria' },
         { name: 'infinite', message: 'Infinite' },
+        { name: 'seva', message: 'Seva' },
       ],
     },
   ];

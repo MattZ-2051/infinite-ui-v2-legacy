@@ -103,26 +103,26 @@
 
   /* Menu */
   --menu-list-background-color: #ffffff;
-  --menu-item-background-selected: #000000;
+  --menu-item-background-selected: #ffd54e;
   --menu-item-color: rgba(0, 0, 0, 0.5);
-  --menu-item-color-selected: #ffffff;
+  --menu-item-color-selected: #000000;
 
   /* Button */
   --button-padding: 8px 24px;
   --button-border-radius: 0;
 
   /* ButtonGroup */
-  --button-group-color: #ffffff;
-  --button-group-bg-color: #000000;
+  --button-group-color: var(--color);
+  --button-group-bg-color: var(--bg-color);
   --button-group-color-hover: #000000;
-  --button-group-bg-color-hover: #ffffff;
+  --button-group-bg-color-hover: #ffd54e;
 
   /* Sku */
   --sku-offscreen-bg-color: rgba(255, 255, 255, 0.95);
 
   /* WalletBalance */
   --wallet-balance-content-bg-color: rgba(255, 255, 255, 0.05);
-  --wallet-balance-heading-color: #ddf874;
+  --wallet-balance-heading-color: #ffd54e;
 
   /* WalletList */
   --wallet-list-bg-color: #ffffff;
@@ -243,18 +243,4 @@
 
   /* TransactionItem */
   --transaction-details-copy-bg: theme('colors.gray.100');
-}
-
-.theme-brand-footer {
-  /* Common */
-  --separator-bg-color: rgba(0, 0, 0, 0.16);
-
-  /* Footer */
-  --footer-bg-color: #ddf874;
-  --footer-color: rgba(0, 0, 0, 0.5);
-  --footer-color-hover: #000000;
-  --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
-  --footer-icon-color: rgba(0, 0, 0, 0.5);
-  --footer-icon-bg-color-hover: #000000;
-  --footer-icon-color-hover: #ffffff;
 }

@@ -1,17 +1,17 @@
-export const CLIENT_DOC_TITLE = 'INFINITE by SUKU';
-export const CLIENT_DOC_DESCRIPTION = 'Start your INFINITE NFT collection today!';
-export const CLIENT_COMPANY_NAME = ' Infinite';
+export const CLIENT_DOC_TITLE = 'SEVA.LOVE';
+export const CLIENT_DOC_DESCRIPTION = 'The world’s first NFT goodness exchange.';
+export const CLIENT_COMPANY_NAME = ' SEVA.LOVE';
 export const CLIENT_SOCIAL_IMAGE = {
-  url: 'https://infinite-digital-dev.s3.amazonaws.com/infinite-meta-social.png',
-  width: 1200,
-  height: 630,
-  alt: 'INFINITE by SUKU | NFT Marketplace',
+  url: 'https://www.seva.love/wp-content/uploads/2021/08/og.jpg',
+  width: 1594,
+  height: 831,
+  alt: 'SEVA.LOVE',
 };
 export const hubspot = {
   region: import.meta.env.VITE_HUBSPOT_REGION,
   formId: import.meta.env.VITE_HUBSPOT_FORM_ID,
   portalId: import.meta.env.VITE_HUBSPOT_PORTAL_ID,
 };
-export const CLIENT_SUPPORT_EMAIL = 'help@infinite.com';
+export const CLIENT_SUPPORT_EMAIL = 'help@seva.love';
 export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-hashgraph-hts';
 export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-redeem-an-item';

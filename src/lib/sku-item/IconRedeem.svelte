@@ -3,6 +3,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import iconRedeem from '$lib/components/icons/redeem';
   import iconRedeemed from '$lib/components/icons/redeemed';
+  import { CLIENT_REDEEM_URL } from '$project/variables';
 
   export let disabled = false;
   export let size = 24;
@@ -11,8 +12,7 @@
   $: padding = Math.floor(size / 5.333_333);
 
   const tooltipMessage = {
-    content:
-      'Learn more about redeemable collectibles <a class="underline" target="_blank" rel="noreferrer" href="https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT">here</a>',
+    content: `Learn more about redeemable collectibles <a class="underline" target="_blank" rel="noreferrer" href=${CLIENT_REDEEM_URL}>here</a>`,
     allowHTML: true,
     interactive: true,
     maxWidth: 270,
