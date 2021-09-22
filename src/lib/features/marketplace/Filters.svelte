@@ -293,7 +293,7 @@
     </Accordion>
   </AccordionGroup>
 
-  <Button variant="tertiary" on:click={close} class="self-center w-full py-3 max-w-xl text-2xl text-center md:hidden">
+  <Button on:click={close} class="self-center w-full py-3 text-2xl text-center md:hidden">
     {total > 0 ? `View Matching Results (${total})` : 'No Matching Results'}
   </Button>
 </div>
