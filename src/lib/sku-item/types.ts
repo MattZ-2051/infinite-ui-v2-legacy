@@ -93,6 +93,7 @@ export type Profile = {
   profilePhotoUrls?: [{ url: string; position: string }];
   profileTextFields?: [{ text: string; position: string }];
   nftSocialAssets?: SocialFileAsset[];
+  templateId?: string;
 };
 
 export type Listing = {
