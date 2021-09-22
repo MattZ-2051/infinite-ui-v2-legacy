@@ -16,7 +16,7 @@
   export let skus: Sku[];
   export let total: number;
   export let maxPrice: number;
-  export let categories: { id: string; name: string }[];
+  export let categories: { _id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
 

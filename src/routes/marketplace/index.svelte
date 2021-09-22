@@ -8,17 +8,16 @@
   export const load = debounce(
     async ({ fetch, page }: LoadInput) => {
       const [filters, items] = await Promise.all([
-        loadMarketplaceFilters({ fetch }),
+        loadMarketplaceFilters({ fetch, query: page.query }),
         loadMarketplaceItems({ fetch, query: page.query }),
       ]);
-      const { data, total, maxPrice } = items;
+      const { data, total } = items;
 
       return {
         props: {
           ...filters,
           skus: data,
           total,
-          maxPrice,
         },
       };
     },
@@ -33,7 +32,7 @@
   export let skus: Sku[];
   export let total: number;
   export let maxPrice: number;
-  export let categories: { id: string; name: string }[];
+  export let categories: { _id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
 </script>

@@ -1,5 +1,5 @@
 import type { Sku, Profile, Series } from '$lib/sku-item/types';
-import { get, getPage, fetchTracker } from '$lib/api';
+import { getPage, fetchTracker } from '$lib/api';
 
 export const loading = fetchTracker();
 
@@ -15,13 +15,28 @@ const getModeParameters = (status: string) => {
   }
 };
 
-export async function loadMarketplaceFilters({ fetch }: { fetch: Fetch }) {
-  const [categories, creators, series] = await Promise.all([
-    get<Sku>(`categories/`, { fetch }),
-    get<Profile[]>(`users?role=issuer&page=1&per_page=500`, { fetch }),
-    get<Series[]>(`series/`, { fetch }),
-  ]);
-  return { categories, creators, series };
+export async function loadMarketplaceFilters({
+  fetch,
+  query,
+}: {
+  fetch: Fetch;
+  query: URLSearchParams;
+}): Promise<{ maxPrice: number; creators: Profile[]; series: Series[]; categories: Sku[] }> {
+  const mode = getModeParameters(query.get('mode'));
+  const { headers } = await getPage<Sku>(`skus/tiles/`, {
+    fetch,
+    params: {
+      page: '1',
+      per_page: '1',
+      ...mode,
+    },
+  });
+  return {
+    creators: JSON.parse(headers.get('skus-creators')),
+    series: JSON.parse(headers.get('skus-editions')),
+    categories: JSON.parse(headers.get('skus-categories')),
+    maxPrice: +headers.get('max-skus-min-price'),
+  };
 }
 
 export const perPage = 9;
@@ -32,7 +47,7 @@ export async function loadMarketplaceItems({
 }: {
   fetch: Fetch;
   query: URLSearchParams;
-}): Promise<{ total: number; data: Sku[]; maxPrice: number }> {
+}): Promise<{ total: number; data: Sku[] }> {
   const page: number = +query.get('page') || 1;
   const mode = getModeParameters(query.get('mode'));
   const category: string = query.get('category');
@@ -65,5 +80,8 @@ export async function loadMarketplaceItems({
     },
   });
 
-  return { data, total, maxPrice: /* +headers.get('max-skus-min-price') || */ 100_000 };
+  return {
+    data,
+    total,
+  };
 }
