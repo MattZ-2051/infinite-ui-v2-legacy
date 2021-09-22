@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mdiChevronDown } from '@mdi/js';
+  import chevronDown from '$ui/accordion/assets/chevron-down';
   import Icon from '$ui/icon/Icon.svelte';
 
   export let active: boolean;
@@ -19,7 +19,7 @@
   </span>
   {#if collapsible}
     <button type="button"
-      ><Icon color="var(--accordion-title-icon-color)" path={mdiChevronDown} size="1.3" flip={active} /></button
+      ><Icon color="var(--accordion-title-icon-color)" path={chevronDown} size="1.3" flip={active} /></button
     >
   {/if}
 </div>

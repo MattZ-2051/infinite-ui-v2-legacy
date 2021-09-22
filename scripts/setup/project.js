@@ -20,7 +20,7 @@ async function run() {
     ({ paths } = await import(`../../projects/${project}/paths.js`));
     paths = Object.fromEntries(
       Object.entries(paths).map(([path, resolution]) => {
-        return [`$project/${path}`, [resolution]];
+        return [path, [resolution]];
       })
     );
   }

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { mdiWindowClose } from '@mdi/js';
+  import { mdiClose } from '@mdi/js';
   import { fade } from 'svelte/transition';
   import Icon from '$ui/icon/Icon.svelte';
 
@@ -31,7 +31,7 @@
       on:click={() => dispatch('remove')}
       class="absolute transform -translate-y-1/2 top-1/2 right-1.5"
     >
-      <Icon path={mdiWindowClose} size="0.75" />
+      <Icon path={mdiClose} size="0.75" />
     </button>
   {/if}
 </div>

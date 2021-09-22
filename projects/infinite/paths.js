@@ -1,3 +1,3 @@
 export const paths = {
-  'about/*': 'projects/aria/src/about/*',
+  '$project/about/*': 'projects/aria/src/about/*',
 };

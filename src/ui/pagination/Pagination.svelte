@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { mdiChevronDoubleLeft, mdiChevronLeft } from '@mdi/js';
+  import chevronDoubleLeft from '$ui/pagination/assets/chevron-double-left';
+  import chevronLeft from '$ui/pagination/assets/chevron-left';
   import Icon from '$ui/icon/Icon.svelte';
   import PaginationItem from './PaginationItem.svelte';
   import PaginationEllipsis from './PaginationEllipsis.svelte';
@@ -66,12 +67,12 @@
     <ul class="flex items-center gap-3">
       {#if boundaryLinks}
         <PaginationItem on:click={() => go(1)} disabled={isFirstPage}>
-          <slot name="first"><Icon path={mdiChevronDoubleLeft} /></slot>
+          <slot name="first"><Icon path={chevronDoubleLeft} /></slot>
         </PaginationItem>
       {/if}
       {#if previousButtons}
         <PaginationItem on:click={() => go(page - 1)} disabled={isFirstPage}>
-          <slot name="previous"><Icon path={mdiChevronLeft} /></slot>
+          <slot name="previous"><Icon path={chevronLeft} /></slot>
         </PaginationItem>
       {/if}
 
@@ -116,12 +117,12 @@
 
       {#if previousButtons}
         <PaginationItem on:click={() => go(page + 1)} disabled={isLastPage}>
-          <slot name="next"><Icon path={mdiChevronLeft} flip="h" /></slot>
+          <slot name="next"><Icon path={chevronLeft} flip="h" /></slot>
         </PaginationItem>
       {/if}
       {#if boundaryLinks}
         <PaginationItem on:click={() => go(pages)} disabled={isLastPage}>
-          <slot name="last"><Icon path={mdiChevronDoubleLeft} flip="h" /></slot>
+          <slot name="last"><Icon path={chevronDoubleLeft} flip="h" /></slot>
         </PaginationItem>
       {/if}
     </ul>
