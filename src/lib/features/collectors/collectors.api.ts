@@ -14,9 +14,9 @@ export async function loadCollectorProducts({
 }) {
   const page: number = +query.get('page') || 1;
   const perPage: number = +query.get('perPage') || 6;
-  const forSale = query.has('forSale') && query.get('forSale') === 'true';
   const sortBy: string = query.get('sortBy') || 'serialNumber:asc';
   const search: string = query.get('search') || '';
+  const saleType: string = query.get('saleType') || '';
 
   const [sku, { data: collectors, total }] = await Promise.all([
     get<Sku>(`skus/${id}?includeFunctions=true`, { fetch }),
@@ -27,7 +27,7 @@ export async function loadCollectorProducts({
         page: `${page}`,
         per_page: `${perPage}`,
         sortBy: sortBy,
-        ...(forSale && { forSale: 'true' }),
+        ...(saleType && { saleType }),
         ...(search && { search }),
       },
     }),
@@ -36,7 +36,6 @@ export async function loadCollectorProducts({
   return {
     sku,
     collectors,
-    forSale,
     search,
     page,
     total,

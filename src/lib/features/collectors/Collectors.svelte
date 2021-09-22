@@ -8,7 +8,6 @@
   export let sku: Sku;
   export let collectors: CollectorProduct[];
   export let page: number;
-  export let forSale: boolean;
   export let search: string;
   export let total: number;
   export let perPage: number;
@@ -34,7 +33,7 @@
     </div>
 
     <div class="mt-20 md:pl-8">
-      <CollectorsSummary {sku} {collectors} {page} {forSale} {search} {total} {perPage} />
+      <CollectorsSummary {sku} {collectors} {page} {search} {total} {perPage} />
     </div>
   </div>
 </StickyColumn>

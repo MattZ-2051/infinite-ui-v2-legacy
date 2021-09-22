@@ -22,7 +22,6 @@
 
   export let sku: Sku;
   export let collectors: CollectorProduct[];
-  export let forSale: boolean;
   export let search: string;
   export let total: number;
   export let page: number;
@@ -31,4 +30,4 @@
 
 <Seo title={sku.name} image={chooseSkuSocialImage(sku)} />
 
-<Collectors {sku} {collectors} {forSale} {search} {total} {page} {perPage} />
+<Collectors {sku} {collectors} {search} {total} {page} {perPage} />

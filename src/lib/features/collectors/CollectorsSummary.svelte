@@ -3,14 +3,12 @@
   import { Pagination } from '$ui/pagination';
   import Sort from '$lib/components/Sort.svelte';
   import Search from '$lib/components/Search.svelte';
-  import { Checkbox } from '$ui/checkbox';
   import { gotoQueryParameters } from '$util/queryParameter';
   import CollectorItem from './CollectorItem.svelte';
   import { loading } from './collectors.api';
 
   export let sku: Sku;
   export let collectors: CollectorProduct[];
-  export let forSale: boolean;
   export let page: number;
   export let search: string;
   export let total: number;
@@ -38,14 +36,38 @@
     },
   ];
 
+  const statusOptions = [
+    {
+      id: 1,
+      name: 'All',
+      order: '',
+      value: '',
+    },
+    {
+      id: 2,
+      name: 'For Sale',
+      order: '',
+      value: 'fixed',
+    },
+    {
+      id: 3,
+      name: 'Auction',
+      order: '',
+      value: 'auction',
+    },
+  ];
+
   const gotoPage = (event: CustomEvent) => {
     navigate({ page: +event.detail.value });
   };
 
   const handleInput = (event: Event) => navigate({ search: (event.target as HTMLInputElement).value });
 
-  const onFilterChange = () => {
-    navigate({ forSale: !forSale });
+  const status = (event: CustomEvent) => {
+    navigate({
+      saleType: event.detail.value,
+      page: false,
+    });
   };
 
   function navigate(parameters): void {
@@ -66,9 +88,7 @@
   </div>
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
-      <Checkbox checked={forSale} on:change={onFilterChange}>
-        <span class="whitespace-nowrap">For Sale</span>
-      </Checkbox>
+      <Sort sortOptions={statusOptions} on:select={status} label="Status:" selected={statusOptions[0]} />
     </div>
     <div class="flex cursor-pointer gap-2">
       <Sort {sortOptions} on:select={sort} />
