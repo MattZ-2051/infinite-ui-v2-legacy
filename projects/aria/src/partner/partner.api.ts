@@ -7,6 +7,7 @@ export async function subscribe(values: { [key: string]: string }) {
     {
       params: values,
       parseResponseAsText: true,
+      credentials: 'omit',
     }
   );
 }
