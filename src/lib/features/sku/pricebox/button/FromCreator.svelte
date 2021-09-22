@@ -23,7 +23,7 @@
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
         <div class="text-xl">From Creator</div>
-        {#if state === 'active'}
+        {#if state === 'active' && sku?.supplyType !== 'variable'}
           <div class="text-gray-500 text-sm">{sku?.totalSupplyLeft} Items left</div>
         {/if}
         {#if state === 'noSale'}
