@@ -79,10 +79,9 @@ export const createSkuMessageType = (sku: Sku): SupplyInfo => {
   }
 
   if (isVariable) {
-    if (sku.circulatingSupply > 0) return { type: 'released', quantity: sku.circulatingSupply };
-    if (sku.minStartDate > new Date()) {
-      return { type: 'released', quantity: sku.totalUpcomingSupply };
-    }
+    return sku.minStartDate > new Date()
+      ? { type: 'released', quantity: sku.totalUpcomingSupply }
+      : { type: 'released', quantity: sku.circulatingSupply };
   }
 };
 
