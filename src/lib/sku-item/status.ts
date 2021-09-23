@@ -15,7 +15,22 @@ export const skuStatus = (sku: Sku): Status => {
     }
   }
   if (sku.totalSupplyLeft !== 0 && (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0)) {
-    const minPrice = sku.activeProductListings?.length ? Math.min(sku.minPrice, sku.minSkuPrice) : sku.minSkuPrice;
+    const hasProductListings = !!sku.activeProductListings?.length;
+    const hasSkuListings = !!sku.activeSkuListings?.length;
+    const isAuctionListing =
+      sku.activeProductListings?.[0]?.saleType === 'auction' && sku.activeProductListings?.[0].status === 'active';
+    let minPrice: number;
+
+    if (hasProductListings) {
+      if (hasSkuListings) {
+        minPrice = isAuctionListing ? Math.min(sku.maxBid, sku.minSkuPrice) : Math.min(sku.minPrice, sku.minSkuPrice);
+      } else {
+        minPrice = isAuctionListing ? sku.maxBid : sku.minPrice;
+      }
+    } else {
+      minPrice = sku.minSkuPrice;
+    }
+
     return { status: 'active', minPrice };
   }
   if (sku.totalSupplyLeft === 0 || sku.activeSkuListings?.length === 0) {
