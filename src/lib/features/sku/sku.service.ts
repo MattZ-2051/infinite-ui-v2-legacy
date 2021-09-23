@@ -1,6 +1,6 @@
 import type { Sku, Listing, CollectorProduct, Product } from '$lib/sku-item/types';
 
-type SupplyInfo = { type: string; quantity: number } | undefined;
+export type SupplyInfo = { type: 'unique' | 'limited' | 'released'; quantity: number } | undefined;
 
 export const getActiveListings = (sku: Sku): Listing[] => {
   return sku.activeSkuListings.filter((skuListing) => !skuListing.canceled);
@@ -53,77 +53,79 @@ const limitedEditions = (quantity: number): SupplyInfo => {
 };
 
 export const createSkuMessageType = (sku: Sku): SupplyInfo => {
-  if (sku) {
-    const isFixed = sku.supplyType === 'fixed';
-    const hasListings = sku.skuListings?.length > 0;
-    const hasExpiredListings = sku.expiredSkuListings?.length > 0;
-    const isVariable = sku.supplyType === 'variable';
-    if (sku.maxSupply === 1) return { type: 'unique', quantity: sku.maxSupply };
+  if (!sku) {
+    return;
+  }
 
-    if (isFixed && sku.totalUpcomingSupply > 0) {
-      if (hasListings) return limitedEditions(sku.totalUpcomingSupply + sku.totalSupply);
-      return limitedEditions(sku.totalUpcomingSupply);
-    }
+  const isFixed = sku.supplyType === 'fixed';
+  const hasListings = sku.skuListings?.length > 0;
+  const hasExpiredListings = sku.expiredSkuListings?.length > 0;
+  const isVariable = sku.supplyType === 'variable';
+  if (sku.maxSupply === 1) return { type: 'unique', quantity: sku.maxSupply };
 
-    if (isFixed && sku.totalSupply > 0) {
-      if (hasListings) return limitedEditionMessageSelector(sku.totalSupply);
-      return limitedEditions(sku.totalSupply);
-    }
+  if (isFixed && sku.totalUpcomingSupply > 0) {
+    if (hasListings) return limitedEditions(sku.totalUpcomingSupply + sku.totalSupply);
+    return limitedEditions(sku.totalUpcomingSupply);
+  }
 
-    if (isFixed && hasListings && hasExpiredListings) {
-      if (sku.circulatingSupply === 0) return undefined;
-      return limitedEditionMessageSelector(sku.circulatingSupply);
-    }
+  if (isFixed && sku.totalSupply > 0) {
+    if (hasListings) return limitedEditionMessageSelector(sku.totalSupply);
+    return limitedEditions(sku.totalSupply);
+  }
 
-    if (isVariable) {
-      if (sku.circulatingSupply > 0) return { type: 'released', quantity: sku.circulatingSupply };
-      if (sku.minStartDate > new Date()) {
-        return { type: 'released', quantity: sku.totalUpcomingSupply };
-      }
+  if (isFixed && hasListings && hasExpiredListings) {
+    if (sku.circulatingSupply === 0) return undefined;
+    return limitedEditionMessageSelector(sku.circulatingSupply);
+  }
+
+  if (isVariable) {
+    if (sku.circulatingSupply > 0) return { type: 'released', quantity: sku.circulatingSupply };
+    if (sku.minStartDate > new Date()) {
+      return { type: 'released', quantity: sku.totalUpcomingSupply };
     }
-    return undefined;
-  } else {
-    return undefined;
   }
 };
 
 export const createProductMessageType = (product: Product): SupplyInfo => {
-  if (product) {
-    const sku = product.sku;
-    const isFixed = sku?.supplyType === 'fixed';
-    const hasListings = product.skuListings?.length > 0;
-    const hasExpiredListings = product.expiredSkuListings?.length > 0;
-    const isVariable = sku?.supplyType === 'variable';
-    if (sku?.maxSupply === 1) return { type: 'unique', quantity: sku?.maxSupply };
+  if (!product) {
+    return;
+  }
 
-    if (isFixed && product.totalUpcomingSupply > 0) {
-      if (hasListings) return limitedEditions(product.totalUpcomingSupply + product.totalSupply);
-      return limitedEditions(product.totalUpcomingSupply);
-    }
+  const sku = product.sku;
+  const isFixed = sku?.supplyType === 'fixed';
+  const hasListings = product.skuListings?.length > 0;
+  const hasExpiredListings = product.expiredSkuListings?.length > 0;
+  const isVariable = sku?.supplyType === 'variable';
+  if (sku?.maxSupply === 1) return { type: 'unique', quantity: sku?.maxSupply };
 
-    if (isFixed && product.totalSupply > 0) {
-      if (hasListings) return limitedEditionMessageSelector(product.totalSupply);
-      return limitedEditions(product.totalSupply);
-    }
+  if (isFixed && product.totalUpcomingSupply > 0) {
+    if (hasListings) return limitedEditions(product.totalUpcomingSupply + product.totalSupply);
+    return limitedEditions(product.totalUpcomingSupply);
+  }
 
-    if (isFixed && hasListings && hasExpiredListings) {
-      if (product.circulatingSupply === 0) return undefined;
-      return limitedEditionMessageSelector(product.circulatingSupply);
-    }
+  if (isFixed && product.totalSupply > 0) {
+    if (hasListings) return limitedEditionMessageSelector(product.totalSupply);
+    return limitedEditions(product.totalSupply);
+  }
 
-    if (isVariable) {
-      if (product.circulatingSupply > 0) return { type: 'released', quantity: product.circulatingSupply };
-      if (product.minStartDate > new Date()) {
-        return { type: 'released', quantity: product.totalUpcomingSupply };
-      }
+  if (isFixed && hasListings && hasExpiredListings) {
+    if (product.circulatingSupply === 0) return undefined;
+    return limitedEditionMessageSelector(product.circulatingSupply);
+  }
+
+  if (isVariable) {
+    if (product.circulatingSupply > 0) return { type: 'released', quantity: product.circulatingSupply };
+    if (product.minStartDate > new Date()) {
+      return { type: 'released', quantity: product.totalUpcomingSupply };
     }
-    return undefined;
-  } else {
-    return undefined;
   }
 };
 
-export const createSkuMessage = (messageType: string, quantity: number, sku: Sku): string | undefined => {
+export const createSkuMessage = (
+  messageType: SupplyInfo['type'],
+  quantity: SupplyInfo['quantity'],
+  sku: Sku
+): string | undefined => {
   switch (messageType) {
     case 'limited':
       return `Limited to ${quantity}`;
@@ -131,12 +133,14 @@ export const createSkuMessage = (messageType: string, quantity: number, sku: Sku
       return sku.minStartDate > new Date() ? `${quantity} to be released` : `${quantity} released`;
     case 'unique':
       return '1 of 1';
-    default:
-      return undefined;
   }
 };
 
-export const createProductMessage = (messageType: string, quantity: number, product: Product): string | undefined => {
+export const createProductMessage = (
+  messageType: SupplyInfo['type'],
+  quantity: SupplyInfo['quantity'],
+  product: Product
+): string | undefined => {
   switch (messageType) {
     case 'limited':
       return `Limited to ${quantity}`;
@@ -144,7 +148,5 @@ export const createProductMessage = (messageType: string, quantity: number, prod
       return product.minStartDate > new Date() ? `${quantity} to be released` : `${quantity} released`;
     case 'unique':
       return '1 of 1';
-    default:
-      return undefined;
   }
 };

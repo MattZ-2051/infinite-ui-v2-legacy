@@ -57,9 +57,7 @@
           </div>
         </div>
         <div class="mb-4 flex items-center gap-2 justify-between">
-          {#if sku.series}
-            <div>{sku.series.name}</div>
-          {/if}
+          <div>{sku.series?.name || ''}</div>
           {#if product?.serialNumber}
             <div>#{product.serialNumber}</div>
           {/if}

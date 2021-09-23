@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Sku, Product } from '$lib/sku-item/types';
+  import type { SupplyInfo } from '$lib/features/sku/sku.service';
   import tooltip from '$ui/tooltip';
   import {
     createSkuMessageType,
@@ -8,11 +9,11 @@
     createProductMessage,
   } from '$lib/features/sku/sku.service';
 
-  export let sku: Sku = undefined;
+  export let sku: Sku;
   export let product: Product = undefined;
 
-  $: skuSupply = createSkuMessageType(sku);
-  $: productSupply = createProductMessageType(product);
+  let supply: SupplyInfo;
+  $: supply = product ? createProductMessageType(product) : createSkuMessageType(sku);
 
   const createTooltipMessage = (supplyType: string | undefined) => {
     switch (supplyType) {
@@ -28,18 +29,15 @@
   };
 </script>
 
-{#if skuSupply}
-  <div class="flex items-center whitespace-nowrap" use:tooltip={createTooltipMessage(skuSupply.type)}>
-    <div class="{skuSupply.type}-badge w-4 h-4 rounded-full mr-2" />
-    <span class="{skuSupply.type}-text">{createSkuMessage(skuSupply.type, skuSupply.quantity, sku)}</span>
-  </div>
-{/if}
-{#if productSupply}
-  <div class="flex items-center whitespace-nowrap" use:tooltip={createTooltipMessage(productSupply.type)}>
-    <div class="{productSupply.type}-badge w-4 h-4 rounded-full mr-2" />
-    <span class="{productSupply.type}-text"
-      >{createProductMessage(productSupply.type, productSupply.quantity, product)}</span
-    >
+{#if supply}
+  <div class="flex items-center whitespace-nowrap" use:tooltip={createTooltipMessage(supply.type)}>
+    {#if product}
+      <div class="{supply.type}-badge w-4 h-4 rounded-full mr-2" />
+      <span class="{supply.type}-text">{createProductMessage(supply.type, supply.quantity, product)}</span>
+    {:else}
+      <div class="{supply.type}-badge w-4 h-4 rounded-full mr-2" />
+      <span class="{supply.type}-text">{createSkuMessage(supply.type, supply.quantity, sku)}</span>
+    {/if}
   </div>
 {/if}
 
