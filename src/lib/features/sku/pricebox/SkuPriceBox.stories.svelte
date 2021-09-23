@@ -133,8 +133,11 @@
       listing: {
         saleType: 'auction',
         status: 'active',
-        minBid: 10,
+        minBid: 20,
         endDate: dummyDate,
+        highestBid: {
+          bidAmt: 30,
+        },
         issuer: {
           id: '1',
         },
