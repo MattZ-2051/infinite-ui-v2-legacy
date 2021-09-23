@@ -19,20 +19,20 @@
       <FilePreview item={sku.nftPublicAssets?.[0]} preview />
     </a>
     <div
-      class="hidden md:block bg-white-opacity-75 absolute inset-0 p-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
+      class="hidden md:block bg-white-opacity-75 absolute inset-0 p-3 opacity-0 hover:opacity-100 transition-opacity duration-300"
     >
-      <div class="card-description-inner p-4 lg:py-10 lg:px-8 text-white h-full flex">
+      <div class="card-description-inner p-4 text-white h-full flex">
         <div class="scrollbox">
           <div class="flex flex-col justify-between w-full h-full">
             <div>
-              <div class="flex flex-wrap items-center justify-between mb-4">
-                <a {href} class="text-primary text-2xl font-medium">{sku.name}</a>
+              <div class="flex gap-1 items-center justify-between mb-2.5">
+                <a {href} class="text-primary text-2xl font-medium truncate">{sku.name}</a>
                 <SkuEdition {sku} />
               </div>
-              <TalentLink profile={sku.issuer} class="text-xl mb-4" style="color: #717171" />
+              <TalentLink profile={sku.issuer} class="text-lg mb-2.5" style="color: #717171" />
 
               {#if status === 'active'}
-                <div class="flex items-center gap-4 my-4 md:my-8" style="color: #636363">
+                <div class="flex items-center gap-4 my-4" style="color: #636363">
                   <div class="font-bold">Starting Price:</div>
                   <div>{formatCurrencyWithOptionalFractionDigits(sku.minPrice)}</div>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="mt-4 md:mt-8" style="color: #636363">Series #{sku.series.name}</div>
               {/if}
 
-              <div class="flex-1 overflow-hidden mb-4">
+              <div class="flex-1 overflow-hidden mb-2.5">
                 {sku.descriptionShort || ''}
               </div>
             </div>
