@@ -1,1 +1,1 @@
-<img src="/sevalove-logo-white.svg" width="233" alt="logo" />
+<img src="/sevalove-logo-white.svg" width="224" alt="logo" />
