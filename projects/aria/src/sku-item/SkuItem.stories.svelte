@@ -13,7 +13,18 @@
   </div></Template
 >
 
-<Story name="Active" args={{ sku: item }} />
+<Story
+  name="Active"
+  args={{
+    sku: {
+      ...item,
+      minPrice: 2,
+      minSkuPrice: 22,
+      activeProductListings: [{ price: 2 }],
+      activeSkuListings: [{ price: 22 }],
+    },
+  }}
+/>
 <Story
   name="Upcoming"
   args={{ sku: { ...item, minStartDate: dayjs(new Date()).add(3, 'days').add(1, 'hour').toDate() } }}

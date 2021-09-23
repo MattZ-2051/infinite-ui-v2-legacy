@@ -15,7 +15,7 @@ export const skuStatus = (sku: Sku): Status => {
     }
   }
   if (sku.totalSupplyLeft !== 0 && (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0)) {
-    const minPrice = sku.activeSkuListings?.length === 0 ? sku.minPrice : sku.minSkuPrice;
+    const minPrice = sku.activeProductListings?.length ? Math.min(sku.minPrice, sku.minSkuPrice) : sku.minSkuPrice;
     return { status: 'active', minPrice };
   }
   if (sku.totalSupplyLeft === 0 || sku.activeSkuListings?.length === 0) {
