@@ -2,10 +2,12 @@
   import type { User } from '$lib/user/types';
   import { mdiCogOutline, mdiCreditCardOutline, mdiLogout, mdiAccount } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
+  import questionMark from '$lib/components/icons/question-mark';
   import { page } from '$app/stores';
   import { login, isLoading, logout } from '$lib/auth';
   import { clearUser } from '$lib/user';
   import routes from '$project/routes';
+  import { CLIENT_SUPPORT_URL } from '$project/variables';
   import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
   import Button from '$lib/components/Button.svelte';
 
@@ -39,6 +41,9 @@
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
     <button type="button" class="header-link" on:click={() => onLogout()}>Sign Out</button>
   {:else}
+    <a href={CLIENT_SUPPORT_URL} target="_blank" rel="noreferrer" class="header-link">
+      <Icon path={questionMark} size="1.25rem" />
+    </a>
     <Menu placement="bottom-end">
       <MenuTrigger slot="trigger" class="header-link">
         <div class="flex gap-1.5 ">
@@ -66,6 +71,11 @@
 {:else}
   <a sveltekit:prefetch href={routes.about} class="header-link" class:active={isRoute(routes.about)}>About Us</a>
   <button class="flex header-link" on:click={async () => await login()} disabled={$isLoading}>Sign in</button>
+  {#if !flatten}
+    <a href={CLIENT_SUPPORT_URL} target="_blank" rel="noreferrer" class="header-link"
+      ><Icon path={questionMark} size="1.25rem" /></a
+    >
+  {/if}
   <Button variant="brand" href={routes.signup} class="whitespace-nowrap">Sign up</Button>
 {/if}
 

@@ -8,5 +8,6 @@ export const CLIENT_SOCIAL_IMAGE = {
   alt: 'The ARIA Exchange',
 };
 export const CLIENT_SUPPORT_EMAIL = 'support@ARIAExchange.com';
+export const CLIENT_SUPPORT_URL = 'https://aria-network.force.com/support/s/';
 export const CLIENT_HEDERA_URL = 'https://aria-network.force.com/support/s/article/What-is-Hedera-Hashgraph';
 export const CLIENT_REDEEM_URL = 'https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT';

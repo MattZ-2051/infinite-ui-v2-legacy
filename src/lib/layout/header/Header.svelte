@@ -2,8 +2,11 @@
   import Logo from '$project/Logo.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import SidebarToggle from '$ui/sidebar-toggle/SidebarToggle.svelte';
+  import Icon from '$ui/icon/Icon.svelte';
+  import questionMark from '$lib/components/icons/question-mark';
   import { user } from '$lib/user';
   import routes from '$project/routes';
+  import { CLIENT_SUPPORT_URL } from '$project/variables';
   import Links from './Links.svelte';
   import Sidebar from './Sidebar.svelte';
 
@@ -20,6 +23,13 @@
       {/if}
       <div class="container flex justify-between items-center md:items-end py-3">
         <a href={routes.index} class="self-end flex gap-1 mr-3 items-end"><Logo /></a>
+        <a
+          href={CLIENT_SUPPORT_URL}
+          target="_blank"
+          rel="noreferrer"
+          class="text-current ml-auto mr-3 sm:mr-5 md:hidden"
+          style="margin-top: 3px;"><Icon path={questionMark} size={1.25} /></a
+        >
         <SidebarToggle
           isOpen={showSidebar}
           on:toggle={(event) => (showSidebar = event.detail)}

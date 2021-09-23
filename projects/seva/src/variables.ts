@@ -13,5 +13,6 @@ export const hubspot = {
   portalId: import.meta.env.VITE_HUBSPOT_PORTAL_ID,
 };
 export const CLIENT_SUPPORT_EMAIL = 'help@seva.love';
+export const CLIENT_SUPPORT_URL = 'https://support.suku.world/infinite-powered-by-suku';
 export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-hashgraph-hts';
 export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-redeem-an-item';
