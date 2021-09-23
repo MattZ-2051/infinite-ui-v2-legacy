@@ -127,6 +127,35 @@
       },
     },
   ];
+
+  const uniqueAuctionCollector = [
+    {
+      listing: {
+        saleType: 'auction',
+        status: 'active',
+        minBid: 10,
+        endDate: dummyDate,
+        issuer: {
+          id: '1',
+        },
+      },
+    },
+  ];
+
+  const upcomingUniqueAuctionCollector = [
+    {
+      listing: {
+        saleType: 'auction',
+        status: 'upcoming',
+        minBid: 20,
+        startDate: dummyDate,
+        issuer: {
+          id: '1',
+        },
+      },
+    },
+  ];
+
   const activeSku = {
     activeSkuListings: activeSkuListings,
     upcomingSkuListings: [],
@@ -134,6 +163,32 @@
     activeProductListings: [],
     upcomingProductListings: [],
     soldSkuListings: [],
+  };
+
+  const uniqueSku = {
+    activeSkuListings: [],
+    upcomingSkuListings: [],
+    totalSupplyLeft: 0,
+    activeProductListings: [],
+    upcomingProductListings: [],
+    soldSkuListings: [],
+    maxSupply: 1,
+    issuer: {
+      id: '1',
+    },
+  };
+
+  const upcomingUniqueSku = {
+    activeSkuListings: activeSkuListings,
+    upcomingSkuListings: [],
+    totalSupplyLeft: 3,
+    activeProductListings: [],
+    upcomingProductListings: [],
+    soldSkuListings: [],
+    maxSupply: 1,
+    issuer: {
+      id: '1',
+    },
   };
 
   const upcomingSku = {
@@ -151,7 +206,7 @@
     skuListings: [],
     soldSkuListings: soldSkuListings,
     minPrice: 10,
-    countProductListings: 2,
+    countProductListings: 0,
   };
 
   const upcomingNftGiveAwaySku = {
@@ -217,5 +272,17 @@
 <!-- Default Case where there are no active listings or upcoming listings -->
 <Story
   name="From Creator - None for sale, From Collectors - Default"
-  args={{ sku: activeSku, totalCollectors: 2, collectors: noSaleCollectors }}
+  args={{ sku: noSaleSku, totalCollectors: 2, collectors: noSaleCollectors }}
+/>
+
+<!-- Unique Owner has an active auction product listing  -->
+<Story
+  name="From Creator - None for sale, From Collectors - Active Auction"
+  args={{ sku: uniqueSku, totalCollectors: 1, collectors: uniqueAuctionCollector }}
+/>
+
+<!-- Unique Owner has an upcoming auction product listing  -->
+<Story
+  name="From Collectors - Upcoming Auction"
+  args={{ sku: upcomingUniqueSku, totalCollectors: 1, collectors: upcomingUniqueAuctionCollector }}
 />

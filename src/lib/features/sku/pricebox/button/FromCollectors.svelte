@@ -14,6 +14,7 @@
   export let collector: CollectorProduct;
 
   const collectorListing = collector?.listing;
+  const isUniqueAuction = sku?.maxSupply === 1 && sku?.issuer?._id === collectorListing?.issuer?._id;
 
   // TODO: let’s always link to the collector’s page for now
   const href = /* status === 'noneForSale' ? */ routes.collectors(
@@ -37,13 +38,15 @@
 
     {#if status === 'activeAuction'}
       <div>
-        <div class="text-xl">From Collector</div>
-        <div class="text-gray-500 text-sm">Auction active</div>
+        <div class="text-xl">{isUniqueAuction ? 'Active Auction' : 'From Collector'}</div>
+        <div class="text-gray-500 text-sm">
+          {isUniqueAuction ? `Ends ${formatDate(collectorListing.endDate)}` : 'Auction Active'}
+        </div>
       </div>
       <div class="flex justify-end items-center">
         <div>
           <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(collectorListing.minBid)}</div>
-          <div class="text-gray-500 text-sm">Starting at</div>
+          <div class="text-gray-500 text-sm">{isUniqueAuction ? 'Highest Bid' : 'Starting at'}</div>
         </div>
       </div>
     {/if}
