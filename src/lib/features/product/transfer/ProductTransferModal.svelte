@@ -70,36 +70,31 @@
       <div class="w-full pt-4">
         {#if status === 'select-user'}
           <Button
+            variant="brand"
             class="w-full mt-6"
-            type="button"
             disabled={selectedUser === undefined}
             on:click={() => (status = 'confirm-user')}>Transfer NFT</Button
           >
         {:else if status === 'confirm-user'}
           <div class="grid grid-cols-1 gap-4">
-            <Button type="button" disabled={$waitingForAPI} on:click={async () => await onConfirmTransfer(selectedUser)}
-              >Confirm Transfer</Button
-            >
             <Button
-              type="button"
-              variant="secondary"
+              variant="brand"
               disabled={$waitingForAPI}
-              on:click={() => (status = 'select-user')}>Go Back</Button
+              on:click={async () => await onConfirmTransfer(selectedUser)}>Confirm Transfer</Button
+            >
+            <Button variant="outline-brand" disabled={$waitingForAPI} on:click={() => (status = 'select-user')}
+              >Go Back</Button
             >
           </div>
         {:else if status === 'transfer-success'}
           <div class="grid grid-cols-1 gap-4">
             <Button
-              type="button"
-              variant="secondary"
+              variant="outline-brand"
               disabled={$waitingForAPI}
               on:click={() => goto(routes.collection($user.username))}>Back to Collection</Button
             >
-            <Button
-              type="button"
-              variant="secondary"
-              disabled={$waitingForAPI}
-              on:click={() => goto(routes.marketplace)}>Back to Marketplace</Button
+            <Button variant="outline-brand" disabled={$waitingForAPI} on:click={() => goto(routes.marketplace)}
+              >Back to Marketplace</Button
             >
           </div>
         {:else if status === 'transfer-pending'}
@@ -111,8 +106,8 @@
           </div>
         {:else}
           <div class="grid grid-cols-1 gap-4">
-            <Button type="button" on:click={() => (status = 'select-user')}>Try Again</Button>
-            <Button type="button" variant="secondary" on:click={() => goto(routes.help)}>Help/Contact Support</Button>
+            <Button variant="brand" type="button" on:click={() => (status = 'select-user')}>Try Again</Button>
+            <Button variant="outline-brand" on:click={() => goto(routes.help)}>Help/Contact Support</Button>
           </div>
         {/if}
       </div>

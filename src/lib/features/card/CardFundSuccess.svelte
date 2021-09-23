@@ -14,8 +14,8 @@
         or
       </div>
       <div class="flex flex-col gap-4">
-        <Button href={routes.marketplace}>Go to Marketplace</Button>
-        <a href={routes.wallet} class="text-black text-xl py-2">View Wallet</a>
+        <Button variant="brand" href={routes.marketplace}>Go to Marketplace</Button>
+        <Button href={routes.wallet}>View Wallet</Button>
       </div>
     </div>
   </Modal>

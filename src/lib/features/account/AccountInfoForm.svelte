@@ -55,7 +55,6 @@
   <FormInput name="tagline" placeholder="Enter short bio" label="About me" textarea rows="4" />
   <div class="flex gap-4 justify-end">
     <Button
-      animate={false}
       class="w-16 text-sm rounded-sm"
       disabled={!!saving}
       on:click={(event) => {
@@ -63,7 +62,7 @@
         dispatch('closeForm');
       }}>Cancel</Button
     >
-    <Button animate={false} type="submit" disabled={!!saving} class=" w-16 text-sm  rounded-sm">Save</Button>
+    <Button variant="brand" type="submit" disabled={!!saving} class=" w-16 text-sm  rounded-sm">Save</Button>
   </div>
 </form>
 

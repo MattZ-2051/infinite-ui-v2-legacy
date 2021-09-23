@@ -8,7 +8,7 @@
   component={Button}
   argTypes={{
     variant: {
-      options: ['primary', 'secondary', 'tertiary'],
+      options: ['base', 'brand', 'outline-brand'],
       control: { type: 'select' },
     },
     href: {
@@ -23,6 +23,6 @@
   </div>
 </Template>
 
-<Story name="Primary" args={{ variant: 'primary' }} />
-<Story name="Secondary" args={{ variant: 'secondary' }} />
-<Story name="Tertiary" args={{ variant: 'tertiary' }} />
+<Story name="Base" args={{ variant: 'base' }} />
+<Story name="Brand" args={{ variant: 'brand' }} />
+<Story name="Outline Brand" args={{ variant: 'outline-brand' }} />

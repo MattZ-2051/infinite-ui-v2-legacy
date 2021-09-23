@@ -92,7 +92,7 @@
       >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
     >
     <FormInput name="amount" type="number" placeholder="Enter Amount" before="$" />
-    <Button type="submit" disabled={!isActive || $saving}>Add Funds</Button>
+    <Button variant="brand" type="submit" disabled={!isActive || $saving}>Add Funds</Button>
   </form>
 </CircleContainer>
 

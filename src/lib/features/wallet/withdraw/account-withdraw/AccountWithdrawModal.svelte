@@ -67,8 +67,8 @@
       </div>
     </div>
     <div slot="footer" class="flex flex-col gap-4">
-      <Button on:click={onConfirm} disabled={$pending}>Confirm Withdraw</Button>
-      <Button on:click={closeModal} variant="secondary">Go Back</Button>
+      <Button variant="brand" on:click={onConfirm} disabled={$pending}>Confirm Withdraw</Button>
+      <Button variant="outline-brand" on:click={closeModal}>Go Back</Button>
     </div>
   </Modal>
 {/if}

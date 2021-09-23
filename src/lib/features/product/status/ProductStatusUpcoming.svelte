@@ -54,8 +54,8 @@
 
   {#if isProductOwner}
     <Button
+      variant="brand"
       --button-border-radius="0"
-      animate={false}
       on:click={() => dispatch('cancel')}
       class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
       >{messages[type].cancel}<Icon size="1.2" path={mdiClose} /></Button

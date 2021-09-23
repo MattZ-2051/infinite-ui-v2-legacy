@@ -88,15 +88,20 @@
   --sku-item-bg-color: var(--bg-color);
 
   /* Button */
-  --button-primary-color: #000000;
-  --button-primary-bg-color: var(--primary);
-  --button-primary-border-color: var(--primary);
-  --button-secondary-color: #000000;
-  --button-secondary-bg-color: #ffffff;
-  --button-secondary-border-color: var(--primary);
-  --button-tertiary-color: #000000;
-  --button-tertiary-bg-color: #ffffff;
-  --button-tertiary-border-color: #ffffff;
+  --button-padding: 8px 24px;
+  --button-border-radius: 0;
+  --button-brand-color: #000000;
+  --button-brand-bg-color: #ffffff;
+  --button-brand-border-color: #ffffff;
+  --button-brand-color-hover: #000000;
+  --button-brand-bg-color-hover: #ddf874;
+  --button-brand-border-color-hover: #ddf874;
+  --button-outline-brand-color: #ffffff;
+  --button-outline-brand-bg-color: #000000;
+  --button-outline-brand-border-color: #ffffff;
+  --button-outline-brand-color-hover: #a8c039;
+  --button-outline-brand-bg-color-hover: #000000;
+  --button-outline-brand-border-color-hover: #a8c039;
 
   /* IconRedeem */
   --icon-redeem-border-radius: 50%;
@@ -106,10 +111,6 @@
   --menu-item-background-selected: #000000;
   --menu-item-color: rgba(0, 0, 0, 0.5);
   --menu-item-color-selected: #ffffff;
-
-  /* Button */
-  --button-padding: 8px 24px;
-  --button-border-radius: 0;
 
   /* ButtonGroup */
   --button-group-color: #ffffff;
@@ -231,15 +232,18 @@
   --sku-item-bg-color: var(--bg-color);
 
   /* Button */
-  --button-primary-color: #ffffff;
-  --button-primary-bg-color: #000000;
-  --button-primary-border-color: #000000;
-  --button-secondary-color: #000000;
-  --button-secondary-bg-color: #ffffff;
-  --button-secondary-border-color: #000000;
-  --button-tertiary-color: #ffffff;
-  --button-tertiary-bg-color: #000000;
-  --button-tertiary-border-color: #000000;
+  --button-brand-color: #ffffff;
+  --button-brand-bg-color: #000000;
+  --button-brand-border-color: #000000;
+  --button-brand-color-hover: #000000;
+  --button-brand-bg-color-hover: #ddf874;
+  --button-brand-border-color-hover: #ddf874;
+  --button-outline-brand-color: #000000;
+  --button-outline-brand-bg-color: #ffffff;
+  --button-outline-brand-border-color: #000000;
+  --button-outline-brand-color-hover: #a8c039;
+  --button-outline-brand-bg-color-hover: #ffffff;
+  --button-outline-brand-border-color-hover: #a8c039;
 
   /* TransactionItem */
   --transaction-details-copy-bg: theme('colors.gray.100');

@@ -5,9 +5,10 @@
   <slot />
 </div>
 
-<style>
+<style lang="postcss">
   div :global(button),
   div :global(a) {
+    @apply transition duration-200;
     color: var(--button-group-color);
     background-color: var(--button-group-bg-color);
   }

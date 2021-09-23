@@ -41,7 +41,7 @@
         </div>
       {/if}
     </div>
-    <Button href={routes.index}>Go to homepage</Button>
+    <Button variant="brand" href={routes.index}>Go to homepage</Button>
     {#if dev}
       {#if error.frame}
         <pre class="m-4 p-4 border whitespace-pre-line">{error.frame}</pre>

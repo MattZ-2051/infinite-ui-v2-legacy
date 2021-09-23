@@ -66,7 +66,7 @@
 {:else}
   <a sveltekit:prefetch href={routes.about} class="header-link" class:active={isRoute(routes.about)}>About Us</a>
   <button class="flex header-link" on:click={async () => await login()} disabled={$isLoading}>Sign in</button>
-  <Button animate={false} href={routes.signup} class="whitespace-nowrap">Sign up</Button>
+  <Button variant="brand" href={routes.signup} class="whitespace-nowrap">Sign up</Button>
 {/if}
 
 <style lang="postcss">

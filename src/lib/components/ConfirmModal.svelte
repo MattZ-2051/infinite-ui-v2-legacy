@@ -38,9 +38,9 @@
     <div class="px-10 py-5">
       <slot name="message">{@html message}</slot>
     </div>
-    <div slot="footer" class="flex flex-col gap-4 text-2xl">
-      <Button type="button" on:click={() => onSelect(true)} {disabled}>{labels?.confirm}</Button>
-      <Button type="button" on:click={() => onSelect(false)} variant="secondary" {disabled}>{labels?.cancel}</Button>
+    <div slot="footer" class="flex flex-col gap-4">
+      <Button variant="brand" on:click={() => onSelect(true)} {disabled}>{labels?.confirm}</Button>
+      <Button variant="outline-brand" on:click={() => onSelect(false)} {disabled}>{labels?.cancel}</Button>
     </div>
   </Modal>
 {/if}

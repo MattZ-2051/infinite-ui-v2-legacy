@@ -70,16 +70,16 @@
 
       {#if isProductOwner}
         <Button
+          variant="brand"
           --button-border-radius="0"
-          animate={false}
           on:click={() => onAction('cancel-sale', product)}
           class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
           >Cancel Sale<Icon size="1.2" path={mdiClose} /></Button
         >
       {:else}
         <Button
+          variant="brand"
           --button-border-radius="0"
-          animate={false}
           disabled={$isActive}
           on:click={onBuy}
           class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
@@ -146,8 +146,8 @@
 
         {#if canCancelAuction}
           <Button
+            variant="brand"
             --button-border-radius="0"
-            animate={false}
             on:click={() => onAction('cancel-auction', product)}
             class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
             >Cancel Auction<Icon size="1.2" path={mdiClose} /></Button

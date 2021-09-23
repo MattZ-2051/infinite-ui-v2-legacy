@@ -174,7 +174,7 @@
             creator.
           </div>
         {/if}
-        <Button class="w-full mt-6" type="submit" disabled={waitingForAPI}>Start Auction</Button>
+        <Button variant="brand" class="w-full mt-6" type="submit" disabled={waitingForAPI}>Start Auction</Button>
       </div>
     </form>
   </Modal>

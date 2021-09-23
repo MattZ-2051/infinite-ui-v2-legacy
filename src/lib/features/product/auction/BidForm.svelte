@@ -74,7 +74,7 @@
     placeholder="Bid Amount $$"
   />
   <Button
-    animate={false}
+    variant="brand"
     class="flex gap-2 h-20 md:h-auto w-full md:w-48 lg:w-96 text-2xl"
     type="submit"
     --button-border-radius="0"

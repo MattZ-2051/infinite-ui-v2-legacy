@@ -69,7 +69,7 @@
         All resales of this product are subject to a {product.sku.royaltyFeePercentage}% royalty fee set by and to be
         paid to the original creator.
       </div>
-      <Button class="w-full mt-6" type="button" disabled={$waitingForAPI || !acceptedTerms} on:click={onPlaceBid}
+      <Button variant="brand" class="w-full mt-6" disabled={$waitingForAPI || !acceptedTerms} on:click={onPlaceBid}
         >Place Bid</Button
       >
     </div>

@@ -322,7 +322,7 @@
     {/if}
   </AccordionGroup>
 
-  <Button on:click={close} class="self-center w-full py-3 text-2xl text-center md:hidden">
+  <Button variant="brand" on:click={close} class="self-center w-full py-3 text-2xl text-center md:hidden">
     {total > 0 ? `View Matching Results (${total})` : 'No Matching Results'}
   </Button>
 </div>

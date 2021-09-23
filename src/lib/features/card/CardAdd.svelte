@@ -117,6 +117,6 @@
       label="State/Province{isDistrictRequired ? ' *' : ''}"
     />
 
-    <Button type="submit" class="mt-6" disabled={$saving}>Add Card</Button>
+    <Button variant="brand" type="submit" class="mt-6" disabled={$saving}>Add Card</Button>
   </form>
 </CircleContainer>

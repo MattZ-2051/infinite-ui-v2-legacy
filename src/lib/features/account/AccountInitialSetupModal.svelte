@@ -137,7 +137,7 @@
           >
         </div>
         <div class="flex flex-col gap-4 pt-6 border-t border-gray-200">
-          <Button disabled={!canSave} type="submit">Save</Button>
+          <Button variant="brand" disabled={!canSave} type="submit">Save</Button>
           <Button on:click={onLogout}>Logout</Button>
         </div>
       </form>

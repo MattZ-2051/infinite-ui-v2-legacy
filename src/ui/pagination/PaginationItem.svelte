@@ -14,8 +14,9 @@
   >
 </li>
 
-<style>
+<style lang="postcss">
   li {
+    @apply transition duration-200;
     color: var(--pagination-color);
   }
 

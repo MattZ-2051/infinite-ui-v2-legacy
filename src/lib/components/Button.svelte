@@ -19,14 +19,9 @@
   export let disabled = false;
 
   /**
-   * If false, the button won't animate on hover.
-   */
-  export let animate = true;
-
-  /**
    * The appearance of the button.
    */
-  export let variant: 'primary' | 'secondary' | 'tertiary' = 'primary';
+  export let variant: 'base' | 'brand' | 'outline-brand' = 'base';
 
   let _class = '';
   /**
@@ -37,11 +32,10 @@
   const forwardEvents = forwardEventsBuilder(get_current_component());
 
   $: classes = clsx(
-    'button inline-flex items-center justify-center border',
+    'button inline-flex items-center justify-center border select-none transition duration-200',
     _class,
     variant,
-    disabled && 'opacity-50 pointer-events-none cursor-default',
-    animate && !disabled && 'hover:scale-105 transform duration-200'
+    disabled && 'opacity-50 pointer-events-none cursor-default'
   );
 </script>
 
@@ -62,23 +56,26 @@
   .button {
     padding: var(--button-padding);
     border-radius: var(--button-border-radius);
+    border-color: transparent;
   }
-
-  .primary {
-    color: var(--button-primary-color);
-    background-color: var(--button-primary-bg-color);
-    border-color: var(--button-primary-border-color);
+  .brand {
+    color: var(--button-brand-color);
+    background-color: var(--button-brand-bg-color);
+    border-color: var(--button-brand-border-color);
   }
-
-  .secondary {
-    color: var(--button-secondary-color);
-    background-color: var(--button-secondary-bg-color);
-    border-color: var(--button-secondary-border-color);
+  .brand:hover {
+    color: var(--button-brand-color-hover);
+    background-color: var(--button-brand-bg-color-hover);
+    border-color: var(--button-brand-border-color-hover);
   }
-
-  .tertiary {
-    color: var(--button-tertiary-color);
-    background-color: var(--button-tertiary-bg-color);
-    border-color: var(--button-tertiary-border-color);
+  .outline-brand {
+    color: var(--button-outline-brand-color);
+    background-color: var(--button-outline-brand-bg-color);
+    border-color: var(--button-outline-brand-border-color);
+  }
+  .outline-brand:hover {
+    color: var(--button-outline-brand-color-hover);
+    background-color: var(--button-outline-brand-bg-color-hover);
+    border-color: var(--button-outline-brand-border-color-hover);
   }
 </style>

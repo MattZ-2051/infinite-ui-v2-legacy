@@ -27,8 +27,8 @@
       {/if}
     </div>
     <div slot="footer" class="flex flex-col gap-4">
-      <Button type="button" on:click={handler}>Confirm</Button>
-      <Button type="button" on:click={closeModal} variant="secondary">Go Back</Button>
+      <Button variant="brand" on:click={handler}>Confirm</Button>
+      <Button variant="outline-brand" on:click={closeModal}>Go Back</Button>
     </div>
   </Modal>
 {/if}

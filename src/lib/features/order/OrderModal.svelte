@@ -111,12 +111,12 @@
             status.</span
           >
           <div class="flex flex-col gap-5">
-            <Button class="mt-6" type="button" on:click={closeModal}>Continue</Button>
-            <a class="font-medium self-center" href={routes.wallet}>View Pending Transactions</a>
+            <Button variant="brand" class="mt-6" on:click={closeModal}>Continue</Button>
+            <Button class="font-medium self-center" href={routes.wallet}>View Pending Transactions</Button>
           </div>
         {:else if insufficientFunds}
           <span> You need more funds to make this purchase. </span>
-          <Button class="mt-6" href={routes.wallet}>Add Funds</Button>
+          <Button variant="brand" class="mt-6" href={routes.wallet}>Add Funds</Button>
         {:else}
           <div class="flex items-center justify-start">
             <label class="inline-flex items-center">
@@ -139,7 +139,7 @@
           <div class="text-sm text-gray-500">
             Confirming this action will deduct the associated funds from your wallet.
           </div>
-          <Button class="mt-6" type="button" disabled={purchasing} on:click={submitOrder}>Place Order</Button>
+          <Button variant="brand" class="mt-6" disabled={purchasing} on:click={submitOrder}>Place Order</Button>
         {/if}
       </div>
     </div>

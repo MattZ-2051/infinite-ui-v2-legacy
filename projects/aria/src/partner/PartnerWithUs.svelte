@@ -95,10 +95,10 @@
           </div>
           <div class="text-right mb-8">
             <Button
+              variant="brand"
               type="submit"
               --button-padding="5px 40px"
               --button-border-radius="8px"
-              animate={false}
               disabled={$isSubmitting}>Submit</Button
             >
           </div>

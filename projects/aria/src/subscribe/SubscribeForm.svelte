@@ -63,8 +63,8 @@
     />
     <div class="">
       <Button
+        variant="brand"
         --button-padding="7px 0"
-        animate={false}
         class="whitespace-nowrap w-28 md:w-40 relative -top-px -right-px"
         type="submit"
         disabled={$isSubmitting}

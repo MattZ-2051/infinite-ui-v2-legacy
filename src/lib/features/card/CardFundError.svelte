@@ -18,8 +18,8 @@
         {/if}
       </div>
       <div class="flex flex-col gap-4">
-        <Button type="button" on:click={closeModal}>Try again</Button>
-        <a href={routes.wallet} class="text-black text-xl py-2">Select Another Payment Methood</a>
+        <Button variant="brand" on:click={closeModal}>Try again</Button>
+        <Button href={routes.wallet}>Select Another Payment Methood</Button>
       </div>
     </div>
   </Modal>

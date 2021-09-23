@@ -9,6 +9,7 @@ export const themeConfig = {
   '$marketplace.root': Theme.Light,
   '$marketplace.*.footer': Theme.BrandFooter,
   '$marketplace.root.footer': Theme.Light,
+  '$help.*.root': Theme.Light,
   '*.sku-offsreen': Theme.Light,
   '*.wallet-list': Theme.Light,
   '*.modal': Theme.Light,

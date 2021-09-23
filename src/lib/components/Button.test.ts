@@ -10,7 +10,7 @@ describe('Button', () => {
 
     expect(button).toHaveAttribute('type', 'button');
     expect(button).toHaveAttribute('test', '123');
-    expect(button).toHaveClass('primary', 'hover:scale-105', 'transform', 'duration-200');
+    expect(button).toHaveClass('base');
   });
 
   it('should support passing of a class prop', () => {
@@ -19,7 +19,7 @@ describe('Button', () => {
     });
     const button = getByRole('button');
 
-    expect(button).toHaveClass('primary', 'my-custom-class');
+    expect(button).toHaveClass('base', 'my-custom-class');
   });
 
   it('should forward events', () => {
@@ -36,20 +36,20 @@ describe('Button', () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it('should support secondary variant', () => {
+  it('should support brand variant', () => {
     const { getByRole } = render(Button, {
-      props: { variant: 'secondary' },
+      props: { variant: 'brand' },
     });
     const button = getByRole('button');
-    expect(button).toHaveClass('secondary');
+    expect(button).toHaveClass('brand');
   });
 
-  it('should support tertiary variant', () => {
+  it('should support outline-brand variant', () => {
     const { getByRole } = render(Button, {
-      props: { variant: 'tertiary' },
+      props: { variant: 'outline-brand' },
     });
     const button = getByRole('button');
-    expect(button).toHaveClass('tertiary');
+    expect(button).toHaveClass('outline-brand');
   });
 
   it('should have disabled state', () => {
@@ -58,8 +58,7 @@ describe('Button', () => {
     });
     const button = getByRole('button');
     expect(button).toBeDisabled();
-    expect(button).toHaveClass('pointer-events-none');
-    expect(button).not.toHaveClass('hover:scale-105');
+    expect(button).toHaveClass('opacity-50', 'pointer-events-none', 'cursor-default');
   });
 
   it('should render as a link', () => {
