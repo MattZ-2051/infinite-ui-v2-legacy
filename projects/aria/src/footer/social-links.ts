@@ -1,4 +1,5 @@
 import { mdiTwitter, mdiInstagram, mdiDiscord, mdiFacebook, mdiLinkedin, mdiPinterest, mdiReddit } from '@mdi/js';
+import snapchat from 'simple-icons/icons/snapchat.js';
 
 export const links = [
   { id: 'Instagram', href: 'https://www.instagram.com/theariaexchange/', path: mdiInstagram },
@@ -20,5 +21,5 @@ export const links = [
     path: mdiReddit,
   },
   { id: 'Discord', href: 'https://discord.gg/SmJApard', path: mdiDiscord },
-  // { id: 'Email', href: 'mailto:support@ariaexchange.com', path: mdiEmail },
+  { id: 'Snapchat', href: 'https://www.snapchat.com/add/theariaexchange?share_id=MzQ0RkMz&locale=en_US', path: snapchat.path },
 ];
