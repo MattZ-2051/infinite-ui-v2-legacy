@@ -121,6 +121,9 @@
   /* Sku */
   --sku-offscreen-bg-color: rgba(255, 255, 255, 0.95);
 
+  /* ProductTabs */
+  --product-tabs-bg: #1a1a1a;
+
   /* WalletBalance */
   --wallet-balance-content-bg-color: rgba(255, 255, 255, 0.05);
   --wallet-balance-heading-color: #ffd54e;
