@@ -91,12 +91,12 @@
         </div>
         <div class="border-b border-gray-200 text-gray-500 font-medium mb-2">
           <div class="flex justify-between pb-1 mb-1">
-            <span>Marketplace fee ({marketplaceFee}%):</span>
+            <span>Marketplace fee ({marketplaceFee * 100}%):</span>
             <span>{formatCurrency(marketplaceFeePrice)}</span>
           </div>
           {#if royaltyFee > 0}
             <div class="flex justify-between pb-1 mb-1">
-              <span>Creator royalty fee ({royaltyFee}%):</span>
+              <span>Creator royalty fee ({royaltyFee * 100}%):</span>
               <span>{formatCurrency(royaltyFeePrice)}</span>
             </div>
           {/if}
