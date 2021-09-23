@@ -34,7 +34,7 @@
     ><div class="flex-grow"><slot /></div>
 
     <div class="pl-5 flex-none">
-      <Icon path={mdiArrowRight} size="2.0" />
+      <Icon class="transform group-hover:-rotate-45" path={mdiArrowRight} size="2.0" />
     </div>
   </a>
 {:else if action}
@@ -42,7 +42,7 @@
     ><div class="flex-grow"><slot /></div>
 
     <div class="pl-5 flex-none">
-      <Icon path={mdiArrowRight} size="2.0" />
+      <Icon class="transform group-hover:-rotate-45" path={mdiArrowRight} size="2.0" />
     </div></button
   >
 {:else}

@@ -77,5 +77,10 @@ module.exports = {
       },
     },
   },
+  variants: {
+    extend: {
+      rotate: ['group-hover'],
+    },
+  },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/line-clamp')],
 };
