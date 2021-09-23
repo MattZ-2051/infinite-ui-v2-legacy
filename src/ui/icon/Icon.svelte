@@ -1,3 +1,5 @@
+<svelte:options immutable={true} />
+
 <script lang="ts">
   import type { TooltipInput } from '$ui/tooltip';
   import useTooltip from '$ui/tooltip';
@@ -6,7 +8,7 @@
 
   export let actions = [];
 
-  export let path: string; // https://materialdesignicons.com
+  export let path: string | string[] | { [key: string]: string } | { [key: string]: string }[]; // https://materialdesignicons.com
   export let size: number | string = 1;
   export let color: string = undefined;
   export let flip: boolean | 'v' | 'h' = undefined;
@@ -22,14 +24,13 @@
   // size
   if (Number(size)) size = Number(size);
 
-  const getStyles = (_size: string | number, _color: string, _flip: string | boolean, _rotate: number) => {
+  const getStyles = (_size: string | number, _flip: string | boolean, _rotate: number) => {
     const _styles: { [key: string]: string | number } = {};
     if (_size) {
       const width = typeof _size === 'string' ? _size : `${_size * 1.5}rem`;
       _styles.width = width;
       _styles.height = width;
     }
-    _styles.fill = _color ? _color : 'currentColor';
 
     const transform = [];
     if (_flip === true || _flip === 'h') {
@@ -49,8 +50,11 @@
     return styles(_styles);
   };
 
-  $: style = getStyles(size, color, flip, rotate);
+  $: style = getStyles(size, flip, rotate);
   $: _actions = [...actions, tooltip ? [useTooltip, tooltip] : undefined];
+  $: paths = [path]
+    .flat()
+    .map((p) => ({ fill: color || 'currentColor', ...(typeof p === 'string' ? { d: p } : { ...p }) }));
 </script>
 
 <svg viewBox="0 0 24 24" {style} {...$$restProps} on:click use:useActions={_actions}>
@@ -74,10 +78,14 @@
       </style>
     {/if}
     <g style={`animation: ${spinfunc} linear ${spintime}s infinite; transform-origin: center`}>
-      <path d={path} />
+      {#each paths as pathAttrs}
+        <path {...pathAttrs} />
+      {/each}
     </g>
   {:else}
-    <path d={path} />
+    {#each paths as pathAttrs}
+      <path {...pathAttrs} />
+    {/each}
   {/if}
 </svg>
 
