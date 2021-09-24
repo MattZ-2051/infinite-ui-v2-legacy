@@ -23,13 +23,15 @@
       {/if}
       <div class="container flex justify-between items-center md:items-end py-3">
         <a href={routes.index} class="self-end flex gap-1 mr-3 items-end"><Logo /></a>
-        <a
-          href={CLIENT_SUPPORT_URL}
-          target="_blank"
-          rel="noreferrer"
-          class="text-current ml-auto mr-3 sm:mr-5 md:hidden"
-          style="margin-top: 3px;"><Icon path={questionMark} size={1.25} /></a
-        >
+        {#if CLIENT_SUPPORT_URL}
+          <a
+            href={CLIENT_SUPPORT_URL}
+            target="_blank"
+            rel="noreferrer"
+            class="text-current ml-auto mr-3 sm:mr-5 md:hidden"
+            style="margin-top: 3px;"><Icon path={questionMark} size={1.25} /></a
+          >
+        {/if}
         <SidebarToggle
           isOpen={showSidebar}
           on:toggle={(event) => (showSidebar = event.detail)}
@@ -37,6 +39,11 @@
         />
         <div class="hidden md:flex gap-1 md:gap-5 lg:gap-12 md:items-center">
           <Links user={$user} />
+          {#if CLIENT_SUPPORT_URL}
+            <a href={CLIENT_SUPPORT_URL} target="_blank" rel="noreferrer" class="header-link">
+              <Icon path={questionMark} size="1.25rem" />
+            </a>
+          {/if}
         </div>
       </div>
     </div>
