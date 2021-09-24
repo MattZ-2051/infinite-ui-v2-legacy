@@ -32,7 +32,7 @@
     tagline: yup.string().max(150, 'About me must be at most 150 characters.'),
     phoneNumber: yup
       .string()
-      .matches(/^[\d #*+-]*$/, 'Please enter a valid phone number.')
+      .matches(/^\+?[1-9]\d{1,14}$/, 'Please enter a valid phone number.')
       .optional(),
   });
 

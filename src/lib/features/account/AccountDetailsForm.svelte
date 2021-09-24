@@ -26,7 +26,7 @@
       .matches(/^[ A-Za-z]*$/, 'Please enter valid last name.'),
     phoneNumber: yup
       .string()
-      .matches(/^[\d #*+-]*$/, 'Please enter a valid phone number.')
+      .matches(/^\+?[1-9]\d{1,14}$/, 'Please enter a valid phone number.')
       .optional(),
   });
 
