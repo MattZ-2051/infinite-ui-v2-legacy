@@ -18,8 +18,8 @@
       <a href={CLIENT_HEDERA_URL} target="_blank" rel="noreferrer" class="link text-primary text-base whitespace-nowrap"
         >Read more
       </a>
-      <span class="p-px" style="background-color: var(--button-primary-bg-color)">
-        <Icon path={mdiArrowRight} size="0.9" color="var(--button-primary-color)" />
+      <span class="p-px" style="background-color: var(--button-brand-bg-color)">
+        <Icon path={mdiArrowRight} size="0.9" color="var(--button-brand-color)" />
       </span>
     </div>
   </div>
