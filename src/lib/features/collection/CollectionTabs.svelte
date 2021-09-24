@@ -17,8 +17,21 @@
   } from './collection.store';
 
   export let isIssuer = false;
-  export let own = false;
-  export let owner: string; // owner's username
+
+  export let items = [
+    ...(isIssuer
+      ? [
+          {
+            id: 'Releases',
+            title: 'Releases',
+          },
+        ]
+      : []),
+    {
+      id: 'NFTs',
+      title: 'NFTs',
+    },
+  ];
 
   $: p = +$page.query.get(`page`) || 1;
 
@@ -33,25 +46,6 @@
   function onChangePage(event: CustomEvent) {
     changePage(event.detail.value);
   }
-
-  let items = [];
-  $: items = [
-    ...(isIssuer
-      ? [
-          {
-            id: 'Releases',
-            title: 'Collectibles for Sale',
-            tooltip: `These Collectibles were created by @${owner} and are available for sale`,
-          },
-        ]
-      : []),
-    {
-      id: 'NFTs',
-      // prettier-ignore
-      title: isIssuer ? 'Owned Collectibles' : (own ? 'My Collection' : 'Collection'),
-      tooltip: isIssuer ? `These Collectibles are owned by @${owner}` : '',
-    },
-  ];
 
   const sort = (event: CustomEvent) => {
     changeSort(`${event.detail.value}:${event.detail.order}`);
