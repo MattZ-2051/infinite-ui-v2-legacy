@@ -95,7 +95,6 @@
 
   const limitedCollector = [
     {
-      highestBid: 10,
       listing: {
         saleType: 'auction',
         status: 'sold',
@@ -130,14 +129,14 @@
 
   const uniqueAuctionCollector = [
     {
+      highestBid: {
+        bidAmt: 30,
+      },
       listing: {
         saleType: 'auction',
         status: 'active',
         minBid: 20,
         endDate: dummyDate,
-        highestBid: {
-          bidAmt: 30,
-        },
         issuer: {
           id: '1',
         },

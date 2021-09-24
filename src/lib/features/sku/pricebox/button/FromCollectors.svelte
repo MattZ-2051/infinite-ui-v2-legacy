@@ -15,7 +15,6 @@
 
   const collectorListing = collector?.listing;
   const isUniqueAuction = sku?.maxSupply === 1 && sku?.issuer?._id === collectorListing?.issuer?._id;
-  const minBid = Math.max(collectorListing?.minBid, collectorListing?.highestBid?.bidAmt || 0);
 
   // TODO: let’s always link to the collector’s page for now
   const href = /* status === 'noneForSale' ? */ routes.collectors(
@@ -46,7 +45,11 @@
       </div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(minBid)}</div>
+          <div class="text-xl text-right">
+            {formatCurrencyWithOptionalFractionDigits(
+              Math.max(collectorListing?.minBid, collector?.highestBid?.bidAmt || 0)
+            )}
+          </div>
           <div class="text-gray-500 text-sm">{isUniqueAuction ? 'Highest Bid' : 'Starting at'}</div>
         </div>
       </div>
