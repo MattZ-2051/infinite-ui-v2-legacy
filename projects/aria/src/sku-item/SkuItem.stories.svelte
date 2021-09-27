@@ -18,25 +18,81 @@
   args={{
     sku: {
       ...item,
-      minPrice: 2,
-      minSkuPrice: 22,
-      activeProductListings: [{ price: 2 }],
-      activeSkuListings: [{ price: 22 }],
+      minSkuPrice: 3,
+      activeProductListings: [{ price: 10 }],
+      activeSkuListings: [],
     },
   }}
 />
 <Story
   name="Upcoming"
-  args={{ sku: { ...item, minStartDate: dayjs(new Date()).add(3, 'days').add(1, 'hour').toDate() } }}
+  args={{
+    sku: {
+      ...item,
+      minStartDate: dayjs(new Date()).add(3, 'days').add(1, 'hour').toDate(),
+      activeProductListings: [],
+      activeSkuListings: [],
+      upcomingProductListings: [],
+    },
+  }}
 />
 <Story
   name="Upcoming Soon"
   args={{
-    sku: { ...item, minStartDate: dayjs(new Date()).add(2, 'days').add(6, 'hour').add(5, 'minute').toDate() },
+    sku: {
+      ...item,
+      minStartDate: dayjs(new Date()).add(2, 'days').add(6, 'hour').add(5, 'minute').toDate(),
+      activeProductListings: [],
+      activeSkuListings: [],
+      upcomingProductListings: [],
+    },
   }}
 />
-<Story name="No Sale" args={{ sku: { ...item, minStartDate: new Date(), totalSupplyLeft: 0 } }} />
-<Story name="Unique" args={{ sku: { ...item, maxSupply: 1 } }} />
-<Story name="Limited" args={{ sku: { ...item, totalSupply: 1 } }} />
-<Story name="Released" args={{ sku: { ...item, supplyType: 'variable', circulatingSupply: 1 } }} />
-<Story name="Multiple" args={{ sku: { ...item, totalSupply: 2 } }} />
+<Story
+  name="No Sale"
+  args={{
+    sku: {
+      ...item,
+      minStartDate: new Date(),
+      totalSupplyLeft: 0,
+      activeProductListings: [],
+      activeSkuListings: [],
+      upcomingProductListings: [],
+    },
+  }}
+/>
+<Story name="Unique" args={{ sku: { ...item, maxSupply: 1, activeProductListings: [{ price: 20 }] } }} />
+<Story
+  name="Limited"
+  args={{
+    sku: { ...item, totalSupply: 1, activeSkuListings: [{ minPrice: 20 }], minSkuPrice: 20, activeProductListings: [] },
+  }}
+/>
+<Story
+  name="Released"
+  args={{
+    sku: {
+      ...item,
+      supplyType: 'variable',
+      circulatingSupply: 1,
+      activeSkuListings: [{ minPrice: 20 }],
+      minSkuPrice: 20,
+      activeProductListings: [{ minBid: 5 }],
+    },
+  }}
+/>
+<Story
+  name="Multiple"
+  args={{
+    sku: {
+      ...item,
+      totalSupply: 2,
+      upcomingSkuListings: [],
+      upcomingProductListings: [
+        { startDate: dayjs(new Date()).add(2, 'days').add(6, 'hour').add(5, 'minute').toDate() },
+      ],
+      activeSkuListings: [],
+      activeProductListings: [],
+    },
+  }}
+/>

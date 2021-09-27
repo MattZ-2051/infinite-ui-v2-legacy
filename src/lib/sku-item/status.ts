@@ -2,37 +2,54 @@ import type { Product, Sku, Status } from '$lib/sku-item/types';
 import dayjs from 'dayjs';
 
 export const skuStatus = (sku: Sku): Status => {
-  const minStartDate = sku.minStartDate;
-  if (dayjs(minStartDate).isAfter(dayjs())) {
-    if (
-      (sku.productListings?.length === 0 && sku.skuListings?.length === 0) ||
-      dayjs(minStartDate).diff(new Date(), 'day', true) > 3
-    ) {
-      return { status: 'upcoming', minStartDate };
-    }
-    if (sku.upcomingProductListings?.length !== 0 || sku.upcomingSkuListings?.length !== 0) {
-      return { status: 'upcoming-soon', minStartDate };
-    }
-  }
-  if (sku.totalSupplyLeft !== 0 && (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0)) {
+  if (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0) {
     const hasProductListings = !!sku.activeProductListings?.length;
     const hasSkuListings = !!sku.activeSkuListings?.length;
-    const isAuctionListing =
-      sku.activeProductListings?.[0]?.saleType === 'auction' && sku.activeProductListings?.[0].status === 'active';
+    const lowestPriceListing = hasProductListings
+      ? sku.activeProductListings?.reduce((previousListing, currentListing) => {
+          const previousPrice = previousListing?.minBid || previousListing?.price;
+          const currentPrice = currentListing?.minBid || currentListing?.price;
+
+          return previousPrice < currentPrice ? previousListing : currentListing;
+        })
+      : undefined;
+    const lowestPrice = lowestPriceListing?.minBid || lowestPriceListing?.price;
+
     let minPrice: number;
 
     if (hasProductListings) {
-      if (hasSkuListings) {
-        minPrice = isAuctionListing ? Math.min(sku.maxBid, sku.minSkuPrice) : Math.min(sku.minPrice, sku.minSkuPrice);
-      } else {
-        minPrice = isAuctionListing ? sku.maxBid : sku.minPrice;
-      }
+      minPrice = hasSkuListings ? Math.min(lowestPrice, sku.minSkuPrice) : lowestPrice;
     } else {
       minPrice = sku.minSkuPrice;
     }
 
     return { status: 'active', minPrice };
   }
+
+  const minStartDate = sku.minStartDate;
+  if (dayjs(minStartDate).isAfter(dayjs())) {
+    if (dayjs(minStartDate).diff(new Date(), 'day', true) > 3) {
+      return { status: 'upcoming', minStartDate };
+    }
+    if (sku.upcomingSkuListings?.length !== 0) {
+      return { status: 'upcoming-soon', minStartDate };
+    }
+  }
+
+  if (sku.upcomingProductListings?.length !== 0) {
+    const lowestPriceUpcomingListing = sku.upcomingProductListings?.reduce((previousListing, currentListing) => {
+      const previousPrice = previousListing?.minBid || previousListing?.price;
+      const currentPrice = currentListing?.minBid || currentListing?.price;
+
+      return previousPrice < currentPrice ? previousListing : currentListing;
+    });
+    const listingStartDate = lowestPriceUpcomingListing?.startDate;
+
+    return dayjs(listingStartDate).diff(new Date(), 'day', true) > 3
+      ? { status: 'upcoming', minStartDate: listingStartDate }
+      : { status: 'upcoming-soon', minStartDate: listingStartDate };
+  }
+
   if (sku.totalSupplyLeft === 0 || sku.activeSkuListings?.length === 0) {
     return { status: 'no-sale' };
   }
