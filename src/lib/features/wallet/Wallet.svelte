@@ -13,11 +13,11 @@
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
-  import WithdrawModal from './withdraw/WithdrawModal.svelte';
   import WalletButtons from './WalletButtons.svelte';
   import { kycIsPending, wallet, withdrawableBalance } from './wallet.store';
   import { launchKYCPersona } from './kyc/personaClient.service';
   import { getDailyDepositLimitDisclaimer } from './kyc/kyc.service';
+  import SelectWithdrawMethodModal from './withdraw/SelectWithdrawMethodModal.svelte';
 
   export let tab: 'transactions' | 'bids';
 
@@ -110,7 +110,7 @@
       slot="sticky-cta"
       {canWithdraw}
       on:deposit={openDepositSelectModal}
-      on:withdraw={() => openModal(WithdrawModal)}
+      on:withdraw={() => openModal(SelectWithdrawMethodModal)}
     />
   </StickyColumn>
 </div>
