@@ -53,7 +53,7 @@ export type BalanceInfo = {
   lockedBalance: string;
   ccNoWithdrawablesLock: string;
   circleBalance: string;
-  ccWithdrawablesLock: string;
+  withdrawableBalance: string;
   totalBalance: string;
 };
 

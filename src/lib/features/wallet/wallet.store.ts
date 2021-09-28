@@ -16,7 +16,7 @@ export const wallet = createStore<WalletExtended>(null)
   .on(loadKycInfoFx.doneData, (state, payload) => ({ ...state, ...payload }));
 
 export const withdrawableBalance = wallet.map(($wallet) =>
-  Number.parseFloat($wallet?.balanceInfo?.ccWithdrawablesLock)
+  Number.parseFloat($wallet?.balanceInfo?.withdrawableBalance)
 );
 
 export const loadMyTransactionsFx = createEffect(
