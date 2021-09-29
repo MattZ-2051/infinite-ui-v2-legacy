@@ -22,7 +22,7 @@
   /**
    * Delay in ms to close the Toast. If set to 0, the Toast needs to be closed manually.
    */
-  export let duration = 5000;
+  export let duration = 10_000;
 
   /**
    * Show close button.
