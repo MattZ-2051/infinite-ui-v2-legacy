@@ -27,6 +27,7 @@
 
   const schema = yup.object({
     talent: yup.string().required('Talent name is required.'),
+    name: yup.string().required('Name is required.'),
     email: yup.string().email('Please enter valid email.').required('Email is required.'),
   });
 
@@ -73,6 +74,7 @@
           <div class="flex justify-between flex-col md:flex-row gap-16">
             <div class="flex flex-col gap-6 text-lg" style="flex-grow:6;">
               <FormInput name="talent" label="Talent Name *" placeholder="John Brown" />
+              <FormInput name="name" label="Your Name *" placeholder="John Doe" />
               <FormInput name="email" label="Your Email Address *" placeholder="john.brown@example.com" />
               <FormInput name="relationship" label="Relationship to Talent" placeholder="Self, Manager, etc." />
               <FormInput name="industry" label="Industry" placeholder="Art, Music, Sport, etc." />
