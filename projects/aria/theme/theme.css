@@ -223,4 +223,8 @@
   --button-outline-brand-color-hover: #000000;
   --button-outline-brand-bg-color-hover: #ffffff;
   --button-outline-brand-border-color-hover: #5e29ff;
+
+  /* Tooltip */
+  --tooltip-bg-color: #000000;
+  --tooltip-color: #ffffff;
 }
