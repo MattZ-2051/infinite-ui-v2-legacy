@@ -33,15 +33,15 @@
         <div class="text-gray-500">
           {#each $bids as bid}
             <div
-              class="grid-container group grid grid-cols-2 gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-800 hover:border-white"
+              class="grid-container grid grid-cols-2 gap-x-2 items-center justify-items-start w-full h-20 space-between border-b border-gray-100"
             >
-              <span class="self-end font-black group-hover:text-white">
+              <span class="self-end font-black">
                 <UserLink username={bid.owner?.username} class="font-semibold underline hover:no-underline" />
               </span>
               <div class="justify-self-end">
                 Bid for <span class="text-white px-1">{formatCurrency(bid.bidAmt)}</span>
               </div>
-              <span class="col-span-2 justify-self-end self-start font-black text-sm">
+              <span class="col-span-2 justify-self-end self-start text-sm text-gray-400">
                 <DateFormat value={bid.createdAt} />
               </span>
             </div>
@@ -55,7 +55,7 @@
   </div>
   <div class="text-center text-gray-500 py-6">
     Started at <span class="text-white">{formatCurrency(listing.minBid)}</span> on
-    <span class="font-black italic text-sm whitespace-nowrap"><DateFormat value={listing.startDate} /></span>
+    <span class="font-semibold text-sm whitespace-nowrap"><DateFormat value={listing.startDate} /></span>
   </div>
 {:else if listing?.status === 'upcoming'}
   <div class="pt-12 no-results">

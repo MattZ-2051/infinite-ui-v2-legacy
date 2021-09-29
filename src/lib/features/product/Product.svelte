@@ -22,7 +22,7 @@
   </div>
   <div class="flex flex-col md:px-0" slot="onscreen-content" style="min-height: calc(100vh - var(--header-height));">
     <div class="mx-4 md:pl-8 mt-8 md:mt-10">
-      <div class="flex items-center text-4xl font-medium justify-between">
+      <div class="flex items-center text-4xl font-medium justify-between gap-6">
         <div class="flex items-center">
           <a sveltekit:prefetch href={routes.sku($product.sku._id)} class="text-gradient-primary">{$product.sku.name}</a
           >
