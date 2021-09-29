@@ -10,4 +10,5 @@ export const themeConfig = {
   '*.sku-offsreen': Theme.Light,
   '*.wallet-list': Theme.Light,
   '*.modal': Theme.Light,
+  '$collection.*.root': Theme.Light,
 };

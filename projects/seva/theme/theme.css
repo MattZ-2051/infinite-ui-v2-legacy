@@ -137,7 +137,7 @@
 
 .theme-light {
   /* Common */
-  --bg-color: #ffffff;
+  --bg-color: #f7f9fc;
   --color: #000000;
   --primary: #000000;
   --link-color: var(--color);
@@ -173,7 +173,7 @@
   --accordion-title-icon-color: var(--color);
 
   /* Footer */
-  --footer-bg-color: #ffffff;
+  --footer-bg-color: var(--bg-color);
   --footer-color: theme('colors.gray.500');
   --footer-color-hover: #000000;
   --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
@@ -232,7 +232,7 @@
 
   /* SkuItem */
   --sku-item-color: var(--color);
-  --sku-item-bg-color: var(--bg-color);
+  --sku-item-bg-color: #ffffff;
 
   /* Button */
   --button-brand-color: #ffffff;

@@ -21,6 +21,8 @@
   ];
 </script>
 
-<Issuer1 {profile}>
-  <CollectionTabs isIssuer {items} />
-</Issuer1>
+<div class="container mt-4 md:mt-8">
+  <Issuer1 {profile}>
+    <CollectionTabs isIssuer {items} />
+  </Issuer1>
+</div>

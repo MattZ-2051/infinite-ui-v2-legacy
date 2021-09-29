@@ -13,16 +13,18 @@
 
 <ThemeContext id="collection">
   <div class="flex flex-col flex-grow">
-    <div class="container mt-4 md:mt-8">
-      {#if isIssuer && $profile.templateId}
-        <CollectionIndex profile={$profile} />
-      {:else if isIssuer}
+    {#if isIssuer}
+      <CollectionIndex profile={$profile} />
+    {:else if isIssuer}
+      <div class="container mt-4 md:mt-8">
         <CollectionIssuerDefault profile={$profile} />
         <CollectionTabs isIssuer />
-      {:else}
+      </div>
+    {:else}
+      <div class="container mt-4 md:mt-8">
         <CollectionUser profile={$profile} {own} />
         <CollectionTabs />
-      {/if}
-    </div>
+      </div>
+    {/if}
   </div>
 </ThemeContext>
