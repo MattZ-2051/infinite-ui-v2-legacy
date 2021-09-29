@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
   import { mdiChevronDown } from '@mdi/js';
+  import dayjs from 'dayjs';
   import { validateSchema } from '@felte/validator-yup';
   import * as yup from 'yup';
   import { toast } from '$ui/toast';
@@ -20,20 +21,23 @@
 
   const marketplaceFee = getSellingFee(product);
 
-  let startDate = new Date();
+  let startDate = roundToMinute();
   let errors;
   let isSubmitted = false;
 
-  startDate.setTime(startDate.getTime() - startDate.getSeconds() * 1000 - startDate.getMilliseconds());
-
-  let endDate = new Date(startDate.getTime() + 60_000);
+  let endDate = roundToMinute(dayjs(startDate).add(7, 'day').toDate());
   let price: number;
   let waitingForAPI = false;
+  let startImmediately = false;
 
   $: royaltyFee = getRoyaltyFee(product);
   $: marketplaceFeePrice = Math.max(marketplaceFee * price || 0, 0);
   $: royaltyFeePrice = Math.max(royaltyFee * price || 0, 0);
   $: total = Math.max(price * (1 - marketplaceFee - royaltyFee) || 0, 0);
+
+  function roundToMinute(date = new Date()) {
+    return dayjs(date).startOf('minute').toDate();
+  }
 
   function onChangeDateFrom([_startDate]) {
     startDate = _startDate;
@@ -53,7 +57,7 @@
       startDate: yup
         .date()
         .required('Start date is required.')
-        .min(new Date(), 'Date must be in the future.')
+        .min(roundToMinute(), 'Date must be in the future.')
         .max(endDate, 'The end date should be greater than start date.'),
       endDate: yup.date().required('End date is required.'),
     });
@@ -69,8 +73,9 @@
 
   async function onStartAuction() {
     isSubmitted = true;
+    const _startDate = startImmediately ? roundToMinute() : startDate;
 
-    await validate(price, startDate, endDate);
+    await validate(price, _startDate, endDate);
 
     if (errors) {
       return;
@@ -78,7 +83,7 @@
 
     waitingForAPI = true;
 
-    await startAuction(product, startDate, endDate, price)
+    await startAuction(product, _startDate, endDate, price)
       .then(() => {
         closeModal();
         toast.success('Congrats! Your auction has been created successfully.');
@@ -101,11 +106,15 @@
         <div class="max-w-sm text-gray-500">
           You won’t be able to transfer or redeem this item while your auction is in progress.
         </div>
-        <div class="flex py-4 text-center">
-          <div class="flex-grow flex flex-col">
+        <div class="grid grid-cols-2 gap-2 py-4 text-center">
+          <div class="flex-grow flex flex-col relative">
+            {#if startImmediately}
+              <div class="form-overlay" />
+            {/if}
             <div class="text-black font-medium mb-2">Start date</div>
             <div
-              class="flex-grow px-2 py-2 whitespace-nowrap text-base flex justify-center items-center"
+              class="flex-grow px-2 py-2 whitespace-nowrap text-base flex justify-center items-center filter"
+              class:blur-sm={startImmediately}
               use:datePicker={{
                 defaultDate: startDate,
                 enableTime: true,
@@ -132,6 +141,16 @@
               </span>
               <Icon path={mdiChevronDown} color="black" class="inline ml-1" />
             </div>
+          </div>
+
+          <div class="flex justify-center gap-3">
+            <input
+              id="startImmediately"
+              type="checkbox"
+              class="w-5 h-5 text-black bg-white"
+              bind:checked={startImmediately}
+            />
+            <label for="startImmediately" class="text-sm font-semibold">Start immediately</label>
           </div>
         </div>
         {#if errors?.startDate}
