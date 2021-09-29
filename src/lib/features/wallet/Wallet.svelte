@@ -47,10 +47,10 @@
     // Cryptocurrencies...
     if (!isKycCleared) {
       const prompt = isKycPending
-        ? 'wait until we validate your identity.'
-        : `<a data-toast="verificationStepsCb" class="cursor-pointer">click here</a> to complete the required account validation steps. <a href="https://support.suku.world/infinite/how-does-kyc-work">Learn more.</a>`;
+        ? 'please, wait until we validate your identity.'
+        : 'please validate your identity by completing the <a data-toast="verificationStepsCb" class="cursor-pointer">Account Verification</a> process (also known as KYC, or Know Your Client).';
 
-      toast.warning(`To deposit cryptocurrency, please, ${prompt}`, {
+      toast.warning(`To deposit cryptocurrency, ${prompt}`, {
         onClick: { verificationStepsCb: openUpgradeKYCLevel },
       });
       return;

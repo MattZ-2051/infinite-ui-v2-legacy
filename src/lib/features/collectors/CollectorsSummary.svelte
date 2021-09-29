@@ -45,7 +45,7 @@
     },
     {
       id: 2,
-      name: 'For Sale',
+      name: 'Buy Now',
       order: '',
       value: 'fixed',
     },
@@ -88,7 +88,7 @@
   </div>
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
-      <Sort sortOptions={statusOptions} on:select={status} label="Status:" selected={statusOptions[0]} />
+      <Sort sortOptions={statusOptions} on:select={status} label="Sale Type:" selected={statusOptions[0]} />
     </div>
     <div class="flex cursor-pointer gap-2">
       <Sort {sortOptions} on:select={sort} />

@@ -20,7 +20,7 @@ export const links = [
     href: 'https://www.reddit.com/user/TheARIAExchange',
     path: mdiReddit,
   },
-  { id: 'Discord', href: 'https://discord.gg/SmJApard', path: mdiDiscord },
+  { id: 'Discord', href: 'https://discord.com/invite/3JtgwbduBt', path: mdiDiscord },
   {
     id: 'Snapchat',
     href: 'https://www.snapchat.com/add/theariaexchange?share_id=MzQ0RkMz&locale=en_US',
