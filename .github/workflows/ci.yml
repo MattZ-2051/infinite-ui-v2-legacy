@@ -30,7 +30,7 @@ jobs:
           run_install: true
 
       - name: Check commit message
-        run: pnpx commitlint --from HEAD~1
+        run: pnpx commitlint --config commitlint.config.cjs --from HEAD~1
 
       - name: Check format
         run: pnpm format:check

@@ -23,6 +23,14 @@
     }
     dispatch('close', reason);
   }
+
+  $: trapFocusConfig = {
+    active: !!modal,
+    focusTrapOptions: {
+      allowOutsideClick: true,
+      initialFocus: () => (modal.querySelector('[data-initial-focus]') as HTMLElement) || modal,
+    },
+  };
 </script>
 
 <svelte:window on:keydown={(event) => event.key === 'Escape' && onClose('esc')} />
@@ -31,13 +39,7 @@
     tabindex="-1"
     bind:this={modal}
     class="fixed top-0 left-0 bottom-0 right-0 backdrop-filter backdrop-blur-sm z-modal"
-    use:trapFocus={{
-      active: !!modal,
-      focusTrapOptions: {
-        allowOutsideClick: true,
-        initialFocus: () => modal.querySelector('[data-initial-focus]') || modal,
-      },
-    }}
+    use:trapFocus={trapFocusConfig}
   >
     <div
       class="h-full w-full absolute flex items-center justify-center"
