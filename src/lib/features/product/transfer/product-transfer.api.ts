@@ -6,21 +6,15 @@ export async function transferProduct(product: Product, to: string) {
 }
 
 export async function getUsers({
-  search,
+  username,
   page = 1,
   perPage = 10,
 }: {
-  search?: string;
+  username: string;
   page: number;
   perPage?: number;
 }): Promise<{ total: number; data: Profile[] }> {
-  let parameters: Record<string, string> = { includeFunctions: 'true', page: `${page}`, per_page: `${perPage}` };
-
-  if (search !== undefined) {
-    parameters = { search, ...parameters };
-  }
-
-  return await getPage<Profile>('users', {
-    params: parameters,
+  return getPage<Profile>('users', {
+    params: { username, includeFunctions: 'true', page: `${page}`, per_page: `${perPage}` },
   });
 }

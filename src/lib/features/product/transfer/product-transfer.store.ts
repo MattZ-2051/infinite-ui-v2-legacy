@@ -14,14 +14,14 @@ forward({
 
 export const searchUsersFx = createEffect(
   async ({
-    search,
+    username,
     page,
     perPage,
   }: {
-    search: string;
+    username: string;
     page: number;
     perPage: number;
   }): Promise<{ data: Profile[]; total: number }> => {
-    return await getUsers({ search, page, perPage });
+    return await getUsers({ username, page, perPage });
   }
 );
