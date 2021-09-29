@@ -153,7 +153,7 @@
         {/if}
         <div class="border-b border-gray-200 text-gray-500 font-medium mb-2">
           <div class="flex justify-between pb-1 mb-1">
-            <span>MarketPlace fee ({marketplaceFee * 100}%)</span>
+            <span>Marketplace fee ({marketplaceFee * 100}%)</span>
             <span>{formatCurrency(marketplaceFeePrice)}</span>
           </div>
           {#if royaltyFee > 0}

@@ -44,7 +44,7 @@
         <span>{bid}</span>
       </div>
       <div class="flex justify-between border-solid border-b border-gray-200 pb-4 font-medium">
-        <span class="text-gray-500">MarketPlace fee ({marketplaceFee * 100}%)</span>
+        <span class="text-gray-500">Marketplace fee ({marketplaceFee * 100}%)</span>
         <span>{formatCurrency(marketplaceFee * amount)}</span>
       </div>
       <div class="flex justify-between font-medium">
