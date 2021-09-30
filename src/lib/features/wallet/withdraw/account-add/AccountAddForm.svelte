@@ -111,16 +111,16 @@
         <FormInput name="email" label="Email *" klass="flex-grow" value={user.email} />
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <FormInput name="postalCode" label="Postal Code *" />
         <FormInput name="city" label="City *" />
+        <FormInput name="postalCode" label="Postal Code *" />
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <FormCountriesSelect name="country" label="Country *" />
         <FormDistrictsSelect
           countryISO2={$data.country}
           name="district"
           label="State/Province{isDistrictRequired ? ' *' : ''}"
         />
+        <FormCountriesSelect name="country" label="Country *" />
       </div>
       <button class="hidden" bind:this={submit} />
     </form>

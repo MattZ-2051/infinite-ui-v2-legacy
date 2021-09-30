@@ -54,10 +54,10 @@
   <form use:form class="mt-2 flex flex-col gap-4" autocomplete="off">
     <FormInput name="addressLine1" label="Address Line 1  *" />
     <FormInput name="addressLine2" label="Address Line 2" />
-    <FormInput name="postalCode" label="Postal Code *" />
     <FormInput name="city" label="City *" />
-    <FormCountriesSelect name="country" label="Country *" />
+    <FormInput name="postalCode" label="Postal Code *" />
     <FormInput name="district" label="State/Province *" />
+    <FormCountriesSelect name="country" label="Country *" />
     <FormInput name="shippingNotes" label="Shipping Notes" />
 
     <div class="text-xs text-gray-600 max-w-sm">
