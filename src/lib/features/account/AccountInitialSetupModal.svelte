@@ -32,7 +32,7 @@
     tagline: yup.string().max(150, 'About me must be at most 150 characters.'),
     phoneNumber: yup
       .string()
-      .matches(/^\+?[1-9]\d{1,14}$/, 'Please enter a valid phone number.')
+      .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true })
       .optional(),
   });
 
@@ -70,8 +70,12 @@
 
   let termsAndConditionsConsentGiven: boolean;
   let privacyPolicyConsentGiven: boolean;
+  let phoneNumberConsentGiven: boolean;
 
-  $: canSave = termsAndConditionsConsentGiven && privacyPolicyConsentGiven;
+  $: canSave =
+    termsAndConditionsConsentGiven &&
+    privacyPolicyConsentGiven &&
+    ($data.phoneNumber === '' ? true : phoneNumberConsentGiven);
 
   setContext('errors', errors);
 
@@ -103,6 +107,7 @@
             type="checkbox"
             name="phoneNumberConsentGiven"
             class="w-5 h-5 text-black bg-white"
+            bind:checked={phoneNumberConsentGiven}
             disabled={$data.phoneNumber === ''}
           />
           <label for="phoneNumberConsentGiven" class="text-gray-900 text-sm"

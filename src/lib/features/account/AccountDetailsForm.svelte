@@ -15,6 +15,8 @@
   export let disabled = false;
   let saving;
 
+  let phoneNumberConsentGiven: boolean;
+
   const schema = yup.object({
     firstName: yup
       .string()
@@ -26,7 +28,7 @@
       .matches(/^[ A-Za-z]*$/, 'Please enter valid last name.'),
     phoneNumber: yup
       .string()
-      .matches(/^\+?[1-9]\d{1,14}$/, 'Please enter a valid phone number.')
+      .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true })
       .optional(),
   });
 
@@ -37,7 +39,7 @@
     phoneNumberConsentGiven: user.phoneNumberConsentGiven || false,
   };
 
-  const { form, errors, setFields } = createForm({
+  const { form, errors, setFields, data } = createForm({
     initialValues,
     onSubmit: async (values) => {
       try {
@@ -66,7 +68,8 @@
       name="phoneNumberConsentGiven"
       class="w-5 h-5 mt-1 text-black bg-white"
       value="check"
-      {disabled}
+      bind:checked={phoneNumberConsentGiven}
+      disabled={disabled || $data.phoneNumber === ''}
     />
     <label for="consent" class="text-gray-800 text-sm"
       >By providing your phone number, you are consenting to receiving updates from ARIA Exchange on NFT releases,
@@ -84,7 +87,12 @@
         dispatch('closeForm');
       }}>Cancel</Button
     >
-    <Button variant="brand" type="submit" disabled={!!saving} class="w-16 text-sm rounded-sm">Save</Button>
+    <Button
+      variant="brand"
+      type="submit"
+      disabled={!!saving || ($data.phoneNumber === '' ? false : !phoneNumberConsentGiven)}
+      class="w-16 text-sm rounded-sm">Save</Button
+    >
   </div>
 </form>
 
