@@ -38,7 +38,7 @@
       USDC to wallet
       <span>{transaction.transactionData.withdraw.usdcAddress}</span>
     {:else}
-      funds to bank {transaction.transactionData.withdraw.institution_name} and acount ending in
+      funds to bank {transaction.transactionData.withdraw.institution_name} and account ending in
       <span>{transaction.transactionData.withdraw.ach_number}</span>
     {/if}
   {:else if type === 'deposit'}
