@@ -5,7 +5,7 @@
 </script>
 
 {#each links as { id, path, href } (id)}
-  <a {href}
+  <a {href} target="_blank" rel="noopener noreferrer"
     ><Icon {path} size={1.33} class="flex justify-center items-center px-1.5" /><span class="sr-only">{id}</span></a
   >
 {/each}
