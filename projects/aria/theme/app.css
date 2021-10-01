@@ -27,3 +27,7 @@ button.sticky-cta:hover {
     --gray-500: rgba(255, 255, 255, 0.5);
   }
 }
+
+.text-gradient-primary {
+  line-height: 1.5;
+}
