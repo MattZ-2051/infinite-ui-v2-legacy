@@ -55,5 +55,5 @@
     </div>
     <div style="height: 1px; background-color: #EBEBEB;" />
   </div>
-  <button type="button" on:click={onResetPassword} class="mt-4 text-white link text-sm">Change password</button>
+  <button type="button" on:click={onResetPassword} class="mt-4 text-white link text-sm">Reset password</button>
 </div>
