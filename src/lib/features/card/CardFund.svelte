@@ -88,7 +88,7 @@
     <div class="cvv-container">
       <FormInput name="cvv" placeholder="Enter CVV" />
     </div>
-    <span class="text-gray-600 text-center"
+    <span class="text-red-500 text-center"
       >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
     >
     <FormInput name="amount" type="number" placeholder="Enter Amount" before="$" />
