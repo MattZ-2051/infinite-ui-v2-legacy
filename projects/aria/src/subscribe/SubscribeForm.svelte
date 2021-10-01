@@ -78,8 +78,7 @@
 </div>
 
 <div class="text-center text-xs max-w-2xl mx-auto">
-  By providing your email, you are consenting to receive updates from ARIA Exchange on NFT releases, exclusive
-  experiences, updates and other communications from ARIA Exchange and its affiliates and partners.
+  By providing your email, you are consenting to receiving communications from ARIA Exchange and its partners.
 </div>
 
 <style lang="postcss">

@@ -25,13 +25,10 @@
 
 <div class="container flex flex-grow items-center justify-center">
   <div class="flex flex-col gap-5 md:gap-10 items-center text-center">
-    <div class="text-6xl font-extrabold text-gradient-primary font-bold">Oh, no!</div>
+    <div class="text-6xl font-extrabold text-gradient-primary">Oh, no!</div>
     <div class="flex flex-col gap-4 md:gap-8">
       {#if status === 404}
         <div class="text-2xl md:text-5xl font-semibold">This page does not exist.</div>
-        <div class="text-sm md:text-base text-gray-500">
-          The page you are looking for was moved, removed, renamed or might never existed!
-        </div>
       {:else}
         <div class="text-2xl md:text-5xl font-semibold">There was an unexpected problem.</div>
         <div class="text-sm md:text-base text-gray-500">

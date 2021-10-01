@@ -29,7 +29,7 @@
       : []),
     {
       id: 'NFTs',
-      title: 'NFTs',
+      title: 'Collectibles',
     },
   ];
 
@@ -79,7 +79,7 @@
   </Tab>
   <Tab id="NFTs">
     {#if $productsTotal === 0}
-      <div class="text-gray-500  text-center mt-12 text-2xl ">No NFTs found.</div>
+      <div class="text-gray-500  text-center mt-12 text-2xl ">No Collectibles found.</div>
     {:else if $productsTotal === null}
       <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
     {:else}
