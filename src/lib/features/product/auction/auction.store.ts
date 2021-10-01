@@ -2,6 +2,7 @@ import type { Bid, Listing } from '$lib/sku-item/types';
 import { createEffect, forward } from 'effector';
 import { toast } from '$ui/toast';
 import { getQueryParameters } from '$util/queryParameter';
+import { CLIENT_SUPPORT_URL } from '$project/variables';
 import { placeBid, loadProductBids } from './auction.api';
 import { fetchProductBidsFx } from '../product.store';
 
@@ -10,11 +11,11 @@ export const placeBidFx = createEffect(async ({ listing, amount }: { listing: Li
 });
 
 placeBidFx.done.watch(() => {
-  toast.success(
-    'Your bid was successfully placed. ' +
-      'Learn more about biding ' +
-      '<a target="_blank" href="https://support.suku.world/infinite-powered-by-suku" rel="noreferrer">here</a>.'
-  );
+  const message = [`Your bid was successfully placed.`];
+  if (CLIENT_SUPPORT_URL) {
+    message.push(`Learn more about bidding <a target="_blank" href="${CLIENT_SUPPORT_URL}" rel="noreferrer">here</a>.`);
+  }
+  toast.success(message.join(' '));
 });
 
 placeBidFx.fail.watch(() => {
