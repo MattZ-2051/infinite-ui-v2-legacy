@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { mdiArrowRight } from '@mdi/js';
-  import Icon from '$ui/icon/Icon.svelte';
+  import type { ImageMetadata } from '$ui/image/Image.svelte';
+  import { mdiChevronRight } from '@mdi/js';
   import { Modal, closeModal, openModal } from '$ui/modals';
+
   import Image from '$ui/image/Image.svelte';
+  import Icon from '$ui/icon/Icon.svelte';
   import AchWithdrawModal from './AchWithdrawModal.svelte';
   import UsdcWithdrawModal from './UsdcWithdrawModal.svelte';
   import usdcImg from './assets/usdcoin.png?w=60&format=avif;webp;png&metadata';
@@ -10,47 +12,49 @@
 
   export let isOpen: boolean;
 
-  $: title = 'Withdraw';
+  type WithdrawOption = {
+    id: 'ach' | 'usdc';
+    title: string;
+    subtitle: string;
+    alt: string;
+    image: ImageMetadata[];
+    disabled?: boolean;
+  };
 
-  const handleWithdrawSelection = (event) => {
-    if (event.target.id === 'ach') {
+  const options: WithdrawOption[] = [
+    { id: 'ach', title: 'ACH', subtitle: 'Bank Account', image: achImg, alt: 'ACH withdraw' },
+    { id: 'usdc', title: 'USDC Coin', subtitle: 'Pay with USDC', image: usdcImg, alt: 'USDC withdraw' },
+  ];
+
+  const handleWithdrawSelection = (id) => {
+    if (id === 'ach') {
       openModal(AchWithdrawModal);
-    }
-
-    if (event.target.id === 'usdc') {
+    } else if (id === 'usdc') {
       openModal(UsdcWithdrawModal);
     }
   };
 </script>
 
 {#if isOpen}
-  <Modal {title} on:close={closeModal}>
+  <Modal title="Select a payment to withdraw to" on:close={closeModal}>
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
-      <div class="text-black-opacity-50 text-base">Select a method to withdraw your funds to</div>
-      <button
-        id="ach"
-        type="button"
-        class="w-full grid grid-cols-2 auto-cols-fr place-content-between items-center gap-4 border-black rounded-2xl border-2 overflow-hidden p-2 text-xl mt-8"
-        on:click={handleWithdrawSelection}
-      >
-        <div class="flex items-center">
-          <Image src={achImg} alt="ACH withdraw" width={40} height={40} class="mr-4" />
-          <span class="font-semibold">ACH</span>
+      {#each options as option (option.id)}
+        <div
+          class="{option.disabled
+            ? 'opacity-80'
+            : 'group hover:border-black cursor-pointer'} flex gap-6 items-center py-6 border-b border-gray-300"
+          on:click={() => handleWithdrawSelection(option.id)}
+        >
+          <Image src={option.image} alt={option.alt} class="flex-none w-12 h-12" />
+          <div class="flex-grow ">
+            <div class="text-black">{option.title}</div>
+            <div class="text-gray-500 font-bold">{option.subtitle}</div>
+          </div>
+          <div class="flex-none opacity-50 group-hover:opacity-100">
+            <Icon path={mdiChevronRight} size="1.4" />
+          </div>
         </div>
-        <Icon path={mdiArrowRight} class="text-black justify-self-end" />
-      </button>
-      <button
-        id="usdc"
-        type="button"
-        class="w-full grid grid-cols-2 auto-cols-fr place-content-between items-center gap-4 border-black rounded-2xl border-2 overflow-hidden p-2 text-xl"
-        on:click={handleWithdrawSelection}
-      >
-        <div class="flex items-center">
-          <Image src={usdcImg} alt="USDC withdraw" width={40} height={40} class="mr-4" />
-          <span class="font-semibold">USDC</span>
-        </div>
-        <Icon path={mdiArrowRight} class="text-black justify-self-end" />
-      </button>
+      {/each}
     </div>
   </Modal>
 {/if}
