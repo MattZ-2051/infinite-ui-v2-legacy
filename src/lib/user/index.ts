@@ -1,8 +1,8 @@
 import type { User } from './types';
 import type { Readable } from 'svelte/store';
 
-import { derived, writable, get as getStoreValue } from 'svelte/store';
-import { isAuthenticated, initAuth, userExternalId } from '$lib/auth';
+import { derived, get as getStoreValue, writable } from 'svelte/store';
+import { session } from '$app/stores';
 import { localStorageWritable } from '$util/localstorage-store';
 import { patch, post, get } from '$lib/api';
 import routes from '$project/routes';
@@ -10,22 +10,22 @@ import { openModal } from '$ui/modals';
 
 import AccountInitialSetupModal from '$lib/features/account/AccountInitialSetupModal.svelte';
 
-// Keep a reference between the external (Auth0) id
-const externalIdMap = localStorageWritable<Pick<User, '_id' | 'externalId'>>('user:id', undefined);
+// Keep a mapping between the external oauth2 provider id and the backend user id
+const userIdExternalIdMap = localStorageWritable<Pick<User, '_id' | 'externalId'>>('user:id', undefined);
+const externalId = localStorageWritable<string>('user:externalId', undefined);
 
 export const user = writable<User>(undefined);
 
 export const userId: Readable<string> = derived(
-  [isAuthenticated, userExternalId, externalIdMap],
-  ([$isAuthenticated, $userExternalId, $user]) => {
-    return $isAuthenticated && $userExternalId && $userExternalId === $user?.externalId ? $user._id : undefined;
+  [externalId, userIdExternalIdMap],
+  ([$externalId, $userIdExternalIdMap]) => {
+    return $externalId && $externalId === $userIdExternalIdMap?.externalId ? $userIdExternalIdMap._id : undefined;
   }
 );
 
 export async function updateUser(): Promise<User> {
   const me = await get<User>('users/me');
-  userExternalId.set(me.externalId);
-  externalIdMap.set({ _id: me._id, externalId: me.externalId });
+  userIdExternalIdMap.set({ _id: me._id, externalId: me.cognitoId });
   user.set(me);
   return me;
 }
@@ -37,7 +37,7 @@ export async function patchUser(data: Partial<User>) {
 
 export function clearUser(): void {
   user.set(undefined);
-  externalIdMap.set(undefined);
+  userIdExternalIdMap.set(undefined);
 }
 
 export async function getPersonalToken(): Promise<string> {
@@ -45,12 +45,7 @@ export async function getPersonalToken(): Promise<string> {
 }
 
 export async function initUserAuth() {
-  await initAuth();
-  if (getStoreValue(isAuthenticated)) {
-    updateUser();
-  } else {
-    clearUser();
-  }
+  initSessionSubscription();
 }
 
 let accountSetupTriggered = false;
@@ -66,4 +61,74 @@ export function mustSetupAccount(me: User, path: string) {
 
     accountSetupTriggered = true;
   }
+}
+
+let sessionUnsubscriber;
+
+async function fetchNewSession() {
+  try {
+    const newSession = await fetch('/auth/refresh').then(async (response) => await response.json());
+
+    if (getStoreValue(externalId) !== newSession?.user?.externalId) {
+      externalId.set(newSession?.user?.externalId);
+    }
+
+    return newSession;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+
+    return {};
+  }
+}
+
+function initSessionSubscription() {
+  if (sessionUnsubscriber) {
+    sessionUnsubscriber();
+
+    sessionUnsubscriber = undefined;
+  }
+
+  let sessionRefreshTimeout;
+
+  sessionUnsubscriber = session.subscribe(async (_session) => {
+    clearTimeout(sessionRefreshTimeout);
+
+    if (!_session || _session.invalid) {
+      externalId.set(undefined);
+      clearUser();
+
+      return;
+    }
+
+    if (_session.expired) {
+      session.set(await fetchNewSession());
+
+      return;
+    }
+
+    if (_session.expiration) {
+      // Set the timeout to occur one minute before the JWT expiration.
+      // The JWT expiration is set in seconds by AWS Cognito.
+      const expiresAfterMilliseconds = _session.expiration * 1000 - Date.now() - 60_000;
+
+      if (expiresAfterMilliseconds <= 0) {
+        session.set(await fetchNewSession());
+
+        return;
+      }
+
+      sessionRefreshTimeout = setTimeout(async () => {
+        session.set(await fetchNewSession());
+      }, expiresAfterMilliseconds);
+
+      if (getStoreValue(externalId) !== _session?.user?.externalId) {
+        externalId.set(_session?.user?.externalId);
+      }
+
+      updateUser();
+
+      return;
+    }
+  });
 }

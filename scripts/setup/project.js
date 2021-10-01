@@ -27,6 +27,7 @@ async function run() {
 
   const data = {
     extends: './tsconfig.base.json',
+    _project: project,
     compilerOptions: {
       paths: {
         ...paths,
@@ -48,10 +49,7 @@ async function run() {
       `projects/${project}/src/**/*.svelte`,
     ],
   };
-  writeFileSync(
-    'tsconfig.json',
-    `/* Please do NOT modify this auto-generated file. */\n${JSON.stringify(data, undefined, 2)}`
-  );
+  writeFileSync('tsconfig.json', `\n${JSON.stringify(data, undefined, 2)}`);
 }
 
 async function resolveProject() {

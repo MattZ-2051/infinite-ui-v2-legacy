@@ -5,9 +5,8 @@
   import { setContext } from 'svelte';
   import * as yup from 'yup';
   import { closeModal, Modal } from '$ui/modals';
-  import { logout } from '$lib/auth';
   import routes from '$project/routes';
-  import { clearUser, patchUser } from '$lib/user';
+  import { patchUser } from '$lib/user';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import Button from '$lib/components/Button.svelte';
   import { handleUserApiError } from './account.service';
@@ -78,11 +77,6 @@
     ($data.phoneNumber === '' ? true : phoneNumberConsentGiven);
 
   setContext('errors', errors);
-
-  function onLogout() {
-    clearUser();
-    logout(`${window.location.origin}`);
-  }
 </script>
 
 {#if isOpen}
@@ -143,7 +137,7 @@
         </div>
         <div class="flex flex-col gap-4 pt-6 border-t border-gray-200">
           <Button variant="brand" disabled={!canSave} type="submit">Save</Button>
-          <Button on:click={onLogout}>Logout</Button>
+          <Button href={routes.signout}>Logout</Button>
         </div>
       </form>
     </div>

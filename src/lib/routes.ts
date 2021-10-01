@@ -1,3 +1,5 @@
+import { goto } from '$app/navigation';
+
 export default {
   index: '/',
   marketplace: '/marketplace',
@@ -13,7 +15,9 @@ export default {
   terms: '/terms',
   about: '/about',
   careers: '/careers',
-  signin: '/auth/signin',
+  signin() {
+    goto('/auth/signin?returnUrl=' + window.location.href);
+  },
   signout: '/auth/signout',
   signup: '/auth/signup',
   partner: '/partner',

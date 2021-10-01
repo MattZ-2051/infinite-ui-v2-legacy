@@ -1,5 +1,9 @@
-import { authToken } from '$lib/auth';
 import { send, get, post, del, put, getPage } from './api';
+
+const defaultApiOptions = {
+  credentials: 'include',
+  mode: 'cors',
+};
 
 jest.mock('$lib/variables', () => ({ variables: { apiUrl: 'http://api' } }));
 
@@ -49,7 +53,7 @@ describe('API', () => {
 
     it('should not prepend base `apiUrl` if absolute', async () => {
       await send('http://my-absolute.path', { fetch: mockFetch });
-      expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', {});
+      expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', defaultApiOptions);
     });
 
     it('should add url parameters', async () => {
@@ -60,61 +64,29 @@ describe('API', () => {
         fetch: mockFetch,
         params,
       });
-      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?a=k&e=123', {});
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?a=k&e=123', defaultApiOptions);
 
       await send('my/path?existing=true', {
         fetch: mockFetch,
         params,
       });
-      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?existing=true&a=k&e=123', {});
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?existing=true&a=k&e=123', defaultApiOptions);
     });
 
     it('should handle extra slashes at the start of url', async () => {
       await send('/my/path', { fetch: mockFetch });
-      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {});
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', defaultApiOptions);
     });
 
     it('should support custom `baseUrl`', async () => {
       await send('/my/path', { baseUrl: 'http://my-custom.path', fetch: mockFetch });
-      expect(mockFetch).toHaveBeenLastCalledWith('http://my-custom.path/my/path', {});
+      expect(mockFetch).toHaveBeenLastCalledWith('http://my-custom.path/my/path', defaultApiOptions);
     });
 
     describe('authorization', () => {
-      const bearer =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFudG9uaXMtS29zdGlzLUV1aSIsImlhdCI6MTUxNjIzOTAyMn0.yhRrCOv0rIag7bT5gT1h58vcx1RuvDVjF_r0WvhLWkc';
-      const authorizationHeader = { Authorization: `Bearer ${bearer}` };
-      afterEach(() => authToken.set(''));
-
-      it('should send authorization headers if exist', async () => {
-        const headers = { 'my-header': 'h123' };
-        authToken.set(bearer);
-        await send('/my/path', { fetch: mockFetch, headers });
-        expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {
-          headers: { ...headers, ...authorizationHeader },
-        });
-      });
-
-      it('should opt-out from sending authorization headers even if exist', async () => {
-        const headers = { 'my-header': 'h123' };
-        authToken.set(bearer);
-        await send('/my/path', { fetch: mockFetch, headers, authorization: false });
-        expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', { headers });
-      });
-
-      it('should not send authorization headers for absolute url', async () => {
-        const headers = { 'my-header': 'h123' };
-        authToken.set(bearer);
-        await send('http://my-absolute.path', { fetch: mockFetch, headers });
-        expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', { headers });
-      });
-
-      it('should opt-in to send authorization headers for absolute url', async () => {
-        const headers = { 'my-header': 'h123' };
-        authToken.set(bearer);
-        await send('http://my-absolute.path', { fetch: mockFetch, headers, authorization: true });
-        expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', {
-          headers: { ...headers, ...authorizationHeader },
-        });
+      it('should opt-out from sending credentials', async () => {
+        await send('/my/path', { fetch: mockFetch, credentials: 'omit' });
+        expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', { credentials: 'omit', mode: 'cors' });
       });
     });
 

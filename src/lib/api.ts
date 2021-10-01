@@ -1,7 +1,6 @@
 import type { Writable } from 'svelte/store';
-import { get as getStoreValue, writable, derived } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 import { variables } from '$lib/variables';
-import { authToken } from '$lib/auth';
 
 export type ApiError = { status: number; statusText: string; url: string; data?: { [key: string]: unknown } };
 
@@ -10,22 +9,13 @@ type ApiFetchTracker = Pick<Writable<boolean>, 'set' | 'subscribe'>;
 type ApiOptions = RequestInit & {
   baseUrl?: string;
   fetch?: Fetch;
-  authorization?: boolean;
   params?: string | string[][] | Record<string, string> | URLSearchParams;
   tracker?: ApiFetchTracker;
   parseResponseAsText?: boolean;
 };
 
 export async function send<T>(path: string, _options?: ApiOptions): Promise<{ headers: Headers; body: T }> {
-  const isAbsolute = isAbsoluteURL(path);
-  const {
-    baseUrl = variables.apiUrl,
-    fetch: f,
-    authorization = !isAbsolute,
-    params,
-    tracker,
-    ...options
-  } = { ..._options };
+  const { baseUrl = variables.apiUrl, fetch: f, params, tracker, ...options } = { ..._options };
 
   if (tracker) {
     tracker.set(true);
@@ -36,19 +26,12 @@ export async function send<T>(path: string, _options?: ApiOptions): Promise<{ he
     options.body = JSON.stringify(options.body);
   }
 
-  if (authorization) {
-    const bearer = getStoreValue(authToken);
-    if (bearer) {
-      options.headers = { ...options.headers, Authorization: `Bearer ${bearer}` };
-    }
-  }
-
   let url = buildFullPath(baseUrl, path);
   if (params) {
     url += (url.includes('?') ? '&' : '?') + new URLSearchParams(params).toString();
   }
 
-  return (f || fetch)(url, options).then(async (r) => {
+  return (f || fetch)(url, { mode: 'cors', credentials: 'include', ...options }).then(async (r) => {
     if (tracker) {
       tracker.set(false);
     }

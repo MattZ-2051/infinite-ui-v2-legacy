@@ -3,8 +3,6 @@
   import { mdiCogOutline, mdiCreditCardOutline, mdiLogout, mdiAccount } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
-  import { login, isLoading, logout } from '$lib/auth';
-  import { clearUser } from '$lib/user';
   import routes from '$project/routes';
   import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
   import Button from '$lib/components/Button.svelte';
@@ -15,11 +13,6 @@
   $: isRoute = function (route: string) {
     return new RegExp(`^${route}(?:/|$)`).test($page.path);
   };
-
-  function onLogout() {
-    clearUser();
-    logout(`${window.location.origin}`);
-  }
 </script>
 
 <a sveltekit:prefetch href={routes.marketplace} class="header-link" class:active={isRoute(routes.marketplace)}
@@ -37,7 +30,7 @@
       >Account Settings</a
     >
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
-    <button type="button" class="header-link" on:click={() => onLogout()}>Sign Out</button>
+    <a href={routes.signout} class="header-link">Sign Out</a>
   {:else}
     <Menu placement="bottom-end">
       <MenuTrigger slot="trigger" class="header-link">
@@ -57,7 +50,7 @@
         <MenuItem href={routes.wallet} class={$page.path === routes.wallet ? 'hidden' : ''}>
           <Icon path={mdiCreditCardOutline} class="flex-shrink-0 float-left mr-3" /> My Wallet
         </MenuItem>
-        <MenuItem on:select={() => onLogout()}>
+        <MenuItem href={routes.signout}>
           <Icon path={mdiLogout} class="flex-shrink-0 float-left mr-3" /> Sign Out
         </MenuItem>
       </MenuList>
@@ -65,7 +58,7 @@
   {/if}
 {:else}
   <a sveltekit:prefetch href={routes.about} class="header-link" class:active={isRoute(routes.about)}>About Us</a>
-  <button class="flex header-link" on:click={async () => await login()} disabled={$isLoading}>Sign in</button>
+  <button class="flex header-link" on:click={routes.signin}>Sign in</button>
   <Button variant="brand" href={routes.signup} class="whitespace-nowrap">Sign up</Button>
 {/if}
 

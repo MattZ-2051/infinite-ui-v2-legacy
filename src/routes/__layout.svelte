@@ -18,7 +18,6 @@
 
 <script lang="ts">
   import { navigating, page } from '$app/stores';
-  import { isLoading } from '$lib/auth';
   import { initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { pollPendingTransactions } from '$lib/features/wallet/wallet.poll';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
@@ -51,7 +50,7 @@
 <Head />
 
 <ThemeContext display id="root">
-  {#if $navigationPathChanging || $isLoading}
+  {#if $navigationPathChanging}
     <PreloadIndicator />
   {/if}
 

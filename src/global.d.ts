@@ -7,9 +7,6 @@ interface CommonImportMetaEnvironment {
   VITE_KYC_PERSONA_TEMPLATE_LVL_1: string;
   VITE_KYC_PERSONA_TEMPLATE_LVL_2: string;
   VITE_KYC_PERSONA_ENVIRONMENT: string;
-  VITE_AUTH0_DOMAIN: string;
-  VITE_AUTH0_CLIENT_ID: string;
-  VITE_AUTH0_AUDIENCE: string;
   VITE_DAILY_DEPOSIT_LIMIT_USD: number;
   VITE_INITIAL_BUYERS_FEE_PERCENTAGE: number;
   VITE_USDC_CONTRACT_ADDRESS: string;
@@ -18,6 +15,10 @@ interface CommonImportMetaEnvironment {
   VITE_ETH_EXPLORER_BASE_URL: string;
   VITE_BLOCKCYPHER_API_URL: string;
   VITE_BTC_EXPLORER_BASE_URL: string;
+  VITE_AWS_COGNITO_LOGIN_DOMAIN: string;
+  VITE_AWS_COGNITO_CLIENT_ID: string;
+  VITE_AWS_COGNITO_CLIENT_SECRET: string;
+  VITE_AWS_COGNITO_STATE_CIPHER_KEY: string;
 }
 
 declare module '*format=avif;webp;png&metadata';

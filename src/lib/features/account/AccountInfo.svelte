@@ -13,7 +13,7 @@
   let editing = false;
 
   function onResetPassword() {
-    passwordResetRequested({ email: user['http://schemas.microsoft.com/ws/2008/06/identity/id/meta'].email });
+    passwordResetRequested();
   }
 </script>
 

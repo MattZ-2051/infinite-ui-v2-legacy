@@ -9,6 +9,7 @@ export type User = {
   balance: number;
   availableBalance: number;
   createdAt: Date;
+  cognitoId: string;
   externalId: string;
   hederaAccount: string;
   role: string;

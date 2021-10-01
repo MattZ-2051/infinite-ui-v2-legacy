@@ -1,15 +1,5 @@
-import type { Profile } from '$lib/sku-item/types';
-import { post } from '$lib/api';
-import { variables } from '$lib/variables';
+import { patch } from '$lib/api';
 
-export async function passwordReset(email: string) {
-  return await post<Profile>(
-    `https://${variables.auth0.domain}/dbconnections/change_password`,
-    {
-      client_id: variables.auth0.client_id,
-      email,
-      connection: 'Username-Password-Authentication',
-    },
-    { authorization: true }
-  );
+export async function passwordReset() {
+  return await patch<void>('auth/forgot-password', {});
 }
