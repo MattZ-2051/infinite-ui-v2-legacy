@@ -115,12 +115,12 @@
         <FormInput name="postalCode" label="Postal Code *" />
       </div>
       <div class="grid grid-cols-2 gap-4">
+        <FormCountriesSelect name="country" label="Country *" />
         <FormDistrictsSelect
           countryISO2={$data.country}
           name="district"
           label="State/Province{isDistrictRequired ? ' *' : ''}"
         />
-        <FormCountriesSelect name="country" label="Country *" />
       </div>
       <button class="hidden" bind:this={submit} />
     </form>

@@ -110,12 +110,12 @@
     <FormInput name="billingDetails.line2" label="Address Line 2" />
     <FormInput name="billingDetails.city" label="City *" />
     <FormInput name="billingDetails.postalCode" label="Postal Code *" />
+    <FormCountriesSelect name="billingDetails.country" label="Country *" />
     <FormDistrictsSelect
       countryISO2={$data.billingDetails?.country}
       name="billingDetails.district"
       label="State/Province{isDistrictRequired ? ' *' : ''}"
     />
-    <FormCountriesSelect name="billingDetails.country" label="Country *" />
 
     <Button variant="brand" type="submit" class="mt-6" disabled={$saving}>Add Card</Button>
   </form>

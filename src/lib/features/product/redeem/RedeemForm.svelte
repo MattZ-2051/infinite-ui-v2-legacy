@@ -56,8 +56,8 @@
     <FormInput name="addressLine2" label="Address Line 2" />
     <FormInput name="city" label="City *" />
     <FormInput name="postalCode" label="Postal Code *" />
-    <FormInput name="district" label="State/Province *" />
     <FormCountriesSelect name="country" label="Country *" />
+    <FormInput name="district" label="State/Province *" />
     <FormInput name="shippingNotes" label="Shipping Notes" />
 
     <div class="text-xs text-gray-600 max-w-sm">
