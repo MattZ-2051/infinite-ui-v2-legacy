@@ -4,6 +4,8 @@ const Theme = {
 };
 
 export const themeConfig = {
+  '$index.root': Theme.Light,
+  '$about.root': Theme.Light,
   '*.header': Theme.Dark,
   '$marketplace.root': Theme.Light,
   '$help.*.root': Theme.Light,

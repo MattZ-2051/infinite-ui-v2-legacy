@@ -1,5 +1,4 @@
 export const paths = {
-  '$project/about/*': 'projects/aria/src/about/*',
   '$project/toast/*': 'projects/infinite/src/toast/*',
   '$project/partner/*': 'projects/infinite/src/partner/*',
   '$project/sku-item/*': 'projects/infinite/src/sku-item/*',
