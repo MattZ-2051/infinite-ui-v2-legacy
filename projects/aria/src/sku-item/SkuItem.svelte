@@ -5,10 +5,10 @@
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
   import SkuStatus from '$project/sku-item/SkuStatus.svelte';
-  import SkuDescription from '$project/sku-item/SkuDescription.svelte';
   import routes from '$project/routes';
   import { formatDate } from '$util/format';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
+  import SkuDescription from './SkuDescription.svelte';
 
   let _sku: Sku = undefined;
   export { _sku as sku };

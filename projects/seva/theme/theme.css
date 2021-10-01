@@ -232,7 +232,7 @@
 
   /* SkuItem */
   --sku-item-color: var(--color);
-  --sku-item-bg-color: #ffffff;
+  --sku-item-bg-color: var(--bg-color);
 
   /* Button */
   --button-brand-color: #ffffff;

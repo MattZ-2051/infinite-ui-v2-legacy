@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
   import { mdiArrowRightCircle } from '@mdi/js';
   import type { Sku, Product } from '$lib/sku-item/types';
   import { FilePreview } from '$ui/file';
@@ -14,11 +15,14 @@
   export let product: Product = undefined;
 
   $: sku = product ? product.sku : _sku;
+  $: href = product ? routes.product(product._id) : routes.sku(sku._id);
 </script>
 
-<article id={sku._id} class="border border-current border-solid space-y-4 py-6">
+<article id={sku._id} class="border border-current border-solid space-y-4 py-6" in:fade={{ duration: 300 }}>
   <figure class="relative mx-6 mb-0">
-    <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+    <a sveltekit:prefetch {href}>
+      <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+    </a>
   </figure>
   <div class="info mx-6 space-y-4">
     <section class="text-current flex flex-row items-center">
@@ -30,13 +34,15 @@
       {/if}
     </section>
     <header>
-      <h2 class="text-2xl line-clamp-2">{sku.name}</h2>
+      <a sveltekit:prefetch {href}>
+        <h2 class="text-2xl line-clamp-2">{sku.name}</h2>
+      </a>
     </header>
     <SkuEdition {sku} {product} />
   </div>
   <a
     sveltekit:prefetch
-    href={routes.sku(sku._id)}
+    {href}
     class="mt-5 mx-6 pt-4 flex flex-row items-center border-current border-solid border-t text-lg"
     aria-label="Product details"
   >
