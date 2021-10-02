@@ -10,10 +10,6 @@ export async function startAuction(
   endDate: Date,
   minBid: number
 ): Promise<NewListing> {
-  // truncate milliseconds
-  startDate.setTime(startDate.getTime() - startDate.getMilliseconds());
-  endDate.setTime(endDate.getTime() - endDate.getMilliseconds());
-
   const apiParameters = {
     issuer: product.owner._id,
     product: product._id,

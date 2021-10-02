@@ -15,3 +15,10 @@ export type NewListing = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type NewAuction = {
+  startDate: Date;
+  endDate: Date;
+  price: number;
+  startImmediately: boolean;
+};

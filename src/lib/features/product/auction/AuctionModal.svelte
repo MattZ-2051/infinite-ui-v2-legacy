@@ -1,7 +1,9 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
+  import type { NewAuction } from './types';
   import { mdiChevronDown } from '@mdi/js';
   import dayjs from 'dayjs';
+  import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import * as yup from 'yup';
   import { toast } from '$ui/toast';
@@ -21,83 +23,82 @@
 
   const marketplaceFee = getSellingFee(product);
 
-  let startDate = roundToMinute();
-  let errors;
-  let isSubmitted = false;
-
-  let endDate = roundToMinute(dayjs(startDate).add(7, 'day').toDate());
-  let price: number;
-  let waitingForAPI = false;
-  let startImmediately = false;
-
-  $: royaltyFee = getRoyaltyFee(product);
-  $: marketplaceFeePrice = Math.max(marketplaceFee * price || 0, 0);
-  $: royaltyFeePrice = Math.max(royaltyFee * price || 0, 0);
-  $: total = Math.max(price * (1 - marketplaceFee - royaltyFee) || 0, 0);
-
   function roundToMinute(date = new Date()) {
     return dayjs(date).startOf('minute').toDate();
   }
 
-  function onChangeDateFrom([_startDate]) {
-    startDate = _startDate;
-  }
+  const schema = yup.object({
+    price: yup
+      .number()
+      .required('Amount is required.')
+      .typeError('Enter a valid number.')
+      .moreThan(0, 'Enter a positive amount.'),
+    startDate: yup
+      .date()
+      .required('Start date is required.')
+      .when('startImmediately', {
+        is: false,
+        then: yup.date().test(
+          'is-same-or-after',
+          'Start date must be in the future.',
+          // similar to isSameOrAfter
+          (value) => !dayjs(value).isBefore(roundToMinute())
+        ),
+      }),
+    endDate: yup
+      .date()
+      .required('End date is required.')
+      .when('startImmediately', {
+        is: true,
+        then: yup
+          .date()
+          .test('is-after', 'End date must be in the future.', (value) => dayjs(value).isAfter(roundToMinute())),
+        otherwise: yup.date().min(yup.ref('startDate'), 'The end date should be greater than the start date.'),
+      }),
+  });
 
-  function onChangeDateTo([_endDate]) {
-    endDate = _endDate;
-  }
+  const { form, data, errors, isSubmitting, setField } = createForm<NewAuction>({
+    initialValues: {
+      startDate: roundToMinute(),
+      endDate: roundToMinute(dayjs(roundToMinute()).add(7, 'day').toDate()),
+      price: undefined,
+      startImmediately: false,
+    },
+    onSubmit: async ({ price, startDate, endDate, startImmediately }) => {
+      const _startDate = startImmediately ? roundToMinute() : startDate;
 
-  async function validate(_price, _startDate, _endDate) {
-    const schema = yup.object({
-      price: yup
-        .number()
-        .required('Amount is required.')
-        .typeError('Enter a valid number.')
-        .moreThan(0, 'Enter a positive amount.'),
-      startDate: yup
-        .date()
-        .required('Start date is required.')
-        .min(roundToMinute(), 'Date must be in the future.')
-        .max(endDate, 'The end date should be greater than start date.'),
-      endDate: yup.date().required('End date is required.'),
-    });
-
-    errors = await validateSchema(schema)({
-      price: _price,
-      startDate: formatDate(_startDate, 'YYYY/MM/DD HH:mm'),
-      endDate: _endDate,
-    });
-  }
-
-  $: isSubmitted && validate(price, startDate, endDate);
-
-  async function onStartAuction() {
-    isSubmitted = true;
-    const _startDate = startImmediately ? roundToMinute() : startDate;
-
-    await validate(price, _startDate, endDate);
-
-    if (errors) {
-      return;
-    }
-
-    waitingForAPI = true;
-
-    await startAuction(product, _startDate, endDate, price)
-      .then(() => {
+      try {
+        await startAuction(product, _startDate, endDate, price);
         closeModal();
         toast.success('Congrats! Your auction has been created successfully.');
         auctionStarted({ product });
-        return true;
-      })
-      .catch(() => toast.danger('Whoops, something went wrong - please try again.'))
-      .finally(() => (waitingForAPI = false));
+      } catch {
+        toast.danger('Whoops, something went wrong - please try again.');
+      }
+    },
+    validate: validateSchema(schema),
+  });
+
+  function onStartDateChange([_startDate]) {
+    setField('startDate', _startDate);
   }
+
+  function onEndDateChange([_endDate]) {
+    setField('endDate', _endDate);
+  }
+
+  $: royaltyFee = getRoyaltyFee(product);
+  $: marketplaceFeePrice = Math.max(marketplaceFee * $data.price || 0, 0);
+  $: royaltyFeePrice = Math.max(royaltyFee * $data.price || 0, 0);
+  $: total = Math.max($data.price * (1 - marketplaceFee - royaltyFee) || 0, 0);
 </script>
 
 {#if isOpen}
   <Modal title="Create auction" on:close={closeModal}>
-    <form on:submit|preventDefault={onStartAuction}>
+    <form use:form class="relative">
+      {#if $isSubmitting}
+        <div class="form-overlay" />
+      {/if}
       <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
         <div class="flex justify-center items-center bg-black h-72">
           <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
@@ -108,23 +109,23 @@
         </div>
         <div class="grid grid-cols-2 gap-2 py-4 text-center">
           <div class="flex-grow flex flex-col relative">
-            {#if startImmediately}
+            {#if $data.startImmediately}
               <div class="form-overlay" />
             {/if}
             <div class="text-black font-medium mb-2">Start date</div>
             <div
               class="flex-grow px-2 py-2 whitespace-nowrap text-base flex justify-center items-center filter"
-              class:blur-sm={startImmediately}
+              class:blur-sm={$data.startImmediately}
               use:datePicker={{
-                defaultDate: startDate,
+                defaultDate: $data.startDate,
                 enableTime: true,
                 minuteIncrement: 1,
-                onChange: onChangeDateFrom,
+                onChange: onStartDateChange,
               }}
             >
               <span>
-                {formatDate(startDate, 'MMM D, YYYY')}<br />
-                {formatDate(startDate, 'hh:mm A')}
+                {formatDate($data.startDate, 'MMM D, YYYY')}<br />
+                {formatDate($data.startDate, 'hh:mm A')}
               </span>
               <Icon path={mdiChevronDown} color="black" class="inline ml-1" />
             </div>
@@ -133,28 +134,31 @@
             <div class="text-black font-medium mb-2">End date</div>
             <div
               class="flex-grow px-2 py-2 whitespace-nowrap text-base flex justify-center items-center"
-              use:datePicker={{ defaultDate: endDate, enableTime: true, minuteIncrement: 1, onChange: onChangeDateTo }}
+              use:datePicker={{
+                defaultDate: $data.endDate,
+                enableTime: true,
+                minuteIncrement: 1,
+                onChange: onEndDateChange,
+              }}
             >
               <span>
-                {formatDate(endDate, 'MMM D, YYYY')}<br />
-                {formatDate(endDate, 'hh:mm A')}
+                {formatDate($data.endDate, 'MMM D, YYYY')}<br />
+                {formatDate($data.endDate, 'hh:mm A')}
               </span>
               <Icon path={mdiChevronDown} color="black" class="inline ml-1" />
             </div>
           </div>
 
           <div class="flex justify-center gap-3">
-            <input
-              id="startImmediately"
-              type="checkbox"
-              class="w-5 h-5 text-black bg-white"
-              bind:checked={startImmediately}
-            />
+            <input id="startImmediately" name="startImmediately" type="checkbox" class="w-5 h-5 text-black bg-white" />
             <label for="startImmediately" class="text-sm font-semibold">Start immediately</label>
           </div>
         </div>
-        {#if errors?.startDate}
-          <div class="text-red-500 text-sm mb-2 text-center">{errors.startDate}</div>
+        {#if $errors.startDate}
+          <div class="text-red-500 text-sm mb-2">{$errors.startDate}</div>
+        {/if}
+        {#if $errors.endDate}
+          <div class="text-red-500 text-sm mb-2">{$errors.endDate}</div>
         {/if}
 
         <div class="input-container flex items-center relative mt-4 mb-2">
@@ -163,12 +167,11 @@
             type="number"
             name="price"
             class="relative w-full bg-gray-50 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
-            bind:value={price}
             placeholder="Enter min bid price"
           />
         </div>
-        {#if errors?.price}
-          <div class="text-red-500 text-sm mb-2">{errors.price}</div>
+        {#if $errors.price}
+          <div class="text-red-500 text-sm mb-2">{$errors.price}</div>
         {/if}
         <div class="border-b border-gray-200 text-gray-500 font-medium mb-2">
           <div class="flex justify-between pb-1 mb-1">
@@ -193,7 +196,7 @@
             creator.
           </div>
         {/if}
-        <Button variant="brand" class="w-full mt-6" type="submit" disabled={waitingForAPI}>Start Auction</Button>
+        <Button variant="brand" class="w-full mt-6" type="submit">Start Auction</Button>
       </div>
     </form>
   </Modal>
