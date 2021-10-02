@@ -16,7 +16,7 @@
 
   const loadingAccounts = achAccountFetchFx.pending;
 
-  $: title = deleteMode ? 'Remove account' : 'Select a payment to withdraw to';
+  $: title = deleteMode ? 'Remove account' : 'Select an account to withdraw to';
 
   function onSelected(achAccount: AchAccount) {
     if (deleteMode) {
