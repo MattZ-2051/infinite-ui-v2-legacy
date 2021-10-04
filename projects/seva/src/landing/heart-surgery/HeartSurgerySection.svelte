@@ -1,4 +1,5 @@
 <script>
+  import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
   import SevaImage from './assets/SevaImage2x.png';
   import Line from './assets/Line.png';
@@ -28,6 +29,7 @@
         </div>
       </div>
       <Button
+        on:click={() => goto('/about')}
         --button-padding="12px 32px"
         --button-border-radius="999px"
         --button-brand-bg-color="rgba(0,0,0)"

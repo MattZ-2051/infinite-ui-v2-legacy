@@ -6,10 +6,10 @@
 
 <div class="md:pb-48">
   <div style="width:100%; height:0px">
-    <img src={YellowBg} alt="bg" class="hidden xl:block w-full relative z-1" />
-    <img src={YellowMobile} alt="bg" class="xl:hidden w-full relative z-1" style="height:90vh" />
+    <img src={YellowBg} alt="bg" class="hidden xl:block w-full relative z-1" style="height:40em" />
+    <img src={YellowMobile} alt="bg" class="xl:hidden w-full relative z-1" style="height:40em" />
   </div>
-  <div class="container py-20 md:py-36 flex flex-col items-center relative z-10">
+  <div class="container py-20 md:py-36 flex flex-col items-center relative z-10 px-6">
     <div class="font-medium text-4xl md:text-6xl mb-8 md:mb-4 max-w-3xl text-center">
       Exchanging goodness one drop at a time.
     </div>

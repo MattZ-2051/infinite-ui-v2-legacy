@@ -7,7 +7,7 @@ import fourthTile from '$project/landing/images/fourth-tile.png';
 
 export const skuLandingHeadData = (): Sku => {
   return {
-    _id: '1',
+    _id: 'EmiliaClarke',
     redeemable: true,
     name: 'Terrarium',
     issuer: {

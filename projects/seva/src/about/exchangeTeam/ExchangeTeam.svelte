@@ -17,7 +17,7 @@
 </script>
 
 <svelte:window bind:innerWidth={width} />
-<div class="container mt-24 mb-24 lg:mb-0">
+<div class="container mt-24 mb-24 lg:mb-0 px-6">
   <div class="flex flex-col items-center">
     <div class="font-medium text-4xl sm:text-6xl text-center mb-9 max-w-4xl">The goodness exchange team</div>
     <div class="text-center mb-20 max-w-3xl font-medium">

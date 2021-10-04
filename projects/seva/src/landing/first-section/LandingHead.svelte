@@ -1,13 +1,13 @@
 <script>
+  import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
   import SkuItem from '$project/sku-item/SkuItem.svelte';
   import LineImage from '../images/line-image.svg';
   import LineImageMobile from '../images/line-image-mobile.svg';
   import Bubbles from '../images/bubbles-landing.svg';
   import LeftCard from './LeftCard.svelte';
-  import { skuLandingHeadData } from '../utils/landingData';
 
-  const skuData = skuLandingHeadData();
+  export let sku;
 </script>
 
 <div class="container-custom">
@@ -27,10 +27,10 @@
       <LeftCard class="md:flex flex-col order-2 md:w-1/3 md:order-1" />
       <div class="md:h-0 order-1 md:order-2">
         <div
-          class="rounded-md grid grid-cols-1 md:mx-16 mt-20 md:relative  items-center"
+          class="rounded-md grid grid-cols-1 md:mx-16 mt-20 md:relative items-center w-96"
           style="background-color:#ffd54e; box-shadow: 20px 20px #442aa0; z-index: 2;"
         >
-          <SkuItem sku={skuData} />
+          <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
         </div>
       </div>
       <div class="text-left mt-16 md:mt-32 md:w-1/3 order-3 md:order-3">
@@ -44,6 +44,7 @@
         </p>
         <Button
           animate={false}
+          on:click={() => goto('/about')}
           --button-padding="9px 32px"
           --button-border-radius="999px"
           --button-brand-bg-color="rgba(255,255,255)"

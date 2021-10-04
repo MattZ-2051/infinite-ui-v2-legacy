@@ -1,15 +1,17 @@
 <script lang="ts">
-  export const skus = [];
+  import type { Sku } from '$lib/sku-item/types';
   import HeartSurgery from './heart-surgery/HeartSurgerySection.svelte';
   import FAQ from './faq-section/FAQ.svelte';
   import Mission from './mission-section/Mission.svelte';
   import LandingHead from './first-section/LandingHead.svelte';
   import SkuGrid from './second-section/LandingSkuGrid.svelte';
   import Subscribe from './subscribe/Subscribe.svelte';
+
+  export let skus: Sku[];
 </script>
 
-<LandingHead />
-<SkuGrid />
+<LandingHead sku={skus[1]} />
+<SkuGrid skuGridData={skus} />
 <HeartSurgery />
 <FAQ />
 <Mission />

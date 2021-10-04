@@ -1,9 +1,10 @@
 <script lang="ts">
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
-  // import SkuItem from '$project/sku-item/SkuItem.svelte';
   import EmiliaAbout from './EmiliaAbout.svelte';
   import EmiliaFirstNft from './EmiliaFirstNft.svelte';
-  // export let skuLandingHeadData;
+  import Subscribe from '../../commonComponents/Subscribe.svelte';
+  import Mission from '../../landing/mission-section/Mission.svelte';
+
   // const photos = Object.fromEntries(
   //   profile.profilePhotoUrls.map(({ position, url }) => {
   //     return [position, { url }];
@@ -14,14 +15,19 @@
   //     return [position, text];
   //   })
   // );
-  // const sku = skuLandingHeadData();
+
+  export let skus;
 </script>
 
 <ThemeContext id="issuer">
-  <EmiliaFirstNft />
+  <EmiliaFirstNft sku={skus[1]} />
   <div class="container">
     <slot />
   </div>
+  <div class="h-52" />
   <EmiliaAbout />
-  <div class="h-12" />
+  <Mission />
+  <div class="w-full flex justify-center -mt-28 px-6">
+    <Subscribe />
+  </div>
 </ThemeContext>

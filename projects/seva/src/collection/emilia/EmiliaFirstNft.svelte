@@ -3,6 +3,7 @@
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import { media } from '$lib/media-query.store';
   import Icon from '$ui/icon/Icon.svelte';
+  import SkuItem from '$project/sku-item/SkuItem.svelte';
   import purpleLineImg from './assets/purple-curvy-line.png';
   import emiliaPhoto from './assets/emilia-photo.png';
   import leftGreyLineImg from './assets/left-light-grey-line.png';
@@ -23,11 +24,13 @@
   //     return [position, text];
   //   })
   // );
+
+  export let sku;
 </script>
 
 <ThemeContext id="issuer">
   <div class="w-full bg-black relative h-full mb-64">
-    <div class="lg:grid lg:grid-cols-2 items-center container relative">
+    <div class="lg:grid lg:grid-cols-2 items-center container relative px-6 mt-8 lg:mt-20">
       <div class="z-30 w-full lg:w-11/12 ">
         <div class="text-5xl font-semibold sm:text-7xl text-center lg:text-left" style="color: #FFD54E;">
           Emilia Clarke
@@ -55,15 +58,15 @@
       <div class="relative">
         {#if !$media.lg}
           <div class="flex justify-center">
-            <div class="center-card right-1/4 rounded-md flex w-max justify-center">
-              <!-- TODO (Matt): Comment back in once profile data is created -> <SkuItem {sku} /> -->
+            <div class="center-card right-1/4 rounded-md flex justify-center w-1/4">
+              <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
             </div>
           </div>
         {/if}
       </div>
       {#if $media.lg}
-        <div class="center-card absolute z-30 right-1/4 rounded-md flex w-max justify-center">
-          <!-- TODO (Matt): Comment back in once profile data is created -> <SkuItem {sku} /> -->
+        <div class="center-card absolute z-30 right-1/4 rounded-md flex w-1/4 justify-center">
+          <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
         </div>
       {/if}
 
@@ -77,8 +80,6 @@
     {#if !$media.lg}
       <img src={purpleLineImg} alt="" class="absolute w-full purple-line z-20" />
     {/if}
-
-    <div class="bg-white h-1/4 sm:h-1/2 w-full m-0 absolute" />
     {#if $media.lg}
       <img src={leftGreyLineImg} alt="" class="absolute top-0 z-0 w-full h-full" />
       <img src={rightGreyLineImg} alt="" class="absolute top-0 z-0 right-0 w-full h-full" />

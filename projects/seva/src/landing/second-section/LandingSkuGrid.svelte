@@ -1,9 +1,35 @@
 <script>
+  import * as yup from 'yup';
+  import { createForm } from 'felte';
+  import { validateSchema } from '@felte/validator-yup';
+  import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import SkuItem from '$project/sku-item/SkuItem.svelte';
-  import { skuGridLandingData } from '../utils/landingData';
+  import { hsSubscribeEmail } from '../../hubspot';
 
-  const skuGridData = skuGridLandingData();
+  export let skuGridData;
+
+  const schema = yup.object({
+    email: yup.string().email('Please enter a properly formatted email address').required('Please, enter your email'),
+  });
+  const { form, errors, reset, isSubmitting } = createForm({
+    onSubmit: async (values) => {
+      const toastId = 'subscribe-form';
+      try {
+        await hsSubscribeEmail(values.email);
+        toast.success('Successfully subscribed.', {
+          toastId,
+        });
+        reset();
+      } catch {
+        toast.danger(
+          'Whoops! We were not able to subscribe you. Please try again or contact support if this issue continues.',
+          { toastId }
+        );
+      }
+    },
+    validate: validateSchema(schema),
+  });
 </script>
 
 <div class="container px-6 mb-24 lg:mb-96">
@@ -17,7 +43,7 @@
       </div>
     </div>
     <div class="flex flex-col items-center justify-center mt-8 mb-48 md:mb-14">
-      <form class="flex flex-col md:relative max-w-lg w-full rounded-full h-16" autocomplete="off">
+      <form use:form class="flex flex-col md:relative max-w-lg w-full rounded-full h-16" autocomplete="off">
         <input
           class="text-center md:text-left text-black placeholder-black placeholder-opacity-70 text-sm md:text-base md:pl-6 flex-1 font-extralight rounded-full focus:outline-none focus:ring-2 md:py-0 py-6 stroke-1"
           name="email"
@@ -38,8 +64,11 @@
             animate={false}
             variant="brand"
             class="whitespace-nowrap md:mr-2 w-full py-12 md:py-0 hidden md:flex"
-            type="submit">Subscribe</Button
+            type="submit"
+            disabled={$isSubmitting}
           >
+            {#if $isSubmitting}Subscribing...{:else}Subscribe{/if}
+          </Button>
           <Button
             --button-padding="16px 32px"
             --button-border-radius="999px"
@@ -52,13 +81,16 @@
             animate={false}
             variant="brand"
             class="whitespace-nowrap md:mr-2 w-full py-12 md:py-0 md:hidden flex text-xl"
-            type="submit">Subscribe</Button
+            type="submit"
+            disabled={$isSubmitting}
           >
+            {#if $isSubmitting}Subscribing...{:else}Subscribe{/if}
+          </Button>
         </div>
       </form>
-      <!-- {#if $errors.email}
-      <div class="text-center pt-2 text-sm text-red-600">{$errors.email}</div>
-    {/if} -->
+      {#if $errors.email}
+        <div class="text-center pt-2 text-sm text-red-600">{$errors.email}</div>
+      {/if}
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-6">
       {#each skuGridData as skuItem}
