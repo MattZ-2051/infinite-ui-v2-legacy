@@ -10,7 +10,7 @@ export function handleUserApiError(error) {
       message = 'Username must have between 3 and 18 characters length.';
       break;
     case 'USERNAME_RULES_WEIRD_CHARS':
-      message = 'Username can only contain letters, digits and special characters.';
+      message = 'Username can only contain letters, digits, dashes (-) and underscores (_).';
       break;
     case 'USERNAME_RULES_BLANKS':
       message = 'Username cannot contain blank spaces.';
