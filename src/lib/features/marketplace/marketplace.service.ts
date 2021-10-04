@@ -17,5 +17,5 @@ export const modeFilters = [
   { label: 'All', status: 'all' },
   { label: 'Available Now', status: '' },
   { label: 'Upcoming', status: 'upcoming' },
-  { label: 'Sold Out', status: 'soldout' },
+  { label: 'Recently Sold', status: 'soldout' },
 ];

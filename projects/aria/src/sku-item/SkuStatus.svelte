@@ -22,7 +22,7 @@
     <span class="font-bold">Dropping:</span>
     <TimeDifference date={tileInfo.minStartDate} />
   {:else if tileInfo.status === 'no-sale'}
-    <span class="font-bold">{product ? 'Not for sale' : 'Sold Out'}</span>
+    <span class="font-bold">{product ? 'Not for sale' : 'Sold'}</span>
   {:else if tileInfo.status === 'active'}
     <span>
       <span class="font-bold">{product ? 'Selling for:' : 'Starting Price:'}</span>
