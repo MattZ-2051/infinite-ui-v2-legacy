@@ -68,6 +68,7 @@ export type Sku = {
   nftSocialAssets?: SocialFileAsset[];
   minSkuPrice?: number;
   customNftTerms?: string;
+  minHighestBid?: number;
 };
 
 export type Profile = {

@@ -77,7 +77,9 @@
       circulatingSupply: 1,
       activeSkuListings: [{ minPrice: 20 }],
       minSkuPrice: 20,
-      activeProductListings: [{ minBid: 5 }],
+      maxBid: 5,
+      minHighestBid: 5,
+      activeProductListings: [{ minBid: 5, saleType: 'auction' }],
     },
   }}
 />

@@ -5,6 +5,7 @@ export const skuStatus = (sku: Sku): Status => {
   if (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0) {
     const hasProductListings = !!sku.activeProductListings?.length;
     const hasSkuListings = !!sku.activeSkuListings?.length;
+    const isActiveGiveAway = sku.activeSkuListings?.[0]?.saleType === 'giveaway';
     const lowestPriceListing = hasProductListings
       ? sku.activeProductListings?.reduce((previousListing, currentListing) => {
           const previousPrice = previousListing?.minBid || previousListing?.price;
@@ -13,14 +14,21 @@ export const skuStatus = (sku: Sku): Status => {
           return previousPrice < currentPrice ? previousListing : currentListing;
         })
       : undefined;
-    const lowestPrice = lowestPriceListing?.minBid || lowestPriceListing?.price;
+    const lowestPrice =
+      lowestPriceListing?.saleType === 'auction'
+        ? Math.max(lowestPriceListing?.minBid, sku.maxBid, sku.minHighestBid)
+        : lowestPriceListing?.price;
 
     let minPrice: number;
 
-    if (hasProductListings) {
-      minPrice = hasSkuListings ? Math.min(lowestPrice, sku.minSkuPrice) : lowestPrice;
+    if (isActiveGiveAway) {
+      minPrice = 0;
     } else {
-      minPrice = sku.minSkuPrice;
+      if (hasProductListings) {
+        minPrice = hasSkuListings ? Math.min(lowestPrice, sku.minSkuPrice) : lowestPrice;
+      } else {
+        minPrice = sku.minSkuPrice;
+      }
     }
 
     return { status: 'active', minPrice };
