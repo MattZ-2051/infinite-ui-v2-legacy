@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
   import type { Transaction } from '$lib/sku-item/types';
   import copy from 'clipboard-copy';
   import { mdiContentCopy } from '@mdi/js';
@@ -13,6 +14,14 @@
     { label: 'Date', value: formatDate(transaction.createdAt, `MMM D, YYYY`) },
     { label: 'Time', value: formatDate(transaction.createdAt, `hh:mm A`) },
   ];
+
+  let copied = false;
+
+  function onCopy(trx: Transaction) {
+    copy(trx._id);
+    copied = true;
+    setTimeout(() => (copied = false), 1500);
+  }
 </script>
 
 <div class="py-4 border-t border-b border-gray-500">
@@ -21,9 +30,14 @@
       <div class="label">Transaction ID</div>
       <div>{transaction._id}</div>
     </div>
-    <button type="button" class="p-2.5 rounded-full" on:click={() => copy(transaction._id)}>
-      <Icon path={mdiContentCopy} flip="h" />
-    </button>
+    <div class="flex flex-col md:flex-row justify-center gap-2 items-center">
+      {#if copied}
+        <div class="text-white" transition:fade>Copied</div>
+      {/if}
+      <button type="button" class="p-2.5 rounded-full" on:click={() => onCopy(transaction)}>
+        <Icon path={mdiContentCopy} flip="h" />
+      </button>
+    </div>
   </div>
 </div>
 
