@@ -55,6 +55,7 @@ To build a specific project for production, run `pnpm build my-project`.
 | -------- | ----------------------------- |
 | aria     | https://dev.ariaexchange.com  |
 | infinite | https://dev.infiniteworld.com |
+| seva     | https://dev.seva.love         |
 
 ### Commit Message Guidelines
 
