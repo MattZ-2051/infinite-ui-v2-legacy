@@ -8,12 +8,9 @@
   import emiliaPhoto from './assets/emilia-photo.png';
   import leftGreyLineImg from './assets/left-light-grey-line.png';
   import rightGreyLineImg from './assets/right-light-grey-line.png';
-
   // export let profile: Profile;
-
   // TODO (Matt): This will be the prop the accepts the sku data
   // export let skuLandingHeadData;
-
   // const photos = Object.fromEntries(
   //   profile.profilePhotoUrls.map(({ position, url }) => {
   //     return [position, { url }];
@@ -24,7 +21,6 @@
   //     return [position, text];
   //   })
   // );
-
   export let sku;
 </script>
 
@@ -33,18 +29,17 @@
     <div class="lg:grid lg:grid-cols-2 items-center container relative px-6 mt-8 lg:mt-20">
       <div class="z-30 w-full lg:w-11/12 ">
         <div class="text-5xl font-semibold sm:text-7xl text-center lg:text-left" style="color: #FFD54E;">
-          Emilia Clarke
+          Emilia Clarke's
         </div>
         <div class="text-5xl font-semibold pt-4 sm:text-7xl text-center lg:text-left" style="color: #FFD54E;">
-          first NFT for good!
+          charity NFT release
         </div>
         <div class="text-xl sm:text-2xl text-white font-normal pt-8 text-center lg:text-left">
-          We are proud to present the Emilia's first NFT for good <br /> from SEVA.LOVE in association with SAME YOU for
-          brain <br />injury recovery.
+          Benefitting the SameYou organization focused on treatment for brain injury and stroke recovery.
         </div>
         <div class="text-white-opacity-50 pt-4 font-light text-center lg:text-left">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor nibh at mi ullamcorper, in porta magna
-          accumsan. Suspendisse potenti.
+          Featuring an experiential poetic mindscape of brain-injury healing with spoken word by Emilia Clarke,
+          physically redeemable items, and unique ownership benefits.
         </div>
         <div class=" mt-8 mb-12 flex items-center justify-center lg:justify-start w-full">
           <button
@@ -69,7 +64,6 @@
           <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
         </div>
       {/if}
-
       {#if $media.lg}
         <img src={emiliaPhoto} alt="" class="absolute z-10 -bottom-1/4 right-0 w-2/5" />
       {/if}

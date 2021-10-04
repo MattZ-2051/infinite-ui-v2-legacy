@@ -13,11 +13,12 @@
 <div class="container-custom">
   <div class="container text-center max-w-7xl pt-12 px-6">
     <div class="text-4xl md:text-6xl" style="color:#ffd54e">
-      <p>The world’s first</p>
-      <p>NFT goodness exchange.</p>
-      <div class="text-xl text-center opacity-90 mt-10 text-white">
-        <p>SEVA.LOVE is a one of a kind goodness exchange which will empower partners to create</p>
-        <p>their unique NFT collectibles and exchange them in return of goodness for the world.</p>
+      <p>Seva.Love<br class="hidden lg:block" /> NFTs that catalyze change</p>
+      <div class="text-xl text-white text-center opacity-90 mt-10">
+        <p>
+          Empowering communities focused on social and environmental impact causes <br class="hidden lg:block" /> through
+          exclusive carbon negative Hedera NFT releases
+        </p>
       </div>
     </div>
   </div>
@@ -26,17 +27,27 @@
     <div class="container flex flex-col items-center md:items-start justify-center md:flex-row max-w-7xl px-6">
       <ThemeContext id="landing-head-left-card">
         <div class="font-normal text-left md:text-right mt-16 md:mt-32 md:flex flex-col order-2 md:w-1/3 md:order-1">
-          <p class="text-xl md:text-3xl font-medium">Emilia’s first NFT for good</p>
+          <p class="text-xl md:text-3xl font-medium">Emilia Clarke’s first NFT</p>
           <p class="text-base mt-2.5 font-medium hidden md:flex">
-            Experience Emilia Clarke’s NFT for brain injury recovery in association with SAME YOU.
+            Benefiting the SameYou charity, the series illustrates the experiential journey of healing from traumatic
+            brain injury to recovery.
           </p>
           <p class="text-base opacity-90 mt-2.5 font-medium">
-            We work with global partners to find and test new holistic treatments and play our part in making these
-            available to survivors.
+            Your purchase of NFTs from this collection will benefit SameYou’s core mission of helping survivors while
+            raising awareness about Acquired Brain Injury.
+          </p>
+          <p class="text-base opacity-90 mt-2.5 font-medium">
+            Each NFT offers unique ownership benefits, with two releases redeemable for physical items
           </p>
           <p class="text-base mt-2.5 font-medium" style="color:#ffd54e">
-            We believe in the effectiveness of <br />
-            compassion, kindness and listening
+            1 of 1 Same You Resilience: redeemable for the physical Atelier Versace dress Emilia debuted on the red
+            carpet at the 2016 68th Emmy Awards
+          </p>
+          <p class="text-base mt-2.5 font-medium" style="color:#ffd54e">
+            1 of 10 SameYou Rapture Series: redeemable for a signed print
+          </p>
+          <p class="text-base mt-2.5 font-medium" style="color:#ffd54e">
+            1 of 10,000: SameYou Neuron Series: offers unique benefits to holders
           </p>
         </div>
       </ThemeContext>
@@ -48,19 +59,21 @@
           <SkuItem {sku} --sku-item-bg-color="#ffd54e" --sku-item-border-color="#ffd54e" />
         </div>
       </div>
-      <ThemeContext id="landing-head-right-card">
-        <div class="text-left mt-16 md:mt-32 md:w-1/3 order-3 md:order-3">
-          <p class="title-card text-xl md:text-3xl font-medium">Same You headline</p>
-          <p class="text-base opacity-90 mt-2.5 font-medium">
-            SameYou is working to develop better recovery treatment for survivors of brain injury and stroke.
-          </p>
-          <p class="text-base opacity-90 mt-2.5 font-medium">
-            We work with global partners to find and test new holistic treatments and play our part in making these
-            available to survivors.
-          </p>
-          <Button on:click={() => goto('/about')} variant="brand" class="mt-6">Learn More</Button>
-        </div>
-      </ThemeContext>
+      <div class="text-left mt-16 md:mt-32 md:w-1/3 order-3 md:order-3">
+        <p class="title-card text-white text-xl md:text-3xl font-medium">SameYou for Brain Injury Recovery</p>
+        <p class="text-base text-white opacity-90 mt-2.5 font-medium">
+          SameYou is working to develop better recovery treatments for survivors of brain injury and stroke.
+        </p>
+        <p class="text-base text-white opacity-90 mt-2.5 font-medium">
+          Almost 1 in 3 people will face an Acquired Brain Injury (ABI) at some point in their life. Nearly half feel
+          abandoned when they leave hospital due to the lack of rehab therapies.
+        </p>
+        <p class="text-base text-white opacity-90 mt-2.5 font-medium">
+          We work with global partners to find and test new holistic treatments and play our part in making these
+          available to survivors.
+        </p>
+        <Button on:click={() => goto('https://www.sameyou.org')} variant="brand" class="mt-6">Learn More</Button>
+      </div>
     </div>
     <div>
       <div class="image-line-container w-full hidden md:block relative top-0 z-1" style="height:510px">

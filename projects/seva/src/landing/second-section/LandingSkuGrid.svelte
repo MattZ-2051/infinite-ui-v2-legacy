@@ -37,9 +37,9 @@
   <div class="flex flex-col justify-center w-full mt-64 mb-24">
     <div class="flex flex-col justify-center items-center">
       <div class="flex flex-col items-center max-w-4xl">
-        <p class="text-4xl md:text-6xl font-medium text-center  text-black">The next drops coming up!</p>
+        <p class="text-4xl md:text-6xl font-medium text-center  text-black">Upcoming Seva.Love drops!</p>
         <p class="text-base text-black font-extralight text-center  mt-6">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris quam tortor, ultrices non suscipit ut!
+          Subscribe to ours social impact drops and be the first to know about upcoming Seva.Love drops.
         </p>
       </div>
     </div>
