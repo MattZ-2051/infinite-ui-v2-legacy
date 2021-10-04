@@ -15,11 +15,9 @@
 
   const collectorListing = collector?.listing;
   const isUniqueAuction = sku?.maxSupply === 1 && sku?.issuer?._id === collectorListing?.issuer?._id;
+  const isUniqueListing = sku?.maxSupply === 1;
 
-  // TODO: let’s always link to the collector’s page for now
-  const href = /* status === 'noneForSale' ? */ routes.collectors(
-    sku._id
-  ); /* : routes.product(collectorListing.product) */
+  const href = isUniqueListing ? routes.product(collectorListing.product) : routes.collectors(sku._id);
 </script>
 
 <SkuPriceBoxButton {href} polling={$isPolling}>
