@@ -50,7 +50,7 @@ specifiers:
   eslint-plugin-promise: 5.1.0
   eslint-plugin-svelte3: 3.2.1
   eslint-plugin-unicorn: 36.0.0
-  felte: 0.8.3
+  felte: 0.8.0
   flatpickr: 4.6.9
   focus-trap: 6.7.1
   http-proxy: ^1.18.1
@@ -103,7 +103,7 @@ dependencies:
   clsx: 1.1.1
   dayjs: 1.10.7
   effector: 22.1.1
-  felte: 0.8.3_svelte@3.43.1
+  felte: 0.8.0_svelte@3.43.1
   flatpickr: 4.6.9
   focus-trap: 6.7.1
   js-cookie: 3.0.1
@@ -2287,14 +2287,10 @@ packages:
     resolution: {integrity: sha512-HVv2YkAdR2p4pSbuadPaziuWR10O5my4kMMEUAmkifcpedOs2fef4WX+OqkJNEnocHOl3I2xASkxlQ5OSjKfFw==}
     dev: false
 
-  /@felte/common/0.5.1:
-    resolution: {integrity: sha512-r5sepUPBwwTMtks/vGfRPsp+lu4FPemwM+w5xb9J/G1uJCMThf8r/iuivhUWHzfyL9C+6XoNBDTwuvy5c+81Ow==}
-    dev: false
-
-  /@felte/core/0.2.3:
-    resolution: {integrity: sha512-gDF0JxbVvcPDBovqys4o2mZA92hFKbqw3tW6odu6XATXQc5fM5v5RquL5bIuQz35GJkow9n5d13jy79DQQVJAw==}
+  /@felte/core/0.2.0:
+    resolution: {integrity: sha512-Dz9m1h9woO2LTTgBmPyDpzgLbl/ZyYhS0JtCT+oYuH9RHBtOPASNUXm/AAd4g+bMuBih2VuTQtRDKUcpXHxZXw==}
     dependencies:
-      '@felte/common': 0.5.1
+      '@felte/common': 0.5.0
     dev: false
 
   /@felte/validator-yup/0.2.8_yup@0.32.9:
@@ -9456,12 +9452,12 @@ packages:
       pend: 1.2.0
     dev: true
 
-  /felte/0.8.3_svelte@3.43.1:
-    resolution: {integrity: sha512-WktRztcsUGCso1c+k/cgzPZ8UcOra5BELRAVH2+GE9uxI3Wp6hKirLoY210oa77GjYXb6dTAmHYYVc8r65YWNw==}
+  /felte/0.8.0_svelte@3.43.1:
+    resolution: {integrity: sha512-0/7lDU1tV06A8uwD25Q+iwFqC14laYsTyvIr/edTP+1Nlzcg8MUWx59AdbS6mwIE2CKkKh1myQh7C1R62lUHCg==}
     peerDependencies:
       svelte: ^3.31.0
     dependencies:
-      '@felte/core': 0.2.3
+      '@felte/core': 0.2.0
       svelte: 3.43.1
     dev: false
 

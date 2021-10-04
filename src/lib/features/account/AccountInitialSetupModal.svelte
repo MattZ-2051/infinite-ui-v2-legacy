@@ -43,6 +43,8 @@
     username?: string;
     phoneNumber: string;
     phoneNumberConsentGiven: boolean;
+    termsAndConditionsConsentGiven: boolean;
+    privacyPolicyConsentGiven: boolean;
   }>({
     initialValues: {
       firstName: '',
@@ -51,6 +53,8 @@
       username: '',
       phoneNumber: '',
       phoneNumberConsentGiven: false,
+      termsAndConditionsConsentGiven: false,
+      privacyPolicyConsentGiven: false,
     },
     onSubmit: async (values) => {
       // Backend API is failing if using the same username
@@ -68,14 +72,10 @@
     validate: validateSchema(schema),
   });
 
-  let termsAndConditionsConsentGiven: boolean;
-  let privacyPolicyConsentGiven: boolean;
-  let phoneNumberConsentGiven: boolean;
-
   $: canSave =
-    termsAndConditionsConsentGiven &&
-    privacyPolicyConsentGiven &&
-    ($data.phoneNumber === '' ? true : phoneNumberConsentGiven);
+    $data.termsAndConditionsConsentGiven &&
+    $data.privacyPolicyConsentGiven &&
+    ($data.phoneNumber === '' ? true : $data.phoneNumberConsentGiven);
 
   setContext('errors', errors);
 </script>
@@ -102,7 +102,6 @@
             type="checkbox"
             name="phoneNumberConsentGiven"
             class="w-5 h-5 text-black bg-white"
-            bind:checked={phoneNumberConsentGiven}
             disabled={$data.phoneNumber === ''}
           />
           <label for="phoneNumberConsentGiven" class="text-gray-900 text-sm"
@@ -113,9 +112,9 @@
         <div class="flex gap-3 mb-4">
           <input
             id="termsAndConditionsConsentGiven"
+            name="termsAndConditionsConsentGiven"
             type="checkbox"
             class="w-5 h-5 text-black bg-white"
-            bind:checked={termsAndConditionsConsentGiven}
           />
           <label for="termsAndConditionsConsentGiven" class="text-gray-900 text-sm"
             >I accept the <a href={routes.terms} target="_blank" class="underline hover:no-underline"
@@ -126,9 +125,9 @@
         <div class="flex gap-3 mb-4">
           <input
             id="privacyPolicyConsentGiven"
+            name="privacyPolicyConsentGiven"
             type="checkbox"
             class="w-5 h-5 text-black bg-white"
-            bind:checked={privacyPolicyConsentGiven}
           />
           <label for="privacyPolicyConsentGiven" class="text-gray-900 text-sm"
             >I accept the <a href={routes.privacy} target="_blank" class="underline hover:no-underline"
