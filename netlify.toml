@@ -3,5 +3,5 @@
   functions = "functions/"
 
 [build.environment]
-  NODE_VERSION = "16.9.1"
+  NODE_VERSION = "14.18.0"
   SVELTEKIT_ADAPTER = "netlify"
