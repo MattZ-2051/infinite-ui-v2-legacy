@@ -8,6 +8,7 @@
   import Button from '$lib/components/Button.svelte';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
+  import routes from '$project/routes';
   import { redeemItem } from './redeem.api';
   import { productRedeemed } from '../product.store';
 
@@ -29,12 +30,16 @@
     onSubmit: async (values) => {
       try {
         await (saving = redeemItem({ ...values }, id));
-        notifications.success('Product has been redeemed successfully.');
+        notifications.success(
+          `Congrats! You've successfully redeemed this item. Learn more about the redemption process <a href=${routes.help}>here</a>.`
+        );
         reset();
         productRedeemed();
         dispatch('close');
       } catch {
-        notifications.danger(`There was a problem redeeming your product.`);
+        notifications.danger(
+          `Whoops! Something went wrong. Please try again or <a href=${routes.help}>contact us</a> if this issue continues.`
+        );
       } finally {
         saving = undefined;
       }

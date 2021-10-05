@@ -26,7 +26,7 @@ export const creditCardInsertFx = createEffect<NewCreditCard, CreditCard, ApiErr
 
 creditCardInsertFx.done.watch(() => {
   loadWalletFx();
-  toast.success('Card added successfully.');
+  toast.success('Congrats! Your Credit Card was successfully added.');
 });
 
 creditCardInsertFx.failData.watch((error) => {
@@ -41,7 +41,7 @@ export const creditCardRemoveFx = createEffect(async ({ card }: { card: CreditCa
 
 creditCardRemoveFx.done.watch(() => {
   loadWalletFx();
-  toast.success('Card was removed successfully.');
+  toast.success('Credit Card successfully removed.');
   goto(routes.wallet);
 });
 

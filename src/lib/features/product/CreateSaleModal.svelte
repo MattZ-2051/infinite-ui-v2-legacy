@@ -9,6 +9,7 @@
   import { FilePreview } from '$ui/file';
   import { formatCurrency } from '$util/format';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
+  import routes from '$project/routes';
   import { saleStarted } from './product.store';
   import { createSale } from './product.api';
   import { getSellingFee, getRoyaltyFee } from './product.fee';
@@ -41,9 +42,11 @@
       await createSale({ listing });
       saleStarted({ product });
       closeModal();
-      toast.success('Congrats! Your sale has started.');
+      toast.success('Congrats! Your sale has kicked off!');
     } catch {
-      toast.danger('Whoops, something went wrong - please try again.');
+      toast.danger(
+        `An error occured when creating your sale. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
+      );
     } finally {
       disabled = false;
     }

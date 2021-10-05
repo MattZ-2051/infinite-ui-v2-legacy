@@ -6,6 +6,8 @@
   import { user } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
+  import { CLIENT_COMPANY_NAME } from '$project/variables';
+  import routes from '$project/routes';
   import { hsSubscribeEmail, hsSubscribeUser } from '../../hubspot';
 
   export let skus;
@@ -18,13 +20,16 @@
       const toastId = 'subscribe-form';
       try {
         await ($user ? hsSubscribeUser($user, values.email) : hsSubscribeEmail(values.email));
-        toast.success('You have successfully joined our newsletter!', {
-          toastId,
-        });
+        toast.success(
+          `Thanks for signing up for the ${CLIENT_COMPANY_NAME} newsletter! Stay tuned for more updates coming soon.`,
+          {
+            toastId,
+          }
+        );
         reset();
       } catch {
         toast.danger(
-          'Whoops! We were not able to subscribe you. Please try again or contact support if this issue continues.',
+          `Whoops! We were not able to subscribe you to our mailing list. Please try again or <a href=${routes.help}>contact support</a> if this issue continues.`,
           { toastId }
         );
       }

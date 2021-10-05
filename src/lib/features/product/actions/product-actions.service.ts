@@ -6,6 +6,7 @@ import { toast } from '$ui/toast';
 import { cancelSale } from '$lib/features/product/product.api';
 import { saleCancelled, auctionCancelled } from '$lib/features/product/product.store';
 import { cancelAuction } from '$lib/features/product/auction/auction.api';
+import routes from '$project/routes';
 import CreateSaleModal from '../CreateSaleModal.svelte';
 import RedeemModal from '../redeem/RedeemModal.svelte';
 import AuctionModal from '../auction/AuctionModal.svelte';
@@ -31,10 +32,12 @@ export function onAction(type: ActionType, product: Product) {
         onConfirm: async () => {
           try {
             await cancelAuction(listingId);
-            toast.success('Your auction has been canceled.');
+            toast.success('Your listing has successfully been canceled.');
             auctionCancelled({ listingId });
           } catch {
-            toast.danger(`Whoops, something went wrong - please try again.`);
+            toast.danger(
+              `Whoops! Something went wrong. Please try again or <a href=${routes.help}>contact us</a> if this issue continues.`
+            );
           }
         },
       });
@@ -54,7 +57,7 @@ export function onAction(type: ActionType, product: Product) {
         onConfirm: async () => {
           try {
             await cancelSale({ id: listingId });
-            toast.success('Sale successfully cancelled.');
+            toast.success('Your listing has successfully been canceled.');
             saleCancelled({ listingId });
           } catch (error) {
             switch (error?.data?.appCode) {
@@ -67,7 +70,9 @@ export function onAction(type: ActionType, product: Product) {
                 toast.danger(`Whoops! Can't cancel the listing because it was already sold. Please reload the page.`);
                 break;
               default:
-                toast.danger(`Whoops, something went wrong - please try again.`);
+                toast.danger(
+                  `Whoops! Something went wrong. Please try again or <a href=${routes.help}>contact us</a> if this issue continues.`
+                );
             }
           }
         },

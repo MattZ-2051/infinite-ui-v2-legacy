@@ -5,6 +5,7 @@ import { browser } from '$app/env';
 import { getQueryParameters } from '$util/queryParameter';
 import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
 import { createPolling } from '$util/effector';
+import routes from '$project/routes';
 import { toast } from '$ui/toast';
 import { loadProduct, loadProductTransactions } from './product.api';
 import { hasActiveAuction } from './product.service';
@@ -175,10 +176,20 @@ pollTransactionFx.doneData.watch(async (response) => {
       const pendingTx = response.transactions.find((tx) => {
         return tx.transactionData.listing === $sku.activeSkuListings[0]._id;
       });
+
       if (pendingTx.status === 'success') {
         const $polls = polls.getState();
         $polls[$sku._id].stop();
         skuBought();
+        const transactionData = pendingTx.transactionData;
+
+        toast.success(
+          `Congrats! Your NFT purchase was processed successfully! Click <a href=${routes.product(
+            transactionData.product._id
+          )}>here</a> to view your new collectible: ${transactionData.sku.name} #${
+            transactionData.product.serialNumber
+          }.`
+        );
       }
     }
   }

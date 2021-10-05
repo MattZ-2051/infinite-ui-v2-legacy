@@ -14,6 +14,7 @@
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import Icon from '$ui/icon/Icon.svelte';
+  import routes from '$project/routes';
   import { startAuction } from './auction.api';
   import { auctionStarted } from '../product.store';
   import { getSellingFee, getRoyaltyFee } from '../product.fee';
@@ -30,7 +31,7 @@
   const schema = yup.object({
     price: yup
       .number()
-      .required('Amount is required.')
+      .required(`Whoops! Please let us know how much you'd like to bid for this collectible.`)
       .typeError('Enter a valid number.')
       .moreThan(0, 'Enter a positive amount.'),
     startDate: yup
@@ -52,8 +53,10 @@
         is: true,
         then: yup
           .date()
-          .test('is-after', 'End date must be in the future.', (value) => dayjs(value).isAfter(roundToMinute())),
-        otherwise: yup.date().min(yup.ref('startDate'), 'The end date should be greater than the start date.'),
+          .test('is-after', 'Please set an end date that is later than the start date.', (value) =>
+            dayjs(value).isAfter(roundToMinute())
+          ),
+        otherwise: yup.date().min(yup.ref('startDate'), 'Please set an end date that is later than the start date.  '),
       }),
   });
 
@@ -70,10 +73,12 @@
       try {
         await startAuction(product, _startDate, endDate, price);
         closeModal();
-        toast.success('Congrats! Your auction has been created successfully.');
+        toast.success('Congrats! Your auction has launched!');
         auctionStarted({ product });
       } catch {
-        toast.danger('Whoops, something went wrong - please try again.');
+        toast.danger(
+          `An error occured when starting your auction. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
+        );
       }
     },
     validate: validateSchema(schema),

@@ -84,7 +84,7 @@
     await getAchAccessToken(publicToken, metadata, formValues)
       .then(() => {
         dispatch('account-added');
-        toast.success('Bank account added successfully.');
+        toast.success('Congrats! An Account has been added.');
         return true;
       })
       .catch(() => toast.danger('There was a problem adding your bank account.'))

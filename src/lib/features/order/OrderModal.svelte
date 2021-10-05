@@ -31,7 +31,7 @@
 
   async function submitOrder() {
     if (!acceptedTerms || (sku?.customNftTerms && !acceptedTermsNft)) {
-      toast.danger('Please agree to the terms and conditions.');
+      toast.danger('Please agree to the Terms and Conditions in order to move forward.');
       return;
     }
 
@@ -57,7 +57,7 @@
       }
     } catch {
       toast.danger(
-        `There was an error processing your purchase. Please, try again or see the <a href=${routes.help}>help page</a> to learn more.`
+        `There was an error processing your purchase. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
       );
     } finally {
       purchasing = false;

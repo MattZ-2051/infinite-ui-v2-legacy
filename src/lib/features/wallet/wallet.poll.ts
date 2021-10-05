@@ -3,6 +3,7 @@ import { get as getStoreValue } from 'svelte/store';
 import { poll, stopPolling } from '$lib/poll/poll.service';
 import { user } from '$lib/user';
 import { toast } from '$ui/toast';
+import routes from '$project/routes';
 import { loadPendingTransactions } from './wallet.api';
 
 const pollKey = 'pendingTransactions';
@@ -48,10 +49,12 @@ async function poller() {
   return false;
 }
 
-function getSuccessMessage({ type, transactionData: { sku, withdraw, deposit } }: Transaction): string {
+function getSuccessMessage({ type, transactionData: { sku, withdraw, deposit, product } }: Transaction): string {
   switch (type) {
     case 'purchase': {
-      return `The purchase transaction for ${sku.name} is complete.`;
+      return `Congrats! Your NFT purchase was processed successfully! Click <a href=${routes.product(
+        product._id
+      )}>here</a> to view your new collectible: ${sku.name} #${product.serialNumber}.`;
     }
     case 'sale': {
       return `The sale transaction for ${sku.name} is complete.`;

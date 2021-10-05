@@ -29,6 +29,6 @@ forward({
   to: achAccountFetchFx,
 });
 
-achAccountDeleteFx.done.watch(() => toast.success('The ACH account has been deleted.'));
+achAccountDeleteFx.done.watch(() => toast.success('The Account has successfully been removed.'));
 
 achAccountDeleteFx.fail.watch(() => toast.danger('The was an error deleting the ACH account.'));

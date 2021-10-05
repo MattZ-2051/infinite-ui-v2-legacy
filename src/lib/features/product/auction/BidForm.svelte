@@ -8,7 +8,8 @@
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import { formatCurrency, formatDate } from '$util/format';
+  import { formatDate } from '$util/format';
+  import routes from '$project/routes';
 
   export let listing: Listing;
   export let maxPlacedBid: number;
@@ -28,7 +29,7 @@
         return toast.danger('Please, login to place a bid.');
       }
       if (!placeBid) {
-        return toast.danger(`Whoops! You must enter a bid amount.`);
+        return toast.danger(`Whoops! Please let us know how much you'd like to bid for this collectible.`);
       }
 
       const amount = Number.parseFloat(placeBid);
@@ -37,10 +38,14 @@
         return toast.danger(`Not a valid number.`);
       }
       if (amount < acceptedBidPrice) {
-        return toast.danger(`Amount must be greater or equal than ${formatCurrency(acceptedBidPrice)}.`);
+        return toast.danger(
+          'Whoops! Your bid amount is lower than the current highest bid. Please place a higher bid to participate in this auction.'
+        );
       }
       if (amount + amount * fee > availableBalanceForBiding) {
-        return toast.danger(`You do not have sufficient funds in your wallet.`);
+        return toast.danger(
+          `Whoops! You don't have sufficient funds in your wallet to make this purchase! Your available balance is ${$user.availableBalance} and you need ${acceptedBidPrice} to cover the bid and marketplace fee. <a href=${routes.wallet}>Click here</a> to deposit more funds.`
+        );
       }
 
       dispatch('place-bid', { amount });

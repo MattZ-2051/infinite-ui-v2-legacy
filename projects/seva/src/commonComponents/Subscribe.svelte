@@ -3,6 +3,8 @@
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import { toast } from '$ui/toast';
+  import { CLIENT_COMPANY_NAME } from '$project/variables';
+  import routes from '$project/routes';
   import lastPic from './assets/lastPic.png';
   import lastPicMobile from './assets/lastPicMobile.png';
   import { hsSubscribeEmail } from '../hubspot';
@@ -15,13 +17,16 @@
       const toastId = 'subscribe-form';
       try {
         await hsSubscribeEmail(values.email);
-        toast.success('You have successfully joined our newsletter!', {
-          toastId,
-        });
+        toast.success(
+          `Thanks for signing up for the ${CLIENT_COMPANY_NAME} newsletter! Stay tuned for more updates coming soon.`,
+          {
+            toastId,
+          }
+        );
         reset();
       } catch {
         toast.danger(
-          'Whoops! We were not able to subscribe you. Please try again or contact support if this issue continues.',
+          `Whoops! We were not able to subscribe you to our mailing list. Please try again or <a href=${routes.help}>contact support</a> if this issue continues.`,
           { toastId }
         );
       }

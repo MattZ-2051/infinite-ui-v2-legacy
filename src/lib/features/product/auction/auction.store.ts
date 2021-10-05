@@ -3,6 +3,7 @@ import { createEffect } from 'effector';
 import { toast } from '$ui/toast';
 import { getQueryParameters } from '$util/queryParameter';
 import { CLIENT_SUPPORT_URL } from '$project/variables';
+import routes from '$project/routes';
 import { placeBid, loadProductBids } from './auction.api';
 import { fetchProductBidsFx, setProductBids } from '../product.store';
 
@@ -17,7 +18,7 @@ placeBidFx.done.watch(async ({ params: { listing } }) => {
   const { data, total, max } = await fetchProductBidsFx({ id, page });
   setProductBids({ data, total, max });
 
-  const message = [`Your bid was successfully placed.`];
+  const message = [`You've successfully placed your bid.`];
   if (CLIENT_SUPPORT_URL) {
     message.push(`Learn more about bidding <a target="_blank" href="${CLIENT_SUPPORT_URL}" rel="noreferrer">here</a>.`);
   }
@@ -25,7 +26,9 @@ placeBidFx.done.watch(async ({ params: { listing } }) => {
 });
 
 placeBidFx.fail.watch(() => {
-  toast.danger('Whoops, something went wrong - please try again.');
+  toast.danger(
+    `Whoops, something went wrong.  Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
+  );
 });
 
 export const fetchBidsFx = createEffect(

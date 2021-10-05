@@ -4,17 +4,27 @@ import { get as getStoreValue } from 'svelte/store';
 import { toast } from '$ui/toast';
 import { user } from '$lib/user';
 import { openModal } from '$ui/modals';
+import routes from '$project/routes';
 import OrderModal from '$lib/features/order/OrderModal.svelte';
 
 export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: Product; listing: Listing }): void {
   const currentUser = getStoreValue<User>(user);
 
   if (!currentUser) {
-    toast.danger('You need to be <b>logged in</b> to complete your purchase!');
+    toast.danger(`Please <a data-toast="signIn" class="cursor-pointer">sign in</a> to complete your purchase.`, {
+      onClick: {
+        signIn: routes.signin,
+      },
+    });
+    return;
+  }
+
+  if (sku && sku.issuer?._id === currentUser._id && listing.saleType === 'giveaway') {
+    toast.danger('Whoops! You cannot claim your own SKU / NFT.');
     return;
   }
   if (sku && sku.issuer?._id === currentUser._id) {
-    toast.danger('Cannot purchase your own SKU');
+    toast.danger('Whoops! You cannot purchase your own SKU / NFT.');
     return;
   }
   if (product && product.owner?._id === currentUser._id) {

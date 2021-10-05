@@ -6,6 +6,8 @@
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
+  import { CLIENT_COMPANY_NAME } from '$project/variables';
+  import routes from '$project/routes';
   import { subscribe } from './subscribe.api';
 
   /**
@@ -32,13 +34,16 @@
 
       try {
         await subscribe(values);
-        toast.success('You have successfully joined our newsletter! Check your email for more information.', {
-          toastId,
-        });
+        toast.success(
+          `Thanks for signing up for the ${CLIENT_COMPANY_NAME} newsletter! Stay tuned for more updates coming soon.`,
+          {
+            toastId,
+          }
+        );
         reset();
       } catch {
         toast.danger(
-          'Whoops! We were not able to subscribe you to our mailing list. Please try again or contact support if this issue continues.',
+          `Whoops! We were not able to subscribe you to our mailing list. Please try again or <a href=${routes.help}>contact support</a> if this issue continues.`,
           { toastId }
         );
       }
