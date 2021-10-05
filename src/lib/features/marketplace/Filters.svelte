@@ -20,7 +20,7 @@
   const dispatch = createEventDispatcher();
 
   type FilterType = {
-    type: 'category' | 'series' | 'issuerId' | 'price' | 'date' | 'search';
+    type: 'category' | 'series' | 'issuerId' | 'price' | 'date' | 'search' | 'saleType';
     label: string;
     id: string;
   };
@@ -87,6 +87,12 @@
     { id: 'open', label: 'Open Edition' },
   ];
 
+  const saleTypeFilters: { id: string; label: string }[] = [
+    { id: 'auction', label: 'Auction' },
+    { id: 'fixed', label: 'Buy now' },
+    // { id: 'giveaway', label: 'Giveaway' },
+  ];
+
   let priceRange: [number, number];
 
   function initSlider(min, max) {
@@ -94,11 +100,15 @@
   }
   $: initSlider(+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice);
 
-  function toggle(type: 'category' | 'typeEdition' | 'series' | 'issuerId', id: string, event: Event) {
+  function toggle(type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType', id: string, event: Event) {
     toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
   }
 
-  function toggleCheckboxFilter(type: 'category' | 'typeEdition' | 'series' | 'issuerId', id: string, value: boolean) {
+  function toggleCheckboxFilter(
+    type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType',
+    id: string,
+    value: boolean
+  ) {
     setFilters({
       params: { [`${type}:${id}`]: value, page: 1 },
     });
@@ -135,6 +145,10 @@
     .filter(Boolean);
   $: availableEditionSelected = editionSelectedObject.map((c) => c.id);
 
+  $: saleTypeSelected = $page.query.get('saleType') ? $page.query.get('saleType').split(',') : [];
+  $: saleTypeSelectedObject = saleTypeSelected.map((id) => saleTypeFilters.find((c) => c.id === id)).filter(Boolean);
+  $: availableSaleTypeSelected = saleTypeSelectedObject.map((c) => c.id);
+
   $: creatorsSelected = $page.query.get('issuerId') ? $page.query.get('issuerId').split(',') : [];
   $: creatorsSelectedObject = creatorsSelected.map((_id) => creators.find((c) => c._id === _id)).filter(Boolean);
   $: availableCreatorsSelected = creatorsSelectedObject.map((c) => c._id);
@@ -156,6 +170,7 @@
     ...(searchFilter ? [{ type: 'search', label: searchFilter }] : []),
     ...categorySelectedObject.map((v) => ({ type: 'category', label: v.name, id: v._id })),
     ...editionSelectedObject.map((v) => ({ type: 'typeEdition', label: v.label, id: v.id })),
+    ...saleTypeSelectedObject.map((v) => ({ type: 'saleType', label: v.label, id: v.id })),
     ...seriesSelectedObject.map((v) => ({ type: 'series', label: v.name, id: v._id })),
     ...creatorsSelectedObject.map((v) => ({ type: 'issuerId', label: v.username, id: v._id })),
     ...(priceSelectedObject ? [{ type: 'price', label: priceSelectedObject }] : []),
@@ -292,6 +307,30 @@
             let:checked
           >
             <span class="{id}-text font-medium">{label}</span>
+          </Checkbox>
+        {/each}
+      </Accordion>
+    {/if}
+    {#if saleTypeFilters.length}
+      <Accordion
+        id="saleType"
+        titleClass="py-4 px-6"
+        class="c-filter-accordion border border-gray-200 {active.includes('saleType') ? 'expanded' : ''}"
+      >
+        <div slot="title" class="text-lg leading-8 text-left">
+          Sale Type {#if availableSaleTypeSelected.length}
+            <span class="text-default text-xs align-top">({availableSaleTypeSelected.length})</span>
+          {/if}
+        </div>
+        {#each saleTypeFilters as { id, label } (id)}
+          <Checkbox
+            class="mb-2"
+            value={id}
+            group={availableSaleTypeSelected}
+            on:change={(event) => toggle('saleType', id, event)}
+            let:checked
+          >
+            <span>{label}</span>
           </Checkbox>
         {/each}
       </Accordion>
