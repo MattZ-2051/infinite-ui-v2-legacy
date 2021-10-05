@@ -18,11 +18,11 @@
     firstName: yup
       .string()
       .required('First name is required.')
-      .matches(/^[ A-Za-z]*$/, 'Please enter valid first name.'),
+      .matches(/^[ ',.a-z-]+$/i, 'Please enter valid first name.'),
     lastName: yup
       .string()
       .required('Last name is required.')
-      .matches(/^[ A-Za-z]*$/, 'Please enter valid last name.'),
+      .matches(/^[ ',.a-z-]+$/i, 'Please enter valid last name.'),
     username: yup
       .string()
       .required('Username is required.')

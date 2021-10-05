@@ -15,17 +15,15 @@
   export let disabled = false;
   let saving;
 
-  let phoneNumberConsentGiven: boolean;
-
   const schema = yup.object({
     firstName: yup
       .string()
       .required('First name is required.')
-      .matches(/^[ A-Za-z]*$/, 'Please enter valid first name.'),
+      .matches(/^[ ',.a-z-]+$/i, 'Please enter valid first name.'),
     lastName: yup
       .string()
       .required('Last name is required.')
-      .matches(/^[ A-Za-z]*$/, 'Please enter valid last name.'),
+      .matches(/^[ ',.a-z-]+$/i, 'Please enter valid last name.'),
     phoneNumber: yup
       .string()
       .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true })
@@ -68,7 +66,6 @@
       name="phoneNumberConsentGiven"
       class="w-5 h-5 mt-1 text-black bg-white"
       value="check"
-      bind:checked={phoneNumberConsentGiven}
       disabled={disabled || $data.phoneNumber === ''}
     />
     <label for="consent" class="text-gray-800 text-sm"
@@ -90,7 +87,7 @@
     <Button
       variant="brand"
       type="submit"
-      disabled={!!saving || ($data.phoneNumber === '' ? false : !phoneNumberConsentGiven)}
+      disabled={!!saving || ($data.phoneNumber === '' ? false : !$data.phoneNumberConsentGiven)}
       class="w-16 text-sm rounded-sm">Save</Button
     >
   </div>
