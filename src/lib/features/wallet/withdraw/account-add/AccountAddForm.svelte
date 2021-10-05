@@ -30,7 +30,7 @@
     phoneNumber: yup
       .string()
       .required('Phone number is required')
-      .matches(/^\+?[1-9]\d{1,14}$/, 'Please enter a valid phone number.'),
+      .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true }),
     email: yup.string().email().required('Email is required'),
     postalCode: yup.string().required('Postal code is required'),
     city: yup.string().required('City is required'),

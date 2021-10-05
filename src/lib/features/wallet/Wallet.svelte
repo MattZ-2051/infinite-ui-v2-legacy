@@ -14,7 +14,7 @@
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
   import WalletButtons from './WalletButtons.svelte';
-  import { kycIsPending, wallet, withdrawableBalance } from './wallet.store';
+  import { kycIsPending, wallet, withdrawableBalance, loadMyTransactionsFx } from './wallet.store';
   import { launchKYCPersona } from './kyc/personaClient.service';
   import { getDailyDepositLimitDisclaimer } from './kyc/kyc.service';
   import SelectWithdrawMethodModal from './withdraw/SelectWithdrawMethodModal.svelte';
@@ -63,7 +63,7 @@
         openModal(CryptoCurrency, { kind: id });
         break;
       case 'hbar':
-        openModal(DepositHedera);
+        openModal(DepositHedera, { onCloseWithResults: () => loadMyTransactionsFx({}) });
         break;
     }
   }

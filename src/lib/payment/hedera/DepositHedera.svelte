@@ -11,6 +11,7 @@
   import HederaTransactionList from './HederaTransactionList.svelte';
 
   export let isOpen: boolean;
+  export let onCloseWithResults: () => void;
   let explorerLink: string;
   let transactionsView = false;
   let transactions: HbarTransaction[];
@@ -29,6 +30,9 @@
   const onClose = () => {
     closeModal();
     dispatch('close');
+    if (transactionsView) {
+      onCloseWithResults();
+    }
   };
 </script>
 
