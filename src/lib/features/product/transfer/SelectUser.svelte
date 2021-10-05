@@ -48,7 +48,8 @@
   }
 </script>
 
-<div class="grid grid-cols-1 gap-4 relative">
+<div class="grid grid-cols-1 gap-4 relative pt-6">
+  <div>Please enter the exact username of the account you'd like to transfer this collectible to.</div>
   <Search placeholder="Search for a username to send the NFT" on:input={handleInput} data-initial-focus />
   <div class="absolute right-0 bottom-2">
     {#if users && username}
