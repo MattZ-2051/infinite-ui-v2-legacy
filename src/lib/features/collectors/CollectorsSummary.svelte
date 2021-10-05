@@ -14,45 +14,36 @@
   export let total: number;
   export let perPage: number;
 
-  const sort = (event: CustomEvent) => {
+  const onFilter = (event: CustomEvent) => {
+    const { key, value } = event.detail;
     navigate({
-      sortBy: `${event.detail.value}:${event.detail.order}`,
-      page,
+      [key]: `${value}`,
+      page: false,
     });
   };
 
   const sortOptions = [
     {
-      id: 1,
       name: 'Serial A to Z',
-      order: 'asc',
-      value: 'serialNumber',
+      value: 'serialNumber:asc',
     },
     {
-      id: 2,
       name: 'Serial Z to A',
-      order: 'desc',
-      value: 'serialNumber',
+      value: 'serialNumber:desc',
     },
   ];
 
   const statusOptions = [
     {
-      id: 1,
       name: 'All',
-      order: '',
       value: '',
     },
     {
-      id: 2,
       name: 'Buy Now',
-      order: '',
       value: 'fixed',
     },
     {
-      id: 3,
       name: 'Auction',
-      order: '',
       value: 'auction',
     },
   ];
@@ -62,13 +53,6 @@
   };
 
   const handleInput = (event: Event) => navigate({ search: (event.target as HTMLInputElement).value });
-
-  const status = (event: CustomEvent) => {
-    navigate({
-      saleType: event.detail.value,
-      page: false,
-    });
-  };
 
   function navigate(parameters): void {
     gotoQueryParameters(
@@ -88,10 +72,10 @@
   </div>
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
-      <Sort sortOptions={statusOptions} on:select={status} label="Sale Type:" selected={statusOptions[0]} />
+      <Sort sortOptions={statusOptions} on:select={onFilter} key="saleType" label="Sale Type:" />
     </div>
     <div class="flex cursor-pointer gap-2">
-      <Sort {sortOptions} on:select={sort} />
+      <Sort {sortOptions} on:select={onFilter} />
     </div>
   </div>
 </div>

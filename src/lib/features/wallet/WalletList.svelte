@@ -8,70 +8,19 @@
   export let tab: 'transactions' | 'bids';
 
   const sortOptions = [
-    {
-      id: 1,
-      name: 'Newest',
-      order: 'desc',
-      value: 'createdAt',
-    },
-    {
-      id: 2,
-      name: 'Oldest',
-      order: 'asc',
-      value: 'createdAt',
-    },
+    { name: 'Newest', value: 'createdAt:desc' },
+    { name: 'Oldest', value: 'createdAt:asc' },
   ];
 
   const transactionTypes = [
-    {
-      id: 1,
-      name: 'All types',
-      order: '',
-      value: '',
-    },
-    {
-      id: 2,
-      name: 'Deposit',
-      order: '',
-      value: 'deposit',
-    },
-    {
-      id: 3,
-      name: 'Withdrawal',
-      order: '',
-      value: 'withdrawal',
-    },
-
-    {
-      id: 4,
-      name: 'Purchase',
-      order: '',
-      value: 'purchase',
-    },
-    {
-      id: 5,
-      name: 'Sale',
-      order: '',
-      value: 'sale',
-    },
-    {
-      id: 6,
-      name: 'Royalty fee',
-      order: '',
-      value: 'royalty_fee',
-    },
-    {
-      id: 7,
-      name: 'Claim',
-      order: '',
-      value: 'claim',
-    },
-    {
-      id: 8,
-      name: 'NFT redeem',
-      order: '',
-      value: 'nft_redeem',
-    },
+    { name: 'All types', value: '' },
+    { name: 'Deposit', value: 'deposit' },
+    { name: 'Withdrawal', value: 'withdrawal' },
+    { name: 'Purchase', value: 'purchase' },
+    { name: 'Sale', value: 'sale' },
+    { name: 'Royalty fee', value: 'royalty_fee' },
+    { name: 'Claim', value: 'claim' },
+    { name: 'NFT redeem', value: 'nft_redeem' },
   ];
 
   function redirect(parameters) {
@@ -87,12 +36,8 @@
     redirect({ tab: detail, page: false });
   }
 
-  const sort = (event: CustomEvent) => {
-    redirect({ sortBy: `${event.detail.value}:${event.detail.order}` });
-  };
-
-  const type = (event: CustomEvent) => {
-    redirect({ type: `${event.detail.value}`, page: false });
+  const onFilter = (event: CustomEvent) => {
+    redirect({ [event.detail.key]: `${event.detail.value}`, page: false });
   };
 </script>
 
@@ -114,14 +59,9 @@
   <div slot="extra" class="mb-5">
     <div class="flex gap-6 ">
       {#if tab === 'transactions'}
-        <Sort
-          on:select={type}
-          sortOptions={transactionTypes}
-          label="Transaction type:"
-          selected={transactionTypes[0]}
-        />
+        <Sort on:select={onFilter} sortOptions={transactionTypes} key="type" label="Transaction type:" />
       {/if}
-      <Sort on:select={sort} {sortOptions} selected={sortOptions[0]} />
+      <Sort on:select={onFilter} {sortOptions} />
     </div>
   </div>
 </Tabs>

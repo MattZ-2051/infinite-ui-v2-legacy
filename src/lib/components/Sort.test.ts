@@ -10,16 +10,12 @@ describe('Sort', () => {
   const properties = {
     sortOptions: [
       {
-        id: 1,
         name: 'sort asc',
-        order: 'asc',
-        value: 'sortTest',
+        value: 'sortTest:asc',
       },
       {
-        id: 2,
         name: 'sort desc',
-        order: 'desc',
-        value: 'sortTest',
+        value: 'sortTest:desc',
       },
     ],
   };
@@ -76,6 +72,6 @@ describe('Sort', () => {
     await fireEvent.click(menuItem);
     expect(selectedLabel).toHaveTextContent('sort desc');
     expect(selectedLabel).toBeInTheDocument();
-    expect(select.mock.calls[0][0].detail).toEqual({ value: 'sortTest', order: 'desc' });
+    expect(select.mock.calls[0][0].detail).toEqual({ value: 'sortTest:desc', key: 'sortBy' });
   });
 });

@@ -33,29 +33,23 @@
   }
 
   const sort = (event: CustomEvent) => {
-    setFilters({ params: { sortBy: `${event.detail.value}:${event.detail.order}`, page: false } });
+    setFilters({ params: { [event.detail.key]: `${event.detail.value}`, page: false } });
   };
 
   const handleInput = (event: Event) => setFilters({ params: { search: (event.target as HTMLInputElement).value } });
 
   const sortOptions = [
     {
-      id: 1,
       name: 'Release date',
-      order: 'asc',
-      value: 'startDate',
+      value: 'startDate:asc',
     },
     {
-      id: 2,
       name: 'Price high to low',
-      order: 'desc',
-      value: 'price',
+      value: 'price:desc',
     },
     {
-      id: 3,
       name: 'Price low to high',
-      order: 'asc',
-      value: 'price',
+      value: 'price:asc',
     },
   ];
 

@@ -1,3 +1,10 @@
+<script context="module" lang="ts">
+  export type SortOption = {
+    name: string;
+    value: string;
+  };
+</script>
+
 <script lang="ts">
   import { mdiChevronDown, mdiSortVariant } from '@mdi/js';
   import { createEventDispatcher } from 'svelte';
@@ -8,21 +15,22 @@
 
   let dispatch = createEventDispatcher();
 
-  export let sortOptions: { id: number; name: string; value: string; order: string }[];
+  export let sortOptions: SortOption[];
   export let label = 'Sort by:';
+  export let key = 'sortBy';
 
   const getSelected = () => {
-    if (!$page.query.get('sortBy')) {
+    const value = $page.query.get(key);
+    if (!value) {
       return sortOptions[0];
     }
-    const [value, order] = $page.query.get('sortBy').split(':');
-    return sortOptions.find((item) => item.value === value && item.order === order);
+    return sortOptions.find((item) => item.value === value) || sortOptions[0];
   };
-  export let selected = getSelected();
+  let selected = getSelected();
 
-  const select = (option: { id: number; value: string; order: string; name: string }): void => {
+  const select = (option: SortOption): void => {
     selected = option;
-    dispatch('select', { value: option.value, order: option.order });
+    dispatch('select', { value: option.value, key });
   };
 </script>
 
@@ -44,9 +52,9 @@
   </MenuTrigger>
 
   <MenuList slot="menu">
-    {#each sortOptions as option}
-      {#if option.id !== selected.id || !$media.lg}
-        <MenuItem on:select={() => select(option)} selected={option.id === selected.id}>
+    {#each sortOptions as option (option.value)}
+      {#if option.value !== selected.value || !$media.lg}
+        <MenuItem on:select={() => select(option)} selected={option.value === selected.value}>
           {option.name}
         </MenuItem>
       {/if}

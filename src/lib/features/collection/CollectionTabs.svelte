@@ -48,20 +48,17 @@
   }
 
   const sort = (event: CustomEvent) => {
-    changeSort(`${event.detail.value}:${event.detail.order}`);
+    changeSort(`${event.detail.value}`);
   };
   const sortOptions = [
     {
-      id: 1,
       name: 'Newest',
-      order: 'desc',
-      value: 'createdAt',
+      value: 'createdAt:desc',
     },
     {
       id: 2,
       name: 'Oldest',
-      order: 'asc',
-      value: 'createdAt',
+      value: 'createdAt:asc',
     },
   ];
 </script>
@@ -88,6 +85,6 @@
     {/if}
   </Tab>
   <div slot="extra" class="justify-self-end self-center text-lg mb-4">
-    <Sort on:select={sort} {sortOptions} />
+    <Sort on:select={sort} {sortOptions} key="createdAt" />
   </div>
 </Tabs>
