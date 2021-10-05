@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
   import type { PrivateAssets } from './types';
-  import type { FileAsset } from '$ui/file';
   import { getContext } from 'svelte';
   import { mdiDownloadCircleOutline } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
@@ -10,9 +9,9 @@
 
   const privateAssets: Writable<PrivateAssets> = getContext('PrivateAssets');
 
-  export let assets: FileAsset[] = $privateAssets.assets;
-  export let isOwner: boolean = $privateAssets.isOwner;
-  export let productId: string = $privateAssets.productId;
+  $: assets = $privateAssets?.assets || [];
+  $: isOwner = $privateAssets?.isOwner;
+  $: productId = $privateAssets?.productId;
 
   async function download(key: string, filename: string) {
     await getPreSignedUrl({ productId, key, filename });
