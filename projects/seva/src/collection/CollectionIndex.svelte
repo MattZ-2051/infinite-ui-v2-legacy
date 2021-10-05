@@ -16,8 +16,6 @@
     //   title: 'Owned Collection',
     // },
   ];
-
-  console.log($skus);
 </script>
 
 <Emilia skus={$skus}>

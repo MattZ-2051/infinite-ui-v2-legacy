@@ -13,3 +13,9 @@
     <a href="mailto:info@sevalove.com" class="text-2xl text-white text-center font-light">info@sevalove.com</a>
   </div>
 </div>
+
+<style lang="postcss">
+  a:hover {
+    color: #ffd54e;
+  }
+</style>

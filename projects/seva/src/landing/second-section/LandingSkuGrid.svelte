@@ -17,7 +17,7 @@
       const toastId = 'subscribe-form';
       try {
         await hsSubscribeEmail(values.email);
-        toast.success('Successfully subscribed.', {
+        toast.success('You have successfully joined our newsletter!', {
           toastId,
         });
         reset();
