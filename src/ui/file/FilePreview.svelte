@@ -2,9 +2,9 @@
   import type { FileAsset, FileType } from './types';
   import { mdiVolumeSource } from '@mdi/js';
   import IntersectionObserver from 'svelte-intersection-observer';
-
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
+  import videoDisableOptions from '$ui/video-ext';
   import { styles } from '$util/styles';
   import fallback from '$project/assets/fallback.png?w=700&format=avif;webp;png&metadata';
   import { getFileType, getAspectRatioStyle } from './file-utils';
@@ -63,6 +63,7 @@
   {:else}
     <div class="relative h-full w-full">
       <video
+        use:videoDisableOptions
         class="absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-full object-contain"
         playsinline
         autoplay

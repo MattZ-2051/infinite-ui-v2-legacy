@@ -7,6 +7,7 @@
   import { socialShareAction } from '$lib/social';
   import IconVerified from '$lib/components/talent/IconVerified.svelte';
   import Icon from '$ui/icon/Icon.svelte';
+  import videoDisableOptions from '$ui/video-ext';
 
   export let profile: Profile;
 
@@ -73,7 +74,16 @@
         <img src={photos[2].url} alt="" />
       </div>
     </div>
-    <video src={photos[3].url} playsinline autoplay loop muted controls style="object-fit: cover; margin:auto;" />
+    <video
+      use:videoDisableOptions
+      src={photos[3].url}
+      playsinline
+      autoplay
+      loop
+      muted
+      controls
+      style="object-fit: cover; margin:auto;"
+    />
   </div>
   <slot />
   {#if photos[4].url}
