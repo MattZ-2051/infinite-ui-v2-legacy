@@ -6,4 +6,7 @@ export const paths = {
   '$project/TermsConditions.svelte': 'projects/infinite/src/TermsConditions.svelte',
   '$ui/pagination/assets/*': 'projects/seva/src/assets/ui/*',
   '$ui/accordion/assets/*': 'projects/seva/src/assets/ui/*',
+  '$lib/features/sku/assets/*': 'projects/seva/src/assets/lib/*',
+  '$lib/features/wallet/assets/*': 'projects/seva/src/assets/lib/*',
+  '$lib/features/product/assets/*': 'projects/seva/src/assets/lib/*',
 };

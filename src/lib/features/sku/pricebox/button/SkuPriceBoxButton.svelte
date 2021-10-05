@@ -1,6 +1,6 @@
 <script lang="ts">
   import clsx from 'clsx';
-  import { mdiArrowRight } from '@mdi/js';
+  import arrowRight from '$lib/features/sku/assets/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
 
   /**
@@ -34,7 +34,7 @@
     ><div class="flex-grow"><slot /></div>
 
     <div class="pl-5 flex-none">
-      <Icon class="transform group-hover:-rotate-45" path={mdiArrowRight} size="2.0" />
+      <Icon class="transform group-hover:-rotate-45" path={arrowRight} size="2.0" />
     </div>
   </a>
 {:else if action}
@@ -42,7 +42,7 @@
     ><div class="flex-grow"><slot /></div>
 
     <div class="pl-5 flex-none">
-      <Icon class="transform group-hover:-rotate-45" path={mdiArrowRight} size="2.0" />
+      <Icon class="transform group-hover:-rotate-45" path={arrowRight} size="2.0" />
     </div></button
   >
 {:else}

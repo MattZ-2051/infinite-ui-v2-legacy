@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import { mdiArrowRightCircle } from '@mdi/js';
   import type { Sku, Product } from '$lib/sku-item/types';
+  import arrowRightCircle from '$project/assets/lib/arrow-right-circle';
   import { FilePreview } from '$ui/file';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
@@ -47,7 +47,7 @@
     aria-label="Product details"
   >
     <SkuStatus {sku} {product} />
-    <Icon class="ml-auto" path={mdiArrowRightCircle} size={1.5} />
+    <Icon class="ml-auto" path={arrowRightCircle} size={1.5} />
   </a>
 </article>
 

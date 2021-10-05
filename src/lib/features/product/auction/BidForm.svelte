@@ -2,7 +2,7 @@
   import type { Listing } from '$lib/sku-item/types';
   import { createEventDispatcher } from 'svelte';
   import { createForm } from 'felte';
-  import { mdiArrowRight } from '@mdi/js';
+  import arrowRight from '$lib/features/product/assets/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
   import { user } from '$lib/user';
   import { toast } from '$ui/toast';
@@ -78,7 +78,7 @@
     class="flex gap-2 h-20 md:h-auto w-full md:w-48 lg:w-96 text-2xl"
     type="submit"
     --button-border-radius="0"
-    >Place a bid <Icon path={mdiArrowRight} size="1.5" />
+    >Place a bid <Icon path={arrowRight} size="1.5" />
   </Button>
 </form>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { mdiArrowRight } from '@mdi/js';
+  import arrowRight from '$lib/features/wallet/assets/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
 
@@ -24,7 +24,7 @@
     on:click={() => dispatch('deposit')}
   >
     <span>Deposit</span>
-    <Icon class="transform group-hover:-rotate-45" path={mdiArrowRight} size="2" />
+    <Icon class="transform group-hover:-rotate-45" path={arrowRight} size="2" />
   </button>
   <button
     type="button"
@@ -32,6 +32,6 @@
     on:click={() => handleWithdraw()}
   >
     <span>Withdraw</span>
-    <Icon class="transform group-hover:rotate-45" path={mdiArrowRight} size="2" />
+    <Icon class="transform group-hover:rotate-45" path={arrowRight} size="2" />
   </button>
 </div>

@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
   import { readable } from 'svelte/store';
-  import { mdiArrowRight, mdiClose } from '@mdi/js';
+  import { mdiClose } from '@mdi/js';
+  import arrowRight from '$lib/features/product/assets/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatCurrency, formatDate } from '$util/format';
@@ -86,7 +87,7 @@
         >
           {$isActive ? 'Processing...' : `Buy Now for ${formatCurrency(activeProductListing?.price)}`}<Icon
             size="1.2"
-            path={mdiArrowRight}
+            path={arrowRight}
           /></Button
         >
       {/if}
