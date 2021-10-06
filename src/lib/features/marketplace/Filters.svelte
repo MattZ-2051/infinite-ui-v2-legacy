@@ -89,7 +89,7 @@
 
   const saleTypeFilters: { id: string; label: string }[] = [
     { id: 'auction', label: 'Auction' },
-    { id: 'fixed', label: 'Buy now' },
+    { id: 'fixed', label: 'Buy Now' },
     // { id: 'giveaway', label: 'Giveaway' },
   ];
 
