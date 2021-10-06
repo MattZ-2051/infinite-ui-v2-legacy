@@ -5,15 +5,23 @@ export type FaqLine = {
 
 export const Info: FaqLine[] = [
   {
-    title: 'Emilia Clarke',
-    text: 'A NFT is a Non fungible token',
+    title: 'Management Team',
+    text:
+      '- Poonacha Machaiah, Chief Executive Officer' +
+      '- Gabriella Wright, Head of Content and Storytelling' +
+      '- Donna Mastropasqua, Head of Strategic Partnerships' +
+      '- Matai Blacklock, Head of Product Management' +
+      '- Jared Reicbaum, NFT Marketing/Community Management' +
+      '- Nelson Diaz, NFT Marketing/Community Management' +
+      '- Josh Rachlin, NFT Marketing/Community Management' +
+      '- Justin Nahama, Legal Counsel',
   },
   {
-    title: 'Panocha Machaia?',
-    text: 'Pending...',
-  },
-  {
-    title: 'Team member?',
-    text: 'Aenean vel porttitor magna, vitae scelerisque ipsum. Pellentesque aliquam purus quam, et molestie diam aliquet eget. Quisque eu nunc nec nunc volutpat tincidunt a at justo. Quisque quis dictum libero, sed maximus ex. Phasellus varius felis odio, quis pulvinar risus hendrerit a.',
+    title: 'Advisors',
+    text:
+      '- Deepak Chopra (MD, FACP), Founder of The Chopra Foundation and Chopra Global' +
+      '- Claudio Guittrez, Founder and CEO of CG Creative Studios' +
+      '- Christian Hasker, Hedera Chief Marketing Officer' +
+      '- Yonathan Lapchick, CEO and SUKU and INFINITE',
   },
 ];

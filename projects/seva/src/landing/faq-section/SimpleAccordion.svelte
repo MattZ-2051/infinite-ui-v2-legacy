@@ -24,7 +24,7 @@
 >
   <div style="color:{textColor};">
     <div class=" flex justify-between items-center" style="color:{active ? selectedColor : textColor}">
-      <div class="text-xl sm:text-3xl font-medium pr-1">{title}</div>
+      <div class="text-xl lg:text-3xl font-medium pr-1">{title}</div>
       {#if !active}
         <img class="sm:hidden" src={imageClosedSource} alt="open" width="20px" height="20px" />
         <img class="sm:block hidden" src={imageClosedSource} alt="open" width="30px" height="30px" />

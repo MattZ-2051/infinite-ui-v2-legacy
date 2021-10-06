@@ -9,7 +9,7 @@
   <div class="container flex flex-col-reverse items-center lg:flex-row max-w-7xl relative z-1 px-6">
     <div class="w-full flex flex-col pt-8 max-w-xl lg:mr-8 mt-8 items-center lg:items-baseline lg:w-1/3 lg:2/4">
       <div class="font-medium text-4xl mb-6 sm:text-6xl sm:mb-8 text-center lg:text-left">
-        SEVA.LOVE NFT stories connect us, inspire us and move us into action
+        Using NFTs to connect, inspire and move us into action
       </div>
       <div>
         <div class="font-medium text-xl mb-4 text-center lg:text-left">
