@@ -33,6 +33,7 @@ async function run() {
         ...paths,
         '$project/*': [`projects/${project}/src/*`],
         '$theme/*': [`projects/${project}/theme/*`],
+        '$static/*': [`static/${project}/*`],
         '$lib/*': ['src/lib/*'],
         '$ui/*': ['src/ui/*'],
         '$util/*': ['src/util/*'],

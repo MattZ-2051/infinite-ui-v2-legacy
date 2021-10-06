@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: 'Graphik';
-}
-
 body,
 button {
   letter-spacing: -0.025em;

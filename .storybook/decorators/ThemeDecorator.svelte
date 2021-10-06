@@ -1,12 +1,21 @@
-<div class="theme-container" data-theme-context="root">
-  <slot />
-</div>
+<script lang="ts">
+  export let themes: string[] = [];
+</script>
 
-<style lang="postcss">
-  .theme-container {
-    overflow: auto;
-    background-color: var(--bg-color);
-    color: var(--color);
-    height: calc(100vh - 2rem);
-  }
-</style>
+<div class="flex">
+  {#if themes.length > 0}
+    {#each themes as theme}
+      <div
+        style={`width: ${100 / themes.length}%`}
+        class="min-h-screen overflow-hidden p-4 theme-{theme}"
+        data-theme-context="root"
+      >
+        <slot />
+      </div>
+    {/each}
+  {:else}
+    <div class="min-h-screen overflow-hidden p-4 w-full" data-theme-context="root">
+      <slot />
+    </div>
+  {/if}
+</div>

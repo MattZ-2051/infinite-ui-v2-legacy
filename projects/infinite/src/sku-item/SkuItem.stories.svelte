@@ -5,7 +5,7 @@
   import { item } from '../../../../mocks/resolvers/sku/data';
 </script>
 
-<Meta title="Infinite / sku-item / SkuItem" component={SkuItem} />
+<Meta title="Infinite / sku-item / SkuItem" component={SkuItem} parameters={{ themes: ['light', 'dark'] }} />
 
 <Template let:args>
   <div class="max-w-sm m-4">

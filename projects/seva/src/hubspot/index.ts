@@ -1,4 +1,3 @@
-import { hubspot } from '$project/variables';
 import { post } from '$lib/api';
 
 export async function hsSubscribeEmail(email: string) {
@@ -12,7 +11,9 @@ export async function hsSubscribeEmail(email: string) {
 
 async function hsSubscribe(fields: { name: string; value }[]) {
   const response = await post<{ inlineMessage: string }>(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${hubspot.portalId}/${hubspot.formId}`,
+    `https://api.hsforms.com/submissions/v3/integration/submit/${import.meta.env.VITE_HUBSPOT_PORTAL_ID}/${
+      import.meta.env.VITE_HUBSPOT_FORM_ID
+    }`,
     {
       fields,
     },

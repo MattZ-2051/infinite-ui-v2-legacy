@@ -8,15 +8,14 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { hubspot } from '$project/variables';
   import injectScript from '$util/injectScript';
 
   onMount(async () => {
     await injectScript({ id: 'hubspot-form', url: '//js.hsforms.net/forms/v2.js' });
     hbspt.forms.create({
-      region: hubspot.region,
-      portalId: hubspot.portalId,
-      formId: hubspot.formId,
+      region: import.meta.env.VITE_HUBSPOT_REGION,
+      portalId: import.meta.env.VITE_HUBSPOT_PORTAL_ID,
+      formId: import.meta.env.VITE_HUBSPOT_FORM_ID,
       target: '#embed-hubspot',
     });
   });

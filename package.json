@@ -20,8 +20,9 @@
     "e2e": "cypress run --browser chrome",
     "fclt": "pnpm format && pnpm check && pnpm lint && pnpm test",
     "build-storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006",
-    "chromatic": "chromatic --exit-zero-on-changes"
+    "start-storybook": "start-storybook -p 6006",
+    "storybook": "run-s \"use -- {1}\" \"start-storybook\" --",
+    "chromatic": "chromatic"
   },
   "dependencies": {
     "@felte/validator-yup": "0.2.8",

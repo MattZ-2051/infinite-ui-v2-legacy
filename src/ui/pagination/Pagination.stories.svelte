@@ -3,7 +3,7 @@
   import Pagination from './Pagination.svelte';
 </script>
 
-<Meta title="UI / Pagination" component={Pagination} />
+<Meta title="UI / Pagination" component={Pagination} parameters={{ themes: ['light', 'dark'] }} />
 
 <Template let:args>
   <Pagination {...args} />

@@ -7,11 +7,6 @@ export const CLIENT_SOCIAL_IMAGE = {
   height: 831,
   alt: 'SEVA.LOVE',
 };
-export const hubspot = {
-  region: import.meta.env.VITE_HUBSPOT_REGION,
-  formId: import.meta.env.VITE_HUBSPOT_FORM_ID,
-  portalId: import.meta.env.VITE_HUBSPOT_PORTAL_ID,
-};
 export const CLIENT_SUPPORT_EMAIL = 'help@seva.love';
 export const CLIENT_SUPPORT_URL = 'https://support.suku.world/infinite-powered-by-suku';
 export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-hashgraph-hts';

@@ -14,6 +14,7 @@
   title="UI / Menu"
   component={Menu}
   subcomponents={{ MenuTrigger, MenuList, MenuItem }}
+  parameters={{ themes: ['light', 'dark'] }}
   argTypes={{
     visible: {
       control: { type: 'boolean' },

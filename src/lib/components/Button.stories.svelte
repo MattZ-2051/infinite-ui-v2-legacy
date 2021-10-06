@@ -6,6 +6,7 @@
 <Meta
   title="Lib / components / Button"
   component={Button}
+  parameters={{ themes: ['light', 'dark'] }}
   argTypes={{
     variant: {
       options: ['base', 'brand', 'outline-brand'],
@@ -18,9 +19,7 @@
 />
 
 <Template let:args>
-  <div class="max-w-xs">
-    <Button {...args}>Button</Button>
-  </div>
+  <Button {...args}>Button</Button>
 </Template>
 
 <Story name="Base" args={{ variant: 'base' }} />

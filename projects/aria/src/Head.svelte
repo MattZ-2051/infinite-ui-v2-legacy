@@ -10,6 +10,6 @@
   <link rel="preload" as="font" href="/fonts/Graphik/Graphik-Regular.woff2" type="font/woff2" crossorigin="anonymous" />
   <link rel="preload" as="font" href="/fonts/Graphik/Graphik-Medium.woff2" type="font/woff2" crossorigin="anonymous" />
   <link rel="preload" as="font" href="/fonts/Graphik/Graphik-Light.woff2" type="font/woff2" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/fonts/Graphik/stylesheet.css" />
+  <link rel="stylesheet" href="/fonts/stylesheet.css" />
   <script type="text/javascript" src={import.meta.env.VITE_SALESFORCE_BEACON} async></script>
 </svelte:head>
