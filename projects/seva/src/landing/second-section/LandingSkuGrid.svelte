@@ -3,9 +3,10 @@
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import { toast } from '$ui/toast';
+  import { user } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
+  import { hsSubscribeEmail, hsSubscribeUser } from '../../hubspot';
   import { SkuItemGrid } from '$lib/sku-item';
-  import { hsSubscribeEmail } from '../../hubspot';
 
   export let skus;
 
@@ -16,7 +17,7 @@
     onSubmit: async (values) => {
       const toastId = 'subscribe-form';
       try {
-        await hsSubscribeEmail(values.email);
+        await ($user ? hsSubscribeUser($user, values.email) : hsSubscribeEmail(values.email));
         toast.success('You have successfully joined our newsletter!', {
           toastId,
         });

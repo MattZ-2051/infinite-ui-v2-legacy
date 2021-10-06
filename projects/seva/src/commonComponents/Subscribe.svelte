@@ -3,9 +3,11 @@
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import { toast } from '$ui/toast';
+  import { user } from '$lib/user';
   import lastPic from './assets/lastPic.png';
   import lastPicMobile from './assets/lastPicMobile.png';
-  import { hsSubscribeEmail } from '../hubspot';
+
+  import { hsSubscribeEmail, hsSubscribeUser } from '../hubspot';
 
   const schema = yup.object({
     email: yup.string().email('Please enter a properly formatted email address').required('Please, enter your email'),
@@ -14,7 +16,7 @@
     onSubmit: async (values) => {
       const toastId = 'subscribe-form';
       try {
-        await hsSubscribeEmail(values.email);
+        await ($user ? hsSubscribeUser($user, values.email) : hsSubscribeEmail(values.email));
         toast.success('You have successfully joined our newsletter!', {
           toastId,
         });
