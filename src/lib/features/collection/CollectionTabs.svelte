@@ -38,12 +38,14 @@
   $: tab = $page.query.get(`tab`) || (isIssuer ? 'Releases' : 'NFTs');
 
   const perPage = isIssuer ? perPageIssuer : perPageUser;
+  let tabContainer: HTMLElement;
 
   function onSelectTab({ detail }: CustomEvent<'Releases' | 'NFTs'>) {
     changeTab(detail);
   }
 
   function onChangePage(event: CustomEvent) {
+    tabContainer.scrollIntoView();
     changePage(event.detail.value);
   }
 
@@ -63,28 +65,30 @@
   ];
 </script>
 
-<Tabs {items} defaultSelectedId={tab} class="text-2xl font-medium mt-6 md:mt-12 mb-4" on:select={onSelectTab}>
-  <Tab id="Releases">
-    {#if $skusTotal === 0}
-      <div class="text-gray-500  text-center mt-12 text-2xl ">No releases found.</div>
-    {:else if $skusTotal === null}
-      <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
-    {:else}
-      <SkuItemGrid skus={$skus} />
-      <Pagination {perPage} total={$skusTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
-    {/if}
-  </Tab>
-  <Tab id="NFTs">
-    {#if $productsTotal === 0}
-      <div class="text-gray-500  text-center mt-12 text-2xl ">No Collectibles found.</div>
-    {:else if $productsTotal === null}
-      <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
-    {:else}
-      <SkuItemGrid products={$products} />
-      <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
-    {/if}
-  </Tab>
-  <div slot="extra" class="justify-self-end self-center text-lg mb-4">
-    <Sort on:select={sort} {sortOptions} key="createdAt" />
-  </div>
-</Tabs>
+<div bind:this={tabContainer} style="scroll-margin-top: var(--header-height);">
+  <Tabs {items} defaultSelectedId={tab} class="text-2xl font-medium mt-6 md:mt-12 mb-4" on:select={onSelectTab}>
+    <Tab id="Releases">
+      {#if $skusTotal === 0}
+        <div class="text-gray-500  text-center mt-12 text-2xl ">No releases found.</div>
+      {:else if $skusTotal === null}
+        <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+      {:else}
+        <SkuItemGrid skus={$skus} />
+        <Pagination {perPage} total={$skusTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
+      {/if}
+    </Tab>
+    <Tab id="NFTs">
+      {#if $productsTotal === 0}
+        <div class="text-gray-500  text-center mt-12 text-2xl ">No Collectibles found.</div>
+      {:else if $productsTotal === null}
+        <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+      {:else}
+        <SkuItemGrid products={$products} />
+        <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
+      {/if}
+    </Tab>
+    <div slot="extra" class="justify-self-end self-center text-lg mb-4">
+      <Sort on:select={sort} {sortOptions} key="createdAt" />
+    </div>
+  </Tabs>
+</div>
