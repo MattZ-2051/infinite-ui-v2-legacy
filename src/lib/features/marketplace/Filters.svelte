@@ -59,11 +59,23 @@
   };
 
   const onMinPriceChange = (event) => {
-    onPriceRangeChange([event.target.value, priceRange[1]]);
+    const value = +(event.target as HTMLInputElement).value;
+    if (value < 0 || value >= priceRange[1]) {
+      event.preventDefault();
+      return;
+    }
+    priceRange = [value, priceRange[1]];
+    onPriceRangeChange(priceRange);
   };
 
   const onMaxPriceChange = (event) => {
-    onPriceRangeChange([priceRange[0], event.target.value]);
+    const value = +(event.target as HTMLInputElement).value;
+    if (value <= priceRange[0]) {
+      event.preventDefault();
+      return;
+    }
+    priceRange = [priceRange[0], value];
+    onPriceRangeChange(priceRange);
   };
 
   function removeAllFilters() {
@@ -254,7 +266,7 @@
         {/each}
       </Accordion>
     {/if}
-    {#if priceRange[1]}
+    {#if maxPrice > 0}
       <Accordion
         id="price"
         titleClass="py-4 px-6"
@@ -277,11 +289,11 @@
 
         <div class="flex gap-6 mt-10">
           <Input label="From" let:klass let:id>
-            <input type="number" {id} class={klass} bind:value={priceRange[0]} on:input={onMinPriceChange} />
+            <input type="number" {id} class={klass} value={priceRange[0]} on:input={onMinPriceChange} />
           </Input>
 
           <Input label="To" let:klass let:id>
-            <input type="number" {id} class={klass} bind:value={priceRange[1]} on:input={onMaxPriceChange} />
+            <input type="number" {id} class={klass} value={priceRange[1]} on:input={onMaxPriceChange} />
           </Input>
         </div>
       </Accordion>
