@@ -85,11 +85,13 @@
   --tooltip-color: #000000;
 
   /* SkuItem */
+  --sku-item-border-radius: 6px;
   --sku-item-bg-color: var(--bg-color);
+  --sku-item-border-color: var(--gray-200);
 
   /* Button */
   --button-border-radius: 28px;
-  --button-padding: 8px 24px;
+  --button-padding: 9px 32px;
   --button-brand-color: #000000;
   --button-brand-bg-color: #ffffff;
   --button-brand-border-color: #ffffff;
@@ -231,8 +233,8 @@
   --range-slider-thumb-active-color: #000000;
 
   /* SkuItem */
-  --sku-item-color: var(--color);
-  --sku-item-bg-color: var(--bg-color);
+  --sku-item-bg-color: #ffffff;
+  --sku-item-border-color: var(--gray-200);
 
   /* Button */
   --button-brand-color: #ffffff;

@@ -4,10 +4,10 @@
   import { validateSchema } from '@felte/validator-yup';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
-  import SkuItem from '$project/sku-item/SkuItem.svelte';
+  import { SkuItemGrid } from '$lib/sku-item';
   import { hsSubscribeEmail } from '../../hubspot';
 
-  export let skuGridData;
+  export let skus;
 
   const schema = yup.object({
     email: yup.string().email('Please enter a properly formatted email address').required('Please, enter your email'),
@@ -53,38 +53,12 @@
           class="items-center flex flex-col mx-2 mt-6 md:mt-0 md:absolute md:transform md:-translate-y-1/2 md:top-1/2 md:right-0"
         >
           <Button
-            --button-padding="9px 32px"
-            --button-border-radius="999px"
-            --button-brand-bg-color="rgba(0,0,0)"
-            --button-brand-color="rgba(255,255,255)"
-            --button-brand-border-color-hover="#7852FD"
-            --button-brand-border-color="transparent"
-            --button-brand-bg-color-hover="#7852FD"
-            --button-brand-color-hover="rgba(255,255,255)"
-            animate={false}
             variant="brand"
-            class="whitespace-nowrap md:mr-2 w-full py-12 md:py-0 hidden md:flex"
+            class="whitespace-nowrap md:mr-2 w-full py-12 md:py-0 text-xl md:text-base"
             type="submit"
             disabled={$isSubmitting}
           >
-            {#if $isSubmitting}Subscribing...{:else}Subscribe{/if}
-          </Button>
-          <Button
-            --button-padding="16px 32px"
-            --button-border-radius="999px"
-            --button-brand-bg-color="rgba(0,0,0)"
-            --button-brand-color="rgba(255,255,255)"
-            --button-brand-border-color-hover="#7852FD"
-            --button-brand-border-color="transparent"
-            --button-brand-bg-color-hover="#7852FD"
-            --button-brand-color-hover="rgba(255,255,255)"
-            animate={false}
-            variant="brand"
-            class="whitespace-nowrap md:mr-2 w-full py-12 md:py-0 md:hidden flex text-xl"
-            type="submit"
-            disabled={$isSubmitting}
-          >
-            {#if $isSubmitting}Subscribing...{:else}Subscribe{/if}
+            {$isSubmitting ? 'Subscribing...' : 'Subscribe'}
           </Button>
         </div>
       </form>
@@ -92,12 +66,6 @@
         <div class="text-center pt-2 text-sm text-red-600">{$errors.email}</div>
       {/if}
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-6">
-      {#each skuGridData as skuItem}
-        <div class="border rounded-md bg-white" style="border-color: #cccccc;">
-          <SkuItem sku={skuItem} />
-        </div>
-      {/each}
-    </div>
+    <SkuItemGrid {skus} />
   </div>
 </div>

@@ -5,6 +5,8 @@ const Theme = {
 
 export const themeConfig = {
   '$index.root': Theme.Light,
+  '*.landing-head-left-card': Theme.Dark,
+  '*.landing-head-right-card': Theme.Dark,
   '$about.root': Theme.Light,
   '*.header': Theme.Dark,
   '$marketplace.root': Theme.Light,

@@ -4,14 +4,14 @@
   import FAQ from './faq-section/FAQ.svelte';
   import Mission from './mission-section/Mission.svelte';
   import LandingHead from './first-section/LandingHead.svelte';
-  import SkuGrid from './second-section/LandingSkuGrid.svelte';
+  import LandingSkuGrid from './second-section/LandingSkuGrid.svelte';
   import Subscribe from './subscribe/Subscribe.svelte';
 
   export let skus: Sku[];
 </script>
 
 <LandingHead sku={skus[1]} />
-<SkuGrid skuGridData={skus} />
+<LandingSkuGrid {skus} />
 <HeartSurgery />
 <FAQ />
 <Mission />

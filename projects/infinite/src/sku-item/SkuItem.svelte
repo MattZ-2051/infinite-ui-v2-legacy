@@ -18,7 +18,7 @@
   $: href = product ? routes.product(product._id) : routes.sku(sku._id);
 </script>
 
-<article id={sku._id} class="border border-current border-solid space-y-4 py-6" in:fade={{ duration: 300 }}>
+<article id={sku._id} class="space-y-4 py-6" in:fade={{ duration: 300 }}>
   <figure class="relative mx-6 mb-0">
     <a sveltekit:prefetch {href}>
       <FilePreview item={sku.nftPublicAssets?.[0]} preview />
@@ -53,8 +53,10 @@
 
 <style>
   article {
-    color: var(--sku-item-color);
+    color: var(--sku-item-color, theme('colors.default'));
     background-color: var(--sku-item-bg-color);
+    border: var(--sku-item-border-width, 1px) solid var(--sku-item-border-color, theme('colors.default'));
+    border-radius: var(--sku-item-border-radius, 0);
   }
 
   .info {
