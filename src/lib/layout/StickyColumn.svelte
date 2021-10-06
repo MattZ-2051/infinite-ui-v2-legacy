@@ -100,7 +100,7 @@
 
   @screen md {
     .sticky-content-wrapper {
-      height: calc(100vh - var(--header-height));
+      min-height: calc(100vh - var(--header-height));
     }
     .sticky-content {
       flex: 1;
