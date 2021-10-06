@@ -36,6 +36,7 @@ specifiers:
   ci-info: 3.2.0
   clipboard-copy: ~4.0.1
   clsx: 1.1.1
+  cropperjs: ^1.5.12
   cssnano: 5.0.8
   cypress: 8.5.0
   dayjs: 1.10.7
@@ -102,6 +103,7 @@ dependencies:
   '@tailwindcss/line-clamp': 0.2.2_tailwindcss@2.2.16
   clipboard-copy: 4.0.1
   clsx: 1.1.1
+  cropperjs: 1.5.12
   dayjs: 1.10.7
   effector: 22.1.1
   felte: 0.8.0_svelte@3.43.1
@@ -7756,6 +7758,10 @@ packages:
   /create-require/1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
     dev: true
+
+  /cropperjs/1.5.12:
+    resolution: {integrity: sha512-re7UdjE5UnwdrovyhNzZ6gathI4Rs3KGCBSc8HCIjUo5hO42CtzyblmWLj6QWVw7huHyDMfpKxhiO2II77nhDw==}
+    dev: false
 
   /cross-spawn/6.0.5:
     resolution: {integrity: sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==}
