@@ -20,7 +20,7 @@
 </script>
 
 <ThemeContext id="issuer">
-  <EmiliaFirstNft sku={skus[0]} />
+  <EmiliaFirstNft sku={skus[1]} />
   <div class="container">
     <slot />
   </div>

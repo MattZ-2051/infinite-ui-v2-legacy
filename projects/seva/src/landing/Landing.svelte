@@ -10,7 +10,7 @@
   export let skus: Sku[];
 </script>
 
-<LandingHead sku={skus[0]} />
+<LandingHead sku={skus[2]} />
 <LandingSkuGrid {skus} />
 <HeartSurgery />
 <FAQ />
