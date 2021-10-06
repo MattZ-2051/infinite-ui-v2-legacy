@@ -6,6 +6,7 @@
   export let selectedColor = 'black';
   export let active = false;
   export let setSelected = undefined;
+  export let underlined = true;
 
   const handleOpen = () => {
     if (setSelected) {
@@ -17,7 +18,10 @@
   };
 </script>
 
-<div class="cursor-pointer pb-8 border-b-2 border-black-100 mb-8 text-black-opacity-10" on:click={handleOpen}>
+<div
+  class={(underlined ? 'border-b-2 ' : '') + 'cursor-pointer pb-8 border-black-100 mb-8 text-black-opacity-10'}
+  on:click={handleOpen}
+>
   <div style="color:{textColor};">
     <div class=" flex justify-between items-center" style="color:{active ? selectedColor : textColor}">
       <div class="text-xl sm:text-3xl font-medium pr-1">{title}</div>

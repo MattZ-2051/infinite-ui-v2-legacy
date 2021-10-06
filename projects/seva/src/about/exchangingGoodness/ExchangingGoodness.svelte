@@ -13,11 +13,12 @@
   </div>
   <div class="container py-20 md:py-36 flex flex-col items-center relative z-10 px-6">
     <div class="font-medium text-4xl md:text-6xl mb-8 md:mb-4 max-w-3xl text-center">
-      Transforming Lives One Drop At a Time
+      Catalyzing Change One NFT At a Time
     </div>
     <div class="text-center font-medium text-xl md:text-2xl mb-6 max-w-4xl">
       <!-- <div class="font-semibold mt-4">The world's first NFT Goodness Exchange.</div> -->
-      Seva.Love empowers artists to create unique NFT collections and engage their communities for social transformation.
+      The Seva.Love platform aims to empower communities focused on social and environmental impact through exclusive carbon
+      negative Hedera NFT releases.
     </div>
     <div class="text-center w-full flex flex-col-reverse items-center lg:flex-row justify-center">
       <div class="hidden lg:block h-0 w-0 relative">
@@ -27,8 +28,8 @@
         <img src={drops} alt="drops" style="max-width:20%" />
       </div>
       <div style=" " class="flex justify-center sm:max-w-xl">
-        SEVA.LOVE enables artists to convert their art and creativity into a meaningful global action targeting social
-        and humanitarian issues. The proceeds from the NFT are targeted towards the non-profit of their choice.
+        With the proceeds from each NFT targeted towards the non-profit of their choice, we aim to enable global action
+        to impact tangible changes that benefit our society for generations to come.
       </div>
     </div>
   </div>

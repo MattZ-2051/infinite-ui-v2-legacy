@@ -1,4 +1,5 @@
 <script language="ts">
+  import { media } from '$lib/media-query.store';
   import SimpleAccordion from '../../landing/faq-section/SimpleAccordion.svelte';
   import { Info } from './Info';
   import emilia from './assets/emilia.png';
@@ -18,8 +19,11 @@
 <svelte:window bind:innerWidth={width} />
 <div class="container mt-24 mb-24 lg:mb-0 px-6">
   <div class="flex flex-col items-center">
-    <div class="font-medium text-4xl sm:text-6xl text-center mb-9 max-w-4xl">The Seva.Love team</div>
-    <div class="text-center mb-20 max-w-3xl font-medium">Like minded souls united in Love</div>
+    <div class="font-medium text-4xl sm:text-6xl text-center mb-9 max-w-4xl">The goodness exchange team</div>
+    <div class="text-center mb-20 max-w-3xl font-medium">
+      Aenean vel porttitor magna, vitae scelerisque ipsum. Pellentesque {#if $media.md} <br /> {/if}aliquam purus quam,
+      et molestie diam aliquet eget.
+    </div>
   </div>
   <div class="flex justify-center">
     <div
@@ -30,7 +34,7 @@
         style="max-height:35em"
         class="max-w-7xl px-6 md:px-16 py-2 md:pt-12 md:w-1/2 h-2/3 sm:h-full w-full flex flex-col justify-center "
       >
-        {#each infoWithId as el}
+        {#each infoWithId as el, index}
           <SimpleAccordion
             title={el.title}
             imageClosedSource={ArrowDown}
@@ -39,6 +43,7 @@
             selectedColor="#FFD54E"
             active={open === el.id}
             setSelected={() => (open = el.id)}
+            underlined={index !== infoWithId.length - 1}
           >
             <div>{el.text}</div>
           </SimpleAccordion>
