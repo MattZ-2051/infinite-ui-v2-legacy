@@ -1,21 +1,19 @@
 <script lang="ts">
+  import type { ApiError } from '$lib/api';
   import { closeModal, Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
+  import { handleWalletDepositError } from '../wallet/wallet.service';
 
   export let isOpen;
-  export let error: { status: number; data: { message: string } };
+  export let error: ApiError;
 </script>
 
 {#if isOpen}
   <Modal title="Whoops, something went wrong." on:close={closeModal}>
     <div class="flex flex-col justify-center items-center gap-6 mt-2 text-base max-w-sm text-center py-4 px-10 m-auto">
       <div class="text-gray-500 text-base py-2">
-        {#if error?.data?.message}
-          {error.data.message}
-        {:else}
-          We couln’t process your payment and the transaction was cancelled.
-        {/if}
+        {handleWalletDepositError(error)}
       </div>
       <div class="flex flex-col gap-4">
         <Button variant="brand" on:click={closeModal}>Try again</Button>
