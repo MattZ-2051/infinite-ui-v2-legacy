@@ -7,7 +7,7 @@
   export let own: boolean;
 </script>
 
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col justify-center items-center max-w-4xl mx-auto break-all">
   {#if profile.profilePhotoUrl}
     <img src={`${profile.profilePhotoUrl}?t=${profile.updatedAt}`} alt="" class="w-24 h-24 p-1 rounded-full" />
   {/if}
