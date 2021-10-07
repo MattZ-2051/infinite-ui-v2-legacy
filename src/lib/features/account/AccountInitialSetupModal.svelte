@@ -9,7 +9,7 @@
   import { patchUser } from '$lib/user';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { handleUserApiError } from './account.service';
+  import { handleUserApiError, phoneNumberConsentText } from './account.service';
 
   export let isOpen: boolean;
   export let user: User;
@@ -104,10 +104,7 @@
             class="w-5 h-5 text-black bg-white"
             disabled={$data.phoneNumber === ''}
           />
-          <label for="phoneNumberConsentGiven" class="text-gray-900 text-sm"
-            >By providing your phone number, you are consenting to receiving updates from ARIA Exchange on NFT releases,
-            exclusive experiences, updates and other communications from ARIA Exchange and its affiliates and partners.</label
-          >
+          <label for="phoneNumberConsentGiven" class="text-gray-900 text-sm">{phoneNumberConsentText}</label>
         </div>
         <div class="flex gap-3 mb-4">
           <input

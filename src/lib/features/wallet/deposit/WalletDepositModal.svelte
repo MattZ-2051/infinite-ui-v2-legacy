@@ -28,7 +28,7 @@
     { id: 'btc', title: 'BTC', subtitle: 'Deposit funds using BTC', image: BitCoin },
     { id: 'eth', title: 'ETH', subtitle: 'Deposit funds using ETH', image: EthCoin },
     { id: 'usdc', title: 'USDC', subtitle: 'Deposit funds using USDC', image: USDCoin },
-    { id: 'hbar', title: 'HBAR', subtitle: 'Deposit funds using Hedera Hashgraph', image: Hbar },
+    { id: 'hbar', title: 'HBAR', subtitle: 'Deposit funds using HBAR', image: Hbar },
     { id: 'suku', title: 'SUKU', subtitle: 'Coming soon', image: Suku, disabled: true },
   ];
 

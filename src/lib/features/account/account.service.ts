@@ -1,4 +1,5 @@
 import { toast } from '$ui/toast';
+import { CLIENT_COMPANY_NAME } from '$project/variables';
 
 export function handleUserApiError(error) {
   let message;
@@ -20,3 +21,6 @@ export function handleUserApiError(error) {
   }
   toast.danger(message);
 }
+
+export const phoneNumberConsentText = `By providing your phone number, you are consenting to receiving updates from ${CLIENT_COMPANY_NAME} on NFT releases,
+exclusive experiences, updates and other communications from ${CLIENT_COMPANY_NAME} and its affiliates and partners.`;

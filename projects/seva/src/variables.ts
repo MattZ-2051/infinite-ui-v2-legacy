@@ -1,6 +1,6 @@
 export const CLIENT_DOC_TITLE = 'SEVA.LOVE';
 export const CLIENT_DOC_DESCRIPTION = 'The world’s first NFT goodness exchange.';
-export const CLIENT_COMPANY_NAME = ' SEVA.LOVE';
+export const CLIENT_COMPANY_NAME = 'SEVA.LOVE';
 export const CLIENT_SOCIAL_IMAGE = {
   url: 'https://www.seva.love/wp-content/uploads/2021/08/og.jpg',
   width: 1594,

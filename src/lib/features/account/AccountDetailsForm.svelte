@@ -8,6 +8,7 @@
   import Button from '$lib/components/Button.svelte';
   import notifications from '$ui/toast/toast.store';
   import { patchUser } from '$lib/user';
+  import { phoneNumberConsentText } from './account.service';
 
   let dispatch = createEventDispatcher();
 
@@ -68,10 +69,7 @@
       value="check"
       disabled={disabled || $data.phoneNumber === ''}
     />
-    <label for="consent" class="text-gray-800 text-sm"
-      >By providing your phone number, you are consenting to receiving updates from ARIA Exchange on NFT releases,
-      exclusive experiences, updates and other communications from ARIA Exchange and its affiliates and partners.</label
-    >
+    <label for="consent" class="text-gray-800 text-sm">{phoneNumberConsentText}</label>
   </div>
   <div style="height: 1px; background-color: #EBEBEB;" />
   <div class="flex gap-4 justify-end" class:hidden={disabled}>
