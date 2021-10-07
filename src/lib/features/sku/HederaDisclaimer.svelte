@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mdiArrowRight } from '@mdi/js';
+  import arrowRight from '$lib/features/sku/assets/arrow-right';
   import { CLIENT_COMPANY_NAME, CLIENT_HEDERA_URL } from '$project/variables';
   import Icon from '$ui/icon/Icon.svelte';
   import hedera from '$lib/components/icons/hedera';
@@ -18,8 +18,8 @@
       <a href={CLIENT_HEDERA_URL} target="_blank" rel="noreferrer" class="link text-primary text-base whitespace-nowrap"
         >Read more
       </a>
-      <span class="p-px" style="background-color: var(--button-brand-bg-color)">
-        <Icon path={mdiArrowRight} size="0.9" color="var(--button-brand-color)" />
+      <span class="p-px" style="background-color: var(--button-brand-bg-color); color: var(--button-brand-color);">
+        <Icon path={arrowRight} size="0.9" color="var(--button-brand-color)" />
       </span>
     </div>
   </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
-  import { mdiBellOffOutline, mdiBellOutline, mdiShareVariant as shareIcon } from '@mdi/js';
+  import { mdiBellOffOutline, mdiBellOutline } from '@mdi/js';
+  import shareIcon from '$lib/features/sku/assets/share';
   import Icon from '$ui/icon/Icon.svelte';
   import ButtonGroup from '$lib/components/ButtonGroup.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
