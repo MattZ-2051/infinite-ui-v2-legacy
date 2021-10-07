@@ -21,7 +21,7 @@
 
 <ThemeContext id="issuer">
   <EmiliaFirstNft sku={skus[1]} />
-  <div class="container">
+  <div class="container" id="collection">
     <slot />
   </div>
   <div class="h-52" />

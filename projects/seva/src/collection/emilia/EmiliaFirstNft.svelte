@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { mdiPlus } from '@mdi/js';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import { media } from '$lib/media-query.store';
-  import Icon from '$ui/icon/Icon.svelte';
   import SkuItem from '$project/sku-item/SkuItem.svelte';
   import purpleLineImg from './assets/purple-curvy-line.png';
   import emiliaPhoto from './assets/emilia-photo.png';
@@ -22,6 +20,11 @@
   //   })
   // );
   export let sku;
+
+  const handleScrollToCollection = () => {
+    const collection = document.querySelector('#collection');
+    collection.scrollIntoView({ behavior: 'smooth' });
+  };
 </script>
 
 <ThemeContext id="issuer">
@@ -45,8 +48,9 @@
           <button
             type="button"
             class="py-4 px-10 bg-white text-black text-base sm:text-lg font-semibold rounded-full flex"
+            on:click={() => handleScrollToCollection()}
           >
-            View Collection (5) <Icon path={mdiPlus} color="black" size="1.2" /></button
+            View Collection</button
           >
         </div>
       </div>
