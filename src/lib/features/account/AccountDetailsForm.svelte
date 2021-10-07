@@ -8,7 +8,7 @@
   import Button from '$lib/components/Button.svelte';
   import notifications from '$ui/toast/toast.store';
   import { patchUser } from '$lib/user';
-  import { phoneNumberConsentText } from './account.service';
+  import { accountDetailsValidation, phoneNumberConsentText } from './account.service';
 
   let dispatch = createEventDispatcher();
 
@@ -16,20 +16,7 @@
   export let disabled = false;
   let saving;
 
-  const schema = yup.object({
-    firstName: yup
-      .string()
-      .required('First name is required.')
-      .matches(/^[ ',.a-z-]+$/i, 'Please enter valid first name.'),
-    lastName: yup
-      .string()
-      .required('Last name is required.')
-      .matches(/^[ ',.a-z-]+$/i, 'Please enter valid last name.'),
-    phoneNumber: yup
-      .string()
-      .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true })
-      .optional(),
-  });
+  const schema = yup.object(accountDetailsValidation);
 
   const initialValues = {
     firstName: user.firstName || '',

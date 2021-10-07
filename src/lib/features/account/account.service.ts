@@ -1,3 +1,4 @@
+import * as yup from 'yup';
 import { toast } from '$ui/toast';
 import { CLIENT_COMPANY_NAME } from '$project/variables';
 
@@ -24,3 +25,20 @@ export function handleUserApiError(error) {
 
 export const phoneNumberConsentText = `By providing your phone number, you are consenting to receiving updates from ${CLIENT_COMPANY_NAME} on NFT releases,
 exclusive experiences, updates and other communications from ${CLIENT_COMPANY_NAME} and its affiliates and partners.`;
+
+export const accountDetailsValidation = {
+  firstName: yup
+    .string()
+    .required('First name is required.')
+    .max(20, 'First name is too long.')
+    .matches(/^[ ',.a-z-]+$/i, { message: 'Please enter valid first name.', excludeEmptyString: true }),
+  lastName: yup
+    .string()
+    .required('Last name is required.')
+    .max(20, 'Last name is too long.')
+    .matches(/^[ ',.a-z-]+$/i, { message: 'Please enter valid last name.', excludeEmptyString: true }),
+  phoneNumber: yup
+    .string()
+    .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true })
+    .optional(),
+};

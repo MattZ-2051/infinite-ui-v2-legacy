@@ -9,20 +9,13 @@
   import { patchUser } from '$lib/user';
   import FormInput from '$lib/components/form/FormInput.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { handleUserApiError, phoneNumberConsentText } from './account.service';
+  import { accountDetailsValidation, handleUserApiError, phoneNumberConsentText } from './account.service';
 
   export let isOpen: boolean;
   export let user: User;
 
   const schema = yup.object({
-    firstName: yup
-      .string()
-      .required('First name is required.')
-      .matches(/^[ ',.a-z-]+$/i, 'Please enter valid first name.'),
-    lastName: yup
-      .string()
-      .required('Last name is required.')
-      .matches(/^[ ',.a-z-]+$/i, 'Please enter valid last name.'),
+    ...accountDetailsValidation,
     username: yup
       .string()
       .required('Username is required.')
@@ -30,10 +23,6 @@
       .max(18, 'Username is too long.')
       .matches(/^[\w.-]*$/, 'Only letters, digits, dashes (-), and underscores (_) are allowed.'),
     tagline: yup.string().max(150, 'About me must be at most 150 characters.'),
-    phoneNumber: yup
-      .string()
-      .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true })
-      .optional(),
   });
 
   const { form, errors, isSubmitting, data } = createForm<{
