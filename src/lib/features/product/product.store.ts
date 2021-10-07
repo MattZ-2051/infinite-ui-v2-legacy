@@ -12,23 +12,32 @@ import { loadProductBids } from './auction/auction.api';
 import { skuBought, sku } from '../sku/sku.store';
 
 export const setProduct = createEvent<Awaited<ReturnType<typeof fetchProductFx>>>();
+export const setProductBids = createEvent<{ data: Bid[]; total: number; max: number }>();
 
 export const fetchProductFx = createEffect(
   async ({ id, tab, page, fetch }: { id: string; tab: 'auction' | 'history'; page: number; fetch?: Fetch }) => {
     const current = product.getState() as Product;
     const product_ = !browser || id !== current?._id ? await loadProduct({ id, fetch }) : current;
 
+    let response: {
+      product: Product;
+      totalProductTransactions?: number;
+      productTransactions?: Transaction[];
+      productBids?: Bid[];
+      totalProductBids?: number;
+      maxProductBid?: number;
+    } = { product: product_ };
+
     if (tab === 'history' || !tab) {
       const { data, total } = await fetchProductTransactionsFx({ id, page, fetch });
-      return { product: product_, productTransactions: data, totalProductTransactions: total };
+      response = { ...response, productTransactions: data, totalProductTransactions: total };
     }
-
     if ((tab === 'auction' || !tab) && hasActiveAuction(product_)) {
       const { data, total, max } = await fetchProductBidsFx({ id: product_.activeProductListings[0]._id, page, fetch });
-      return { product: product_, productBids: data, totalProductBids: total, maxProductBid: max };
+      return { ...response, productBids: data, totalProductBids: total, maxProductBid: max };
     }
 
-    return { product: product_ };
+    return response;
   }
 );
 
@@ -82,17 +91,19 @@ export const totalTransactions = createStore<number>(0).on(setProduct, (state, p
   'totalProductTransactions' in payload ? payload.totalProductTransactions : state
 );
 
-export const bids = createStore<Bid[]>([]).on(setProduct, (state, payload) =>
-  'productBids' in payload ? payload.productBids : state
-);
+export const bids = createStore<Bid[]>([])
+  .on(setProduct, (state, payload) => ('productBids' in payload ? payload.productBids : state))
+  .on(setProductBids, (state, payload) => payload.data);
 
-export const totalBids = createStore<number>(0).on(setProduct, (state, payload) =>
-  'totalProductBids' in payload ? payload.totalProductBids : state
-);
+export const totalBids = createStore<number>(0)
+  .on(setProduct, (state, payload) => ('totalProductBids' in payload ? payload.totalProductBids : state))
+  .on(setProductBids, (state, payload) => payload.total);
 
-export const maxPlacedBid = createStore<number>(0).on(setProduct, (state, payload) =>
-  payload.maxProductBid && payload.maxProductBid > state ? payload.maxProductBid : state
-);
+export const maxPlacedBid = createStore<number>(0)
+  .on(setProduct, (state, payload) =>
+    payload.maxProductBid && payload.maxProductBid > state ? payload.maxProductBid : state
+  )
+  .on(setProductBids, (state, payload) => payload.max);
 
 export const saleStarted = createEvent<{ product: Product }>();
 export const saleCancelled = createEvent<{ listingId: string }>();
