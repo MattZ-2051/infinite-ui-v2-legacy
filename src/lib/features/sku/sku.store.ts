@@ -1,6 +1,6 @@
 import type { Sku, CollectorProduct } from '$lib/sku-item/types';
 import type { Awaited } from 'ts-essentials';
-import { createEffect, createStore, createEvent, forward } from 'effector';
+import { createEffect, createStore, createEvent } from 'effector';
 import { loadSku } from './sku.api';
 
 export const setSku = createEvent<Awaited<ReturnType<typeof loadSkuFx>>>();
@@ -20,10 +20,11 @@ export const related = createStore<Sku[]>([]).on(setSku, (state, payload) => pay
 
 export const skuBought = createEvent();
 
-// TODO: recheck
-forward({
-  from: skuBought.map(() => ({
-    id: sku.getState()._id,
-  })),
-  to: loadSkuFx,
+skuBought.watch(async () => {
+  const id = sku.getState()?._id;
+
+  if (id) {
+    const data = await loadSkuFx({ id });
+    setSku(data);
+  }
 });
