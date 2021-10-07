@@ -248,7 +248,7 @@
         class="c-filter-accordion border border-gray-200 -mb-px {active.includes('talent') ? 'expanded' : ''}"
       >
         <div slot="title" class="text-lg leading-8 text-left">
-          Talent
+          Released by
           {#if availableCreatorsSelected.length}
             <span class="text-default text-xs align-top">({availableCreatorsSelected.length})</span>
           {/if}
@@ -305,7 +305,7 @@
         class="c-filter-accordion border border-gray-200 -mb-px {active.includes('typeEdition') ? 'expanded' : ''}"
       >
         <div slot="title" class="text-lg leading-8 text-left">
-          Edition
+          Edition Type
           {#if availableEditionSelected.length}
             <span class="text-default text-xs align-top">({availableEditionSelected.length})</span>
           {/if}
