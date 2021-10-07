@@ -1,4 +1,5 @@
 <script>
+  import Button from '$lib/components/Button.svelte';
   import AboutImage from './assets/about-emilia.svg';
 </script>
 
@@ -28,6 +29,11 @@
             Each NFT offers unique ownership benefits, with two releases redeemable for physical items, including the
             one of a kind Atelier Versace dress Emilia debuted on the red carpet at the 2016 68th Emmy Awards.
           </p>
+        </div>
+        <div class="mt-4">
+          <Button variant="brand" on:click={() => window.open('https://www.sameyou.org')} class="mb-8"
+            >Learn more</Button
+          >
         </div>
       </div>
     </div>

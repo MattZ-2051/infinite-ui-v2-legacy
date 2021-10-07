@@ -39,7 +39,9 @@
           renowned author and integrative medicine pioneer Deepak Chopra.
         </div>
         <div class="pb-6 lg:pb-20 md:pb-10">
-          Subscribe to our newsletter to learn about upcoming drops and special offers.
+          Subscribe to our newsletter to learn about upcoming drops and special offers. By Subscribing to our list you
+          agree to receive marketing emails from us. You can unsubscribe at any time by clicking the link in the footer
+          of our emails.
         </div>
         <form use:form autocomplete="off" class="flex flex-col lg:flex-row justify-between xl:pb-28 pb-10 md:pb-4">
           <input

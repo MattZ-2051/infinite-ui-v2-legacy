@@ -24,7 +24,9 @@
   We believe in the effectiveness of compassion, {#if $media.sm}<br /> {/if}kindness and listening
 </div> -->
       <!-- <button class="bg-black rounded-3xl text-white w-44 mt-10 h-12">Learn more</button> -->
-      <Button variant="brand" on:click={() => goto('collection/EmiliaClarke-SameYou')} class="mb-8">Learn more</Button>
+      <Button variant="brand" on:click={() => goto('collection/EmiliaClarke-SameYou')} class="mb-8"
+        >View the Collection</Button
+      >
     </div>
     <div class="flex items-center justify-center">
       <div class="center-card relative z-1 h-auto rounded-md">

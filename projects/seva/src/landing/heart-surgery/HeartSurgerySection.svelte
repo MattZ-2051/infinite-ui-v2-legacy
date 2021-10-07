@@ -13,20 +13,20 @@
       </div>
       <div>
         <div class="font-medium text-xl mb-4 text-center lg:text-left">
-          In early 2011 I was struck by the first of two brain haemorrhages. I am hardly unique or alone in that. 1 in 3
-          people will suffer a brain injury in their lifetime. That number is huge. It’s almost double the number of
+          "In early 2011 I was struck by the first of two brain haemorrhages. I am hardly unique or alone in that. 1 in
+          3 people will suffer a brain injury in their lifetime. That number is huge. It’s almost double the number of
           people who will develop dementia. It’s shocking to me - and you too, probably - that such a common health
           problem is so little known and barely spoken about. I made a full recovery but many more people don't, and I
-          want to break the silence on this common, silent and devastating condition.
+          want to break the silence on this common, silent and devastating condition."
         </div>
         <div class="mb-8 font-medium text-center lg:text-left">
-          When you suffer a brain injury your life is saved by emergency medical services, but in most countries,
+          "When you suffer a brain injury your life is saved by emergency medical services, but in most countries,
           ongoing recovery care can be hard to find, extremely limited or simply unavailable. We need to change that.
-          It’s why I founded SameYou and campaign for your support.
+          It’s why I founded SameYou and campaign for your support." - Emilia Clarke
         </div>
       </div>
       <Button
-        on:click={() => goto('/about')}
+        on:click={() => goto('/collection/EmiliaClarke-SameYou')}
         --button-padding="12px 32px"
         --button-border-radius="999px"
         --button-brand-bg-color="rgba(0,0,0)"
@@ -40,7 +40,7 @@
         class="whitespace-nowrap md:w-56 w-44 py-12 md:py-0"
         type="submit"
       >
-        Why should I care?</Button
+        View Emilia's Collection</Button
       >
     </div>
     <div class="w-full lg:w-2/3 ">

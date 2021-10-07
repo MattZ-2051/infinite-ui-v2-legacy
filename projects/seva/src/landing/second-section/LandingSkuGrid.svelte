@@ -37,9 +37,11 @@
   <div class="flex flex-col justify-center w-full mt-64 mb-24">
     <div class="flex flex-col justify-center items-center">
       <div class="flex flex-col items-center max-w-4xl">
-        <p class="text-4xl md:text-6xl font-medium text-center  text-black">Upcoming Seva.Love drops!</p>
+        <p class="text-4xl md:text-6xl font-medium text-center  text-black">Welcome to the community!</p>
         <p class="text-base text-black font-extralight text-center  mt-6">
-          Subscribe to ours social impact drops and be the first to know about upcoming Seva.Love drops.
+          Subscribe to our newsletter to learn about upcoming drops and special offers. By Subscribing to our list you
+          agree to receive marketing emails from us. You can unsubscribe at any time by clicking the link in the footer
+          of our emails.
         </p>
       </div>
     </div>
@@ -59,7 +61,7 @@
             type="submit"
             disabled={$isSubmitting}
           >
-            {$isSubmitting ? 'Subscribing...' : 'Subscribe'}
+            {$isSubmitting ? 'Subscribing...' : 'Enter your email'}
           </Button>
         </div>
       </form>
