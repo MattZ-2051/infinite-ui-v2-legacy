@@ -9,6 +9,7 @@ export const changeTab = createEvent<'Releases' | 'NFTs'>();
 export const changePage = createEvent<number>();
 export const changeSort = createEvent<string>();
 export const setCollection = createEvent<Awaited<ReturnType<typeof loadCollectionFx>>>();
+export const clearCollection = createEvent();
 
 export const perPageIssuer = 4;
 export const perPageUser = 8;
@@ -49,7 +50,9 @@ export const loadCollectionFx = createEffect(
 );
 
 // eslint-disable-next-line unicorn/no-null
-export const profile = createStore<Profile>(null).on(setCollection, (state, payload) => payload.profile);
+export const profile = createStore<Profile>(null)
+  .on(setCollection, (state, payload) => payload.profile)
+  .reset(clearCollection);
 
 const loadSkusFx = createEffect(
   async ({

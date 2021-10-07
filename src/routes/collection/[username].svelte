@@ -1,7 +1,8 @@
 <script context="module" lang="ts">
   import type { LoadInput } from '@sveltejs/kit';
   import type { Awaited } from 'ts-essentials';
-  import { loadCollectionFx, setCollection } from '$lib/features/collection/collection.store';
+  import { onDestroy } from 'svelte';
+  import { clearCollection, loadCollectionFx, setCollection } from '$lib/features/collection/collection.store';
 
   export async function load({ page, fetch }: LoadInput) {
     const { username } = page.params;
@@ -29,6 +30,10 @@
   export let data: Awaited<ReturnType<typeof loadCollectionFx>>;
 
   $: setCollection(data);
+
+  onDestroy(() => {
+    clearCollection();
+  });
 </script>
 
 <Seo title={data.profile.username} image={chooseProfileSocialImage(data.profile)} />
