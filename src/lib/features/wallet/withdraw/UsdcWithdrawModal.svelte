@@ -49,40 +49,44 @@
 </script>
 
 {#if isOpen}
-  <Modal {title} on:close={closeModal}>
+  <Modal {title} on:close={closeModal} class="max-w-lg">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
-      <div>Withdrawable Balance {formatCurrency($withdrawableBalance)}</div>
+      <div class="text-black">
+        Withdrawable Balance <span class="font-semibold">{formatCurrency($withdrawableBalance)}</span>
+      </div>
       <div class="text-black-opacity-50 text-base">
-        (Excludes pending transactions and credit card payments less than 30 days old.)
+        (Excludes pending transactions and credit card payments less than 30 days old)
       </div>
       <div class="mt-8">
         <div class="text-black-opacity-50 text-base mb-4">Enter the amount you would like to withdraw</div>
-        <input
-          type="number"
-          min="0"
-          max={$withdrawableBalance}
-          placeholder="Enter amount"
-          class="relative w-full bg-gray-50 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
-          data-initial-focus
-          bind:value={amount}
-          id="amount"
-          on:change={onPriceChange}
-        />
+        <div class="input-container flex items-center relative py-4">
+          <input
+            type="number"
+            min="0"
+            max={$withdrawableBalance}
+            placeholder="Enter amount"
+            class="relative w-full bg-gray-50 py-3 pr-2 outline-none rounded-lg text-center border-0 text-xl"
+            data-initial-focus
+            bind:value={amount}
+            id="amount"
+            on:change={onPriceChange}
+          />
+        </div>
       </div>
       <div class="mt-8">
-        <div class="text-black-opacity-50 text-base mb-4">Enter the amount you would like to withdraw</div>
+        <div class="text-black-opacity-50 text-base mb-4">Enter the USDC address you will transfer the funds to</div>
         <input
           type="text"
           id="address"
           placeholder="Enter USDC Address"
-          class="relative w-full bg-gray-50 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
+          class="relative w-full bg-gray-50 py-3 pr-2 outline-none rounded-lg text-center border-0 text-xl"
           data-initial-focus
           bind:value={usdcAddress}
         />
       </div>
       <div class="mt-8">
         <div class="text-black-opacity-50 text-base mb-4">
-          This is a USDC (Ethereum mainnet) address. Please do not send any other currancies to this address, it accepts
+          This is a USDC (Ethereum mainnet) address. Please do not send any other currencies to this address, it accepts
           USDC only.
         </div>
       </div>
@@ -93,3 +97,14 @@
     </div>
   </Modal>
 {/if}
+
+<style>
+  .input-container::before {
+    content: '$';
+    position: absolute;
+    left: 10px;
+    z-index: 1;
+    @apply text-xl;
+    @apply text-gray-400;
+  }
+</style>
