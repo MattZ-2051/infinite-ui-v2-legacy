@@ -50,7 +50,7 @@
         <input
           class="text-center md:text-left text-black placeholder-black placeholder-opacity-70 text-sm md:text-base md:pl-6 flex-1 font-extralight rounded-full focus:outline-none focus:ring-2 md:py-0 py-6 stroke-1"
           name="email"
-          placeholder="Enter your email and don’t miss a drop!"
+          placeholder="Enter your email"
         />
         <div
           class="items-center flex flex-col mx-2 mt-6 md:mt-0 md:absolute md:transform md:-translate-y-1/2 md:top-1/2 md:right-0"
@@ -61,7 +61,7 @@
             type="submit"
             disabled={$isSubmitting}
           >
-            {$isSubmitting ? 'Subscribing...' : 'Enter your email'}
+            {$isSubmitting ? 'Subscribing...' : 'Subscribe'}
           </Button>
         </div>
       </form>

@@ -22,7 +22,7 @@
         <div class="mb-8 font-medium text-center lg:text-left">
           "When you suffer a brain injury your life is saved by emergency medical services, but in most countries,
           ongoing recovery care can be hard to find, extremely limited or simply unavailable. We need to change that.
-          It’s why I founded SameYou and campaign for your support." - Emilia Clarke
+          It’s why I founded SameYou and campaign for your support." <br />- Emilia Clarke
         </div>
       </div>
       <Button
