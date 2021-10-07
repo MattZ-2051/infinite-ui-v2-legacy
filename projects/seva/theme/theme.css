@@ -60,6 +60,12 @@
   --input-padding: 0 0.125rem;
   --input-height: 1.875rem;
 
+  /* Select */
+  --select-color: var(--color);
+  --select-bg-color: var(--bg-color);
+  --select-option-color: #000000;
+  --select-option-bg-color: #ffffff;
+
   /* Checkbox */
   --checkbox-border-color: theme('colors.gray.200');
   --checkbox-checkmark-color: var(--color);

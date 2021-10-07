@@ -4,7 +4,7 @@
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import * as yup from 'yup';
-
+  import dayjs from 'dayjs';
   import { user } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
   import FormInput from '$lib/components/form/FormInput.svelte';
@@ -15,6 +15,12 @@
 
   $: isDistrictRequired = ['US', 'CA'].includes($data.billingDetails?.country);
 
+  const months = Array.from({ length: 12 }, (_, index) => ({
+    value: index + 1,
+    label: dayjs().month(index).format('MMMM'),
+  }));
+  const years = Array.from({ length: 26 }, (_, index) => dayjs().add(index, 'year').year());
+
   const phoneOrEmailValidateFunction = function () {
     return this.parent.phone || this.parent.email;
   };
@@ -24,17 +30,12 @@
       .string()
       .required('Credit card number is required.')
       .matches(/^\d{16}$/, 'Please enter a valid card number'),
-    expMonth: yup
-      .number()
-      .typeError('Enter a valid month format MM')
-      .min(1, 'Enter a valid month format MM')
-      .max(12, 'Enter a valid month format MM')
-      .required(),
-    expYear: yup.number().typeError('Enter a valid year format YYYY').min(new Date().getFullYear()).required(),
+    expMonth: yup.number().typeError('Expiration month is required'),
+    expYear: yup.number().typeError('Expiration year is required'),
     cvv: yup
       .string()
       .matches(/^\d{3,4}$/, 'Enter a valid ccv number')
-      .required('Ccv is required'),
+      .required('CCV is required'),
     billingDetails: yup.object({
       name: yup.string().required('Name is required'),
       line1: yup.string().required('Address is required'),
@@ -100,8 +101,16 @@
   <div class="text-gray-600 font-extrabold mt-4">Enter the card details below</div>
   <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
     <FormInput name="cardNumber" label="Credit card number *" />
-    <FormInput name="expMonth" label="Exp month *" />
-    <FormInput name="expYear" label="Exp year *" />
+    <FormInput select name="expMonth" label="Exp month *">
+      {#each months as month}
+        <option value={month.value}>{month.label}</option>
+      {/each}
+    </FormInput>
+    <FormInput select name="expYear" label="Exp year *">
+      {#each years as year}
+        <option value={year}>{year}</option>
+      {/each}
+    </FormInput>
     <FormInput name="cvv" label="CCV *" />
     <FormInput name="billingDetails.name" label="Cardholder name *" />
     <FormInput name="metadata.email" label="Email" />

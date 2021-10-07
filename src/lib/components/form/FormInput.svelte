@@ -12,6 +12,7 @@
   export let placeholder = '';
   export let disabled = false;
   export let textarea = false;
+  export let select = false;
   let _class = '';
   export { _class as class };
 
@@ -21,6 +22,10 @@
 <Input let:klass let:id {label} {before} {after} class={_class} error={getPathValue(name, $errors)}>
   {#if textarea}
     <textarea {id} class={klass} {name} {value} {placeholder} {disabled} {...$$restProps} />
+  {:else if select}
+    <select {id} class={klass} {name} {value} {placeholder} {disabled} {...$$restProps}>
+      <slot />
+    </select>
   {:else}
     <input {id} class={klass} {name} {value} {placeholder} {disabled} {...$$restProps} />
   {/if}
