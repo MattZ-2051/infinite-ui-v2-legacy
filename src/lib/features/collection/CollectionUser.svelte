@@ -25,9 +25,8 @@
     <ButtonGroup
       class="grid grid-flow-col auto-cols-auto divide-x divide-gray-200 border border-gray-200 rounded-md overflow-hidden mt-6"
     >
-      <a href={routes.wallet} class="flex items-center justify-center text-center py-3 px-5 w-full h-full">My Wallet</a>
-      <a href={routes.account} class="flex items-center justify-center text-center py-3 px-5 w-full h-full"
-        >Account Settings</a
+      <a href={routes.wallet} class="flex items-center justify-center text-center py-3 px-5 w-full">My Wallet</a>
+      <a href={routes.account} class="flex items-center justify-center text-center py-3 px-5 w-full">Account Settings</a
       >
     </ButtonGroup>
   {/if}
