@@ -31,6 +31,7 @@ export const skuLandingHeadData = (): Sku => {
     maxSupply: 1,
     minPrice: 2000,
     totalSupplyLeft: 10,
+    initialBuyersFeePercentage: 5,
     activeSkuListings: [],
     productListings: [],
     nftPublicAssets: [
@@ -164,6 +165,7 @@ export const skuGridLandingData = (): Sku[] => {
       totalSkuListingSupplyLeft: 10,
       countSkuListings: 10,
       countAllSkuListings: 10,
+      initialBuyersFeePercentage: 5,
       series: {
         _id: 'string',
         name: 'string',
@@ -238,6 +240,7 @@ export const skuGridLandingData = (): Sku[] => {
       imageUrls: [],
       graphicUrl: 'string', // Default image
       issuerName: 'string',
+      initialBuyersFeePercentage: 5,
       maxBid: 20,
       minCurrentBid: 10,
       circulatingSupply: 10,
@@ -295,6 +298,8 @@ export const skuGridLandingData = (): Sku[] => {
       minStartDate: new Date('2020-12-12'),
       maxSupply: 1,
       totalSupplyLeft: 10,
+      initialBuyersFeePercentage: 5,
+
       activeSkuListings: [],
       productListings: [],
       supplyType: 'fixed',
@@ -378,6 +383,8 @@ export const skuGridLandingData = (): Sku[] => {
       activeSkuListings: [],
       productListings: [],
       totalUpcomingSupply: 268,
+      initialBuyersFeePercentage: 5,
+
       supplyType: 'fixed',
       nftPublicAssets: [
         {

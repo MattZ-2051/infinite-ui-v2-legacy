@@ -47,7 +47,7 @@
         <div class=" mt-8 mb-12 flex items-center justify-center lg:justify-start w-full">
           <button
             type="button"
-            class="py-4 px-10 bg-white text-black text-base sm:text-lg font-semibold rounded-full flex"
+            class="collection-button hover:cursor-pointer hover:text-white py-4 px-10 bg-white text-black text-base sm:text-lg font-semibold rounded-full flex"
             on:click={() => handleScrollToCollection()}
           >
             View Collection</button
@@ -113,5 +113,9 @@
     .purple-line {
       bottom: -5%;
     }
+  }
+
+  .collection-button:hover {
+    background: rgb(87, 57, 193);
   }
 </style>
