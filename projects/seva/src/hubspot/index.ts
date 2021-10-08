@@ -15,7 +15,9 @@ export async function hsSubscribeUser(user: User, email: string) {
 
 async function hsSubscribe(fields: { name: string; value }[]) {
   const response = await post<{ inlineMessage: string }>(
-    'https://api.hsforms.com/submissions/v3/integration/submit/20639394/6609e43d-ab4b-4334-8249-36bcdbb5353d',
+    `https://api.hsforms.com/submissions/v3/integration/submit/${
+      import.meta.env.VITE_HUBSPOT_PORTAL_ID
+    }/6609e43d-ab4b-4334-8249-36bcdbb5353d`,
     {
       fields,
     },
