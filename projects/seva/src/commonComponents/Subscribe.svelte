@@ -5,6 +5,7 @@
   import { toast } from '$ui/toast';
   import { CLIENT_COMPANY_NAME } from '$project/variables';
   import routes from '$project/routes';
+  import Button from '$lib/components/Button.svelte';
   import lastPic from './assets/lastPic.png';
   import lastPicMobile from './assets/lastPicMobile.png';
   import { hsSubscribeEmail } from '../hubspot';
@@ -48,24 +49,25 @@
           agree to receive marketing emails from us. You can unsubscribe at any time by clicking the link in the footer
           of our emails.
         </div>
-        <form use:form autocomplete="off" class="flex flex-col lg:flex-row justify-between xl:pb-28 pb-10 md:pb-4">
-          <input
-            type="text"
-            name="email"
-            class="focus:outline-none border-none border-b border-black-opacity-10 w-full mr-10 placeholder-black-opacity-10 text-black mb-6  lg:mb-0"
-            placeholder="Enter your email"
-          />
-          <button
-            type="submit"
-            class="bg-black subscribe-button cursor-pointer px-8 py-3 md:py-2 rounded-3xl text-white text-center"
-            disabled={$isSubmitting}
-          >
+        <form use:form autocomplete="off" class="flex flex-col lg:flex-row justify-between">
+          <div class="w-full rounded-full border flex justify-between p-1  mb-6 mr-10  lg:mb-0">
+            <input
+              type="text"
+              name="email"
+              class="focus:outline-none rounded-full border-none w-full p-2 pl-4 placeholder-black-opacity-10 text-black"
+              placeholder="Enter your email"
+            />
+            <Button type="submit" class="lg:block hidden" variant="brand" disabled={$isSubmitting}>
+              {#if $isSubmitting}Subscribing...{:else}Subscribe{/if}
+            </Button>
+          </div>
+          <Button type="submit" variant="brand" class=" lg:hidden " disabled={$isSubmitting}>
             {#if $isSubmitting}Subscribing...{:else}Subscribe{/if}
-          </button>
+          </Button>
         </form>
-        {#if $errors.email}
-          <div class="text-center pt-2 text-sm text-red-600">{$errors.email}</div>
-        {/if}
+        <div class="text-red-500 text-center pt-2 text-sm xl:pb-28 sm:pb-8 h-4 mb-8 sm:mb-0">
+          {#if $errors.email}{$errors.email}{/if}
+        </div>
       </div>
       <div class="lg:w-4/12 sm:w-5/12 ">
         <img
@@ -78,13 +80,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  input {
-    border: none;
-    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
-  }
-  .subscribe-button:hover {
-    background: rgb(87, 57, 193);
-  }
-</style>
