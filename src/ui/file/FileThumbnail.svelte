@@ -19,7 +19,7 @@
 </script>
 
 {#if fileType === 'video'}
-  <video autoplay controls={false} loop muted src={item.url} class="object-cover" {style} />
+  <video autoplay controls={false} loop muted src={item.previewUrl || item.url} class="object-cover" {style} />
 {:else if fileType === 'image'}
   <img src={item.previewUrl || item.url} {alt} loading="lazy" class="object-cover" {style} />
 {:else if fileType === 'audio'}

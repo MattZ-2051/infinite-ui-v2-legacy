@@ -47,7 +47,7 @@
       element={videoElement}
       once
       rootMargin={'150px'}
-      on:intersect={() => (videoElement.src = item.url)}
+      on:intersect={() => (videoElement.src = item.previewUrl || item.url)}
     >
       <video
         bind:this={videoElement}
