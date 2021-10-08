@@ -1,13 +1,19 @@
-const fs = require('fs');
+const { readFileSync } = require('fs');
 const postcss = require('postcss');
 const sveltePreprocess = require('svelte-preprocess');
 const path = require('path');
 const webpack = require('webpack');
-const contents = fs.readFileSync(path.join(__dirname, '../', 'tsconfig.json'), 'utf8');
-const json = JSON.parse(contents);
+const {
+  compilerOptions: { paths },
+} = JSON.parse(readFileSync('tsconfig.json', 'utf8'));
+
+const storyPaths = Object.values(paths)
+  .map(([path]) => path)
+  .filter((path) => path.endsWith('*'))
+  .map((path) => path.substring(0, path.length - 2));
 
 module.exports = {
-  stories: [`../+(src|projects/${json._project})/**/*.stories.@(js|jsx|ts|tsx|svelte)`],
+  stories: [`../+(${storyPaths.join('|')})/**/*.stories.svelte`],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
