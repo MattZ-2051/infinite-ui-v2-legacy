@@ -120,7 +120,10 @@
           <div class="flex items-center justify-start">
             <label class="inline-flex items-center">
               <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
-              I accept the <a href={routes.terms} class="ml-1 underline font-bold">Terms & Conditions</a>
+              I agree to the
+              <a href={routes.terms} class="ml-1 underline text-black" target="_blank" rel="noopener noreferrer"
+                >Terms & Conditions</a
+              >
             </label>
           </div>
           {#if sku?.customNftTerms}
@@ -131,11 +134,14 @@
                   bind:checked={acceptedTermsNft}
                   class="border-gray-400 border-2 text-black mr-2"
                 />
-                I accept the <a href={sku.customNftTerms} class="ml-1 underline font-bold">Nft Terms & Conditions</a>
+                I agree to the
+                <a href={sku.customNftTerms} class="ml-1 underline" target="_blank" rel="noopener noreferrer"
+                  >Nft Terms & Conditions</a
+                >
               </label>
             </div>
           {/if}
-          <div class="text-sm text-gray-500">
+          <div class="text-sm text-gray-600">
             Confirming your order will complete the purchase, and the total price will be deducted from your wallet.
           </div>
           <Button variant="brand" class="mt-6" disabled={purchasing} on:click={submitOrder}>Buy Now</Button>
