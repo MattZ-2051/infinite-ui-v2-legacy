@@ -18,5 +18,4 @@ export const variables = {
     explorerBaseUrl: import.meta.env.VITE_BTC_EXPLORER_BASE_URL,
   },
   dailyDepositLimit: import.meta.env.VITE_DAILY_DEPOSIT_LIMIT_USD,
-  initialBuyersFeePercentage: import.meta.env.VITE_INITIAL_BUYERS_FEE_PERCENTAGE / 100,
 };

@@ -69,6 +69,7 @@ export type Sku = {
   minSkuPrice?: number;
   customNftTerms?: string;
   minHighestBid?: number;
+  initialBuyersFeePercentage: number;
 };
 
 export type Profile = {

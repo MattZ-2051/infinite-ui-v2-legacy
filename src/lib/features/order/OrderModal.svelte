@@ -2,14 +2,13 @@
   import type { Listing, Sku, Product } from '$lib/sku-item/types';
   import type { SkuPurchaseTransaction } from './types';
   import type { User } from '$lib/user/types';
-  import { variables } from '$lib/variables';
   import { closeModal, Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import { productBought, pendingBuyCreated } from '$lib/features/product/product.store';
-  import { getBuyingFee } from '$lib/features/product/product.fee';
+  import { getBuyingFee, getSkuBuyingFee } from '$lib/features/product/product.fee';
   import { toast } from '$ui/toast';
   import routes from '$project/routes';
   import { skuBought } from '$lib/features/sku/sku.store';
@@ -64,7 +63,7 @@
     }
   }
 
-  $: marketplaceFee = product ? getBuyingFee(product) : variables.initialBuyersFeePercentage;
+  $: marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
   $: total = listing.price * (1 + marketplaceFee);
   $: insufficientFunds = total > user.availableBalance;
 

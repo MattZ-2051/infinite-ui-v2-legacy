@@ -59,6 +59,7 @@ const getDummyTransaction = (): Transaction => {
     maxSupply: 3,
     imageUrls: [],
     graphicUrl: 'graphicUrl', // Default image        ,
+    initialBuyersFeePercentage: 5,
     issuerName: 'IssuerName',
     issuer: profile,
     minStartDate: new Date(),

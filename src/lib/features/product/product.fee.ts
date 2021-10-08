@@ -1,4 +1,4 @@
-import type { Product } from '$lib/sku-item/types';
+import type { Product, Sku } from '$lib/sku-item/types';
 
 export function getSellingFee(product: Product): number {
   if (!product) {
@@ -42,4 +42,8 @@ export function getBuyingFee(product: Product): number {
   }
 
   return product.initialBuyersFeePercentage / 100;
+}
+
+export function getSkuBuyingFee(sku: Sku): number {
+  return 'initialBuyersFeePercentage' in sku ? sku.initialBuyersFeePercentage / 100 : 0;
 }
