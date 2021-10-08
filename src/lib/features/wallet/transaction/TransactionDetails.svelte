@@ -32,7 +32,7 @@
     </div>
     <div class="flex flex-col md:flex-row justify-center gap-2 items-center">
       {#if copied}
-        <div class="text-white" transition:fade>Copied</div>
+        <div transition:fade>Copied</div>
       {/if}
       <button type="button" class="p-2.5 rounded-full" on:click={() => onCopy(transaction)}>
         <Icon path={mdiContentCopy} flip="h" />

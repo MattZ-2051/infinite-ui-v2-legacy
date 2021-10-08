@@ -20,7 +20,7 @@
   on:click={onCopyLink}
   class="flex flex-grow justify-between bg-gray-200 p-4 rounded-lg font-bold text-lg group"
 >
-  <span>Wallet Address</span>
+  <span>Wallet address</span>
   <div class="flex gap-2">
     <span>{$user.hederaAccount}</span>
     {#if copiedLink}

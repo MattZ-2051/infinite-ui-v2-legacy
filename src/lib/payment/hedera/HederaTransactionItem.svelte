@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HbarTransaction } from '$lib/features/wallet/types';
-  import { mdiChevronDown } from '@mdi/js';
+  import arrowRight from '$lib/features/wallet/assets/arrow-right';
   import { formatDate } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
   import { getTransactionDescriptionStatus, getTransactionStatus } from './hedera.service';
@@ -22,7 +22,7 @@
   {getTransactionStatus(transaction.depositStatus)}
 </span>
 <div class="cursor-pointer justify-self-end" on:click={() => (expanded = !expanded)}>
-  <Icon flip={expanded ? 'v' : false} path={mdiChevronDown} />
+  <Icon class="rotate-90 transform" flip={expanded ? 'v' : false} path={arrowRight} />
 </div>
 {#if expanded}
   <div class="col-span-4 ml-6" style="margin-top: -20px;">
