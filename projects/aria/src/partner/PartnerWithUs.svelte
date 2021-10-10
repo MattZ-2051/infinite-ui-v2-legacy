@@ -5,7 +5,7 @@
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import * as yup from 'yup';
-  import FormInput from '$lib/components/form/FormInput.svelte';
+  import { FormElement } from '$lib/components/form';
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
   import tooltip from '$ui/tooltip';
@@ -73,11 +73,11 @@
           <span class="border-b-2 pb-4 pt-7 text-2xl">Talent Details</span>
           <div class="flex justify-between flex-col md:flex-row gap-16">
             <div class="flex flex-col gap-6 text-lg" style="flex-grow:6;">
-              <FormInput name="talent" label="Talent Name *" placeholder="John Brown" />
-              <FormInput name="name" label="Your Name *" placeholder="John Doe" />
-              <FormInput name="email" label="Your Email Address *" placeholder="john.brown@example.com" />
-              <FormInput name="relationship" label="Relationship to Talent" placeholder="Self, Manager, etc." />
-              <FormInput name="industry" label="Industry" placeholder="Art, Music, Sport, etc." />
+              <FormElement name="talent" label="Talent Name *" placeholder="John Brown" />
+              <FormElement name="name" label="Your Name *" placeholder="John Doe" />
+              <FormElement name="email" label="Your Email Address *" placeholder="john.brown@example.com" />
+              <FormElement name="relationship" label="Relationship to Talent" placeholder="Self, Manager, etc." />
+              <FormElement name="industry" label="Industry" placeholder="Art, Music, Sport, etc." />
             </div>
             <div class="flex flex-col flex-grow gap-1.5 text-lg">
               <span>Social Links</span>
@@ -90,7 +90,7 @@
                   >
                     <Icon {path} size="0.6" />
                   </label>
-                  <FormInput {id} name={id} class="flex-grow" />
+                  <FormElement {id} name={id} class="flex-grow" />
                 </div>
               {/each}
             </div>

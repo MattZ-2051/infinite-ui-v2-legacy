@@ -7,9 +7,7 @@
   import dayjs from 'dayjs';
   import { user } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
-  import FormInput from '$lib/components/form/FormInput.svelte';
-  import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
-  import FormDistrictsSelect from '$lib/components/form/FormDistrictsSelect.svelte';
+  import { FormElement, Select, FormCountriesSelect, FormDistrictsSelect } from '$lib/components/form';
   import CircleContainer from './CircleContainer.svelte';
   import { creditCardInsertFx } from './card.store';
 
@@ -100,25 +98,25 @@
 <CircleContainer>
   <div class="text-gray-600 font-extrabold mt-4">Enter the card details below</div>
   <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
-    <FormInput name="cardNumber" label="Credit card number *" />
-    <FormInput select name="expMonth" label="Exp month *">
+    <FormElement name="cardNumber" label="Credit card number *" />
+    <FormElement component={Select} name="expMonth" label="Exp month *">
       {#each months as month}
         <option value={month.value}>{month.label}</option>
       {/each}
-    </FormInput>
-    <FormInput select name="expYear" label="Exp year *">
+    </FormElement>
+    <FormElement component={Select} name="expYear" label="Exp year *">
       {#each years as year}
         <option value={year}>{year}</option>
       {/each}
-    </FormInput>
-    <FormInput name="cvv" label="CCV *" />
-    <FormInput name="billingDetails.name" label="Cardholder name *" />
-    <FormInput name="metadata.email" label="Email" />
-    <FormInput name="metadata.phone" label="Phone Number" />
-    <FormInput name="billingDetails.line1" label="Address Line 1 *" />
-    <FormInput name="billingDetails.line2" label="Address Line 2" />
-    <FormInput name="billingDetails.city" label="City *" />
-    <FormInput name="billingDetails.postalCode" label="Postal Code *" />
+    </FormElement>
+    <FormElement name="cvv" label="CCV *" />
+    <FormElement name="billingDetails.name" label="Cardholder name *" />
+    <FormElement name="metadata.email" label="Email" />
+    <FormElement name="metadata.phone" label="Phone Number" />
+    <FormElement name="billingDetails.line1" label="Address Line 1 *" />
+    <FormElement name="billingDetails.line2" label="Address Line 2" />
+    <FormElement name="billingDetails.city" label="City *" />
+    <FormElement name="billingDetails.postalCode" label="Postal Code *" />
     <FormCountriesSelect name="billingDetails.country" label="Country *" />
     <FormDistrictsSelect
       countryISO2={$data.billingDetails?.country}

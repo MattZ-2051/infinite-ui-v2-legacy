@@ -6,8 +6,7 @@
   import * as yup from 'yup';
   import notifications from '$ui/toast/toast.store';
   import Button from '$lib/components/Button.svelte';
-  import FormInput from '$lib/components/form/FormInput.svelte';
-  import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
+  import { FormElement, FormCountriesSelect } from '$lib/components/form';
   import routes from '$project/routes';
   import { redeemItem } from './redeem.api';
   import { productRedeemed } from '../product.store';
@@ -57,13 +56,13 @@
 
   <div class="flex gap-2 text-xl w-full">Shipping Information</div>
   <form use:form class="mt-2 flex flex-col gap-4" autocomplete="off">
-    <FormInput name="addressLine1" label="Address Line 1  *" />
-    <FormInput name="addressLine2" label="Address Line 2" />
-    <FormInput name="city" label="City *" />
-    <FormInput name="postalCode" label="Postal Code *" />
+    <FormElement name="addressLine1" label="Address Line 1  *" />
+    <FormElement name="addressLine2" label="Address Line 2" />
+    <FormElement name="city" label="City *" />
+    <FormElement name="postalCode" label="Postal Code *" />
     <FormCountriesSelect name="country" label="Country *" />
-    <FormInput name="district" label="State/Province *" />
-    <FormInput name="shippingNotes" label="Shipping Notes" />
+    <FormElement name="district" label="State/Province *" />
+    <FormElement name="shippingNotes" label="Shipping Notes" />
 
     <div class="text-xs text-gray-600 max-w-sm">
       Redeem this item and receive a copy on the following adress. Keep in mind that, by confirming this action, the

@@ -4,7 +4,7 @@
   import { validateSchema } from '@felte/validator-yup';
   import * as yup from 'yup';
   import { createForm } from 'felte';
-  import FormInput from '$lib/components/form/FormInput.svelte';
+  import { FormElement, Textarea } from '$lib/components/form';
   import Button from '$lib/components/Button.svelte';
   import { patchUser } from '$lib/user';
   import { handleUserApiError } from './account.service';
@@ -52,8 +52,8 @@
 </script>
 
 <form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3 ">
-  <FormInput name="username" label="Username" />
-  <FormInput name="tagline" placeholder="Enter short bio" label="About me" textarea rows="4" />
+  <FormElement name="username" label="Username" />
+  <FormElement component={Textarea} name="tagline" placeholder="Enter short bio" label="About me" rows="4" />
   <div class="flex gap-4 justify-end">
     <Button
       class="w-16 text-sm rounded-sm"

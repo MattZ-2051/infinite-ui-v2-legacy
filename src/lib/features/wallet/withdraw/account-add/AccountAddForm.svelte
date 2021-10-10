@@ -7,9 +7,7 @@
   import { createEventDispatcher, setContext } from 'svelte';
   import { createForm } from 'felte';
   import { toast } from '$ui/toast';
-  import FormInput from '$lib/components/form/FormInput.svelte';
-  import FormCountriesSelect from '$lib/components/form/FormCountriesSelect.svelte';
-  import FormDistrictsSelect from '$lib/components/form/FormDistrictsSelect.svelte';
+  import { FormElement, FormCountriesSelect, FormDistrictsSelect } from '$lib/components/form';
   import { openPlaid } from './plaid';
   import { getAchLinkToken, getAchAccessToken } from './account-add.api';
 
@@ -103,16 +101,16 @@
 <div class="container flex flex-col gap-2 items-center">
   <div class="w-80">
     <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
-      <FormInput name="holderName" label="Account holder name *" />
-      <FormInput name="addressLine1" label="Address Line 1 *" />
-      <FormInput name="addressLine2" label="Address Line 2" />
+      <FormElement name="holderName" label="Account holder name *" />
+      <FormElement name="addressLine1" label="Address Line 1 *" />
+      <FormElement name="addressLine2" label="Address Line 2" />
       <div class="grid grid-cols-2 gap-4">
-        <FormInput name="phoneNumber" label="Phone Number *" />
-        <FormInput name="email" label="Email *" klass="flex-grow" value={user.email} />
+        <FormElement name="phoneNumber" label="Phone Number *" />
+        <FormElement name="email" label="Email *" klass="flex-grow" value={user.email} />
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <FormInput name="city" label="City *" />
-        <FormInput name="postalCode" label="Postal Code *" />
+        <FormElement name="city" label="City *" />
+        <FormElement name="postalCode" label="Postal Code *" />
       </div>
       <div class="grid grid-cols-2 gap-4">
         <FormCountriesSelect name="country" label="Country *" />

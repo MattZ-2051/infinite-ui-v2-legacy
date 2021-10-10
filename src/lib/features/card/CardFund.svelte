@@ -8,7 +8,7 @@
   import { openModal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
-  import FormInput from '$lib/components/form/FormInput.svelte';
+  import { FormElement } from '$lib/components/form';
   import { creditCardFundsAddFx, creditCardRemoveFx } from './card.store';
   import CreditCardComponent from './CreditCard.svelte';
   import CircleContainer from './CircleContainer.svelte';
@@ -86,12 +86,12 @@
 
   <form data-style="container" use:form class="mt-6 flex flex-col gap-6 items-center" autocomplete="off">
     <div class="cvv-container">
-      <FormInput name="cvv" placeholder="Enter CVV" />
+      <FormElement name="cvv" placeholder="Enter CVV" />
     </div>
     <span class="text-red-500 text-center"
       >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
     >
-    <FormInput name="amount" type="number" placeholder="Enter Amount" before="$" />
+    <FormElement name="amount" type="number" placeholder="Enter Amount" before="$" />
     <Button variant="brand" type="submit" disabled={!isActive || $saving}>Add Funds</Button>
   </form>
 </CircleContainer>

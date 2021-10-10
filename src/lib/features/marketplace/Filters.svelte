@@ -5,7 +5,7 @@
   import type { ActiveType } from '$ui/accordion/AccordionGroup.svelte';
   import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
   import Accordion from '$ui/accordion/Accordion.svelte';
-  import Input from '$lib/components/Input.svelte';
+  import { Input } from '$lib/components/form';
   import Button from '$lib/components/Button.svelte';
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
@@ -288,13 +288,8 @@
         />
 
         <div class="flex gap-6 mt-10">
-          <Input label="From" let:klass let:id>
-            <input type="number" {id} class={klass} value={priceRange[0]} on:input={onMinPriceChange} />
-          </Input>
-
-          <Input label="To" let:klass let:id>
-            <input type="number" {id} class={klass} value={priceRange[1]} on:input={onMaxPriceChange} />
-          </Input>
+          <Input type="number" label="From" value={priceRange[0]} on:input={onMinPriceChange} />
+          <Input type="number" label="To" value={priceRange[1]} on:input={onMaxPriceChange} />
         </div>
       </Accordion>
     {/if}

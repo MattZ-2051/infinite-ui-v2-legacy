@@ -4,7 +4,7 @@
   import { setContext, createEventDispatcher } from 'svelte';
   import * as yup from 'yup';
   import { createForm } from 'felte';
-  import FormInput from '$lib/components/form/FormInput.svelte';
+  import { FormElement } from '$lib/components/form';
   import Button from '$lib/components/Button.svelte';
   import notifications from '$ui/toast/toast.store';
   import { patchUser } from '$lib/user';
@@ -44,9 +44,9 @@
 </script>
 
 <form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3" class:disabled>
-  <FormInput label={`First name${disabled ? '' : ' *'}`} name="firstName" {disabled} />
-  <FormInput label={`Last name${disabled ? '' : ' *'}`} name="lastName" {disabled} />
-  <FormInput label="Phone Number" name="phoneNumber" {disabled} />
+  <FormElement label={`First name${disabled ? '' : ' *'}`} name="firstName" {disabled} />
+  <FormElement label={`Last name${disabled ? '' : ' *'}`} name="lastName" {disabled} />
+  <FormElement label="Phone Number" name="phoneNumber" {disabled} />
   <div class="flex gap-3 mb-4">
     <input
       id="consent"

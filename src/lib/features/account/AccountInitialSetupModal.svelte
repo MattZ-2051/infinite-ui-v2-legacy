@@ -7,7 +7,7 @@
   import { closeModal, Modal } from '$ui/modals';
   import routes from '$project/routes';
   import { patchUser } from '$lib/user';
-  import FormInput from '$lib/components/form/FormInput.svelte';
+  import { FormElement, Textarea } from '$lib/components/form';
   import Button from '$lib/components/Button.svelte';
   import { accountDetailsValidation, handleUserApiError, phoneNumberConsentText } from './account.service';
 
@@ -79,11 +79,11 @@
         Please provide the following information to complete your profile.
       </span>
       <form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3">
-        <FormInput label="First name *" name="firstName" />
-        <FormInput label="Last name *" name="lastName" />
-        <FormInput label="About me" name="tagline" placeholder="Enter short bio" textarea rows="4" />
-        <FormInput label="Username *" name="username" />
-        <FormInput label="Phone Number" name="phoneNumber" />
+        <FormElement label="First name *" name="firstName" />
+        <FormElement label="Last name *" name="lastName" />
+        <FormElement component={Textarea} label="About me" name="tagline" placeholder="Enter short bio" rows="4" />
+        <FormElement label="Username *" name="username" />
+        <FormElement label="Phone Number" name="phoneNumber" />
         <div class="flex gap-4 justify-end" />
         <div class="flex gap-3 mb-4">
           <input
