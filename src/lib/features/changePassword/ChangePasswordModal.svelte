@@ -27,7 +27,7 @@
   };
   let passwordCriteria: { lowercase: boolean; uppercase: boolean; number: boolean; special: boolean; min: boolean };
 
-  const { form, data, errors, isSubmitting, createSubmitHandler } = createForm<{ newPassword: string }>({
+  const { form, data, errors, touched, isSubmitting, createSubmitHandler } = createForm<{ newPassword: string }>({
     onSubmit: async (values) => {
       await onConfirm(values.newPassword, code, userCognitoId);
     },
@@ -57,23 +57,24 @@
             placeholder="Enter your new password"
             name="newPassword"
             maxlength={99}
-            style="border-bottom-color: black; border-bottom-width: 1px; border-bottom-right-radius: 0; border-bottom-left-radius: 0;"
           />
-
-          <div class="text-sm flex flex-col gap-2 mt-4">
-            {#each ['lowercase', 'uppercase', 'special', 'number', 'min'] as criteria}
-              <div class="whitespace-nowrap {!passwordCriteria[criteria] ? 'text-red-700' : 'text-green-700'}">
-                {!passwordCriteria[criteria] ? '✖' : '✓'}
-                {passwordCriteriaMessages[criteria]}
-              </div>
-            {/each}
-          </div>
+          {#if $touched.newPassword}
+            <div class="text-sm flex flex-col gap-2 mt-4">
+              {#each ['lowercase', 'uppercase', 'special', 'number', 'min'] as criteria}
+                <div class="whitespace-nowrap {!passwordCriteria[criteria] ? 'text-red-700' : 'text-green-700'}">
+                  {!passwordCriteria[criteria] ? '✖' : '✓'}
+                  {passwordCriteriaMessages[criteria]}
+                </div>
+              {/each}
+            </div>
+          {/if}
         </form>
       </div>
     </div>
     <div slot="footer" class="flex flex-col gap-4">
       <Button
         type="button"
+        variant="brand"
         on:click={handleSubmit}
         disabled={$isSubmitting || !!$errors.newPassword || !$data.newPassword}>Change</Button
       >
