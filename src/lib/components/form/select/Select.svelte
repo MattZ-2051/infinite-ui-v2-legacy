@@ -18,16 +18,42 @@
 </script>
 
 <BaseElement {id} {name} {label} {error} let:klass>
-  <select use:forwardEvents {id} {name} class="{klass} {_class}" {...$$restProps}>
-    <slot />
-  </select>
+  <div class="select-container">
+    <select use:forwardEvents {id} {name} class="{klass} {_class}" {...$$restProps}>
+      <slot />
+    </select>
+  </div>
 </BaseElement>
 
-<style>
+<style lang="postcss">
+  .select-container {
+    position: relative;
+    flex: 1;
+  }
+  .select-container:after,
+  .select-container:before {
+    position: absolute;
+    content: '';
+    display: block;
+    right: 0.5rem;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    pointer-events: none;
+  }
+  .select-container:before {
+    border-bottom: 5px solid var(--gray-500);
+    top: calc(0.875rem - 6px);
+  }
+  .select-container:after {
+    border-top: 5px solid var(--gray-500);
+    bottom: calc(0.875rem - 6px);
+  }
   select {
     padding-bottom: 0;
     padding-left: 0;
-    background-position: right 0rem center;
+    background-image: none;
     min-height: var(--input-height);
     background-color: var(--select-bg-color);
     color: var(--select-color);
