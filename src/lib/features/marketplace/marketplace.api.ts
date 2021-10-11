@@ -21,9 +21,9 @@ export async function loadMarketplaceFilters({
 }: {
   fetch: Fetch;
   query: URLSearchParams;
-}): Promise<{ maxPrice: number; creators: Profile[]; series: Series[]; categories: Sku[] }> {
+}): Promise<{ maxPrice: number; creators: Profile[]; series: Series[]; categories: Sku[]; contentTotal: number }> {
   const mode = getModeParameters(query.get('mode'));
-  const { headers } = await getPage<Sku>(`skus/tiles/`, {
+  const { headers, total } = await getPage<Sku>(`skus/tiles/`, {
     fetch,
     params: {
       page: '1',
@@ -36,6 +36,7 @@ export async function loadMarketplaceFilters({
     series: JSON.parse(headers.get('skus-editions')),
     categories: JSON.parse(headers.get('skus-categories')),
     maxPrice: +headers.get('max-skus-min-price'),
+    contentTotal: total,
   };
 }
 

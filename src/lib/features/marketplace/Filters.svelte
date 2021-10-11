@@ -90,6 +90,7 @@
   export let series: Series[];
   export let maxPrice: number;
   export let total = 0;
+  export let contentTotal: number;
 
   let active: ActiveType = [];
 
@@ -191,30 +192,32 @@
 </script>
 
 <div class="flex flex-col gap-7 md:gap-8">
-  <div class="flex flex-col md:order-3">
-    <div class="flex items-center gap-2 text-lg">
-      <span class="flex-auto">Filter by</span>
-      <button class="md:hidden" type="button" on:click={close}>
-        <Icon path={mdiWindowClose} size="1.66" class="rounded-2xl p-1" />
-      </button>
+  {#if contentTotal > 0}
+    <div class="flex flex-col md:order-3">
+      <div class="flex items-center gap-2 text-lg">
+        <span class="flex-auto">Filter by</span>
+        <button class="md:hidden" type="button" on:click={close}>
+          <Icon path={mdiWindowClose} size="1.66" class="rounded-2xl p-1" />
+        </button>
+        {#if filters.length > 0}
+          <div on:click={removeAllFilters} class="hidden gap-1 text-base cursor-pointer md:flex">
+            Clear All
+            <Icon path={mdiWindowClose} size="0.75" class="self-center cursor-pointer" />
+          </div>
+        {/if}
+      </div>
+
       {#if filters.length > 0}
-        <div on:click={removeAllFilters} class="hidden gap-1 text-base cursor-pointer md:flex">
-          Clear All
-          <Icon path={mdiWindowClose} size="0.75" class="self-center cursor-pointer" />
+        <div class="flex flex-wrap gap-2 mt-4">
+          {#each filters as filter}
+            <Tag on:remove={() => removeFilter(filter)}>
+              <span title={filter.label}>{filter.label}</span>
+            </Tag>
+          {/each}
         </div>
       {/if}
     </div>
-
-    {#if filters.length > 0}
-      <div class="flex flex-wrap gap-2 mt-4">
-        {#each filters as filter}
-          <Tag on:remove={() => removeFilter(filter)}>
-            <span title={filter.label}>{filter.label}</span>
-          </Tag>
-        {/each}
-      </div>
-    {/if}
-  </div>
+  {/if}
   <div class="flex flex-col md:order-1">
     {#each modeFilters as { label, status }}
       <div
@@ -240,133 +243,135 @@
       </div>
     {/each}
   </div>
-  <AccordionGroup class="c-filter-accordion md:order-4" multiple bind:active>
-    {#if creators.length}
-      <Accordion
-        id="talent"
-        titleClass="py-4 px-6"
-        class="c-filter-accordion border border-gray-200 -mb-px {active.includes('talent') ? 'expanded' : ''}"
-      >
-        <div slot="title" class="text-lg leading-8 text-left">
-          Released by
-          {#if availableCreatorsSelected.length}
-            <span class="text-default text-xs align-top">({availableCreatorsSelected.length})</span>
-          {/if}
-        </div>
-        {#each creators as creator}
-          <Checkbox
-            class="mb-2"
-            value={creator._id}
-            group={availableCreatorsSelected}
-            on:change={(event) => toggle('issuerId', creator._id, event)}
-            let:checked
-          >
-            <span>{creator.username}</span>
-          </Checkbox>
-        {/each}
-      </Accordion>
-    {/if}
-    {#if maxPrice > 0}
-      <Accordion
-        id="price"
-        titleClass="py-4 px-6"
-        class="c-filter-accordion border border-gray-200 -mb-px {active.includes('price') ? 'expanded' : ''}"
-      >
-        <div slot="title" class="text-lg leading-8 text-left">
-          Price Range
-          {#if priceSelectedObject}
-            <span class="text-default text-xs align-top">({priceSelectedObject})</span>
-          {/if}
-        </div>
+  {#if contentTotal > 0}
+    <AccordionGroup class="c-filter-accordion md:order-4" multiple bind:active>
+      {#if creators.length}
+        <Accordion
+          id="talent"
+          titleClass="py-4 px-6"
+          class="c-filter-accordion border border-gray-200 -mb-px {active.includes('talent') ? 'expanded' : ''}"
+        >
+          <div slot="title" class="text-lg leading-8 text-left">
+            Released by
+            {#if availableCreatorsSelected.length}
+              <span class="text-default text-xs align-top">({availableCreatorsSelected.length})</span>
+            {/if}
+          </div>
+          {#each creators as creator}
+            <Checkbox
+              class="mb-2"
+              value={creator._id}
+              group={availableCreatorsSelected}
+              on:change={(event) => toggle('issuerId', creator._id, event)}
+              let:checked
+            >
+              <span>{creator.username}</span>
+            </Checkbox>
+          {/each}
+        </Accordion>
+      {/if}
+      {#if maxPrice > 0}
+        <Accordion
+          id="price"
+          titleClass="py-4 px-6"
+          class="c-filter-accordion border border-gray-200 -mb-px {active.includes('price') ? 'expanded' : ''}"
+        >
+          <div slot="title" class="text-lg leading-8 text-left">
+            Price Range
+            {#if priceSelectedObject}
+              <span class="text-default text-xs align-top">({priceSelectedObject})</span>
+            {/if}
+          </div>
 
-        <RangeSlider
-          bind:values={priceRange}
-          format={formatCurrencyWithOptionalFractionDigits}
-          min={0}
-          max={maxPrice}
-          on:stop={({ detail }) => onPriceRangeChange(detail)}
-        />
+          <RangeSlider
+            bind:values={priceRange}
+            format={formatCurrencyWithOptionalFractionDigits}
+            min={0}
+            max={maxPrice}
+            on:stop={({ detail }) => onPriceRangeChange(detail)}
+          />
 
-        <div class="flex gap-6 mt-10">
-          <Input type="number" label="From" value={priceRange[0]} on:input={onMinPriceChange} />
-          <Input type="number" label="To" value={priceRange[1]} on:input={onMaxPriceChange} />
-        </div>
-      </Accordion>
-    {/if}
-    {#if availableEditionFilters.length}
-      <Accordion
-        id="typeEdition"
-        titleClass="py-4 px-6"
-        class="c-filter-accordion border border-gray-200 -mb-px {active.includes('typeEdition') ? 'expanded' : ''}"
-      >
-        <div slot="title" class="text-lg leading-8 text-left">
-          Edition Type
-          {#if availableEditionSelected.length}
-            <span class="text-default text-xs align-top">({availableEditionSelected.length})</span>
-          {/if}
-        </div>
-        {#each availableEditionFilters as { id, label } (id)}
-          <Checkbox
-            class="mb-2"
-            value={id}
-            group={availableEditionSelected}
-            on:change={(event) => toggle('typeEdition', id, event)}
-            let:checked
-          >
-            <span class="{id}-text font-medium">{label}</span>
-          </Checkbox>
-        {/each}
-      </Accordion>
-    {/if}
-    {#if saleTypeFilters.length}
-      <Accordion
-        id="saleType"
-        titleClass="py-4 px-6"
-        class="c-filter-accordion border border-gray-200 {active.includes('saleType') ? 'expanded' : ''}"
-      >
-        <div slot="title" class="text-lg leading-8 text-left">
-          Sale Type {#if availableSaleTypeSelected.length}
-            <span class="text-default text-xs align-top">({availableSaleTypeSelected.length})</span>
-          {/if}
-        </div>
-        {#each saleTypeFilters as { id, label } (id)}
-          <Checkbox
-            class="mb-2"
-            value={id}
-            group={availableSaleTypeSelected}
-            on:change={(event) => toggle('saleType', id, event)}
-            let:checked
-          >
-            <span>{label}</span>
-          </Checkbox>
-        {/each}
-      </Accordion>
-    {/if}
-    {#if categories.length}
-      <Accordion
-        id="category"
-        titleClass="py-4 px-6"
-        class="c-filter-accordion border border-gray-200 {active.includes('category') ? 'expanded' : ''}"
-      >
-        <div slot="title" class="text-lg leading-8 text-left">
-          Category {#if availableCategorySelected.length}
-            <span class="text-default text-xs align-top">({availableCategorySelected.length})</span>
-          {/if}
-        </div>
-        {#each categories as category (category._id)}
-          <Checkbox
-            class="mb-2"
-            value={category._id}
-            group={availableCategorySelected}
-            on:change={(event) => toggle('category', category._id, event)}
-            let:checked
-          >
-            <span>{category.name}</span>
-          </Checkbox>
-        {/each}
-      </Accordion>
-    {/if}
-  </AccordionGroup>
+          <div class="flex gap-6 mt-10">
+            <Input type="number" label="From" value={priceRange[0]} on:input={onMinPriceChange} />
+            <Input type="number" label="To" value={priceRange[1]} on:input={onMaxPriceChange} />
+          </div>
+        </Accordion>
+      {/if}
+      {#if availableEditionFilters.length}
+        <Accordion
+          id="typeEdition"
+          titleClass="py-4 px-6"
+          class="c-filter-accordion border border-gray-200 -mb-px {active.includes('typeEdition') ? 'expanded' : ''}"
+        >
+          <div slot="title" class="text-lg leading-8 text-left">
+            Edition Type
+            {#if availableEditionSelected.length}
+              <span class="text-default text-xs align-top">({availableEditionSelected.length})</span>
+            {/if}
+          </div>
+          {#each availableEditionFilters as { id, label } (id)}
+            <Checkbox
+              class="mb-2"
+              value={id}
+              group={availableEditionSelected}
+              on:change={(event) => toggle('typeEdition', id, event)}
+              let:checked
+            >
+              <span class="{id}-text font-medium">{label}</span>
+            </Checkbox>
+          {/each}
+        </Accordion>
+      {/if}
+      {#if saleTypeFilters.length}
+        <Accordion
+          id="saleType"
+          titleClass="py-4 px-6"
+          class="c-filter-accordion border border-gray-200 {active.includes('saleType') ? 'expanded' : ''}"
+        >
+          <div slot="title" class="text-lg leading-8 text-left">
+            Sale Type {#if availableSaleTypeSelected.length}
+              <span class="text-default text-xs align-top">({availableSaleTypeSelected.length})</span>
+            {/if}
+          </div>
+          {#each saleTypeFilters as { id, label } (id)}
+            <Checkbox
+              class="mb-2"
+              value={id}
+              group={availableSaleTypeSelected}
+              on:change={(event) => toggle('saleType', id, event)}
+              let:checked
+            >
+              <span>{label}</span>
+            </Checkbox>
+          {/each}
+        </Accordion>
+      {/if}
+      {#if categories.length}
+        <Accordion
+          id="category"
+          titleClass="py-4 px-6"
+          class="c-filter-accordion border border-gray-200 {active.includes('category') ? 'expanded' : ''}"
+        >
+          <div slot="title" class="text-lg leading-8 text-left">
+            Category {#if availableCategorySelected.length}
+              <span class="text-default text-xs align-top">({availableCategorySelected.length})</span>
+            {/if}
+          </div>
+          {#each categories as category (category._id)}
+            <Checkbox
+              class="mb-2"
+              value={category._id}
+              group={availableCategorySelected}
+              on:change={(event) => toggle('category', category._id, event)}
+              let:checked
+            >
+              <span>{category.name}</span>
+            </Checkbox>
+          {/each}
+        </Accordion>
+      {/if}
+    </AccordionGroup>
+  {/if}
 
   <Button variant="brand" on:click={close} class="self-center w-full py-3 text-2xl text-center md:hidden">
     {total > 0 ? `View Matching Results (${total})` : 'No Matching Results'}

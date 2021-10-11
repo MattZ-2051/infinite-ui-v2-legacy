@@ -19,6 +19,7 @@
   export let categories: { _id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
+  export let contentTotal: number;
 
   let showFilters = false;
   let scrollY: number;
@@ -80,7 +81,7 @@
     </div>
   </div>
   <div class:hidden={!showFilters} class="md:block">
-    <Filters {categories} {creators} {series} {total} {maxPrice} on:close={closeFilters} />
+    <Filters {categories} {creators} {series} {total} {maxPrice} {contentTotal} on:close={closeFilters} />
   </div>
   <div class="inline" class:opacity-40={$loading}>
     {#if !$loading && skus.length === 0}

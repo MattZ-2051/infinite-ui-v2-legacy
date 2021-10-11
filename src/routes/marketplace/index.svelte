@@ -35,8 +35,9 @@
   export let categories: { _id: string; name: string }[];
   export let creators: Profile[];
   export let series: Series[];
+  export let contentTotal: number;
 </script>
 
 <Seo title="Marketplace" />
 
-<Marketplace {skus} {total} {maxPrice} {categories} {creators} {series} />
+<Marketplace {skus} {total} {maxPrice} {categories} {creators} {series} {contentTotal} />
