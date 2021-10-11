@@ -6,7 +6,9 @@
 
   const DEFAULT_IMAGE = CLIENT_SOCIAL_IMAGE;
 
-  export let title = 'Coming Soon';
+  let _title = '';
+  export { _title as title };
+
   export let image: OpenGraphImage | (FileAsset & { alt?: string }) | string = DEFAULT_IMAGE;
 
   let ogImage: OpenGraphImage;
@@ -14,11 +16,13 @@
     typeof image === 'string'
       ? { url: image }
       : (({ url, width, height, alt }) => ({ url, width, height, alt }))(image || DEFAULT_IMAGE);
+  $: title = [CLIENT_DOC_TITLE, _title].filter(Boolean).join(' - ');
 </script>
 
 <SvelteSeo
+  {title}
   openGraph={{
-    title: [CLIENT_DOC_TITLE, title].filter(Boolean).join(' - '),
+    title,
     type: 'website',
     images: [ogImage],
   }}

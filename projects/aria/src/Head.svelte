@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { CLIENT_DOC_TITLE, CLIENT_DOC_DESCRIPTION } from './variables';
+  import { CLIENT_DOC_DESCRIPTION } from './variables';
 </script>
 
 <svelte:head>
-  <title>{CLIENT_DOC_TITLE}</title>
   <link rel="icon" href="/favicon.png" />
   <meta name="description" content={CLIENT_DOC_DESCRIPTION} />
   <link rel="preload" as="font" href="/fonts/Graphik/Graphik-Bold.woff2" type="font/woff2" crossorigin="anonymous" />
