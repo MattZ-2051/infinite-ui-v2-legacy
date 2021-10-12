@@ -38,7 +38,9 @@
   </div>
   <div class={cellClass}>
     <div class={headerClass}>Hedera Token</div>
-    <div class="truncate"><a class="link" href={product.explorerLink}>{product.tokenId}</a></div>
+    <div class="truncate">
+      <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
+    </div>
   </div>
   <ProductActions {product} userId={$userId} />
 </div>
