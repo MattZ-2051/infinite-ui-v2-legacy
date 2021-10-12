@@ -149,6 +149,7 @@
   --color: #000000;
   --primary: #000000;
   --link-color: var(--color);
+  --no-results-link-color: var(--color);
   --separator-bg-color: var(--gray-100);
   --icon-bg-color: #2d2d2d;
   --edition-single: var(--color);

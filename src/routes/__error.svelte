@@ -15,7 +15,6 @@
 
 <script lang="ts">
   import { dev } from '$app/env';
-  import { CLIENT_SUPPORT_EMAIL } from '$project/variables';
 
   export let status: number = undefined;
 
@@ -32,9 +31,7 @@
       {:else}
         <div class="text-2xl md:text-5xl font-semibold">There was an unexpected problem.</div>
         <div class="text-sm md:text-base text-gray-500">
-          Please try again in a few minutes or <a href="mailto:{CLIENT_SUPPORT_EMAIL}" class="hover:underline"
-            >contact support</a
-          >
+          Please try again in a few minutes or <a href={routes.help} class="hover:underline ">contact support.</a>
         </div>
       {/if}
     </div>
@@ -51,7 +48,7 @@
 </div>
 
 <style>
-  a[href^='mailto:'] {
+  a {
     color: var(--no-results-link-color);
   }
 </style>
