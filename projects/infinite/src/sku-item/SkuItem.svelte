@@ -7,6 +7,7 @@
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import routes from '$project/routes';
+  import { formatDate } from '$util/format';
   import SkuEdition from './SkuEdition.svelte';
   import SkuStatus from './SkuStatus.svelte';
 
@@ -15,6 +16,7 @@
   export let product: Product = undefined;
 
   $: sku = product ? product.sku : _sku;
+  $: activeListing = product ? product.activeProductListings?.[0] : sku.activeSkuListings?.[0];
   $: href = product ? routes.product(product._id) : routes.sku(sku._id);
 </script>
 
@@ -23,13 +25,22 @@
     <a sveltekit:prefetch {href}>
       <FilePreview item={sku.nftPublicAssets?.[0]} preview />
     </a>
+    {#if activeListing?.endDate}
+      <figcaption
+        class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold rounded-md"
+        style="background-color: var(--sku-item-bg-color); color: var(--color)"
+      >
+        <span class="opacity-50">Ends</span>
+        <span>{formatDate(activeListing.endDate)}</span>
+      </figcaption>
+    {/if}
   </figure>
   <div class="info mx-6 space-y-4">
-    <section class="text-current flex flex-row items-center">
-      <TalentLink profile={sku.issuer} hideImage class="text-gray-500" />
+    <section class="text-gray-800 flex flex-row items-center">
+      <TalentLink profile={sku.issuer} hideImage />
       {#if sku.redeemable}
         <div class="flex flex-row flex-nowrap items-center space-x-2 ml-auto">
-          <IconRedeem size={24}><span class="text-gray-700">Redeemable</span></IconRedeem>
+          <IconRedeem size={24}>Redeemable</IconRedeem>
         </div>
       {/if}
     </section>
@@ -47,7 +58,9 @@
     aria-label="Product details"
   >
     <SkuStatus {sku} {product} />
-    <Icon class="ml-auto" path={arrowRightCircle} size={1.5} />
+    <span class="item-link ml-auto">
+      <Icon path={arrowRightCircle} size={1.5} color="var(--sku-item-color, var(--color))" />
+    </span>
   </a>
 </article>
 
@@ -61,5 +74,9 @@
 
   .info {
     min-height: 9.5rem;
+  }
+
+  .item-link {
+    color: var(--sku-item-bg-color, theme('colors.default'));
   }
 </style>

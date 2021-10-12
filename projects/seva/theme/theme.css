@@ -95,6 +95,9 @@
   --sku-item-bg-color: var(--bg-color);
   --sku-item-border-color: var(--gray-200);
 
+  /* Verified Icon */
+  --verify-icon-color: #7c7c7c;
+
   /* Button */
   --button-border-radius: 28px;
   --button-padding: 9px 32px;
@@ -242,6 +245,9 @@
   /* SkuItem */
   --sku-item-bg-color: #ffffff;
   --sku-item-border-color: var(--gray-200);
+
+  /* Verified Icon */
+  --verify-icon-color: #000;
 
   /* Button */
   --button-brand-color: #ffffff;
