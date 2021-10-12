@@ -18,6 +18,7 @@
 <a sveltekit:prefetch href={routes.marketplace} class="header-link" class:active={isRoute(routes.marketplace)}
   >Marketplace</a
 >
+<a sveltekit:prefetch href={routes.about} class="header-link" class:active={isRoute(routes.about)}>About Us</a>
 {#if user}
   <a
     sveltekit:prefetch
@@ -57,7 +58,6 @@
     </Menu>
   {/if}
 {:else}
-  <a sveltekit:prefetch href={routes.about} class="header-link" class:active={isRoute(routes.about)}>About Us</a>
   <button class="flex header-link" on:click={routes.signin}>Sign in</button>
   <Button variant="brand" href={routes.signup} class="whitespace-nowrap">Sign up</Button>
 {/if}
