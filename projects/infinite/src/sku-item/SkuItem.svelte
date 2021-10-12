@@ -12,6 +12,7 @@
   import SkuStatus from './SkuStatus.svelte';
 
   let _sku: Sku = undefined;
+
   export { _sku as sku };
   export let product: Product = undefined;
 
@@ -21,46 +22,44 @@
 </script>
 
 <article id={sku._id} class="space-y-4 py-6" in:fade={{ duration: 300 }}>
-  <figure class="relative mx-6 mb-0">
-    <a sveltekit:prefetch {href}>
+  <a sveltekit:prefetch {href} class="space-y-4 py-6">
+    <figure class="relative mx-6 mb-0">
       <FilePreview item={sku.nftPublicAssets?.[0]} preview />
-    </a>
-    {#if activeListing?.endDate}
-      <figcaption
-        class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold rounded-md"
-        style="background-color: var(--sku-item-bg-color); color: var(--color)"
-      >
-        <span class="opacity-50">Ends</span>
-        <span>{formatDate(activeListing.endDate)}</span>
-      </figcaption>
-    {/if}
-  </figure>
-  <div class="info mx-6 space-y-4">
-    <section class="text-gray-800 flex flex-row items-center">
-      <TalentLink profile={sku.issuer} hideImage />
-      {#if sku.redeemable}
-        <div class="flex flex-row flex-nowrap items-center space-x-2 ml-auto">
-          <IconRedeem size={24}>Redeemable</IconRedeem>
-        </div>
+      {#if activeListing?.endDate}
+        <figcaption
+          class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold rounded-md"
+          style="background-color: var(--sku-item-bg-color); color: var(--color)"
+        >
+          <span class="opacity-50">Ends</span>
+          <span>{formatDate(activeListing.endDate)}</span>
+        </figcaption>
       {/if}
-    </section>
-    <header>
-      <a sveltekit:prefetch {href}>
-        <h2 class="text-2xl line-clamp-2">{sku.name}</h2>
-      </a>
-    </header>
-    <SkuEdition {sku} {product} />
-  </div>
-  <a
-    sveltekit:prefetch
-    {href}
-    class="mt-5 mx-6 pt-4 flex flex-row items-center border-current border-solid border-t text-lg"
-    aria-label="Product details"
-  >
-    <SkuStatus {sku} {product} />
-    <span class="item-link ml-auto">
-      <Icon path={arrowRightCircle} size={1.5} color="var(--sku-item-color, var(--color))" />
-    </span>
+    </figure>
+    <div class="info mx-6 space-y-4">
+      <section class="text-gray-800 flex flex-row items-center">
+        <TalentLink profile={sku.issuer} hideImage />
+        {#if sku.redeemable}
+          <div class="flex flex-row flex-nowrap items-center space-x-2 ml-auto">
+            <IconRedeem size={24}>Redeemable</IconRedeem>
+          </div>
+        {/if}
+      </section>
+      <header>
+        <a sveltekit:prefetch {href}>
+          <h2 class="text-2xl line-clamp-2">{sku.name}</h2>
+        </a>
+      </header>
+      <SkuEdition {sku} {product} />
+    </div>
+    <div
+      class="mt-5 mx-6 pt-4 flex flex-row items-center border-current border-solid border-t text-lg"
+      aria-label="Product details"
+    >
+      <SkuStatus {sku} {product} />
+      <span class="item-link ml-auto">
+        <Icon path={arrowRightCircle} size={1.5} color="var(--sku-item-color, var(--color))" />
+      </span>
+    </div>
   </a>
 </article>
 
@@ -71,11 +70,9 @@
     border: var(--sku-item-border-width, 1px) solid var(--sku-item-border-color, theme('colors.default'));
     border-radius: var(--sku-item-border-radius, 0);
   }
-
   .info {
     min-height: 9.5rem;
   }
-
   .item-link {
     color: var(--sku-item-bg-color, theme('colors.default'));
   }
