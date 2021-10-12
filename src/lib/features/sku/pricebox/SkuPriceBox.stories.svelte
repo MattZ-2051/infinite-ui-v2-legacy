@@ -19,8 +19,8 @@
   const nftGiveAway = [
     {
       saleType: 'giveaway',
+      endDate: dummyDate,
       startDate: dummyDate,
-      status,
     },
   ];
 
