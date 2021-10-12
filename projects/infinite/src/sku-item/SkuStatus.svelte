@@ -18,7 +18,7 @@
     <span class="text-gray-500">Upcoming in:</span>
     <TimeDifference date={tileInfo.minStartDate} />
   {:else if tileInfo.status === 'no-sale'}
-    <span class="text-gray-500">None for sale</span>
+    <span class="text-gray-500">Not for sale</span>
   {:else if tileInfo.status === 'active'}
     <span class="text-gray-500">Starting Price:</span>
     <span class="text-default">
