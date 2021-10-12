@@ -2,7 +2,6 @@
   import { goto } from '$app/navigation';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
-  import { user } from '$lib/user';
   import CryptoCurrency from '$lib/payment/crypto/CryptoCurrency.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
@@ -14,7 +13,7 @@
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
   import WalletButtons from './WalletButtons.svelte';
-  import { kycIsPending, wallet, withdrawableBalance, loadMyTransactionsFx } from './wallet.store';
+  import { kycIsPending, wallet, withdrawableBalance, loadMyTransactionsFx, loadWalletFx } from './wallet.store';
   import { launchKYCPersona } from './kyc/personaClient.service';
   import { getDailyDepositLimitDisclaimer } from './kyc/kyc.service';
   import SelectWithdrawMethodModal from './withdraw/SelectWithdrawMethodModal.svelte';
@@ -63,7 +62,12 @@
         openModal(CryptoCurrency, { kind: id });
         break;
       case 'hbar':
-        openModal(DepositHedera, { onCloseWithResults: () => loadMyTransactionsFx({}) });
+        openModal(DepositHedera, {
+          onCloseWithResults: () => {
+            loadMyTransactionsFx({});
+            loadWalletFx();
+          },
+        });
         break;
     }
   }
@@ -85,8 +89,8 @@
       style="background: var(--wallet-balance-content-bg-color);"
     >
       <WalletBalance
-        balance={$user?.balance}
-        availableBalance={$user?.availableBalance}
+        balance={Number.parseFloat($wallet?.balanceInfo?.circleBalance)}
+        availableBalance={Number.parseFloat($wallet?.balanceInfo?.totalBalance)}
         withdrawableBalance={$withdrawableBalance}
       >
         <svelte:fragment slot="kyc">
@@ -100,11 +104,9 @@
         </svelte:fragment>
       </WalletBalance>
 
-      {#if $wallet}
-        <div class="text-sm text-gray-500 mt-4">
-          {getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
-        </div>
-      {/if}
+      <div class="text-sm text-gray-500 mt-4">
+        {$wallet && getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
+      </div>
     </div>
     <WalletButtons
       slot="sticky-cta"

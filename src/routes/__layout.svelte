@@ -19,7 +19,7 @@
 <script lang="ts">
   import { navigating, page } from '$app/stores';
   import { initUserAuth, mustSetupAccount, user } from '$lib/user';
-  import { pollPendingTransactions } from '$lib/features/wallet/wallet.poll';
+  import { pollWallet, pollPendingTransactions } from '$lib/features/wallet/wallet.poll';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$lib/layout/header/Header.svelte';
   import Footer from '$project/footer/Footer.svelte';
@@ -44,6 +44,7 @@
   );
 
   $: $user && pollPendingTransactions();
+  $: $user && pollWallet();
   $: mustSetupAccount($user, $page.path);
 </script>
 

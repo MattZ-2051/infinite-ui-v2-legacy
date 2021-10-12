@@ -66,9 +66,9 @@
         <WalletAddress />
         <div class="flex flex-col gap-1">
           <span>Step 2:</span>
-          <span class="text-gray-500">Check for new transactions to credit them to your account</span>
+          <span class="text-gray-500">Click the button below to complete the HBAR deposit process</span>
         </div>
-        <Button variant="brand" on:click={checkPayments}>Check for new HBAR deposits</Button>
+        <Button variant="brand" on:click={checkPayments}>Complete HBAR deposit</Button>
       {/if}
     </div>
   </Modal>

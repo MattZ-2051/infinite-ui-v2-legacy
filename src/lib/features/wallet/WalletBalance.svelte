@@ -25,7 +25,7 @@
     <div class="flex items-center justify-between">
       <span class="text-gray-500">Available</span>
       <div class="flex items-center gap-2">
-        {#if availableBalance === undefined}
+        {#if Number.isNaN(availableBalance) || availableBalance === undefined}
           <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
         {:else}
           {formatCurrency(availableBalance)}

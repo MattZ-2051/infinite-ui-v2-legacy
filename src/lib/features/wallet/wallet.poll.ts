@@ -5,8 +5,10 @@ import { user } from '$lib/user';
 import { toast } from '$ui/toast';
 import routes from '$project/routes';
 import { loadPendingTransactions } from './wallet.api';
+import { loadWalletFx } from './wallet.store';
 
 const pollKey = 'pendingTransactions';
+const pollBalanceKey = 'pollerBalance';
 
 let transactionWatchlist: { [transactionId: string]: Transaction };
 
@@ -16,6 +18,18 @@ export async function pollPendingTransactions() {
   transactionWatchlist = {};
 
   await poll({ id: pollKey, poller, interval: 60_000 });
+}
+
+export async function pollWallet() {
+  stopPolling(pollBalanceKey);
+  await poll({
+    id: pollBalanceKey,
+    poller: async () => {
+      loadWalletFx();
+      return false;
+    },
+    interval: 60_000,
+  });
 }
 
 async function poller() {

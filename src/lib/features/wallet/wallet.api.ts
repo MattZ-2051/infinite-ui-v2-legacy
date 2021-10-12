@@ -24,8 +24,12 @@ const filterWithPendingStatus = {
 };
 
 export async function loadWallet() {
-  const [walletData, balanceInfo] = await Promise.all([get<Wallet>('wallet'), get<BalanceInfo>('wallet/balance')]);
+  const [walletData, balanceInfo] = await Promise.all([get<Wallet>('wallet'), loadBalances()]);
   return { ...walletData, balanceInfo };
+}
+
+async function loadBalances() {
+  return get<BalanceInfo>('wallet/balance');
 }
 
 export async function loadKycInfo() {
