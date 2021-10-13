@@ -1,11 +1,11 @@
 <script>
-  import { variables } from '../variables';
+  import { CLIENT_COMPANY_NAME } from '$project/variables';
 </script>
 
 <div class="container py-8">
   <h3>
     Privacy Notice <strong
-      >(ADAPTED FROM https://dev.goinfinite.io/privacy - TO BE AMENDED FOR {variables.persona.tenantName} EXCHANGE)</strong
+      >(ADAPTED FROM https://dev.goinfinite.io/privacy - TO BE AMENDED FOR {CLIENT_COMPANY_NAME} EXCHANGE)</strong
     >
   </h3>
   <p>Effective date: May 19, 2021</p>
