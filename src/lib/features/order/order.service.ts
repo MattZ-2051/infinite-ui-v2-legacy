@@ -1,5 +1,6 @@
 import type { Listing, Sku, Product } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
+import type { ApiError } from '$lib/api';
 import { get as getStoreValue } from 'svelte/store';
 import { toast } from '$ui/toast';
 import { user } from '$lib/user';
@@ -37,4 +38,13 @@ export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: 
     listing,
     user: currentUser,
   });
+}
+
+export function handleSkuClaimError(error: ApiError) {
+  switch (error?.data?.appCode) {
+    case 'MAX_SKU_GIVEAWAY':
+      return `This NFT giveaway is limited to 1 per user.`;
+    default:
+      return `There was an error processing your purchase. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`;
+  }
 }

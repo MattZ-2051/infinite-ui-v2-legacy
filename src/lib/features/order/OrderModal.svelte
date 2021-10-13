@@ -13,7 +13,8 @@
   import routes from '$project/routes';
   import { skuBought } from '$lib/features/sku/sku.store';
   import OrderProductPricing from './OrderProductPricing.svelte';
-  import { purchaseSkuListing } from './order.api';
+  import { purchaseSkuListing, claimGiveawaySkuListing } from './order.api';
+  import { handleSkuClaimError } from './order.service';
 
   export let isOpen: boolean;
   export let sku: Sku = undefined;
@@ -35,31 +36,49 @@
     }
 
     purchasing = true;
-    try {
-      result = await purchaseSkuListing(listing._id);
-      if (product) {
-        if (result?.status === 'pending') {
-          pendingBuyCreated(product._id);
-        } else if (result?.status === 'success') {
-          productBought({ product });
-        }
-      } else {
-        if (result?.status === 'pending') {
-          pendingBuyCreated(_sku._id);
-        } else if (result?.status === 'success') {
-          skuBought();
-        }
-      }
 
-      if (!result || result.errorLog || result.status === 'error') {
-        throw new Error('error');
+    const isGiveAway = listing.saleType === 'giveaway';
+
+    if (isGiveAway) {
+      try {
+        result = await claimGiveawaySkuListing(listing._id);
+        if (result) {
+          skuBought();
+          toast.success('Your NFT was successfully minted!');
+        }
+      } catch (error) {
+        toast.danger(handleSkuClaimError(error));
+      } finally {
+        purchasing = false;
       }
-    } catch {
-      toast.danger(
-        `There was an error processing your purchase. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
-      );
-    } finally {
-      purchasing = false;
+    } else {
+      try {
+        result = await purchaseSkuListing(listing._id);
+
+        if (product) {
+          if (result?.status === 'pending') {
+            pendingBuyCreated(product._id);
+          } else if (result?.status === 'success') {
+            productBought({ product });
+          }
+        } else {
+          if (result?.status === 'pending') {
+            pendingBuyCreated(_sku._id);
+          } else if (result?.status === 'success') {
+            skuBought();
+          }
+        }
+
+        if (!result || result.errorLog || result.status === 'error') {
+          throw new Error('error');
+        }
+      } catch {
+        toast.danger(
+          `There was an error processing your purchase. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
+        );
+      } finally {
+        purchasing = false;
+      }
     }
   }
 

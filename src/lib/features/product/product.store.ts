@@ -200,6 +200,6 @@ const productBoughtSuccessFx = createEffect(() => {
 });
 
 forward({
-  from: [productBought, skuBought],
+  from: [productBought],
   to: productBoughtSuccessFx,
 });
