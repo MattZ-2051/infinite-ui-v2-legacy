@@ -47,6 +47,7 @@
   const { form, errors, data, reset } = createForm<NewBankAccount>({
     initialValues: {
       country: 'US',
+      email: user.email,
     },
     onSubmit: async (formValues: NewBankAccount) => {
       await getAchLinkToken()
@@ -106,7 +107,7 @@
       <FormElement name="addressLine2" label="Address Line 2" />
       <div class="grid grid-cols-2 gap-4">
         <FormElement name="phoneNumber" label="Phone Number *" />
-        <FormElement name="email" label="Email *" klass="flex-grow" value={user.email} />
+        <FormElement name="email" label="Email *" />
       </div>
       <div class="grid grid-cols-2 gap-4">
         <FormElement name="city" label="City *" />
