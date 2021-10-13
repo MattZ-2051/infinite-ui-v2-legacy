@@ -1,4 +1,5 @@
 import type { Sku, Listing, CollectorProduct, Product } from '$lib/sku-item/types';
+import { formatInteger } from '$util/format';
 
 export type SupplyInfo = { type: 'unique' | 'limited' | 'released'; quantity: number } | undefined;
 
@@ -127,9 +128,11 @@ export const createSkuMessage = (
 ): string | undefined => {
   switch (messageType) {
     case 'limited':
-      return `Limited to ${quantity}`;
+      return `Limited to ${formatInteger(quantity)}`;
     case 'released':
-      return sku.minStartDate > new Date() ? `${quantity} to be released` : `${quantity} released`;
+      return sku.minStartDate > new Date()
+        ? `${formatInteger(quantity)} to be released`
+        : `${formatInteger(quantity)} released`;
     case 'unique':
       return '1 of 1';
   }
@@ -142,9 +145,11 @@ export const createProductMessage = (
 ): string | undefined => {
   switch (messageType) {
     case 'limited':
-      return `Limited to ${quantity}`;
+      return `Limited to ${formatInteger(quantity)}`;
     case 'released':
-      return product.minStartDate > new Date() ? `${quantity} to be released` : `${quantity} released`;
+      return product.minStartDate > new Date()
+        ? `${formatInteger(quantity)} to be released`
+        : `${formatInteger(quantity)} released`;
     case 'unique':
       return '1 of 1';
   }
