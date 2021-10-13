@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { AchAccount } from './types';
-  import { mdiCheck, mdiDeleteOutline, mdiPlus } from '@mdi/js';
+  import { mdiCheck, mdiPlus } from '@mdi/js';
+  import mdiDeleteOutline from '$lib/features/wallet/assets/delete-icon';
   import { Modal, openModal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import AccountOption from './AccountOption.svelte';
@@ -16,7 +17,7 @@
 
   const loadingAccounts = achAccountFetchFx.pending;
 
-  $: title = deleteMode ? 'Remove account' : 'Select an account to withdraw to';
+  $: title = deleteMode ? 'Remove account' : 'Withdraw funds to';
 
   function onSelected(achAccount: AchAccount) {
     if (deleteMode) {

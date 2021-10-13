@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { AchAccount } from './types';
-  import { mdiArrowRight, mdiDeleteOutline } from '@mdi/js';
+  import mdiArrowRight from '$lib/features/wallet/assets/arrow-right';
+  import mdiDeleteOutline from '$lib/features/wallet/assets/delete-icon';
   import Icon from '$ui/icon/Icon.svelte';
 
   export let achAccount: AchAccount;
@@ -12,7 +13,7 @@
 <button
   type="button"
   {disabled}
-  class="w-full grid grid-cols-3 auto-cols-fr place-content-between items-center gap-4 border-black rounded-2xl border-2 overflow-hidden p-2 text-xl"
+  class="w-full grid grid-cols-3 auto-cols-fr place-content-between items-center gap-4 border-b overflow-hidden py-4 text-xl"
   class:cursor-default={disabled}
   on:click
 >
