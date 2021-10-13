@@ -12,7 +12,7 @@
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import { subscribe } from './partner.api';
-  import travisScottBg from './travis-scott-bg.png?w=400;800;1200;&format=avif;webp;png&metadata';
+  import travisScottBg from './travis-scott-bg.png?w=400;800;1200;&format=avif;webp;png&metadata=src;format;width;height';
 
   const socialMedia = [
     { id: 'instagram', label: 'Instagram', path: mdiInstagram },

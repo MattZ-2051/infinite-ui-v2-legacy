@@ -5,12 +5,12 @@
   import { user } from '$lib/user';
   import routes from '$project/routes';
   import Button from '$lib/components/Button.svelte';
-  import trust from './assets/trust.png?w=184&format=avif;webp;png&metadata';
-  import carbon from './assets/carbon.png?w=135&format=avif;webp;png&metadata';
-  import currency from './assets/currency.png?w=283&format=avif;webp;png&metadata';
-  import deposit from './assets/deposit.png?w=173&format=avif;webp;png&metadata';
-  import purchase from './assets/purchase.png?w=173&format=avif;webp;png&metadata';
-  import social from './assets/social.png?w=173&format=avif;webp;png&metadata';
+  import trust from './assets/trust.png?w=184&format=avif;webp;png&metadata=src;format;width;height';
+  import carbon from './assets/carbon.png?w=135&format=avif;webp;png&metadata=src;format;width;height';
+  import currency from './assets/currency.png?w=283&format=avif;webp;png&metadata=src;format;width;height';
+  import deposit from './assets/deposit.png?w=173&format=avif;webp;png&metadata=src;format;width;height';
+  import purchase from './assets/purchase.png?w=173&format=avif;webp;png&metadata=src;format;width;height';
+  import social from './assets/social.png?w=173&format=avif;webp;png&metadata=src;format;width;height';
 </script>
 
 <div class="container py-0 flex flex-col gap-6 md:gap-12">

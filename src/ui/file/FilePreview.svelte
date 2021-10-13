@@ -6,7 +6,7 @@
   import Image from '$ui/image/Image.svelte';
   import videoDisableOptions from '$ui/video-ext';
   import { styles } from '$util/styles';
-  import fallback from '$project/assets/fallback.png?w=700&format=avif;webp;png&metadata';
+  import fallback from '$project/assets/fallback.png?w=700&format=avif;webp;png&metadata=src;format;width;height';
   import { getFileType, getAspectRatioStyle } from './file-utils';
 
   /**

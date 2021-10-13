@@ -1,15 +1,15 @@
 <script lang="ts">
   import Image from '$ui/image/Image.svelte';
   import Intro from './Intro.svelte';
-  import darren from './assets/darren.jpg?w=192&format=avif;webp;jpg&metadata';
-  import rebecca from './assets/rebecca.jpg?w=192&format=avif;webp;jpg&metadata';
-  import nadine from './assets/nadine.jpg?w=192&format=avif;webp;jpg&metadata';
-  import evan from './assets/evan.jpg?w=192&format=avif;webp;jpg&metadata';
-  import jason from './assets/jason.jpg?w=192&format=avif;webp;jpg&metadata';
-  import jimmy from './assets/jimmy.jpg?w=192&format=avif;webp;jpg&metadata';
-  import ilona from './assets/ilona.jpg?w=192&format=avif;webp;jpg&metadata';
-  import travis from './assets/travis.jpg?w=192&format=avif;webp;jpg&metadata';
-  import cathy from './assets/cathy.jpg?w=192&format=avif;webp;jpg&metadata';
+  import darren from './assets/darren.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
+  import rebecca from './assets/rebecca.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
+  import nadine from './assets/nadine.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
+  import evan from './assets/evan.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
+  import jason from './assets/jason.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
+  import jimmy from './assets/jimmy.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
+  import ilona from './assets/ilona.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
+  import travis from './assets/travis.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
+  import cathy from './assets/cathy.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
 
   const managementTeam = [
     { photo: darren, name: 'DARREN MANN', occupation: 'CO-CEO' },

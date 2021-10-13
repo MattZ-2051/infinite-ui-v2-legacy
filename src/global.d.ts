@@ -20,9 +20,9 @@ interface CommonImportMetaEnvironment {
   VITE_AWS_COGNITO_STATE_CIPHER_KEY: string;
 }
 
-declare module '*format=avif;webp;png&metadata';
-declare module '*format=avif;webp;jpeg&metadata';
-declare module '*format=avif;webp;jpg&metadata';
+declare module '*format=avif;webp;png&metadata=src;format;width;height';
+declare module '*format=avif;webp;jpeg&metadata=src;format;width;height';
+declare module '*format=avif;webp;jpg&metadata=src;format;width;height';
 
 type SvelteAction = (node: HTMLElement | SVGSVGElement, parameters?: unknown) => SvelteActionReturn;
 

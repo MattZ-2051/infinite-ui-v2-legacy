@@ -3,7 +3,7 @@
   import { goto } from '$app/navigation';
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
-  import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata';
+  import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
   import routes from '$project/routes';
 
   function onClose() {

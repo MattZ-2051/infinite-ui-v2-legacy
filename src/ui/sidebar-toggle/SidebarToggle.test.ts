@@ -26,10 +26,10 @@ describe('SidebarToggle', () => {
     fireEvent.click(button);
 
     expect(onToggle).toHaveBeenCalled();
-    expect(onToggle.mock.calls[0][0].detail).toEqual(true);
+    expect(onToggle.mock.calls[0][0].detail).toBe(true);
 
     await component.$set({ isOpen: true });
     fireEvent.click(button);
-    expect(onToggle.mock.calls[1][0].detail).toEqual(false);
+    expect(onToggle.mock.calls[1][0].detail).toBe(false);
   });
 });

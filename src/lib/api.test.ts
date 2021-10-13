@@ -129,7 +129,7 @@ describe('API', () => {
       );
 
       const response = await get('my/path', { fetch: mockFetch });
-      expect(response).toEqual('abcd');
+      expect(response).toBe('abcd');
     });
   });
 

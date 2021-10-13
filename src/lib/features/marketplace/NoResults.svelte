@@ -1,6 +1,6 @@
 <script lang="ts">
   import Image from '$ui/image/Image.svelte';
-  import noResults from '$project/assets/no_results.png?w=240;&format=avif;webp;png&metadata';
+  import noResults from '$project/assets/no_results.png?w=240;&format=avif;webp;png&metadata=src;format;width;height';
 
   let _class = '';
   export { _class as class };

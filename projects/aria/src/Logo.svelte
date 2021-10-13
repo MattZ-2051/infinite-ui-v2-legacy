@@ -1,5 +1,5 @@
 <script lang="ts">
-  import logo from '$project/assets/logo_purpleglow.png?w=200&format=avif;webp;png&metadata';
+  import logo from '$project/assets/logo_purpleglow.png?w=200&format=avif;webp;png&metadata=src;format;width;height';
   import Image from '$ui/image/Image.svelte';
 </script>
 

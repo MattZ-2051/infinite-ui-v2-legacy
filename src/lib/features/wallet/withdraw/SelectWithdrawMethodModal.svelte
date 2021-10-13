@@ -7,8 +7,8 @@
   import Icon from '$ui/icon/Icon.svelte';
   import AchWithdrawModal from './AchWithdrawModal.svelte';
   import UsdcWithdrawModal from './UsdcWithdrawModal.svelte';
-  import usdcImg from './assets/usdcoin.png?w=60&format=avif;webp;png&metadata';
-  import achImg from './assets/bank.png?w=60&format=avif;webp;png&metadata';
+  import usdcImg from './assets/usdcoin.png?w=60&format=avif;webp;png&metadata=src;format;width;height';
+  import achImg from './assets/bank.png?w=60&format=avif;webp;png&metadata=src;format;width;height';
 
   export let isOpen: boolean;
 

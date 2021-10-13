@@ -64,7 +64,7 @@ describe('Pagination', () => {
     component.$on('change', onChange);
 
     await fireEvent.click(pages[2].querySelector('button'));
-    expect(onChange.mock.calls[0][0].detail.value).toEqual(2);
+    expect(onChange.mock.calls[0][0].detail.value).toBe(2);
   });
 
   it('does not click the active page', async () => {

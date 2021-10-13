@@ -6,12 +6,12 @@
   import Image from '$ui/image/Image.svelte';
   import Icon from '$ui/icon/Icon.svelte';
 
-  import Circle from './circle-avatar.png?w=48&format=avif;webp;png&metadata';
-  import BitCoin from './bitcoin-avatar.png?w=48&format=avif;webp;png&metadata';
-  import EthCoin from './ethcoin-avatar.png?w=48&format=avif;webp;png&metadata';
-  import USDCoin from './usdcoin-avatar.png?w=48&format=avif;webp;png&metadata';
-  import Suku from './suku-avatar.png?w=48&format=avif;webp;png&metadata';
-  import Hbar from './hbar-avatar.png?w=48&format=avif;webp;png&metadata';
+  import Circle from './circle-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
+  import BitCoin from './bitcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
+  import EthCoin from './ethcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
+  import USDCoin from './usdcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
+  import Suku from './suku-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
+  import Hbar from './hbar-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 
   export let isOpen: boolean;
   export let onDepositSelect: (id: 'circle' | 'eth' | 'btc' | 'usdc' | 'hbar') => unknown;

@@ -3,7 +3,7 @@
   import { SocialLinks, FooterLayout } from '$lib/layout/footer';
   import { user } from '$lib/user';
   import Image from '$ui/image/Image.svelte';
-  import ariaLogo from '$project/assets/logo_purpleglow.png?w=560&format=avif;webp;png&metadata';
+  import ariaLogo from '$project/assets/logo_purpleglow.png?w=560&format=avif;webp;png&metadata=src;format;width;height';
   import SubscribeForm from '$project/subscribe/SubscribeForm.svelte';
   import Button from '$lib/components/Button.svelte';
   import { links } from './social-links';

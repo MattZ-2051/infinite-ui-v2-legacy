@@ -8,7 +8,7 @@ describe('styles', () => {
         height: '50%',
         'max-height': '200px',
       })
-    ).toEqual('width: 5px; height: 50%; max-height: 200px;');
+    ).toBe('width: 5px; height: 50%; max-height: 200px;');
   });
 
   it('can format units', () => {
@@ -18,7 +18,7 @@ describe('styles', () => {
         'height.%': '50',
         'max-height.px': '200',
       })
-    ).toEqual('width: 5px; height: 50%; max-height: 200px;');
+    ).toBe('width: 5px; height: 50%; max-height: 200px;');
   });
 
   it('will ignore falsy values', () => {
@@ -29,6 +29,6 @@ describe('styles', () => {
         // eslint-disable-next-line unicorn/no-null
         'max-height.px': null,
       })
-    ).toEqual('height: 50%;');
+    ).toBe('height: 50%;');
   });
 });

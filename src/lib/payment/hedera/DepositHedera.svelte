@@ -4,7 +4,7 @@
   import { Modal, closeModal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import Image from '$ui/image/Image.svelte';
-  import Hbar from '$lib/features/wallet/deposit/hbar-avatar.png?w=32&format=avif;webp;png&metadata';
+  import Hbar from '$lib/features/wallet/deposit/hbar-avatar.png?w=32&format=avif;webp;png&metadata=src;format;width;height';
   import { loadExplorerLink, checkHbarDeposits, loadingHbarTransactions } from '$lib/features/wallet/wallet.api';
   import WalletAddress from './WalletAddress.svelte';
   import ExplorerLink from './ExplorerLink.svelte';

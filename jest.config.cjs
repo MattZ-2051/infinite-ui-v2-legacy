@@ -13,7 +13,7 @@ module.exports = async () => {
       '\\.css$': '<rootDir>/scripts/test/file-stub.js',
       '\\$app/(.+)$': '<rootDir>/scripts/test/$app/$1',
       '\\$lib/(.+)$': '<rootDir>/src/lib/$1',
-      '\\$project/(.+)metadata$': '<rootDir>/scripts/test/file-stub.js',
+      '\\$project/(.+)metadata=src;format;width;height$': '<rootDir>/scripts/test/file-stub.js',
       ...Object.fromEntries(alias.map(([key, value]) => [`\\${key}/(.+)$`, `<rootDir>/${value}/$1`])),
       '^clsx$': '<rootDir>/scripts/test/clsx.jest.cjs',
     },
