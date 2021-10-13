@@ -7,7 +7,8 @@ export const CLIENT_SOCIAL_IMAGE = {
   height: 831,
   alt: 'SEVA.LOVE',
 };
-export const CLIENT_SUPPORT_EMAIL = 'help@seva.love';
-export const CLIENT_SUPPORT_URL = 'https://support.suku.world/infinite-powered-by-suku';
+export const HUBSPOT_FORM_URL = '//js.hsforms.net/forms/shell.js';
+export const CLIENT_SUPPORT_EMAIL = 'info@seva.love';
+export const CLIENT_SUPPORT_URL = 'https://info.seva.love/';
 export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-hashgraph-hts';
 export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-redeem-an-item';
