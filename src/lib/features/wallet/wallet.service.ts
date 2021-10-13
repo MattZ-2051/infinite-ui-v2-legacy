@@ -4,10 +4,16 @@ import { formatCurrency } from '$util/format';
 export function handleWalletDepositError(error: ApiError) {
   switch (error?.data?.appCode) {
     case 'ABOVE_OPERATION_DEPOSIT_LIMIT':
-      return `You can only deposit up to ${formatCurrency(
+      return `Whoops! You can only deposit up to ${formatCurrency(
         error.data.args['ccDepositCentsLimit'] / 100
-      )} per credit card transaction.`;
+      )} USD per Credit Card transaction.`;
 
+    case 'ABOVE_DAILY_DEPOSIT_LIMIT':
+      return `Whoops! You've deposited ${formatCurrency(
+        error.data.args['dailySelectedCardDepositCents'] / 100
+      )}  USD in the past 24 hours. The current allowable daily limit is ${formatCurrency(
+        error.data.args['dailyDepositCentsLimit'] / 100
+      )}  USD. Please try again when 24 hours have passed or deposit cryptocurrency.`;
     default:
       return 'We couldn’t process your payment and the transaction was cancelled.';
   }
