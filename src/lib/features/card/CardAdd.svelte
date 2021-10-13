@@ -22,6 +22,9 @@
   const phoneOrEmailValidateFunction = function () {
     return this.parent.phone || this.parent.email;
   };
+  const isFirstAndLastName = function () {
+    return this.originalValue.split(/\s+/g).filter(Boolean).length >= 2;
+  };
 
   const schema = yup.object({
     cardNumber: yup
@@ -35,7 +38,14 @@
       .matches(/^\d{3,4}$/, 'Enter a valid ccv number')
       .required('CCV is required'),
     billingDetails: yup.object({
-      name: yup.string().required('Name is required'),
+      name: yup
+        .string()
+        .required('Name is required')
+        .test(
+          'isFirstAndLastName',
+          'Cardholder name must have a first and last name, separated by a space.',
+          isFirstAndLastName
+        ),
       line1: yup.string().required('Address is required'),
       line2: yup.string(),
       postalCode: yup.string().required('Postal code is required'),
@@ -46,7 +56,10 @@
       }),
     }),
     metadata: yup.object({
-      phone: yup.string().test('emailOrPhone', 'Email or phone is required', phoneOrEmailValidateFunction),
+      phone: yup
+        .string()
+        .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Is not a valid phone number.', excludeEmptyString: true })
+        .test('emailOrPhone', 'Email or phone is required', phoneOrEmailValidateFunction),
       email: yup
         .string()
         .email('Is not a valid email')

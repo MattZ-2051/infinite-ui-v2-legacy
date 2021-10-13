@@ -30,8 +30,16 @@ creditCardInsertFx.done.watch(() => {
 });
 
 creditCardInsertFx.failData.watch((error) => {
-  const message =
-    typeof error?.data?.message === 'string' ? error.data.message : `There was a problem adding your card.`;
+  let message;
+  if (error?.data?.appCode === 'APP_VALIDATION_ERROR') {
+    message = error?.data?.args?.[0].children?.[0]?.constraints?.IsFullName
+      ? 'Cardholder name is not valid'
+      : 'Validation Error';
+  } else if (typeof error?.data?.message === 'string') {
+    message = error.data.message;
+  } else {
+    message = 'There was a problem adding your card.';
+  }
   toast.danger(message, { toastId: 'CARD_ADD_ERROR' });
 });
 
