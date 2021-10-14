@@ -7,10 +7,11 @@
   import LandingSkuGrid from './second-section/LandingSkuGrid.svelte';
   import Subscribe from './subscribe/Subscribe.svelte';
 
+  export let singleSkuData: Sku;
   export let skus: Sku[];
 </script>
 
-<LandingHead sku={skus[2]} />
+<LandingHead sku={singleSkuData} />
 <LandingSkuGrid {skus} />
 <HeartSurgery />
 <FAQ />

@@ -17,10 +17,14 @@
   // );
 
   export let skus;
+
+  const uniqueSku = skus.find((sku) => {
+    return '615640e1e5b85e4affdb2316' === sku._id;
+  });
 </script>
 
 <ThemeContext id="issuer">
-  <EmiliaFirstNft sku={skus[1]} />
+  <EmiliaFirstNft sku={uniqueSku || skus[2]} />
   <div class="container" id="collection">
     <slot />
   </div>
