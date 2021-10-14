@@ -99,28 +99,23 @@
   <div class="fixed top-0 left-0 bottom-0 right-0 z-40 w-full h-full bg-black" />
 {/if}
 
-<div class="container flex flex-col gap-2 items-center">
+<div class=" flex flex-col gap-2 items-center">
   <div class="w-80">
     <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
-      <FormElement name="holderName" label="Account holder name *" />
-      <FormElement name="addressLine1" label="Address Line 1 *" />
+      <FormElement name="holderName" label="Name on account*" />
+      <FormElement name="email" label="Email address*" />
+      <FormElement name="phoneNumber" label="Phone Number*" />
+      <FormElement name="addressLine1" label="Address Line 1*" />
       <FormElement name="addressLine2" label="Address Line 2" />
-      <div class="grid grid-cols-2 gap-4">
-        <FormElement name="phoneNumber" label="Phone Number *" />
-        <FormElement name="email" label="Email *" />
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <FormElement name="city" label="City *" />
-        <FormElement name="postalCode" label="Postal Code *" />
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <FormCountriesSelect name="country" label="Country *" />
-        <FormDistrictsSelect
-          countryISO2={$data.country}
-          name="district"
-          label="State/Province{isDistrictRequired ? ' *' : ''}"
-        />
-      </div>
+      <FormElement name="city" label="City*" />
+      <FormElement name="postalCode" label="Postal Code*" />
+      <FormCountriesSelect name="country" label="Country code*" />
+      <FormDistrictsSelect
+        countryISO2={$data.country}
+        name="district"
+        label="District{isDistrictRequired ? '*' : ''}"
+      />
+
       <button class="hidden" bind:this={submit} />
     </form>
   </div>
