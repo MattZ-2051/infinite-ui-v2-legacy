@@ -3,7 +3,7 @@ import { createEffect, createEvent, forward } from 'effector';
 import { openModal } from '$ui/modals';
 import { toast } from '$ui/toast';
 import ConfirmModal from '$lib/components/ConfirmModal.svelte';
-
+import DeleteConfirmModalBody from './DeleteConfirmModalBody.svelte';
 import { deleteAchAccount } from './account-delete.api';
 import { achAccountFetchFx } from '../withdraw.store';
 
@@ -14,13 +14,16 @@ const achAccountDeleteFx = createEffect(async ({ achAccount }: { achAccount: Ach
 });
 
 achAccountDeleteRequested.watch(({ achAccount }) => {
-  const { metadata } = achAccount.plaidInfo;
   openModal(ConfirmModal, {
-    title: 'Remove account?',
-    message: `You are going to delete the ${metadata.institution.name} account xxxx${metadata.account.mask}.`,
+    title: 'Delete Account?',
+    message: DeleteConfirmModalBody,
     onConfirm: async () => {
       return await achAccountDeleteFx({ achAccount });
     },
+    persistent: false,
+    closeButton: true,
+    messageData: { account: achAccount },
+    labels: { cancel: 'No', confirm: 'Yes' },
   });
 });
 
