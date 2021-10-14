@@ -8,7 +8,7 @@
   export let skuData: Sku;
 </script>
 
-<div class="relative w-full h-full pb-40 sm:pb-0 sm:mb-0">
+<div class="relative w-full h-full pb-40 sm:pb-0 sm:mb-0 pt-0 md:pt-16 lg:pt-52">
   <div class="container h-full sm:h-screen flex flex-col gap-10 max-w-5xl sm:grid sm:grid-cols-2 px-6">
     <div class="z-1 flex flex-col gap-8 justify-center items-start">
       <div class="text-4xl leading-none sm:text-6xl text-left">Emilia’s SameYou <br /> charity NFT</div>

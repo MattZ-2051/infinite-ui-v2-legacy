@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div class="grid grid-rows-1 md:grid-rows-2 mb-96">
+  <div class="grid grid-rows-1 md:grid-rows-2 mb-10 md:mb-64">
     <div class="container flex flex-col items-center md:items-start justify-center md:flex-row max-w-7xl px-6">
       <ThemeContext id="landing-head-left-card">
         <div class="font-normal text-left md:text-right mt-16 md:mt-32 md:flex flex-col order-2 md:w-1/3 md:order-1">
@@ -78,7 +78,7 @@
     <div>
       <div class="image-line-container w-full hidden md:block relative top-0 z-1" style="height:510px">
         <img src={LineImage} alt="line" width="100%" />
-        <div class="bubble-container absolute top-80 right-60">
+        <div class="bubble-container absolute top-60 right-80">
           <img src={Bubbles} alt="bubble-images" width="100%" />
         </div>
       </div>
@@ -98,6 +98,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: center;
-    background-position-y: top;
+    background-position-y: -12.5em;
   }
 </style>

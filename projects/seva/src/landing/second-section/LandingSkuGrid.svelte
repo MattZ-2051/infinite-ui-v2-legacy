@@ -38,8 +38,8 @@
   });
 </script>
 
-<div class="container px-6 mb-24 lg:mb-96">
-  <div class="flex flex-col justify-center w-full mt-64 mb-24">
+<div class="container px-6 mb-24 sm:mb-64">
+  <div class="flex flex-col justify-center w-full mb-24">
     <div class="flex flex-col justify-center items-center">
       <div class="flex flex-col items-center max-w-4xl">
         <p class="text-4xl md:text-6xl font-medium text-center  text-black">Welcome to the community!</p>
