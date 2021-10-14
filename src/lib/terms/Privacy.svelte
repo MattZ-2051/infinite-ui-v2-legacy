@@ -1,6 +1,12 @@
+<script>
+  import { variables } from '../variables';
+</script>
+
 <div class="container py-8">
   <h3>
-    Privacy Notice <strong>(ADAPTED FROM https://dev.goinfinite.io/privacy - TO BE AMENDED FOR ARIA EXCHANGE)</strong>
+    Privacy Notice <strong
+      >(ADAPTED FROM https://dev.goinfinite.io/privacy - TO BE AMENDED FOR {variables.persona.tenantName} EXCHANGE)</strong
+    >
   </h3>
   <p>Effective date: May 19, 2021</p>
   <p>Our privacy notice is available in PDF form here.</p>
