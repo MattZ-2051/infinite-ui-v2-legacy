@@ -100,17 +100,16 @@
 
 {#if isOpen}
   <Modal {title} class="max-w-md" on:close={closeModal}>
-    <div class="px-10 flex flex-col gap-4 pb-10">
-      <div class="flex justify-center items-center bg-black h-72">
-        <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
-      </div>
+    <div class="px-10 flex flex-col gap-6 pb-10">
       <div class={insufficientFunds ? 'text-red-500' : 'text-green-500'}>
         Your current balance {formatCurrency(user.availableBalance)}
+      </div>
+      <div class="flex justify-center items-center bg-black h-72">
+        <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
       </div>
       <ProductModalInfo sku={_sku} />
       {#if !result}
         <div>
-          <hr class="h-px w-full my-4" />
           <OrderProductPricing price={listing.price} {marketplaceFee} />
         </div>
       {/if}
@@ -164,6 +163,7 @@
             Confirming your order will complete the purchase, and the total price will be deducted from your wallet.
           </div>
           <Button variant="brand" class="mt-6" disabled={purchasing} on:click={submitOrder}>Buy Now</Button>
+          <Button variant="outline-brand" on:click={closeModal}>Cancel</Button>
         {/if}
       </div>
     </div>
