@@ -9,6 +9,7 @@
   import Button from '$lib/components/Button.svelte';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import { FormElement } from '$lib/components/form';
+  import tooltip from '$ui/tooltip';
   import { creditCardFundsAddFx, creditCardRemoveFx } from './card.store';
   import CreditCardComponent from './CreditCard.svelte';
   import CircleContainer from './CircleContainer.svelte';
@@ -92,7 +93,13 @@
       >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
     >
     <FormElement name="amount" type="number" placeholder="Enter Amount" before="$" />
-    <Button variant="brand" type="submit" disabled={!isActive || $saving}>Add Funds</Button>
+    <div
+      use:tooltip={card.status === 'pending'
+        ? 'Please wait a few moments while your credit card is activated. This can take up to 2 minutes.'
+        : ''}
+    >
+      <Button variant="brand" type="submit" disabled={!isActive || $saving}>Add Funds</Button>
+    </div>
   </form>
 </CircleContainer>
 
