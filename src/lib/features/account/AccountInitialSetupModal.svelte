@@ -78,7 +78,7 @@
       <span class="text-base text-gray-900 text-center">
         Please provide the following information to complete your profile.
       </span>
-      <form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3">
+      <form use:form autocomplete="off" class="flex flex-col gap-3">
         <FormElement label="First name *" name="firstName" />
         <FormElement label="Last name *" name="lastName" />
         <FormElement component={Textarea} label="About me" name="tagline" placeholder="Enter short bio" rows="4" />

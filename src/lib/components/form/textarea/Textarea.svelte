@@ -4,34 +4,31 @@
 
 <script lang="ts">
   import { get_current_component } from 'svelte/internal';
+  import type { FormElementVariant } from '../types';
   import { forwardEventsBuilder } from '$util/forwardEvents';
   import BaseElement from '../BaseElement.svelte';
 
   export let id = `textarea-${uid++}`;
   export let name = undefined;
   export let label = '';
+  export let value = undefined;
   export let error: string | string[] = '';
+  export let variant: FormElementVariant = 'base';
   let _class = '';
   export { _class as class };
 
   const forwardEvents = forwardEventsBuilder(get_current_component());
 </script>
 
-<BaseElement {id} {name} {label} {error} let:klass>
-  <textarea use:forwardEvents {id} {name} class="{klass} {_class}" {...$$restProps} />
+<BaseElement {id} {label} {error} {variant} class={_class} let:klass>
+  <textarea use:forwardEvents {id} {name} class={klass} bind:value {...$$restProps} />
 </BaseElement>
 
 <style lang="postcss">
-  textarea::placeholder {
-    @apply text-base;
-    color: var(--input-placeholder-color);
-  }
   textarea {
-    min-height: var(--input-height);
-    padding: var(--input-padding);
-    background-color: var(--input-bg-color);
-    border-radius: var(--input-border-radius);
-    color: var(--input-color);
-    text-align: var(--input-text-align);
+    padding: 0.5rem 0;
+    resize: none;
+    background-color: transparent;
+    min-height: 1.875rem;
   }
 </style>

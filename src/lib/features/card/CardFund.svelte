@@ -85,10 +85,8 @@
     >
   </div>
 
-  <form data-style="container" use:form class="mt-6 flex flex-col gap-6 items-center" autocomplete="off">
-    <div class="cvv-container">
-      <FormElement name="cvv" placeholder="Enter CVV" />
-    </div>
+  <form use:form class="mt-6 flex flex-col gap-6 items-center" autocomplete="off">
+    <FormElement name="cvv" placeholder="Enter CVV" />
     <span class="text-red-500 text-center"
       >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
     >
@@ -102,9 +100,3 @@
     </div>
   </form>
 </CircleContainer>
-
-<style>
-  .cvv-container {
-    --input-text-align: center;
-  }
-</style>

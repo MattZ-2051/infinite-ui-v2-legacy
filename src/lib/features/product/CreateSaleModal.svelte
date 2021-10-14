@@ -1,9 +1,11 @@
 <script lang="ts">
   import type { Product, ListingSalePayload } from '$lib/sku-item/types';
   import { validateSchema } from '@felte/validator-yup';
+  import { setContext } from 'svelte';
   import * as yup from 'yup';
   import { createForm } from 'felte';
   import { toast } from '$ui/toast';
+  import { FormElement } from '$lib/components/form';
   import Button from '$lib/components/Button.svelte';
   import { closeModal, Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
@@ -17,19 +19,24 @@
   export let product: Product;
   export let isOpen: boolean;
 
-  let price;
-  let disabled = false;
+  const schema = yup.object({
+    price: yup
+      .number()
+      .typeError('Enter a valid number.')
+      .moreThan(0, 'Enter a positive amount.')
+      .required('Amount is required.'),
+  });
 
-  $: marketplaceFee = getSellingFee(product);
-  $: royaltyFee = getRoyaltyFee(product);
-  $: royaltyFeePrice = Math.max(price * royaltyFee || 0, 0);
-  $: marketplaceFeePrice = Math.max(price * marketplaceFee || 0, 0);
-  $: total = Math.max(price * (1 - marketplaceFee - royaltyFee) || 0, 0);
+  const { form, errors, data, isSubmitting } = createForm<{ price: number }>({
+    onSubmit: async () => {
+      startSale();
+    },
+    validate: validateSchema(schema),
+  });
 
   async function startSale() {
-    disabled = true;
     const listing: ListingSalePayload = {
-      price: price,
+      price: $data.price,
       type: 'product',
       product: product?._id,
       saleType: 'fixed',
@@ -47,25 +54,16 @@
       toast.danger(
         `An error occured when creating your sale. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
       );
-    } finally {
-      disabled = false;
     }
   }
 
-  const schema = yup.object({
-    price: yup
-      .number()
-      .typeError('Enter a valid number.')
-      .moreThan(0, 'Enter a positive amount.')
-      .required('Amount is required.'),
-  });
+  $: marketplaceFee = getSellingFee(product);
+  $: royaltyFee = getRoyaltyFee(product);
+  $: royaltyFeePrice = Math.max($data.price * royaltyFee || 0, 0);
+  $: marketplaceFeePrice = Math.max($data.price * marketplaceFee || 0, 0);
+  $: total = Math.max($data.price * (1 - marketplaceFee - royaltyFee) || 0, 0);
 
-  const { form, errors } = createForm({
-    onSubmit: async () => {
-      startSale();
-    },
-    validate: validateSchema(schema),
-  });
+  setContext('errors', errors);
 </script>
 
 {#if isOpen}
@@ -77,20 +75,15 @@
         </div>
         <ProductModalInfo {product} sku={product.sku} />
         <div class="flex flex-col gap-2">
-          <div class="input-container flex flex-col items-center mt-4 mb-2 relative">
-            <input
-              data-initial-focus
-              name="price"
-              type="number"
-              bind:value={price}
-              placeholder="Enter price"
-              class="relative w-full bg-gray-50 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
-              class:border-red-600={!!$errors.price}
-            />
-          </div>
-          {#if $errors.price}
-            <div class="text-red-500 text-sm">{$errors.price}</div>
-          {/if}
+          <FormElement
+            class="bg-gray-50 py-3 mt-4 mb-2"
+            variant="rounded"
+            data-initial-focus
+            name="price"
+            type="number"
+            placeholder="Enter price"
+            before="$"
+          />
         </div>
         <div class="border-b border-gray-200 text-gray-500 font-medium mb-2">
           <div class="flex justify-between pb-1 mb-1">
@@ -113,20 +106,8 @@
         <div class="text-sm text-gray-500">
           If your NFT is bought on the marketplace, payment will be transferred to your INFINITE wallet.
         </div>
-        <Button variant="brand" class="w-full mt-6" type="submit" {disabled}>Start Sale</Button>
+        <Button variant="brand" class="w-full mt-6" type="submit" disabled={$isSubmitting}>Start Sale</Button>
       </div>
     </form>
   </Modal>
 {/if}
-
-<style>
-  .input-container::before {
-    content: '$';
-    position: absolute;
-    left: 12px;
-    bottom: 12px;
-    z-index: 1;
-    @apply text-xl;
-    @apply text-gray-400;
-  }
-</style>

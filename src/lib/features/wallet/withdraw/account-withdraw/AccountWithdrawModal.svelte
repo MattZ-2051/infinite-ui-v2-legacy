@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { AchAccount } from '../types';
   import Button from '$lib/components/Button.svelte';
+  import { Input } from '$lib/components/form';
   import { Modal, closeModal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
@@ -53,18 +54,18 @@
         </div>
         <div>(Excludes pending transactions and credit card payments less than 30 days old)</div>
       </div>
-      <div class="input-container flex items-center relative py-4">
-        <input
-          type="number"
-          min="0"
-          max={withdrawableAmount}
-          placeholder="Enter amount"
-          class="relative w-full bg-gray-50 py-3 pr-2 outline-none rounded-lg text-center border-0 text-xl"
-          data-initial-focus
-          bind:value={amount}
-          on:change={onPriceChange}
-        />
-      </div>
+      <Input
+        variant="rounded"
+        type="number"
+        min="0"
+        max={withdrawableAmount}
+        placeholder="Enter amount"
+        class="bg-gray-50 py-3 mt-4"
+        data-initial-focus
+        bind:value={amount}
+        on:change={onPriceChange}
+        before="$"
+      />
     </div>
     <div slot="footer" class="flex flex-col gap-4">
       <Button variant="brand" on:click={onConfirm} disabled={$pending}>Confirm Withdraw</Button>
@@ -72,14 +73,3 @@
     </div>
   </Modal>
 {/if}
-
-<style>
-  .input-container::before {
-    content: '$';
-    position: absolute;
-    left: 10px;
-    z-index: 1;
-    @apply text-xl;
-    @apply text-gray-400;
-  }
-</style>

@@ -43,29 +43,6 @@
   --footer-icon-color-hover: #000000;
   --footer-icon-border-radius: 50%;
 
-  /* Input */
-  --input-container-border-color-focus: var(--color);
-  --input-container-border-color: theme('colors.gray.300');
-  --input-container-border-color-error: theme('colors.red.500');
-  --input-container-border-width: 1px;
-  --input-container-padding-bottom: 0.125rem;
-  --input-label-color: theme('colors.gray.500');
-  --input-label-font-size: 14px;
-  --input-label-font-weight: 400;
-  --input-color: var(--color);
-  --input-text-align: left;
-  --input-bg-color: transparent;
-  --input-border-radius: 0px;
-  --input-placeholder-color: theme('colors.gray.500');
-  --input-padding: 0 0.125rem;
-  --input-height: 1.875rem;
-
-  /* Select */
-  --select-color: var(--color);
-  --select-bg-color: var(--bg-color);
-  --select-option-color: #000000;
-  --select-option-bg-color: #ffffff;
-
   /* Checkbox */
   --checkbox-border-color: theme('colors.gray.200');
   --checkbox-checkmark-color: var(--color);
@@ -193,14 +170,6 @@
   --footer-icon-bg-color-hover: #000000;
   --footer-icon-color-hover: #ffffff;
 
-  /* Input */
-  --input-container-border-color-focus: var(--color);
-  --input-container-border-color: theme('colors.gray.300');
-  --input-container-border-color-error: theme('colors.red.500');
-  --input-label-color: theme('colors.gray.500');
-  --input-color: var(--color);
-  --input-placeholder-color: theme('colors.gray.500');
-
   /* Checkbox */
   --checkbox-border-color: theme('colors.gray.200');
   --checkbox-checkmark-color: var(--color);
@@ -231,8 +200,6 @@
   --tooltip-color: #ffffff;
 
   /* Select */
-  --select-color: initial;
-  --select-bg-color: initial;
   --select-option-color: initial;
   --select-option-bg-color: initial;
 

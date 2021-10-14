@@ -52,8 +52,16 @@
 </script>
 
 <form data-style="container" use:form autocomplete="off" class="flex flex-col gap-3 ">
-  <FormElement name="username" label="Username" />
-  <FormElement component={Textarea} name="tagline" placeholder="Enter short bio" label="About me" rows="4" />
+  <FormElement variant="rounded" class="form-element-rounded-white" name="username" label="Username" />
+  <FormElement
+    variant="rounded"
+    class="form-element-rounded-white"
+    component={Textarea}
+    name="tagline"
+    placeholder="Enter short bio"
+    label="About me"
+    rows="4"
+  />
   <div class="flex gap-4 justify-end">
     <Button
       class="w-16 text-sm rounded-sm"

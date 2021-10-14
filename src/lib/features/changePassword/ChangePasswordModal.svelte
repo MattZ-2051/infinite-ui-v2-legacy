@@ -51,7 +51,7 @@
     <svelte:fragment slot="title"><span class="text-2xl">Change Password</span></svelte:fragment>
     <div class="px-10">
       <div class="pt-10 pb-5">
-        <form use:form autocomplete="off" data-style="container" class="flex flex-col gap-3">
+        <form use:form autocomplete="off" class="flex flex-col gap-3">
           <PasswordInput
             label="New Password *"
             placeholder="Enter your new password"

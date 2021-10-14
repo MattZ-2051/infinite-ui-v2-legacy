@@ -25,6 +25,14 @@
     { id: 'discord', label: 'Discord', path: mdiDiscord },
   ];
 
+  const contactFields = [
+    { name: 'talent', label: 'Talent Name *', placeholder: 'John Brown' },
+    { name: 'name', label: 'Your Name *', placeholder: 'John Doe' },
+    { name: 'email', label: 'Your Email Address *', placeholder: 'john.brown@example.com' },
+    { name: 'relationship', label: 'Relationship to Talent', placeholder: 'Self, Manager, etc.' },
+    { name: 'industry', label: 'Industry', placeholder: 'Art, Music, Sport, etc.' },
+  ];
+
   const schema = yup.object({
     talent: yup.string().required('Talent name is required.'),
     name: yup.string().required('Name is required.'),
@@ -72,15 +80,13 @@
         <form use:form class="form flex flex-col gap-8 lg:mx-32 xl:mx-40 px-10 md:mb-16" autocomplete="off">
           <span class="border-b-2 pb-4 pt-7 text-2xl">Talent Details</span>
           <div class="flex justify-between flex-col md:flex-row gap-16">
-            <div class="flex flex-col gap-6 text-lg" style="flex-grow:6;">
-              <FormElement name="talent" label="Talent Name *" placeholder="John Brown" />
-              <FormElement name="name" label="Your Name *" placeholder="John Doe" />
-              <FormElement name="email" label="Your Email Address *" placeholder="john.brown@example.com" />
-              <FormElement name="relationship" label="Relationship to Talent" placeholder="Self, Manager, etc." />
-              <FormElement name="industry" label="Industry" placeholder="Art, Music, Sport, etc." />
+            <div class="flex flex-col gap-6" style="flex-grow:6;">
+              {#each contactFields as contactField}
+                <FormElement class="form-element-rounded-white" variant="rounded" {...contactField} />
+              {/each}
             </div>
-            <div class="flex flex-col flex-grow gap-1.5 text-lg">
-              <span>Social Links</span>
+            <div class="flex flex-col flex-grow gap-1.5">
+              <span class="text-lg">Social Links</span>
               {#each socialMedia as { id, label, path } (id)}
                 <div class="flex gap-2 items-center">
                   <label
@@ -90,19 +96,13 @@
                   >
                     <Icon {path} size="0.6" />
                   </label>
-                  <FormElement {id} name={id} class="flex-grow" />
+                  <FormElement class="form-element-rounded-white" variant="rounded" {id} name={id} />
                 </div>
               {/each}
             </div>
           </div>
           <div class="text-right mb-8">
-            <Button
-              variant="brand"
-              type="submit"
-              --button-padding="5px 40px"
-              --button-border-radius="8px"
-              disabled={$isSubmitting}>Submit</Button
-            >
+            <Button variant="brand" type="submit" disabled={$isSubmitting}>Submit</Button>
           </div>
         </form>
       </div>
@@ -112,8 +112,11 @@
 
 <style>
   [data-style='container'] {
-    --input-label-color: var(--color);
-    --input-label-font-size: 18px;
+    /* TODO: enable passing label as slot properly to avoid having these vars */
+    --form-element-label-color: #ffffff;
+    --form-element-label-font-size: 1.125rem;
+    --button-padding: 5px 40px;
+    --button-border-radius: 8px;
   }
   .form {
     background-color: #1d1a54;

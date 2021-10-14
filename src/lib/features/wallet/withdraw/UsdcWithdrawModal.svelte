@@ -3,12 +3,11 @@
   import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
+  import { Input } from '$lib/components/form';
   import { usdcWithdrawFx } from './account-withdraw/account-withdraw.store';
   import { withdrawableBalance } from '../wallet.store';
 
   export let isOpen: boolean;
-
-  $: title = 'USDC Withdrawal';
 
   let amount: number;
   let usdcAddress: string;
@@ -32,11 +31,7 @@
       return;
     }
 
-    if (!usdcAddress) {
-      toast.danger('Please enter a valid Ethereum mainnet address that accepts ERC20 deposits.');
-      return;
-    }
-    const isValidAddress = /^0x[\da-f]{40}$/.test(usdcAddress.toLowerCase());
+    const isValidAddress = /^0x[\da-f]{40}$/.test(usdcAddress?.toLowerCase());
 
     if (!isValidAddress) {
       toast.danger('Please enter a valid Ethereum mainnet address that accepts ERC20 deposits.');
@@ -49,7 +44,7 @@
 </script>
 
 {#if isOpen}
-  <Modal {title} on:close={closeModal} class="max-w-lg">
+  <Modal title="USDC Withdrawal" on:close={closeModal} class="max-w-lg">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       <div class="text-black">
         Withdrawable Balance <span class="font-semibold">{formatCurrency($withdrawableBalance)}</span>
@@ -59,28 +54,28 @@
       </div>
       <div class="mt-8">
         <div class="text-black-opacity-50 text-base mb-4">Enter the amount you would like to withdraw</div>
-        <div class="input-container flex items-center relative py-4">
-          <input
-            type="number"
-            min="0"
-            max={$withdrawableBalance}
-            placeholder="Enter amount"
-            class="relative w-full bg-gray-50 py-3 pr-2 outline-none rounded-lg text-center border-0 text-xl"
-            data-initial-focus
-            bind:value={amount}
-            id="amount"
-            on:change={onPriceChange}
-          />
-        </div>
+        <Input
+          variant="rounded"
+          id="amount"
+          type="number"
+          min="0"
+          max={$withdrawableBalance}
+          placeholder="Enter amount"
+          class="bg-gray-50 py-3"
+          data-initial-focus
+          bind:value={amount}
+          on:change={onPriceChange}
+          before="$"
+        />
       </div>
       <div class="mt-8">
         <div class="text-black-opacity-50 text-base mb-4">Enter the USDC address you will transfer the funds to</div>
-        <input
+        <Input
+          variant="rounded"
           type="text"
           id="address"
           placeholder="Enter USDC Address"
-          class="relative w-full bg-gray-50 py-3 pr-2 outline-none rounded-lg text-center border-0 text-xl"
-          data-initial-focus
+          class="bg-gray-50 py-3"
           bind:value={usdcAddress}
         />
       </div>
@@ -97,14 +92,3 @@
     </div>
   </Modal>
 {/if}
-
-<style>
-  .input-container::before {
-    content: '$';
-    position: absolute;
-    left: 10px;
-    z-index: 1;
-    @apply text-xl;
-    @apply text-gray-400;
-  }
-</style>

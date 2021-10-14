@@ -8,3 +8,5 @@ export interface Country {
   iso2: string;
   states?: Array<District>;
 }
+
+export type FormElementVariant = 'base' | 'rounded';

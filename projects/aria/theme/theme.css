@@ -124,29 +124,6 @@
   --icon-redeem-border-radius: 16px;
   --icon-redeem-bg-color: var(--icon-bg-color);
 
-  /* Input */
-  --input-container-border-color-focus: var(--color);
-  --input-container-border-color: theme('colors.gray.300');
-  --input-container-border-color-error: theme('colors.red.500');
-  --input-container-border-width: 1px;
-  --input-container-padding-bottom: 0.125rem;
-  --input-label-color: theme('colors.gray.500');
-  --input-label-font-size: 14px;
-  --input-label-font-weight: 400;
-  --input-color: var(--color);
-  --input-text-align: left;
-  --input-bg-color: #000000;
-  --input-border-radius: 0px;
-  --input-placeholder-color: theme('colors.gray.500');
-  --input-padding: 0 0.125rem;
-  --input-height: 1.875rem;
-
-  /* Select */
-  --select-color: var(--color);
-  --select-bg-color: var(--bg-color);
-  --select-option-color: #000000;
-  --select-option-bg-color: #ffffff;
-
   /* TransactionItem */
   --transaction-details-copy-bg: linear-gradient(90deg, var(--gradient-start) 7.48%, var(--gradient-end) 79.51%);
 
@@ -168,17 +145,6 @@
   --tab-color-hover: var(--color);
 }
 
-.theme-brand-forms {
-  /* Input */
-  --input-container-border-width: 0;
-  --input-container-padding-bottom: 0;
-  --input-color: #000000;
-  --input-bg-color: #ffffff;
-  --input-placeholder-color: #7d7d7d;
-  --input-border-radius: 5px;
-  --input-padding: 0 0.75rem;
-}
-
 .theme-light {
   --bg-color: #ffffff;
   --color: #000000;
@@ -194,18 +160,6 @@
   --gray-700: rgba(0, 0, 0, 0.7);
   --gray-800: rgba(0, 0, 0, 0.8);
   --gray-900: rgba(0, 0, 0, 0.9);
-
-  /* Input */
-  --input-container-border-color: theme('colors.gray.300');
-  --input-container-border-color-focus: #000000;
-  --input-label-color: theme('colors.gray.900');
-  --input-placeholder-color: theme('colors.gray.500');
-  --input-bg-color: #ffffff;
-  --input-color: #000000;
-
-  /* Select */
-  --select-color: #000000;
-  --select-bg-color: #ffffff;
 
   /* Pagination */
   --pagination-color: #9e9e9e;

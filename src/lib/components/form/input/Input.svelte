@@ -4,6 +4,7 @@
 
 <script lang="ts">
   import { get_current_component } from 'svelte/internal';
+  import type { FormElementVariant } from '../types';
   import { forwardEventsBuilder } from '$util/forwardEvents';
   import BaseElement from '../BaseElement.svelte';
 
@@ -12,37 +13,33 @@
   export let label = '';
   export let before = '';
   export let after = '';
+  export let value = undefined;
   export let error: string | string[] = '';
+  export let variant: FormElementVariant = 'base';
   let _class = '';
   export { _class as class };
 
   const forwardEvents = forwardEventsBuilder(get_current_component());
 </script>
 
-<BaseElement let:klass {id} {name} {label} {before} {after} {error}>
+<BaseElement {id} {label} {error} {variant} class={_class} let:klass>
   {#if $$slots.before || before}
     <div class="input-icon flex-none mr-4"><slot name="before" class="flex-none">{before}</slot></div>
   {/if}
-  <input use:forwardEvents {id} {name} class="{klass} {_class}" {...$$restProps} />
+  <input use:forwardEvents {id} {name} class={klass} bind:value {...$$restProps} />
   {#if $$slots.after || after}
     <div class="input-icon flex-none"><slot name="after" class="flex-none">{after}</slot></div>
   {/if}
 </BaseElement>
 
-<style>
+<style lang="postcss">
   .input-icon {
-    color: var(--input-icon-color, var(--input-placeholder-color));
-  }
-  input::placeholder {
-    @apply text-base;
-    color: var(--input-placeholder-color);
+    color: theme('colors.gray.500');
   }
   input {
-    min-height: var(--input-height);
-    padding: var(--input-padding);
-    background-color: var(--input-bg-color);
-    border-radius: var(--input-border-radius);
-    color: var(--input-color);
-    text-align: var(--input-text-align);
+    @apply placeholder-gray-500;
+    padding: 0;
+    background-color: transparent;
+    min-height: 1.875rem;
   }
 </style>

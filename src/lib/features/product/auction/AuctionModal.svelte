@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Product } from '$lib/sku-item/types';
   import type { NewAuction } from './types';
+  import { setContext } from 'svelte';
   import { mdiChevronDown } from '@mdi/js';
   import dayjs from 'dayjs';
   import { createForm } from 'felte';
@@ -13,6 +14,7 @@
   import { datePicker } from '$ui/datepicker/datepicker';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
+  import { FormElement } from '$lib/components/form';
   import Icon from '$ui/icon/Icon.svelte';
   import routes from '$project/routes';
   import { startAuction } from './auction.api';
@@ -96,6 +98,8 @@
   $: marketplaceFeePrice = Math.max(marketplaceFee * $data.price || 0, 0);
   $: royaltyFeePrice = Math.max(royaltyFee * $data.price || 0, 0);
   $: total = Math.max($data.price * (1 - marketplaceFee - royaltyFee) || 0, 0);
+
+  setContext('errors', errors);
 </script>
 
 {#if isOpen}
@@ -166,18 +170,15 @@
           <div class="text-red-500 text-sm mb-2">{$errors.endDate}</div>
         {/if}
 
-        <div class="input-container flex items-center relative mt-4 mb-2">
-          <input
-            data-initial-focus
-            type="number"
-            name="price"
-            class="relative w-full bg-gray-50 py-3 pl-8 pr-2 outline-none rounded-lg text-center border-0 text-xl"
-            placeholder="Enter min bid price"
-          />
-        </div>
-        {#if $errors.price}
-          <div class="text-red-500 text-sm mb-2">{$errors.price}</div>
-        {/if}
+        <FormElement
+          variant="rounded"
+          class="bg-gray-50 py-3 mt-4 mb-2"
+          data-initial-focus
+          type="number"
+          name="price"
+          placeholder="Enter min bid price"
+          before="$"
+        />
         <div class="border-b border-gray-200 text-gray-500 font-medium mb-2">
           <div class="flex justify-between pb-1 mb-1">
             <span>Marketplace fee ({marketplaceFee * 100}%)</span>
@@ -206,14 +207,3 @@
     </form>
   </Modal>
 {/if}
-
-<style>
-  .input-container::before {
-    content: '$';
-    position: absolute;
-    left: 10px;
-    z-index: 1;
-    @apply text-xl;
-    @apply text-gray-400;
-  }
-</style>
