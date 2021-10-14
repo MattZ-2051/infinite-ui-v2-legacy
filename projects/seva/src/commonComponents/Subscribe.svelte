@@ -54,14 +54,14 @@
             <input
               type="text"
               name="email"
-              class="focus:outline-none rounded-full border-none w-full p-2 pl-4 placeholder-black-opacity-10 text-black"
+              class="focus:outline-none rounded-full border-none w-full p-3 pl-4 placeholder-black-opacity-70 text-black"
               placeholder="Enter your email"
             />
             <Button type="submit" class="lg:block hidden" variant="brand" disabled={$isSubmitting}>
               {#if $isSubmitting}Subscribing...{:else}Subscribe{/if}
             </Button>
           </div>
-          <Button type="submit" variant="brand" class=" lg:hidden " disabled={$isSubmitting}>
+          <Button type="submit" variant="brand" class=" lg:hidden h-14" disabled={$isSubmitting}>
             {#if $isSubmitting}Subscribing...{:else}Subscribe{/if}
           </Button>
         </form>

@@ -1,7 +1,10 @@
 <script>
+  import { user } from '$lib/user';
   import Subscribe from '../../commonComponents/Subscribe.svelte';
 </script>
 
-<div class="container flex justify-center px-6">
-  <Subscribe />
-</div>
+{#if !$user}
+  <div class="container flex justify-center px-6">
+    <Subscribe />
+  </div>
+{/if}
