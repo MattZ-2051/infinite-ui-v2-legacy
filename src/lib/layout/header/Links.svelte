@@ -58,8 +58,8 @@
     </Menu>
   {/if}
 {:else}
-  <button class="flex header-link" on:click={routes.signin}>Sign in</button>
-  <Button variant="brand" href={routes.signup} class="whitespace-nowrap">Sign up</Button>
+  <button class="flex header-link" on:click={routes.signin}>Sign In</button>
+  <Button variant="brand" href={routes.signup} class="whitespace-nowrap">Sign Up</Button>
 {/if}
 
 <style lang="postcss">
