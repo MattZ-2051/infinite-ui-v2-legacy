@@ -243,6 +243,7 @@ export type TransactionData = {
     type: string;
     circleType?: CircleType;
     amount: string;
+    amountUnrated?: string;
     card?: {
       createdAt: Date;
       expMonth: number;

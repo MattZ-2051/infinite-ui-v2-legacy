@@ -42,30 +42,23 @@
       <span>{transaction.transactionData.withdraw.ach_number}</span>
     {/if}
   {:else if type === 'deposit'}
-    {status === 'error' ? 'You tried to add funds' : 'You added funds'}
+    {status === 'error' ? 'You tried to add' : 'You added'}
     {#if deposit.type === 'cc'}
-      from your
+      funds from your
       <span>{transaction.transactionData.deposit.card?.network}</span>
       credit card ending in
       <span>{transaction.transactionData.deposit.card?.last4} </span>
-    {:else if deposit.type === 'circle'}
-      by depositing
-      <span>
-        {#if deposit.circleType === 'btc'}
-          BTC
-        {:else if deposit.circleType === 'eth'}
-          ETH
-        {:else}
-          USDC
-        {/if}
-      </span>
-    {:else if deposit.type === 'hbar' || deposit.type === 'coinbase'}
-      by depositing
+    {:else if deposit.type === 'circle' || deposit.type === 'hbar'}
       <span> {formatCurrency(+deposit.amount)} </span>
-      using
+      by depositing
+      <span> {+deposit.amountUnrated} </span>
       <span>
-        {deposit.type === 'coinbase' ? 'Coinbase' : 'Hbar'}
+        {(deposit?.circleType ?? deposit.type).toUpperCase()}
       </span>
+    {:else if deposit.type === 'coinbase'}
+      funds by depositing
+      <span> {formatCurrency(+deposit.amount)} </span>
+      using Coinbase
     {/if}
   {:else if type === 'nft_redeem'}
     {status === 'error' ? 'You tried to redeem' : 'You redeemed'}

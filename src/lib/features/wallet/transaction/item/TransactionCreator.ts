@@ -1,4 +1,5 @@
 import type {
+  CircleType,
   Profile,
   Sku,
   Transaction,
@@ -13,6 +14,8 @@ type argumentsForComponent = {
   depositType?: string;
   withdrawType?: string;
   cardNetwork: string;
+  circleType?: CircleType;
+  amountUnrated?: string;
 };
 
 export const transactionCreator = (argus: argumentsForComponent): Transaction => {
@@ -22,6 +25,8 @@ export const transactionCreator = (argus: argumentsForComponent): Transaction =>
     if (argus.status) transaction.status = argus.status as TransactionStatus;
     if (argus.withdrawType) transaction.transactionData.withdraw.type = argus.withdrawType;
     if (argus.depositType) transaction.transactionData.deposit.type = argus.depositType;
+    if (argus.circleType) transaction.transactionData.deposit.circleType = argus.circleType;
+    if (argus.amountUnrated) transaction.transactionData.deposit.amountUnrated = argus.amountUnrated;
     if (argus.cardNetwork) transaction.transactionData.deposit.card.network = argus.cardNetwork;
   }
 
@@ -143,6 +148,8 @@ const getDummyTransaction = (): Transaction => {
       id: 'depositId',
       type: 'cc',
       amount: '100',
+      amountUnrated: '100',
+      circleType: undefined,
       card: {
         createdAt: new Date(),
         expMonth: 11,
