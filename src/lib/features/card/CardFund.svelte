@@ -57,7 +57,7 @@
 </script>
 
 <CircleContainer>
-  <div class="text-gray-500 my-4 mb-6">Add funds into your wallet</div>
+  <div class="text-gray-500 mt-4 mb-6">Add funds into your wallet</div>
 
   <div class="flex justify-center">
     <CreditCardComponent {card} />
