@@ -17,7 +17,7 @@
 </script>
 
 {#if open}
-  <article class="fixed bottom-12 z-40 w-full">
+  <article class="fixed bottom-12 z-50 w-full">
     <section
       class="flex gap-12 items-center w-11/12 bg-white bg-opacity-95 text-black rounded-lg px-4 md:px-8 py-6 m-auto text-lg shadow-2xl"
     >

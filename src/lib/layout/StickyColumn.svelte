@@ -30,7 +30,7 @@
     <div class="sticky-content">
       <slot name="sticky-content" />
     </div>
-    <div class="fixed bottom-0 left-0 right-0 md:static z-50">
+    <div class="fixed bottom-0 left-0 right-0 md:static z-40">
       <div bind:clientHeight={ctaHeight}>
         <slot name="sticky-cta" />
       </div>
