@@ -45,9 +45,12 @@
         {/if}
       </section>
       <header>
-        <a sveltekit:prefetch {href}>
-          <h2 class="text-2xl line-clamp-2">{sku.name}</h2>
-        </a>
+        <div class="mb-4 flex text-2xl items-center gap-2 justify-between">
+          <h2 class="line-clamp-2">{sku.name}</h2>
+          {#if product?.serialNumber}
+            <div>#{product.serialNumber}</div>
+          {/if}
+        </div>
       </header>
       <SkuEdition {sku} {product} />
     </div>
