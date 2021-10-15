@@ -24,7 +24,11 @@
     on:click={() => dispatch('deposit')}
   >
     <span>Deposit</span>
-    <Icon class="transform -rotate-45 group-hover:-rotate-90" path={arrowRight} size="2" />
+    <Icon
+      class="transform transition-transform duration-150 -rotate-45 group-hover:-rotate-90"
+      path={arrowRight}
+      size="2"
+    />
   </button>
   <button
     type="button"
@@ -32,6 +36,10 @@
     on:click={() => handleWithdraw()}
   >
     <span>Withdraw</span>
-    <Icon class="transform rotate-45 group-hover:rotate-90" path={arrowRight} size="2" />
+    <Icon
+      class="transform transition-transform duration-150 rotate-45 group-hover:rotate-90"
+      path={arrowRight}
+      size="2"
+    />
   </button>
 </div>
