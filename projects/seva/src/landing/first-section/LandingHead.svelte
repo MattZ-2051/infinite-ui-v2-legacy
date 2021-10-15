@@ -53,7 +53,7 @@
       </ThemeContext>
       <div class="md:h-0 order-1 md:order-2">
         <div
-          class="rounded-md grid grid-cols-1 md:mx-16 mt-20 md:relative items-center w-96 z-10"
+          class="rounded-md grid grid-cols-1 md:mx-16 mt-20 md:relative items-center max-w-sm sm:w-96 z-10"
           style="box-shadow: 20px 20px #442aa0;"
         >
           <SkuItem {sku} --sku-item-bg-color="#ffd54e" --sku-item-border-color="#ffd54e" />
