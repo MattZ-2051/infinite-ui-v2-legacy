@@ -22,8 +22,6 @@ achAccountWithdrawFx.done.watch(() => {
   toast.success('Congrats! Your Withdrawal is processing. ');
 });
 
-usdcWithdrawFx.fail.watch(() => toast.danger('There was an error with your withdrawal. Please, try again.'));
-
 usdcWithdrawFx.done.watch(() => {
   loadWalletFx();
   updateUser();
