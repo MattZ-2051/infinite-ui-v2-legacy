@@ -45,6 +45,14 @@
   $: isUpcomingAuction =
     lowestPriceListingCollector?.listing?.saleType === 'auction' &&
     lowestPriceListingCollector?.listing?.status === 'upcoming';
+
+  $: hasActiveAuctionListing = collectors?.some((collectorInfo) => {
+    return collectorInfo?.listing?.saleType === 'auction' && collectorInfo?.listing?.status === 'active';
+  });
+
+  $: hasActiveFixedListing = collectors?.some((collectorInfo) => {
+    return collectorInfo?.listing?.saleType === 'fixed' && collectorInfo?.listing?.status === 'active';
+  });
 </script>
 
 <div class="flex flex-col divide-y divide-black">
@@ -63,7 +71,9 @@
   {/if}
 
   {#if totalCollectors > 0}
-    {#if isActiveSale}
+    {#if hasActiveAuctionListing && hasActiveFixedListing}
+      <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeAuctionAndSale" />
+    {:else if isActiveSale}
       <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeSale" />
     {:else if isActiveAuction}
       <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeAuction" />

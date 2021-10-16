@@ -30,6 +30,30 @@
     },
   ];
 
+  const activeCollectorlisting = [
+    {
+      listing: {
+        minBid: 30,
+        startDate: dummyDate,
+        saleType: 'auction',
+        status: 'active',
+      },
+    },
+    {
+      listing: {
+        price: 10,
+        startDate: dummyDate,
+        saleType: 'fixed',
+        status: 'active',
+      },
+    },
+    {
+      listing: {
+        price: 210,
+        startDate: dummyDate,
+      },
+    },
+  ];
   const activeCollectorSales = [
     {
       listing: {
@@ -258,8 +282,8 @@
 
 <!-- Upcoming NFT giveaway, to see open vs close edition change supply type from variable to fixed -->
 <Story
-  name="From Creator - Upcoming NFT Giveaway, No Collectors"
-  args={{ sku: upcomingNftGiveAwaySku, totalCollectors: 0, collectors: [] }}
+  name="From Creator - Upcoming NFT Giveaway, From Collectors - Active Auction and Sale"
+  args={{ sku: upcomingNftGiveAwaySku, totalCollectors: 3, collectors: activeCollectorlisting }}
 />
 
 <!-- Active Giveaway with active auction from collector -->

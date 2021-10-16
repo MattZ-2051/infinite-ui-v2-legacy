@@ -6,7 +6,13 @@
   import routes from '$project/routes';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
 
-  type FromCollectorStatus = 'activeSale' | 'activeAuction' | 'upcomingAuction' | 'noneForSale' | '';
+  type FromCollectorStatus =
+    | 'activeSale'
+    | 'activeAuction'
+    | 'upcomingAuction'
+    | 'noneForSale'
+    | 'activeAuctionAndSale'
+    | '';
   $: isPolling = $polls[sku._id]?.$isActive || readable(false);
 
   export let status: FromCollectorStatus = '';
@@ -15,11 +21,9 @@
 
   const collectorListing = collector?.listing;
   const isUniqueAuction = sku?.maxSupply === 1 && sku?.issuer?._id === collectorListing?.issuer?._id;
-  const isUniqueListing = sku?.maxSupply === 1;
-  const isUniqueProductListing = sku?.countProductListings === 1;
+  const isUniqueProductListing = sku?.countProductListings === 1 && sku?.circulatingSupply === 1;
 
-  const href =
-    isUniqueListing || isUniqueProductListing ? routes.product(collectorListing.product) : routes.collectors(sku._id);
+  const href = isUniqueProductListing ? routes.product(collectorListing.product) : routes.collectors(sku._id);
 </script>
 
 <SkuPriceBoxButton {href} polling={$isPolling}>
@@ -74,6 +78,18 @@
         <div>
           <div class="text-xl text-right">-</div>
           <div class="text-gray-500 text-sm">0 on Sale</div>
+        </div>
+      </div>
+    {/if}
+    {#if status === 'activeAuctionAndSale'}
+      <div>
+        <div class="text-xl">From Collector</div>
+        <div class="text-gray-500 text-sm">Buy Now / Auction</div>
+      </div>
+      <div class="flex justify-end items-center">
+        <div>
+          <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(collectorListing.price)}</div>
+          <div class="text-gray-500 text-sm">Lowest Listing Price</div>
         </div>
       </div>
     {/if}
