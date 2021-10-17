@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
   import type { ErrorLoadInput } from '@sveltejs/kit';
+  import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
 
@@ -22,7 +23,7 @@
   export let error: Error & { frame?: string } = undefined;
 </script>
 
-<div class="container flex flex-grow items-center justify-center">
+<ThemeContext id="error" class="container flex flex-grow items-center justify-center" display>
   <div class="flex flex-col gap-5 md:gap-10 items-center text-center">
     <div class="text-6xl font-extrabold text-gradient-primary">Oh, no!</div>
     <div class="flex flex-col gap-4 md:gap-8">
@@ -45,7 +46,7 @@
       {/if}
     {/if}
   </div>
-</div>
+</ThemeContext>
 
 <style>
   a {

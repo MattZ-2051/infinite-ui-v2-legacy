@@ -13,4 +13,5 @@ export const themeConfig = {
   '*.sku-offsreen': Theme.Light,
   '*.wallet-list': Theme.Light,
   '*.modal': Theme.Light,
+  '*.error': Theme.Light,
 };
