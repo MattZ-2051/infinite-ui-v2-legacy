@@ -80,7 +80,6 @@ module.exports = {
   variants: {
     extend: {
       rotate: ['group-hover'],
-      borderColor: ['focus-visible'],
     },
   },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/line-clamp')],

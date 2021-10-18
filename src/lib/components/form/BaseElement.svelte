@@ -16,9 +16,7 @@
   {#if label}
     <label for={id} class="form-element-label"><slot name="label">{label}</slot></label>
   {/if}
-  <div
-    class={clsx(_class, `${variant}-element`, 'form-element-container flex items-center focus-within:border-current')}
-  >
+  <div class={clsx(_class, `${variant}-element`, 'form-element-container flex items-center')}>
     <slot {klass} />
   </div>
   {#if error}
@@ -40,5 +38,8 @@
   }
   .rounded-element.form-element-container {
     @apply px-3 border border-transparent rounded-lg text-center;
+  }
+  .form-element-container:focus-within {
+    @apply border-current;
   }
 </style>
