@@ -6,7 +6,7 @@
   import ArrowUp from './assets/arrowUp.png';
 </script>
 
-<div class="py-32 md:py-48" style="background-color:#FFD54E;">
+<div class="py-16 md:py-24" style="background-color:#FFD54E;">
   <div class="container flex flex-col items-center px-6">
     <div class=" max-w-3xl relative z-10 w-full">
       <div class="font-medium text-4xl mb-14 sm:text-6xl text-center md:text-left">Frequently asked questions</div>

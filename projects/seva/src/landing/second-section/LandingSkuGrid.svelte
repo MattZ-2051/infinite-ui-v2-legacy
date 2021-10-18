@@ -38,7 +38,7 @@
   });
 </script>
 
-<div class="container px-6 mb-24 sm:mb-64">
+<div class="container px-6 mb-12 sm:mb-32">
   <div class="flex flex-col justify-center w-full mb-24">
     <div class="flex flex-col justify-center items-center">
       <div class="flex flex-col items-center max-w-4xl">

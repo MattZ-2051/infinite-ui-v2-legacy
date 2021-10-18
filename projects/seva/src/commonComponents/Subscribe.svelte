@@ -36,7 +36,7 @@
   });
 </script>
 
-<div class="py-10 pb-40 lg:py-52 flex justify-center max-w-7xl w-auto">
+<div class="py-4 pb-20 lg:py-26 flex justify-center max-w-7xl w-auto">
   <div class="flex justify-center max-w-7xl w-auto">
     <div class="bg-white rounded-2xl flex flex-col sm:flex-row md:justify-between">
       <div class="px-6 md:px-16 lg:w-8/12 sm:w-7/12 ">

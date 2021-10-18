@@ -5,7 +5,7 @@
   import drops from './assets/drops.png';
 </script>
 
-<div class="md:pb-48">
+<div class="sm:pb-24">
   <div style="width:100%; height:0px">
     <img src={YellowBgLg} alt="bg" class="hidden 2xl:block w-full relative z-1" style="height:40em" />
     <img src={YellowBgMd} alt="bg" class="hidden xl:block 2xl:hidden w-full relative z-1" style="height:40em" />

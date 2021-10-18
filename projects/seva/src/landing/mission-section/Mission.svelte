@@ -3,7 +3,7 @@
 </script>
 
 <div class="container px-6">
-  <div class="py-32 md:py-48 max-w-7xl mx-auto">
+  <div class="py-16 md:py-24 max-w-7xl mx-auto">
     <div class="flex justify-center text-4xl font-medium md:text-8xl">
       <div class="text-center lg:text-left">
         <span style="color:#7852fd">Seva.Love</span>'s mission is to catalyze social and environmental impact

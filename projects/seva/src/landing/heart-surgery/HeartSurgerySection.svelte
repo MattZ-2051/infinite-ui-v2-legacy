@@ -5,7 +5,7 @@
   import Line from './assets/Line.png';
 </script>
 
-<div class="pt-32 md:pt-48 flex justify-center" style="background-color:#FFD54E;">
+<div class="pt-16 md:pt-24 flex justify-center" style="background-color:#FFD54E;">
   <div class="container flex flex-col-reverse items-center lg:flex-row max-w-7xl relative z-1 px-6">
     <div class="w-full flex flex-col pt-8 max-w-xl lg:mr-8 mt-8 items-center lg:items-baseline lg:w-1/3 lg:2/4">
       <div class="font-medium text-4xl mb-6 sm:text-6xl sm:mb-8 text-center lg:text-left">
