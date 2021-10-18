@@ -15,7 +15,7 @@
 
   const months = Array.from({ length: 12 }, (_, index) => ({
     value: index + 1,
-    label: dayjs().month(index).format('MMMM'),
+    label: dayjs().month(index).format('MM'),
   }));
   const years = Array.from({ length: 26 }, (_, index) => dayjs().add(index, 'year').year());
 
@@ -112,16 +112,24 @@
   <div class="text-gray-600 font-extrabold mt-4">Enter the card details below</div>
   <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
     <FormElement name="cardNumber" label="Credit card number *" />
-    <FormElement component={Select} name="expMonth" label="Exp month *">
-      {#each months as month}
-        <option value={month.value}>{month.label}</option>
-      {/each}
-    </FormElement>
-    <FormElement component={Select} name="expYear" label="Exp year *">
-      {#each years as year}
-        <option value={year}>{year}</option>
-      {/each}
-    </FormElement>
+    <div class="flex gap-4">
+      <div class="w-1/2">
+        <FormElement component={Select} name="expMonth" label="Exp month *">
+          <option value="" disabled>--</option>
+          {#each months as month}
+            <option value={month.value}>{month.label}</option>
+          {/each}
+        </FormElement>
+      </div>
+      <div class="w-1/2">
+        <FormElement component={Select} name="expYear" label="Exp year *">
+          <option value="" disabled>--</option>
+          {#each years as year}
+            <option value={year}>{year}</option>
+          {/each}
+        </FormElement>
+      </div>
+    </div>
     <FormElement name="cvv" label="CCV *" />
     <FormElement name="billingDetails.name" label="Cardholder name *" />
     <FormElement name="metadata.email" label="Email" />
