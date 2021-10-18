@@ -88,7 +88,9 @@
       </div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(collectorListing.price)}</div>
+          <div class="text-xl text-right">
+            {formatCurrencyWithOptionalFractionDigits(collectorListing.price || collectorListing.minBid)}
+          </div>
           <div class="text-gray-500 text-sm">Lowest Listing Price</div>
         </div>
       </div>
