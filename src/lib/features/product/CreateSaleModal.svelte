@@ -67,7 +67,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="List your NFT for sale" on:close={closeModal} class="max-w-md">
+  <Modal title="List your NFT for sale" class="max-w-md">
     <form use:form>
       <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
         <div class="flex justify-center items-center bg-black h-72">

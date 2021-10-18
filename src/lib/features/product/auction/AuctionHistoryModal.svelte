@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import { mdiStar } from '@mdi/js';
   import { formatCurrency, formatDate } from '$util/format';
-  import { closeModal, Modal } from '$ui/modals';
+  import { Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import Icon from '$ui/icon/Icon.svelte';
@@ -42,7 +42,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Auction Bids" on:close={closeModal}>
+  <Modal title="Auction Bids">
     <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
       <div class="text-gray-600 text-sm mt-4">
         Closed on {formatDate(listing.endDate)}

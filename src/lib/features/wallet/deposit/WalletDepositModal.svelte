@@ -42,7 +42,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Select a payment to deposit" on:close={closeModal}>
+  <Modal title="Select a payment to deposit">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       {#each options as option (option.id)}
         <div

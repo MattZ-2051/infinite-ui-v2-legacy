@@ -50,7 +50,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title={!$pending && titleMap[status]} persistent={$pending} on:close={closeModal} class="max-w-lg">
+  <Modal title={!$pending && titleMap[status]} persistent={$pending} class="max-w-lg">
     {#if $pending}
       <div class="flex flex-col items-center justify-self-center mt-20 mb-10 gap-4">
         <DualRingLoader />

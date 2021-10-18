@@ -71,7 +71,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title={`${coinName} Deposit`} on:close={onClose}>
+  <Modal title={`${coinName} Deposit`} close={onClose}>
     <p slot="title" class="font-medium text-3xl text-center px-8 py-6">{`${coinName} Deposit`}</p>
     <div class="p-10 text-gray-500">
       <p class="m-auto w-max max-w-sm text-center">

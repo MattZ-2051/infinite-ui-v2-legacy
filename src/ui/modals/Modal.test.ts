@@ -14,18 +14,19 @@ describe('Modal', () => {
   });
 
   it('dispatches close event', async () => {
-    const { container, component } = render(Modal, {
-      props: {},
+    jest.useFakeTimers();
+    const close = jest.fn();
+
+    const { container } = render(Modal, {
+      props: { close },
     });
 
-    const closed = jest.fn();
-    component.$on('close', closed);
-
-    expect(closed).not.toHaveBeenCalled();
+    expect(close).not.toHaveBeenCalled();
 
     const closeButton = container.querySelector('[data-style="close"]');
     await fireEvent.click(closeButton);
-    expect(closed).toHaveBeenCalledTimes(1);
+    jest.runAllTimers();
+    expect(close).toHaveBeenCalledTimes(1);
   });
 
   it('renders header if needed', async () => {

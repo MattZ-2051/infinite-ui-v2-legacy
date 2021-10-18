@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { AchAccount } from './types';
   import { mdiCheck, mdiDeleteOutline, mdiPlus } from '@mdi/js';
-  import { Modal, closeModal, openModal } from '$ui/modals';
+  import { Modal, openModal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import AccountOption from './AccountOption.svelte';
   import { achAccounts, achAccountFetchFx } from './withdraw.store';
@@ -37,7 +37,7 @@
 </script>
 
 {#if isOpen}
-  <Modal {title} on:close={closeModal}>
+  <Modal {title}>
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       <div class="w-full mt-4">
         {#if $loadingAccounts}

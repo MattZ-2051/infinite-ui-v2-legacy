@@ -15,7 +15,7 @@
 </script>
 
 {#if isOpen}
-  <Modal on:close={closeModal} persistent={true} class="max-w-md">
+  <Modal persistent={true} class="max-w-md">
     <svelte:fragment slot="title"><span class="text-2xl">Reset Password</span></svelte:fragment>
     <div class="px-10">
       Caution: clicking this button will log you out and trigger a password change flow. You will receive further

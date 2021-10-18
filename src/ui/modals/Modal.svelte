@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
   import { mdiClose } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import trapFocus from '$util/trapFocus';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
+  import { closeModal } from './store';
 
   export let title = '';
   export let footer = '';
@@ -14,21 +14,27 @@
   let _class = '';
   export { _class as class };
 
-  let modal: HTMLElement;
-  const dispatch = createEventDispatcher();
+  export let modalElement: HTMLElement = undefined;
 
-  function onClose(reason?: string) {
+  function onClose(reason: 'esc' | 'backdrop' | 'close') {
     if (persistent) {
       return;
     }
-    dispatch('close', reason);
+
+    if (!beforeClose || beforeClose(reason)) {
+      setTimeout(() => close());
+    }
   }
 
+  export let beforeClose: (reason?: 'esc' | 'backdrop' | 'close') => boolean = undefined;
+
+  export let close: () => void = () => closeModal();
+
   $: trapFocusConfig = {
-    active: !!modal,
+    active: !!modalElement,
     focusTrapOptions: {
       allowOutsideClick: true,
-      initialFocus: () => (modal.querySelector('[data-initial-focus]') as HTMLElement) || modal,
+      initialFocus: () => (modalElement.querySelector('[data-initial-focus]') as HTMLElement) || modalElement,
     },
   };
 </script>
@@ -37,14 +43,14 @@
 <ThemeContext id="modal">
   <div
     tabindex="-1"
-    bind:this={modal}
+    bind:this={modalElement}
     class="fixed top-0 left-0 bottom-0 right-0 backdrop-filter backdrop-blur-sm z-modal"
     use:trapFocus={trapFocusConfig}
   >
     <div
       class="h-full w-full absolute flex items-center justify-center"
       transition:fly={{ y: 50 }}
-      on:click|self={() => onClose('backdrop')}
+      on:mousedown|self={() => onClose('backdrop')}
     >
       <div
         class="flex flex-col relative rounded-lg bg-white shadow text-black mx-2 {_class}"
@@ -57,7 +63,7 @@
             on:click={() => onClose('close')}
             data-style="close"
             title="Close"
-            class="absolute absolute right-10 top-8 text-black py-1 inline-flex items-center justify-center"
+            class="absolute right-10 top-8 text-black py-1 inline-flex items-center justify-center"
             ><Icon path={mdiClose} /></button
           >
         {/if}

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ImageMetadata } from '$ui/image/Image.svelte';
   import { mdiChevronRight } from '@mdi/js';
-  import { Modal, closeModal, openModal } from '$ui/modals';
+  import { Modal, openModal } from '$ui/modals';
 
   import Image from '$ui/image/Image.svelte';
   import Icon from '$ui/icon/Icon.svelte';
@@ -36,7 +36,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Withdraw" on:close={closeModal}>
+  <Modal title="Withdraw">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       {#each options as option (option.id)}
         <div

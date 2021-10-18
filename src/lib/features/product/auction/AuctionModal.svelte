@@ -100,11 +100,16 @@
   $: total = Math.max($data.price * (1 - marketplaceFee - royaltyFee) || 0, 0);
 
   setContext('errors', errors);
+
+  let modalElement: HTMLElement;
+  function beforeClose(reason: string) {
+    return reason !== 'backdrop' || !modalElement.querySelector('.flatpickr-input.active');
+  }
 </script>
 
 {#if isOpen}
-  <Modal title="Create auction" on:close={closeModal}>
-    <form use:form class="relative">
+  <Modal title="Create auction" {beforeClose}>
+    <form use:form class="relative" bind:this={modalElement}>
       {#if $isSubmitting}
         <div class="form-overlay" />
       {/if}

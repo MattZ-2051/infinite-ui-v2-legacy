@@ -2,7 +2,7 @@
   import type { Product, Profile } from '$lib/sku-item/types';
   import { goto } from '$app/navigation';
   import { user } from '$lib/user';
-  import { closeModal, Modal } from '$ui/modals';
+  import { Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
@@ -40,7 +40,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title={titleMap[status]} on:close={closeModal} class="max-w-md">
+  <Modal title={titleMap[status]} class="max-w-md">
     <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
       {#if status !== 'transfer-error'}
         <div class="flex justify-center items-center bg-black h-72">

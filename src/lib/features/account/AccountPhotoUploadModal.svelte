@@ -44,7 +44,7 @@
   }
 </script>
 
-<Modal title="Edit photo" on:close={closeModal}>
+<Modal title="Edit photo">
   <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
     <div class="w-full mt-4">
       <img class="h-96" id="image" bind:this={previewImage} src={imageSource} alt="" />

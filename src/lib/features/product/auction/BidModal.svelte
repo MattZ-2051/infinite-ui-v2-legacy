@@ -30,7 +30,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Confirm your bid:" on:close={closeModal}>
+  <Modal title="Confirm your bid:">
     <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
       <div class="flex justify-center items-center bg-black h-72">
         <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />

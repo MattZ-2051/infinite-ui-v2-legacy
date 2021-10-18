@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createForm } from 'felte';
-  import { Modal, closeModal } from '$ui/modals';
+  import { Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import PasswordInput from '$ui/password-input/PasswordInput.svelte';
   import { goto } from '$app/navigation';
@@ -47,7 +47,7 @@
 </script>
 
 {#if isOpen}
-  <Modal on:close={closeModal} persistent={true} class="max-w-md">
+  <Modal persistent={true} class="max-w-md">
     <svelte:fragment slot="title"><span class="text-2xl">Change Password</span></svelte:fragment>
     <div class="px-10">
       <div class="pt-10 pb-5">

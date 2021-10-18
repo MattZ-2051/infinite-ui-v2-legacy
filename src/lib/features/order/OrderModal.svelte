@@ -99,7 +99,7 @@
 </script>
 
 {#if isOpen}
-  <Modal {title} class="max-w-md" on:close={closeModal}>
+  <Modal {title} class="max-w-md">
     <div class="px-10 flex flex-col gap-6 pb-10">
       <div class={insufficientFunds ? 'text-red-500' : 'text-green-500'}>
         Your current balance {formatCurrency(user.availableBalance)}

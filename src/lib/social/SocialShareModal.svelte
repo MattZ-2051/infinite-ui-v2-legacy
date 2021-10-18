@@ -64,7 +64,7 @@
 </script>
 
 {#if isOpen}
-  <Modal {title} on:close={closeModal} style="width:512px; height:441px;">
+  <Modal {title} style="width:512px; height:441px;">
     <div class="flex flex-wrap items-center justify-center font-medium ">
       {#each socialMedia as social}
         <button

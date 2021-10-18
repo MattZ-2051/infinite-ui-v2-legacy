@@ -35,7 +35,7 @@
 </script>
 
 {#if isOpen}
-  <Modal on:close={closeModal} {persistent} class="max-w-md">
+  <Modal {persistent} class="max-w-md">
     <svelte:fragment slot="title"><span class="text-2xl text-left w-full">{title}</span></svelte:fragment>
     <div class="px-10 py-5">
       <slot name="message">

@@ -70,7 +70,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Profile Details" on:close={closeModal} persistent={true} closeButton={false}>
+  <Modal title="Profile Details" persistent={true} closeButton={false}>
     <div class="flex flex-col max-w-sm border-t border-gray-200 justify-evenly gap-5 px-10 py-6 relative">
       {#if $isSubmitting}
         <div class="form-overlay" />

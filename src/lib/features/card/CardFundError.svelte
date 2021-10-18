@@ -10,7 +10,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Whoops, something went wrong." on:close={closeModal}>
+  <Modal title="Whoops, something went wrong.">
     <div class="flex flex-col justify-center items-center gap-6 mt-2 text-base max-w-sm text-center py-4 px-10 m-auto">
       <div class="text-gray-500 text-base py-2">
         {handleWalletDepositError(error)}

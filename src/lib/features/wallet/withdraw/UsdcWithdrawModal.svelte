@@ -44,7 +44,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="USDC Withdrawal" on:close={closeModal} class="max-w-lg">
+  <Modal title="USDC Withdrawal" class="max-w-lg">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       <div class="text-black">
         Withdrawable Balance <span class="font-semibold">{formatCurrency($withdrawableBalance)}</span>
