@@ -27,7 +27,7 @@
     class:order-first={reverse}
     style="background: var(--sticky-content-bg);"
   >
-    <div class="sticky-content">
+    <div class="sticky-content" style={$media.md ? `height: calc(100vh - ${ctaHeight}px - var(--header-height));` : ''}>
       <slot name="sticky-content" />
     </div>
     <div class="fixed bottom-0 left-0 right-0 md:static z-40">
@@ -101,6 +101,7 @@
   @screen md {
     .sticky-content-wrapper {
       min-height: calc(100vh - var(--header-height));
+      height: fit-content;
     }
     .sticky-content {
       flex: 1;
