@@ -39,6 +39,7 @@
   input {
     @apply placeholder-gray-500;
     padding: 0;
+    text-align: inherit;
     background-color: transparent;
     min-height: 1.875rem;
   }

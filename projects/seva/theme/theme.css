@@ -230,6 +230,9 @@
   --button-outline-brand-bg-color-hover: #ffffff;
   --button-outline-brand-border-color-hover: #7852fd;
 
-  /* TransactionItem */
+  /* TransactionDetails */
   --transaction-details-copy-bg: theme('colors.gray.100');
+
+  /* CreditCard */
+  --credit-card-background-color: #000000;
 }

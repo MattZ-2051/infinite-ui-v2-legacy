@@ -13,6 +13,7 @@ export const themeConfig = {
   '$help.*.root': Theme.Light,
   '*.sku-offsreen': Theme.Light,
   '*.wallet-list': Theme.Light,
+  '$u.$wallet.$deposit.root': Theme.Light,
   '*.modal': Theme.Light,
   '$collection.*.root': Theme.Light,
   '*.error': Theme.Light,

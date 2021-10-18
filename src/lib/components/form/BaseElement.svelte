@@ -37,7 +37,7 @@
     border-bottom-width: 1px;
   }
   .rounded-element.form-element-container {
-    @apply px-3 border border-transparent rounded-lg text-center;
+    @apply px-3 border border-transparent rounded-lg;
   }
   .form-element-container:focus-within {
     @apply border-current;

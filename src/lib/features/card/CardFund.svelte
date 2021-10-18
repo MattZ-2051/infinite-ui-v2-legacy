@@ -57,19 +57,21 @@
 </script>
 
 <CircleContainer>
-  <div class="text-gray-500 my-6">Add funds into your wallet</div>
+  <div class="text-gray-500 my-4 mb-6">Add funds into your wallet</div>
 
-  <CreditCardComponent {card} />
+  <div class="flex justify-center">
+    <CreditCardComponent {card} />
+  </div>
 
-  <div class="flex justify-between mt-3">
-    <span class="text-sm text-white"
-      >Credit Card
+  <div class="flex justify-between mt-6">
+    <span class="text-sm text-current font-medium"
+      >Status:
       {#if isActive}
-        <span class="text-green-500">(Active)</span>
+        <span class="text-green-500">Active</span>
       {:else if card.status === 'pending'}
-        <span class="text-gray-500">(Pending)</span>
+        <span class="text-gray-500">Pending</span>
       {:else}
-        <span class="text-red-500">(Failed)</span>
+        <span class="text-red-500">Failed</span>
       {/if}
     </span>
     <button
@@ -85,18 +87,32 @@
     >
   </div>
 
-  <form use:form class="mt-6 flex flex-col gap-6 items-center" autocomplete="off">
-    <FormElement name="cvv" placeholder="Enter CVV" />
-    <span class="text-red-500 text-center"
+  <form use:form class="mt-6 flex flex-col gap-6 items-start" autocomplete="off">
+    <div class="w-full">
+      <FormElement class="w-1/3" name="cvv" placeholder="Enter CVV" />
+    </div>
+    <span class="text-gray-500 text-center"
       >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
     >
-    <FormElement name="amount" type="number" placeholder="Enter Amount" before="$" />
+    <div class="w-full">
+      <FormElement
+        variant="rounded"
+        class="bg-gray-50 py-2 text-center"
+        name="amount"
+        type="number"
+        placeholder="Enter Amount"
+        before="$"
+      />
+    </div>
     <div
       use:tooltip={card.status === 'pending'
         ? 'Please wait a few moments while your credit card is activated. This can take up to 2 minutes.'
         : ''}
+      class="w-full"
     >
-      <Button variant="brand" type="submit" disabled={!isActive || $saving}>Add Funds</Button>
+      <Button --button-padding="13px 32px" class="w-full" variant="brand" type="submit" disabled={!isActive || $saving}
+        >Add Funds</Button
+      >
     </div>
   </form>
 </CircleContainer>

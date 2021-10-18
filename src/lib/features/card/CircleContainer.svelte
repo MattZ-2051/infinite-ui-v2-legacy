@@ -1,8 +1,8 @@
 <script lang="ts">
   import { mdiClose } from '@mdi/js';
   import { goto } from '$app/navigation';
-  import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
+  import Icon from '$ui/icon/Icon.svelte';
   import Circle from '$lib/features/wallet/deposit/circle-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
   import routes from '$project/routes';
 
@@ -12,8 +12,8 @@
 </script>
 
 <div class="container flex flex-col items-center my-5 md:my-10">
-  <div class="w-80">
-    <div class="flex justify-between border-b-2 border-black pb-3">
+  <div class="p-9 rounded-sm border border-gray-100 rounded-lg max-w-md">
+    <div class="flex justify-between pb-3">
       <div class="flex items-center gap-2 text-xl">
         <Image src={Circle} class="flex-none w-8 h-8" /> Circle Payments
       </div>

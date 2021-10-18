@@ -124,7 +124,7 @@
   --icon-redeem-border-radius: 16px;
   --icon-redeem-bg-color: var(--icon-bg-color);
 
-  /* TransactionItem */
+  /* TransactionDetails */
   --transaction-details-copy-bg: linear-gradient(90deg, var(--gradient-start) 7.48%, var(--gradient-end) 79.51%);
 
   /* ProductTabs */
@@ -136,6 +136,9 @@
 
   /* AccountInfo */
   --account-info-bg-color: #1d1a54;
+
+  /* CreditCard */
+  --credit-card-background-color: theme('colors.gray.200');
 }
 
 .theme-brand-tabs {
