@@ -15,9 +15,7 @@ export const skuStatus = (sku: Sku): Status => {
         })
       : undefined;
     const lowestPrice =
-      lowestPriceListing?.saleType === 'auction'
-        ? Math.max(lowestPriceListing?.minBid, sku.maxBid, sku.minHighestBid)
-        : lowestPriceListing?.price;
+      lowestPriceListing?.saleType === 'auction' ? lowestPriceListing?.minBid : lowestPriceListing?.price;
 
     let minPrice: number;
 
