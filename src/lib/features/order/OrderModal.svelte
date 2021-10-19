@@ -31,6 +31,7 @@
 
   let acceptedTerms = false;
   let acceptedTermsNft = false;
+  const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
 
   async function submitOrder() {
     if (!acceptedTerms || (sku?.customNftTerms && !acceptedTermsNft)) {
@@ -46,6 +47,7 @@
       try {
         result = await claimGiveawaySkuListing(listing._id);
         if (result) {
+          closeModal();
           skuBought();
           toast.success('Your NFT was successfully minted!');
         }
@@ -92,7 +94,7 @@
   let title = '';
   $: if (result?.status === 'success') {
     title === 'Yeah! Payment successful.';
-  } else if (result?.status === 'pending') {
+  } else if (result?.status === 'pending' || purchasing) {
     title = `We're processing your order!`;
   } else if (insufficientFunds) {
     title = 'Whoops, insufficient funds!';
@@ -113,7 +115,7 @@
       <ProductModalInfo sku={_sku} />
       {#if !result}
         <div>
-          <OrderProductPricing price={listing.price} {marketplaceFee} />
+          <OrderProductPricing price={listingPrice} {marketplaceFee} />
         </div>
       {/if}
       <div class="flex flex-col gap-5 text-gray-500">
@@ -125,7 +127,7 @@
             {/if}
             <a class="font-medium self-center" href={routes.marketplace}> Back to Marketplace </a>
           </div>
-        {:else if result?.status === 'pending'}
+        {:else if result?.status === 'pending' || purchasing}
           <span
             >We will send your an email when your purchase has been completed. Refresh the page to view the updated
             status.</span
