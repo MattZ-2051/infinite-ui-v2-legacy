@@ -4,6 +4,6 @@ context('test', () => {
   });
 
   it('title', () => {
-    cy.title().should('eq', 'The ARIA Exchange');
+    cy.title().should('eq', 'ARIA Exchange');
   });
 });

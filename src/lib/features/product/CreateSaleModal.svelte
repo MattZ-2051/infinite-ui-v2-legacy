@@ -104,7 +104,7 @@
           </div>
         </div>
         <div class="text-sm text-gray-500">
-          If your NFT is bought on the marketplace, payment will be transferred to your INFINITE wallet.
+          Once someone purchases your item on the marketplace, payment will be transferred to your wallet.
         </div>
         <Button variant="brand" class="w-full mt-6" type="submit" disabled={$isSubmitting}>Start Sale</Button>
       </div>
