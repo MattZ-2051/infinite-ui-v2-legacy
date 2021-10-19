@@ -109,11 +109,11 @@
       <FormElement name="addressLine2" label="Address Line 2" />
       <FormElement name="city" label="City*" />
       <FormElement name="postalCode" label="Postal Code*" />
-      <FormCountriesSelect name="country" label="Country code*" />
+      <FormCountriesSelect name="country" label="Country*" />
       <FormDistrictsSelect
         countryISO2={$data.country}
         name="district"
-        label="District{isDistrictRequired ? '*' : ''}"
+        label="State/Province{isDistrictRequired ? '*' : ''}"
       />
 
       <button class="hidden" bind:this={submit} />
