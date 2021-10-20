@@ -37,7 +37,7 @@
         --button-brand-color-hover="rgba(255,255,255)"
         animate={false}
         variant="brand"
-        class="whitespace-nowrap md:w-56 w-44 py-12 md:py-0"
+        class="whitespace-nowrap w-56 py-12 md:py-0"
         type="submit"
       >
         View Emilia's Collection</Button
