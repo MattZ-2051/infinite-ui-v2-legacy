@@ -7,6 +7,6 @@ export const paths = {
   '$ui/pagination/assets/*': 'projects/seva/src/assets/ui/*',
   '$ui/accordion/assets/*': 'projects/seva/src/assets/ui/*',
   '$lib/features/sku/assets/*': 'projects/seva/src/assets/lib/*',
-  '$lib/features/wallet/assets/*': 'projects/seva/src/assets/lib/*',
+  '$lib/features/wallet/assets/arrow-right': 'projects/seva/src/assets/lib/arrow-right',
   '$lib/features/product/assets/*': 'projects/seva/src/assets/lib/*',
 };

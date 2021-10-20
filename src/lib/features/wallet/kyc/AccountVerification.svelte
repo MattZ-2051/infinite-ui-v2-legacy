@@ -1,6 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { mdiShieldSync, mdiShieldHalfFull, mdiArrowRight, mdiShieldCheck, mdiShieldAlert } from '@mdi/js';
+  import { mdiShieldOutline, mdiShieldCheckOutline, mdiShieldOffOutline } from '@mdi/js';
+  import shieldPlus from '$lib/features/wallet/assets/shield-plus';
+  import arrowRight from '$lib/features/wallet/assets/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
   import Button from '$lib/components/Button.svelte';
 
@@ -9,40 +11,36 @@
 
   const dispatch = createEventDispatcher();
 
-  let hasCta: boolean;
-  $: hasCta = !pending && level < 2;
+  const LEVEL_ICONS = [mdiShieldOffOutline, mdiShieldCheckOutline, shieldPlus];
+
+  function getStatus(lvl: number, isPending: boolean) {
+    let label: string;
+    if (lvl === 0) {
+      label = isPending ? 'Pending...' : 'Unverified';
+    } else {
+      label = `Level ${lvl}`;
+    }
+
+    return {
+      icon: lvl === 0 && isPending ? mdiShieldOutline : LEVEL_ICONS[lvl],
+      label,
+    };
+  }
+  $: status = getStatus(level, pending);
 </script>
 
 <div class="flex items-center justify-between font-semibold" {...$$restProps}>
   <div class="flex items-center gap-2">
-    {#if pending}
-      {#if level === 0}
-        <Icon path={mdiShieldSync} />
-        <span>Pending...</span>
-      {:else if level === 1}
-        <Icon path={mdiShieldHalfFull} />
-        <span>Level {level}</span>
-        <Icon path={mdiArrowRight} />
-        <div class="flex gap-1 text-gray-600">
-          <Icon path={mdiShieldSync} />
-          <span>Pending...</span>
-        </div>
-      {/if}
-    {:else if level >= 1}
-      {#if level === 1}
-        <Icon path={mdiShieldHalfFull} />
-      {:else}
-        <Icon path={mdiShieldCheck} />
-      {/if}
-      <span>Level {level}</span>
-    {:else}
-      <Icon path={mdiShieldAlert} />
-      <span>Unverified</span>
+    <Icon path={status.icon} />
+    <span>{status.label}</span>
+    {#if pending && level > 0}
+      <span class="tracking-widest">•••</span>
+      <span class="text-gray-400">Level {level + 1}</span>
     {/if}
   </div>
-  {#if hasCta}
-    <Button variant="brand" class="text-sm" on:click={() => dispatch('upgrade')}
-      >{level === 0 ? 'Verify' : 'Upgrade'}</Button
-    >
+  {#if !pending && level < 2}
+    <Button variant="brand" style="--button-padding:0.2em" on:click={() => dispatch('upgrade')}>
+      <Icon path={arrowRight} />
+    </Button>
   {/if}
 </div>
