@@ -14,43 +14,49 @@
   let _class = '';
   export { _class as class };
 
-  export let modalElement: HTMLElement = undefined;
+  let element: HTMLElement = undefined;
 
-  function onClose(reason: 'esc' | 'backdrop' | 'close') {
+  type ModalCloseReason = 'esc' | 'backdrop' | 'close' | 'manual';
+
+  function requestClose(reason: ModalCloseReason) {
     if (persistent) {
       return;
     }
 
     if (!beforeClose || beforeClose(reason)) {
-      setTimeout(() => close());
+      setTimeout(() => onClose(reason));
     }
   }
 
-  export let beforeClose: (reason?: 'esc' | 'backdrop' | 'close') => boolean = undefined;
+  export let beforeClose: (reason?: ModalCloseReason) => boolean = undefined;
 
-  export let close: () => void = () => closeModal();
+  export let onClose: (reason?: ModalCloseReason) => void = () => closeModal();
+
+  export function close() {
+    onClose('manual');
+  }
 
   $: trapFocusConfig = {
-    active: !!modalElement,
+    active: !!element,
     focusTrapOptions: {
       allowOutsideClick: true,
-      initialFocus: () => (modalElement.querySelector('[data-initial-focus]') as HTMLElement) || modalElement,
+      initialFocus: () => (element.querySelector('[data-initial-focus]') as HTMLElement) || element,
     },
   };
 </script>
 
-<svelte:window on:keydown={(event) => event.key === 'Escape' && onClose('esc')} />
+<svelte:window on:keydown={(event) => event.key === 'Escape' && requestClose('esc')} />
 <ThemeContext id="modal">
   <div
     tabindex="-1"
-    bind:this={modalElement}
+    bind:this={element}
     class="fixed top-0 left-0 bottom-0 right-0 backdrop-filter backdrop-blur-sm z-modal"
     use:trapFocus={trapFocusConfig}
   >
     <div
       class="h-full w-full absolute flex items-center justify-center"
       transition:fly={{ y: 50 }}
-      on:mousedown|self={() => onClose('backdrop')}
+      on:mousedown|self={() => requestClose('backdrop')}
     >
       <div
         class="flex flex-col relative rounded-lg bg-white shadow text-black mx-2 {_class}"
@@ -60,7 +66,7 @@
         {#if !persistent && closeButton}
           <button
             type="button"
-            on:click={() => onClose('close')}
+            on:click={() => requestClose('close')}
             data-style="close"
             title="Close"
             class="absolute right-10 top-8 text-black py-1 inline-flex items-center justify-center"

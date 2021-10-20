@@ -21,14 +21,13 @@
     shippingNotes: yup.string(),
   });
 
-  let saving: Promise<unknown>;
   export let id: string;
   const dispatch = createEventDispatcher();
 
   const { form, errors, reset, isSubmitting } = createForm<RedeemInfo>({
     onSubmit: async (values) => {
       try {
-        await (saving = redeemItem({ ...values }, id));
+        await redeemItem({ ...values }, id);
         notifications.success(
           `Congrats! You've successfully redeemed this item. Learn more about the redemption process <a href=${routes.help}>here</a>.`
         );
@@ -39,8 +38,6 @@
         notifications.danger(
           `Whoops! Something went wrong. Please try again or <a href=${routes.help}>contact us</a> if this issue continues.`
         );
-      } finally {
-        saving = undefined;
       }
     },
     validate: validateSchema(schema),
@@ -68,6 +65,6 @@
       Redeem this item and receive a copy on the following adress. Keep in mind that, by confirming this action, the
       digital and physical versions may suffer a price decrease.
     </div>
-    <Button variant="brand" type="submit" disabled={!!saving} class="mt-6">Redeem Now</Button>
+    <Button variant="brand" type="submit" disabled={$isSubmitting} class="mt-6">Redeem Now</Button>
   </form>
 </div>

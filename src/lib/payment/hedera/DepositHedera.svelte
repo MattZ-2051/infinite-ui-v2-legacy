@@ -37,7 +37,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Deposit HBAR" close={onClose}>
+  <Modal title="Deposit HBAR" {onClose}>
     <div
       slot="title"
       class="flex flex-grow gap-3 border-b-2 border-black font-medium text-2xl text-center py-3"
