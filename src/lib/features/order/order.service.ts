@@ -21,7 +21,7 @@ export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: 
   }
 
   if (sku && sku.issuer?._id === currentUser._id && listing.saleType === 'giveaway') {
-    toast.danger('Whoops! You cannot claim your own SKU / NFT.');
+    toast.danger('Whoops! You cannot claim your own SKU / NFT!');
     return;
   }
   if (sku && sku.issuer?._id === currentUser._id) {
