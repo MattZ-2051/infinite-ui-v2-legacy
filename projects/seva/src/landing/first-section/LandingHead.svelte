@@ -10,7 +10,7 @@
   export let sku;
 </script>
 
-<div class="container-custom">
+<div class="container-custom -mb-24 sm:mb-0">
   <div class="container text-center max-w-7xl pt-12 px-6">
     <div class="text-4xl lg:text-6xl" style="color:#ffd54e">
       <p>Seva.Love<br class="hidden lg:block" /> NFTs that catalyze change</p>
@@ -76,16 +76,16 @@
       </div>
     </div>
     <div class="">
-      <div class="image-line-container w-full hidden sm:block relative top-0 z-1" style="height:510px">
-        <img src={LineImage} alt="line" width="100%" />
-        <div class="bubble-container absolute lg:top-60 lg:right-80 top-11 right-7">
-          <img src={Bubbles} alt="bubble-images" width="100%" />
+      <div class="image-line-container w-full hidden sm:block relative top-0 z-1" style="height:31rem">
+        <img src={LineImage} alt="line" class="w-full relative sm:top-32 md:top-20 lg:top-0" />
+        <div class="bubble-container absolute lg:top-60 2xl:right-64 top-11 right-7 lg:right-40">
+          <img src={Bubbles} alt="bubble-images" class="w-full" />
         </div>
       </div>
-      <div class="image-line-container-mobile w-full block sm:hidden relative z-1 -top-7 " style="height:510px">
-        <img src={LineImageMobile} alt="line" width="100%" />
-        <div class="bubble-container absolute top-11 right-7">
-          <img src={Bubbles} alt="bubble-images" width="100%" />
+      <div class="image-line-container-mobile w-full block sm:hidden relative z-1 -top-7">
+        <img src={LineImageMobile} alt="line" class="w-full relative -top-4" />
+        <div class="bubble-container absolute top-6 right-7 w-1/3">
+          <img src={Bubbles} alt="bubble-images" class="w-full" />
         </div>
       </div>
     </div>

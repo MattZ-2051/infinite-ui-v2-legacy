@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <div class=" mt-8 mb-48 md:mb-14">
+    <div class=" mt-8 mb-14 ">
       {#if !$user}
         <div class="flex flex-col items-center justify-center ">
           <form use:form class="flex flex-col md:relative max-w-lg w-full rounded-full h-16" autocomplete="off">
