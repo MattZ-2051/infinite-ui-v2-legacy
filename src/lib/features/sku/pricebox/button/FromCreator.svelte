@@ -100,7 +100,7 @@
           </div>
         {:else}
           <div>
-            <div class="text-xl text-right">{sku?.maxSupply}</div>
+            <div class="text-xl text-right">{sku?.totalSkuListingSupplyLeft}</div>
             <div class="text-sm text-right text-gray-500">Remaining</div>
           </div>
         {/if}

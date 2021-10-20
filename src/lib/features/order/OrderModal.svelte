@@ -7,11 +7,11 @@
   import { formatCurrency } from '$util/format';
   import Button from '$lib/components/Button.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
-  import { productBought, pendingBuyCreated } from '$lib/features/product/product.store';
+  import { productBought, pendingBuyCreated, product as productStore } from '$lib/features/product/product.store';
   import { getBuyingFee, getSkuBuyingFee } from '$lib/features/product/product.fee';
   import { toast } from '$ui/toast';
   import routes from '$project/routes';
-  import { skuBought } from '$lib/features/sku/sku.store';
+  import { skuBought, sku as skuStore } from '$lib/features/sku/sku.store';
   import OrderProductPricing from './OrderProductPricing.svelte';
   import { purchaseSkuListing, claimGiveawaySkuListing } from './order.api';
   import { handleSkuClaimError } from './order.service';
@@ -25,6 +25,9 @@
   let purchasing = false;
   let result: SkuPurchaseTransaction;
   $: _sku = product ? product.sku : sku;
+
+  skuStore.watch((value) => (sku = value));
+  productStore.watch((value) => (product = value));
 
   let acceptedTerms = false;
   let acceptedTermsNft = false;
