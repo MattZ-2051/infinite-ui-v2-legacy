@@ -9,7 +9,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Funds added!" on:close={closeModal}>
+  <Modal title="Funds added!">
     <div class="flex flex-col justify-center items-start gap-4 mt-2 text-base max-w-sm py-4 px-10 m-auto">
       <div class="text-base pb-4" style="color: #A8C039">
         <span>Your wallet balance is ${formatCurrency($wallet?.balanceInfo?.totalBalance)} now.</span>
