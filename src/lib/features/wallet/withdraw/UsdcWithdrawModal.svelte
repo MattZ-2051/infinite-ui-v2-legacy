@@ -50,7 +50,7 @@
         Withdrawable Balance <span class="font-semibold">{formatCurrency($withdrawableBalance)}</span>
       </div>
       <div class="text-black-opacity-50 text-base">
-        (Excludes pending transactions and credit card payments less than 30 days old)
+        (The withdrawable amount excludes pending transactions and credit card payments less than 30 days old.)
       </div>
       <div class="mt-8">
         <div class="text-black-opacity-50 text-base mb-4">Enter the amount you would like to withdraw</div>

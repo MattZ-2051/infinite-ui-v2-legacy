@@ -15,7 +15,7 @@
     },
     {
       id: 'NFTs',
-      title: 'Owned Collectibles',
+      title: `@${owner}'s Collectibles`,
       tooltip: `These Collectibles are owned by @${owner}`,
     },
   ];

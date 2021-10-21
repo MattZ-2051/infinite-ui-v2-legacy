@@ -18,7 +18,8 @@
 </script>
 
 <ConfirmModal
-  labels={{ cancel: 'Go back', confirm: !$subscription ? 'Subscribe' : 'Unsubscribe' }}
+  title="Confirm Your Subscription"
+  labels={{ cancel: 'Go back', confirm: !$subscription ? 'Yes, please' : 'Unsubscribe' }}
   onConfirm={handleNotify}
   {isOpen}
 >
@@ -36,7 +37,7 @@
   <div slot="message" class="flex flex-col items-center py-5 gray-border font-semibold mb-10">
     <div>
       {#if !$subscription}
-        <span class="text-gray-500">Subscribe and stay up to date on the newest updates from</span>
+        <span class="text-gray-500">Stay in the loop on all exclusive releases and updates from</span>
         <UserLink username={profile.username} />
       {:else}
         <span class="text-gray-500">Unsubscribe from</span>

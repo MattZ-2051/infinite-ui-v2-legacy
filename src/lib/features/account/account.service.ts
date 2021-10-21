@@ -23,8 +23,9 @@ export function handleUserApiError(error) {
   toast.danger(message);
 }
 
-export const phoneNumberConsentText = `By providing your phone number, you are consenting to receiving updates from ${CLIENT_COMPANY_NAME} on NFT releases,
-exclusive experiences, updates and other communications from ${CLIENT_COMPANY_NAME} and its affiliates and partners.`;
+export const phoneNumberConsentText = `Stay in the loop on all the hottest releases! By providing your phone number, 
+you’re consenting to receiving SMS updates from ${CLIENT_COMPANY_NAME} on all of the exciting updates and experiences from us and from our partners.
+Your phone number will not be shared publicly on your marketplace profile.`;
 
 export const accountDetailsValidation = {
   firstName: yup

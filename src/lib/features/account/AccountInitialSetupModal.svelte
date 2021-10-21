@@ -76,7 +76,7 @@
         <div class="form-overlay" />
       {/if}
       <span class="text-base text-gray-900 text-center">
-        Please provide the following information to complete your profile.
+        We love getting to know our community. Please tell us more about yourself in the form below.
       </span>
       <form use:form autocomplete="off" class="flex flex-col gap-3">
         <FormElement label="First name *" name="firstName" />

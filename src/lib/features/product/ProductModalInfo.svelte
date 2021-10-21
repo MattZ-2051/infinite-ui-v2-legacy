@@ -11,7 +11,7 @@
 <div class="flex flex-col border border-gray-100 rounded-md w-full">
   <div class="grid grid-cols-2 border-b border-gray-100 p-4 gap-4">
     <div class="flex flex-col gap-2">
-      <span class="text-sm text-gray-500">Name</span>
+      <span class="text-sm text-gray-500">Item Name</span>
       <div class="flex items-center gap-2">
         <div>{sku.name}</div>
         {#if product?.serialNumber}
@@ -26,7 +26,7 @@
   </div>
   <div class="grid grid-cols-2 p-4 gap-4">
     <div class="flex flex-col gap-2">
-      <span class="text-sm text-gray-500">Created by</span>
+      <span class="text-sm text-gray-500">Creator</span>
       <TalentLink profile={sku.issuer} />
     </div>
     {#if sku.redeemable}

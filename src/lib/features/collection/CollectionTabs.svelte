@@ -3,7 +3,9 @@
   import { page } from '$app/stores';
   import { Tabs, Tab } from '$ui/tabs';
   import { SkuItemGrid } from '$lib/sku-item';
+  import routes from '$project/routes';
   import Sort from '$lib/components/Sort.svelte';
+  import Button from '$lib/components/Button.svelte';
   import {
     products,
     productsTotal,
@@ -79,7 +81,13 @@
     </Tab>
     <Tab id="NFTs">
       {#if $productsTotal === 0}
-        <div class="text-gray-500  text-center mt-12 text-2xl ">No Collectibles found.</div>
+        <div class="text-gray-500 text-center mt-12 text-2xl space-y-12">
+          <div>
+            <p>You don’t have any collectibles yet.</p>
+            <p>Start curating your collection today!</p>
+          </div>
+          <Button variant="brand" href={routes.marketplace}>Explore the Marketplace</Button>
+        </div>
       {:else if $productsTotal === null}
         <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
       {:else}

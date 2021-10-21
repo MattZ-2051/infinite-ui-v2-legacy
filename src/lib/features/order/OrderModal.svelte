@@ -99,7 +99,7 @@
   } else if (insufficientFunds) {
     title = 'Whoops, insufficient funds!';
   } else {
-    title = 'Confirm your order:';
+    title = 'Complete your purchase:';
   }
 </script>
 
@@ -165,7 +165,7 @@
             </div>
           {/if}
           <div class="text-sm text-gray-600">
-            Confirming your order will complete the purchase, and the total price will be deducted from your wallet.
+            Confirming your order below will deduct this total from your current wallet balance.
           </div>
           <Button variant="brand" class="mt-6" disabled={purchasing} on:click={submitOrder}>Buy Now</Button>
           <Button variant="outline-brand" on:click={closeModal}>Cancel</Button>

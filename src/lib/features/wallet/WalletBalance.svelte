@@ -30,7 +30,7 @@
         {:else}
           {formatCurrency(availableBalance)}
         {/if}
-        <button type="button" use:tooltip={'Excludes pending transactions and active bids'}
+        <button type="button" use:tooltip={'The available funds exclude pending transactions and active bids.'}
           ><Icon path={mdiInformationVariant} class="px-1 bg-white bg-opacity-10 rounded-full" /></button
         >
       </div>
@@ -48,7 +48,7 @@
         {/if}
         <button
           type="button"
-          use:tooltip={'Excludes pending transactions and credit card payments less than 30 days old'}
+          use:tooltip={'The withdrawable amount excludes pending transactions and credit card payments less than 30 days old.'}
           ><Icon path={mdiInformationVariant} class="px-1 bg-white bg-opacity-10 rounded-full" /></button
         >
       </div>

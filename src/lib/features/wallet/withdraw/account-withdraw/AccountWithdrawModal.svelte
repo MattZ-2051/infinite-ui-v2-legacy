@@ -90,7 +90,7 @@
             Withdrawable Balance <span class="font-semibold">{formatCurrency(withdrawableAmount)}</span>
           </p>
           <p class="text-xs uppercase">
-            (Excludes pending transactions and credit card payments less than 30 days old)
+            (The withdrawable amount excludes pending transactions and credit card payments less than 30 days old.)
           </p>
         </div>
         <div class="text-base mt-8 px-10 pb-1">
