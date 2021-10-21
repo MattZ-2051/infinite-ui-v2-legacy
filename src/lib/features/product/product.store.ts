@@ -8,7 +8,7 @@ import { createPolling } from '$util/effector';
 import routes from '$project/routes';
 import { toast } from '$ui/toast';
 import { loadProduct, loadProductTransactions } from './product.api';
-import { hasActiveAuction } from './product.service';
+import { hasActiveAuction, hasAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
 import { skuBought, sku } from '../sku/sku.store';
 
@@ -16,9 +16,23 @@ export const setProduct = createEvent<Awaited<ReturnType<typeof fetchProductFx>>
 export const setProductBids = createEvent<{ data: Bid[]; total: number; max: number }>();
 
 export const fetchProductFx = createEffect(
-  async ({ id, tab, page, fetch }: { id: string; tab: 'auction' | 'history'; page: number; fetch?: Fetch }) => {
+  async ({
+    id,
+    tab,
+    page,
+    fetch,
+  }: {
+    id: string;
+    tab: 'auction' | 'history' | 'owner';
+    page: number;
+    fetch?: Fetch;
+  }) => {
     const current = product.getState() as Product;
     const product_ = !browser || id !== current?._id ? await loadProduct({ id, fetch }) : current;
+
+    if (!tab) {
+      tab = hasAuction(product_) ? 'auction' : 'history';
+    }
 
     let response: {
       product: Product;
@@ -27,15 +41,16 @@ export const fetchProductFx = createEffect(
       productBids?: Bid[];
       totalProductBids?: number;
       maxProductBid?: number;
-    } = { product: product_ };
+      tab: 'auction' | 'history' | 'owner';
+    } = { product: product_, tab };
 
-    if (tab === 'history' || !tab) {
+    if (tab === 'history') {
       const { data, total } = await fetchProductTransactionsFx({ id, page, fetch });
       response = { ...response, productTransactions: data, totalProductTransactions: total };
     }
-    if ((tab === 'auction' || !tab) && hasActiveAuction(product_)) {
+    if (tab === 'auction' && hasActiveAuction(product_)) {
       const { data, total, max } = await fetchProductBidsFx({ id: product_.activeProductListings[0]._id, page, fetch });
-      return { ...response, productBids: data, totalProductBids: total, maxProductBid: max };
+      response = { ...response, productBids: data, totalProductBids: total, maxProductBid: max };
     }
 
     return response;

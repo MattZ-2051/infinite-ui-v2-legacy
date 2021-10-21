@@ -11,6 +11,8 @@
   import ProductStatus from './status/ProductStatus.svelte';
   import { product } from './product.store';
 
+  export let tab: 'auction' | 'history' | 'owner';
+
   function onClose() {
     history.back();
   }
@@ -41,7 +43,7 @@
     </div>
 
     <div class="mt-12 md:mx-0 flex flex-col flex-grow">
-      <ProductTabs product={$product} />
+      <ProductTabs product={$product} {tab} />
     </div>
 
     <ProductStatus

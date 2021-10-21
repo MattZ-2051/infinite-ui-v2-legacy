@@ -7,7 +7,7 @@
   export async function load({ page: location, fetch }: LoadInput) {
     const { id } = location.params;
     const page = +location.query.get(`page`) || 1;
-    const tab = location.query.get(`tab`) as 'auction' | 'history';
+    const tab = location.query.get(`tab`) as 'auction' | 'history' | 'owner';
 
     return {
       props: { data: await fetchProductFx({ id, tab, page, fetch }) },
@@ -25,5 +25,5 @@
 
 {#if $product}
   <Seo title={`${$product.sku.name} / #${$product.serialNumber}`} image={chooseSkuSocialImage($product.sku)} />
-  <ProductPage />
+  <ProductPage tab={data.tab} />
 {/if}

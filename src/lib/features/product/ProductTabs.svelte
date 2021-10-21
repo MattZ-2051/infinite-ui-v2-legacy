@@ -2,23 +2,17 @@
   import type { Product } from '$lib/sku-item/types';
   import { Tabs } from '$ui/tabs';
   import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import routes from '$project/routes';
   import ProductHistory from './ProductHistory.svelte';
   import ProductAuction from './auction/ProductAuction.svelte';
-  import { hasAuction } from './product.service';
 
   export let product: Product;
-
-  $: showAuction = hasAuction(product);
+  export let tab: 'auction' | 'history' | 'owner';
 
   function redirect({ detail }: CustomEvent<'auction' | 'history' | 'owner'>) {
     goto(`${routes.product(product._id)}?tab=${detail}`, { keepfocus: true });
   }
-
-  // TODO(tasos): move to route to avoid unnecessary call for transactions
-  $: tab = $page.query.get(`tab`) || (showAuction ? 'auction' : 'history');
 
   function getItems(totalPrivateAssets: number) {
     let items = [
