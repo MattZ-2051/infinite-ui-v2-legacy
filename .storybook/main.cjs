@@ -63,6 +63,32 @@ module.exports = {
       },
     });
 
+    config.module.rules = config.module.rules.filter((rule) => rule.type !== 'asset/resource');
+
+    config.module.rules.push(
+      {
+        test: /\.(jpg|jpeg|png|webp)$/i,
+        use: [
+          {
+            loader: path.resolve(__dirname, 'loaders', 'imagetools-loader.cjs'),
+          },
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'static/media/[name][contenthash:8].[ext]',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(gif|svg|eot|otf|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'static/media/[name][contenthash:8].[ext]',
+        },
+      }
+    );
+
     return config;
   },
 };
