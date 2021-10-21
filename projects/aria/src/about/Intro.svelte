@@ -13,14 +13,14 @@
   import social from './assets/social.png?w=173&format=avif;webp;png&metadata=src;format;width;height';
 </script>
 
-<div class="container py-0 flex flex-col gap-6 md:gap-12">
+<section class="container py-0 flex flex-col gap-6 md:gap-12">
   <div class="flex justify-center flex-col items-center text-center gap-8 max-w-4xl mx-auto">
-    <div class="text-4xl text-gradient-primary">What is The ARIA Exchange?</div>
-    <div class="text-lg">
-      Bringing you closer to the most collectible, coveted and rarest mix of digital content and collections in the
-      world. We partner with world class artists, athletes and brands to bring you closer to what you care about most.
-    </div>
-    <div class="font-bold text-lg">ARIA Exchange redefines the collectible NFT experience!</div>
+    <h2 class="text-4xl text-gradient-primary">What is The ARIA Exchange?</h2>
+    <p class="text-lg">
+      We’re a creative marketplace that partners with the world’s most iconic artists, athletes and brands to bring you
+      the rarest mix of collectibles in the world. Our community platform allows you to discover, buy, and sell highly
+      covetable crypto collectibles, with ease.
+    </p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-x-24 gap-y-8 text-center text-lg">
@@ -29,7 +29,13 @@
         <Image src={trust} />
       </div>
       <span class="text-2xl">TRUST</span>
-      <span>The whole truth and nothing but the truth. You buy it. We verify it. You own it.</span>
+      <div class="space-y-4 max-w-sm">
+        <p>Your privacy is our priority.</p>
+        <p>
+          We’ve created a marketplace that is 100% safe and secure so you can buy and sell your collectibles with peace
+          of mind. All sellers and transactions are verified.
+        </p>
+      </div>
     </div>
 
     <div class="flex flex-col gap-8 items-center">
@@ -37,11 +43,13 @@
         <Image src={carbon} />
       </div>
       <span class="text-2xl">CARBON NEGATIVE</span>
-      <span
-        >We care about our planet and we think you should too. Our transactions are the fastest in the industry and we
-        redeposit 2 times the energy we use back into the environment via carbon offsets. Basically we’re making the
-        world a better place.
-      </span>
+      <div class="space-y-4 max-w-sm">
+        <p>The only thing we love more than collectibles is our planet.</p>
+        <p>
+          With the goal to be the most environmentally responsible NFT marketplace on Earth, we redeposit 2X the energy
+          we consume via carbon offsets.
+        </p>
+      </div>
     </div>
 
     <div class="flex flex-col gap-8 items-center">
@@ -49,16 +57,20 @@
         <Image src={currency} />
       </div>
       <span class="text-2xl">CURRENCY</span>
-      <span>We don't discriminate. We accept Ether, Bitcoin, Credit Cards and USDC.</span>
+      <div class="space-y-4 max-w-sm">
+        <p>Your money is good here.</p>
+        <p>We accept a wide range of payment options, including Ether, Bitcoin, Credit Cards and USDC.</p>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="mt-8 md:mt-20 lg:mt-32 bg-primary-dark">
+<section class="mt-8 md:mt-20 lg:mt-32 bg-primary-dark">
   <div class="container p-12 flex flex-col gap-10">
-    <span class="text-2xl lg:text-4xl text-center"
-      >Join our collective and let’s build our digital community together!
-    </span>
+    <h2 class="text-2xl lg:text-4xl text-center">
+      Stay ahead of all the hottest trends. Join our growing community of buyers and sellers, and start curating your
+      collectibles today.
+    </h2>
     {#if !$user}
       <div class="flex justify-center">
         <Button variant="brand" href={routes.signup} --button-padding="8px 40px" sveltekit:noscroll>JOIN ARIA</Button>
@@ -70,9 +82,7 @@
           <Image src={deposit} />
         </div>
         <div class="flex flex-col text-center ">
-          <span>Open ARIA account </span>
-          <span>+</span>
-          <span>Make deposit</span>
+          <p>Create your ARIA account & fund your wallet with a currency of your choosing.</p>
         </div>
       </div>
       <div class="flex items-center justify-center transform rotate-90 md:transform-none text-gray-800">
@@ -83,8 +93,7 @@
           <Image src={purchase} />
         </div>
         <div class="flex flex-col text-center ">
-          <span>Purchase or</span>
-          <span>place a bid</span>
+          <p>Purchase or place bids on your favorite collectibles.</p>
         </div>
       </div>
       <div class="flex items-center justify-center transform rotate-90 md:transform-none text-gray-800">
@@ -95,13 +104,12 @@
           <Image src={social} />
         </div>
         <div class="flex flex-col text-center ">
-          <span>Share on</span>
-          <span>social</span>
+          <p>Share what you’re loving on social & tag us @TheARIAexchange</p>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <style lang="postcss">
   .intro-grid {

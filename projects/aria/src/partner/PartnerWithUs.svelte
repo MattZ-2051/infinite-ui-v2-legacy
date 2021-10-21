@@ -26,17 +26,19 @@
   ];
 
   const contactFields = [
-    { name: 'talent', label: 'Talent Name *', placeholder: 'John Brown' },
-    { name: 'name', label: 'Your Name *', placeholder: 'John Doe' },
-    { name: 'email', label: 'Your Email Address *', placeholder: 'john.brown@example.com' },
-    { name: 'relationship', label: 'Relationship to Talent', placeholder: 'Self, Manager, etc.' },
-    { name: 'industry', label: 'Industry', placeholder: 'Art, Music, Sport, etc.' },
+    { name: 'name', label: 'What is your name? *', placeholder: 'John Doe' },
+    { name: 'email', label: 'What is your email address? *', placeholder: 'john.brown@example.com' },
+    { name: 'industry', label: 'What is your industry? *', placeholder: 'Art, Music, Sports, etc.' },
+    { name: 'talent', label: 'Who do you represent? *', placeholder: 'John Brown' },
+    { name: 'role', label: 'What is your role?', placeholder: 'Manager, etc.' },
   ];
 
   const schema = yup.object({
-    talent: yup.string().required('Talent name is required.'),
     name: yup.string().required('Name is required.'),
     email: yup.string().email('Please enter valid email.').required('Email is required.'),
+    industry: yup.string().required('Industry is required.'),
+    talent: yup.string().required('Brand/talent name is required.'),
+    role: yup.string().required('Role is required.'),
   });
 
   const { form, errors, reset, isSubmitting } = createForm<{ email: string }>({
@@ -61,15 +63,16 @@
   setContext('errors', errors);
 </script>
 
-<div data-style="container" class="flex flex-col gap-8 text-white bg-black">
+<section data-style="container" class="flex flex-col gap-8 text-white bg-black">
   <div class="flex flex-col gap-12 text-center container mt-8">
-    <div class="text-4xl max-w-4xl mx-auto font-medium">
-      ARIA Exchange creates exclusive NFTs for the world's most iconic athletes, entertainers, and brands.
-    </div>
-    <div class="mx-auto text-2xl text-center max-w-6xl">
-      We bring you closer to your favorite icons. Our mission is to deliver the most mind blowing and unique digital
-      content in the hottest way possible. We’re obsessed with merging the physical and digital worlds in the most
-      innovative way to give you unlimited access to the most in demand collectibles.
+    <h2 class="text-4xl max-w-4xl mx-auto font-medium uppercase">A Collaborative Community</h2>
+    <div class="mx-auto text-2xl text-center max-w-6xl space-y-4">
+      <p>
+        ARIA Exchange creates and sells innovative, culturally driven collectibles for the world’s most iconic athletes,
+        entertainers, artists, and brands. We’re experts at merging the digital universe with unforgettable physical
+        experiences to deliver the most cutting-edge collectibles ever created.
+      </p>
+      <p>Let us help you bring your vision into the future.</p>
     </div>
   </div>
 
@@ -78,7 +81,10 @@
     <div class="z-1 flex flex-col gap-14">
       <div class="container md:mt-16">
         <form use:form class="form flex flex-col gap-8 lg:mx-32 xl:mx-40 px-10 md:mb-16" autocomplete="off">
-          <span class="border-b-2 pb-4 pt-7 text-2xl">Talent Details</span>
+          <div class="border-b-2 pb-4 pt-7 text-3xl">
+            <h3>Let’s collaborate!</h3>
+            <p class="text-base">Please fill out the form below:</p>
+          </div>
           <div class="flex justify-between flex-col md:flex-row gap-16">
             <div class="flex flex-col gap-6" style="flex-grow:6;">
               {#each contactFields as contactField}
@@ -108,7 +114,7 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <style>
   [data-style='container'] {

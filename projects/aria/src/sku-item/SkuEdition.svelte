@@ -20,9 +20,9 @@
       case 'unique':
         return '1 of 1 available';
       case 'limited':
-        return 'Pre-determined number of minted collectibles available';
+        return 'Limited Edition Collectible';
       case 'released':
-        return 'Number of minted collectibles determined by quantity purchased before listing end date';
+        return 'Open Edition Collectible: This quantity is determined by the number of collectibles sold by the listing’s end date.';
       default:
         return undefined;
     }
