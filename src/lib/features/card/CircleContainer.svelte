@@ -12,7 +12,7 @@
 </script>
 
 <div class="container flex flex-col items-center my-5 md:my-10">
-  <div class="p-9 rounded-sm border border-gray-100 rounded-lg max-w-md">
+  <div class="p-9 rounded-sm border border-gray-100 rounded-lg max-w-md w-full">
     <div class="flex justify-between pb-3">
       <div class="flex items-center gap-2 text-xl">
         <Image src={Circle} class="flex-none w-8 h-8" /> Circle Payments

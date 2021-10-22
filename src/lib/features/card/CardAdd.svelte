@@ -31,8 +31,8 @@
       .string()
       .required('Credit card number is required.')
       .matches(/^\d{16}$/, 'Please enter a valid card number'),
-    expMonth: yup.number().typeError('Expiration month is required'),
-    expYear: yup.number().typeError('Expiration year is required'),
+    expMonth: yup.string().required('Expiration month is required'),
+    expYear: yup.string().required('Expiration year is required'),
     cvv: yup
       .string()
       .matches(/^\d{3,4}$/, 'Enter a valid ccv number')
