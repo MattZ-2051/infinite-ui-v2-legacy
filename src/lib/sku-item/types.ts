@@ -116,6 +116,7 @@ export type Listing = {
   updatedAt: Date;
   auctionBidIncrement?: number;
   highestBid?: Bid;
+  auctionProcess?: 'unset' | 'processing' | 'closed';
 };
 
 export type ListingSalePayload = {

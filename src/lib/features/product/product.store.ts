@@ -20,15 +20,17 @@ export const fetchProductFx = createEffect(
     id,
     tab,
     page,
+    force,
     fetch,
   }: {
     id: string;
     tab: 'auction' | 'history' | 'owner';
     page: number;
+    force?: boolean;
     fetch?: Fetch;
   }) => {
     const current = product.getState() as Product;
-    const product_ = !browser || id !== current?._id ? await loadProduct({ id, fetch }) : current;
+    const product_ = !browser || id !== current?._id || force ? await loadProduct({ id, fetch }) : current;
 
     if (!tab) {
       tab = hasAuction(product_) ? 'auction' : 'history';
@@ -57,9 +59,17 @@ export const fetchProductFx = createEffect(
   }
 );
 
-export const refetchProductFx = createEffect(async (): Promise<Product> => {
+export const refetchProductFx = createEffect(async () => {
   const current = product.getState();
-  return await loadProduct({ id: current._id });
+
+  const queryParameters = getQueryParameters();
+  const page = +queryParameters.get('page') || 1;
+  const tab = queryParameters.get('tab') as 'auction' | 'history' | 'owner';
+
+  const id = current._id;
+  const data = await fetchProductFx({ id, tab, page, force: true });
+
+  setProduct(data);
 });
 
 export const fetchProductTransactionsFx = createEffect(
@@ -95,9 +105,7 @@ export const fetchProductBidsFx = createEffect(
 );
 
 // eslint-disable-next-line unicorn/no-null
-export const product = createStore<Product>(null)
-  .on(setProduct, (state, payload) => payload.product)
-  .on(refetchProductFx.doneData, (state, payload) => payload);
+export const product = createStore<Product>(null).on(setProduct, (state, payload) => payload.product);
 
 export const transactions = createStore<Transaction[]>([]).on(setProduct, (state, payload) =>
   'productTransactions' in payload ? payload.productTransactions : state
@@ -130,17 +138,9 @@ forward({
   to: refetchProductFx,
 });
 
-const productBoughtFx = createEffect(async ({ product: _product }: { product: Product }) => {
-  const query = getQueryParameters();
-  return await Promise.all([
-    refetchProductFx(),
-    fetchProductTransactionsFx({ id: _product._id, page: +query.get('page') || 1 }),
-  ]);
-});
-
 forward({
   from: productBought,
-  to: productBoughtFx,
+  to: refetchProductFx,
 });
 
 export const productRedeemed = createEvent();
@@ -182,7 +182,7 @@ pollTransactionFx.doneData.watch(async (response) => {
       });
 
       if (pendingTx.status === 'success') {
-        await productBoughtFx({ product: $product });
+        await refetchProductFx();
         const $polls = polls.getState();
         $polls[$product._id].stop();
       }

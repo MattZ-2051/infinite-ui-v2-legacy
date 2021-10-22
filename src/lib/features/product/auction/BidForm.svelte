@@ -10,6 +10,7 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatDate } from '$util/format';
   import routes from '$project/routes';
+  import { auctionEnded } from '../product.store';
 
   export let listing: Listing;
   export let maxPlacedBid: number;
@@ -63,7 +64,7 @@
     <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
       <div class="text-sm text-gray-500">Auction ends in:</div>
       <div class="flex gap-1">
-        <TimeDifference date={listing?.endDate} />
+        <TimeDifference date={listing?.endDate} on:zero={() => auctionEnded()} />
         <div class="text-gray-300">
           — {formatDate(listing?.endDate)}
         </div>
