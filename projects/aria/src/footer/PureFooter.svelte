@@ -26,7 +26,7 @@
   <div
     class="flex flex-col md:flex-row gap-y-4 justify-center items-center md:justify-end text-sm text-white font-medium my-4"
   >
-    Ready to create Collectibles with ARIA Exchange?
+    Ready to partner with us and create unforgettable Collectibles?
     <Button variant="brand" href={routes.partner} class="md:ml-4 whitespace-nowrap text-base font-normal"
       >Partner With Us</Button
     >
