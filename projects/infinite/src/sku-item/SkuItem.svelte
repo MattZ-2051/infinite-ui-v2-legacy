@@ -28,7 +28,7 @@
       {#if activeListing?.endDate}
         <figcaption
           class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold rounded-md"
-          style="background-color: var(--sku-item-bg-color); color: var(--color)"
+          style="background-color: var(--sku-item-bg-color); color: var(--default-color)"
         >
           <span class="opacity-50">Ends</span>
           <span>{formatDate(activeListing.endDate)}</span>
@@ -60,7 +60,7 @@
     >
       <SkuStatus {sku} {product} />
       <span class="item-link ml-auto">
-        <Icon path={arrowRightCircle} size={1.5} color="var(--sku-item-color, var(--color))" />
+        <Icon path={arrowRightCircle} size={1.5} color="var(--sku-item-color, var(--default-color))" />
       </span>
     </div>
   </a>
@@ -68,15 +68,15 @@
 
 <style>
   article {
-    color: var(--sku-item-color, theme('colors.default'));
+    color: var(--sku-item-color, var(--default-color));
     background-color: var(--sku-item-bg-color);
-    border: var(--sku-item-border-width, 1px) solid var(--sku-item-border-color, theme('colors.default'));
+    border: var(--sku-item-border-width, 1px) solid var(--sku-item-border-color, var(--default-color));
     border-radius: var(--sku-item-border-radius, 0);
   }
   .info {
     min-height: 9.5rem;
   }
   .item-link {
-    color: var(--sku-item-bg-color, theme('colors.default'));
+    color: var(--sku-item-bg-color, var(--default-color));
   }
 </style>

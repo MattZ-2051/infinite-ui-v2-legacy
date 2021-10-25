@@ -5,7 +5,7 @@
   import ButtonGroup from './ButtonGroup.svelte';
 </script>
 
-<Meta title="Lib / components / ButtonGroup" component={ButtonGroup} />
+<Meta title="Lib / components / ButtonGroup" component={ButtonGroup} parameters={{ themes: ['light', 'dark'] }} />
 
 <Template let:args>
   <div class="max-w-xs">

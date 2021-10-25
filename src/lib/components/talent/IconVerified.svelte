@@ -33,6 +33,6 @@
 
 <style>
   svg {
-    color: var(--verify-icon-color, var(--primary, #000000));
+    color: var(--verify-icon-color, var(--primary-color, #000000));
   }
 </style>

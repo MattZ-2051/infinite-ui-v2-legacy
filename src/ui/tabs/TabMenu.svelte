@@ -13,7 +13,7 @@
 
 <Menu placement="bottom-end">
   <MenuTrigger slot="trigger" class={triggerClass}
-    ><Icon path={mdiChevronDown} color="var(--tab-color-active)" /></MenuTrigger
+    ><Icon path={mdiChevronDown} color="var(--tab-color-active, var(--default-color))" /></MenuTrigger
   >
   <MenuList slot="menu">
     {#each items as item (item.id)}

@@ -44,7 +44,7 @@
   .checkmark {
     height: 16px;
     width: 16px;
-    border-color: var(--checkbox-border-color);
+    border-color: theme('colors.gray.200');
   }
   input:checked ~ .checkmark:after {
     display: block;
@@ -54,7 +54,7 @@
     top: -1px;
     width: 7px;
     height: 12px;
-    border: 1px solid var(--checkbox-checkmark-color);
+    border: 1px solid var(--default-color);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
     content: '';

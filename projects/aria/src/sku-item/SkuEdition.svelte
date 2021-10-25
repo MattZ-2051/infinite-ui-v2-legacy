@@ -43,21 +43,21 @@
 
 <style lang="postcss">
   .unique-text {
-    color: var(--edition-single);
+    color: var(--edition-single-color);
   }
   .unique-badge {
-    background: var(--edition-single);
+    background: var(--edition-single-color);
   }
   .limited-text {
-    color: var(--edition-limited);
+    color: var(--edition-limited-color);
   }
   .limited-badge {
-    background: var(--edition-limited);
+    background: var(--edition-limited-color);
   }
   .released-text {
-    color: var(--edition-open);
+    color: var(--edition-open-color);
   }
   .released-badge {
-    background: var(--edition-open);
+    background: var(--edition-open-color);
   }
 </style>

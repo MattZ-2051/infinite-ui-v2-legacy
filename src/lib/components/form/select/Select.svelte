@@ -60,7 +60,7 @@
     min-height: 1.875rem;
   }
   select :global(option) {
-    color: theme('colors.default');
+    color: var(--default-color);
     background-color: var(--bg-color);
   }
 </style>

@@ -16,7 +16,7 @@
   $: deposit = transaction.transactionData.deposit;
 </script>
 
-<span class="text-left cursor-default" on:click={(event) => event.stopPropagation()}>
+<span class="text-left cursor-default text-default" on:click={(event) => event.stopPropagation()}>
   {#if type === 'royalty_fee'}
     {status === 'error' ? 'You tried to receive' : 'You received'} a royalty payment for the sale of
     <a class="link" href={routes.sku(sku?._id)}>{name} </a>

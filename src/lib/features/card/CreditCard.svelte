@@ -64,6 +64,6 @@
 
 <style>
   .credit-card-container {
-    background-color: var(--credit-card-background-color);
+    background-color: var(--credit-card-background-color, var(--default-color));
   }
 </style>

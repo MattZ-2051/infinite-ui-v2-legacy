@@ -90,6 +90,6 @@
   form {
     @apply border border-transparent bg-origin-border;
     background: linear-gradient(#191919, #191919) padding-box,
-      linear-gradient(360deg, var(--gradient-start), var(--gradient-end)) border-box;
+      linear-gradient(360deg, var(--gradient-start-color), var(--gradient-end-color)) border-box;
   }
 </style>

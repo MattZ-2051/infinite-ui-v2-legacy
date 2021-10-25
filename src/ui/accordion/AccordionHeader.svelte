@@ -14,12 +14,17 @@
   class:cursor-pointer={collapsible}
   {...$$restProps}
 >
-  <span class="flex-1" style="color: var(--accordion-title-color)">
+  <span class="flex-1" style="color: var(--accordion-title-color, var(--gray-500))">
     <slot />
   </span>
   {#if collapsible}
     <button type="button"
-      ><Icon color="var(--accordion-title-icon-color)" path={chevronDown} size="1.3" flip={active} /></button
+      ><Icon
+        color="var(--accordion-title-icon-color, var(--default-color))"
+        path={chevronDown}
+        size="1.3"
+        flip={active}
+      /></button
     >
   {/if}
 </div>

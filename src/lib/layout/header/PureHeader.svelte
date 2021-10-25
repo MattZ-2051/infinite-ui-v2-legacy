@@ -54,8 +54,7 @@
 
 <style lang="postcss">
   header {
-    @apply sticky top-0 z-40;
-    background-color: var(--header-bg-color);
+    @apply sticky top-0 z-40 bg-black;
     height: var(--header-height);
   }
 </style>

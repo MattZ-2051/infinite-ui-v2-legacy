@@ -50,9 +50,10 @@ module.exports = {
           800: 'var(--gray-800)',
           900: 'var(--gray-900)',
         },
-        default: 'var(--color)',
-        primary: 'var(--primary)',
-        'primary-dark': 'var(--primary-dark)',
+        default: 'var(--default-color)',
+        inverse: 'var(--inverse-color)',
+        primary: 'var(--primary-color)',
+        'primary-dark': 'var(--primary-dark-color)',
       },
       zIndex: {
         '-1': '-1',

@@ -49,15 +49,15 @@
 
 <style>
   li {
-    color: var(--tab-color);
+    color: theme('colors.gray.500');
   }
 
   li:hover:not(.active) {
-    color: var(--tab-color-hover);
+    @apply text-default;
   }
 
   .active {
-    box-shadow: inset 0 -2px var(--tab-border-color-active);
-    color: var(--tab-color-active);
+    box-shadow: inset 0 -2px var(--tab-border-color-active, var(--default-color));
+    color: var(--tab-color-active, var(--default-color));
   }
 </style>

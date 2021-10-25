@@ -64,6 +64,6 @@
 
 <style>
   ul {
-    background: var(--menu-list-background-color);
+    background: var(--menu-list-background-color, #ffffff);
   }
 </style>

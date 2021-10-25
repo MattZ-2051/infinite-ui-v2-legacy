@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --container-max-width: 1536px;
+  --header-height: 72px;
+  --product-tabs-bg: #1a1a1a;
+}
+
 body,
 button {
   letter-spacing: -0.025em;
@@ -33,7 +39,7 @@ input[type='number'] {
 
 @layer base {
   [data-theme-context='root'] {
-    color: var(--color);
+    color: var(--default-color);
     background-color: var(--bg-color);
   }
 
@@ -71,8 +77,8 @@ input[type='number'] {
 
 .text-gradient-primary {
   @apply text-gradient bg-gradient-to-r;
-  --tw-gradient-to: var(--gradient-end);
-  --tw-gradient-from: var(--gradient-start);
+  --tw-gradient-to: var(--gradient-end-color);
+  --tw-gradient-from: var(--gradient-start-color);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 

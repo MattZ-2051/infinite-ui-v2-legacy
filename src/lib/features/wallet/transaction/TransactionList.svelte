@@ -23,7 +23,7 @@
 
 <div class:opacity-40={$loading}>
   {#if $myTransactionsTotal > 0}
-    <AccordionGroup multiple bind:active --accordion-title-color="var(--color)">
+    <AccordionGroup multiple bind:active>
       <div class="separator" />
       {#each $myTransactions as transaction (transaction._id)}
         <Accordion titleClass="py-6">

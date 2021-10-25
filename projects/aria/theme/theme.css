@@ -1,20 +1,19 @@
 :root,
 .theme-dark {
-  --container-max-width: 1536px;
-
   /* Common */
-  --primary: #6633ff;
-  --primary-dark: #0c002f;
-  --edition-single: #ffa800;
-  --edition-limited: #e500ff;
-  --edition-open: #0077a6;
-  --gradient-start: #c000d6;
-  --gradient-end: #6734ff;
+  --default-color: #ffffff;
+  --inverse-color: #000000;
   --bg-color: #000000;
-  --color: #ffffff;
-  --link-color: var(--primary);
+  --primary-color: #6633ff;
+  --primary-dark-color: #0c002f;
+  --edition-single-color: #ffa800;
+  --edition-limited-color: #e500ff;
+  --edition-open-color: #0077a6;
+  --gradient-start-color: #c000d6;
+  --gradient-end-color: #6734ff;
+  --link-color: var(--primary-color);
   --no-results-link-color: #11d6ec;
-  --separator-bg-color: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  --separator-bg-color: linear-gradient(90deg, var(--gradient-start-color) 0%, var(--gradient-end-color) 100%);
   --icon-bg-color: #2d2d2d;
 
   /* Grayscale */
@@ -33,16 +32,8 @@
   --sku-item-grid-row-gap: 2rem;
   --sku-item-grid-column-gap: 2rem;
 
-  /* Filters */
-  --filters-color-expanded: var(--primary);
-
   /* Tag */
-  --tag-color: var(--color);
-  --tag-bg-color: var(--primary);
-
-  /* Accordion */
-  --accordion-title-color: theme('colors.gray.500');
-  --accordion-title-icon-color: var(--color);
+  --tag-color: var(--default-color);
 
   /* RangeSlider */
   --range-slider-bg-color: theme('colors.gray.200');
@@ -50,42 +41,31 @@
   --range-slider-thumb-bg-color: #000000;
   --range-slider-thumb-active-color: #ffffff;
 
-  /* Pagination */
-  --pagination-color: #9e9e9e;
-  --pagination-color-active: #ffffff;
-  --pagination-background-color-active: #000000;
-
-  /* Checkbox */
-  --checkbox-color: #000000;
-  --checkbox-border-color: theme('colors.gray.200');
-  --checkbox-checkmark-color: var(--color);
-
   /* Button */
   --button-padding: 8px 24px;
   --button-border-radius: 20px;
   --button-brand-color: #ffffff;
-  --button-brand-bg-color: var(--primary);
-  --button-brand-border-color: var(--primary);
+  --button-brand-bg-color: var(--primary-color);
+  --button-brand-border-color: var(--primary-color);
   --button-brand-color-hover: #ffffff;
   --button-brand-bg-color-hover: #5e29ff;
   --button-brand-border-color-hover: #5e29ff;
   --button-outline-brand-color: #ffffff;
   --button-outline-brand-bg-color: #000000;
-  --button-outline-brand-border-color: var(--primary);
+  --button-outline-brand-border-color: var(--primary-color);
   --button-outline-brand-color-hover: #ffffff;
   --button-outline-brand-bg-color-hover: #000000;
   --button-outline-brand-border-color-hover: #5e29ff;
 
   /* ButtonGroup */
-  --button-group-color: var(--color);
-  --button-group-bg-color: var(--bg-color);
-  --button-group-color-hover: var(--color);
-  --button-group-bg-color-hover: var(--primary);
+  --button-group-color-hover: var(--default-color);
+  --button-group-bg-color-hover: var(--primary-color);
+
+  /* Sku */
+  --sku-offscreen-bg-color: transparent;
 
   /* Header */
   --header-color: #ffffff;
-  --header-bg-color: #000000;
-  --header-height: 72px;
 
   /* Footer */
   --footer-bg-color: #000000;
@@ -98,8 +78,7 @@
   --footer-icon-border-radius: 12px;
 
   /* Menu */
-  --menu-list-background-color: #ffffff;
-  --menu-item-background-selected: var(--primary);
+  --menu-item-background-selected: var(--primary-color);
   --menu-item-color: rgba(0, 0, 0, 0.8);
   --menu-item-color-selected: #ffffff;
 
@@ -108,31 +87,21 @@
   --pagination-color-active: #ffffff;
   --pagination-background-color-active: transparent;
 
-  /* Tabs */
-  --tab-border-color: theme('colors.gray.200');
-  --tab-color: theme('colors.gray.500');
-  --tab-border-color-active: var(--color);
-  --tab-color-active: var(--color);
-  --tab-color-hover: var(--color);
-
-  /* Tooltip */
-  --tooltip-bg-color: #ffffff;
-  --tooltip-color: #000000;
-
   /* IconRedeem */
   --icon-redeem-color: #ffffff;
   --icon-redeem-border-radius: 16px;
   --icon-redeem-bg-color: var(--icon-bg-color);
 
   /* TransactionDetails */
-  --transaction-details-copy-bg: linear-gradient(90deg, var(--gradient-start) 7.48%, var(--gradient-end) 79.51%);
-
-  /* ProductTabs */
-  --product-tabs-bg: #1a1a1a;
+  --transaction-details-copy-bg: linear-gradient(
+    90deg,
+    var(--gradient-start-color) 7.48%,
+    var(--gradient-end-color) 79.51%
+  );
 
   /* WalletBalance */
   --wallet-balance-content-bg-color: #1d1a54;
-  --wallet-balance-heading-color: var(--color);
+  --wallet-balance-heading-color: var(--default-color);
 
   /* AccountInfo */
   --account-info-bg-color: #1d1a54;
@@ -143,14 +112,14 @@
 
 .theme-brand-tabs {
   /* Tabs */
-  --tab-border-color-active: var(--primary);
-  --tab-color-active: var(--primary);
-  --tab-color-hover: var(--color);
+  --tab-border-color-active: var(--primary-color);
+  --tab-color-active: var(--primary-color);
 }
 
 .theme-light {
   --bg-color: #ffffff;
-  --color: #000000;
+  --default-color: #000000;
+  --inverse-color: #ffffff;
 
   /* Grayscale */
   --gray-50: rgba(0, 0, 0, 0.05);
@@ -173,19 +142,15 @@
 
   /* Button */
   --button-brand-color: #ffffff;
-  --button-brand-bg-color: var(--primary);
-  --button-brand-border-color: var(--primary);
+  --button-brand-bg-color: var(--primary-color);
+  --button-brand-border-color: var(--primary-color);
   --button-brand-color-hover: #ffffff;
   --button-brand-bg-color-hover: #5e29ff;
   --button-brand-border-color-hover: #5e29ff;
   --button-outline-brand-color: #000000;
   --button-outline-brand-bg-color: #ffffff;
-  --button-outline-brand-border-color: var(--primary);
+  --button-outline-brand-border-color: var(--primary-color);
   --button-outline-brand-color-hover: #000000;
   --button-outline-brand-bg-color-hover: #ffffff;
   --button-outline-brand-border-color-hover: #5e29ff;
-
-  /* Tooltip */
-  --tooltip-bg-color: #000000;
-  --tooltip-color: #ffffff;
 }

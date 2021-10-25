@@ -43,10 +43,7 @@
         <Icon class="inline" path={mdiChevronDown} />
       </div>
     </div>
-    <div
-      class="lg:hidden rounded-full"
-      style="color: var(--sort-icon-color); background-color: var(--sort-icon-bg-color)"
-    >
+    <div class="lg:hidden rounded-full bg-default text-inverse">
       <Icon path={mdiSortVariant} size="1.5" class="p-1 rounded-full" />
     </div>
   </MenuTrigger>

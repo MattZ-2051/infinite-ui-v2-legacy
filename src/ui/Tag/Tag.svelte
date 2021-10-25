@@ -18,7 +18,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div transition:fade={{ duration: 100 }} class="tag relative inline-flex items-center max-w-full">
+<div transition:fade={{ duration: 100 }} class="tag bg-primary relative inline-flex items-center max-w-full">
   {#if href}
     <a {href} class={classes} {...$$restProps}><slot /></a>
   {:else}
@@ -38,7 +38,6 @@
 
 <style style="postcss">
   .tag {
-    color: var(--tag-color);
-    background: var(--tag-bg-color);
+    color: var(--tag-color, theme('colors.inverse'));
   }
 </style>

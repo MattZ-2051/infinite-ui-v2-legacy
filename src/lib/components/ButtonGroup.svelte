@@ -9,8 +9,8 @@
   div :global(button),
   div :global(a) {
     @apply transition duration-200;
-    color: var(--button-group-color);
-    background-color: var(--button-group-bg-color);
+    color: var(--button-group-color, var(--default-color));
+    background-color: var(--button-group-bg-color, var(--bg-color));
   }
   div :global(button):hover,
   div :global(a):hover {

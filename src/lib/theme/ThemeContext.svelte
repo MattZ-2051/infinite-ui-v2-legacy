@@ -30,7 +30,7 @@
 
 <style>
   div {
-    color: var(--color);
+    color: var(--default-color);
     background-color: var(--bg-color);
   }
 </style>

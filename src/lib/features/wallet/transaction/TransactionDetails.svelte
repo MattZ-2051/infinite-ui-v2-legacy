@@ -56,6 +56,6 @@
   }
 
   button {
-    background: var(--transaction-details-copy-bg, theme('colors.gray.400'));
+    background: var(--transaction-details-copy-bg, theme('colors.gray.100'));
   }
 </style>

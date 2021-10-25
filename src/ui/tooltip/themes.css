@@ -1,6 +1,6 @@
 .tippy-box {
-  background-color: var(--tooltip-bg-color);
-  color: var(--tooltip-color);
+  background-color: var(--default-color);
+  color: var(--inverse-color);
   font-weight: 400;
   padding: var(--tooltip-padding, 8px 16px);
   border-radius: var(--tooltip-border-radius, 4px);
@@ -8,5 +8,5 @@
 }
 
 .tippy-box > .tippy-arrow::before {
-  color: var(--tooltip-bg-color);
+  color: var(--default-color);
 }

@@ -65,11 +65,11 @@
 <style lang="postcss">
   :global(.header-link) {
     @apply whitespace-nowrap;
-    color: var(--header-color);
+    color: var(--header-color, theme('colors.gray.500'));
   }
 
   .active,
   :global(.header-link):hover {
-    color: var(--color);
+    color: var(--default-color);
   }
 </style>

@@ -92,6 +92,6 @@
   input {
     @apply border border-transparent bg-origin-border;
     background: linear-gradient(#101010, #101010) padding-box,
-      linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%) border-box;
+      linear-gradient(90deg, var(--gradient-start-color) 0%, var(--gradient-end-color) 100%) border-box;
   }
 </style>

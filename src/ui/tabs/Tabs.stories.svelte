@@ -10,6 +10,7 @@
   title="UI / Tabs"
   component={Tabs}
   subcomponents={{ Tab }}
+  parameters={{ themes: ['light', 'dark'] }}
   argTypes={{
     items: {
       control: { type: 'array' },

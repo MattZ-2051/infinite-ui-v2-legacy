@@ -32,8 +32,8 @@
 
 <style lang="postcss">
   .redeem-trigger {
-    color: var(--icon-redeem-color);
-    border-radius: var(--icon-redeem-border-radius);
-    background: var(--icon-redeem-bg-color);
+    color: var(--icon-redeem-color, var(--default-color));
+    border-radius: var(--icon-redeem-border-radius, 50%);
+    background: var(--icon-redeem-bg-color, transparent);
   }
 </style>

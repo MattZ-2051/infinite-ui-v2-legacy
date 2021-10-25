@@ -102,6 +102,6 @@
 
 <style lang="postcss">
   .tabs {
-    box-shadow: inset 0 -2px var(--tab-border-color);
+    box-shadow: inset 0 -2px var(--tab-border-color, theme('colors.gray.200'));
   }
 </style>

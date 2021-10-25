@@ -391,20 +391,20 @@
     @apply cursor-default;
   }
   .active > .label {
-    color: var(--color);
+    color: var(--default-color);
   }
   .single-text {
-    color: var(--edition-single);
+    color: var(--edition-single-color);
   }
   .limited-text {
-    color: var(--edition-limited);
+    color: var(--edition-limited-color);
   }
   .open-text {
-    color: var(--edition-open);
+    color: var(--edition-open-color);
   }
   :global(.expanded) {
-    --accordion-title-color: var(--filters-color-expanded);
-    --accordion-title-icon-color: var(--filters-color-expanded);
+    --accordion-title-color: var(--primary-color);
+    --accordion-title-icon-color: var(--primary-color);
     @apply border-primary relative z-10;
   }
 </style>
