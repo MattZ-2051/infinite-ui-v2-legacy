@@ -103,7 +103,7 @@
   const saleTypeFilters: { id: string; label: string }[] = [
     { id: 'auction', label: 'Auction' },
     { id: 'fixed', label: 'Buy Now' },
-    // { id: 'giveaway', label: 'Giveaway' },
+    { id: 'giveaway', label: 'Giveaway' },
   ];
 
   let priceRange: [number, number];
