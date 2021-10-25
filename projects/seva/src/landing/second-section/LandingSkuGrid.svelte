@@ -1,7 +1,6 @@
 <script lang="ts">
   import * as yup from 'yup';
   import { createForm } from 'felte';
-  import { validateSchema } from '@felte/validator-yup';
   import { toast } from '$ui/toast';
   import { user } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
@@ -13,11 +12,17 @@
   export let skus;
 
   const schema = yup.object({
-    email: yup.string().email('Please enter a properly formatted email address').required('Please, enter your email'),
+    email: yup.string().email().required(),
   });
-  const { form, errors, reset, isSubmitting } = createForm({
+
+  const { form, reset, isSubmitting } = createForm({
     onSubmit: async (values) => {
       const toastId = 'subscribe-form';
+      const isValidEmail = await schema.isValid({ email: values.email });
+      if (!isValidEmail) {
+        toast.danger('Please enter a valid email address.');
+        return;
+      }
       try {
         await ($user ? hsSubscribeUser($user, values.email) : hsSubscribeEmail(values.email));
         toast.success(
@@ -34,7 +39,6 @@
         );
       }
     },
-    validate: validateSchema(schema),
   });
 </script>
 
@@ -53,7 +57,7 @@
       </div>
     </div>
 
-    <div class=" mt-8 mb-14 ">
+    <div class=" mt-8 mb-24 sm:mb-14 ">
       {#if !$user}
         <div class="flex flex-col items-center justify-center ">
           <form use:form class="flex flex-col md:relative max-w-lg w-full rounded-full h-16" autocomplete="off">
@@ -75,9 +79,6 @@
               </Button>
             </div>
           </form>
-          {#if $errors.email}
-            <div class="text-center pt-2 text-sm text-red-600">{$errors.email}</div>
-          {/if}
         </div>
       {/if}
     </div>

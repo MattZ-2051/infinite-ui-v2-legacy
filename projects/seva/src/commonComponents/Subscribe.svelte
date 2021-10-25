@@ -1,7 +1,6 @@
 <script>
   import * as yup from 'yup';
   import { createForm } from 'felte';
-  import { validateSchema } from '@felte/validator-yup';
   import { toast } from '$ui/toast';
   import { CLIENT_COMPANY_NAME } from '$project/variables';
   import routes from '$project/routes';
@@ -11,11 +10,17 @@
   import { hsSubscribeEmail } from '../hubspot';
 
   const schema = yup.object({
-    email: yup.string().email('Please enter a properly formatted email address').required('Please, enter your email'),
+    email: yup.string().email().required(),
   });
-  const { form, errors, reset, isSubmitting } = createForm({
+  const { form, reset, isSubmitting } = createForm({
     onSubmit: async (values) => {
       const toastId = 'subscribe-form';
+      const isValidEmail = await schema.isValid({ email: values.email });
+      if (!isValidEmail) {
+        toast.danger('Please enter a valid email address.');
+        return;
+      }
+
       try {
         await hsSubscribeEmail(values.email);
         toast.success(
@@ -32,14 +37,13 @@
         );
       }
     },
-    validate: validateSchema(schema),
   });
 </script>
 
 <div class="py-4 pb-20 lg:py-26 flex justify-center max-w-7xl w-auto">
   <div class="flex justify-center max-w-7xl w-auto">
     <div class="bg-white rounded-2xl flex flex-col sm:flex-row md:justify-between">
-      <div class="px-6 md:px-16 lg:w-8/12 sm:w-7/12 ">
+      <div class="px-6 md:px-16 lg:w-8/12 sm:w-7/12 mb-8 sm:mb-0">
         <div class="font-medium text-3xl lg:text-4xl pt-10 md:pt-8 lg:pt-14 pb-4">
           Our next Seva.Love collection will feature exclusive access to insights for transforming wellbeing with
           renowned author and integrative medicine pioneer Deepak Chopra.
@@ -65,9 +69,6 @@
             {#if $isSubmitting}Subscribing...{:else}Subscribe{/if}
           </Button>
         </form>
-        <div class="text-red-500 text-center pt-2 text-sm xl:pb-28 sm:pb-8 h-4 mb-8 sm:mb-0">
-          {#if $errors.email}{$errors.email}{/if}
-        </div>
       </div>
       <div class="lg:w-4/12 sm:w-5/12 ">
         <img

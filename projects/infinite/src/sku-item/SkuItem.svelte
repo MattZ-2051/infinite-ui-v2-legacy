@@ -36,10 +36,10 @@
       {/if}
     </figure>
     <div class="info mx-6 space-y-4">
-      <section class="text-gray-800 flex flex-row items-center">
+      <section class="text-gray-800 flex flex-row items-center flex-wrap justify-between">
         <TalentLink profile={sku.issuer} hideImage />
         {#if sku.redeemable}
-          <div class="flex flex-row flex-nowrap items-center space-x-2 ml-auto">
+          <div class="flex flex-row items-center space-x-2">
             <IconRedeem size={24}>Redeemable</IconRedeem>
           </div>
         {/if}
