@@ -34,10 +34,16 @@ export function onAction(type: ActionType, product: Product) {
             await cancelAuction(listingId);
             toast.success('Your listing has successfully been canceled.');
             auctionCancelled({ listingId });
-          } catch {
-            toast.danger(
-              `Whoops! Something went wrong. Please try again or <a href=${routes.help}>contact us</a> if this issue continues.`
-            );
+          } catch (error) {
+            switch (error?.data?.appCode) {
+              case 'CANCEL_AUCTION_WITH_PLACED_BIDS':
+                toast.danger('Auctions cannot be canceled once bids have been placed.');
+                break;
+              default:
+                toast.danger(
+                  `Whoops! Something went wrong. Please try again or <a href=${routes.help}>contact us</a> if this issue continues.`
+                );
+            }
           }
         },
       });
