@@ -6,7 +6,10 @@
 </script>
 
 <div class="relative mt-2" style="height: {videoHeight};">
-  <video src="/aria_preview.mp4" class="absolute w-full h-full object-cover" playsinline loop autoplay muted />
+  <video class="absolute w-full h-full object-cover" playsinline loop autoplay muted>
+    <source src="aria.webm" type="video/webm" />
+    <source src="aria.mp4" type="video/mp4" />
+  </video>
   <Image
     src={weAreImage}
     class="absolute top-0 right-0 z-10"
