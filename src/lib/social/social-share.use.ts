@@ -25,7 +25,7 @@ export default function socialShare(node: HTMLButtonElement, data: { profile?: P
     text = `Meet ${data.profile.username}`;
     socialImage = chooseProfileSocialImage(data.profile);
   } else if (data.sku) {
-    text = `Check ${data.sku.name}`;
+    text = `Check out my NFT collectible! ${data.sku.name}`;
     socialImage = chooseSkuSocialImage(data.sku);
   }
 
