@@ -74,10 +74,8 @@
         if (!result || result.errorLog || result.status === 'error') {
           throw new Error('error');
         }
-      } catch {
-        toast.danger(
-          `There was an error processing your purchase. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
-        );
+      } catch (error) {
+        toast.danger(handleSkuClaimError(error));
       } finally {
         purchasing = false;
       }

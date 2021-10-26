@@ -44,6 +44,8 @@ export function handleSkuClaimError(error: ApiError) {
   switch (error?.data?.appCode) {
     case 'MAX_SKU_GIVEAWAY':
       return `This NFT giveaway is limited to 1 per user.`;
+    case 'MAX_SKU_PURCHASE_PER_USER':
+      return `This NFT giveaway is limited to 1 per user for the inital sale.`;
     default:
       return `There was an error processing your purchase. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`;
   }
