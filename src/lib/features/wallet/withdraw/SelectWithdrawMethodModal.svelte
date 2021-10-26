@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ImageMetadata } from '$ui/image/Image.svelte';
-  import { mdiChevronRight } from '@mdi/js';
+  import mdiChevronRight from '$lib/features/wallet/assets/chevron-right';
   import { Modal, openModal } from '$ui/modals';
 
   import Image from '$ui/image/Image.svelte';
