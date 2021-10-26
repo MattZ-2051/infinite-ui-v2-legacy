@@ -62,7 +62,6 @@ export const createSkuMessageType = (sku: Sku): SupplyInfo => {
   const hasListings = sku.skuListings?.length > 0;
   const hasExpiredListings = sku.expiredSkuListings?.length > 0;
   const isVariable = sku.supplyType === 'variable';
-  const isGiveaway = sku?.activeSkuListings?.length > 0 && sku.activeSkuListings[0].saleType === 'giveaway';
   if (sku.maxSupply === 1) return { type: 'unique', quantity: sku.maxSupply };
 
   if (isFixed && sku.totalUpcomingSupply > 0) {
@@ -71,7 +70,7 @@ export const createSkuMessageType = (sku: Sku): SupplyInfo => {
   }
 
   if (isFixed && sku.totalSupply > 0) {
-    if (hasListings) return limitedEditionMessageSelector(isGiveaway ? sku.totalSkuListingSupplyLeft : sku.totalSupply);
+    if (hasListings) return limitedEditionMessageSelector(sku.totalSupply);
     return limitedEditions(sku.totalSupply);
   }
 
