@@ -19,14 +19,16 @@
 {#if open}
   <article class="fixed bottom-12 z-50 w-full">
     <section
-      class="flex gap-12 items-center w-11/12 bg-white bg-opacity-95 text-black rounded-lg px-4 md:px-8 py-6 m-auto text-lg shadow-2xl"
+      class="flex sm:gap-12 items-start w-11/12 bg-white bg-opacity-95 text-black rounded-lg px-4 md:px-8 py-6 m-auto text-sm sm:text-lg shadow-2xl"
     >
       <div class="flex-grow">
         <p>
           By using this website, you agree to our use of cookies as outlined in our
           <a class="underline hover:no-underline font-medium" href={routes.privacy}>Privacy Policy.</a>
         </p>
-        <p>We use cookies to provide you with a great experience and to help our website run effectively.</p>
+        <p class="mt-2">
+          We use cookies to provide you with a great experience and to help our website run effectively.
+        </p>
       </div>
       <div class="flex-grow-0">
         <button
