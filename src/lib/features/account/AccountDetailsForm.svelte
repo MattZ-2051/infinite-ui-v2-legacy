@@ -6,9 +6,8 @@
   import { createForm } from 'felte';
   import { FormElement } from '$lib/components/form';
   import Button from '$lib/components/Button.svelte';
-  import notifications from '$ui/toast/toast.store';
   import { patchUser } from '$lib/user';
-  import { accountDetailsValidation, phoneNumberConsentText } from './account.service';
+  import { accountDetailsValidation, phoneNumberConsentText, handleUserApiError } from './account.service';
 
   let dispatch = createEventDispatcher();
 
@@ -30,8 +29,8 @@
       try {
         await patchUser(values);
         dispatch('closeForm');
-      } catch {
-        notifications.danger(`There was a problem`);
+      } catch (error) {
+        handleUserApiError(error);
       }
     },
     validate: validateSchema(schema),

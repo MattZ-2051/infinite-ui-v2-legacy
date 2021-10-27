@@ -17,6 +17,9 @@ export function handleUserApiError(error) {
     case 'USERNAME_RULES_BLANKS':
       message = 'Username cannot contain blank spaces.';
       break;
+    case 'NAMES_RULES_WEIRD_CHARS':
+      message = `First and last name can only contain letters, dashes ("-"), or underscores ("_").`;
+      break;
     default:
       message = 'There was an error submitting your request. Please try again.';
   }
@@ -32,12 +35,12 @@ export const accountDetailsValidation = {
     .string()
     .required('First name is required.')
     .max(20, 'First name is too long.')
-    .matches(/^[ ',.a-z-]+$/i, { message: 'Please enter valid first name.', excludeEmptyString: true }),
+    .matches(/^[ ',_a-z-]+$/i, { message: 'Please enter valid first name.', excludeEmptyString: true }),
   lastName: yup
     .string()
     .required('Last name is required.')
     .max(20, 'Last name is too long.')
-    .matches(/^[ ',.a-z-]+$/i, { message: 'Please enter valid last name.', excludeEmptyString: true }),
+    .matches(/^[ ',_a-z-]+$/i, { message: 'Please enter valid last name.', excludeEmptyString: true }),
   phoneNumber: yup
     .string()
     .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true })
