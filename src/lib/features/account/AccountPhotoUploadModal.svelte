@@ -1,20 +1,24 @@
 <script lang="ts">
+  import type Cropper from 'cropperjs';
   import { onMount } from 'svelte';
-  import Cropper from 'cropperjs';
   import { toast } from '$ui/toast';
   import { post } from '$lib/api';
   import { updateUser } from '$lib/user';
   import { Modal, closeModal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
-  import 'cropperjs/dist/cropper.min.css';
+  import DualRingLoader from '$lib/components/DualRingLoader.svelte';
 
   export let imageSource;
   let previewImage: HTMLImageElement;
   let cropper: Cropper;
   let loading: boolean;
 
-  onMount(() => {
-    cropper = new Cropper(previewImage, {});
+  onMount(async () => {
+    const [{ default: cropperTool }] = await Promise.all([
+      import('cropperjs'),
+      import('cropperjs/dist/cropper.min.css'),
+    ]);
+    cropper = new cropperTool(previewImage, {});
   });
 
   function cropImage() {
@@ -46,10 +50,21 @@
 
 <Modal title="Edit photo">
   <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
-    <div class="w-full mt-4">
-      <img class="h-96" id="image" bind:this={previewImage} src={imageSource} alt="" />
+    <div class="w-full mt-4 flex flex-col items-center">
+      <div class="relative">
+        {#if !cropper}
+          <div class="absolute bg-opacity-70 bg-white inset-0 flex items-center justify-center">
+            <div class="flex flex-col">
+              <DualRingLoader />
+              <div>Loading...</div>
+            </div>
+          </div>
+        {/if}
+        <img class="h-96" id="image" bind:this={previewImage} src={imageSource} alt="" />
+      </div>
+
       <Button
-        disabled={loading}
+        disabled={loading || !cropper}
         variant="brand"
         on:click={cropImage}
         class="self-center w-full py-3 text-2xl text-center mt-6">Save</Button
