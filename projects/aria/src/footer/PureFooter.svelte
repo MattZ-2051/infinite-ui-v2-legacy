@@ -6,6 +6,7 @@
   import ariaLogo from '$project/assets/logo_purpleglow.png?w=560&format=avif;webp;png&metadata=src;format;width;height';
   import SubscribeForm from '$project/subscribe/SubscribeForm.svelte';
   import Button from '$lib/components/Button.svelte';
+  import { CLIENT_COMPANY_NAME_LEGAL } from '$project/variables';
   import { links } from './social-links';
 
   export let user: User;
@@ -35,7 +36,9 @@
 
 <FooterLayout>
   <SocialLinks slot="start" {links} />
-  <svelte:fragment slot="copyright">© 2021 Virtual Rights Management, LLC All Rights Reserved</svelte:fragment>
+  <svelte:fragment slot="copyright"
+    >© {new Date().getFullYear()} {CLIENT_COMPANY_NAME_LEGAL} All Rights Reserved</svelte:fragment
+  >
   <svelte:fragment slot="end">
     <a href={routes.help} target="_blank" rel="noreferrer">Help</a>
     <a href={routes.about}>About Us</a>

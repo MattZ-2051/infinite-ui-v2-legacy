@@ -1,6 +1,7 @@
 <script lang="ts">
   import routes from '$project/routes';
   import { SocialLinks, FooterLayout } from '$lib/layout/footer';
+  import { CLIENT_COMPANY_NAME_LEGAL } from '$project/variables';
   import { links } from './social-links';
 </script>
 
@@ -13,7 +14,9 @@
     <a href={routes.privacy}>Privacy Policy</a>
     <a href={routes.terms}>Terms & Conditions</a>
   </svelte:fragment>
-  <svelte:fragment slot="copyright">© 2021 Infinite Assets, Inc.</svelte:fragment>
+  <svelte:fragment slot="copyright"
+    >© {new Date().getFullYear()} {CLIENT_COMPANY_NAME_LEGAL} All rights reserved.</svelte:fragment
+  >
   <SocialLinks slot="end" {links} />
 </FooterLayout>
 

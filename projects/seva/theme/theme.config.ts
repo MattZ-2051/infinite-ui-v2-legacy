@@ -9,6 +9,7 @@ export const themeConfig = {
   '*.landing-head-right-card': Theme.Dark,
   '$about.root': Theme.Light,
   '*.header': Theme.Dark,
+  '$about.*.footer': Theme.Dark,
   '$marketplace.root': Theme.Light,
   '$help.*.root': Theme.Light,
   '*.sku-offsreen': Theme.Light,

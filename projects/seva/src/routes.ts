@@ -3,5 +3,5 @@ import routes from '$lib/routes';
 
 export default {
   ...routes,
-  faq: 'https://support.suku.world/infinite-powered-by-suku',
+  resources: 'https://info.seva.love/resources',
 };

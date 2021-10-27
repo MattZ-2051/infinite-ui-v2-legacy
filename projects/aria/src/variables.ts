@@ -1,6 +1,7 @@
 export const CLIENT_DOC_TITLE = 'ARIA Exchange';
 export const CLIENT_DOC_DESCRIPTION = 'The most dynamic, original, transparent, secure and sustainable NFT Exchange';
 export const CLIENT_COMPANY_NAME = 'ARIA Exchange';
+export const CLIENT_COMPANY_NAME_LEGAL = 'Virtual Rights Management, LLC';
 export const CLIENT_SOCIAL_IMAGE = {
   url: 'https://thearianetwork.com/wp-content/uploads/2021/06/aria_exchange_share_image-01.jpg',
   width: 1216,
