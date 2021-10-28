@@ -33,7 +33,7 @@
   export let onClose: (reason?: ModalCloseReason) => void = () => closeModal();
 
   export function close() {
-    onClose('manual');
+    requestClose('manual');
   }
 
   $: trapFocusConfig = {
