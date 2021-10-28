@@ -88,7 +88,7 @@
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
         <div class="text-xl">NFT Giveaway</div>
-        <div class="text-gray-500 text-sm">Ends {formatDate(activeListings[0]?.endDate)}</div>
+        <div class="text-gray-500 text-sm">Started {formatDate(activeListings[0]?.startDate)}</div>
       </div>
       <div class="flex justify-end">
         {#if sku.supplyType === 'variable'}
