@@ -40,7 +40,7 @@
         <Notify {profile} let:loading let:subscription let:notifyHandler>
           <button
             type="button"
-            class="flex items-center justify-center gap-2 text-center py-3 px-5 w-full h-full"
+            class="flex items-center justify-center gap-2 text-center py-3 px-5 w-full"
             disabled={loading}
             on:click={notifyHandler}
             ><Icon path={subscription ? mdiBellOffOutline : mdiBellOutline} />
@@ -49,7 +49,7 @@
         </Notify>
         <button
           type="button"
-          class="flex items-center justify-center gap-2 text-center py-3 px-5 w-full h-full"
+          class="flex items-center justify-center gap-2 text-center py-3 px-5 w-full"
           use:socialShareAction={{ profile }}><Icon path={shareIcon} />Share</button
         >
       </ButtonGroup>
