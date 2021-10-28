@@ -12,6 +12,11 @@
       onCancel();
     }
   }
+
+  const handleOnConfirm = () => {
+    onConfirm();
+    closeModal();
+  };
 </script>
 
 {#if isOpen}
@@ -22,7 +27,7 @@
       instructions via email.
     </div>
     <div slot="footer" class="flex flex-col gap-4">
-      <Button type="button" on:click={onConfirm}>Reset Password</Button>
+      <Button type="button" on:click={() => handleOnConfirm()}>Reset Password</Button>
       <Button type="button" on:click={onCancelButton} variant="outline-brand">Cancel</Button>
     </div>
   </Modal>
