@@ -109,7 +109,7 @@
 </script>
 
 <CircleContainer>
-  <div class="text-gray-600 font-extrabold mt-4">Enter the card details below</div>
+  <div class="text-gray-400 mt-6">Enter the card details below</div>
   <form use:form class="mt-6 flex flex-col gap-3" autocomplete="off">
     <FormElement name="cardNumber" label="Credit card number *" />
     <div class="flex gap-4">
@@ -131,6 +131,7 @@
       </div>
     </div>
     <FormElement name="cvv" label="CCV *" />
+    <div class="my-4 font-semibold text-lg text-default">Billing Details</div>
     <FormElement name="billingDetails.name" label="Cardholder name *" />
     <FormElement name="metadata.email" label="Email" />
     <FormElement name="metadata.phone" label="Phone Number" />
