@@ -18,6 +18,8 @@ interface CommonImportMetaEnvironment {
   VITE_AWS_COGNITO_CLIENT_ID: string;
   VITE_AWS_COGNITO_CLIENT_SECRET: string;
   VITE_AWS_COGNITO_STATE_CIPHER_KEY: string;
+  VITE_MAINTENANCE_MODE: string;
+  VITE_MAINTENANCE_MESSAGE: string;
 }
 
 declare module '*format=avif;webp;png&metadata=src;format;width;height';

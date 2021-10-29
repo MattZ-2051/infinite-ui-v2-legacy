@@ -33,6 +33,7 @@
   import '$theme/theme.css';
   import '../app.css';
   import '$theme/app.css';
+  import Maintenance from '$lib/components/Maintenance.svelte';
 
   if (browser) {
     initUserAuth();
@@ -48,27 +49,31 @@
   $: mustSetupAccount($user, $page.path);
 </script>
 
-<Head />
+{#if variables.maintenance.maintenanceMode === 'true'}
+  <Maintenance />
+{:else}
+  <Head />
 
-<ThemeContext display id="root">
-  {#if $navigationPathChanging}
-    <PreloadIndicator />
-  {/if}
+  <ThemeContext display id="root">
+    {#if $navigationPathChanging}
+      <PreloadIndicator />
+    {/if}
 
-  <GdprBanner />
+    <GdprBanner />
 
-  <div class="flex flex-col min-h-screen">
-    <Header />
+    <div class="flex flex-col min-h-screen">
+      <Header />
 
-    <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-toast">
-      <Toast />
+      <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-toast">
+        <Toast />
+      </div>
+
+      <main class="relative flex flex-col flex-grow">
+        <slot />
+      </main>
+      <Footer />
     </div>
 
-    <main class="relative flex flex-col flex-grow">
-      <slot />
-    </main>
-    <Footer />
-  </div>
-
-  <Modals><Scrim slot="backdrop" /></Modals>
-</ThemeContext>
+    <Modals><Scrim slot="backdrop" /></Modals>
+  </ThemeContext>
+{/if}

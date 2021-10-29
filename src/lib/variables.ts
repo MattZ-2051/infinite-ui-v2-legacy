@@ -18,4 +18,8 @@ export const variables = {
     explorerBaseUrl: import.meta.env.VITE_BTC_EXPLORER_BASE_URL,
   },
   dailyDepositLimit: import.meta.env.VITE_DAILY_DEPOSIT_LIMIT_USD,
+  maintenance: {
+    maintenanceMode: import.meta.env.VITE_MAINTENANCE_MODE,
+    maintenanceMessage: import.meta.env.VITE_MAINTENANCE_MESSAGE,
+  },
 };
