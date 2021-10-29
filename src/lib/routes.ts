@@ -1,5 +1,3 @@
-import { goto } from '$app/navigation';
-
 export default {
   index: '/',
   marketplace: '/marketplace',
@@ -16,9 +14,13 @@ export default {
   about: '/about',
   careers: '/careers',
   signin() {
-    goto('/auth/signin?returnUrl=' + window.location.href);
+    document.location.href = `/auth/signin?returnUrl=${window.location.href}`;
   },
-  signout: '/auth/signout',
-  signup: '/auth/signup',
+  signout() {
+    document.location.href = '/auth/signout';
+  },
+  signup() {
+    document.location.href = '/auth/signup';
+  },
   partner: '/partner',
 };

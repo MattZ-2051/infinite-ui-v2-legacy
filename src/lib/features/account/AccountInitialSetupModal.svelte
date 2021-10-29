@@ -123,7 +123,7 @@
         </div>
         <div class="flex flex-col gap-4 pt-6 border-t border-gray-200">
           <Button variant="brand" disabled={!canSave} type="submit">Save</Button>
-          <Button href={routes.signout}>Logout</Button>
+          <Button on:click={routes.signout}>Logout</Button>
         </div>
       </form>
     </div>

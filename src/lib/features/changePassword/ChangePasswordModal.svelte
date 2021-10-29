@@ -3,14 +3,13 @@
   import { Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import PasswordInput from '$ui/password-input/PasswordInput.svelte';
-  import { goto } from '$app/navigation';
   import routes from '$project/routes';
 
   export let isOpen: boolean;
   export let onConfirm: (newPassword: string, code: string, cognitoId: string) => unknown;
 
   async function onCancelButton() {
-    goto(routes.signout);
+    routes.signout();
   }
 
   const queryString = window.location.search;

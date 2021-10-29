@@ -31,7 +31,7 @@
       >Account Settings</a
     >
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
-    <a href={routes.signout} class="header-link">Sign Out</a>
+    <button type="button" on:click={routes.signout} class="header-link">Sign Out</button>
   {:else}
     <Menu placement="bottom-end">
       <MenuTrigger slot="trigger" class="header-link">
@@ -51,7 +51,7 @@
         <MenuItem href={routes.wallet} class={$page.path === routes.wallet ? 'hidden' : ''}>
           <Icon path={mdiCreditCardOutline} class="flex-shrink-0 float-left mr-3" /> My Wallet
         </MenuItem>
-        <MenuItem href={routes.signout}>
+        <MenuItem on:select={routes.signout}>
           <Icon path={mdiLogout} class="flex-shrink-0 float-left mr-3" /> Sign Out
         </MenuItem>
       </MenuList>
@@ -59,7 +59,7 @@
   {/if}
 {:else}
   <button class="flex header-link" on:click={routes.signin}>Sign In</button>
-  <Button variant="brand" href={routes.signup} class="whitespace-nowrap">Sign Up</Button>
+  <Button variant="brand" on:click={routes.signup} class="whitespace-nowrap">Sign Up</Button>
 {/if}
 
 <style lang="postcss">

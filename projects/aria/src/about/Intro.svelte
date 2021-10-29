@@ -73,7 +73,9 @@
     </h2>
     {#if !$user}
       <div class="flex justify-center">
-        <Button variant="brand" href={routes.signup} --button-padding="8px 40px" sveltekit:noscroll>JOIN ARIA</Button>
+        <Button variant="brand" on:click={routes.signup} --button-padding="8px 40px" sveltekit:noscroll
+          >JOIN ARIA</Button
+        >
       </div>
     {/if}
     <div class="intro-grid grid gap-x-1 gap-y-4">

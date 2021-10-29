@@ -1,7 +1,6 @@
 import { createEffect, createEvent, forward } from 'effector';
 import { toast } from '$ui/toast';
 import { openModal } from '$ui/modals';
-import { goto } from '$app/navigation';
 import { clearUser } from '$lib/user';
 import routes from '$project/routes';
 import ChangePasswordModal from './ChangePasswordModal.svelte';
@@ -21,7 +20,7 @@ const passwordChangeConfirmed = createEvent<PasswordProperties>();
 export const passwordResetFx = createEffect(async ({ code, password, cognitoId }: PasswordProperties) => {
   await passwordChange(code, password, cognitoId);
   clearUser();
-  await goto(routes.signout);
+  routes.signout();
 });
 
 passwordChangeRequested.watch(() => {
