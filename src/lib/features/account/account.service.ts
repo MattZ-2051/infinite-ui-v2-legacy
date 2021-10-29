@@ -35,12 +35,18 @@ export const accountDetailsValidation = {
     .string()
     .required('First name is required.')
     .max(20, 'First name is too long.')
-    .matches(/^[ ',_a-z-]+$/i, { message: 'Please enter valid first name.', excludeEmptyString: true }),
+    .matches(/^[ ',_a-z-]+$/i, {
+      message: 'First name can only contain letters, dashes ("-"), or underscores ("_").',
+      excludeEmptyString: true,
+    }),
   lastName: yup
     .string()
     .required('Last name is required.')
     .max(20, 'Last name is too long.')
-    .matches(/^[ ',_a-z-]+$/i, { message: 'Please enter valid last name.', excludeEmptyString: true }),
+    .matches(/^[ ',_a-z-]+$/i, {
+      message: 'Last name can only contain letters, dashes ("-"), or underscores ("_").',
+      excludeEmptyString: true,
+    }),
   phoneNumber: yup
     .string()
     .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true })
