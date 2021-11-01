@@ -8,7 +8,7 @@
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import { formatDate } from '$util/format';
+  import { formatDate, formatCurrency } from '$util/format';
   import routes from '$project/routes';
   import { auctionEnded } from '../product.store';
 
@@ -40,7 +40,7 @@
       }
       if (amount < acceptedBidPrice) {
         return toast.danger(
-          'Whoops! Your bid amount is lower than the current highest bid. Please place a higher bid to participate in this auction.'
+          `The minimum bid amount is ${formatCurrency(acceptedBidPrice)}. Please place a higher bid.`
         );
       }
       if (amount + amount * fee > availableBalanceForBiding) {
