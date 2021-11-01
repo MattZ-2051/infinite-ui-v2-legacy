@@ -72,11 +72,25 @@
 
 {#if isOpen}
   <Modal title={`${coinName} Deposit`} {onClose}>
-    <p slot="title" class="font-medium text-3xl text-center px-8 py-6">{`${coinName} Deposit`}</p>
     <div class="p-10 text-gray-500">
-      <p class="m-auto w-max max-w-sm text-center">
-        Funds sent to the following address will be automatically credited to your account.
-      </p>
+      {#if address}
+        {#if kind === 'eth-native'}
+          <p class="m-auto w-max max-w-sm">
+            Wallet address successfully created! ETH sent to the following address will be credited to your account.
+            These funds will be stored in ETH and can be withdrawn as ETH.
+          </p>
+        {:else}
+          <p class="m-auto w-max max-w-sm">
+            Wallet address succesfully created! Send the funds to the following address and they will be automatically
+            credited to your account.
+          </p>
+        {/if}
+      {:else}
+        <p class="m-auto w-max max-w-sm">
+          Generate the {coinName} Address and then deposit your funds to that address. Funds sent to the following address
+          will be automatically credited to your account.
+        </p>
+      {/if}
       {#if address}
         <div class="mt-8 text-center">
           <input type="text" disabled value={address} class="border-b-2 border-dotted bg-transparent w-96" />
@@ -107,7 +121,7 @@
       {:else}
         <div class="flex flex-col mt-12 gap-3">
           <Button variant="brand" on:click={onGenerateCryptoAddress}>Generate {coinName} Address</Button>
-          <Button variant="outline-brand" on:click={onClose}>Back to Wallet</Button>
+          <Button variant="outline-brand" on:click={onClose}>Go Back</Button>
         </div>
       {/if}
     </div>

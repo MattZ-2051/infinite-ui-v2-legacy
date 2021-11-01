@@ -13,3 +13,4 @@ export const CLIENT_SUPPORT_URL = 'https://aria-network.force.com/support/s/';
 export const CLIENT_HEDERA_URL = 'https://aria-network.force.com/support/s/article/What-is-Hedera-Hashgraph';
 export const CLIENT_REDEEM_URL = 'https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT';
 export const CLIENT_API_HEADER = 'aria';
+export const ENABLE_ETH_CURRENCY = false;

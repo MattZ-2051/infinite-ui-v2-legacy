@@ -11,7 +11,7 @@ export async function waitForTx(waiterOptions: CryptoAddressWaiterOptions) {
 const apiUrl = variables.bitcoinNetwork.apiUrl;
 
 async function getCurrentBlock(): Promise<number> {
-  const rr = await get<{ height: number }>(apiUrl);
+  const rr = await get<{ height: number }>(apiUrl, { credentials: 'omit' });
   return rr.height;
 }
 

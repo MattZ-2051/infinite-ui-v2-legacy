@@ -9,8 +9,10 @@
   import routes from '$project/routes';
   import { variables } from '$lib/variables';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
+  import { ENABLE_ETH_CURRENCY } from '$project/variables';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
+  import CurrencySelectModal from './deposit/CurrencySelectModal.svelte';
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
   import WalletButtons from './WalletButtons.svelte';
@@ -27,8 +29,15 @@
   $: isKycPending = $wallet?.kycPending;
 
   function handleDepositSelectModal() {
-    if ($wallet.kycRequired) toast.danger(kycLevelNeeded);
-    else openModal(WalletDepositModal, { onDepositSelect });
+    if ($wallet.kycRequired) {
+      toast.danger(kycLevelNeeded);
+    } else {
+      if (ENABLE_ETH_CURRENCY) {
+        openModal(CurrencySelectModal, { onCurrencySelect });
+      } else {
+        openModal(WalletDepositModal, { onDepositSelect });
+      }
+    }
   }
 
   function handleWithdrawSelectModal() {
@@ -46,7 +55,15 @@
     );
   }
 
-  function onDepositSelect(id: 'circle' | 'usdc' | 'btc' | 'eth' | 'hbar') {
+  function onCurrencySelect(id: 'eth-native' | 'usd') {
+    if (id === 'usd') {
+      openModal(WalletDepositModal, { onDepositSelect });
+    } else {
+      onDepositSelect(id);
+    }
+  }
+
+  function onDepositSelect(id: 'circle' | 'usdc' | 'btc' | 'eth' | 'eth-native' | 'hbar') {
     // Credit cards do not need KYC
     if (id === 'circle') {
       goto(routes.deposit);
@@ -69,6 +86,7 @@
       case 'usdc':
       case 'btc':
       case 'eth':
+      case 'eth-native':
         openModal(CryptoCurrency, { kind: id });
         break;
       case 'hbar':

@@ -29,6 +29,7 @@ export function getCryptoAddressWaiter(
       responseFilter = (txResponse) => txResponse.contractAddress === variables.ethNetwork.usdcContractAddress;
       break;
     case 'eth':
+    case 'eth-native':
       waiter = etherscanWaitForTx;
       requestFilters = { action: 'txlist' };
       break;
@@ -51,6 +52,7 @@ export function getExplorerBaseUrl(kind: CryptoKind) {
   switch (kind) {
     case 'usdc':
     case 'eth':
+    case 'eth-native':
       return variables.ethNetwork.explorerBaseUrl;
     case 'btc':
       return variables.bitcoinNetwork.explorerBaseUrl;
@@ -61,6 +63,7 @@ export function getChainName(kind: CryptoKind) {
   switch (kind) {
     case 'usdc':
     case 'eth':
+    case 'eth-native':
       return 'Ethereum mainnet';
     case 'btc':
       return 'Bitcoin mainnet';
@@ -72,6 +75,7 @@ export function getCoinName(kind: CryptoKind) {
     case 'usdc':
       return 'USDC';
     case 'eth':
+    case 'eth-native':
       return 'ETH';
     case 'btc':
       return 'BTC';

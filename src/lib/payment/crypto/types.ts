@@ -7,7 +7,7 @@ export interface CryptoAddress {
   chain: string;
 }
 
-export type CryptoKind = 'usdc' | 'eth' | 'btc';
+export type CryptoKind = 'usdc' | 'eth' | 'eth-native' | 'btc';
 
 export type CryptoAddressWaiterOptions = {
   address: string;
