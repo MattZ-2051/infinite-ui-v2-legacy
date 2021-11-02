@@ -1,7 +1,7 @@
 <script>
   import { Meta, Story } from '@storybook/addon-svelte-csf';
+  import { user } from '$mocks/resolvers/user/data';
   import PureFooter from './PureFooter.svelte';
-  import { user } from '../../../../mocks/resolvers/user/data';
 </script>
 
 <Meta

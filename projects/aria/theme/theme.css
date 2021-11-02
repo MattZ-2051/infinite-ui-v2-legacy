@@ -66,6 +66,7 @@
 
   /* Header */
   --header-color: #ffffff;
+  --header-links-align-items: end;
 
   /* Footer */
   --footer-bg-color: #000000;

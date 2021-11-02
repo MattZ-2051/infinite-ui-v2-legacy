@@ -1,8 +1,8 @@
 <script>
   import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
   import dayjs from 'dayjs';
+  import { item } from '$mocks/resolvers/sku/data';
   import SkuItem from './SkuItem.svelte';
-  import { item } from '../../../../mocks/resolvers/sku/data';
 </script>
 
 <Meta title="Infinite / sku-item / SkuItem" component={SkuItem} parameters={{ themes: ['light', 'dark'] }} />

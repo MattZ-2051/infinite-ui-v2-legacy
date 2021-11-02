@@ -1,7 +1,8 @@
 <script>
   import { Meta, Story } from '@storybook/addon-svelte-csf';
+  import { user, userWithProfilePhoto } from '$mocks/resolvers/user/data';
+  import { links } from './main-links';
   import PureHeader from './PureHeader.svelte';
-  import { user, userWithProfilePhoto } from '../../../../mocks/resolvers/user/data';
 </script>
 
 <Meta
@@ -13,10 +14,10 @@
 />
 
 <Story name="Logged out">
-  <PureHeader user={undefined} />
+  <PureHeader {links} user={undefined} />
 </Story>
 
 <Story name="Logged in">
-  <PureHeader {user} />
-  <PureHeader user={userWithProfilePhoto} />
+  <PureHeader {links} {user} />
+  <PureHeader {links} user={userWithProfilePhoto} />
 </Story>

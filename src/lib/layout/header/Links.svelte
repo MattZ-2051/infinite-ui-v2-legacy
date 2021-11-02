@@ -1,24 +1,27 @@
 <script lang="ts">
+  import type { Link } from './types';
+  import { mdiCogOutline, mdiCreditCardOutline, mdiLogout } from '@mdi/js';
   import type { User } from '$lib/user/types';
-  import { mdiCogOutline, mdiCreditCardOutline, mdiLogout, mdiAccount } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
+  import { Menu, MenuList, MenuTrigger, MenuItem } from '$ui/menu';
   import routes from '$project/routes';
-  import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
   import Button from '$lib/components/Button.svelte';
+  import account from './assets/account';
 
   export let flatten = false;
   export let user: User;
+  export let links: Link[];
 
   $: isRoute = function (route: string) {
     return new RegExp(`^${route}(?:/|$)`).test($page.path);
   };
 </script>
 
-<a sveltekit:prefetch href={routes.marketplace} class="header-link" class:active={isRoute(routes.marketplace)}
-  >Marketplace</a
->
-<a sveltekit:prefetch href={routes.about} class="header-link" class:active={isRoute(routes.about)}>About Us</a>
+{#each links as { id, label }}
+  <a sveltekit:prefetch href={routes[id]} class="header-link" class:active={isRoute(routes[id])}>{label}</a>
+{/each}
+
 {#if user}
   <a
     sveltekit:prefetch
@@ -26,6 +29,7 @@
     class="header-link"
     class:active={isRoute(routes.collection(user.username))}>My Collection</a
   >
+
   {#if flatten}
     <a sveltekit:prefetch href={routes.account} class="header-link" class:hidden={isRoute(routes.account)}
       >Account Settings</a
@@ -33,13 +37,13 @@
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
     <button type="button" on:click={routes.signout} class="header-link">Sign Out</button>
   {:else}
-    <Menu placement="bottom-end">
+    <Menu placement="bottom-start">
       <MenuTrigger slot="trigger" class="header-link">
         <div class="flex gap-1.5 ">
           {#if user.profilePhotoUrl}
             <img class="w-6 object-cover rounded-full" src={user.profilePhotoUrl} alt="" />
           {:else}
-            <Icon path={mdiAccount} />
+            <Icon path={account} />
           {/if}
           {user.username}
         </div>
@@ -59,8 +63,7 @@
   {/if}
 {:else}
   <button class="flex header-link" on:click={routes.signin}>Sign In</button>
-  <Button variant="brand" on:click={routes.signup} class="whitespace-nowrap">Sign Up</Button>
-{/if}
+  <Button variant="brand" on:click={routes.signup} class="whitespace-nowrap">Sign Up</Button>{/if}
 
 <style lang="postcss">
   :global(.header-link) {

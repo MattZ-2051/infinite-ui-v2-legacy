@@ -1,15 +1,15 @@
 <script>
-  import { Meta, Story } from '@storybook/addon-svelte-csf';
+  import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+  import { user } from '$mocks/resolvers/user/data';
+  import { links } from '$project/header/main-links';
   import Sidebar from './Sidebar.svelte';
-  import { user } from '../../../../mocks/resolvers/user/data';
 </script>
 
 <Meta title="UI / lib / Layout / Sidebar" component={Sidebar} />
 
-<Story name="Logged out">
-  <Sidebar user={undefined} />
-</Story>
+<Template let:args>
+  <Sidebar {links} {...args} />
+</Template>
 
-<Story name="Logged in">
-  <Sidebar {user} />
-</Story>
+<Story name="Logged out" args={{ user: undefined }} />
+<Story name="Logged in" args={{ user }} />

@@ -37,6 +37,7 @@ async function run() {
         '$lib/*': ['src/lib/*'],
         '$ui/*': ['src/ui/*'],
         '$util/*': ['src/util/*'],
+        '$mocks/*': ['mocks/*'],
       },
     },
     include: [

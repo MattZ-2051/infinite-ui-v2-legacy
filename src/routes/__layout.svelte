@@ -21,7 +21,7 @@
   import { initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { pollWallet, pollPendingTransactions } from '$lib/features/wallet/wallet.poll';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
-  import Header from '$lib/layout/header/Header.svelte';
+  import Header from '$project/header/Header.svelte';
   import Footer from '$project/footer/Footer.svelte';
   import Toast from '$project/toast/Toast.svelte';
   import { Modals, modals } from '$ui/modals';
