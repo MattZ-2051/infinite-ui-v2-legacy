@@ -6,7 +6,13 @@ const defaultApiOptions = {
   mode: 'cors',
 };
 
-jest.mock('$lib/variables', () => ({ variables: { apiUrl: 'http://api' } }));
+jest.mock('$lib/variables', () => ({
+  variables: {
+    apiUrl: 'http://api',
+    ethNetwork: { apiUrl: 'http://eth', explorerBaseUrl: 'http://explorer' },
+    bitcoinNetwork: { apiUrl: 'http://bitcoin', explorerBaseUrl: 'http://btc-explore' },
+  },
+}));
 
 function mockHeaders(responseHeaders) {
   return {
@@ -31,7 +37,6 @@ describe('API', () => {
       await send('my/path', {
         fetch: mockFetch,
         method: 'POST',
-        headers: { 'X-Tenant': CLIENT_API_HEADER },
         body: body as unknown as BodyInit,
       });
       expect(mockFetch).toHaveBeenLastCalledWith(
@@ -45,17 +50,16 @@ describe('API', () => {
     });
 
     it('should send custom headers', async () => {
-      const headers = { 'my-header': 'h123' };
-      await send('my/path', { fetch: mockFetch, method: 'GET', headers });
-      expect(mockFetch).toHaveBeenLastCalledWith(
-        'http://api/my/path',
-        expect.objectContaining({ method: 'GET', headers })
-      );
+      await send('my/path', { fetch: mockFetch, method: 'GET' });
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'GET' }));
     });
 
     it('should not prepend base `apiUrl` if absolute', async () => {
       await send('http://my-absolute.path', { fetch: mockFetch });
-      expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', defaultApiOptions);
+      expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', {
+        ...defaultApiOptions,
+        headers: { 'X-Tenant': CLIENT_API_HEADER },
+      });
     });
 
     it('should add url parameters', async () => {
@@ -66,18 +70,27 @@ describe('API', () => {
         fetch: mockFetch,
         params,
       });
-      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?a=k&e=123', defaultApiOptions);
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?a=k&e=123', {
+        ...defaultApiOptions,
+        headers: { 'X-Tenant': CLIENT_API_HEADER },
+      });
 
       await send('my/path?existing=true', {
         fetch: mockFetch,
         params,
       });
-      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?existing=true&a=k&e=123', defaultApiOptions);
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path?existing=true&a=k&e=123', {
+        ...defaultApiOptions,
+        headers: { 'X-Tenant': CLIENT_API_HEADER },
+      });
     });
 
     it('should handle extra slashes at the start of url', async () => {
       await send('/my/path', { fetch: mockFetch });
-      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', defaultApiOptions);
+      expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {
+        ...defaultApiOptions,
+        headers: { 'X-Tenant': CLIENT_API_HEADER },
+      });
     });
 
     it('should support custom `baseUrl`', async () => {
@@ -88,7 +101,11 @@ describe('API', () => {
     describe('authorization', () => {
       it('should opt-out from sending credentials', async () => {
         await send('/my/path', { fetch: mockFetch, credentials: 'omit' });
-        expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', { credentials: 'omit', mode: 'cors' });
+        expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {
+          credentials: 'omit',
+          mode: 'cors',
+          headers: { 'X-Tenant': CLIENT_API_HEADER },
+        });
       });
     });
 
@@ -179,9 +196,8 @@ describe('API', () => {
   describe('`post`', () => {
     it('send the appropriate POST request', async () => {
       const data = { val: 'a', num: 123 };
-      const headers = { 'X-Tenant': CLIENT_API_HEADER };
 
-      await post('my/path', data, { fetch: mockFetch, headers });
+      await post('my/path', data, { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith(
         'http://api/my/path',
         expect.objectContaining({
@@ -193,14 +209,13 @@ describe('API', () => {
     });
 
     it('custom headers', async () => {
-      const headers = { 'X-Tenant': CLIENT_API_HEADER };
       const data = {};
-      await post('my/path', data, { fetch: mockFetch, headers, cache: 'no-cache' });
+      await post('my/path', data, { fetch: mockFetch, cache: 'no-cache' });
       expect(mockFetch).toHaveBeenLastCalledWith(
         'http://api/my/path',
         expect.objectContaining({
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', ...headers },
+          headers: { 'Content-Type': 'application/json', 'X-Tenant': CLIENT_API_HEADER },
           cache: 'no-cache',
         })
       );
@@ -233,8 +248,7 @@ describe('API', () => {
   describe('`put`', () => {
     it('send the appropriate PUT request', async () => {
       const data = { val: 'a', num: 123 };
-      const headers = { 'X-Tenant': CLIENT_API_HEADER };
-      await put('my/path', data, { fetch: mockFetch, headers });
+      await put('my/path', data, { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith(
         'http://api/my/path',
         expect.objectContaining({
