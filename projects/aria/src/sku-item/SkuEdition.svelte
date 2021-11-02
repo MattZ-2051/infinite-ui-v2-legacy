@@ -18,11 +18,11 @@
   const createTooltipMessage = (supplyType: string | undefined) => {
     switch (supplyType) {
       case 'unique':
-        return '1 of 1 available';
+        return 'One-of-a-Kind: a truly unique collectible.';
       case 'limited':
-        return 'Limited Edition Collectible';
+        return 'Limited Edition: a finite number available';
       case 'released':
-        return 'Open Edition Collectible: This quantity is determined by the number of collectibles sold by the listing’s end date.';
+        return 'Open Edition: any number can be minted before the end date.';
       default:
         return undefined;
     }

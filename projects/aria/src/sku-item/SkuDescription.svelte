@@ -23,7 +23,7 @@
     />
     <div class="scrollbox">
       <div class="flex-1 overflow-hidden mb-2 md:mb-4">
-        <div class="text-sm md:text-base">
+        <div class="text-sm md:text-base text-black-opacity-70">
           {description || ''}
         </div>
       </div>

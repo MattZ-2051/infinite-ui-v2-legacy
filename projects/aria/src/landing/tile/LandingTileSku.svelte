@@ -42,7 +42,7 @@
                 <div class="mt-4 md:mt-8" style="color: #636363">Series #{sku.series.name}</div>
               {/if}
 
-              <div class="flex-1 overflow-hidden mb-2.5">
+              <div class="flex-1 overflow-hidden mb-2.5 text-black-opacity-70">
                 {sku.descriptionShort || ''}
               </div>
             </div>

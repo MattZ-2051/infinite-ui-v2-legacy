@@ -18,7 +18,7 @@
 </script>
 
 <ConfirmModal
-  title="Confirm Your Subscription"
+  title={!$subscription ? 'Confirm Your Subscription' : 'Update your subscription'}
   labels={{ cancel: 'Go back', confirm: !$subscription ? 'Yes, please' : 'Unsubscribe' }}
   onConfirm={handleNotify}
   {isOpen}

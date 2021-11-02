@@ -30,7 +30,7 @@
     { name: 'email', label: 'What is your email address? *', placeholder: 'john.brown@example.com' },
     { name: 'industry', label: 'What is your industry? *', placeholder: 'Art, Music, Sports, etc.' },
     { name: 'talent', label: 'Who do you represent? *', placeholder: 'John Brown' },
-    { name: 'role', label: 'What is your role?', placeholder: 'Manager, etc.' },
+    { name: 'role', label: 'What is your role? *', placeholder: 'Manager, etc.' },
   ];
 
   const schema = yup.object({

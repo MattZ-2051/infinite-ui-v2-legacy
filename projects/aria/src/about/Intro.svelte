@@ -17,7 +17,7 @@
   <div class="flex justify-center flex-col items-center text-center gap-8 max-w-4xl mx-auto">
     <h2 class="text-4xl text-gradient-primary">What is The ARIA Exchange?</h2>
     <p class="text-lg">
-      We’re a creative marketplace that partners with the world’s most iconic artists, athletes and brands to bring you
+      We are a creative marketplace that partners with the world’s most iconic artists, athletes and brands to bring you
       the rarest mix of collectibles in the world. Our community platform allows you to discover, buy, and sell highly
       covetable crypto collectibles, with ease.
     </p>

@@ -46,7 +46,7 @@
   <FormElement class={classes} {variant} label={`First name${disabled ? '' : ' *'}`} name="firstName" {disabled} />
   <FormElement class={classes} {variant} label={`Last name${disabled ? '' : ' *'}`} name="lastName" {disabled} />
   <FormElement class={classes} {variant} label="Phone Number" name="phoneNumber" {disabled} />
-  <div class="flex gap-3 mb-4">
+  <div class="flex gap-3 my-4">
     <input
       id="consent"
       type="checkbox"
