@@ -39,12 +39,16 @@
       value: '',
     },
     {
-      name: 'Buy Now',
-      value: 'fixed',
+      name: 'All for sale',
+      value: 'forSale',
     },
     {
-      name: 'Auction',
+      name: 'Auction Only',
       value: 'auction',
+    },
+    {
+      name: 'Buy Now Only',
+      value: 'fixed',
     },
   ];
 
