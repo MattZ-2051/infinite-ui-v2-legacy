@@ -1,6 +1,7 @@
 import type { Writable } from 'svelte/store';
 import { writable, derived } from 'svelte/store';
 import { variables } from '$lib/variables';
+import { CLIENT_API_HEADER } from '$project/variables';
 
 export type ApiError = { status: number; statusText: string; url: string; data?: { [key: string]: unknown } };
 
@@ -50,32 +51,44 @@ export async function send<T>(path: string, _options?: ApiOptions): Promise<{ he
 }
 
 export async function get<T>(path: string, options?: ApiOptions): Promise<T> {
-  return await send<T>(path, { ...options, method: 'GET' }).then((r) => r.body);
+  return await send<T>(path, { ...options, method: 'GET', headers: { 'X-Tenant': CLIENT_API_HEADER } }).then(
+    (r) => r.body
+  );
 }
 
 export async function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: T[]; total: number; headers }> {
-  return await send<T[]>(path, { ...options, method: 'GET' }).then(async (response) => {
-    const { headers, body } = response;
-    const total = headers.has('content-range') ? +headers.get('content-range').split('/')[1] : undefined;
+  return await send<T[]>(path, { ...options, method: 'GET', headers: { 'X-Tenant': CLIENT_API_HEADER } }).then(
+    async (response) => {
+      const { headers, body } = response;
+      const total = headers.has('content-range') ? +headers.get('content-range').split('/')[1] : undefined;
 
-    return { data: body, total, headers };
-  });
+      return { data: body, total, headers };
+    }
+  );
 }
 
 export async function del<T>(path: string, options?: ApiOptions): Promise<T> {
-  return await send<T>(path, { ...options, method: 'DELETE' }).then((r) => r.body);
+  return await send<T>(path, { ...options, method: 'DELETE', headers: { 'X-Tenant': CLIENT_API_HEADER } }).then(
+    (r) => r.body
+  );
 }
 
 export async function post<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return await send<T>(path, { ...options, method: 'POST', body }).then((r) => r.body);
+  return await send<T>(path, { ...options, method: 'POST', headers: { 'X-Tenant': CLIENT_API_HEADER }, body }).then(
+    (r) => r.body
+  );
 }
 
 export async function put<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return await send<T>(path, { ...options, method: 'PUT', body }).then((r) => r.body);
+  return await send<T>(path, { ...options, method: 'PUT', headers: { 'X-Tenant': CLIENT_API_HEADER }, body }).then(
+    (r) => r.body
+  );
 }
 
 export async function patch<T>(path: string, body, options?: ApiOptions): Promise<T> {
-  return await send<T>(path, { ...options, method: 'PATCH', body }).then((r) => r.body);
+  return await send<T>(path, { ...options, method: 'PATCH', headers: { 'X-Tenant': CLIENT_API_HEADER }, body }).then(
+    (r) => r.body
+  );
 }
 
 export function fetchTracker({ showDelay = 0, hideDelay = 50 } = {}): ApiFetchTracker {

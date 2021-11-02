@@ -1,3 +1,4 @@
+import { CLIENT_API_HEADER } from '$project/variables';
 import { send, get, post, del, put, getPage } from './api';
 
 const defaultApiOptions = {
@@ -30,13 +31,14 @@ describe('API', () => {
       await send('my/path', {
         fetch: mockFetch,
         method: 'POST',
+        headers: { 'X-Tenant': CLIENT_API_HEADER },
         body: body as unknown as BodyInit,
       });
       expect(mockFetch).toHaveBeenLastCalledWith(
         'http://api/my/path',
         expect.objectContaining({
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'X-Tenant': CLIENT_API_HEADER },
           body: JSON.stringify(body),
         })
       );
@@ -177,19 +179,21 @@ describe('API', () => {
   describe('`post`', () => {
     it('send the appropriate POST request', async () => {
       const data = { val: 'a', num: 123 };
-      await post('my/path', data, { fetch: mockFetch });
+      const headers = { 'X-Tenant': CLIENT_API_HEADER };
+
+      await post('my/path', data, { fetch: mockFetch, headers });
       expect(mockFetch).toHaveBeenLastCalledWith(
         'http://api/my/path',
         expect.objectContaining({
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'X-Tenant': CLIENT_API_HEADER },
           body: JSON.stringify(data),
         })
       );
     });
 
     it('custom headers', async () => {
-      const headers = { 'my-header': 'h123' };
+      const headers = { 'X-Tenant': CLIENT_API_HEADER };
       const data = {};
       await post('my/path', data, { fetch: mockFetch, headers, cache: 'no-cache' });
       expect(mockFetch).toHaveBeenLastCalledWith(
@@ -229,12 +233,13 @@ describe('API', () => {
   describe('`put`', () => {
     it('send the appropriate PUT request', async () => {
       const data = { val: 'a', num: 123 };
-      await put('my/path', data, { fetch: mockFetch });
+      const headers = { 'X-Tenant': CLIENT_API_HEADER };
+      await put('my/path', data, { fetch: mockFetch, headers });
       expect(mockFetch).toHaveBeenLastCalledWith(
         'http://api/my/path',
         expect.objectContaining({
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'X-Tenant': CLIENT_API_HEADER },
           body: JSON.stringify(data),
         })
       );
