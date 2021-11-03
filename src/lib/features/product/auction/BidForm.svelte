@@ -45,7 +45,7 @@
       }
       if (amount + amount * fee > availableBalanceForBiding) {
         return toast.danger(
-          `Whoops! You don't have sufficient funds in your wallet to make this purchase! Your available balance is ${$user.availableBalance} and you need ${acceptedBidPrice} to cover the bid and marketplace fee. <a href=${routes.wallet}>Click here</a> to deposit more funds.`
+          `Whoops! You don't have sufficient funds in your wallet to make this purchase! Your available balance is ${$user['0'].availableBalance} and you need ${acceptedBidPrice} to cover the bid and marketplace fee. <a href=${routes.wallet}>Click here</a> to deposit more funds.`
         );
       }
 

@@ -84,7 +84,7 @@
 
   $: marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
   $: total = listing.price * (1 + marketplaceFee);
-  $: insufficientFunds = total > user.availableBalance;
+  $: insufficientFunds = total > user['0'].availableBalance;
 
   let title = '';
   $: if (result?.status === 'success') {
@@ -102,7 +102,7 @@
   <Modal {title} class="max-w-md">
     <div class="px-10 flex flex-col gap-6 pb-10">
       <div class={insufficientFunds ? 'text-red-500' : 'text-green-500'}>
-        Your current balance {formatCurrency(user.availableBalance)}
+        Your current balance {formatCurrency(user['0'].availableBalance)}
       </div>
       <div class="flex justify-center items-center bg-black h-72">
         <FilePreview item={_sku.nftPublicAssets?.[0]} preview />

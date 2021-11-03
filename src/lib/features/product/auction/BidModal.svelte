@@ -36,7 +36,7 @@
         <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
       </div>
       <div class="text-green-500">
-        Your current balance {formatCurrency($user.availableBalance)}
+        Your current balance {formatCurrency($user['0'].availableBalance)}
       </div>
       <ProductModalInfo {product} sku={product.sku} />
       <div class="flex justify-between border-solid font-medium">

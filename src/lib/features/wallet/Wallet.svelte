@@ -89,8 +89,8 @@
       style="background: var(--wallet-balance-content-bg-color);"
     >
       <WalletBalance
-        balance={Number.parseFloat($wallet?.balanceInfo?.circleBalance)}
-        availableBalance={Number.parseFloat($wallet?.balanceInfo?.totalBalance)}
+        balance={Number.parseFloat($wallet?.balanceInfo[0]?.circleBalance)}
+        availableBalance={Number.parseFloat($wallet?.balanceInfo[0]?.totalBalance)}
         withdrawableBalance={$withdrawableBalance}
       >
         <svelte:fragment slot="kyc">
