@@ -46,6 +46,12 @@ const config = {
       define: {
         'process.env.tw': JSON.stringify({ screens: tailwindConfig.theme.screens }),
       },
+
+      server: {
+        fs: {
+          allow: [path.resolve(`./projects/`)],
+        },
+      },
     },
   },
 };

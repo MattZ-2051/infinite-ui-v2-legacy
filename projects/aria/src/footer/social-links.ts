@@ -1,5 +1,5 @@
 import { mdiTwitter, mdiInstagram, mdiDiscord, mdiFacebook, mdiLinkedin, mdiPinterest, mdiReddit } from '@mdi/js';
-import snapchat from 'simple-icons/icons/snapchat.js';
+import { siSnapchat } from 'simple-icons/icons';
 
 export const links = [
   { id: 'Instagram', href: 'https://www.instagram.com/theariaexchange/', path: mdiInstagram },
@@ -24,6 +24,6 @@ export const links = [
   {
     id: 'Snapchat',
     href: 'https://www.snapchat.com/add/theariaexchange?share_id=MzQ0RkMz&locale=en_US',
-    path: snapchat.path,
+    path: siSnapchat.path,
   },
 ];

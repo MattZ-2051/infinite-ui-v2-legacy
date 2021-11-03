@@ -1,7 +1,7 @@
 <script lang="ts">
   import { setContext } from 'svelte';
   import { mdiTwitter, mdiInstagram, mdiDiscord, mdiFacebook, mdiLinkedin, mdiSnapchat, mdiYoutube } from '@mdi/js';
-  import tiktok from 'simple-icons/icons/tiktok.js';
+  import { siTiktok } from 'simple-icons/icons';
   import { createForm } from 'felte';
   import { validateSchema } from '@felte/validator-yup';
   import * as yup from 'yup';
@@ -19,7 +19,7 @@
     { id: 'facebook', label: 'Facebook', path: mdiFacebook },
     { id: 'youtube', label: 'YouTube', path: mdiYoutube },
     { id: 'twitter', label: 'Twitter', path: mdiTwitter },
-    { id: 'tiktok', label: 'TikTok', path: tiktok.path },
+    { id: 'tiktok', label: 'TikTok', path: siTiktok.path },
     { id: 'snap', label: 'Snapchat', path: mdiSnapchat },
     { id: 'linkedin', label: 'LinkedIn', path: mdiLinkedin },
     { id: 'discord', label: 'Discord', path: mdiDiscord },
