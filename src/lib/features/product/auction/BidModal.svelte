@@ -17,7 +17,7 @@
   const marketplaceFee = getBiddingFee(product);
   const waitingForAPI = placeBidFx.pending;
 
-  $: listing = product.listing;
+  $: listing = product.activeProductListings[0]; // BE team words: ActiveProductListings can only have one element.
   $: bid = formatCurrency(amount);
   $: total = formatCurrency(amount * (1 + marketplaceFee));
 
