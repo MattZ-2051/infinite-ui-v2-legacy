@@ -176,6 +176,10 @@ function getCookieDomain({ host }) {
     return 'localhost';
   }
 
+  if (host.includes('deploy-preview')) {
+    return host.replace(/\/+$/, '');
+  }
+
   return host.replace(/\/+$/, '').replace(/^.+?((?:\.[^.]+){2})$/, '$1');
 }
 

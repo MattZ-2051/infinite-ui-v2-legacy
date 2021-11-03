@@ -48,7 +48,7 @@ jobs:
         run: pnpm test
 
       - name: Build
-        run: pnpm build aria
+        run: sed -i "s%^.*VITE_API_URL.*$%VITE_API_URL=\"https://api-dev.infiniteworld.com\"%" ./projects/aria/.env.production && pnpm build aria
 
       - name: E2E
         uses: cypress-io/github-action@v2
