@@ -66,6 +66,7 @@
       type="button"
       on:click={() => (showFilters = true)}
       class="w-10 h-10 bg-gray-200 rounded-full md:hidden flex items-center justify-center"
+      aria-label="Show filters"
     >
       <Icon path={mdiTuneVariant} />
     </button>

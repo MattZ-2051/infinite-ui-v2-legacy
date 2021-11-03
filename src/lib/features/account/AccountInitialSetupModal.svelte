@@ -103,7 +103,7 @@
             class="w-5 h-5 text-black bg-white"
           />
           <label for="termsAndConditionsConsentGiven" class="text-gray-900 text-sm"
-            >I accept the <a href={routes.terms} target="_blank" class="underline hover:no-underline"
+            >I accept the <a href={routes.terms} target="_blank" rel="noreferrer" class="underline hover:no-underline"
               >Terms and Conditions</a
             >.</label
           >
@@ -116,7 +116,7 @@
             class="w-5 h-5 text-black bg-white"
           />
           <label for="privacyPolicyConsentGiven" class="text-gray-900 text-sm"
-            >I accept the <a href={routes.privacy} target="_blank" class="underline hover:no-underline"
+            >I accept the <a href={routes.privacy} target="_blank" rel="noreferrer" class="underline hover:no-underline"
               >Privacy Policy</a
             >.</label
           >

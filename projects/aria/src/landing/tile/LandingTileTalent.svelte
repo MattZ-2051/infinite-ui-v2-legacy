@@ -11,6 +11,7 @@
   <div class="relative">
     <a sveltekit:prefetch href={routes.collection(talent.username)}>
       <img src={talent.profilePhotoUrl} alt="" class="w-full object-cover" style="aspect-ratio: 1/1;" />
+      <span class="sr-only">{talent.firstName} {talent.lastName}</span>
     </a>
     <SkuDescription issuer={talent} hideTalentImage />
   </div>

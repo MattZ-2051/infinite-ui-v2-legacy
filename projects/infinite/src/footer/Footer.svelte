@@ -7,7 +7,7 @@
 
 <FooterLayout>
   <svelte:fragment slot="start">
-    <a href={routes.faq} target="_blank">FAQ</a>
+    <a href={routes.faq} target="_blank" rel="noreferrer">FAQ</a>
     <a href={routes.careers}>Careers</a>
     <a href={routes.suku}>Suku</a>
     <a href={routes.help}>Help</a>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { Sku } from '$lib/sku-item/types';
+  import { Seo } from '$lib/seo';
   import { loadSingleSku } from './about.api';
   import ExchangingGoodness from './exchangingGoodness/ExchangingGoodness.svelte';
   import ExchangeTeam from './exchangeTeam/ExchangeTeam.svelte';
@@ -15,6 +16,8 @@
     skuData = singleSkuData;
   });
 </script>
+
+<Seo title="About us" />
 
 {#if skuData}
   <ExchangingGoodness />

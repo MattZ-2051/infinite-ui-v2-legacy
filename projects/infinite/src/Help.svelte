@@ -10,6 +10,7 @@
   import { onMount } from 'svelte';
   import injectScript from '$util/injectScript';
   import { CLIENT_SUPPORT_URL, CLIENT_SUPPORT_EMAIL, HUBSPOT_FORM_URL } from '$project/variables';
+  import { Seo } from '$lib/seo';
 
   onMount(async () => {
     await injectScript({ id: 'hubspot-form', url: HUBSPOT_FORM_URL });
@@ -21,6 +22,8 @@
     });
   });
 </script>
+
+<Seo title="Help" />
 
 <div class="container flex flex-col  mt-12 gap-12 md:flex-row">
   <div class="flex flex-col flex-1 gap-10 font-black">
@@ -37,7 +40,8 @@
       <a
         class="text-black underline cursor-pointer mx-1 hover:no-underline"
         href={`mailto:${CLIENT_SUPPORT_EMAIL}?subject=Website Inquiry`}
-        target="_blank">{CLIENT_SUPPORT_EMAIL}</a
+        target="_blank"
+        rel="noreferrer">{CLIENT_SUPPORT_EMAIL}</a
       >
     </span>
   </div>

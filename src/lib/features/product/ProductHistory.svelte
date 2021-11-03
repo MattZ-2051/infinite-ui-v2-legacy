@@ -76,6 +76,7 @@
                     size="0.8"
                     class="w-6 justify-self-center text-gray-200 hover:text-default"
                   />
+                  <span class="sr-only">View transaction</span>
                 </a>
               {/if}
             </div>

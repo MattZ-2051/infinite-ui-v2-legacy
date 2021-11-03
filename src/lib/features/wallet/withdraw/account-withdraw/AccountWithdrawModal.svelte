@@ -65,7 +65,8 @@
           class="text-black underline"
           sveltekit:prefetch
           href={routes.help}
-          target="_blank">Help Page</a
+          target="_blank"
+          rel="noreferrer">Help Page</a
         > if this issue persists.
       </p>
     {:else}

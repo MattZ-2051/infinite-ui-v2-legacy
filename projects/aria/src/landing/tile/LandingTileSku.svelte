@@ -17,6 +17,7 @@
   <div class="relative">
     <a sveltekit:prefetch {href}>
       <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+      <span class="sr-only">{sku.name}</span>
     </a>
     <div
       class="hidden md:block bg-white-opacity-75 absolute inset-0 p-3 opacity-0 hover:opacity-100 transition-opacity duration-300"
@@ -50,7 +51,9 @@
               <div class="flex items-center gap-2 font-medium text-lg">
                 {#if sku.redeemable}<IconRedeem size={32} />{/if}
               </div>
-              <a {href} class="text-primary text-lg font-medium">Learn more</a>
+              <a {href} class="text-primary text-lg font-medium"
+                >Learn more <span class="sr-only">for {sku.name}</span></a
+              >
             </div>
           </div>
         </div>

@@ -11,7 +11,14 @@
 </script>
 
 <HeaderLayout {links} {user}>
-  <a let:klass let:size slot="support" href={CLIENT_SUPPORT_URL} target="_blank" rel="noreferrer" class={klass}
-    ><Icon path={questionMark} {size} /></a
+  <a
+    let:klass
+    let:size
+    slot="support"
+    href={CLIENT_SUPPORT_URL}
+    target="_blank"
+    rel="noreferrer"
+    aria-label="Client support"
+    class={klass}><Icon path={questionMark} {size} /></a
   >
 </HeaderLayout>

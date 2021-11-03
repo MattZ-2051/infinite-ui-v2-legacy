@@ -67,12 +67,12 @@
     <ul class="flex items-center gap-3">
       {#if boundaryLinks}
         <PaginationItem on:click={() => go(1)} disabled={isFirstPage}>
-          <slot name="first"><Icon path={chevronDoubleLeft} /></slot>
+          <slot name="first"><Icon path={chevronDoubleLeft} /><span class="sr-only">First</span></slot>
         </PaginationItem>
       {/if}
       {#if previousButtons}
         <PaginationItem on:click={() => go(page - 1)} disabled={isFirstPage}>
-          <slot name="previous"><Icon path={chevronLeft} /></slot>
+          <slot name="previous"><Icon path={chevronLeft} /><span class="sr-only">Previous</span></slot>
         </PaginationItem>
       {/if}
 
@@ -117,12 +117,12 @@
 
       {#if previousButtons}
         <PaginationItem on:click={() => go(page + 1)} disabled={isLastPage}>
-          <slot name="next"><Icon path={chevronLeft} flip="h" /></slot>
+          <slot name="next"><Icon path={chevronLeft} flip="h" /><span class="sr-only">Next</span></slot>
         </PaginationItem>
       {/if}
       {#if boundaryLinks}
         <PaginationItem on:click={() => go(pages)} disabled={isLastPage}>
-          <slot name="last"><Icon path={chevronDoubleLeft} flip="h" /></slot>
+          <slot name="last"><Icon path={chevronDoubleLeft} flip="h" /><span class="sr-only">Last</span></slot>
         </PaginationItem>
       {/if}
     </ul>

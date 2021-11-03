@@ -35,7 +35,7 @@
 </script>
 
 <Menu placement="bottom-end">
-  <MenuTrigger slot="trigger" class="gap-2" data-testid="sort-container">
+  <MenuTrigger slot="trigger" class="gap-2" data-testid="sort-container" aria-label={label}>
     <div class="flex-col items-end hidden lg:flex">
       <div class="text-gray-500 text-sm whitespace-nowrap">{label}</div>
       <div class="whitespace-nowrap">

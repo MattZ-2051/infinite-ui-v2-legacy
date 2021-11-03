@@ -53,6 +53,7 @@
           {#if browser && history.length > 1}
             <button type="button" on:click={onClose} class="rounded-full bg-gray-100 text-white">
               <Icon path={mdiClose} size="1.75" class="transform scale-90 sm:scale-100 md:scale-110 p-1 rounded-full" />
+              <span class="sr-only">Back</span>
             </button>
           {/if}
         </div>

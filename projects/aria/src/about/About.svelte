@@ -1,5 +1,6 @@
 <script lang="ts">
   import Image from '$ui/image/Image.svelte';
+  import { Seo } from '$lib/seo';
   import Intro from './Intro.svelte';
   import darren from './assets/darren.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
   import rebecca from './assets/rebecca.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
@@ -63,6 +64,8 @@
     },
   ];
 </script>
+
+<Seo title="About us" />
 
 <div class="mt-10">
   <Intro />

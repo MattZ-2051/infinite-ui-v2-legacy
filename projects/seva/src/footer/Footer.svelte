@@ -9,7 +9,7 @@
 
 <FooterLayout>
   <svelte:fragment slot="start">
-    <a href={routes.resources} target="_blank">Resources</a>
+    <a href={routes.resources} target="_blank" rel="noreferrer">Resources</a>
     <a href={routes.help}>Help</a>
     <a href={routes.about}>About</a>
     <a href={routes.privacy}>Privacy Policy</a>

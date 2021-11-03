@@ -26,7 +26,7 @@
   <div bind:clientWidth bind:clientHeight class="card flex flex-col h-full tracking-tighter relative z-30 mb-5">
     <div class="card-img p-2">
       <div class="relative h-full">
-        <a sveltekit:prefetch {href}>
+        <a sveltekit:prefetch {href} aria-label={sku.name}>
           <FilePreview item={sku.nftPublicAssets?.[0]} preview />
         </a>
         {#if activeListing?.endDate}

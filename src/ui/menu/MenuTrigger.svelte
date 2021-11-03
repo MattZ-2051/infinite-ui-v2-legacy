@@ -38,6 +38,7 @@
   on:keydown={handleKeydown}
   on:click
   {...$$restProps}
+  aria-label="Menu"
 >
   <slot />
 </button>

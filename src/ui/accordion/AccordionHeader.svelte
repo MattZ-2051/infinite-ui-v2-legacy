@@ -24,7 +24,8 @@
         path={chevronDown}
         size="1.3"
         flip={active}
-      /></button
-    >
+      />
+      <span class="sr-only">{active ? 'Close' : 'Open'}</span>
+    </button>
   {/if}
 </div>

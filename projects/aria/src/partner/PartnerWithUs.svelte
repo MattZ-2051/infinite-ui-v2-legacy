@@ -6,6 +6,7 @@
   import { validateSchema } from '@felte/validator-yup';
   import * as yup from 'yup';
   import { FormElement } from '$lib/components/form';
+  import { Seo } from '$lib/seo';
   import Icon from '$ui/icon/Icon.svelte';
   import Image from '$ui/image/Image.svelte';
   import tooltip from '$ui/tooltip';
@@ -63,6 +64,8 @@
   setContext('errors', errors);
 </script>
 
+<Seo title="Partner with us" />
+
 <section data-style="container" class="flex flex-col gap-8 text-white bg-black">
   <div class="flex flex-col gap-12 text-center container mt-8">
     <h2 class="text-4xl max-w-4xl mx-auto font-medium uppercase">A Collaborative Community</h2>
@@ -101,6 +104,7 @@
                     class="rounded-full w-6 h-6 flex items-center justify-center bg-primary"
                   >
                     <Icon {path} size="0.6" />
+                    <span class="sr-only">{label}</span>
                   </label>
                   <FormElement class="form-element-rounded-white" variant="rounded" {id} name={id} />
                 </div>

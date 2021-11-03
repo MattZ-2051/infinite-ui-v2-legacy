@@ -28,7 +28,9 @@
         </div>
       </div>
     </div>
-    <a href={link} class="text-primary font-medium text-lg mt-2 self-end">Learn more</a>
+    <a href={link} class="text-primary font-medium text-lg mt-2 self-end"
+      >Learn more <span class="sr-only">for {sku ? sku.name : issuer.username} </span></a
+    >
   </div>
 </div>
 

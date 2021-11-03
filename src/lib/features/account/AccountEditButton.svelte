@@ -18,4 +18,5 @@
   {:else}
     <Icon path={mdiPencil} {size} />
   {/if}
+  <span class="sr-only">Edit</span>
 </button>

@@ -16,7 +16,7 @@
     </div>
     <div class="flex flex-col sm:flex-row gap-2 items-center">
       <a href={CLIENT_HEDERA_URL} target="_blank" rel="noreferrer" class="link text-primary text-base whitespace-nowrap"
-        >Read more
+        >Read more <span class="sr-only">for Hedera hashgraph</span>
       </a>
       <span class="p-px" style="background-color: var(--button-brand-bg-color); color: var(--button-brand-color);">
         <Icon path={arrowRight} size="0.9" color="var(--button-brand-color)" />
