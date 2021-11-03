@@ -36,7 +36,7 @@
 
 <PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
   <Tabs
-    class="px-4 md:pl-12"
+    class="px-4 md:pl-8 lg:pl-12"
     items={getItems(totalPrivateAssets)}
     itemClass="text-xl lg:text-2xl items-center"
     menuBreakpoint="sm"
@@ -45,7 +45,7 @@
     --tab-border-color-active="transparent"
   />
 
-  <div class="flex-grow px-4 lg:px-12 pb-4 lg:pb-12" style="background-color: var(--product-tabs-bg);">
+  <div class="flex-grow px-4 md:pl-8 lg:px-12 pb-4 lg:pb-12" style="background-color: var(--product-tabs-bg);">
     {#if tab === 'auction'}
       <ProductAuction {product} />
     {/if}
