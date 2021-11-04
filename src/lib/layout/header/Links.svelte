@@ -39,13 +39,13 @@
   {:else}
     <Menu placement="bottom-start">
       <MenuTrigger slot="trigger" class="header-link">
-        <div class="flex gap-1.5 ">
+        <div class="flex sm:gap-1 md:gap-1.5 ">
           {#if user.profilePhotoUrl}
             <img class="w-6 object-cover rounded-full" src={user.profilePhotoUrl} alt="" />
           {:else}
             <Icon path={account} />
           {/if}
-          {user.username}
+          <span class="truncate">{user.username}</span>
         </div>
       </MenuTrigger>
       <MenuList slot="menu">
