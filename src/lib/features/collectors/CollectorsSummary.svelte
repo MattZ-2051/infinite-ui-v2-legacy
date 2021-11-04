@@ -35,12 +35,12 @@
 
   const statusOptions = [
     {
-      name: 'All',
+      name: 'All for sale',
       value: '',
     },
     {
-      name: 'All for sale',
-      value: 'forSale',
+      name: 'All',
+      value: 'all',
     },
     {
       name: 'Auction Only',

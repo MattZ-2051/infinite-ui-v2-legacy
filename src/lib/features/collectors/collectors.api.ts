@@ -3,7 +3,11 @@ import { get, getPage, fetchTracker } from '$lib/api';
 
 export const loading = fetchTracker();
 
-const getSaleType = (saleType: string) => (saleType === 'forSale' ? { forSale: 'true' } : { saleType });
+const getSaleType = (saleType) => {
+  if (saleType === '') return { forSale: 'true' };
+  if (saleType === 'all') return '';
+  return { saleType };
+};
 
 export async function loadCollectorProducts({
   id,
@@ -29,7 +33,7 @@ export async function loadCollectorProducts({
         page: `${page}`,
         per_page: `${perPage}`,
         sortBy: sortBy,
-        ...(saleType && getSaleType(saleType)),
+        ...getSaleType(saleType),
         ...(search && { search }),
       },
     }),
