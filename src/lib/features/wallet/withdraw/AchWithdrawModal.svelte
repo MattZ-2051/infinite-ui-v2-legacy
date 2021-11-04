@@ -38,7 +38,7 @@
 </script>
 
 {#if isOpen}
-  <Modal {title}>
+  <Modal {title} class="max-w-lg">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       <div class="w-full mt-4">
         {#if $loadingAccounts}
