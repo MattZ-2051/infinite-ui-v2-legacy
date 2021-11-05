@@ -17,7 +17,9 @@
 
   const loadingAccounts = achAccountFetchFx.pending;
 
-  $: title = deleteMode ? 'Remove account' : 'Withdraw funds to';
+  $: [title, subtitle] = deleteMode
+    ? ['Remove account', 'Select an account to remove']
+    : ['Withdraw funds to', 'Select a bank account to withdraw funds to...'];
 
   function onSelected(achAccount: AchAccount) {
     if (deleteMode) {
@@ -44,6 +46,7 @@
         {#if $loadingAccounts}
           Loading ACH accounts...
         {:else if $achAccounts.length > 0}
+          <div class="mb-8 text-black-opacity-50 font-normal">{subtitle}</div>
           <div class="flex flex-col gap-2">
             {#each $achAccounts as achAccount}
               <AccountOption {achAccount} {deleteMode} on:click={() => onSelected(achAccount)} />
