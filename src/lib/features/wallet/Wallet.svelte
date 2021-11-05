@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
+  import { formatCurrency } from '$util/format';
   import CryptoCurrency from '$lib/payment/crypto/CryptoCurrency.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
@@ -19,12 +20,21 @@
   import SelectWithdrawMethodModal from './withdraw/SelectWithdrawMethodModal.svelte';
 
   export let tab: 'transactions' | 'bids';
-
+  const kycLevelNeeded = `Your wallet balance is currently >= ${formatCurrency(
+    10_000
+  )} USD, therefore, you will not be able to make deposits, withdrawals, purchases, and sales until you complete KYC level 2.`;
   $: isKycCleared = $wallet?.kycMaxLevel >= 1;
   $: isKycPending = $wallet?.kycPending;
 
-  function openDepositSelectModal() {
-    openModal(WalletDepositModal, { onDepositSelect });
+  function handleDepositSelectModal() {
+    if ($wallet.kycRequired) toast.danger(kycLevelNeeded);
+    else openModal(WalletDepositModal, { onDepositSelect });
+  }
+
+  function handleWithdrawSelectModal() {
+    if ($withdrawableBalance < 0) toast.danger('Whoops! You cannot withdraw funds since your balance is 0!');
+    else if ($wallet.kycRequired) toast.danger(kycLevelNeeded);
+    else openModal(SelectWithdrawMethodModal);
   }
 
   function openUpgradeKYCLevel() {
@@ -71,8 +81,6 @@
         break;
     }
   }
-
-  $: canWithdraw = $withdrawableBalance > 0;
 </script>
 
 <div
@@ -108,11 +116,6 @@
         {$wallet && getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
       </div>
     </div>
-    <WalletButtons
-      slot="sticky-cta"
-      {canWithdraw}
-      on:deposit={openDepositSelectModal}
-      on:withdraw={() => openModal(SelectWithdrawMethodModal)}
-    />
+    <WalletButtons slot="sticky-cta" on:deposit={handleDepositSelectModal} on:withdraw={handleWithdrawSelectModal} />
   </StickyColumn>
 </div>

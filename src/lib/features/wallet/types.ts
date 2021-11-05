@@ -2,6 +2,7 @@ export interface KycInfo {
   kycMaxLevel: number;
   kycPending: boolean;
   kycRecords: KycRecord[];
+  kycRequired: boolean;
 }
 
 export interface Wallet extends KycInfo {
