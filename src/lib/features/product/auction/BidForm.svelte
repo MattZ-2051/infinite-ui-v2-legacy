@@ -21,10 +21,6 @@
 
   $: acceptedBidPrice = maxPlacedBid ? maxPlacedBid + listing.auctionBidIncrement : listing.minBid;
 
-  // this could suffer from rounding issues
-  // ie, not accepting the exact displayed available balance due to upwards rounding
-  $: availableBalanceForBiding = $user?.availableBalance;
-
   const { form, reset } = createForm({
     onSubmit: async ({ placeBid }: { placeBid: string }) => {
       if (!$user) {
@@ -42,6 +38,7 @@
       }
 
       const amount = Number.parseFloat(placeBid);
+      const amountWithFee = amount + amount * fee;
 
       if (Number.isNaN(amount)) {
         return toast.danger(`Not a valid number.`);
@@ -51,9 +48,9 @@
           `The minimum bid amount is ${formatCurrency(acceptedBidPrice)}. Please place a higher bid.`
         );
       }
-      if (amount + amount * fee > availableBalanceForBiding) {
+      if (amountWithFee > $user['0'].availableBalance) {
         return toast.danger(
-          `Whoops! You don't have sufficient funds in your wallet to make this purchase! Your available balance is ${$user['0'].availableBalance} and you need ${acceptedBidPrice} to cover the bid and marketplace fee. <a href=${routes.wallet}>Click here</a> to deposit more funds.`
+          `Whoops! You don't have sufficient funds in your wallet to make this purchase! Your available balance is ${$user['0'].availableBalance} and you need ${amountWithFee} to cover the bid and marketplace fee. <a href=${routes.wallet}>Click here</a> to deposit more funds.`
         );
       }
 

@@ -3,9 +3,9 @@ import { createEffect } from 'effector';
 import { toast } from '$ui/toast';
 import { getQueryParameters } from '$util/queryParameter';
 import { CLIENT_SUPPORT_URL } from '$project/variables';
-import routes from '$project/routes';
 import { placeBid, loadProductBids } from './auction.api';
 import { fetchProductBidsFx, setProductBids } from '../product.store';
+import { placeBidFxErrorHandler } from './auctionErrorHandler';
 
 export const placeBidFx = createEffect(async ({ listing, amount }: { listing: Listing; amount: number }) => {
   await placeBid(listing._id, amount);
@@ -25,10 +25,8 @@ placeBidFx.done.watch(async ({ params: { listing } }) => {
   toast.success(message.join(' '));
 });
 
-placeBidFx.fail.watch(() => {
-  toast.danger(
-    `Whoops, something went wrong.  Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
-  );
+placeBidFx.fail.watch(({ error, params }) => {
+  placeBidFxErrorHandler(error, params.listing);
 });
 
 export const fetchBidsFx = createEffect(
