@@ -111,6 +111,7 @@ export type Listing = {
   _id: string;
   endDate: Date;
   minBid?: number;
+  minHighestBid?: number;
   issuer: Partial<Profile>;
   createdAt: Date;
   updatedAt: Date;
