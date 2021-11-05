@@ -2,7 +2,7 @@ import type { AchAccount } from '../types';
 import { createEffect } from 'effector';
 import { toast } from '$ui/toast';
 import { updateUser } from '$lib/user';
-import { withdrawToAchAccount, withdrawToUsdcAddress } from './account-withdraw.api';
+import { withdrawToAchAccount, withdrawToCryptoAddress } from './account-withdraw.api';
 import { loadMyTransactionsFx, loadWalletFx } from '../../wallet.store';
 
 export const achAccountWithdrawFx = createEffect(
@@ -12,7 +12,7 @@ export const achAccountWithdrawFx = createEffect(
 );
 
 export const usdcWithdrawFx = createEffect(async ({ amount, usdcAddress }: { amount: string; usdcAddress: string }) => {
-  await withdrawToUsdcAddress(amount, usdcAddress);
+  await withdrawToCryptoAddress(amount, 'USD', usdcAddress);
 });
 
 achAccountWithdrawFx.done.watch(() => {

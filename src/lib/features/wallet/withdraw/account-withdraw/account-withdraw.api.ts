@@ -5,9 +5,12 @@ export async function withdrawToAchAccount(accountId: string, amount: number) {
   await post(`wallet/ach/${accountId}/payouts`, { amount: formatApiCurrency(amount) });
 }
 
-export async function withdrawToUsdcAddress(amount: string, usdcAddress: string) {
+export async function withdrawToCryptoAddress(amount: string, currency: 'ETH' | 'USD', usdcAddress: string) {
   await post('wallet/crypto/payouts', {
-    amount: Number.parseFloat(amount || '0').toFixed(2),
-    usdcAddress,
+    amount: {
+      quantity: amount || '0',
+      currency,
+    },
+    address: usdcAddress,
   });
 }
