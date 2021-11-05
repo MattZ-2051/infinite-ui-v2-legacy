@@ -62,7 +62,7 @@
     <FormElement name="shippingNotes" label="Shipping Notes" />
 
     <div class="text-xs text-gray-600 max-w-sm">
-      Redeem this item and receive a copy on the following adress. Keep in mind that, by confirming this action, the
+      Redeem this item and receive a copy on the following address. Keep in mind that, by confirming this action, the
       digital and physical versions may suffer a price decrease.
     </div>
     <Button variant="brand" type="submit" disabled={$isSubmitting} class="mt-6">Redeem Now</Button>
