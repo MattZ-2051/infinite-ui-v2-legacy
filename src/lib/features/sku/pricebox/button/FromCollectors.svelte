@@ -22,7 +22,10 @@
   const collectorListing = collector?.listing;
   const isUniqueAuction = sku?.maxSupply === 1 && sku?.issuer?._id === collectorListing?.issuer?._id;
   const isUniqueProductListing = sku?.countProductListings === 1 && sku?.circulatingSupply === 1;
-
+  const minBid =
+    collectorListing?.saleType === 'auction'
+      ? Math.max(collectorListing?.minBid, collectorListing?.highestBid?.bidAmt || 0)
+      : 0;
   const href = isUniqueProductListing ? routes.product(collectorListing.product) : routes.collectors(sku._id);
 </script>
 
@@ -50,9 +53,7 @@
       <div class="flex justify-end items-center">
         <div>
           <div class="text-xl text-right">
-            {formatCurrencyWithOptionalFractionDigits(
-              Math.max(collectorListing?.minBid, collector?.highestBid?.bidAmt || 0)
-            )}
+            {formatCurrencyWithOptionalFractionDigits(minBid)}
           </div>
           <div class="text-gray-500 text-sm">{isUniqueAuction ? 'Highest Bid' : 'Starting at'}</div>
         </div>
@@ -89,7 +90,7 @@
       <div class="flex justify-end items-center">
         <div>
           <div class="text-xl text-right">
-            {formatCurrencyWithOptionalFractionDigits(collectorListing.price || collectorListing.minBid)}
+            {formatCurrencyWithOptionalFractionDigits(collectorListing.price || minBid)}
           </div>
           <div class="text-gray-500 text-sm">Lowest Listing Price</div>
         </div>
