@@ -1,3 +1,1 @@
-import SkuItemGrid from './SkuItemGrid.svelte';
-
-export { SkuItemGrid };
+export { default as SkuItemGrid } from './SkuItemGrid.svelte';

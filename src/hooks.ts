@@ -1,3 +1,1 @@
-import { getSessionFromCookie } from '$lib/auth/aws-cognito';
-
-export const getSession = getSessionFromCookie;
+export { getSessionFromCookie as getSession } from '$lib/auth/aws-cognito';
