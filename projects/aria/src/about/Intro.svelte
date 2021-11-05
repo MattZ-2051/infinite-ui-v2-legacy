@@ -15,7 +15,7 @@
 
 <section class="container py-0 flex flex-col gap-6 md:gap-12">
   <div class="flex justify-center flex-col items-center text-center gap-8 max-w-4xl mx-auto">
-    <h2 class="text-4xl text-gradient-primary">What is The ARIA Exchange?</h2>
+    <h2 class="text-4xl text-gradient-primary">What is ARIA Exchange?</h2>
     <p class="text-lg">
       We are a creative marketplace that partners with the world’s most iconic artists, athletes and brands to bring you
       the rarest mix of collectibles in the world. Our community platform allows you to discover, buy, and sell highly
@@ -59,7 +59,7 @@
       <span class="text-2xl">CURRENCY</span>
       <div class="space-y-4 max-w-sm">
         <p>Your money is good here.</p>
-        <p>We accept a wide range of payment options, including Ether, Bitcoin, Credit Cards and USDC.</p>
+        <p>We accept a wide range of payment options, including Credit Cards, Bitcoin, Ether, HBAR, and USDC.</p>
       </div>
     </div>
   </div>
@@ -84,7 +84,7 @@
           <Image src={deposit} />
         </div>
         <div class="flex flex-col text-center ">
-          <p>Create your ARIA account & fund your wallet with a currency of your choosing.</p>
+          <p>Create your ARIA Exchange account & fund your wallet with a currency of your choosing.</p>
         </div>
       </div>
       <div class="flex items-center justify-center transform rotate-90 md:transform-none text-gray-800">
