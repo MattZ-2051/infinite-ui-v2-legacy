@@ -10,6 +10,7 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatDate, formatCurrency } from '$util/format';
   import routes from '$project/routes';
+  import { wallet } from '$lib/features/wallet/wallet.store';
   import { auctionEnded } from '../product.store';
 
   export let listing: Listing;
@@ -31,6 +32,13 @@
       }
       if (!placeBid) {
         return toast.danger(`Whoops! Please let us know how much you'd like to bid for this collectible.`);
+      }
+      if ($wallet.kycRequired) {
+        return toast.danger(
+          `Your wallet balance is currently >= ${formatCurrency(
+            10_000
+          )} USD, therefore, you will not be able to make deposits, withdrawals, purchases, and sales until you complete KYC level 2.`
+        );
       }
 
       const amount = Number.parseFloat(placeBid);

@@ -12,6 +12,7 @@
   import { toast } from '$ui/toast';
   import routes from '$project/routes';
   import { skuBought } from '$lib/features/sku/sku.store';
+  import { wallet } from '$lib/features/wallet/wallet.store';
   import OrderProductPricing from './OrderProductPricing.svelte';
   import { purchaseSkuListing, claimGiveawaySkuListing } from './order.api';
   import { handleSkuClaimError } from './order.service';
@@ -31,6 +32,13 @@
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
 
   async function submitOrder() {
+    if ($wallet.kycRequired) {
+      return toast.danger(
+        `Your wallet balance is currently >= ${formatCurrency(
+          10_000
+        )} USD, therefore, you will not be able to make deposits, withdrawals, purchases, and sales until you complete KYC level 2.`
+      );
+    }
     if (!acceptedTerms || (sku?.customNftTerms && !acceptedTermsNft)) {
       toast.danger('Please agree to the Terms and Conditions in order to move forward.');
       return;
