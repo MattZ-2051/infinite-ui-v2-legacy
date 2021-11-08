@@ -8,6 +8,7 @@
   import Button from '$lib/components/Button.svelte';
   import { FormElement, FormCountriesSelect } from '$lib/components/form';
   import routes from '$project/routes';
+  import { user } from '$lib/user';
   import { redeemItem } from './redeem.api';
   import { productRedeemed } from '../product.store';
 
@@ -27,7 +28,7 @@
   const { form, errors, reset, isSubmitting } = createForm<RedeemInfo>({
     onSubmit: async (values) => {
       try {
-        await redeemItem({ ...values }, id);
+        await redeemItem({ ...values, name: $user.firstName }, id);
         notifications.success(
           `Congrats! You've successfully redeemed this item. Learn more about the redemption process <a href=${routes.help}>here</a>.`
         );
