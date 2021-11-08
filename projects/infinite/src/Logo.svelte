@@ -1,4 +1,4 @@
-<svg width="233" height="40" viewBox="0 0 233 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="100%" height="40" viewBox="0 0 233 40" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path
     fill-rule="evenodd"
     clip-rule="evenodd"

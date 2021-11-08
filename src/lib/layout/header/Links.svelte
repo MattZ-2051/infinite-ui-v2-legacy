@@ -37,9 +37,9 @@
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
     <button type="button" on:click={routes.signout} class="header-link">Sign Out</button>
   {:else}
-    <Menu placement="bottom-start">
-      <MenuTrigger slot="trigger" class="header-link">
-        <div class="flex sm:gap-1 md:gap-1.5 ">
+    <Menu placement="bottom-start" class="min-w-0">
+      <MenuTrigger slot="trigger" class="header-link w-full">
+        <div class="flex sm:gap-1 md:gap-1.5 w-full">
           {#if user.profilePhotoUrl}
             <img class="w-6 object-cover rounded-full" src={user.profilePhotoUrl} alt="" />
           {:else}

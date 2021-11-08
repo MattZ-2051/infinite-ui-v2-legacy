@@ -22,11 +22,11 @@
         </div>
       {/if}
       <div class="container links-container flex justify-between items-center py-3">
-        <a href={routes.index} aria-label="Home" class="self-end flex gap-1 mr-3 items-end"><Logo /> </a>
+        <a href={routes.index} aria-label="Home" class="self-end flex gap-1 mr-2 sm:mr-3 items-end"><Logo /> </a>
         <slot name="support" klass="text-current ml-auto mr-3 sm:mr-5 md:hidden" size={1.25} />
         <div class="flex md:hidden">
           {#if $$slots.credits}
-            <div class="self-center mr-2 sm:mr-4 hidden sm:block">
+            <div class="self-center mr-2 sm:mr-4 sm:block">
               <slot name="credits" />
             </div>
           {/if}
@@ -36,12 +36,12 @@
             class="md:hidden text-default"
           />
         </div>
-        <div class="hidden md:flex gap-1 md:gap-5 lg:gap-12 md:items-center">
+        <div class="hidden md:flex gap-1 md:gap-5 lg:gap-12 md:items-center min-w-0">
           <Links {links} {user} />
           <slot name="support" klass="header-link" size="1.25rem" />
         </div>
         {#if $$slots.credits}
-          <div class="self-center hidden md:flex md:items-center">
+          <div class="self-center hidden md:flex md:items-center ml-2">
             <slot name="credits" />
           </div>
         {/if}
