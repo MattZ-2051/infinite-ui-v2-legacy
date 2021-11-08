@@ -121,7 +121,7 @@
         <Button variant="brand" class="mb-4" on:click={closeAllModals}>Back to My Wallet</Button>
       {:else if status === 'withdrawal-error'}
         <Button variant="brand" on:click={onConfirm} disabled={$pending}>Try Again</Button>
-        <Button variant="outline-brand" on:click={closeModal}>Select Another Payment Method</Button>
+        <Button variant="outline-brand" on:click={closeModal}>Select Another Withdrawal Method</Button>
       {/if}
     </div>
   </Modal>
