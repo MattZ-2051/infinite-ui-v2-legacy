@@ -22,7 +22,7 @@ specifiers:
   '@sveltejs/adapter-netlify': 1.0.0-next.35
   '@sveltejs/adapter-node': 1.0.0-next.55
   '@sveltejs/adapter-static': 1.0.0-next.21
-  '@sveltejs/kit': 1.0.0-next.194
+  '@sveltejs/kit': 1.0.0-next.192
   '@tailwindcss/forms': 0.3.4
   '@tailwindcss/line-clamp': 0.2.2
   '@testing-library/jest-dom': 5.15.0
@@ -72,6 +72,7 @@ specifiers:
   prettier: ~2.4.1
   prettier-plugin-svelte: 2.4.0
   simple-icons: 5.21.1
+  stream: ^0.0.2
   strip-json-comments: 4.0.0
   svelte: 3.44.1
   svelte-check: 2.2.8
@@ -116,6 +117,7 @@ dependencies:
   jwk-to-pem: 2.0.5
   p-debounce: 4.0.0
   simple-icons: 5.21.1
+  stream: 0.0.2
   svelte-media: 0.1.5_svelte@3.44.1
   svelte-popperjs: 1.2.6_@popperjs+core@2.10.2
   svelte-previous: 2.0.0
@@ -143,7 +145,7 @@ devDependencies:
   '@sveltejs/adapter-netlify': 1.0.0-next.35
   '@sveltejs/adapter-node': 1.0.0-next.55
   '@sveltejs/adapter-static': 1.0.0-next.21
-  '@sveltejs/kit': 1.0.0-next.194_svelte@3.44.1
+  '@sveltejs/kit': 1.0.0-next.192_svelte@3.44.1
   '@testing-library/jest-dom': 5.15.0
   '@testing-library/svelte': 3.0.3_svelte@3.44.1
   '@types/yup': 0.29.13
@@ -5923,8 +5925,8 @@ packages:
     resolution: {integrity: sha512-B4+QoUVAaANKx+mHntG8SqF45zbj3Ct4Akg/cGauo6COyfKZRhO5OsMa+wPuT2TKJBZC4eEDK0p+p9nyQBkxKQ==}
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.194_svelte@3.44.1:
-    resolution: {integrity: sha512-xM6BKLZkfYUEy0JXwglhCqBF58S8K4Lt7K7TdLMirrO4gtnZlhg8yhMsG+dYM257Fq0ucS7d/72QgXJfnfURZA==}
+  /@sveltejs/kit/1.0.0-next.192_svelte@3.44.1:
+    resolution: {integrity: sha512-8LyPeEwxzMFMMr05I27j77qgvBdw92eVCH+W8+nW8kA7dkfA1e38GZXEb3qshd0Jez2Cng8MAzVMoETzGaQcng==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -9371,6 +9373,10 @@ packages:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
+
+  /emitter-component/1.1.1:
+    resolution: {integrity: sha1-Bl4tvtaVm/RwZ57avq95gdEAOrY=}
+    dev: false
 
   /emittery/0.7.2:
     resolution: {integrity: sha512-A8OG5SR/ij3SsJdWDJdkkSYUjQdCUx6APQXem0SaEePBSRg4eymGYwBkKo1Y6DU+af/Jn2dBQqDBvjnr9Vi8nQ==}
@@ -16518,6 +16524,12 @@ packages:
   /stream-shift/1.0.1:
     resolution: {integrity: sha512-AiisoFqQ0vbGcZgQPY1cdP2I76glaVA/RauYR4G4thNFgkTqr90yXTo4LYX60Jl+sIlPNHHdGSwo01AvbKUSVQ==}
     dev: true
+
+  /stream/0.0.2:
+    resolution: {integrity: sha1-f1Nj8Ff2WSxVlfALyAon9c7B8O8=}
+    dependencies:
+      emitter-component: 1.1.1
+    dev: false
 
   /strict-event-emitter/0.2.0:
     resolution: {integrity: sha512-zv7K2egoKwkQkZGEaH8m+i2D0XiKzx5jNsiSul6ja2IYFvil10A59Z9Y7PPAAe5OW53dQUf9CfsHKzjZzKkm1w==}
