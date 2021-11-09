@@ -72,7 +72,7 @@
     <div class="mx-auto text-2xl text-center max-w-6xl space-y-4">
       <p>
         ARIA Exchange creates and sells innovative, culturally driven collectibles for the world’s most iconic athletes,
-        entertainers, artists, and brands. We’re experts at merging the digital universe with unforgettable physical
+        entertainers, artists, and brands. We are experts at merging the digital universe with unforgettable physical
         experiences to deliver the most cutting-edge collectibles ever created.
       </p>
       <p>Let us help you bring your vision into the future.</p>
