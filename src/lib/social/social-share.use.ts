@@ -1,4 +1,4 @@
-import type { Profile, Sku, SocialFileAsset } from '$lib/sku-item/types';
+import type { Profile, Sku, Product, SocialFileAsset } from '$lib/sku-item/types';
 import { isMobile } from 'web-social-share/dist/collection/utils/utils';
 import { browser } from '$app/env';
 import { openModal } from '$ui/modals';
@@ -17,15 +17,21 @@ async function onShareApi({ text, url }) {
   });
 }
 
-export default function socialShare(node: HTMLButtonElement, data: { profile?: Profile; sku?: Sku }) {
+export default function socialShare(
+  node: HTMLButtonElement,
+  data: { profile?: Profile; sku?: Sku; product?: Product }
+) {
   let text = '';
   let socialImage: SocialFileAsset;
 
   if (data.profile) {
     text = `Meet ${data.profile.username}`;
     socialImage = chooseProfileSocialImage(data.profile);
+  } else if (data.product) {
+    text = `Check out my NFT collectible! ${data.product.sku.name}`;
+    socialImage = chooseSkuSocialImage(data.product.sku);
   } else if (data.sku) {
-    text = `Check out my NFT collectible! ${data.sku.name}`;
+    text = `Check out this NFT collectible! ${data.sku.name}`;
     socialImage = chooseSkuSocialImage(data.sku);
   }
 
@@ -37,8 +43,8 @@ export default function socialShare(node: HTMLButtonElement, data: { profile?: P
     }
 
     let title = 'Share';
-    if (data.sku) {
-      title = 'Share this Collectible';
+    if (data.sku || data.product) {
+      title = 'Share this collectible';
     }
     openModal(SocialShareModal, { text, url, title, image: socialImage?.url || CLIENT_SOCIAL_IMAGE.url });
   };

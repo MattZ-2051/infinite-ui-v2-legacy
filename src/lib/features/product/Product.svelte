@@ -43,15 +43,15 @@
           {#if isProductOwner}
             <button
               type="button"
-              class="flex items-center justify-center gap-2 text-center text-base p-2 md:px-5 rounded-full bg-gray-100"
-              use:socialShareAction={$product}
+              class="share flex items-center justify-center gap-2 text-center text-base p-2 md:px-5 rounded-full bg-gray-100"
+              use:socialShareAction={{ product: $product }}
               ><Icon path={shareIcon} size="1" class="transform scale-90 sm:scale-100 md:scale-110" /><span
                 class="hidden md:inline">Share</span
               ></button
             >
           {/if}
           {#if browser && history.length > 1}
-            <button type="button" on:click={onClose} class="rounded-full bg-gray-100 text-white">
+            <button type="button" on:click={onClose} class="close rounded-full bg-gray-100 text-white">
               <Icon path={mdiClose} size="1.75" class="transform scale-90 sm:scale-100 md:scale-110 p-1 rounded-full" />
               <span class="sr-only">Back</span>
             </button>
@@ -84,5 +84,11 @@
     .sticky-content {
       height: 100%;
     }
+  }
+  .share:hover,
+  .close:hover {
+    color: var(--button-brand-color-hover);
+    background-color: var(--button-brand-bg-color-hover);
+    border-color: var(--button-brand-border-color-hover);
   }
 </style>
