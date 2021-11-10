@@ -74,15 +74,15 @@
           variant="rounded"
           type="text"
           id="address"
-          placeholder="Enter USDC Address"
+          placeholder="Enter USDC address"
           class="bg-gray-50 py-3"
           bind:value={usdcAddress}
         />
       </div>
       <div class="mt-8">
         <div class="text-black-opacity-50 text-base mb-4">
-          This is a USDC (Ethereum mainnet) address. Please do not send any other currencies to this address, it accepts
-          USDC only.
+          This needs to be your USDC (Ethereum mainnet) address. If you enter an incorrect address then these funds may
+          not be recoverable.
         </div>
       </div>
       <div class="flex mt-8 flex-col">

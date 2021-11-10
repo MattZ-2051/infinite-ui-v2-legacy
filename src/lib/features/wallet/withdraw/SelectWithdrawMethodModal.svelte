@@ -22,8 +22,8 @@
   };
 
   const options: WithdrawOption[] = [
-    { id: 'ach', title: 'ACH', subtitle: 'Bank Account', image: achImg, alt: 'ACH withdraw' },
-    { id: 'usdc', title: 'USDC Coin', subtitle: 'Pay with USDC', image: usdcImg, alt: 'USDC withdraw' },
+    { id: 'ach', title: 'ACH', subtitle: 'Withdraw to bank account', image: achImg, alt: 'ACH withdraw' },
+    { id: 'usdc', title: 'USDC Coin', subtitle: 'Withdraw to USDC address', image: usdcImg, alt: 'USDC withdraw' },
   ];
 
   const handleWithdrawSelection = (id) => {
@@ -36,7 +36,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Withdraw">
+  <Modal title="Select a withdraw method">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       {#each options as option (option.id)}
         <div

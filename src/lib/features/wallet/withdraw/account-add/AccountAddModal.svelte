@@ -2,7 +2,7 @@
   import { mdiBank } from '@mdi/js';
   import Button from '$lib/components/Button.svelte';
   import { user } from '$lib/user';
-  import { Modal } from '$ui/modals';
+  import { Modal, closeModal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import AccountAddForm from './AccountAddForm.svelte';
   import { achAccountAdded } from './account-add.store';
@@ -23,7 +23,12 @@
       <div class="text-black-opacity-40 pt-4">Complete this form to add a new bank account</div>
       <div class="pt-6">Details</div>
       {#if $user}
-        <AccountAddForm onSubmit={registerOnSubmit} user={$user} on:account-added={() => achAccountAdded()} />
+        <AccountAddForm
+          onSubmit={registerOnSubmit}
+          user={$user}
+          on:account-added={() => achAccountAdded()}
+          on:close={() => closeModal()}
+        />
       {/if}
     </div>
     <div slot="footer" class="flex flex-col gap-4">

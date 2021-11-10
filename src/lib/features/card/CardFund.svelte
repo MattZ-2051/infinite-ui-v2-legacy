@@ -19,6 +19,7 @@
   export let card: CreditCard;
 
   $: isActive = card.status === 'complete' && card.verification?.cvv === 'pass';
+  $: isPending = card.status === 'pending';
 
   const saving = creditCardFundsAddFx.pending;
   const removing = creditCardRemoveFx.pending;
@@ -105,7 +106,7 @@
       />
     </div>
     <div
-      use:tooltip={card.status === 'pending'
+      use:tooltip={isPending
         ? 'Please wait a few moments while your credit card is activated. This can take up to 2 minutes.'
         : ''}
       class="w-full"

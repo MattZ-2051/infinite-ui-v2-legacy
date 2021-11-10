@@ -19,7 +19,7 @@ achAccountWithdrawFx.done.watch(() => {
   loadWalletFx();
   updateUser();
   loadMyTransactionsFx({});
-  toast.success('Congrats! Your Withdrawal is processing. ');
+  toast.success('Congrats! Your withdrawal is processing. ');
 });
 
 usdcWithdrawFx.done.watch(() => {
