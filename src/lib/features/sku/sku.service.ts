@@ -26,18 +26,11 @@ export const getLimitedAuctionCollector = (sku: Sku, collectors: CollectorProduc
   }
 };
 
-export const getLowestActiveListing = (collectors: CollectorProduct[]): CollectorProduct | undefined => {
-  if (collectors.length === 0) return undefined;
-  const collectorsWithListings = collectors?.filter((collector) => {
-    const saleType = collector?.listing?.saleType;
-    const status = collector?.listing?.status;
-    return (saleType === 'auction' || saleType === 'fixed') && (status === 'upcoming' || status === 'active');
-  });
-
-  return collectorsWithListings?.length > 0
-    ? collectorsWithListings?.reduce((previousListing, currentListing) => {
-        return (previousListing?.listing?.price || previousListing?.listing?.minBid) <
-          (currentListing?.listing?.price || currentListing?.listing?.minBid)
+export const getLowestProductListing = (listings: Listing[]): Listing | undefined => {
+  return listings.length > 0
+    ? listings?.reduce((previousListing, currentListing) => {
+        return (Math.max(previousListing.minHighestBid || 0, previousListing.minBid || 0) || previousListing.price) <
+          (Math.max(currentListing.minHighestBid || 0, currentListing.minBid || 0) || currentListing.price)
           ? previousListing
           : currentListing;
       })

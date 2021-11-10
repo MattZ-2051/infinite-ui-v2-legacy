@@ -5,7 +5,7 @@
     getActiveListings,
     getUpcomingListings,
     getLimitedAuctionCollector,
-    getLowestActiveListing,
+    getLowestProductListing,
   } from '../sku.service';
   import { loadProduct } from '../../product/product.api';
   import FromCreator from './button/FromCreator.svelte';
@@ -35,23 +35,20 @@
   $: upcomingNftGiveAway = upcomingSkuListings[0]?.saleType === 'giveaway';
   $: noSale = sku.totalSupplyLeft === 0 && sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
   $: noCollectorSales = sku.activeProductListings?.length === 0 && sku.upcomingProductListings?.length === 0;
-  $: lowestPriceListingCollector = getLowestActiveListing(collectors);
-  $: isActiveSale =
-    lowestPriceListingCollector?.listing?.saleType === 'fixed' &&
-    lowestPriceListingCollector?.listing?.status === 'active';
+  $: lowestActivePriceListing = getLowestProductListing(sku.activeProductListings);
+  $: lowestUpcomingPriceListing = getLowestProductListing(sku.upcomingProductListings);
+  $: isActiveSale = lowestActivePriceListing?.saleType === 'fixed' && lowestActivePriceListing?.status === 'active';
   $: isActiveAuction =
-    lowestPriceListingCollector?.listing?.saleType === 'auction' &&
-    lowestPriceListingCollector?.listing?.status === 'active';
+    lowestActivePriceListing?.saleType === 'auction' && lowestActivePriceListing?.status === 'active';
   $: isUpcomingAuction =
-    lowestPriceListingCollector?.listing?.saleType === 'auction' &&
-    lowestPriceListingCollector?.listing?.status === 'upcoming';
+    lowestUpcomingPriceListing?.saleType === 'auction' && lowestUpcomingPriceListing?.status === 'upcoming';
 
-  $: hasActiveAuctionListing = collectors?.some((collectorInfo) => {
-    return collectorInfo?.listing?.saleType === 'auction' && collectorInfo?.listing?.status === 'active';
+  $: hasActiveAuctionListing = sku.activeProductListings?.some((listing) => {
+    return listing?.saleType === 'auction' && listing?.status === 'active';
   });
 
-  $: hasActiveFixedListing = collectors?.some((collectorInfo) => {
-    return collectorInfo?.listing?.saleType === 'fixed' && collectorInfo?.listing?.status === 'active';
+  $: hasActiveFixedListing = sku.activeProductListings?.some((listing) => {
+    return listing?.saleType === 'fixed' && listing?.status === 'active';
   });
 </script>
 
@@ -72,15 +69,15 @@
 
   {#if totalCollectors > 0}
     {#if hasActiveAuctionListing && hasActiveFixedListing}
-      <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeAuctionAndSale" />
+      <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuctionAndSale" />
     {:else if isActiveSale}
-      <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeSale" />
+      <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeSale" />
     {:else if isActiveAuction}
-      <FromCollectors {sku} collector={lowestPriceListingCollector} status="activeAuction" />
+      <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuction" />
     {:else if isUpcomingAuction}
-      <FromCollectors {sku} collector={lowestPriceListingCollector} status="upcomingAuction" />
+      <FromCollectors {sku} collectorListing={lowestUpcomingPriceListing} status="upcomingAuction" />
     {:else if noCollectorSales}
-      <FromCollectors {sku} collector={lowestPriceListingCollector} status="noneForSale" />
+      <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="noneForSale" />
     {/if}
   {/if}
 </div>
