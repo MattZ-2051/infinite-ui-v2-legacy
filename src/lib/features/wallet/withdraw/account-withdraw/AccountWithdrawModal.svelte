@@ -90,7 +90,7 @@
           <p class="text-black">
             Withdrawable Balance <span class="font-semibold">{formatCurrency(withdrawableAmount)}</span>
           </p>
-          <p class="text-xs uppercase">
+          <p class="text-xs">
             (The withdrawable amount excludes pending transactions and credit card payments less than 30 days old.)
           </p>
         </div>
