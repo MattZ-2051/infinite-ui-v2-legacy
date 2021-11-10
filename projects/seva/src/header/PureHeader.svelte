@@ -10,6 +10,6 @@
 
 <HeaderLayout {links} {user}>
   <a href="https://infiniteworld.com" slot="credits">
-    <PoweredByInfinite width="100%" />
+    <PoweredByInfinite />
   </a>
 </HeaderLayout>
