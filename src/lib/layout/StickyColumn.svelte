@@ -90,7 +90,13 @@
 
   @screen lg {
     .grid {
-      --split: 0.65;
+      --split: var(--lg-split, 0.65);
+    }
+  }
+
+  @screen xl {
+    .grid {
+      --split: var(--xl-split, 0.65);
     }
   }
 

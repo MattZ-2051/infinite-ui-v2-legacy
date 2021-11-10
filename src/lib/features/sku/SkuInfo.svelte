@@ -38,7 +38,7 @@
     {/if}
   </div>
   <div class="p-6 border-b border-opacity-20 flex justify-between">
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 min-w-0 mr-3">
       <div class="text-gray-500 text-sm">Created by</div>
       <TalentLink profile={sku.issuer} />
     </div>
