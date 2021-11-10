@@ -24,7 +24,7 @@
   export let tab: 'transactions' | 'bids';
   const kycLevelNeeded = `Your wallet balance is currently >= ${formatCurrency(
     10_000
-  )} USD, therefore, you will not be able to make deposits, withdrawals, purchases, and sales until you complete KYC level 2.`;
+  )} USD, therefore, you will not be able to make deposits, withdrawals, purchases until you complete KYC level 2.`;
   $: isKycCleared = $wallet?.kycMaxLevel >= 1;
   $: isKycPending = $wallet?.kycPending;
 
