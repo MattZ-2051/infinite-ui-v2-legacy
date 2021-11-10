@@ -82,7 +82,7 @@
     autocomplete="off"
     class="h-20 md:h-auto w-full text-default placeholder-gray-400 text-2xl text-center md:pl-10 md:text-left focus:outline-none focus:border-blue-500 bg-transparent"
     name="placeBid"
-    placeholder="Bid Amount $$"
+    placeholder="Enter bid $"
   />
   <Button
     variant="brand"
