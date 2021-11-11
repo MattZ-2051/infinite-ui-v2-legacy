@@ -6,7 +6,7 @@ export const placeBidFxErrorHandler = (error, listing: Listing) => {
   switch (error.data.appCode) {
     case 'NO_BIG_ENOUGH_BID':
       toast.danger(
-        `The bid amounts needs to be at least $${listing.auctionBidIncrement} more than the highest bid. Please place a higher bid.`
+        `The bid amount needs to be at least $${listing.auctionBidIncrement} more than the highest bid. Please place a higher bid.`
       );
       break;
     case 'NO_ENOUGH_BALANCE':
