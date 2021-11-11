@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Tabs, Tab } from '$ui/tabs';
   import { gotoQueryParameters } from '$util/queryParameter';
+  import { user } from '$lib/user';
   import Sort from '$lib/components/Sort.svelte';
   import TransactionList from './transaction/TransactionList.svelte';
   import BidList from './bid/BidList.svelte';
@@ -12,16 +13,17 @@
     { name: 'Oldest', value: 'createdAt:asc' },
   ];
 
-  const transactionTypes = [
+  let transactionTypes = [
     { name: 'All types', value: '' },
     { name: 'Deposit', value: 'deposit' },
     { name: 'Withdrawal', value: 'withdrawal' },
     { name: 'Purchase', value: 'purchase' },
     { name: 'Sale', value: 'sale' },
-    { name: 'Royalty fee', value: 'royalty_fee' },
     { name: 'Claim', value: 'claim' },
     { name: 'NFT redeem', value: 'nft_redeem' },
   ];
+
+  if ($user.role !== 'user') transactionTypes.push({ name: 'Royalty fee', value: 'royalty_fee' });
 
   function redirect(parameters) {
     gotoQueryParameters(
