@@ -29,7 +29,7 @@ export async function send<T>(path: string, _options?: ApiOptions): Promise<{ he
 
   let url = buildFullPath(baseUrl, path);
 
-  if (baseUrl === variables.apiUrl) {
+  if (url.startsWith(variables.apiUrl)) {
     options.headers = { ...options.headers, 'X-Tenant': CLIENT_API_HEADER };
   }
 

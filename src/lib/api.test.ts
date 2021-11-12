@@ -9,8 +9,6 @@ const defaultApiOptions = {
 jest.mock('$lib/variables', () => ({
   variables: {
     apiUrl: 'http://api',
-    ethNetwork: { apiUrl: 'http://eth', explorerBaseUrl: 'http://explorer' },
-    bitcoinNetwork: { apiUrl: 'http://bitcoin', explorerBaseUrl: 'http://btc-explore' },
   },
 }));
 
@@ -58,7 +56,6 @@ describe('API', () => {
       await send('http://my-absolute.path', { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', {
         ...defaultApiOptions,
-        headers: { 'X-Tenant': CLIENT_API_HEADER },
       });
     });
 
