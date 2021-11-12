@@ -7,7 +7,7 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
 
   export let bid: Bid;
-  const bidExceed = bid.listing.highestBid.bidAmt > bid.bidAmt;
+  $: bidExceed = bid.listing.highestBid.bidAmt > bid.bidAmt;
 </script>
 
 <a href={routes.product(bid.listing.product._id)} class="py-6 flex li-style justify-between font-medium">
