@@ -24,13 +24,13 @@
       <SkuEdition {sku} {product} />
     </div>
   </div>
-  <div class="grid grid-cols-2 p-4 gap-4">
-    <div class="flex flex-col gap-2">
+  <div class="flex p-4 gap-4">
+    <div class="flex flex-col gap-2 flex-1 min-w-0">
       <span class="text-sm text-gray-500">Creator</span>
       <TalentLink profile={sku.issuer} />
     </div>
     {#if sku.redeemable}
-      <div class="flex flex-col gap-2 items-end">
+      <div class="flex flex-col gap-2 items-end flex-1">
         <span class="text-sm text-gray-500">Status</span>
         <IconRedeem size={18}>Redeemable</IconRedeem>
       </div>
