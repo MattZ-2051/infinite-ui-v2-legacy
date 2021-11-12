@@ -100,6 +100,11 @@
     }
   }
 
+  @screen 2xl {
+    .grid {
+      --split: var(--2xl-split, 0.65);
+    }
+  }
   .sticky-content-wrapper {
     top: var(--header-height);
   }

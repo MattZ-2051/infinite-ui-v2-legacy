@@ -26,7 +26,7 @@
   }
 </script>
 
-<StickyColumn fitOnScreenContent --lg-split="0.57">
+<StickyColumn fitOnScreenContent --xl-split="0.55" --lg-split="0.51">
   <div slot="onscreen-content" class="flex flex-col justify-between h-full">
     <Gallery items={$sku.nftPublicAssets} />
   </div>
