@@ -41,7 +41,7 @@
   }
 
   function handleWithdrawSelectModal() {
-    if ($withdrawableBalance < 0) toast.danger('Whoops! You cannot withdraw funds since your balance is 0!');
+    if ($withdrawableBalance <= 0) toast.danger('Whoops! You cannot withdraw funds since your balance is 0!');
     else if ($wallet.kycRequired) toast.danger(kycLevelNeeded);
     else openModal(SelectWithdrawMethodModal);
   }
