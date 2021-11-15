@@ -22,7 +22,6 @@ export const skuBought = createEvent();
 
 skuBought.watch(async () => {
   const id = sku.getState()?._id;
-
   if (id) {
     const data = await loadSkuFx({ id });
     setSku(data);

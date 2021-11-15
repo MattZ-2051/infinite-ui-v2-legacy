@@ -1,5 +1,5 @@
 import type { Awaited } from 'ts-essentials';
-import type { Transaction, Product, Bid } from '$lib/sku-item/types';
+import type { Transaction, Product, Bid, TransactionData } from '$lib/sku-item/types';
 import { createEffect, createStore, createEvent, forward } from 'effector';
 import { browser } from '$app/env';
 import { getQueryParameters } from '$util/queryParameter';
@@ -176,39 +176,56 @@ export const polls = createStore({}).on(pendingBuyCreated, (state, payload) => {
 pollTransactionFx.doneData.watch(async (response) => {
   if (response.transactions.length > 0) {
     if (product.getState() !== null) {
+      //buying a product
       const $product = product.getState();
       const pendingTx = response.transactions.find((tx) => {
-        return tx.transactionData.listing === $product.listing._id;
+        return tx.transactionData.product._id === $product._id;
       });
 
-      if (pendingTx.status === 'success') {
-        await refetchProductFx();
+      if (pendingTx?.status === 'success') {
         const $polls = polls.getState();
-        $polls[$product._id].stop();
+        if ($polls[$product._id].$isActive) {
+          //added check to avoid having more than one message due to race conditions (not best solution but will do for now.)
+          $polls[$product._id].stop();
+          transactionSuccessMessage();
+          await refetchProductFx();
+        }
+      }
+      if (pendingTx?.status === 'error') {
+        const $polls = polls.getState();
+        if ($polls[$product._id].$isActive) {
+          $polls[$product._id].stop();
+          toast.danger('The transaction could not be processed.');
+        }
       }
     } else {
+      //buying a sku
       const $sku = sku.getState();
       const pendingTx = response.transactions.find((tx) => {
         return tx.transactionData.listing === $sku.activeSkuListings[0]._id;
       });
 
-      if (pendingTx.status === 'success') {
+      if (pendingTx?.status === 'success') {
         const $polls = polls.getState();
         $polls[$sku._id].stop();
         skuBought();
         const transactionData = pendingTx.transactionData;
-
-        toast.success(
-          `Congrats! Your NFT purchase was processed successfully! Click <a href=${routes.product(
-            transactionData.product._id
-          )}>here</a> to view your new collectible: ${transactionData.sku.name} #${
-            transactionData.product.serialNumber
-          }.`
-        );
-      }
+        transactionSuccessMessage(transactionData);
+      } // we will probably need to check this case for errors also.
     }
   }
 });
+
+const transactionSuccessMessage = (transactionData?: TransactionData) => {
+  toast.success(
+    `Congrats! Your NFT purchase was processed successfully!` +
+      (!transactionData
+        ? ''
+        : ` Click <a href=${routes.product(transactionData.product._id)}>here</a> to view your new collectible: ${
+            transactionData.sku.name
+          } #${transactionData.product.serialNumber}.`)
+  );
+};
 
 const productBoughtSuccessFx = createEffect(() => {
   toast.success('Your order has been completed.');
