@@ -21,7 +21,7 @@
   };
 
   const onConfirm = async () => {
-    if (!amount || amount < 0) {
+    if (!amount || amount <= 0) {
       toast.danger(`Please, provide a valid amount.`);
       return;
     }
