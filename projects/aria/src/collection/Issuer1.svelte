@@ -11,17 +11,21 @@
 
   export let profile: Profile;
 
-  const photos = Object.fromEntries(
-    profile.profilePhotoUrls.map(({ position, url }) => {
-      return [position, { url }];
-    })
-  );
+  const photos = profile.profilePhotoUrls
+    ? Object.fromEntries(
+        profile.profilePhotoUrls?.map(({ position, url }) => {
+          return [position, { url }];
+        })
+      )
+    : [];
 
-  const textFields = Object.fromEntries(
-    profile.profileTextFields.map(({ position, text }) => {
-      return [position, text];
-    })
-  );
+  const textFields = profile.profileTextFields
+    ? Object.fromEntries(
+        profile.profileTextFields?.map(({ position, text }) => {
+          return [position, text];
+        })
+      )
+    : [];
 </script>
 
 <ThemeContext id="issuer">
@@ -62,7 +66,9 @@
           </h1>
           <div class="relative text-white text-3xl font-medium">
             <span>{textFields[2] || ''}</span>
-            <img src={photos[1].url} alt="signature" class="float-right" />
+            {#if photos[1] && photos[1].url}
+              <img src={photos[1].url} alt="signature" class="float-right" />
+            {/if}
           </div>
 
           <div class="text-gray-600 text-xl">
@@ -71,22 +77,24 @@
         </div>
       </div>
       <div class="px-6 w-1/1 md:w-1/2 lg:w-5/12">
-        <img src={photos[2].url} alt="" />
+        <img src={photos[2] && photos[2].url} alt="" />
       </div>
     </div>
-    <video
-      use:videoDisableOptions
-      src={photos[3].url}
-      playsinline
-      autoplay
-      loop
-      muted
-      controls
-      style="object-fit: cover; margin:auto;"
-    />
+    {#if photos[3] && photos[3].url}
+      <video
+        use:videoDisableOptions
+        src={photos[3].url}
+        playsinline
+        autoplay
+        loop
+        muted
+        controls
+        style="object-fit: cover; margin:auto;"
+      />
+    {/if}
   </div>
   <slot />
-  {#if photos[4].url}
+  {#if photos[4] && photos[4].url}
     <img src={photos[4].url} alt="" class="m-auto" />
   {/if}
 </ThemeContext>
