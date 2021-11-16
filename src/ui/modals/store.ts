@@ -53,7 +53,7 @@ export function closeModals(amount = 1): void {
  * Closes the current modal component
  */
 export function closeModal(): void {
-  return closeModals(2);
+  return closeModals(1);
 }
 
 /**
