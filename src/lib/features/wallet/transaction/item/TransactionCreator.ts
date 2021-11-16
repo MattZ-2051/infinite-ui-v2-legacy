@@ -8,6 +8,8 @@ import type {
   TransactionType,
 } from '$lib/sku-item/types';
 
+import { CLIENT_API_HEADER } from '$project/variables';
+
 type argumentsForComponent = {
   type?: string;
   status?: string;
@@ -113,6 +115,7 @@ const getDummyTransaction = (): Transaction => {
         width: 100,
       },
     ],
+    tenant: CLIENT_API_HEADER,
   };
 
   const transactionData: TransactionData = {
