@@ -2,6 +2,7 @@ import type { Profile, Sku, Product, SocialFileAsset } from '$lib/sku-item/types
 import { isMobile } from 'web-social-share/dist/collection/utils/utils';
 import { browser } from '$app/env';
 import { openModal } from '$ui/modals';
+import { getFileType } from '$ui/file/file-utils';
 import { chooseSkuSocialImage, chooseProfileSocialImage } from '$lib/seo/seo.service';
 import { CLIENT_SOCIAL_IMAGE } from '$project/variables';
 import SocialShareModal from './SocialShareModal.svelte';
@@ -46,7 +47,12 @@ export default function socialShare(
     if (data.sku || data.product) {
       title = 'Share this collectible';
     }
-    openModal(SocialShareModal, { text, url, title, image: socialImage?.url || CLIENT_SOCIAL_IMAGE.url });
+
+    let socialImageUrl;
+    if (getFileType(socialImage) === 'image') {
+      socialImageUrl = socialImage?.url;
+    }
+    openModal(SocialShareModal, { text, url, title, image: socialImageUrl || CLIENT_SOCIAL_IMAGE.url });
   };
 
   node.addEventListener('click', handleClick);
