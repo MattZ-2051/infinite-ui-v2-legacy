@@ -20,12 +20,14 @@ export const loadCollectionFx = createEffect(
     tab,
     page,
     sortBy,
+    forSale,
     fetch,
   }: {
     username: string;
     tab: 'Releases' | 'NFTs';
     page: number;
     sortBy: string;
+    forSale?: string;
     fetch: Fetch;
   }): Promise<{ profile: Profile; totalSkus?: number; skus?: Sku[]; totalProducts?: number; products?: Product[] }> => {
     const current = profile.getState() as Profile;
@@ -37,6 +39,7 @@ export const loadCollectionFx = createEffect(
       profileId: _profile._id,
       sortBy,
       perPage: _profile.role === 'issuer' ? perPageIssuer : perPageUser,
+      forSale,
       fetch,
     };
     if (tab === 'Releases') {
@@ -60,18 +63,20 @@ const loadSkusFx = createEffect(
     profileId,
     sortBy,
     perPage,
+    forSale,
     fetch,
   }: {
     page: number;
     profileId: string;
     sortBy: string;
     perPage: number;
+    forSale?: string;
     fetch: Fetch;
   }): Promise<{
     totalSkus: number;
     skus: Sku[];
   }> => {
-    return await loadSkus({ profileId, page, sortBy, perPage, fetch });
+    return await loadSkus({ profileId, page, sortBy, perPage, fetch, forSale });
   }
 );
 

@@ -13,23 +13,26 @@ export async function loadSkus({
   page,
   sortBy,
   perPage,
+  forSale,
   fetch,
 }: {
   profileId: string;
   page: number;
   sortBy: string;
   perPage: number;
+  forSale?: string;
   fetch?: Fetch;
 }) {
-  const { data: skus, total: totalSkus } = await getPage<Sku>(
-    `skus/tiles/?issuerId=${profileId}&page=${page}&per_page=${perPage}`,
-    {
-      params: {
-        ...(sortBy && { sortBy }),
-      },
-      fetch,
-    }
-  );
+  const { data: skus, total: totalSkus } = await getPage<Sku>(`skus/tiles`, {
+    params: {
+      page: page.toString(10),
+      per_page: perPage.toString(10),
+      isuerId: profileId,
+      ...(sortBy && { sortBy }),
+      ...(forSale && { forSale }),
+    },
+    fetch,
+  });
 
   return { skus, totalSkus };
 }
