@@ -17,6 +17,14 @@ export function formatApiCurrency(value: number | string) {
   return numberFormat(value, { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+export function formatEthCurrency(value: number | string, currencyDisplay: 'symbol' | 'code' | 'none') {
+  const prefix = { symbol: 'Ξ', code: 'ETH' };
+  return `${currencyDisplay === 'none' ? '' : `${prefix[currencyDisplay]} `}${formatDecimal(value, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 4,
+  })}`;
+}
+
 export function formatInteger(value: number | string, options?: FormatNumberOptions) {
   return numberFormat(value, { ...options, minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }

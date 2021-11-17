@@ -11,6 +11,7 @@
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import { ENABLE_ETH_CURRENCY } from '$project/variables';
   import WalletBalance from './WalletBalance.svelte';
+  import EthWalletBalance from './EthWalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import CurrencySelectModal from './deposit/CurrencySelectModal.svelte';
   import WalletList from './WalletList.svelte';
@@ -114,12 +115,28 @@
       class="h-full px-4 py-6 md:px-8 md:py-12"
       style="background: var(--wallet-balance-content-bg-color);"
     >
-      <WalletBalance
-        balance={Number.parseFloat($wallet?.balanceInfo[0]?.circleBalance)}
-        availableBalance={Number.parseFloat($wallet?.balanceInfo[0]?.totalBalance)}
-        withdrawableBalance={$withdrawableBalance}
-      >
-        <svelte:fragment slot="kyc">
+      {#if ENABLE_ETH_CURRENCY}
+        <div class="font-medium">
+          <div class="text-xl md:text-2xl">My Balance</div>
+        </div>
+        <EthWalletBalance
+          ethBalance={Number.parseFloat($wallet?.balanceInfo[1]?.circleBalance)}
+          availableEthBalance={$wallet?.balanceInfo[1]?.totalBalance}
+          usdBalance={$wallet?.balanceInfo[0]?.circleBalance}
+          availableUsdBalance={$wallet?.balanceInfo[0]?.totalBalance}
+          currencyType="ETH"
+        />
+
+        <EthWalletBalance
+          ethBalance={Number.parseFloat($wallet?.balanceInfo[1]?.circleBalance)}
+          availableEthBalance={$wallet?.balanceInfo[1]?.totalBalance}
+          usdBalance={$wallet?.balanceInfo[0]?.circleBalance}
+          availableUsdBalance={$wallet?.balanceInfo[0]?.totalBalance}
+          currencyType="USD"
+        />
+        <div class="h-px bg-gray-100 w-full mt-6 md:mt-12" />
+        <div class="p-6 mt-6 md:mt-12 rounded-lg border border-gray-100">
+          <div class="text-gray-700 text-sm mb-4">Account verification status:</div>
           {#if $wallet}
             <AccountVerification
               on:upgrade={openUpgradeKYCLevel}
@@ -127,8 +144,24 @@
               pending={$wallet.kycPending}
             />
           {/if}
-        </svelte:fragment>
-      </WalletBalance>
+        </div>
+      {:else}
+        <WalletBalance
+          balance={Number.parseFloat($wallet?.balanceInfo[0]?.circleBalance)}
+          availableBalance={Number.parseFloat($wallet?.balanceInfo[0]?.totalBalance)}
+          withdrawableBalance={$withdrawableBalance}
+        >
+          <svelte:fragment slot="kyc">
+            {#if $wallet}
+              <AccountVerification
+                on:upgrade={openUpgradeKYCLevel}
+                level={$wallet.kycMaxLevel}
+                pending={$wallet.kycPending}
+              />
+            {/if}
+          </svelte:fragment>
+        </WalletBalance>
+      {/if}
 
       <div class="text-sm text-gray-500 mt-4">
         {$wallet && getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}

@@ -3,11 +3,12 @@ import Circle from './circle-avatar.png?w=48&format=avif;webp;png&metadata=src;f
 import BitCoin from './bitcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 import EthCoin from './ethcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 import USDCoin from './usdcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
+import USDollar from './usdollar-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 import Suku from './suku-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 import Hbar from './hbar-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 
 export type DepositOption = {
-  id: 'circle' | 'usdc' | 'suku' | 'hbar' | 'eth' | 'btc';
+  id: 'circle' | 'usdc' | 'suku' | 'hbar' | 'eth' | 'btc' | 'usDollar';
   title: string;
   subtitle: string;
   image: ImageMetadata[];
@@ -21,4 +22,5 @@ export const depositOptions: DepositOption[] = [
   { id: 'usdc', title: 'USDC', subtitle: 'Deposit funds using USDC', image: USDCoin },
   { id: 'hbar', title: 'HBAR', subtitle: 'Deposit funds using HBAR', image: Hbar },
   { id: 'suku', title: 'SUKU', subtitle: 'Coming soon', image: Suku, disabled: true },
+  { id: 'usDollar', title: 'USDC', subtitle: 'USD Coin', image: USDollar },
 ];

@@ -76,7 +76,8 @@
   --button-group-bg-color-hover: #ffd54e;
 
   /* WalletBalance */
-  --wallet-balance-content-bg-color: rgba(255, 255, 255, 0.05);
+  --wallet-balance-content-bg-color: rgba(0, 0, 0, 0.95);
+  --wallet-balance-content-bg-color-secondary: rgba(255, 255, 255, 0.05);
   --wallet-balance-heading-color: #ffd54e;
 
   /* WalletList */
