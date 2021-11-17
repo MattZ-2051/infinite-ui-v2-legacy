@@ -5,19 +5,19 @@ export type FaqLine = {
 
 export const FaqInfo: FaqLine[] = [
   {
-    title: 'What is a NFT?',
-    text: 'A NFT is a Non fungible token',
+    title: 'How can I buy NFTs on the marketplace?',
+    text: 'There are two ways to buy NFTs on the Infinite marketplace. Buying from original Creators or buying from collectors. Please refer to the More FAQs button for further information.',
   },
   {
-    title: 'Why a exchange?',
-    text: 'Pending...',
+    title: 'What is the difference between a Creator and a Collector?',
+    text: 'A Creator is an issuer of an NFT, while a Collector is someone who bought an NFT (that was issued by the Creator) and is holding onto it or is reselling it on the marketplace.',
   },
   {
-    title: 'How do I puchase?',
-    text: 'Aenean vel porttitor magna, vitae scelerisque ipsum. Pellentesque aliquam purus quam, et molestie diam aliquet eget. Quisque eu nunc nec nunc volutpat tincidunt a at justo. Quisque quis dictum libero, sed maximus ex. Phasellus varius felis odio, quis pulvinar risus hendrerit a.',
+    title: 'What is Hedera Token Service (HTS)?',
+    text: 'To learn more about Hedera Token Service (HTS), please refer to the more FAQs button below',
   },
   {
-    title: 'What are the drop details?',
-    text: 'Pending...',
+    title: 'How do I create my own auction?',
+    text: 'When viewing a product, click the Start Auction icon. You will be prompted with an auction screen. After filling out the requested information, click Start auction to create an auction for your items.',
   },
 ];
