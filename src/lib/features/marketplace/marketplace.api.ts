@@ -62,6 +62,7 @@ export async function loadMarketplaceItems({
   const search: string = query.get('search');
   const sortBy: string = query.get('sortBy') || 'startDate:1';
   const saleType: string = query.get('saleType');
+  const currency: string = query.get('currency');
   const { data, total } = await getPage<Sku>(`skus/tiles/`, {
     fetch,
     tracker: loading,
@@ -80,6 +81,7 @@ export async function loadMarketplaceItems({
       ...(endDate && { endDate }),
       ...(search && { search }),
       ...(saleType && { saleType }),
+      ...(currency && { currency }),
     },
   });
 

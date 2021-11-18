@@ -71,6 +71,7 @@ export type Sku = {
   minHighestBid?: number;
   initialBuyersFeePercentage: number;
   tenant?: string;
+  currency?: string;
 };
 
 export type Profile = {

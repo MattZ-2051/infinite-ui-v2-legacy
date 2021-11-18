@@ -20,7 +20,7 @@
   const dispatch = createEventDispatcher();
 
   type FilterType = {
-    type: 'category' | 'series' | 'issuerId' | 'price' | 'date' | 'search' | 'saleType';
+    type: 'category' | 'series' | 'issuerId' | 'price' | 'date' | 'search' | 'saleType' | 'currency';
     label: string;
     id: string;
   };
@@ -106,6 +106,11 @@
     { id: 'giveaway', label: 'Giveaway' },
   ];
 
+  const nftTypeFilters: { id: string; label: string }[] = [
+    { id: 'ETH', label: 'ERC721' },
+    { id: 'USD', label: 'HTS' },
+  ];
+
   let priceRange: [number, number];
 
   function initSlider(min, max) {
@@ -113,12 +118,16 @@
   }
   $: initSlider(+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice);
 
-  function toggle(type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType', id: string, event: Event) {
+  function toggle(
+    type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType' | 'currency',
+    id: string,
+    event: Event
+  ) {
     toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
   }
 
   function toggleCheckboxFilter(
-    type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType',
+    type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType' | 'currency',
     id: string,
     value: boolean
   ) {
@@ -162,6 +171,10 @@
   $: saleTypeSelectedObject = saleTypeSelected.map((id) => saleTypeFilters.find((c) => c.id === id)).filter(Boolean);
   $: availableSaleTypeSelected = saleTypeSelectedObject.map((c) => c.id);
 
+  $: nftTypeSelected = $page.query.get('currency') ? $page.query.get('currency').split(',') : [];
+  $: nftTypeSelectedObject = nftTypeSelected.map((id) => nftTypeFilters.find((c) => c.id === id)).filter(Boolean);
+  $: availableNftTypeSelected = nftTypeSelectedObject.map((c) => c.id);
+
   $: creatorsSelected = $page.query.get('issuerId') ? $page.query.get('issuerId').split(',') : [];
   $: creatorsSelectedObject = creatorsSelected.map((_id) => creators.find((c) => c._id === _id)).filter(Boolean);
   $: availableCreatorsSelected = creatorsSelectedObject.map((c) => c._id);
@@ -184,6 +197,7 @@
     ...categorySelectedObject.map((v) => ({ type: 'category', label: v.name, id: v._id })),
     ...editionSelectedObject.map((v) => ({ type: 'typeEdition', label: v.label, id: v.id })),
     ...saleTypeSelectedObject.map((v) => ({ type: 'saleType', label: v.label, id: v.id })),
+    ...nftTypeSelectedObject.map((v) => ({ type: 'currency', label: v.label, id: v.id })),
     ...seriesSelectedObject.map((v) => ({ type: 'series', label: v.name, id: v._id })),
     ...creatorsSelectedObject.map((v) => ({ type: 'issuerId', label: v.username, id: v._id })),
     ...(priceSelectedObject ? [{ type: 'price', label: priceSelectedObject }] : []),
@@ -366,6 +380,30 @@
               let:checked
             >
               <span>{category.name}</span>
+            </Checkbox>
+          {/each}
+        </Accordion>
+      {/if}
+      {#if nftTypeFilters.length}
+        <Accordion
+          id="currency"
+          titleClass="py-4 px-6"
+          class="c-filter-accordion border border-gray-200 {active.includes('currency') ? 'expanded' : ''}"
+        >
+          <div slot="title" class="text-lg leading-8 text-left">
+            NFT Type {#if availableNftTypeSelected.length}
+              <span class="text-default text-xs align-top">({availableNftTypeSelected.length})</span>
+            {/if}
+          </div>
+          {#each nftTypeFilters as { id, label } (id)}
+            <Checkbox
+              class="mb-2"
+              value={id}
+              group={availableNftTypeSelected}
+              on:change={(event) => toggle('currency', id, event)}
+              let:checked
+            >
+              <span>{label}</span>
             </Checkbox>
           {/each}
         </Accordion>
