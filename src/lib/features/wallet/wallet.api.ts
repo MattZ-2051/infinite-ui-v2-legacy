@@ -29,7 +29,7 @@ export async function loadWallet() {
 }
 
 async function loadBalances() {
-  return get<BalanceInfo>('wallet/balance');
+  return get<BalanceInfo[]>('wallet/balance');
 }
 
 export async function loadKycInfo() {

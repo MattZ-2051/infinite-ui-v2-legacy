@@ -8,6 +8,7 @@ import type {
   TransactionType,
 } from '$lib/sku-item/types';
 
+import type { CurrencyType } from '../../types';
 import { CLIENT_API_HEADER } from '$project/variables';
 
 type argumentsForComponent = {
@@ -18,6 +19,7 @@ type argumentsForComponent = {
   cardNetwork: string;
   circleType?: CircleType;
   amountUnrated?: string;
+  balanceCurrency?: CurrencyType;
 };
 
 export const transactionCreator = (argus: argumentsForComponent): Transaction => {
@@ -30,6 +32,7 @@ export const transactionCreator = (argus: argumentsForComponent): Transaction =>
     if (argus.circleType) transaction.transactionData.deposit.circleType = argus.circleType;
     if (argus.amountUnrated) transaction.transactionData.deposit.amountUnrated = argus.amountUnrated;
     if (argus.cardNetwork) transaction.transactionData.deposit.card.network = argus.cardNetwork;
+    if (argus.balanceCurrency) transaction.transactionData.deposit.balanceCurrency = argus.balanceCurrency;
   }
 
   return transaction;
@@ -153,6 +156,7 @@ const getDummyTransaction = (): Transaction => {
       amount: '100',
       amountUnrated: '100',
       circleType: undefined,
+      balanceCurrency: 'USD',
       card: {
         createdAt: new Date(),
         expMonth: 11,

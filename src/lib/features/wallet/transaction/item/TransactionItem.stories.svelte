@@ -16,6 +16,10 @@
       options: ['usdc', 'other'],
       control: { type: 'select' },
     },
+    balanceCurrency: {
+      options: ['ETH', 'USD'],
+      control: { type: 'select' },
+    },
     depositType: {
       options: ['usdc', 'cc', 'circle', 'coinbase', 'hbar'],
       control: { type: 'select' },
@@ -65,7 +69,6 @@
 <Story name="Withrawal with error " args={{ type: 'withdrawal', status: 'error' }} />
 <Story name="Withrawal with error usdc" args={{ type: 'withdrawal', status: 'error', withdrawType: 'usdc' }} />
 <Story name="Deposit cc with error" args={{ type: 'deposit', depositType: 'cc', status: 'error' }} />
-<!--<Story name="Deposit circle with error" args={{ type: 'deposit', depositType: 'circle', status: 'error' }} />-->
 <Story
   name="Deposit circle ETH with error"
   args={{ type: 'deposit', depositType: 'circle', amountUnrated: '10', circleType: 'eth', status: 'error' }}
@@ -82,3 +85,5 @@
 <Story name="Deposit coinbase with error" args={{ type: 'deposit', depositType: 'coinbase', status: 'error' }} />
 <Story name="Deposit hbar with error" args={{ type: 'deposit', depositType: 'hbar', status: 'error' }} />
 <Story name="NFT reedem with error" args={{ type: 'nft_redeem', status: 'error' }} />
+
+<Story name="Deposit coinbase ETH" args={{ type: 'deposit', depositType: 'coinbase' }} />

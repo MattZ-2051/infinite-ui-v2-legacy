@@ -27,7 +27,6 @@
     <div class="h-14 w-14 border border-gray-500 rounded-xl flex justify-center items-center">
       <Icon path={hedera} size="0.6" />
     </div>
-  {/if}
-{:else if type === 'nft_redeem'}
+  {/if}{:else if type === 'nft_redeem'}
   <IconRedeem size={48} />
 {/if}

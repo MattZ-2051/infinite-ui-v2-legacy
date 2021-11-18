@@ -5,8 +5,8 @@
   import tooltip from '$ui/tooltip';
 
   export let balance: number = undefined;
-  export let availableBalance: number = undefined;
   export let withdrawableBalance: number = undefined;
+  export let availableBalance: number = undefined;
 </script>
 
 <div class="font-medium">

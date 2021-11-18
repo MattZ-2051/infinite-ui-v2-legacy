@@ -11,7 +11,6 @@
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import { ENABLE_ETH_CURRENCY } from '$project/variables';
   import WalletBalance from './WalletBalance.svelte';
-  import EthWalletBalance from './EthWalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import CurrencySelectModal from './deposit/CurrencySelectModal.svelte';
   import WalletList from './WalletList.svelte';
@@ -21,6 +20,7 @@
   import { launchKYCPersona } from './kyc/personaClient.service';
   import { getDailyDepositLimitDisclaimer } from './kyc/kyc.service';
   import SelectWithdrawMethodModal from './withdraw/SelectWithdrawMethodModal.svelte';
+  import EthUsdWalletBalance from './EthUsdWalletBalance.svelte';
 
   export let tab: 'transactions' | 'bids';
   const kycLevelNeeded = `Your wallet balance is currently >= ${formatCurrency(
@@ -119,20 +119,15 @@
         <div class="font-medium">
           <div class="text-xl md:text-2xl">My Balance</div>
         </div>
-        <EthWalletBalance
-          ethBalance={Number.parseFloat($wallet?.balanceInfo[1]?.circleBalance)}
-          availableEthBalance={$wallet?.balanceInfo[1]?.totalBalance}
-          usdBalance={$wallet?.balanceInfo[0]?.circleBalance}
-          availableUsdBalance={$wallet?.balanceInfo[0]?.totalBalance}
-          currencyType="ETH"
+        <EthUsdWalletBalance
+          ethBalance={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'ETH').amount}
+          availableEthBalance={$wallet?.balanceInfo.find((balanceInfo) => balanceInfo.currency === 'ETH').totalBalance}
+          currencyType={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'ETH').currency}
         />
-
-        <EthWalletBalance
-          ethBalance={Number.parseFloat($wallet?.balanceInfo[1]?.circleBalance)}
-          availableEthBalance={$wallet?.balanceInfo[1]?.totalBalance}
-          usdBalance={$wallet?.balanceInfo[0]?.circleBalance}
-          availableUsdBalance={$wallet?.balanceInfo[0]?.totalBalance}
-          currencyType="USD"
+        <EthUsdWalletBalance
+          usdBalance={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'USD').amount}
+          availableUsdBalance={$wallet?.balanceInfo.find((balanceInfo) => balanceInfo.currency === 'USD').totalBalance}
+          currencyType={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'USD').currency}
         />
         <div class="h-px bg-gray-100 w-full mt-6 md:mt-12" />
         <div class="p-6 mt-6 md:mt-12 rounded-lg border border-gray-100">

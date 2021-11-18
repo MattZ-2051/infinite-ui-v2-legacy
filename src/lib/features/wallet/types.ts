@@ -5,12 +5,14 @@ export interface KycInfo {
   kycRequired: boolean;
 }
 
+export type CurrencyType = 'ETH' | 'USD';
+
 export interface Wallet extends KycInfo {
   cards: CreditCard[];
   balance: {
     amount: string;
-    currency: string;
-  };
+    currency: CurrencyType;
+  }[];
 }
 
 export type CreditCard = {
@@ -49,6 +51,7 @@ export type BalanceInfo = {
   salesLock: string;
   withdrawalsLock: string;
   bidsLock: string;
+  currency: CurrencyType;
   lockedPositiveBalance: string;
   lockedNegativeBalance: string;
   lockedBalance: string;
@@ -68,4 +71,4 @@ export type HbarDeposits = {
   newTransactions: HbarTransaction[];
 };
 
-export type WalletExtended = Wallet & { balanceInfo: BalanceInfo };
+export type WalletExtended = Wallet & { balanceInfo: BalanceInfo[] };

@@ -3,7 +3,7 @@
   import { CLIENT_API_HEADER } from '$project/variables';
   import UserLink from '$lib/components/UserLink.svelte';
   import routes from '$project/routes';
-  import { formatCurrency } from '$util/format';
+  import { formatCurrency, formatEthCurrency } from '$util/format';
 
   export let transaction: Transaction;
 
@@ -15,6 +15,8 @@
   $: type = transaction.type;
   $: status = transaction.status;
   $: deposit = transaction.transactionData.deposit;
+
+  $: isEth = deposit?.balanceCurrency === 'ETH';
 </script>
 
 <span class="text-left cursor-default text-default" on:click={(event) => event.stopPropagation()}>
@@ -62,20 +64,24 @@
       <span>{transaction.transactionData.withdraw.ach_number}</span>
     {/if}
   {:else if type === 'deposit'}
-    {status === 'error' ? 'You tried to add' : 'You added'}
-    {#if deposit.type === 'cc'}
+    {#if isEth}
+      <span> {formatEthCurrency(deposit.amount, 'symbol')} </span>
+      added to your balance
+    {:else if deposit.type === 'cc'}
+      {status === 'error' ? 'You tried to add' : 'You added'}
       funds from your
       <span>{transaction.transactionData.deposit.card?.network}</span>
       credit card ending in
       <span>{transaction.transactionData.deposit.card?.last4} </span>
     {:else if deposit.type === 'circle' || deposit.type === 'hbar'}
+      You added
       <span> {formatCurrency(+deposit.amount)} </span>
       by depositing
       <span> {+deposit.amountUnrated} </span>
       <span>
         {(deposit?.circleType ?? deposit.type).toUpperCase()}
       </span>
-    {:else if deposit.type === 'coinbase'}
+    {:else if !isEth}
       funds by depositing
       <span> {formatCurrency(+deposit.amount)} </span>
       using Coinbase

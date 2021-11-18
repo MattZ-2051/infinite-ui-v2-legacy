@@ -1,3 +1,4 @@
+import type { CurrencyType } from '$lib/features/wallet/types';
 import type { User } from '$lib/user/types';
 import type { FileAsset } from '$ui/file/types';
 
@@ -176,6 +177,7 @@ export type Cost = {
   serviceEarnings: number;
   totalCost: number;
   royaltyFee?: number;
+  currency?: CurrencyType;
 };
 
 export type SupplyType = 'unique' | 'limited' | 'released';
@@ -248,6 +250,7 @@ export type TransactionData = {
     circleType?: CircleType;
     amount: string;
     amountUnrated?: string;
+    balanceCurrency?: CurrencyType;
     card?: {
       createdAt: Date;
       expMonth: number;

@@ -22,12 +22,14 @@
     copied = true;
     setTimeout(() => (copied = false), 1500);
   }
+
+  const isEth = transaction.transactionData?.deposit?.balanceCurrency === 'ETH';
 </script>
 
 <div class="py-4 border-t border-b border-gray-500">
   <div class="flex items-center justify-between">
     <div class="flex flex-col gap-2">
-      <div class="label">Transaction ID</div>
+      <div class="label">{isEth ? 'ETH address' : 'Transaction ID'}</div>
       <div>{transaction._id}</div>
     </div>
     <div class="flex flex-col md:flex-row justify-center gap-2 items-center">
