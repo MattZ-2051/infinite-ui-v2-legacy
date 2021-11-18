@@ -16,6 +16,12 @@
   export let state: FromCreatorState = '';
   export let activeListings = [];
   export let upcomingSkuListings = [];
+
+  $: activeListing = activeListings?.[0];
+  $: skuPrice =
+    activeListing?.saleType === 'auction'
+      ? Math.max(activeListing.minHighestBid || 0, activeListing.minBid)
+      : activeListing?.price;
 </script>
 
 <SkuPriceBoxButton action={state === 'active' || state === 'activeNftGiveAway'} polling={$isPolling} on:click={onBuy}>
@@ -24,7 +30,10 @@
       <div class="flex-grow">
         <div class="text-xl">From Creator</div>
         {#if state === 'active' && sku?.supplyType !== 'variable'}
-          <div class="text-gray-500 text-sm">{sku?.totalSupplyLeft} Items left</div>
+          <div class="text-gray-500 text-sm">
+            {sku?.totalSupplyLeft}
+            {sku?.totalSupplyLeft === 1 ? 'Item Left' : 'Items Left'}
+          </div>
         {/if}
         {#if state === 'noSale'}
           <div class="text-gray-500 text-sm">Initial Listing Price</div>
@@ -33,8 +42,10 @@
       {#if state === 'active'}
         <div class="flex justify-end">
           <div>
-            <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(activeListings[0].price)}</div>
-            <div class="text-sm text-right text-gray-500 ">Initial Listing Price</div>
+            <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(skuPrice)}</div>
+            <div class="text-sm text-right text-gray-500 ">
+              {activeListing.saleType === 'auction' ? 'Active Auction' : 'Initial Listing Price'}
+            </div>
           </div>
         </div>
       {/if}
@@ -88,7 +99,7 @@
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
         <div class="text-xl">NFT Giveaway</div>
-        <div class="text-gray-500 text-sm">Started {formatDate(activeListings[0]?.startDate)}</div>
+        <div class="text-gray-500 text-sm">Started {formatDate(activeListing.startDate)}</div>
       </div>
       <div class="flex justify-end">
         {#if sku.supplyType === 'variable'}

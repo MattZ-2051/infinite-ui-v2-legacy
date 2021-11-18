@@ -101,11 +101,13 @@ export type Profile = {
   templateId?: string;
 };
 
+export type SaleType = 'giveaway' | 'fixed' | 'auction';
+
 export type Listing = {
   canceled?: boolean;
   price: number;
   product: string;
-  saleType: 'auction' | 'fixed' | 'giveaway';
+  saleType: SaleType;
   startDate: Date;
   status: 'active' | 'upcoming' | 'expired' | 'sold' | 'canceled';
   supply: number;
@@ -355,4 +357,5 @@ export interface Status {
   status: StatusType;
   minStartDate?: Date;
   minPrice?: number;
+  saleTypeTitle?: string;
 }

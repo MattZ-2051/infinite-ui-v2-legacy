@@ -25,7 +25,7 @@
     <span class="font-bold">{product ? 'Not for sale' : 'Sold'}</span>
   {:else if tileInfo.status === 'active'}
     <span>
-      <span class="font-bold">{product ? 'Selling for:' : 'Starting Price:'}</span>
+      <span class="font-bold">{tileInfo.saleTypeTitle}</span>
       {formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice)}
     </span>
   {/if}

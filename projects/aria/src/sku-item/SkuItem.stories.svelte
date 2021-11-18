@@ -19,7 +19,7 @@
     sku: {
       ...item,
       minSkuPrice: 3,
-      activeProductListings: [{ price: 10 }],
+      activeProductListings: [{ price: 10, saleType: 'fixed' }],
       activeSkuListings: [],
     },
   }}
@@ -61,11 +61,20 @@
     },
   }}
 />
-<Story name="Unique" args={{ sku: { ...item, maxSupply: 1, activeProductListings: [{ price: 20 }] } }} />
+<Story
+  name="Unique"
+  args={{ sku: { ...item, maxSupply: 1, activeProductListings: [{ price: 20, saleType: 'fixed' }] } }}
+/>
 <Story
   name="Limited"
   args={{
-    sku: { ...item, totalSupply: 1, activeSkuListings: [{ minPrice: 20 }], minSkuPrice: 20, activeProductListings: [] },
+    sku: {
+      ...item,
+      totalSupply: 1,
+      activeSkuListings: [{ minPrice: 20, saleType: 'fixed' }],
+      minSkuPrice: 20,
+      activeProductListings: [],
+    },
   }}
 />
 <Story
