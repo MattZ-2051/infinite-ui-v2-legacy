@@ -7,9 +7,11 @@ import { user } from '$lib/user';
 import { openModal } from '$ui/modals';
 import routes from '$project/routes';
 import OrderModal from '$lib/features/order/OrderModal.svelte';
+import { loadWalletFx } from '../wallet/wallet.store';
 
 export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: Product; listing: Listing }): void {
   const currentUser = getStoreValue<User>(user);
+  loadWalletFx();
 
   if (!currentUser) {
     toast.danger(`Please <a data-toast="signIn" class="cursor-pointer">sign in</a> to complete your purchase.`, {
@@ -36,7 +38,6 @@ export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: 
     sku,
     product,
     listing,
-    user: currentUser,
   });
 }
 

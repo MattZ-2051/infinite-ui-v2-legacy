@@ -1,7 +1,7 @@
 <script lang="ts">
   import { readable } from 'svelte/store';
   import type { Sku, Listing } from '$lib/sku-item/types';
-  import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
+  import { formatCurrencyWithOptionalFractionDigits, formatDate, formatEthCurrency } from '$util/format';
   import { polls } from '$lib/features/product/product.store';
   import routes from '$project/routes';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
@@ -38,7 +38,13 @@
       </div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(minPrice)}</div>
+          <div class="text-xl text-right">
+            {#if sku.currency === 'USD'}
+              {formatCurrencyWithOptionalFractionDigits(minPrice)}
+            {:else if sku.currency === 'ETH'}
+              {formatEthCurrency(minPrice, 'symbol')}
+            {/if}
+          </div>
         </div>
       </div>
     {/if}
@@ -53,7 +59,11 @@
       <div class="flex justify-end items-center">
         <div>
           <div class="text-xl text-right">
-            {formatCurrencyWithOptionalFractionDigits(minPrice)}
+            {#if sku.currency === 'USD'}
+              {formatCurrencyWithOptionalFractionDigits(minPrice)}
+            {:else if sku.currency === 'ETH'}
+              {formatEthCurrency(minPrice, 'symbol')}
+            {/if}
           </div>
           <div class="text-gray-500 text-sm">{isUniqueAuction ? 'Highest Bid' : 'Starting at'}</div>
         </div>
@@ -67,7 +77,13 @@
       </div>
       <div class="flex items-center justify-end">
         <div>
-          <div class="text-xl text-right">{formatCurrencyWithOptionalFractionDigits(minPrice)}</div>
+          <div class="text-xl text-right">
+            {#if sku.currency === 'USD'}
+              {formatCurrencyWithOptionalFractionDigits(minPrice)}
+            {:else if sku.currency === 'ETH'}
+              {formatEthCurrency(minPrice, 'symbol')}
+            {/if}
+          </div>
           <div class="text-gray-500 text-sm">Starting at</div>
         </div>
       </div>
@@ -90,7 +106,11 @@
       <div class="flex justify-end items-center">
         <div>
           <div class="text-xl text-right">
-            {formatCurrencyWithOptionalFractionDigits(minPrice)}
+            {#if sku.currency === 'USD'}
+              {formatCurrencyWithOptionalFractionDigits(minPrice)}
+            {:else if sku.currency === 'ETH'}
+              {formatEthCurrency(minPrice, 'symbol')}
+            {/if}
           </div>
           <div class="text-gray-500 text-sm">Lowest Listing Price</div>
         </div>

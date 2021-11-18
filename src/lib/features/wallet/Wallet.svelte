@@ -16,7 +16,14 @@
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
   import WalletButtons from './WalletButtons.svelte';
-  import { kycIsPending, wallet, withdrawableBalance, loadMyTransactionsFx, loadWalletFx } from './wallet.store';
+  import {
+    kycIsPending,
+    wallet,
+    withdrawableBalanceUsd,
+    withdrawableBalanceEth,
+    loadMyTransactionsFx,
+    loadWalletFx,
+  } from './wallet.store';
   import { launchKYCPersona } from './kyc/personaClient.service';
   import { getDailyDepositLimitDisclaimer } from './kyc/kyc.service';
   import SelectWithdrawMethodModal from './withdraw/SelectWithdrawMethodModal.svelte';
@@ -42,7 +49,8 @@
   }
 
   function handleWithdrawSelectModal() {
-    if ($withdrawableBalance <= 0) toast.danger('Whoops! You cannot withdraw funds since your balance is 0!');
+    if ($withdrawableBalanceUsd <= 0 && $withdrawableBalanceEth <= 0)
+      toast.danger('Whoops! You cannot withdraw funds since your balance is 0!');
     else if ($wallet.kycRequired) toast.danger(kycLevelNeeded);
     else openModal(SelectWithdrawMethodModal);
   }
@@ -144,7 +152,7 @@
         <WalletBalance
           balance={Number.parseFloat($wallet?.balanceInfo[0]?.circleBalance)}
           availableBalance={Number.parseFloat($wallet?.balanceInfo[0]?.totalBalance)}
-          withdrawableBalance={$withdrawableBalance}
+          withdrawableBalance={$withdrawableBalanceUsd}
         >
           <svelte:fragment slot="kyc">
             {#if $wallet}

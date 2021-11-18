@@ -10,6 +10,7 @@
 
   export let collector: CollectorProduct;
   export let redeemable: boolean;
+  export let currency: 'USD' | 'ETH';
 </script>
 
 <a href={routes.product(collector._id)}>
@@ -39,7 +40,7 @@
 
     <div class="flex items-center gap-6">
       <div class="flex flex-col gap-1 text-right">
-        <CollectorItemStatus {collector} />
+        <CollectorItemStatus {collector} {currency} />
       </div>
 
       <Icon path={mdiChevronRight} class="justify-self-center" />

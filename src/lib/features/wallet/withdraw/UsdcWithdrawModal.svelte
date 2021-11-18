@@ -5,7 +5,7 @@
   import Button from '$lib/components/Button.svelte';
   import { Input } from '$lib/components/form';
   import { usdcWithdrawFx } from './account-withdraw/account-withdraw.store';
-  import { withdrawableBalance } from '../wallet.store';
+  import { withdrawableBalanceUsd } from '../wallet.store';
 
   export let isOpen: boolean;
 
@@ -26,8 +26,8 @@
       return;
     }
 
-    if (amount > $withdrawableBalance) {
-      toast.danger(`Cannot withdraw more than ${formatCurrency($withdrawableBalance)}.`);
+    if (amount > $withdrawableBalanceUsd) {
+      toast.danger(`Cannot withdraw more than ${formatCurrency($withdrawableBalanceUsd)}.`);
       return;
     }
 
@@ -47,7 +47,7 @@
   <Modal title="USDC Withdrawal" class="max-w-lg">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       <div class="text-black">
-        Withdrawable Balance <span class="font-semibold">{formatCurrency($withdrawableBalance)}</span>
+        Withdrawable Balance <span class="font-semibold">{formatCurrency($withdrawableBalanceUsd)}</span>
       </div>
       <div class="text-black-opacity-50 text-base">
         (The withdrawable amount excludes pending transactions and credit card payments less than 30 days old.)
@@ -59,7 +59,7 @@
           id="amount"
           type="number"
           min="0"
-          max={$withdrawableBalance}
+          max={$withdrawableBalanceUsd}
           placeholder="Enter amount"
           class="bg-gray-50 py-3"
           data-initial-focus

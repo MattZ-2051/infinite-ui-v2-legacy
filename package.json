@@ -33,6 +33,7 @@
     "clipboard-copy": "~4.0.1",
     "clsx": "1.1.1",
     "cropperjs": "^1.5.12",
+    "crypto-js": "^4.1.1",
     "dayjs": "1.10.7",
     "effector": "~22.1.2",
     "felte": "0.8.5",

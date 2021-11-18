@@ -32,6 +32,9 @@
   };
 
   const activeProductAuction = {
+    sku: {
+      currency: 'USD',
+    },
     activeProductListings: [
       {
         saleType: 'auction',

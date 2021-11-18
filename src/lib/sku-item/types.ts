@@ -72,7 +72,7 @@ export type Sku = {
   minHighestBid?: number;
   initialBuyersFeePercentage: number;
   tenant?: string;
-  currency?: string;
+  currency?: 'USD' | 'ETH';
 };
 
 export type Profile = {
@@ -123,6 +123,7 @@ export type Listing = {
   auctionBidIncrement?: number;
   highestBid?: Bid;
   auctionProcess?: 'unset' | 'processing' | 'closed';
+  currency: 'ETH' | 'USD'; //todo create a type currency to be used everywhere.
 };
 
 export type ListingSalePayload = {

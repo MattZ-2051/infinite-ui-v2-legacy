@@ -6,6 +6,7 @@
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import HederaDisclaimer from './HederaDisclaimer.svelte';
+  import EthDisclaimer from './EthDisclaimer.svelte';
   import SkuPriceBox from './pricebox/SkuPriceBox.svelte';
   import SkuInfo from './SkuInfo.svelte';
   import SkuDescription from './SkuDescription.svelte';
@@ -46,7 +47,11 @@
           <SkuDescription content={$sku.description} />
 
           <div class="mt-8">
-            <HederaDisclaimer />
+            {#if $sku.currency === 'USD'}
+              <HederaDisclaimer />
+            {:else if $sku.currency === 'ETH'}
+              <EthDisclaimer />
+            {/if}
           </div>
         </Tab>
 

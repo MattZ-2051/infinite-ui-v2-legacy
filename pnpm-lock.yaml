@@ -37,6 +37,7 @@ specifiers:
   clipboard-copy: ~4.0.1
   clsx: 1.1.1
   cropperjs: ^1.5.12
+  crypto-js: ^4.1.1
   cssnano: 5.0.9
   cypress: 8.7.0
   dayjs: 1.10.7
@@ -106,6 +107,7 @@ dependencies:
   clipboard-copy: 4.0.1
   clsx: 1.1.1
   cropperjs: 1.5.12
+  crypto-js: 4.1.1
   dayjs: 1.10.7
   effector: 22.1.2
   felte: 0.8.5_svelte@3.44.1
@@ -8650,6 +8652,10 @@ packages:
       randombytes: 2.1.0
       randomfill: 1.0.4
     dev: true
+
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+    dev: false
 
   /css-color-names/0.0.4:
     resolution: {integrity: sha1-gIrcLnnPhHOAabZGyyDsJ762KeA=}

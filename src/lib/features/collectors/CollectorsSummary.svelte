@@ -85,7 +85,7 @@
 </div>
 <div class:opacity-50={$loading}>
   {#each collectors as collector}
-    <CollectorItem {collector} redeemable={sku?.redeemable} />
+    <CollectorItem {collector} redeemable={sku?.redeemable} currency={sku.currency} />
   {:else}
     <div class="no-results">No collector editions found</div>
   {/each}

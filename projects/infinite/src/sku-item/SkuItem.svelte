@@ -3,6 +3,8 @@
   import type { Sku, Product } from '$lib/sku-item/types';
   import arrowRightCircle from '$project/assets/lib/arrow-right-circle';
   import { FilePreview } from '$ui/file';
+  import ethereum from '$lib/components/icons/ethereum';
+  import hedera from '$lib/components/icons/hedera';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
@@ -19,6 +21,7 @@
   $: sku = product ? product.sku : _sku;
   $: activeListing = product ? product.activeProductListings?.[0] : sku.activeSkuListings?.[0];
   $: href = product ? routes.product(product._id) : routes.sku(sku._id);
+  $: currency = product ? product.sku.currency : sku.currency;
 </script>
 
 <article id={sku._id} class="space-y-4 py-6" in:fade={{ duration: 300 }}>
@@ -52,7 +55,14 @@
           {/if}
         </div>
       </header>
-      <SkuEdition {sku} {product} />
+      <div class="flex flex-row items-center space-x-2">
+        {#if currency === 'USD'}
+          <Icon path={hedera} size="1em" tooltip="HTS NFT minted on Hedera" class="inline align-baseline" />
+        {:else if currency === 'ETH'}
+          <Icon path={ethereum} size="1em" tooltip="ERC721 NFT minted on Ethereum" class="inline align-baseline" />
+        {/if}
+        <SkuEdition {sku} {product} />
+      </div>
     </div>
     <div
       class="mt-5 mx-6 pt-4 flex flex-row items-center border-current border-solid border-t text-lg"

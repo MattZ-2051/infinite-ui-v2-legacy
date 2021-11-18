@@ -59,7 +59,7 @@
 
 <Template let:args>
   <div class="max-w-xl">
-    <CollectorItem collector={cc(args)} redeemable={args.redeemable} />
+    <CollectorItem collector={cc(args)} redeemable={args.redeemable} currency="USD" />
   </div>
 </Template>
 

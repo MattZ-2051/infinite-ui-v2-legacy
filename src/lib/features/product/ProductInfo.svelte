@@ -37,10 +37,17 @@
     <div><TalentLink profile={sku.issuer} /></div>
   </div>
   <div class={cellClass}>
-    <div class={headerClass}>Hedera Token</div>
-    <div class="truncate">
-      <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
-    </div>
+    {#if sku.currency === 'ETH'}
+      <div class={headerClass}>ETH721 Token</div>
+      <div class="truncate">
+        <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
+      </div>
+    {:else}
+      <div class={headerClass}>Hedera Token</div>
+      <div class="truncate">
+        <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
+      </div>
+    {/if}
   </div>
   <ProductActions {product} userId={$userId} />
 </div>

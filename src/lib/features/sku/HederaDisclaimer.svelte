@@ -1,6 +1,6 @@
 <script lang="ts">
   import arrowRight from '$lib/features/sku/assets/arrow-right';
-  import { CLIENT_COMPANY_NAME, CLIENT_HEDERA_URL } from '$project/variables';
+  import { CLIENT_COMPANY_NAME, CLIENT_HEDERA_URL, ENABLE_ETH_CURRENCY } from '$project/variables';
   import Icon from '$ui/icon/Icon.svelte';
   import hedera from '$lib/components/icons/hedera';
 </script>
@@ -12,7 +12,11 @@
       <div class="rounded-full bg-default p-3">
         <Icon path={hedera} size="0.75" color="var(--bg-color)" />
       </div>
-      <span class="text-default">{CLIENT_COMPANY_NAME} NFTs are minted on the Hedera Hashgraph</span>
+      {#if ENABLE_ETH_CURRENCY}
+        <span class="text-default">This {CLIENT_COMPANY_NAME} NFT is minted on the Hedera Hashgraph</span>
+      {:else}
+        <span class="text-default">{CLIENT_COMPANY_NAME} NFTs are minted on the Hedera Hashgraph</span>
+      {/if}
     </div>
     <div class="flex flex-col sm:flex-row gap-2 items-center">
       <a href={CLIENT_HEDERA_URL} target="_blank" rel="noreferrer" class="link text-primary text-base whitespace-nowrap"

@@ -15,10 +15,12 @@ export const wallet = createStore<WalletExtended>(null)
   .on(loadWalletFx.doneData, (state, payload) => payload)
   .on(loadKycInfoFx.doneData, (state, payload) => ({ ...state, ...payload }));
 
-export const withdrawableBalance = wallet.map(($wallet) =>
-  Number.parseFloat($wallet?.balanceInfo[0]?.withdrawableBalance)
+export const withdrawableBalanceUsd = wallet.map(($wallet) =>
+  Number.parseFloat($wallet?.balanceInfo.find((x) => x.currency === 'USD').withdrawableBalance)
 );
-
+export const withdrawableBalanceEth = wallet.map(($wallet) =>
+  Number.parseFloat($wallet?.balanceInfo.find((x) => x.currency === 'ETH').withdrawableBalance)
+);
 export const loadMyTransactionsFx = createEffect(
   async ({
     page = +getQueryParameters().get('page'),

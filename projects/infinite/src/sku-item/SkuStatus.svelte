@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Sku, Status, Product } from '$lib/sku-item/types';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
+  import { formatCurrencyWithOptionalFractionDigits, formatEthCurrency } from '$util/format';
   import { skuStatus, productStatus } from '$lib/sku-item/status';
 
   export let sku: Sku;
@@ -22,7 +22,11 @@
   {:else if tileInfo.status === 'active'}
     <span class="text-gray-500">Starting Price:</span>
     <span class="text-default">
-      {formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice)}
+      {#if sku.currency === 'USD'}
+        {formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice)}
+      {:else if sku.currency === 'ETH'}
+        {formatEthCurrency(tileInfo.minPrice, 'symbol')}
+      {/if}
     </span>
   {/if}
 </section>

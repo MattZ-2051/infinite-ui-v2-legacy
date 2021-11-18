@@ -157,6 +157,7 @@
       </div>
     {:else}
       <BidForm
+        {product}
         maxPlacedBid={$maxPlacedBid}
         listing={activeProductListing}
         fee={getBiddingFee(product)}

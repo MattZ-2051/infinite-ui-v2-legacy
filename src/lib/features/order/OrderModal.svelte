@@ -1,11 +1,15 @@
 <script lang="ts">
+  import copy from 'clipboard-copy';
+  import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { Listing, Sku, Product } from '$lib/sku-item/types';
   import type { SkuPurchaseTransaction } from './types';
-  import type { User } from '$lib/user/types';
   import { closeModal, Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
-  import { formatCurrency } from '$util/format';
+  import Icon from '$ui/icon/Icon.svelte';
+  import { formatCurrency, formatEthCurrency } from '$util/format';
+  import { isEthAddress } from '$util/validateEthAddress';
   import Button from '$lib/components/Button.svelte';
+  import { Input } from '$lib/components/form';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import { productBought, pendingBuyCreated } from '$lib/features/product/product.store';
   import { getBuyingFee, getSkuBuyingFee } from '$lib/features/product/product.fee';
@@ -21,7 +25,6 @@
   export let sku: Sku = undefined;
   export let product: Product = undefined;
   export let listing: Listing;
-  export let user: User;
 
   let purchasing = false;
   let result: SkuPurchaseTransaction;
@@ -44,6 +47,11 @@
       return;
     }
 
+    if (_sku.currency === 'ETH' && !validEthAddress) {
+      toast.danger('Please enter a valid ERC20 address to send the NFT to.');
+      return;
+    }
+
     purchasing = true;
 
     const isGiveAway = listing.saleType === 'giveaway';
@@ -63,7 +71,11 @@
       }
     } else {
       try {
-        result = await purchaseSkuListing(listing._id);
+        if (_sku.currency === 'USD') {
+          result = await purchaseSkuListing(listing._id);
+        } else if (_sku.currency === 'ETH') {
+          result = await purchaseSkuListing(listing._id, ethAddress);
+        }
 
         if (product) {
           if (result?.status === 'pending') {
@@ -90,9 +102,31 @@
     }
   }
 
+  const userUsdBalance = $wallet?.balanceInfo.find((x) => x.currency === 'USD').totalBalance;
+  const userEthBalance = $wallet?.balanceInfo.find((x) => x.currency === 'ETH').totalBalance;
+  $: userBalance = _sku.currency === 'ETH' ? userEthBalance : userUsdBalance;
+
   $: marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
   $: total = listing.price * (1 + marketplaceFee);
-  $: insufficientFunds = total > user['0'].availableBalance;
+  $: insufficientFunds = total > +userBalance;
+  $: ethAddress = '';
+  $: validEthAddress = undefined;
+
+  function onEthAddressInput(event) {
+    const { value } = event.target as HTMLInputElement;
+    ethAddress = value;
+    validEthAddress = isEthAddress(value);
+  }
+
+  let copiedLink = false;
+
+  const onCopyLink = async () => {
+    await copy(ethAddress);
+    copiedLink = true;
+    setTimeout(() => {
+      copiedLink = false;
+    }, 5000);
+  };
 
   let title = '';
   $: if (result?.status === 'success') {
@@ -109,18 +143,58 @@
 {#if isOpen}
   <Modal {title} class="max-w-md">
     <div class="px-10 flex flex-col gap-6 pb-10">
-      <div class={insufficientFunds ? 'text-red-500' : 'text-green-500'}>
-        Your current balance {formatCurrency(user['0'].availableBalance)}
-      </div>
-      <div class="flex justify-center items-center bg-black h-72">
-        <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
-      </div>
-      <ProductModalInfo sku={_sku} />
-      {#if !result}
-        <div>
-          <OrderProductPricing price={listingPrice} {marketplaceFee} />
+      {#if _sku.currency === 'ETH'}
+        <div class="text-2xl font-normal pr-8">1. ETH address destination</div>
+      {/if}
+      {#if _sku.currency === 'USD'}
+        <div class="flex justify-center items-center bg-black h-72">
+          <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
+        </div>
+      {:else if _sku.currency === 'ETH'}
+        <div class="border-solid border-b border-gray-200 pb-8">
+          <Input
+            name="eth-address"
+            class={`pb-10 px-6 bg-gray-50 mt-4 mb-2 border border-solid border-gray-50 rounded-xl ${
+              validEthAddress === false ? 'text-red-500' : ''
+            }`}
+            style="padding-bottom: 1rem; padding-top: 1rem"
+            variant="base"
+            error={validEthAddress === false ? '*This does not appear to be a valid ERC20 address' : ''}
+            label="Enter the wallet ERC20 address to send the NFT to:"
+            value={ethAddress}
+            on:input={onEthAddressInput}
+          >
+            <svelte:fragment slot="after">
+              {#if validEthAddress === true}
+                {#if copiedLink}
+                  <Icon path={mdiCheckCircle} color="green" />
+                {:else}
+                  <Icon path={mdiContentCopy} class="group-hover:opacity-40 ml-2" on:click={onCopyLink} />
+                {/if}
+              {/if}
+            </svelte:fragment>
+          </Input>
         </div>
       {/if}
+      {#if _sku.currency === 'ETH'}
+        <div class="text-2xl font-normal pr-8">2. Confirm your purchase</div>
+      {/if}
+      <ProductModalInfo sku={_sku} />
+      <div>
+        {#if !result}
+          <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} />
+        {/if}
+        <div class={`flex justify-between ${insufficientFunds ? 'text-red-500' : 'text-green-500'}`}>
+          <span> Your current balance: </span>
+          <span>
+            {#if _sku.currency === 'USD'}
+              {formatCurrency(userBalance)}
+            {:else if _sku.currency === 'ETH'}
+              {formatEthCurrency(userBalance, 'symbol')}
+            {/if}
+          </span>
+        </div>
+      </div>
       <div class="flex flex-col gap-5 text-gray-500">
         {#if result?.status === 'success'}
           <span>You successfully bought this item, and now is part of your collection.</span>

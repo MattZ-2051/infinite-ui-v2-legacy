@@ -9,7 +9,7 @@
   import AccountWithdrawModal from './account-withdraw/AccountWithdrawModal.svelte';
   import AccountAddModal from './account-add/AccountAddModal.svelte';
   import { achAccountDeleteRequested } from './account-delete/account-delete.store';
-  import { withdrawableBalance } from '../wallet.store';
+  import { withdrawableBalanceUsd } from '../wallet.store';
 
   export let isOpen: boolean;
 
@@ -27,7 +27,7 @@
     } else {
       openModal(AccountWithdrawModal, {
         achAccount,
-        withdrawableAmount: $withdrawableBalance,
+        withdrawableAmount: $withdrawableBalanceUsd,
       });
     }
   }

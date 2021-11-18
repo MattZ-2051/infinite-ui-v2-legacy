@@ -3,7 +3,7 @@
   import { mdiChevronRight } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
+  import { formatCurrencyWithOptionalFractionDigits, formatEthCurrency } from '$util/format';
   import {
     hasListing,
     hasUpcomingListing,
@@ -13,6 +13,7 @@
   } from './collectors.service';
 
   export let collector: CollectorProduct;
+  export let currency: 'USD' | 'ETH';
 </script>
 
 <div class="flex flex-col items-end" {...$$restProps}>
@@ -30,14 +31,25 @@
     <div class="flex">
       <span>Sale for</span>
       <Icon path={mdiChevronRight} color="gray" />
-      <span class="highlight">{formatCurrencyWithOptionalFractionDigits(collector.activeProductListing.price)}</span>
+      <span class="highlight">
+        {#if currency === 'USD'}
+          {formatCurrencyWithOptionalFractionDigits(collector.activeProductListing.price)}
+        {:else if currency === 'ETH'}
+          {formatEthCurrency(collector.activeProductListing.price, 'symbol')}
+        {/if}
+      </span>
     </div>
   {:else if hasActiveAuction(collector)}
     <div class="flex">
       <span>Bid for</span>
       <Icon path={mdiChevronRight} color="gray" />
-      <span class="highlight">{formatCurrencyWithOptionalFractionDigits(getActiveAuctionMinAllowedBid(collector))}</span
-      >
+      <span class="highlight">
+        {#if currency === 'USD'}
+          {formatCurrencyWithOptionalFractionDigits(getActiveAuctionMinAllowedBid(collector))}
+        {:else if currency === 'ETH'}
+          {formatEthCurrency(getActiveAuctionMinAllowedBid(collector), 'symbol')}
+        {/if}
+      </span>
     </div>
     {#if collector.activeProductListing?.endDate}
       <div class="text-sm text-white-opacity-40">

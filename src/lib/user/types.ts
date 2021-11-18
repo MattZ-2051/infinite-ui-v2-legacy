@@ -7,7 +7,6 @@ export type User = {
   roles: string[];
   permissions: string[];
   balance: number;
-  availableBalance: number;
   createdAt: Date;
   cognitoId: string;
   externalId: string;

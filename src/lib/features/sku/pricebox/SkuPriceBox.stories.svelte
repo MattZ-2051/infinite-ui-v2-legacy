@@ -27,15 +27,22 @@
   const activeNftGiveaway = [{ saleType: 'giveaway', canceled: false, startDate: dummyDate }];
 
   const activeFixedProductListings = [
-    { saleType: 'fixed', price: 20, status: 'active', startDate: dummyDate },
-    { saleType: 'fixed', price: 11, status: 'active', startDate: dummyDate },
-    { saleType: 'auction', minBid: 24, status: 'active', startDate: dummyDate },
+    { saleType: 'fixed', price: 20, status: 'active', startDate: dummyDate, sku: { currency: 'USD' } },
+    { saleType: 'fixed', price: 11, status: 'active', startDate: dummyDate, sku: { currency: 'USD' } },
+    { saleType: 'auction', minBid: 24, status: 'active', startDate: dummyDate, sku: { currency: 'USD' } },
   ];
 
   const activeAuctionProductListings = [
-    { saleType: 'fixed', price: 30, status: 'active', startDate: dummyDate },
-    { saleType: 'auction', minBid: 30, status: 'active', startDate: dummyDate },
-    { saleType: 'auction', minHighestBid: 40, minBid: 20, status: 'active', startDate: dummyDate },
+    { saleType: 'fixed', price: 30, status: 'active', startDate: dummyDate, sku: { currency: 'USD' } },
+    { saleType: 'auction', minBid: 30, status: 'active', startDate: dummyDate, sku: { currency: 'USD' } },
+    {
+      saleType: 'auction',
+      minHighestBid: 40,
+      minBid: 20,
+      status: 'active',
+      startDate: dummyDate,
+      sku: { currency: 'USD' },
+    },
   ];
 
   const upcomingProductListings = [
@@ -43,6 +50,7 @@
     { saleType: 'auction', minHighestBid: 40, minBid: 20, status: 'upcoming', startDate: dummyDate },
   ];
   const activeFixedSku = {
+    currency: 'USD',
     upcomingProductListings: [],
     activeProductListings: activeFixedProductListings,
     upcomingSkuListings: [],
@@ -51,6 +59,7 @@
   };
 
   const upcomingAuctionSku = {
+    currency: 'USD',
     upcomingProductListings: [],
     activeProductListings: activeAuctionProductListings,
     upcomingSkuListings: upcomingFixedSkuListings,
@@ -60,6 +69,7 @@
   };
 
   const upcomingGiveaway = {
+    currency: 'USD',
     upcomingProductListings: upcomingProductListings,
     activeProductListings: [],
     upcomingSkuListings: upcomingNftGiveaway,

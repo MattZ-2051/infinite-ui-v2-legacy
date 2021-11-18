@@ -100,6 +100,7 @@ const getDummyTransaction = (): Transaction => {
     sellerTransactionFeePercentageSecondary: 3,
     type: 'string',
     productListings: [],
+    currency: 'ETH',
     skuListings: [],
     activeSkuListings: [],
     upcomingProductListings: [],

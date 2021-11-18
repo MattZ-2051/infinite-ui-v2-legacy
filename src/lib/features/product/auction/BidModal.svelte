@@ -1,10 +1,15 @@
 <script lang="ts">
+  import copy from 'clipboard-copy';
+  import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { Product } from '$lib/sku-item/types';
   import { closeModal, Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
-  import { formatCurrency } from '$util/format';
-  import { user } from '$lib/user';
+  import { wallet } from '$lib/features/wallet/wallet.store';
+  import Icon from '$ui/icon/Icon.svelte';
+  import { formatCurrency, formatEthCurrency } from '$util/format';
+  import { isEthAddress } from '$util/validateEthAddress';
   import Button from '$lib/components/Button.svelte';
+  import { Input } from '$lib/components/form';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import routes from '$project/routes';
   import { placeBidFx } from './auction.store';
@@ -18,38 +23,123 @@
   const waitingForAPI = placeBidFx.pending;
 
   $: listing = product.activeProductListings[0]; // BE team words: ActiveProductListings can only have one element.
-  $: bid = formatCurrency(amount);
-  $: total = formatCurrency(amount * (1 + marketplaceFee));
+  $: bid = product.sku.currency === 'USD' ? formatCurrency(amount) : amount;
+  $: total =
+    product.sku.currency === 'USD' ? formatCurrency(amount * (1 + marketplaceFee)) : amount * (1 + marketplaceFee);
+  $: ethAddress = '';
+  $: validEthAddress = undefined;
 
   let acceptedTerms = false;
 
   async function onPlaceBid() {
-    await placeBidFx({ listing, amount });
+    if (product.sku.currency === 'USD') {
+      await placeBidFx({ listing, amount });
+    } else if (product.sku.currency === 'ETH') {
+      await placeBidFx({ listing, amount, mintToAddress: ethAddress });
+    }
+
     closeModal();
   }
+
+  const userUsdBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'USD').totalBalance;
+  const userEthBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'ETH').totalBalance;
+  $: userBalance = product.sku.currency === 'ETH' ? userEthBalance : userUsdBalance;
+
+  function onEthAddressInput(event) {
+    const { value } = event.target as HTMLInputElement;
+    ethAddress = value;
+    validEthAddress = isEthAddress(value);
+  }
+
+  let copiedLink = false;
+
+  const onCopyLink = async () => {
+    await copy(ethAddress);
+    copiedLink = true;
+    setTimeout(() => {
+      copiedLink = false;
+    }, 5000);
+  };
 </script>
 
 {#if isOpen}
-  <Modal title="Confirm your bid:">
+  <Modal title={`${product.sku.currency === 'ETH' ? '1. ETH address destination' : 'Confirm your bid:'}`}>
     <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
-      <div class="flex justify-center items-center bg-black h-72">
-        <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
-      </div>
-      <div class="text-green-500">
-        Your current balance {formatCurrency($user['0'].availableBalance)}
-      </div>
+      {#if product.sku.currency === 'USD'}
+        <div class="flex justify-center items-center bg-black h-72">
+          <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
+        </div>
+      {:else if product.sku.currency === 'ETH'}
+        <div class="border-solid border-b border-gray-200 py-8">
+          <Input
+            name="eth-address"
+            class={`pb-10 px-6 bg-gray-50 mt-4 mb-2 border border-solid border-gray-50 rounded-xl ${
+              validEthAddress === false ? 'text-red-500' : ''
+            }`}
+            style="padding-bottom: 1rem; padding-top: 1rem"
+            variant="base"
+            error={validEthAddress === false ? '*This does not appear to be a valid ERC20 address' : ''}
+            label="Enter the wallet ERC20 address to send the NFT to:"
+            value={ethAddress}
+            on:input={onEthAddressInput}
+          >
+            <svelte:fragment slot="after">
+              {#if validEthAddress === true}
+                {#if copiedLink}
+                  <Icon path={mdiCheckCircle} color="green" />
+                {:else}
+                  <Icon path={mdiContentCopy} class="group-hover:opacity-40 ml-2" on:click={onCopyLink} />
+                {/if}
+              {/if}
+            </svelte:fragment>
+          </Input>
+        </div>
+      {/if}
+      {#if product.sku.currency === 'ETH'}
+        <div class="text-2xl font-normal pr-8">2. Confirm your bid</div>
+      {/if}
       <ProductModalInfo {product} sku={product.sku} />
       <div class="flex justify-between border-solid font-medium">
         <span class="text-gray-500">Your Bid:</span>
-        <span>{bid}</span>
+        <span>
+          {#if product.sku.currency === 'USD'}
+            {bid}
+          {:else if product.sku.currency === 'ETH'}
+            {formatEthCurrency(bid, 'symbol')}
+          {/if}
+        </span>
       </div>
       <div class="flex justify-between border-solid border-b border-gray-200 pb-4 font-medium">
         <span class="text-gray-500">Marketplace fee ({marketplaceFee * 100}%)</span>
-        <span>{formatCurrency(marketplaceFee * amount)}</span>
+        <span>
+          {#if product.sku.currency === 'USD'}
+            {formatCurrency(marketplaceFee * amount)}
+          {:else if product.sku.currency === 'ETH'}
+            {formatEthCurrency(marketplaceFee * amount, 'symbol')}
+          {/if}
+        </span>
       </div>
-      <div class="flex justify-between font-medium">
-        <span>Total cost (if you win):</span>
-        <span>{total}</span>
+      <div class="space-y-2 font-medium">
+        <div class="flex justify-between">
+          <span>Total cost (if you win):</span>
+          <span>
+            {#if product.sku.currency === 'USD'}
+              {total}
+            {:else if product.sku.currency === 'ETH'}
+              {formatEthCurrency(total, 'symbol')}
+            {/if}
+          </span>
+        </div>
+        <div class="text-green-500 flex justify-between">
+          <span> Your current balance: </span>
+          <span>
+            {#if product.sku.currency === 'USD'}
+              {formatCurrency(userBalance)}
+            {:else if product.sku.currency === 'ETH'}
+              {formatEthCurrency(userBalance, 'symbol')}
+            {/if}
+          </span>
+        </div>
       </div>
       <div class="max-w-md text-gray-600 text-sm">
         Placing a bid will freeze the associated funds from your wallet until the auction ends. Bids cannot be canceled
@@ -69,8 +159,11 @@
         All resales of this product are subject to a {product.sku.royaltyFeePercentage}% royalty fee set by and to be
         paid to the original creator.
       </div>
-      <Button variant="brand" class="w-full mt-6" disabled={$waitingForAPI || !acceptedTerms} on:click={onPlaceBid}
-        >Place Bid</Button
+      <Button
+        variant="brand"
+        class="w-full mt-6"
+        disabled={$waitingForAPI || !acceptedTerms || (product.sku.currency === 'ETH' && !validEthAddress)}
+        on:click={onPlaceBid}>Place Bid</Button
       >
     </div>
   </Modal>

@@ -27,8 +27,11 @@ export async function cancelAuction(listingId: string) {
   await patch(`listings/${listingId}/cancel`, undefined);
 }
 
-export async function placeBid(listingId: string, amount: number): Promise<Partial<Bid>> {
-  return await post(`listings/${listingId}/bids`, { bidAmt: amount });
+export async function placeBid(listingId: string, amount: number, mintToAddress?: string): Promise<Partial<Bid>> {
+  return await post(
+    `listings/${listingId}/bids`,
+    mintToAddress ? { bidAmt: amount, mintToAddress } : { bidAmt: amount }
+  );
 }
 
 export async function loadProductBids({

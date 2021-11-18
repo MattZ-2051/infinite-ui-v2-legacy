@@ -2,8 +2,11 @@ import type { SkuPurchaseTransaction } from './types';
 import { patch, post } from '$lib/api';
 import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
 
-export async function purchaseSkuListing(listingId: string): Promise<SkuPurchaseTransaction> {
-  const response = await patch<SkuPurchaseTransaction>(`listings/${listingId}/purchase`, {});
+export async function purchaseSkuListing(listingId: string, mintToAddress?: string): Promise<SkuPurchaseTransaction> {
+  const response = await patch<SkuPurchaseTransaction>(
+    `listings/${listingId}/purchase`,
+    mintToAddress ? { mintToAddress } : {}
+  );
 
   return await processResponse(response);
 }

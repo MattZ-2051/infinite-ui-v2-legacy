@@ -7,6 +7,7 @@ import { cancelSale } from '$lib/features/product/product.api';
 import { saleCancelled, auctionCancelled } from '$lib/features/product/product.store';
 import { cancelAuction } from '$lib/features/product/auction/auction.api';
 import routes from '$project/routes';
+import { loadWalletFx } from '$lib/features/wallet/wallet.store';
 import CreateSaleModal from '../CreateSaleModal.svelte';
 import RedeemModal from '../redeem/RedeemModal.svelte';
 import AuctionModal from '../auction/AuctionModal.svelte';
@@ -93,6 +94,7 @@ export function onAction(type: ActionType, product: Product) {
 }
 
 export function onBid(amount: number, product: Product) {
+  loadWalletFx();
   openModal(BidModal, {
     product,
     amount,

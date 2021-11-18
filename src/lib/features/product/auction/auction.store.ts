@@ -7,9 +7,11 @@ import { placeBid, loadProductBids } from './auction.api';
 import { fetchProductBidsFx, setProductBids } from '../product.store';
 import { placeBidFxErrorHandler } from './auctionErrorHandler';
 
-export const placeBidFx = createEffect(async ({ listing, amount }: { listing: Listing; amount: number }) => {
-  await placeBid(listing._id, amount);
-});
+export const placeBidFx = createEffect(
+  async ({ listing, amount, mintToAddress }: { listing: Listing; amount: number; mintToAddress?: string }) => {
+    await placeBid(listing._id, amount, mintToAddress);
+  }
+);
 
 placeBidFx.done.watch(async ({ params: { listing } }) => {
   // Refetch current page bids
