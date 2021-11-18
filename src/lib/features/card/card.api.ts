@@ -4,7 +4,7 @@ import { post, del } from '$lib/api';
 import { formatApiCurrency } from '$util/format';
 
 export async function addCreditCard(data: NewCreditCard): Promise<CreditCard> {
-  return await post<CreditCard>(`wallet/cards`, data);
+  return await post<CreditCard>(`wallet/cards`, { ...data, waitForConfirmation: true });
 }
 
 export async function deleteCreditCard(cardId: string) {
@@ -15,5 +15,6 @@ export async function addCreditCardFunds(cardId: string, funds: AddFundsRequest)
   return await post<{ id: string }>(`wallet/cards/${cardId}/payments`, {
     ...funds,
     amount: formatApiCurrency(funds.amount),
+    waitForConfirmation: true,
   });
 }
