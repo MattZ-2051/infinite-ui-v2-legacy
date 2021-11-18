@@ -12,7 +12,7 @@ import * as crypto from 'crypto-js';
 const isChecksumAddress = function (address) {
   // Check each case
   address = address.replace('0x', '');
-  const addressHash = crypto.sha3(address.toLowerCase());
+  const addressHash = crypto.SHA3(address.toLowerCase());
   for (let i = 0; i < 40; i++) {
     // the nth letter should be uppercase if the nth digit of casemap is 1
     if (
