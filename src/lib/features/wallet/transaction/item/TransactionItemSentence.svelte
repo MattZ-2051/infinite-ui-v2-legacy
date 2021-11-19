@@ -16,7 +16,7 @@
   $: status = transaction.status;
   $: deposit = transaction.transactionData.deposit;
 
-  $: isEth = deposit.balanceCurrency === 'ETH';
+  $: isEth = deposit?.balanceCurrency === 'ETH';
 </script>
 
 <span class="text-left cursor-default text-default" on:click={(event) => event.stopPropagation()}>
@@ -68,7 +68,7 @@
     {/if}
   {:else if type === 'deposit'}
     {#if isEth}
-      <span> {formatCurrency(deposit.amount, { currency: deposit.balanceCurrency })} </span>
+      <span> {formatCurrency(deposit.amount, { currency: deposit?.balanceCurrency })} </span>
       added to your balance
     {:else if deposit.type === 'cc'}
       {status === 'error' ? 'You tried to add' : 'You added'}
@@ -78,7 +78,7 @@
       <span>{transaction.transactionData.deposit.card?.last4} </span>
     {:else if deposit.type === 'circle' || deposit.type === 'hbar'}
       You added
-      <span> {formatCurrency(+deposit.amount, { currency: deposit.balanceCurrency })} </span>
+      <span> {formatCurrency(+deposit.amount, { currency: deposit?.balanceCurrency })} </span>
       by depositing
       <span> {+deposit.amountUnrated} </span>
       <span>
@@ -86,7 +86,7 @@
       </span>
     {:else if !isEth}
       funds by depositing
-      <span> {formatCurrency(+deposit.amount, { currency: deposit.balanceCurrency })} </span>
+      <span> {formatCurrency(+deposit.amount, { currency: deposit?.balanceCurrency })} </span>
       using Coinbase
     {/if}
   {:else if type === 'nft_redeem'}
