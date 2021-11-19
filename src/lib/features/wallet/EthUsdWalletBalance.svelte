@@ -12,6 +12,7 @@
   export let availableEthBalance: string = undefined;
   export let availableUsdBalance: string = undefined;
   export let currencyType: CurrencyType;
+  export let helpText: string;
 
   const EthData = depositOptions.find((option) => option.id === 'eth');
   const UsdData = depositOptions.find((option) => option.id === 'usdc');
@@ -20,10 +21,6 @@
 
   $: balance = isEthCurrency ? ethBalance : usdBalance;
   $: availableBalance = isEthCurrency ? availableEthBalance : availableUsdBalance;
-
-  const helpText = isEthCurrency
-    ? 'Your ETH balance can only be used for purchasing NFTs priced in ETH.'
-    : 'Your USD balance can only be used for purchasing NFTs priced in USD.';
 </script>
 
 <div class="flex flex-col mt-6 md:mt-12 rounded-lg border">
@@ -41,7 +38,7 @@
             <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-6 mt-2" />
           {:else}
             <span>{isEthCurrency ? EthData.title : UsdData.title}</span>
-            <span class="text-gray-500 text-sm">{isEthCurrency ? 'Ethereum' : 'USD Coin'}</span>
+            <span class="text-gray-500 text-sm">{isEthCurrency ? 'Ether' : 'USD Coin'}</span>
           {/if}
         </div>
       </div>
@@ -75,7 +72,10 @@
 
   <div class="p-6 text-white-opacity-50" style="background: var(--wallet-balance-content-bg-color-secondary)">
     <span class="text-sm text-gray-500 ">
-      {helpText} <a href="/help" class="underline">Learn more.</a>
+      {helpText}
+      <a href="https://info.seva.love/resources" target="_blank" rel="noopener noreferrer" class="underline"
+        >Learn more.</a
+      >
     </span>
   </div>
 </div>

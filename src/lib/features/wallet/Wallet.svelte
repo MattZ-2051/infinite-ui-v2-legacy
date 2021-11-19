@@ -131,11 +131,13 @@
           ethBalance={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'ETH').amount}
           availableEthBalance={$wallet?.balanceInfo.find((balanceInfo) => balanceInfo.currency === 'ETH').totalBalance}
           currencyType={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'ETH').currency}
+          helpText={'Your ETH balance can only be used for purchasing NFTs priced in ETH.'}
         />
         <EthUsdWalletBalance
           usdBalance={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'USD').amount}
           availableUsdBalance={$wallet?.balanceInfo.find((balanceInfo) => balanceInfo.currency === 'USD').totalBalance}
           currencyType={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'USD').currency}
+          helpText={'Your USD balance can only be used for purchasing NFTs priced in USD.'}
         />
         <div class="h-px bg-gray-100 w-full mt-6 md:mt-12" />
         <div class="p-6 mt-6 md:mt-12 rounded-lg border border-gray-100">
