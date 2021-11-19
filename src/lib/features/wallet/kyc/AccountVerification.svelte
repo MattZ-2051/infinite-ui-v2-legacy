@@ -27,12 +27,16 @@
     };
   }
   $: status = getStatus(level, pending);
+
+  const statusColor = level > 0 ? 'var(--default-color)' : 'var(--gray-500)';
 </script>
 
-<div class="flex items-center justify-between font-semibold" {...$$restProps}>
+<div class="flex items-center justify-between" {...$$restProps}>
   <div class="flex items-center gap-2">
-    <Icon path={status.icon} />
-    <span>{status.label}</span>
+    <Icon path={status.icon} color={statusColor} />
+    <span style="color: {statusColor}">
+      {status.label}
+    </span>
     {#if pending && level > 0}
       <span class="tracking-widest">•••</span>
       <span class="text-gray-400">Level {level + 1}</span>

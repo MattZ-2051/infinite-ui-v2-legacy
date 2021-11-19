@@ -15,3 +15,4 @@ export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-has
 export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-redeem-an-item';
 export const CLIENT_API_HEADER = 'seva';
 export const ENABLE_ETH_CURRENCY = true;
+export const KYC_INFO = 'https://info.seva.love/infinite/id-verification-troubleshooting';

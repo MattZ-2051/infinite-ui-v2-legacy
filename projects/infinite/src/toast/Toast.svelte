@@ -11,8 +11,9 @@
   let:onMessageClick
   let:closeable
   let:close
+  let:classes
 >
-  <div class="container py-3 pl-8 pr-3 rounded-full toast toast-{severity} mx-auto">
+  <div class="container py-3 pl-8 pr-3 rounded-full toast toast-{severity} mx-auto {classes}">
     <div class="flex gap-x-10 items-center justify-between">
       <div class="toast-message" on:click={onMessageClick}>{@html message}</div>
       {#if closeable}

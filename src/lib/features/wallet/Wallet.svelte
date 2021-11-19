@@ -2,14 +2,13 @@
   import { goto } from '$app/navigation';
   import { openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
-  import { formatCurrency } from '$util/format';
   import CryptoCurrency from '$lib/payment/crypto/CryptoCurrency.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import routes from '$project/routes';
   import { variables } from '$lib/variables';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
-  import { ENABLE_ETH_CURRENCY } from '$project/variables';
+  import { ENABLE_ETH_CURRENCY, KYC_INFO } from '$project/variables';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import CurrencySelectModal from './deposit/CurrencySelectModal.svelte';
@@ -27,14 +26,13 @@
     loadWalletFx,
   } from './wallet.store';
   import { launchKYCPersona } from './kyc/personaClient.service';
-  import { getDailyDepositLimitDisclaimer } from './kyc/kyc.service';
+  import { getKYCLevelDepositDisclaimer } from './kyc/kyc.service';
   import SelectWithdrawMethodModal from './withdraw/SelectWithdrawMethodModal.svelte';
   import EthUsdWalletBalance from './EthUsdWalletBalance.svelte';
 
   export let tab: 'transactions' | 'bids';
-  const kycLevelNeeded = `Your wallet balance is currently >= ${formatCurrency(
-    10_000
-  )} USD, therefore, you will not be able to make deposits, withdrawals, purchases until you complete KYC level 2.`;
+  const kycLevelNeeded = `If your ETH or USDC wallet balance exceed $10,000 USD (or the ETH equivalent), 
+    you will need to complete KYC level 2; you will not be able to make deposits, withdrawals, or purchases until you do so.`;
   $: isKycCleared = $wallet?.kycMaxLevel >= 1;
   $: isKycPending = $wallet?.kycPending;
 
@@ -90,11 +88,13 @@
     // Cryptocurrencies...
     if (!isKycCleared) {
       const prompt = isKycPending
-        ? 'please, wait until we validate your identity.'
-        : 'please validate your identity by completing the <a data-toast="verificationStepsCb" class="cursor-pointer">Account Verification</a> process (also known as KYC, or Know Your Client).';
+        ? 'Please, wait until we validate your identity.'
+        : `In order to make a cryptocurrency deposit, you need to complete the <a data-toast="verificationStepsCb" class="cursor-pointer">account verification</a> process (KYC level 1).<br>
+          ${kycLevelNeeded}`;
 
-      toast.warning(`To deposit cryptocurrency, ${prompt}`, {
+      toast.warning(`${prompt}`, {
         onClick: { verificationStepsCb: openUpgradeKYCLevel },
+        classes: 'text-xs lg:text-base',
       });
       return;
     }
@@ -156,15 +156,27 @@
           helpText={'Your USD balance can only be used for purchasing NFTs priced in USD.'}
         />
         <div class="h-px bg-gray-100 w-full mt-6 md:mt-12" />
-        <div class="p-6 mt-6 md:mt-12 rounded-lg border border-gray-100">
-          <div class="text-gray-700 text-sm mb-4">Account verification status:</div>
-          {#if $wallet}
-            <AccountVerification
-              on:upgrade={openUpgradeKYCLevel}
-              level={$wallet.kycMaxLevel}
-              pending={$wallet.kycPending}
-            />
-          {/if}
+
+        <div class="flex flex-col mt-6 md:mt-12 rounded-lg border">
+          <div class="p-6 flex flex-col gap-6 font-medium">
+            <div class="text-gray-700 text-md mb-4">Account verification status:</div>
+            {#if $wallet}
+              <AccountVerification
+                on:upgrade={openUpgradeKYCLevel}
+                level={$wallet.kycMaxLevel}
+                pending={$wallet.kycPending}
+              />
+            {/if}
+          </div>
+
+          <div class="p-6 text-white-opacity-50" style="background: var(--wallet-balance-content-bg-color-secondary)">
+            <span class="text-sm text-gray-500">
+              {#if $wallet}
+                {getKYCLevelDepositDisclaimer($wallet.kycMaxLevel)}
+                <a href={KYC_INFO} class="underline">Learn more.</a>
+              {/if}
+            </span>
+          </div>
         </div>
       {:else}
         <WalletBalance
@@ -180,13 +192,17 @@
                 pending={$wallet.kycPending}
               />
             {/if}
+            <div class="mt-6">
+              <span class="text-sm text-gray-500">
+                {#if $wallet}
+                  {getKYCLevelDepositDisclaimer($wallet.kycMaxLevel)}
+                  <a href={KYC_INFO} class="underline">Learn more.</a>
+                {/if}
+              </span>
+            </div>
           </svelte:fragment>
         </WalletBalance>
       {/if}
-
-      <div class="text-sm text-gray-500 mt-4">
-        {$wallet && getDailyDepositLimitDisclaimer($wallet.kycMaxLevel, variables.dailyDepositLimit)}
-      </div>
     </div>
     <WalletButtons slot="sticky-cta" on:deposit={handleDepositSelectModal} on:withdraw={handleWithdrawSelectModal} />
   </StickyColumn>

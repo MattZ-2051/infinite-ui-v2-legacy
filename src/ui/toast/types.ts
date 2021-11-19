@@ -7,6 +7,7 @@ export type ToastOptions = {
   pauseOnHover?: boolean;
   showProgressBar?: boolean;
   onClick?: { [key: string]: () => void };
+  classes?: string;
 };
 
 // eslint-disable-next-line unicorn/prevent-abbreviations

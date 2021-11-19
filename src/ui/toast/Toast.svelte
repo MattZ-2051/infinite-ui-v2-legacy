@@ -44,6 +44,11 @@
    */
   export let onClick = undefined;
 
+  /**
+   * Change the style of the toast
+   */
+  export let classes = '';
+
   const MIN_VALUE = 0;
   const MAX_VALUE = 1;
   const dispatch = createEventDispatcher<{ close: string }>();
@@ -97,5 +102,5 @@
   out:fly={$progress === MAX_VALUE ? { x: 250 } : { duration: 0 }}
   role="status"
 >
-  <slot {severity} {message} {onMessageClick} {closeable} {close} {showProgressBar} progress={$progress} />
+  <slot {severity} {message} {onMessageClick} {closeable} {close} {showProgressBar} progress={$progress} {classes} />
 </div>

@@ -19,8 +19,9 @@
       let:close
       let:showProgressBar
       let:progress
+      let:classes
     >
-      <slot {severity} {message} {onMessageClick} {closeable} {close} {showProgressBar} {progress} />
+      <slot {severity} {message} {onMessageClick} {closeable} {close} {showProgressBar} {progress} {classes} />
     </Toast>
   {/each}
 </div>
