@@ -20,7 +20,8 @@
 
   export let data: Awaited<ReturnType<typeof fetchProductFx>>;
 
-  $: setProduct(data);
+  // eslint-disable-next-line unicorn/no-null
+  $: setProduct({ ...data, oldProductId: null });
 </script>
 
 {#if $product}

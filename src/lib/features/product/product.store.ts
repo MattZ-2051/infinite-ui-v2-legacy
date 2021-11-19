@@ -12,7 +12,7 @@ import { hasActiveAuction, hasAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
 import { skuBought, sku } from '../sku/sku.store';
 
-export const setProduct = createEvent<Awaited<ReturnType<typeof fetchProductFx>>>();
+export const setProduct = createEvent<Awaited<ReturnType<typeof fetchProductFx>> & { oldProductId: string | null }>();
 export const setProductBids = createEvent<{ data: Bid[]; total: number; max: number }>();
 
 export const fetchProductFx = createEffect(
@@ -68,8 +68,8 @@ export const refetchProductFx = createEffect(async () => {
 
   const id = current._id;
   const data = await fetchProductFx({ id, tab, page, force: true });
-
-  setProduct(data);
+  // eslint-disable-next-line unicorn/no-null
+  setProduct({ ...data, oldProductId: id || null });
 });
 
 export const fetchProductTransactionsFx = createEffect(
@@ -123,10 +123,15 @@ export const totalBids = createStore<number>(0)
   .on(setProduct, (state, payload) => ('totalProductBids' in payload ? payload.totalProductBids : state))
   .on(setProductBids, (state, payload) => payload.total);
 
-export const maxPlacedBid = createStore<number>(0)
-  .on(setProduct, (state, payload) =>
-    payload.maxProductBid && payload.maxProductBid > state ? payload.maxProductBid : state
-  )
+// eslint-disable-next-line unicorn/no-null
+export const maxPlacedBid = createStore<number | null>(null)
+  .on(setProduct, (state, payload) => {
+    if (state === null) return payload.maxProductBid || 0;
+    if (payload.oldProductId === null || payload.oldProductId !== payload.product._id)
+      return payload.maxProductBid || 0;
+    if (payload.maxProductBid) return 0;
+    return payload.maxProductBid > state ? payload.maxProductBid : state;
+  })
   .on(setProductBids, (state, payload) => payload.max);
 
 export const saleStarted = createEvent<{ product: Product }>();
