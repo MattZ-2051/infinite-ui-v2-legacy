@@ -10,11 +10,9 @@
 
 <div class="relative w-full h-full pb-20 sm:pb-0 sm:mb-0 pt-0 md:pt-8 lg:pt-26">
   <div class="container h-full sm:h-screen flex flex-col gap-10 max-w-6xl sm:grid sm:grid-cols-2 px-6">
-    <div class="z-1 flex flex-col justify-center items-start">
-      <div class="text-4xl leading-none sm:text-6xl text-left font-semibold mb-10">
-        Emilia’s SameYou <br /> charity NFT
-      </div>
-      <div class="font-light text-base mb-6 text-left">
+    <div class="z-1 flex flex-col gap-8 justify-center items-start">
+      <div class="text-4xl leading-none sm:text-6xl text-left">Emilia’s SameYou <br /> charity NFT</div>
+      <div class="font-light text-base mt-4 text-left">
         Featuring a series of NFT’s illustrating the experiential journey of healing from traumatic brain injury to
         recovery.
       </div>
@@ -31,18 +29,12 @@
       >
     </div>
     <div class="flex items-center justify-center">
-      <div class="center-card relative z-1 h-auto rounded-md max-w-sm">
+      <div class="center-card relative z-1 h-auto rounded-md max-w-sm top-12">
         <SkuItem sku={skuData} --sku-item-bg-color="#ffd54e" --sku-item-border-color="#ffd54e" />
       </div>
     </div>
-  </div>
-  <div class="w-full flex flex-col flex-end">
-    <img
-      src={Wave}
-      alt="curved purple line"
-      style="margin-bottom:-7em"
-      class="hidden 2xl:block object-cover absolute bottom-0 z-0 right-0 w-full "
-    />
+    src={Wave}
+    style="margin-bottom:-7em" class="hidden 2xl:block object-cover absolute bottom-0 z-0 right-0 w-full " />
     <img
       src={Wave}
       alt="curved purple line"

@@ -1,71 +1,73 @@
+import type { ImageMetadata } from '$ui/image/Image.svelte';
+import image from './assets/image0.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+import image1 from './assets/image1.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+import image2 from './assets/image2.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+import image3 from './assets/image3.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+import image4 from './assets/image4.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+import image5 from './assets/image5.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+import image6 from './assets/image6.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+import image7 from './assets/image7.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+import image8 from './assets/image8.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+import image9 from './assets/image9.png?w=244&format=avif;webp;png&metadata=src;format;width;height';
+
 export type Person = {
-  photo: string;
+  photo: ImageMetadata[];
   name: string;
   position: string;
 };
 
 export const management: Person[] = [
   {
-    photo: 'missing',
+    photo: image,
     name: 'Poonacha Machaiah',
-    position: 'Chief Executive Officer',
+    position: 'Co-founder & CEO',
   },
   {
-    photo: 'missing',
-    name: 'Gabriella Wright',
-    position: 'Head of Content and Storytelling',
-  },
-  {
-    photo: 'missing',
-    name: 'Donna Mastropasqua',
-    position: ' Head of Strategic Partnerships',
-  },
-  {
-    photo: 'missing',
+    photo: image1,
     name: 'Matai Blacklock',
-    position: 'Head of Product Management',
+    position: 'Platform Dev. & Strategy',
   },
   {
-    photo: 'missing',
-    name: 'Jared Reicbaum',
-    position: 'NFT Marketing/Community Management',
-  },
-  {
-    photo: 'missing',
+    photo: image2,
     name: 'Nelson Diaz',
-    position: 'NFT Marketing/Community Management',
+    position: 'NFT & Community Mgmt.',
   },
   {
-    photo: 'missing',
-    name: 'Josh Rachlin',
-    position: 'NFT Marketing/Community Management',
+    photo: image3,
+    name: 'Gabriella Wright',
+    position: 'Content & Storytelling',
   },
   {
-    photo: 'missing',
-    name: 'Justin Nahama',
-    position: 'Legal Counsel',
+    photo: image4,
+    name: 'Whisbe',
+    position: 'Artist Engagement',
   },
 ];
 
 export const advisors: Person[] = [
   {
-    photo: 'missing',
-    name: 'Deepak Chopra (MD, FACP)',
-    position: 'Founder of The Chopra Foundation and Chopra Global',
+    photo: image5,
+    name: 'Deepak Chopra, MD',
+    position: 'Co-founder',
   },
   {
-    photo: 'missing',
-    name: 'Claudio Guittrez',
-    position: 'Founder and CEO of CG Creative Studios',
-  },
-  {
-    photo: 'missing',
+    photo: image6,
     name: 'Christian Hasker',
-    position: 'Hedera Chief Marketing Officer',
+    position: 'Hedera, Chief Marketing Officer',
   },
   {
-    photo: 'missing',
+    photo: image7,
     name: 'Yonathan Lapchick',
-    position: 'CEO and SUKU and INFINITE',
+    position: 'SUKU/InfiniteWorld, CEO',
+  },
+  {
+    photo: image8,
+    name: 'Nick Beucher',
+    position: 'President, Tavistock Development Group',
+  },
+  {
+    photo: image9,
+    name: 'Parul Gujral',
+    position: 'Snowball, Founder, CEO',
   },
 ];

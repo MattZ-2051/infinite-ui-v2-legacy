@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Person } from './Info';
-  import emilia from './assets/emilia.png';
+  import Image from '$ui/image/Image.svelte';
 
   export let people: Person[];
   export let title: string;
@@ -13,9 +13,9 @@
       {#each people as person}
         <div class="flex flex-col gap-4 items-center text-center">
           <div>
-            <img src={emilia} class="rounded-lg" alt="pic" />
+            <Image src={person.photo} class="rounded-lg" />
           </div>
-          <div class="flex flex-col">
+          <div class="flex flex-col w-56">
             <span class="text-xl md:text-2xl font-medium">{person.name}</span>
             <span class="text-sm md:text-xl " style="color:#7852fd">{person.position}</span>
           </div>
