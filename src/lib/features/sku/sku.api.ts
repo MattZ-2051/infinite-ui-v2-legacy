@@ -4,7 +4,7 @@ import { get, getPage } from '$lib/api';
 export async function loadSku({ id, fetch }: { id: string; fetch?: Fetch }) {
   const [sku, { total: totalCollectors, data: collectors }] = await Promise.all([
     get<Sku>(`skus/${id}?includeFunctions=true`, { fetch }),
-    getPage<CollectorProduct>(`products/collectors/${id}?includeFunctions=true?page=1&per_page=100`, { fetch }),
+    getPage<CollectorProduct>(`products/collectors/${id}?includeFunctions=true&page=1&per_page=100`, { fetch }),
   ]);
 
   const related = await getSkuRelated({ sku, fetch });
