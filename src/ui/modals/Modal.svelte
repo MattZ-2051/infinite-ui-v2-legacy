@@ -41,6 +41,7 @@
     focusTrapOptions: {
       allowOutsideClick: true,
       initialFocus: () => (element.querySelector('[data-initial-focus]') as HTMLElement) || element,
+      fallbackFocus: document.body,
     },
   };
 </script>
