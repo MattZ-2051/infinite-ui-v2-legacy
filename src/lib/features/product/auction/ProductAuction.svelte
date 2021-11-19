@@ -5,7 +5,7 @@
   import { Pagination } from '$ui/pagination';
   import { page } from '$app/stores';
   import DateFormat from '$ui/date/DateFormat.svelte';
-  import { formatCurrency, formatDate, formatEthCurrency } from '$util/format';
+  import { formatCurrency, formatDate } from '$util/format';
   import { loadingBids } from './auction.api';
   import { bids, totalBids } from '../product.store';
   import NoAuction from './NoAuction.svelte';
@@ -39,13 +39,9 @@
                 <UserLink username={bid.owner?.username} class="font-semibold underline hover:no-underline" />
               </span>
               <div class="justify-self-end">
-                Bid for <span class="text-white px-1">
-                  {#if product.sku.currency === 'USD'}
-                    {formatCurrency(bid.bidAmt)}
-                  {:else if product.sku.currency === 'ETH'}
-                    {formatEthCurrency(bid.bidAmt, 'symbol')}
-                  {/if}
-                </span>
+                Bid for <span class="text-white px-1"
+                  >{formatCurrency(bid.bidAmt, { currency: product.sku.currency })}</span
+                >
               </div>
               <span class="col-span-2 justify-self-end self-start text-sm text-gray-400">
                 <DateFormat value={bid.createdAt} />
@@ -60,13 +56,7 @@
     {/if}
   </div>
   <div class="text-center text-gray-500 py-6">
-    Started at <span class="text-white">
-      {#if product.sku.currency === 'USD'}
-        {formatCurrency(listing.minBid)}
-      {:else if product.sku.currency === 'ETH'}
-        {formatEthCurrency(listing.minBid, 'symbol')}
-      {/if}
-    </span>
+    Started at <span class="text-white">{formatCurrency(listing.minBid, { currency: product.sku.currency })}</span>
     on
     <span class="font-semibold text-sm whitespace-nowrap"><DateFormat value={listing.startDate} /></span>
   </div>

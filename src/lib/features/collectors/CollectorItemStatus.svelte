@@ -3,7 +3,7 @@
   import { mdiChevronRight } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import { formatCurrencyWithOptionalFractionDigits, formatEthCurrency } from '$util/format';
+  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import {
     hasListing,
     hasUpcomingListing,
@@ -32,11 +32,7 @@
       <span>Sale for</span>
       <Icon path={mdiChevronRight} color="gray" />
       <span class="highlight">
-        {#if currency === 'USD'}
-          {formatCurrencyWithOptionalFractionDigits(collector.activeProductListing.price)}
-        {:else if currency === 'ETH'}
-          {formatEthCurrency(collector.activeProductListing.price, 'symbol')}
-        {/if}
+        {formatCurrencyWithOptionalFractionDigits(collector.activeProductListing.price, { currency })}
       </span>
     </div>
   {:else if hasActiveAuction(collector)}
@@ -44,11 +40,7 @@
       <span>Bid for</span>
       <Icon path={mdiChevronRight} color="gray" />
       <span class="highlight">
-        {#if currency === 'USD'}
-          {formatCurrencyWithOptionalFractionDigits(getActiveAuctionMinAllowedBid(collector))}
-        {:else if currency === 'ETH'}
-          {formatEthCurrency(getActiveAuctionMinAllowedBid(collector), 'symbol')}
-        {/if}
+        {formatCurrencyWithOptionalFractionDigits(getActiveAuctionMinAllowedBid(collector), { currency })}
       </span>
     </div>
     {#if collector.activeProductListing?.endDate}

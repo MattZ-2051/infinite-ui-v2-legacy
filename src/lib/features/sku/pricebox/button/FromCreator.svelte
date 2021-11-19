@@ -3,7 +3,7 @@
   import { mdiInfinity } from '@mdi/js';
   import { readable } from 'svelte/store';
   import Icon from '$ui/icon/Icon.svelte';
-  import { formatCurrencyWithOptionalFractionDigits, formatDate, formatEthCurrency } from '$util/format';
+  import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
   import { polls } from '$lib/features/product/product.store';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
@@ -43,11 +43,7 @@
         <div class="flex justify-end">
           <div>
             <div class="text-xl text-right">
-              {#if sku.currency === 'USD'}
-                {formatCurrencyWithOptionalFractionDigits(skuPrice)}
-              {:else if sku.currency === 'ETH'}
-                {formatEthCurrency(skuPrice, 'symbol')}
-              {/if}
+              {formatCurrencyWithOptionalFractionDigits(skuPrice, { currency: sku.currency })}
             </div>
             <div class="text-sm text-right text-gray-500 ">
               {activeListing.saleType === 'auction' ? 'Active Auction' : 'Initial Listing Price'}
@@ -72,11 +68,7 @@
         <div class="text-gray-500 text-sm">{formatDate(sku.minStartDate)}</div>
       </div>
       <div class="pl-4 text-xl text-center">
-        {#if sku.currency === 'USD'}
-          {formatCurrencyWithOptionalFractionDigits(upcomingSkuListings[0]?.price)}
-        {:else if sku.currency === 'ETH'}
-          {formatEthCurrency(upcomingSkuListings[0]?.price, 'symbol')}
-        {/if}
+        {formatCurrencyWithOptionalFractionDigits(upcomingSkuListings[0]?.price, { currency: sku.currency })}
       </div>
     </div>
   {/if}

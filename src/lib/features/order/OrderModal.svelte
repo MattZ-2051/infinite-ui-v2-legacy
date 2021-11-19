@@ -6,7 +6,7 @@
   import { closeModal, Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
   import Icon from '$ui/icon/Icon.svelte';
-  import { formatCurrency, formatEthCurrency } from '$util/format';
+  import { formatCurrency } from '$util/format';
   import { isEthAddress } from '$util/validateEthAddress';
   import Button from '$lib/components/Button.svelte';
   import { Input } from '$lib/components/form';
@@ -187,11 +187,7 @@
         <div class={`flex justify-between ${insufficientFunds ? 'text-red-500' : 'text-green-500'}`}>
           <span> Your current balance: </span>
           <span>
-            {#if _sku.currency === 'USD'}
-              {formatCurrency(userBalance)}
-            {:else if _sku.currency === 'ETH'}
-              {formatEthCurrency(userBalance, 'symbol')}
-            {/if}
+            {formatCurrency(userBalance, { currency: _sku.currency })}
           </span>
         </div>
       </div>

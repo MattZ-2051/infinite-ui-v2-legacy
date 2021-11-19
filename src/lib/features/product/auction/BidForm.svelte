@@ -8,7 +8,7 @@
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
-  import { formatDate, formatCurrency, formatEthCurrency } from '$util/format';
+  import { formatDate, formatCurrency } from '$util/format';
   import routes from '$project/routes';
   import { loadWalletFx, wallet } from '$lib/features/wallet/wallet.store';
   import { auctionEnded } from '../product.store';
@@ -51,11 +51,9 @@
       }
       if (amount < acceptedBidPrice) {
         return toast.danger(
-          `The minimum bid amount is ${
-            product.sku.currency === 'USD'
-              ? formatCurrency(acceptedBidPrice)
-              : formatEthCurrency(acceptedBidPrice, 'symbol')
-          }. Please place a higher bid.`
+          `The minimum bid amount is ${formatCurrency(acceptedBidPrice, {
+            currency: product.sku.currency,
+          })}. Please place a higher bid.`
         );
       }
       if (amountWithFee > userBalance) {
@@ -97,12 +95,7 @@
     />
     <span class="absolute bottom-9 left-4 text-2xl text-gray-500">{product.sku.currency === 'USD' ? '$' : 'Ξ'}</span>
     <div class="absoulte left-4 bottom-4 text-sm text-gray-500" style="position:absolute;">
-      *Min. bid amount is
-      {#if product.sku.currency === 'USD'}
-        {formatCurrency(acceptedBidPrice)}
-      {:else if product.sku.currency === 'ETH'}
-        {formatEthCurrency(acceptedBidPrice, 'symbol')}
-      {/if}
+      *Min. bid amount is {formatCurrency(acceptedBidPrice, { currency: product.sku.currency })}
     </div>
   </div>
 

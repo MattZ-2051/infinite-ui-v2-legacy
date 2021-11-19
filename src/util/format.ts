@@ -12,7 +12,7 @@ export const cryptoCurrencySymbols = {
 
 export function formatCurrency(value: number | string, options?: FormatNumberOptions) {
   if (options?.currency === 'ETH') {
-    return `${cryptoCurrencySymbols[options.currency]}${numberFormat(value, options)}`;
+    return formatEthCurrency(value);
   }
 
   return numberFormat(value, { ...options, style: 'currency', currency: 'USD' });
@@ -26,9 +26,8 @@ export function formatApiCurrency(value: number | string) {
   return numberFormat(value, { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-export function formatEthCurrency(value: number | string, currencyDisplay: 'symbol' | 'code' | 'none') {
-  const prefix = { symbol: 'Ξ', code: 'ETH' };
-  return `${currencyDisplay === 'none' ? '' : `${prefix[currencyDisplay]} `}${formatDecimal(value, {
+function formatEthCurrency(value: number | string) {
+  return `${cryptoCurrencySymbols.ETH}${formatDecimal(value, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 4,
   })}`;

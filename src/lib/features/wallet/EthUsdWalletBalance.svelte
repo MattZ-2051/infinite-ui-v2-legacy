@@ -1,7 +1,7 @@
 <script lang="ts">
   import { mdiInformationVariant } from '@mdi/js';
   import type { CurrencyType } from './types';
-  import { formatCurrency, formatEthCurrency } from '$util/format';
+  import { formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
   import tooltip from '$ui/tooltip';
   import Image from '$ui/image/Image.svelte';
@@ -47,7 +47,7 @@
           <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
         {:else}
           <span class="text-2xl md:text-4xl tracking-tight" style="color: var(--wallet-balance-heading-color)">
-            {isEthCurrency ? formatEthCurrency(balance, 'symbol') : formatCurrency(balance)}
+            {formatCurrency(balance, { currency: currencyType })}
           </span>
         {/if}
       </div>
@@ -60,7 +60,7 @@
         {#if Number.isNaN(availableBalance) || availableBalance === undefined}
           <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
         {:else}
-          {isEthCurrency ? formatEthCurrency(availableBalance, 'symbol') : formatCurrency(availableBalance)}
+          {formatCurrency(availableBalance, { currency: currencyType })}
         {/if}
         <div tabindex="0" use:tooltip={'The available funds exclude pending transactions and active bids.'}>
           <Icon path={mdiInformationVariant} class="px-1 bg-white bg-opacity-10 rounded-full" />

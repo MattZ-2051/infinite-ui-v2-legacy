@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Transaction } from '$lib/sku-item/types';
-  import { formatDate, formatEthCurrency, formatCurrency, capitalizeFirstLetter } from '$util/format';
+  import { formatDate, formatCurrency, capitalizeFirstLetter } from '$util/format';
 
   import TransactionItemLogo from './TransactionItemLogo.svelte';
   import TransactionItemSentence from './TransactionItemSentence.svelte';
@@ -11,14 +11,12 @@
   $: typeText = capitalizeFirstLetter(type);
 
   const getCurrencyFormatted = (): string => {
-    const isEthDeposit = transactionData.deposit?.balanceCurrency === 'ETH';
-    const isEthPurchase = transactionData.cost?.currency === 'ETH';
-    const depositAmount = isEthDeposit
-      ? formatEthCurrency(transactionData.deposit?.amount, 'symbol')
-      : `+${formatCurrency(transactionData.deposit?.amount)}`;
-    const purchaseAmount = isEthPurchase
-      ? `- ${formatEthCurrency(transactionData.cost?.totalCost, 'symbol')}`
-      : `- ${formatCurrency(transactionData.cost?.totalCost)}`;
+    const depositAmount = `+${formatCurrency(transactionData.deposit?.amount, {
+      currency: transactionData.deposit?.balanceCurrency,
+    })}`;
+    const purchaseAmount = `- ${formatCurrency(transactionData.cost?.totalCost, {
+      currency: transactionData.cost?.currency,
+    })}`;
 
     switch (type) {
       case 'royalty_fee':

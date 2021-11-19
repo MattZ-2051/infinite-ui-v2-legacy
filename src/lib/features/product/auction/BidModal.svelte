@@ -6,7 +6,7 @@
   import { FilePreview } from '$ui/file';
   import { wallet } from '$lib/features/wallet/wallet.store';
   import Icon from '$ui/icon/Icon.svelte';
-  import { formatCurrency, formatEthCurrency } from '$util/format';
+  import { formatCurrency } from '$util/format';
   import { isEthAddress } from '$util/validateEthAddress';
   import Button from '$lib/components/Button.svelte';
   import { Input } from '$lib/components/form';
@@ -23,9 +23,8 @@
   const waitingForAPI = placeBidFx.pending;
 
   $: listing = product.activeProductListings[0]; // BE team words: ActiveProductListings can only have one element.
-  $: bid = product.sku.currency === 'USD' ? formatCurrency(amount) : amount;
-  $: total =
-    product.sku.currency === 'USD' ? formatCurrency(amount * (1 + marketplaceFee)) : amount * (1 + marketplaceFee);
+  $: bid = formatCurrency(amount, { currency: product.sku.currency });
+  $: total = formatCurrency(amount * (1 + marketplaceFee), { currency: product.sku.currency });
   $: ethAddress = '';
   $: validEthAddress = undefined;
 
@@ -101,44 +100,22 @@
       <ProductModalInfo {product} sku={product.sku} />
       <div class="flex justify-between border-solid font-medium">
         <span class="text-gray-500">Your Bid:</span>
-        <span>
-          {#if product.sku.currency === 'USD'}
-            {bid}
-          {:else if product.sku.currency === 'ETH'}
-            {formatEthCurrency(bid, 'symbol')}
-          {/if}
-        </span>
+        <span>{bid}</span>
       </div>
       <div class="flex justify-between border-solid border-b border-gray-200 pb-4 font-medium">
         <span class="text-gray-500">Marketplace fee ({marketplaceFee * 100}%)</span>
         <span>
-          {#if product.sku.currency === 'USD'}
-            {formatCurrency(marketplaceFee * amount)}
-          {:else if product.sku.currency === 'ETH'}
-            {formatEthCurrency(marketplaceFee * amount, 'symbol')}
-          {/if}
+          {formatCurrency(marketplaceFee * amount, { currency: product.sku.currency })}
         </span>
       </div>
       <div class="space-y-2 font-medium">
         <div class="flex justify-between">
           <span>Total cost (if you win):</span>
-          <span>
-            {#if product.sku.currency === 'USD'}
-              {total}
-            {:else if product.sku.currency === 'ETH'}
-              {formatEthCurrency(total, 'symbol')}
-            {/if}
-          </span>
+          <span>{total}</span>
         </div>
         <div class="text-green-500 flex justify-between">
           <span> Your current balance: </span>
-          <span>
-            {#if product.sku.currency === 'USD'}
-              {formatCurrency(userBalance)}
-            {:else if product.sku.currency === 'ETH'}
-              {formatEthCurrency(userBalance, 'symbol')}
-            {/if}
-          </span>
+          <span>{formatCurrency(userBalance, { currency: product.sku.currency })}</span>
         </div>
       </div>
       <div class="max-w-md text-gray-600 text-sm">
