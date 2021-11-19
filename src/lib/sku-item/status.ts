@@ -1,14 +1,16 @@
 import type { Product, SaleType, Sku, Status } from '$lib/sku-item/types';
 import dayjs from 'dayjs';
 
-const getActiveTileTitle = (saleType: SaleType, product?: boolean): string => {
+const getActiveTileTitle = (saleType: SaleType, product?: boolean, simpleTitle?: boolean): string => {
   switch (saleType) {
     case 'giveaway':
-      return 'Active Giveaway:';
+      return simpleTitle ? 'Active Giveaway' : 'Active Giveaway:';
     case 'fixed':
+      if (simpleTitle) return 'Active Sale';
+
       return product ? 'Selling For:' : 'Starting Price:';
     case 'auction':
-      return 'Latest Bid:';
+      return simpleTitle ? 'Active Auction' : 'Latest Bid:';
     default:
       return '';
   }
@@ -84,7 +86,7 @@ export const skuStatus = (sku: Sku): Status => {
   }
 };
 
-export const productStatus = (product: Product): Status => {
+export const productStatus = (product: Product, simpleTitle?: boolean): Status => {
   const minStartDate = product?.listing?.startDate;
   if (dayjs(minStartDate).isAfter(dayjs())) {
     if (product.productListings?.length === 0 || dayjs(product.minStartDate).diff(new Date(), 'day', true) > 3) {
@@ -98,7 +100,7 @@ export const productStatus = (product: Product): Status => {
   if (product?.totalSupplyLeft !== 0 && product?.activeProductListings?.length !== 0) {
     const productListing = product?.listing;
     const minPrice = productListing?.minBid ? productListing?.minBid : productListing?.price;
-    const saleTypeTitle = getActiveTileTitle(productListing?.saleType, true);
+    const saleTypeTitle = getActiveTileTitle(productListing?.saleType, true, simpleTitle);
 
     return { status: 'active', minPrice, saleTypeTitle };
   }

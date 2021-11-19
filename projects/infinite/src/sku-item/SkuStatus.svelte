@@ -6,23 +6,26 @@
 
   export let sku: Sku;
   export let product: Product;
+  export let forProductStatus = false;
 
   let tileInfo: Status;
-  $: tileInfo = product ? productStatus(product) : skuStatus(sku);
+  $: tileInfo = product ? productStatus(product, forProductStatus) : skuStatus(sku);
 </script>
 
 <section>
   {#if tileInfo.status === 'upcoming'}
-    <span class="text-gray-500">Upcoming</span>
+    <span class:text-gray-500={!productStatus}>Upcoming</span>
   {:else if tileInfo.status === 'upcoming-soon'}
-    <span class="text-gray-500">Upcoming in:</span>
+    <span class:text-gray-500={!productStatus}>Upcoming in:</span>
     <TimeDifference date={tileInfo.minStartDate} />
   {:else if tileInfo.status === 'no-sale'}
-    <span class="text-gray-500">Not for sale</span>
+    <span class:text-gray-500={!productStatus}>Not for sale</span>
   {:else if tileInfo.status === 'active'}
-    <span class="text-gray-500">Starting Price:</span>
-    <span class="text-default">
-      {formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice, { currency: sku.currency })}
-    </span>
+    <span class:text-gray-500={!productStatus}>{tileInfo.saleTypeTitle}</span>
+    {#if !forProductStatus}
+      <span class="text-default">
+        {formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice, { currency: sku.currency })}
+      </span>
+    {/if}
   {/if}
 </section>

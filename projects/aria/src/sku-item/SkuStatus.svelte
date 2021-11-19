@@ -6,28 +6,31 @@
 
   export let sku: Sku;
   export let product: Product;
+  export let forProductStatus = false;
 
   let tileInfo: Status;
-  $: tileInfo = product ? productStatus(product) : skuStatus(sku);
+  $: tileInfo = product ? productStatus(product, forProductStatus) : skuStatus(sku);
 </script>
 
 <div
-  class="card-status text-xl flex gap-2 justify-center items-center rounded-full py-3 mx-3 whitespace-nowrap px-6"
+  class="{forProductStatus
+    ? ''
+    : 'card-status text-xl flex gap-2 justify-center items-center rounded-full py-3 mx-3 whitespace-nowrap px-6'}}"
   class:no-sale={tileInfo.status === 'no-sale'}
 >
   {#if tileInfo.status === 'upcoming'}
-    <span class="font-bold">Dropping:</span>
+    <span class:font-bold={!productStatus}>Dropping:</span>
     <span>{formatDate(tileInfo.minStartDate, 'MMM D')}</span>
   {:else if tileInfo.status === 'upcoming-soon'}
-    <span class="font-bold">Dropping:</span>
+    <span class:font-bold={!productStatus}>Dropping:</span>
     <TimeDifference date={tileInfo.minStartDate} />
   {:else if tileInfo.status === 'no-sale'}
-    <span class="font-bold">{product ? 'Not for sale' : 'Sold'}</span>
+    <span class:font-bold={!productStatus}>{product ? 'Not for sale' : 'Sold'}</span>
   {:else if tileInfo.status === 'active'}
-    <span>
-      <span class="font-bold">{tileInfo.saleTypeTitle}</span>
-      {formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice)}
-    </span>
+    <span class:font-bold={!productStatus}>{tileInfo.saleTypeTitle}</span>
+    {#if !forProductStatus}
+      <span>{formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice)}</span>
+    {/if}
   {/if}
 </div>
 

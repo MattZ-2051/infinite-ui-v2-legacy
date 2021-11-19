@@ -56,7 +56,9 @@
                   {:else}
                     Bought for
                   {/if}
-                  <span class="text-white">{formatCurrency(transaction.transactionData?.cost?.totalCost)}</span>
+                  <span class="text-white">
+                    {formatCurrency(transaction.transactionData?.cost?.totalCost, { currency: $product.sku.currency })}
+                  </span>
                 {:else if transaction.type === 'nft_mint'}
                   NFT Minted
                 {:else if transaction.type === 'nft_redeem'}
