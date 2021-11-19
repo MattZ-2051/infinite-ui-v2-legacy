@@ -6,7 +6,7 @@ import * as crypto from 'crypto-js';
  * Checks if the given string is a checksummed address
  *
  * @method isChecksumAddress
- * @param {String} address the given HEX adress
+ * @param {String} address the given HEX address
  * @return {Boolean}
  */
 const isChecksumAddress = function (address) {
@@ -29,7 +29,7 @@ const isChecksumAddress = function (address) {
  * Checks if the given string is an address
  *
  * @method isAddress
- * @param {String} address the given HEX adress
+ * @param {String} address the given HEX address
  * @return {Boolean}
  */
 export const isEthAddress = function (address) {

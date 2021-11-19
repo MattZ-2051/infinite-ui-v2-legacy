@@ -11,9 +11,11 @@ export const achAccountWithdrawFx = createEffect(
   }
 );
 
-export const usdcWithdrawFx = createEffect(async ({ amount, usdcAddress }: { amount: string; usdcAddress: string }) => {
-  await withdrawToCryptoAddress(amount, 'USD', usdcAddress);
-});
+export const cryptoWithdrawFx = createEffect(
+  async ({ amount, targetAddress, currency }: { amount: string; targetAddress: string; currency: 'ETH' | 'USDC' }) => {
+    await withdrawToCryptoAddress(amount, currency === 'USDC' ? 'USD' : currency, targetAddress);
+  }
+);
 
 achAccountWithdrawFx.done.watch(() => {
   loadWalletFx();
@@ -22,11 +24,11 @@ achAccountWithdrawFx.done.watch(() => {
   toast.success('Congrats! Your withdrawal is processing. ');
 });
 
-usdcWithdrawFx.done.watch(() => {
+cryptoWithdrawFx.done.watch(({ params: { currency } }) => {
   loadWalletFx();
   updateUser();
   loadMyTransactionsFx({});
-  toast.success('The withdrawal to the USDC address was successful.');
+  toast.success(`The withdrawal to the ${currency} address was successful.`);
 });
 
-usdcWithdrawFx.fail.watch(() => toast.danger('There was an error with your withdrawal. Please, try again.'));
+cryptoWithdrawFx.fail.watch(() => toast.danger('There was an error with your withdrawal. Please, try again.'));

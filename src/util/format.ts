@@ -5,7 +5,16 @@ dayjs.extend(advancedFormat);
 
 type FormatNumberOptions = Intl.NumberFormatOptions & { fallback?: string };
 
+export const cryptoCurrencySymbols = {
+  USDC: '$',
+  ETH: 'Ξ',
+};
+
 export function formatCurrency(value: number | string, options?: FormatNumberOptions) {
+  if (options?.currency === 'ETH') {
+    return `${cryptoCurrencySymbols[options.currency]}${numberFormat(value, options)}`;
+  }
+
   return numberFormat(value, { ...options, style: 'currency', currency: 'USD' });
 }
 

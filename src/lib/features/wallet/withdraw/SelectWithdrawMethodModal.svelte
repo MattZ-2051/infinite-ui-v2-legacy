@@ -36,7 +36,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Select a withdraw method">
+  <Modal title="USD Withdrawal">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       {#each options as option (option.id)}
         <div

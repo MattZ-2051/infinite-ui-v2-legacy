@@ -13,6 +13,8 @@
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import CurrencySelectModal from './deposit/CurrencySelectModal.svelte';
+  import WithdrawCurrencySelectModal from './withdraw/CurrencySelectModal.svelte';
+  import EthWithdrawModal from './withdraw/EthWithdrawModal.svelte';
   import WalletList from './WalletList.svelte';
   import AccountVerification from './kyc/AccountVerification.svelte';
   import WalletButtons from './WalletButtons.svelte';
@@ -52,7 +54,13 @@
     if ($withdrawableBalanceUsd <= 0 && $withdrawableBalanceEth <= 0)
       toast.danger('Whoops! You cannot withdraw funds since your balance is 0!');
     else if ($wallet.kycRequired) toast.danger(kycLevelNeeded);
-    else openModal(SelectWithdrawMethodModal);
+    else {
+      if (ENABLE_ETH_CURRENCY) {
+        openModal(WithdrawCurrencySelectModal, { onCurrencySelect: onWithdrawCurrencySelect });
+      } else {
+        openModal(SelectWithdrawMethodModal);
+      }
+    }
   }
 
   function openUpgradeKYCLevel() {
@@ -106,6 +114,14 @@
           },
         });
         break;
+    }
+  }
+
+  function onWithdrawCurrencySelect(id: 'eth-native' | 'usd') {
+    if (id === 'usd') {
+      openModal(SelectWithdrawMethodModal);
+    } else {
+      openModal(EthWithdrawModal);
     }
   }
 </script>

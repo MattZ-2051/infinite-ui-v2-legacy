@@ -59,6 +59,9 @@
     {#if transaction.transactionData.withdraw.type === 'usdc'}
       USDC to wallet
       <span>{transaction.transactionData.withdraw.usdcAddress}</span>
+    {:else if transaction.transactionData.withdraw.type === 'eth'}
+      ETH to wallet
+      <span>{transaction.transactionData.withdraw.usdcAddress}</span>
     {:else}
       funds to bank {transaction.transactionData.withdraw.institution_name} and account ending in
       <span>{transaction.transactionData.withdraw.ach_number}</span>
