@@ -20,10 +20,6 @@
         Your purchase of NFTs from this collection will benefit SameYou’s core mission of helping survivors while
         raising awareness about Acquired Brain Injury (ABI).
       </div>
-      <!-- <div class="font-light text-base mt-8 text-left" style="color: #7852FD">
-  We believe in the effectiveness of compassion, {#if $media.sm}<br /> {/if}kindness and listening
-</div> -->
-      <!-- <button class="bg-black rounded-3xl text-white w-44 mt-10 h-12">Learn more</button> -->
       <Button variant="brand" on:click={() => goto('collection/EmiliaClarke-SameYou')} class="mb-8"
         >View the Collection</Button
       >
@@ -33,19 +29,23 @@
         <SkuItem sku={skuData} --sku-item-bg-color="#ffd54e" --sku-item-border-color="#ffd54e" />
       </div>
     </div>
-    src={Wave}
-    style="margin-bottom:-7em" class="hidden 2xl:block object-cover absolute bottom-0 z-0 right-0 w-full " />
+    <img
+      src={Wave}
+      alt="curved purple line"
+      style="margin-bottom:-7em"
+      class="hidden 2xl:block object-cover absolute bottom-0 z-0 right-0 w-full"
+    />
     <img
       src={Wave}
       alt="curved purple line"
       style="margin-bottom:-2.7em"
-      class="hidden sm:block 2xl:hidden object-cover absolute bottom-0 z-0 right-0 w-full "
+      class="hidden sm:block 2xl:hidden object-cover absolute bottom-0 z-0 right-0 w-full"
     />
     <img
       src={Wave}
       alt="curved purple line"
       style="margin-bottom:-1px; object-position: 80%"
-      class=" sm:hidden object-cover absolute bottom-0 z-0 right-0 w-full h-1/2 "
+      class="sm:hidden object-cover absolute bottom-0 z-0 right-0 w-full h-1/2"
     />
   </div>
 </div>

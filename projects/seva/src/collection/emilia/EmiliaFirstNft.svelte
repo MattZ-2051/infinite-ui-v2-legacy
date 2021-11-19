@@ -31,17 +31,17 @@
   <div class="w-full bg-black relative h-full mb-64">
     <div class="lg:grid lg:grid-cols-2 items-center container relative px-6 mt-8 lg:mt-20">
       <div class="z-30 w-full lg:w-11/12 ">
-        <div class="text-5xl font-semibold sm:text-7xl text-center lg:text-left" style="color: #FFD54E;">
+        <div class="text-5xl font-medium sm:text-7xl text-center lg:text-left" style="color: #FFD54E;">
           Emilia Clarke's
         </div>
-        <div class="text-5xl font-semibold pt-4 sm:text-7xl text-center lg:text-left" style="color: #FFD54E;">
-          charity NFT release
+        <div class="text-5xl font-medium pt-4 sm:text-7xl text-center lg:text-left" style="color: #FFD54E;">
+          SameYou NFT collection
         </div>
         <div class="text-xl sm:text-2xl text-white font-normal pt-8 text-center lg:text-left">
-          Benefitting the SameYou organization focused on treatment for brain injury and stroke recovery.
+          Benefitting the SameYou non-profit focused on treatment for brain injury and stroke recovery.
         </div>
         <div class="text-white-opacity-50 pt-4 font-light text-center lg:text-left">
-          Featuring an experiential poetic mindscape of brain-injury healing with spoken word by Emilia Clarke,
+          Featuring an experiential poetic mindscape of brain injury healing with spoken word by Emilia Clarke,
           physically redeemable items, and unique ownership benefits.
         </div>
         <div class=" mt-8 mb-12 flex items-center justify-center lg:justify-start w-full">
