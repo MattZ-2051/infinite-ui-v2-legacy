@@ -13,11 +13,11 @@
 <button
   type="button"
   {disabled}
-  class="w-full grid grid-cols-3 auto-cols-fr place-content-between items-center gap-4 border-b overflow-hidden py-4 text-xl"
+  class="w-full flex justify-between items-center gap-4 border-b overflow-hidden py-4 text-xl"
   class:cursor-default={disabled}
   on:click
 >
-  <div class="flex items-center">
+  <div class="flex items-center w-1/3">
     <img src={`data:image/png;base64,${achAccount.plaidInfo.institution_logo}`} alt="" class="w-14 mr-4" />
     <span class="font-semibold">{achAccount.plaidInfo.metadata.institution.name}</span>
   </div>

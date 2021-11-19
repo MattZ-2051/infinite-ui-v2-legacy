@@ -66,7 +66,6 @@
             () => {
               destroyPlaid();
               showBackdrop = false;
-              dispatch('close');
             }
           );
 

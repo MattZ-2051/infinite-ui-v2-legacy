@@ -3,7 +3,7 @@
   import Button from '$lib/components/Button.svelte';
   import { Input } from '$lib/components/form';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
-  import { Modal, closeModal, closeAllModals } from '$ui/modals';
+  import { Modal, closeModal, closeAllModals, closeModals } from '$ui/modals';
   import { toast } from '$ui/toast';
   import { formatCurrency } from '$util/format';
   import routes from '$project/routes';
@@ -121,7 +121,7 @@
         <Button variant="brand" class="mb-4" on:click={closeAllModals}>Back to My Wallet</Button>
       {:else if status === 'withdrawal-error'}
         <Button variant="brand" on:click={onConfirm} disabled={$pending}>Try Again</Button>
-        <Button variant="outline-brand" on:click={closeModal}>Select Another Withdrawal Method</Button>
+        <Button variant="outline-brand" on:click={() => closeModals(2)}>Select Another Withdrawal Method</Button>
       {/if}
     </div>
   </Modal>
