@@ -7,22 +7,26 @@
 
 <div class="pt-16 md:pt-24 flex justify-center" style="background-color:#FFD54E;">
   <div class="container flex flex-col-reverse items-center lg:flex-row max-w-7xl relative z-1 px-6">
-    <div class="w-full flex flex-col pt-8 max-w-xl lg:mr-8 mt-8 items-center lg:items-baseline lg:w-1/3 lg:2/4">
-      <div class="font-medium text-4xl mb-6 sm:text-6xl sm:mb-8 text-center lg:text-left">
+    <div class="w-full flex flex-col pt-8 max-w-2xl lg:mr-8 mt-8 items-center lg:items-baseline lg:w-1/3 xl:w-5/12">
+      <div class="font-semibold text-4xl mb-6 sm:text-6xl sm:mb-8 text-center lg:text-left">
         Using NFTs to connect, inspire and move us into action
       </div>
       <div>
-        <div class="font-medium text-xl mb-4 text-center lg:text-left">
-          "In early 2011 I was struck by the first of two brain haemorrhages. I am hardly unique or alone in that. 1 in
-          3 people will suffer a brain injury in their lifetime. That number is huge. It’s almost double the number of
-          people who will develop dementia. It’s shocking to me - and you too, probably - that such a common health
-          problem is so little known and barely spoken about. I made a full recovery but many more people don't, and I
-          want to break the silence on this common, silent and devastating condition."
+        <div class="font-semibold text-xl mb-4 text-center lg:text-left opacity-80">
+          "In early 2011 I was struck by the first of two brain haemorrhages.
         </div>
-        <div class="mb-8 font-medium text-center lg:text-left">
+        <div class="mb-4 font-normal text-center lg:text-left opacity-80">
+          I am hardly unique or alone in that. 1 in 3 people will suffer a brain injury in their lifetime. That number
+          is huge. It’s almost double the number of people who will develop dementia. It’s shocking to me - and you too,
+          probably - that such a common health problem is so little known and barely spoken about. I made a full
+          recovery but many more people don't, and I want to break the silence on this common, silent and devastating
+          condition."
+        </div>
+        <div class="mb-8 font-normal text-center lg:text-left opacity-70">
           "When you suffer a brain injury your life is saved by emergency medical services, but in most countries,
           ongoing recovery care can be hard to find, extremely limited or simply unavailable. We need to change that.
-          It’s why I founded SameYou and campaign for your support." <br />- Emilia Clarke
+          It’s why I founded SameYou and campaign for your support."
+          <br /><span class="font-semibold opacity-100">- Emilia Clarke</span>
         </div>
       </div>
       <Button
@@ -43,7 +47,7 @@
         View Emilia's Collection</Button
       >
     </div>
-    <div class="w-full lg:w-2/3 ">
+    <div class="w-full lg:w-2/3 xl:w-7/12 ">
       <img src={SevaImage} alt="SevaImage" />
     </div>
   </div>

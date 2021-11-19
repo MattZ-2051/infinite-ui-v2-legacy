@@ -9,16 +9,18 @@
 </script>
 
 <div class="relative w-full h-full pb-20 sm:pb-0 sm:mb-0 pt-0 md:pt-8 lg:pt-26">
-  <div class="container h-full sm:h-screen flex flex-col gap-10 max-w-5xl sm:grid sm:grid-cols-2 px-6">
-    <div class="z-1 flex flex-col gap-8 justify-center items-start">
-      <div class="text-4xl leading-none sm:text-6xl text-left">Emilia’s SameYou <br /> charity NFT</div>
-      <div class="font-light text-base mt-4 text-left">
+  <div class="container h-full sm:h-screen flex flex-col gap-10 max-w-6xl sm:grid sm:grid-cols-2 px-6">
+    <div class="z-1 flex flex-col justify-center items-start">
+      <div class="text-4xl leading-none sm:text-6xl text-left font-semibold mb-10">
+        Emilia’s SameYou <br /> charity NFT
+      </div>
+      <div class="font-light text-base mb-6 text-left">
         Featuring a series of NFT’s illustrating the experiential journey of healing from traumatic brain injury to
         recovery.
       </div>
-      <div class="font-light text-base mt-4 text-left">
+      <div class="font-semibold text-lg mb-10 text-left" style="color:#7852fd">
         Your purchase of NFTs from this collection will benefit SameYou’s core mission of helping survivors while
-        raising awareness about Acquired Brain Injury.
+        raising awareness about Acquired Brain Injury (ABI).
       </div>
       <!-- <div class="font-light text-base mt-8 text-left" style="color: #7852FD">
   We believe in the effectiveness of compassion, {#if $media.sm}<br /> {/if}kindness and listening
@@ -29,7 +31,7 @@
       >
     </div>
     <div class="flex items-center justify-center">
-      <div class="center-card relative z-1 h-auto rounded-md">
+      <div class="center-card relative z-1 h-auto rounded-md max-w-sm">
         <SkuItem sku={skuData} --sku-item-bg-color="#ffd54e" --sku-item-border-color="#ffd54e" />
       </div>
     </div>
