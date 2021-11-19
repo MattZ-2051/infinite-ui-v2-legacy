@@ -14,7 +14,7 @@
   export let currencyType: CurrencyType;
 
   const EthData = depositOptions.find((option) => option.id === 'eth');
-  const UsdData = depositOptions.find((option) => option.id === 'usDollar');
+  const UsdData = depositOptions.find((option) => option.id === 'usdc');
 
   $: isEthCurrency = currencyType === 'ETH';
 
