@@ -21,11 +21,16 @@
   };
 
   const options: CurrencyOption[] = [
-    { id: 'eth-native', title: 'Deposit ETH', subtitle: 'Buy and bid on NFTs priced in ETH', image: EthCoin },
+    {
+      id: 'eth-native',
+      title: 'Deposit into ETH wallet',
+      subtitle: 'Buy and bid only on NFTs priced in ETH',
+      image: EthCoin,
+    },
     {
       id: 'usd',
-      title: 'Deposit USD',
-      subtitle: 'Buy and bid on NFTs priced in USD',
+      title: 'Deposit into USDC wallet',
+      subtitle: 'Buy and bid only on NFTs priced in USDC',
       image: usDollar,
     },
   ];
@@ -33,14 +38,17 @@
 
 {#if isOpen}
   <Modal title="Deposit" class="max-w-lg">
-    <h3 class="text-gray-500 px-10">You can deposit funds to your account to be stored in ETH or USD.</h3>
+    <h3 class="text-gray-500 px-10">
+      Your wallet can hold either ETH or USD (USDC). ETH can only be used for Ethereum NFTs priced in ETH and USD can
+      only be used for Hedera NFTs priced in USD.
+    </h3>
     <ul class="flex flex-col space-y-4 mt-4 mb-8 text-base ">
       {#each options as option (option.id)}
         <li class="group cursor-pointer flex flex-col mx-10 py-6" on:click={() => onCurrencySelect(option.id)}>
           <div class="flex flex-row items-center space-x-4 sm:space-x-8">
             <Image src={option.image} class="flex-1" />
             <div class="flex-1">
-              <h4 class="text-xl font-bold">{option.title}</h4>
+              <h4 class="text-xl font-normal">{option.title}</h4>
               <p class="text-base max-w-sm">{option.subtitle}</p>
             </div>
             <Icon path={mdiChevronRight} size="1.4" class="flex-none opacity-50 group-hover:opacity-100" />
@@ -48,7 +56,8 @@
           {#if option.id === 'usd'}
             <div class="px-14 sm:px-20">
               <p class="mt-3 text-sm text-gray-500">
-                Deposit from credit card, USDC, BTC, HBAR, ETH. Crypto deposits get converted into USD currency.
+                Choose to deposit from credit card, BTC, ETH, USDC, or HBAR. Note, ALL deposits will get converted into
+                USD Coin (USDC).
               </p>
               <div class="mt-4 flex flex-row space-x-3">
                 {#each depositOptions as depositOption (depositOption.id)}
