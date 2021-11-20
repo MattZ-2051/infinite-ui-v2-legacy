@@ -13,6 +13,8 @@
   export let availableUsdBalance: string = undefined;
   export let currencyType: CurrencyType;
   export let helpText: string;
+  export let withdrawableBalance: string = undefined;
+  export let showWithdrawableBalance: boolean;
 
   const EthData = depositOptions.find((option) => option.id === 'eth');
   const UsdData = depositOptions.find((option) => option.id === 'usdc');
@@ -67,6 +69,25 @@
         </div>
       </div>
     </div>
+
+    {#if showWithdrawableBalance}
+      <div class="flex items-center justify-between">
+        <span class="text-gray-500">Withdrawable:</span>
+        <div class="flex items-center gap-2">
+          {#if Number.isNaN(withdrawableBalance) || withdrawableBalance === undefined}
+            <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
+          {:else}
+            {formatCurrency(withdrawableBalance, { currency: currencyType })}
+          {/if}
+          <div
+            tabindex="0"
+            use:tooltip={'The withdrawable amount excludes pending transactions (e.g., active bids) and credit card deposits less than 30 days old.'}
+          >
+            <Icon path={mdiInformationVariant} class="px-1 bg-white bg-opacity-10 rounded-full" />
+          </div>
+        </div>
+      </div>
+    {/if}
   </div>
   <div class="separator bg-gray-100" />
 

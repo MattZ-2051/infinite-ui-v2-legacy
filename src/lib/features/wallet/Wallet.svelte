@@ -148,12 +148,16 @@
           availableEthBalance={$wallet?.balanceInfo.find((balanceInfo) => balanceInfo.currency === 'ETH').totalBalance}
           currencyType={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'ETH').currency}
           helpText={'Your ETH balance can only be used for purchasing NFTs priced in ETH.'}
+          showWithdrawableBalance={false}
         />
         <EthUsdWalletBalance
           usdBalance={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'USD').amount}
           availableUsdBalance={$wallet?.balanceInfo.find((balanceInfo) => balanceInfo.currency === 'USD').totalBalance}
           currencyType={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'USD').currency}
           helpText={'Your USD balance can only be used for purchasing NFTs priced in USD.'}
+          withdrawableBalance={$wallet?.balanceInfo.find((withdrawalInfo) => withdrawalInfo.currency === 'USD')
+            .withdrawableBalance}
+          showWithdrawableBalance={true}
         />
         <div class="h-px bg-gray-100 w-full mt-6 md:mt-12" />
 
