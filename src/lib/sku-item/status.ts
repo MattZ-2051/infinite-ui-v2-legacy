@@ -15,17 +15,16 @@ const getActiveTileTitle = (saleType: SaleType, product?: boolean, simpleTitle?:
       return '';
   }
 };
-
 export const skuStatus = (sku: Sku): Status => {
   if (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0) {
     const hasProductListings = !!sku.activeProductListings?.length;
     const hasSkuListings = !!sku.activeSkuListings?.length;
     const activeSkuSaleType = sku.activeSkuListings?.[0]?.saleType;
+    const activeSku = sku.activeSkuListings?.[0];
     const lowestPriceListing = hasProductListings
       ? sku.activeProductListings?.reduce((previousListing, currentListing) => {
           const previousPrice = previousListing?.minBid || previousListing?.price;
           const currentPrice = currentListing?.minBid || currentListing?.price;
-
           return previousPrice < currentPrice ? previousListing : currentListing;
         })
       : undefined;
@@ -33,30 +32,29 @@ export const skuStatus = (sku: Sku): Status => {
       lowestPriceListing?.saleType === 'auction'
         ? Math.max(lowestPriceListing?.minBid, lowestPriceListing?.minHighestBid || 0)
         : lowestPriceListing?.price;
+    const lowestSkuPrice =
+      activeSkuSaleType === 'auction' ? Math.max(activeSku.minBid, activeSku.minHighestBid || 0) : sku.minSkuPrice;
 
-    const lowestPriceIsSkuListing = hasSkuListings && lowestPrice > sku.minSkuPrice;
+    const lowestPriceIsSkuListing = hasSkuListings && lowestPrice > lowestSkuPrice;
 
     let saleTypeTitle: string;
     let minPrice: number;
-
     if (activeSkuSaleType === 'giveaway') {
       minPrice = 0;
       saleTypeTitle = getActiveTileTitle(activeSkuSaleType);
     } else {
       if (hasProductListings) {
-        minPrice = hasSkuListings ? Math.min(lowestPrice, sku.minSkuPrice) : lowestPrice;
+        minPrice = hasSkuListings ? Math.min(lowestPrice, lowestSkuPrice) : lowestPrice;
         saleTypeTitle = lowestPriceIsSkuListing
           ? getActiveTileTitle(activeSkuSaleType)
           : getActiveTileTitle(lowestPriceListing.saleType);
       } else {
-        minPrice = sku.minSkuPrice;
+        minPrice = lowestSkuPrice;
         saleTypeTitle = getActiveTileTitle(activeSkuSaleType);
       }
     }
-
     return { status: 'active', minPrice, saleTypeTitle };
   }
-
   const minStartDate = sku.minStartDate;
   if (dayjs(minStartDate).isAfter(dayjs())) {
     if (dayjs(minStartDate).diff(new Date(), 'day', true) > 3) {
@@ -66,21 +64,17 @@ export const skuStatus = (sku: Sku): Status => {
       return { status: 'upcoming-soon', minStartDate };
     }
   }
-
   if (sku.upcomingProductListings?.length !== 0) {
     const lowestPriceUpcomingListing = sku.upcomingProductListings?.reduce((previousListing, currentListing) => {
       const previousPrice = previousListing?.minBid || previousListing?.price;
       const currentPrice = currentListing?.minBid || currentListing?.price;
-
       return previousPrice < currentPrice ? previousListing : currentListing;
     });
     const listingStartDate = lowestPriceUpcomingListing?.startDate;
-
     return dayjs(listingStartDate).diff(new Date(), 'day', true) > 3
       ? { status: 'upcoming', minStartDate: listingStartDate }
       : { status: 'upcoming-soon', minStartDate: listingStartDate };
   }
-
   if (sku.totalSupplyLeft === 0 || sku.activeSkuListings?.length === 0) {
     return { status: 'no-sale' };
   }
@@ -96,12 +90,10 @@ export const productStatus = (product: Product, simpleTitle?: boolean): Status =
       return { status: 'upcoming-soon', minStartDate };
     }
   }
-
   if (product?.totalSupplyLeft !== 0 && product?.activeProductListings?.length !== 0) {
     const productListing = product?.listing;
     const minPrice = productListing?.minBid ? productListing?.minBid : productListing?.price;
     const saleTypeTitle = getActiveTileTitle(productListing?.saleType, true, simpleTitle);
-
     return { status: 'active', minPrice, saleTypeTitle };
   }
   if (product?.activeProductListings?.length === 0 && product?.upcomingProductListings?.length === 0) {
