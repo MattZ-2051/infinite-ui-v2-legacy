@@ -200,7 +200,9 @@ pollTransactionFx.doneData.watch(async (response) => {
         const $polls = polls.getState();
         if ($polls[$product._id].$isActive) {
           $polls[$product._id].stop();
-          toast.danger('The transaction could not be processed.');
+          toast.danger(
+            `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help}>contact support</a> if the issue persists.`
+          );
         }
       }
     } else {
@@ -216,7 +218,14 @@ pollTransactionFx.doneData.watch(async (response) => {
         skuBought();
         const transactionData = pendingTx.transactionData;
         transactionSuccessMessage(transactionData);
-      } // we will probably need to check this case for errors also.
+      }
+      if (pendingTx?.status === 'error') {
+        const $polls = polls.getState();
+        $polls[$sku._id].stop();
+        toast.danger(
+          '"Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help}>contact support</a> if the issue persists."'
+        );
+      }
     }
   }
 });

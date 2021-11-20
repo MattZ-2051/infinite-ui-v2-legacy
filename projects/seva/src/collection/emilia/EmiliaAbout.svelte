@@ -17,8 +17,8 @@
       </div>
       <div class="pr-4" style="max-width: calc(var(--container-max-width)/2);">
         <div class="mt-8 md:text-4xl text-2xl font-medium leading-10">
-          SameYou’s collection features a series of NFT’s illustrating the experiential journey of healing from
-          traumatic brain injury to recovery.
+          SameYou’s collection features a series of NFTs illustrating the experiential journey of healing from traumatic
+          brain injury to recovery.
         </div>
         <div class="mt-8 text-base leading-7 font-medium text-black text-opacity-90">
           Your purchase of NFTs from this collection will benefit SameYou’s core mission of helping survivors while
