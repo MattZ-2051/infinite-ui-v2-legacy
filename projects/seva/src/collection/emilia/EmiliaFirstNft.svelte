@@ -57,14 +57,14 @@
       <div class="relative">
         {#if !$media.lg}
           <div class="flex justify-center">
-            <div class="center-card right-1/4 rounded-md flex justify-center w-1/4">
+            <div class="center-card right-1/4 rounded-md flex justify-center max-w-sm">
               <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
             </div>
           </div>
         {/if}
       </div>
       {#if $media.lg}
-        <div class="center-card absolute z-30 right-1/4 rounded-md flex w-1/4 justify-center">
+        <div class="center-card absolute z-30 right-1/4 rounded-md flex max-w-sm justify-center">
           <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
         </div>
       {/if}
