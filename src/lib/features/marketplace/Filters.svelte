@@ -47,34 +47,36 @@
     dispatch('close');
   };
 
-  const onPriceRangeChange = (range: [number, number]) => {
+  const onPriceRangeChange = (range: [string, string]) => {
     const [minPrice_, maxPrice_] = range;
     setFilters({
       params: {
-        minPrice: minPrice_ > 0 ? minPrice_ : false,
-        maxPrice: maxPrice_ < maxPrice ? maxPrice_ : false,
+        minPrice: +minPrice_ > 0 ? +minPrice_ : false,
+        maxPrice: +maxPrice_ < maxPrice ? +maxPrice_ : false,
         page: 1,
       },
     });
   };
 
   const onMinPriceChange = (event) => {
-    const value = +(event.target as HTMLInputElement).value;
-    if (value < 0 || value >= priceRange[1]) {
+    const tValue = (event.target as HTMLInputElement).value;
+    const value = +tValue;
+    if (value < 0 || value >= +priceRange[1]) {
       event.preventDefault();
       return;
     }
-    priceRange = [value, priceRange[1]];
+    priceRange = [tValue, priceRange[1]];
     onPriceRangeChange(priceRange);
   };
 
   const onMaxPriceChange = (event) => {
-    const value = +(event.target as HTMLInputElement).value;
-    if (value <= priceRange[0]) {
+    const tValue = (event.target as HTMLInputElement).value;
+    const value = +tValue;
+    if (value <= +priceRange[0]) {
       event.preventDefault();
       return;
     }
-    priceRange = [priceRange[0], value];
+    priceRange = [priceRange[0], tValue];
     onPriceRangeChange(priceRange);
   };
 
@@ -111,12 +113,12 @@
     { id: 'USD', label: 'HTS' },
   ];
 
-  let priceRange: [number, number];
+  let priceRange: [string, string];
 
   function initSlider(min, max) {
     priceRange = [min, max];
   }
-  $: initSlider(+$page.query.get('minPrice') || 0, +$page.query.get('maxPrice') || maxPrice);
+  $: initSlider($page.query.get('minPrice') || '0', $page.query.get('maxPrice') || `${maxPrice}`);
 
   function toggle(
     type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType' | 'currency',
@@ -185,9 +187,13 @@
 
   $: priceSelectedObject =
     $page.query.has('minPrice') || $page.query.has('maxPrice')
-      ? `${formatCurrencyWithOptionalFractionDigits(
-          +$page.query.get('minPrice') || 0
-        )}-${formatCurrencyWithOptionalFractionDigits(+$page.query.get('maxPrice') || maxPrice)}`
+      ? `${formatCurrencyWithOptionalFractionDigits(+$page.query.get('minPrice') || 0, {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 18,
+        })}-${formatCurrencyWithOptionalFractionDigits(+$page.query.get('maxPrice') || maxPrice, {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 18,
+        })}`
       : undefined;
 
   $: searchFilter = $page.query.get('search') || '';
@@ -306,8 +312,22 @@
           />
 
           <div class="flex gap-6 mt-10">
-            <Input type="number" label="From" value={priceRange[0]} on:input={onMinPriceChange} />
-            <Input type="number" label="To" value={priceRange[1]} on:input={onMaxPriceChange} />
+            <Input
+              type="number"
+              label="From"
+              value={priceRange[0]}
+              on:input={onMinPriceChange}
+              step="0.000000000000000001"
+              min="0"
+            />
+            <Input
+              type="number"
+              label="To"
+              value={priceRange[1]}
+              on:input={onMaxPriceChange}
+              step="0.000000000000000001"
+              min="0"
+            />
           </div>
         </Accordion>
       {/if}

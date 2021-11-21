@@ -21,7 +21,9 @@
 
   const isUniqueAuction = sku?.maxSupply === 1 && sku?.issuer?._id === collectorListing?.issuer?._id;
   const isUniqueProductListing = sku?.countProductListings === 1 && sku?.circulatingSupply === 1;
-  const href = isUniqueProductListing ? routes.product(collectorListing.product) : routes.collectors(sku._id);
+  const href = isUniqueProductListing
+    ? routes.product(collectorListing.product)
+    : routes.collectors(sku._id, '?saleType=all');
 
   const minPrice =
     collectorListing?.saleType === 'auction'

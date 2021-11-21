@@ -5,7 +5,7 @@ export default {
   skuAuction: (skuId) => `/auction/${skuId}`,
   product: (productId) => `/product/${productId}`,
   collection: (username) => `/collection/${username}`,
-  collectors: (skuId) => `/collectors/${skuId}`,
+  collectors: (skuId, queryParameters = '') => `/collectors/${skuId}${queryParameters}`,
   wallet: '/u/wallet',
   deposit: '/u/wallet/deposit',
   account: '/u/account',

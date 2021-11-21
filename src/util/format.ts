@@ -19,7 +19,7 @@ export function formatCurrency(value: number | string, options?: FormatNumberOpt
 }
 
 export function formatCurrencyWithOptionalFractionDigits(value: number | string, options?: FormatNumberOptions) {
-  return formatCurrency(value, { ...options, minimumFractionDigits: 0 });
+  return formatCurrency(value, { minimumFractionDigits: 0, ...options });
 }
 
 export function formatApiCurrency(value: number | string) {
