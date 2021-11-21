@@ -102,6 +102,7 @@
         name="amount"
         type="number"
         placeholder="Enter Amount"
+        min="0"
         before="$"
       />
     </div>

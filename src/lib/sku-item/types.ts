@@ -339,6 +339,8 @@ export type BidListing = {
   highestBid?: Bid;
   issuer: User;
   endDate: Date;
+  type: 'product' | 'sku';
+  sku: string;
 };
 export type Bid = {
   _id: string;
