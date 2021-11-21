@@ -278,6 +278,7 @@ export type TransactionData = {
     institution_logo?: string;
   };
   saleType: 'fixed' | 'auction';
+  mintToAddress?: string;
 };
 
 export type TransactionType =

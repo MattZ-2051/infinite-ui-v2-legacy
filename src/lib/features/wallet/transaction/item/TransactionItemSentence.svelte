@@ -57,11 +57,9 @@
     {/if}
   {:else if type === 'withdrawal'}
     {#if transaction.transactionData.withdraw.type === 'usdc'}
-      USDC to wallet
-      <span>{transaction.transactionData.withdraw.usdcAddress}</span>
+      USDC to wallet address
     {:else if transaction.transactionData.withdraw.type === 'eth'}
-      ETH to wallet
-      <span>{transaction.transactionData.withdraw.usdcAddress}</span>
+      ETH to wallet address
     {:else}
       funds to bank {transaction.transactionData.withdraw.institution_name} and account ending in
       <span>{transaction.transactionData.withdraw.ach_number}</span>
