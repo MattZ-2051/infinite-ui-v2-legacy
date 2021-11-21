@@ -15,7 +15,7 @@ const getActiveTileTitle = (saleType: SaleType, product?: boolean, simpleTitle?:
       return '';
   }
 };
-export const skuStatus = (sku: Sku): Status => {
+export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
   if (sku.activeSkuListings?.length !== 0 || sku.activeProductListings?.length !== 0) {
     const hasProductListings = !!sku.activeProductListings?.length;
     const hasSkuListings = !!sku.activeSkuListings?.length;
@@ -41,16 +41,16 @@ export const skuStatus = (sku: Sku): Status => {
     let minPrice: number;
     if (activeSkuSaleType === 'giveaway') {
       minPrice = 0;
-      saleTypeTitle = getActiveTileTitle(activeSkuSaleType);
+      saleTypeTitle = getActiveTileTitle(activeSkuSaleType, undefined, simpleTitle);
     } else {
       if (hasProductListings) {
         minPrice = hasSkuListings ? Math.min(lowestPrice, lowestSkuPrice) : lowestPrice;
         saleTypeTitle = lowestPriceIsSkuListing
-          ? getActiveTileTitle(activeSkuSaleType)
-          : getActiveTileTitle(lowestPriceListing.saleType);
+          ? getActiveTileTitle(activeSkuSaleType, undefined, simpleTitle)
+          : getActiveTileTitle(lowestPriceListing.saleType, undefined, simpleTitle);
       } else {
         minPrice = lowestSkuPrice;
-        saleTypeTitle = getActiveTileTitle(activeSkuSaleType);
+        saleTypeTitle = getActiveTileTitle(activeSkuSaleType, undefined, simpleTitle);
       }
     }
     return { status: 'active', minPrice, saleTypeTitle };

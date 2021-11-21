@@ -2,6 +2,7 @@ export default {
   index: '/',
   marketplace: '/marketplace',
   sku: (skuId) => `/marketplace/${skuId}`,
+  skuAuction: (skuId) => `/auction/${skuId}`,
   product: (productId) => `/product/${productId}`,
   collection: (username) => `/collection/${username}`,
   collectors: (skuId) => `/collectors/${skuId}`,

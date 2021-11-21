@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import { onOrderIntent } from '$lib/features/order/order.service';
+  import routes from '$project/routes';
+  import { goto } from '$app/navigation';
   import {
     getActiveListings,
     getUpcomingListings,
@@ -17,7 +19,11 @@
   export let collectors: CollectorProduct[];
 
   async function onBuy() {
-    if (activeListings[0].product) {
+    const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
+    activeListings.length > 0 && sku.totalSupplyLeft && activeListings?.[0]?.saleType !== 'giveaway';
+    if (goToSkuAuctionPage) {
+      goto(routes.skuAuction(sku._id));
+    } else if (activeListings[0].product) {
       const product = await loadProduct({ id: activeListings[0].product });
       return onOrderIntent({ sku, listing: activeListings[0], product });
     } else {

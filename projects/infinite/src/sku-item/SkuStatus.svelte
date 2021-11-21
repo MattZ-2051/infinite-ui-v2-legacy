@@ -5,11 +5,11 @@
   import { skuStatus, productStatus } from '$lib/sku-item/status';
 
   export let sku: Sku;
-  export let product: Product;
+  export let product: Product = undefined;
   export let forProductStatus = false;
 
   let tileInfo: Status;
-  $: tileInfo = product ? productStatus(product, forProductStatus) : skuStatus(sku);
+  $: tileInfo = product ? productStatus(product, forProductStatus) : skuStatus(sku, forProductStatus);
 </script>
 
 <section>
