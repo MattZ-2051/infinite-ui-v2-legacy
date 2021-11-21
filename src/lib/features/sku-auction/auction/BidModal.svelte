@@ -26,14 +26,21 @@
   $: bid = formatCurrency(amount, { currency: sku.currency });
   $: total = formatCurrency(amount * (1 + marketplaceFee), { currency: sku.currency });
   $: ethAddress = '';
-  $: validEthAddress = undefined;
+  $: validEthAddress = isEthAddress(ethAddress);
+  $: showEthAddressError = (submitted || ethAddress) && !validEthAddress;
 
   let acceptedTerms = false;
+  let submitted = false;
 
   async function onPlaceBid() {
+    submitted = true;
+
     if (sku.currency === 'USD') {
       await placeBidFx({ listing, amount });
     } else if (sku.currency === 'ETH') {
+      if (!validEthAddress) {
+        return;
+      }
       await placeBidFx({ listing, amount, mintToAddress: ethAddress });
     }
 
@@ -43,12 +50,6 @@
   const userUsdBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'USD').totalBalance;
   const userEthBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'ETH').totalBalance;
   $: userBalance = sku.currency === 'ETH' ? userEthBalance : userUsdBalance;
-
-  function onEthAddressInput(event) {
-    const { value } = event.target as HTMLInputElement;
-    ethAddress = value;
-    validEthAddress = isEthAddress(value);
-  }
 
   let copiedLink = false;
 
@@ -73,14 +74,14 @@
           <Input
             name="eth-address"
             class={`pb-10 px-6 bg-gray-50 mt-4 mb-2 border border-solid border-gray-50 rounded-xl ${
-              validEthAddress === false ? 'text-red-500' : ''
+              showEthAddressError ? 'text-red-500' : ''
             }`}
             style="padding-bottom: 1rem; padding-top: 1rem"
             variant="base"
-            error={validEthAddress === false ? '*This does not appear to be a valid ERC20 address' : ''}
+            error={showEthAddressError ? '*This does not appear to be a valid ERC20 address' : ''}
             label="Enter the wallet ERC20 address to send the NFT to:"
-            value={ethAddress}
-            on:input={onEthAddressInput}
+            bind:value={ethAddress}
+            data-initial-focus
           >
             <svelte:fragment slot="after">
               {#if validEthAddress === true}
@@ -136,11 +137,8 @@
         All resales of this product are subject to a {sku.royaltyFeePercentage}% royalty fee set by and to be paid to
         the original creator.
       </div>
-      <Button
-        variant="brand"
-        class="w-full mt-6"
-        disabled={$waitingForAPI || !acceptedTerms || (sku.currency === 'ETH' && !validEthAddress)}
-        on:click={onPlaceBid}>Place Bid</Button
+      <Button variant="brand" class="w-full mt-6" disabled={$waitingForAPI || !acceptedTerms} on:click={onPlaceBid}
+        >Place Bid</Button
       >
     </div>
   </Modal>
