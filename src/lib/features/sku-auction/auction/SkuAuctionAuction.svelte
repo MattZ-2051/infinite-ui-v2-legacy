@@ -19,7 +19,7 @@
   const gotoPage = (event: CustomEvent) => {
     gotoQueryParameters(
       {
-        params: { tab: 'auction', page: event.detail.value },
+        params: { page: event.detail.value },
       },
       { noscroll: true, keepfocus: true }
     );

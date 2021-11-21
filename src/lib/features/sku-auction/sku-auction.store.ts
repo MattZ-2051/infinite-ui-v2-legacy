@@ -90,11 +90,9 @@ export const maxPlacedBid = createStore<number | null>(null)
   })
   .on(setSkuBids, (state, payload) => payload.max);
 
-export const auctionStarted = createEvent<{ sku: Sku }>();
-export const auctionCancelled = createEvent<{ listingId: string }>();
 export const auctionEnded = createEvent();
 
 forward({
-  from: [auctionStarted, auctionCancelled, auctionEnded],
+  from: [auctionEnded],
   to: refetchSkuFx,
 });
