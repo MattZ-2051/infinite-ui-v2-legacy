@@ -177,7 +177,7 @@
             <span class="text-sm text-gray-500">
               {#if $wallet}
                 {getKYCLevelDepositDisclaimer($wallet.kycMaxLevel)}
-                <a href={KYC_INFO} class="underline">Learn more.</a>
+                <a href={KYC_INFO} target="_blank" rel="noopener noreferrer" class="underline">Learn more.</a>
               {/if}
             </span>
           </div>
@@ -200,7 +200,7 @@
               <span class="text-sm text-gray-500">
                 {#if $wallet}
                   {getKYCLevelDepositDisclaimer($wallet.kycMaxLevel)}
-                  <a href={KYC_INFO} class="underline">Learn more.</a>
+                  <a href={KYC_INFO} target="_blank" rel="noopener noreferrer" class="underline">Learn more.</a>
                 {/if}
               </span>
             </div>
