@@ -41,6 +41,7 @@
   $: upcomingNftGiveAway = upcomingSkuListings[0]?.saleType === 'giveaway';
   $: noSale = sku.totalSupplyLeft === 0 && sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
   $: noCollectorSales = sku.activeProductListings?.length === 0 && sku.upcomingProductListings?.length === 0;
+  $: ethSkuSale = sku?.currency === 'ETH' && sku.skuListings[0]?.saleType === 'fixed';
   $: lowestActivePriceListing = getLowestProductListing(sku.activeProductListings);
   $: lowestUpcomingPriceListing = getLowestProductListing(sku.upcomingProductListings);
   $: isActiveSale = lowestActivePriceListing?.saleType === 'fixed' && lowestActivePriceListing?.status === 'active';
@@ -82,6 +83,8 @@
       <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuction" />
     {:else if isUpcomingAuction}
       <FromCollectors {sku} collectorListing={lowestUpcomingPriceListing} status="upcomingAuction" />
+    {:else if ethSkuSale}
+      <FromCollectors {sku} collectorListing={lowestUpcomingPriceListing} status="ethSkuSale" />
     {:else if noCollectorSales}
       <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="noneForSale" />
     {/if}

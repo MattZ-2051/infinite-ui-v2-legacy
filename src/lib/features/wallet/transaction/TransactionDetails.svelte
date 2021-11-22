@@ -71,22 +71,24 @@
 <div class="flex flex-col gap-4 mt-4">
   {#if ethPurchase()}
     {#each ethDetails as ethDetail}
-      <div class="flex items-center">
-        <div class="label mr-2">{ethDetail.label}</div>
-        <div class="truncate ml-auto">{ethDetail.value}</div>
-        {#if copyNode === ethDetail.label && copied}
-          <div in:fade>Copied</div>
-        {:else}
-          <button
-            type="button"
-            class="ml-1 p-1 rounded-full justify-self-end"
-            in:fade
-            on:click={() => onCopy({ trx: undefined, str: ethDetail?.value, node: ethDetail.label })}
-          >
-            <Icon path={mdiContentCopy} size="1em" flip="h" />
-          </button>
-        {/if}
-      </div>
+      {#if ethDetail?.value}
+        <div class="flex items-center">
+          <div class="label mr-2">{ethDetail.label}</div>
+          <div class="truncate ml-auto">{ethDetail.value}</div>
+          {#if copyNode === ethDetail.label && copied}
+            <div in:fade>Copied</div>
+          {:else}
+            <button
+              type="button"
+              class="ml-1 p-1 rounded-full justify-self-end"
+              in:fade
+              on:click={() => onCopy({ trx: undefined, str: ethDetail?.value, node: ethDetail.label })}
+            >
+              <Icon path={mdiContentCopy} size="1em" flip="h" />
+            </button>
+          {/if}
+        </div>
+      {/if}
     {/each}
   {/if}
   {#if usdcWithdrawal()}

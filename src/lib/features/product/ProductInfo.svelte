@@ -51,7 +51,7 @@
   <div class={cellClass}>
     {#if sku.currency === 'USD'}
       <div class={headerClass}>Owner</div>
-      <div>
+      <div class="flex flex-row">
         {#if product?.owner?.profilePhotoUrl}
           <img
             class="w-6 h-6 rounded-full object-cover inline mr-2"
@@ -66,7 +66,7 @@
     {:else if sku.currency === 'ETH'}
       <div class={`${headerClass} flex justify-between`}>
         Minted by
-        <div class=" rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer">
+        <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer">
           <Icon
             path={information}
             size="0.9em"
@@ -74,16 +74,18 @@
           />
         </div>
       </div>
-      {#if product?.owner?.profilePhotoUrl}
-        <img
-          class="w-6 h-6 rounded-full object-cover inline mr-2"
-          src={product.owner.profilePhotoUrl}
-          alt="profilePhoto"
-          use:imageError={() => (product.owner.profilePhotoUrl = undefined)}
-          loading="lazy"
-        />
-      {/if}
-      <div class="truncate inline"><UserLink username={product.owner.username} /></div>
+      <div class="flex flex-row">
+        {#if product?.owner?.profilePhotoUrl}
+          <img
+            class="w-6 h-6 rounded-full object-cover inline mr-2"
+            src={product.owner.profilePhotoUrl}
+            alt="profilePhoto"
+            use:imageError={() => (product.owner.profilePhotoUrl = undefined)}
+            loading="lazy"
+          />
+        {/if}
+        <div class="truncate inline"><UserLink username={product.owner.username} /></div>
+      </div>
     {/if}
   </div>
   <div class={cellClass}>

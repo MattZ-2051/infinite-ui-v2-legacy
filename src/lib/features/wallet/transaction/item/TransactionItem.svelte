@@ -28,7 +28,10 @@
       case 'purchase':
         return `${purchaseAmount}`;
       case 'withdrawal':
-        return `-${formatCurrency(transactionData.withdraw?.amount)}`;
+        return `-${formatCurrency(
+          transactionData.withdraw?.amount,
+          transactionData?.withdraw?.type === 'eth' ? { currency: 'ETH' } : {}
+        )}`;
     }
     return '';
   };

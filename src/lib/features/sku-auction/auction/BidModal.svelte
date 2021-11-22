@@ -114,7 +114,11 @@
           <span>Total cost (if you win):</span>
           <span>{total}</span>
         </div>
-        <div class="text-green-500 flex justify-between">
+        <div
+          class={`${
+            userBalance >= amount * (1 + marketplaceFee) ? 'text-green-500' : 'text-red-500'
+          } flex justify-between`}
+        >
           <span> Your current balance: </span>
           <span>{formatCurrency(userBalance, { currency: sku.currency })}</span>
         </div>

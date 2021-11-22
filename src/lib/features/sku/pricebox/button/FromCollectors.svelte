@@ -12,6 +12,7 @@
     | 'upcomingAuction'
     | 'noneForSale'
     | 'activeAuctionAndSale'
+    | 'ethSkuSale'
     | '';
   $: isPolling = $polls[sku._id]?.$isActive || readable(false);
 
@@ -101,6 +102,10 @@
           <div class="text-gray-500 text-sm">Lowest Listing Price</div>
         </div>
       </div>
+    {/if}
+    {#if status === 'ethSkuSale'}
+      <div class="text-xl">From Collector</div>
+      <div class="flex justify-end items-center" />
     {/if}
   </div>
 </SkuPriceBoxButton>
