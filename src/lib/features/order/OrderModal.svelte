@@ -42,7 +42,7 @@
         )} USD, therefore, you will not be able to make deposits, withdrawals, purchases until you complete KYC level 2.`
       );
     }
-    if (!acceptedTerms || (sku?.customNftTerms && !acceptedTermsNft)) {
+    if (!acceptedTerms || (_sku?.customNftTerms && !acceptedTermsNft)) {
       toast.danger('Please agree to the Terms and Conditions in order to move forward.');
       return;
     }
@@ -222,7 +222,7 @@
               >
             </label>
           </div>
-          {#if sku?.customNftTerms}
+          {#if _sku?.customNftTerms}
             <div class="flex items-center justify-start">
               <label class="inline-flex items-center">
                 <input
@@ -231,7 +231,7 @@
                   class="border-gray-400 border-2 text-black mr-2"
                 />
                 I agree to the
-                <a href={sku.customNftTerms} class="ml-1 underline" target="_blank" rel="noopener noreferrer"
+                <a href={_sku.customNftTerms} class="ml-1 underline" target="_blank" rel="noopener noreferrer"
                   >Nft Terms & Conditions</a
                 >
               </label>
