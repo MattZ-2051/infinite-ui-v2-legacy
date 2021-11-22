@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Listing, Sku } from '$lib/sku-item/types';
+  import Big from 'big.js';
   import { createEventDispatcher } from 'svelte';
   import { createForm } from 'felte';
   import Icon from '$ui/icon/Icon.svelte';
@@ -22,7 +23,7 @@
 
   loadWalletFx();
 
-  $: acceptedBidPrice = maxPlacedBid ? maxPlacedBid + listing.auctionBidIncrement : listing.minBid;
+  $: acceptedBidPrice = maxPlacedBid ? new Big(maxPlacedBid).add(listing.auctionBidIncrement) : new Big(listing.minBid);
 
   const { form, reset } = createForm({
     onSubmit: async ({ placeBid }: { placeBid: string }) => {
@@ -40,29 +41,33 @@
         );
       }
 
-      const amount = Number.parseFloat(placeBid);
-      const amountWithFee = amount + amount * fee;
-      const userUsdBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'USD').totalBalance;
-      const userEthBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'ETH').totalBalance;
-      const userBalance = listing.currency === 'ETH' ? userEthBalance : userUsdBalance;
-
-      if (Number.isNaN(amount)) {
+      let amount: Big;
+      try {
+        amount = new Big(placeBid);
+      } catch {
         return toast.danger(`Not a valid number.`);
       }
-      if (amount < acceptedBidPrice) {
+      const amountWithFee = amount.times(1 + fee);
+      const userUsdBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'USD').totalBalance;
+      const userEthBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'ETH').totalBalance;
+      const userBalance = new Big(listing.currency === 'ETH' ? userEthBalance : userUsdBalance);
+
+      if (amount.lt(acceptedBidPrice)) {
         return toast.danger(
-          `The minimum bid amount is ${formatCurrency(acceptedBidPrice, {
+          `The minimum bid amount is ${formatCurrency(acceptedBidPrice.toNumber(), {
             currency: sku.currency,
           })}. Please place a higher bid.`
         );
       }
-      if (amountWithFee > userBalance) {
+      if (amountWithFee.gt(userBalance)) {
         return toast.danger(
-          `Whoops! You don't have sufficient funds in your wallet to make this purchase! Your available balance is ${userBalance} and you need ${amountWithFee} to cover the bid and marketplace fee. <a href=${routes.wallet}>Click here</a> to deposit more funds.`
+          `Whoops! You don't have sufficient funds in your wallet to make this purchase! Your available balance is ${userBalance.toNumber()} and you need ${amountWithFee.toNumber()} to cover the bid and marketplace fee. <a href=${
+            routes.wallet
+          }>Click here</a> to deposit more funds.`
         );
       }
 
-      dispatch('place-bid', { amount });
+      dispatch('place-bid', { amount: amount.toNumber() });
       reset();
     },
   });
@@ -97,7 +102,7 @@
     />
     <span class="absolute bottom-9 left-4 text-2xl text-gray-500">{sku.currency === 'USD' ? '$' : 'Ξ'}</span>
     <div class="absolute left-4 bottom-4 text-sm text-gray-500" style="position:absolute;">
-      *Min. bid amount is {formatCurrency(acceptedBidPrice, { currency: sku.currency })}
+      *Min. bid amount is {formatCurrency(acceptedBidPrice.toNumber(), { currency: sku.currency })}
     </div>
   </div>
 
