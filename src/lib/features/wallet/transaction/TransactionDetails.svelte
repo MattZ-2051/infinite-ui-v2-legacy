@@ -77,26 +77,30 @@
       </div>
     </div>
     {#if transaction?.transactionData?.deposit?.detectedTransactionHash}
-      <div class="flex items-center justify-between">
+      <div class="flex flex-col justify-between">
         <div class="flex flex-col gap-2">
-          <div class="label">Transaction Hash</div>
-          <a href={generateEthScanURL()} target="_blanc" rel="noopener noreferrer">
-            {transaction?.transactionData?.deposit?.detectedTransactionHash}
-          </a>
+          <div class="label mb-1">Transaction Hash</div>
         </div>
-        <div class="flex flex-col md:flex-row justify-center gap-2 items-center">
-          {#if copyNode === 'trxHash' && copied}
-            <div in:fade>Copied</div>
-          {:else}
-            <button
-              type="button"
-              class="p-2.5 rounded-full transition duration-500 ease-in-out"
-              in:fade
-              on:click={() => onCopy({ trx: transaction, str: undefined, node: 'trxHash' })}
-            >
-              <Icon path={mdiContentCopy} flip="h" />
-            </button>
-          {/if}
+        <div class="flex justify-between align-baseline">
+          <div class="truncate xs:max-w-xs">
+            <a href={generateEthScanURL()} target="_blank" rel="noopener noreferrer">
+              {transaction?.transactionData?.deposit?.detectedTransactionHash}
+            </a>
+          </div>
+          <div class="flex flex-col md:flex-row justify-center gap-2 items-center">
+            {#if copyNode === 'trxHash' && copied}
+              <div in:fade>Copied</div>
+            {:else}
+              <button
+                type="button"
+                class="p-2.5 rounded-full transition duration-500 ease-in-out"
+                in:fade
+                on:click={() => onCopy({ trx: transaction, str: undefined, node: 'trxHash' })}
+              >
+                <Icon path={mdiContentCopy} flip="h" />
+              </button>
+            {/if}
+          </div>
         </div>
       </div>
     {/if}
