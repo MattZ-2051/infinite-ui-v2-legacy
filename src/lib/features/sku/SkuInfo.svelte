@@ -19,17 +19,18 @@
 
   $: activeProduct = sku.activeProductListings?.[0];
   $: activeSku = sku.activeSkuListings?.[0];
-  $: isActiveAuction = activeProduct?.saleType === 'auction';
+  $: isActiveProductAuction = activeProduct?.saleType === 'auction';
+  $: isActiveSkuAuction = activeSku?.saleType === 'auction';
   $: isActiveSale = activeProduct?.saleType === 'fixed' || activeSku?.saleType === 'fixed';
 </script>
 
 <div class="border border-white border-opacity-20 rounded-lg text-white overflow-hidden">
-  {#if ENABLE_ETH_CURRENCY}
-    <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
-      <div class="flex flex-col gap-2">
-        <div class="text-gray-500 text-sm">Edition</div>
-        <div><SkuEdition {sku} /></div>
-      </div>
+  <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
+    <div class="flex flex-col gap-2">
+      <div class="text-gray-500 text-sm">Edition</div>
+      <div><SkuEdition {sku} /></div>
+    </div>
+    {#if ENABLE_ETH_CURRENCY}
       <div class="flex flex-col gap-2">
         <div class="text-gray-500 text-sm text-right">NFT Type:</div>
         {#if sku.currency === 'ETH'}
@@ -44,37 +45,36 @@
           </div>
         {/if}
       </div>
-    </div>
-    <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
-      {#if isActiveAuction}
-        <div class="flex flex-col gap-2 text-left">
-          <div class="text-gray-500 text-sm">Active Auction</div>
-          <div>Ends {formatDate(activeProduct.endDate)}</div>
-        </div>
-      {:else if isActiveSale}
-        <div class="flex flex-col gap-2 text-left">
-          <div class="text-gray-500 text-sm">Active Sale:</div>
-          <div>Started {formatDate(activeProduct?.startDate || activeSku?.startDate)}</div>
-        </div>
-      {/if}
-    </div>
-  {:else}
-    <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
-      <div class="flex flex-col gap-2">
-        <div class="text-gray-500 text-sm">Edition</div>
-        <div><SkuEdition {sku} /></div>
+    {/if}
+  </div>
+  {#if isActiveProductAuction}
+    <div class="p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
+      <div class="flex flex-col gap-2 text-left">
+        <div class="text-gray-500 text-sm">Auction Start:</div>
+        <div>{formatDate(activeProduct.startDate)}</div>
       </div>
-      {#if isActiveAuction}
-        <div class="flex flex-col gap-2 text-right">
-          <div class="text-gray-500 text-sm">Active Auction</div>
-          <div>Ends {formatDate(activeProduct.endDate)}</div>
-        </div>
-      {:else if isActiveSale}
-        <div class="flex flex-col gap-2 text-right">
-          <div class="text-gray-500 text-sm">Active Sale:</div>
-          <div>Started {formatDate(activeProduct?.startDate || activeSku?.startDate)}</div>
-        </div>
-      {/if}
+      <div class="flex flex-col gap-2 text-right">
+        <div class="text-gray-500 text-sm">Auction End:</div>
+        <div>{formatDate(activeProduct.endDate)}</div>
+      </div>
+    </div>
+  {:else if isActiveSkuAuction}
+    <div class="p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
+      <div class="flex flex-col gap-2 text-left">
+        <div class="text-gray-500 text-sm">Auction Start:</div>
+        <div>{formatDate(activeSku.startDate)}</div>
+      </div>
+      <div class="flex flex-col gap-2 text-right">
+        <div class="text-gray-500 text-sm">Auction Ends:</div>
+        <div>{formatDate(activeSku.endDate)}</div>
+      </div>
+    </div>
+  {:else if isActiveSale}
+    <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
+      <div class="flex flex-col gap-2 text-left">
+        <div class="text-gray-500 text-sm">Active Sale:</div>
+        <div>Started {formatDate(activeProduct?.startDate || activeSku?.startDate)}</div>
+      </div>
     </div>
   {/if}
   <div class="p-6 border-b border-opacity-20 flex justify-between">
@@ -84,7 +84,7 @@
     </div>
     <div class="flex flex-col gap-2 text-right">
       {#if sku.redeemable}
-        <div class="text-gray-500 text-sm">Condition</div>
+        <div class="text-gray-500 text-sm">Redemption Status</div>
         <IconRedeem>Redeemable</IconRedeem>
       {/if}
     </div>
