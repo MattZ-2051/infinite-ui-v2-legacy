@@ -30,7 +30,7 @@
             variant="brand"
             class="whitespace-nowrap  md:w-56 w-44 py-12 md:py-0"
             type="submit"
-            on:click={() => window.open('https://support.suku.world/infinite-powered-by-suku')}
+            on:click={() => window.open('https://info.seva.love/seva-love-resources-faq')}
           >
             Read more FAQs</Button
           >

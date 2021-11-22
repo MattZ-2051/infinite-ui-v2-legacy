@@ -5,6 +5,9 @@
   import { mdiContentCopy } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatDate, capitalizeFirstLetter } from '$util/format';
+  import { variables } from '$lib/variables';
+
+  const VITE_ETH_EXPLORER_BASE_URL = variables?.ethNetwork?.explorerBaseUrl;
 
   export let transaction: Transaction;
 
@@ -24,8 +27,10 @@
   let copyNode: string;
 
   function onCopy({ trx, str, node }: { trx: Transaction; str: string; node: string }) {
-    if (trx) {
+    if (trx && node === 'trxId') {
       copy(trx._id);
+    } else if (trx.transactionData && node === 'trxHash') {
+      copy(generateEthScanURL());
     } else {
       copy(str);
     }
@@ -43,28 +48,58 @@
     const { transactionData, type } = transaction;
     return type === 'withdrawal' && transactionData?.withdraw?.usdcAddress;
   };
+
+  const generateEthScanURL = () => {
+    return `${VITE_ETH_EXPLORER_BASE_URL}/${transaction?.transactionData.deposit?.detectedTransactionHash}`;
+  };
 </script>
 
 <div class="py-4 border-t border-b border-gray-500">
-  <div class="flex items-center justify-between">
-    <div class="flex flex-col gap-2">
-      <div class="label">Transaction ID</div>
-      <div>{transaction._id}</div>
+  <div class="flex flex-col gap-5">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col gap-2">
+        <div class="label">Transaction ID</div>
+        <div>{transaction._id}</div>
+      </div>
+      <div class="flex flex-col md:flex-row justify-center gap-2 items-center">
+        {#if copyNode === 'trxId' && copied}
+          <div in:fade>Copied</div>
+        {:else}
+          <button
+            type="button"
+            class="p-2.5 rounded-full transition duration-500 ease-in-out"
+            in:fade
+            on:click={() => onCopy({ trx: transaction, str: undefined, node: 'trxId' })}
+          >
+            <Icon path={mdiContentCopy} flip="h" />
+          </button>
+        {/if}
+      </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-center gap-2 items-center">
-      {#if copyNode === 'trxId' && copied}
-        <div in:fade>Copied</div>
-      {:else}
-        <button
-          type="button"
-          class="p-2.5 rounded-full transition duration-500 ease-in-out"
-          in:fade
-          on:click={() => onCopy({ trx: transaction, str: undefined, node: 'trxId' })}
-        >
-          <Icon path={mdiContentCopy} flip="h" />
-        </button>
-      {/if}
-    </div>
+    {#if transaction?.transactionData?.deposit?.detectedTransactionHash}
+      <div class="flex items-center justify-between">
+        <div class="flex flex-col gap-2">
+          <div class="label">Transaction Hash</div>
+          <a href={generateEthScanURL()} target="_blanc" rel="noopener noreferrer">
+            {transaction?.transactionData?.deposit?.detectedTransactionHash}
+          </a>
+        </div>
+        <div class="flex flex-col md:flex-row justify-center gap-2 items-center">
+          {#if copyNode === 'trxHash' && copied}
+            <div in:fade>Copied</div>
+          {:else}
+            <button
+              type="button"
+              class="p-2.5 rounded-full transition duration-500 ease-in-out"
+              in:fade
+              on:click={() => onCopy({ trx: transaction, str: undefined, node: 'trxHash' })}
+            >
+              <Icon path={mdiContentCopy} flip="h" />
+            </button>
+          {/if}
+        </div>
+      </div>
+    {/if}
   </div>
 </div>
 

@@ -158,6 +158,7 @@ const getDummyTransaction = (): Transaction => {
       amountUnrated: '100',
       circleType: undefined,
       balanceCurrency: 'USD',
+      detectedTransactionHash: 'somehash',
       card: {
         createdAt: new Date(),
         expMonth: 11,

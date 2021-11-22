@@ -254,6 +254,7 @@ export type TransactionData = {
     amount: string;
     amountUnrated?: string;
     balanceCurrency?: CurrencyType;
+    detectedTransactionHash: string | undefined;
     card?: {
       createdAt: Date;
       expMonth: number;
