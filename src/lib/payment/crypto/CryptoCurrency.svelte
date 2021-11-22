@@ -110,8 +110,8 @@
                   use:tooltip={'Open transaction'}>{txLink}</a
                 >
               </div>
-              <div class="mt-4 text-xs max-w-xs mx-auto">
-                Your deposit has been received. It will take a moment for it to show up in your transaction history.
+              <div class="mt-4 text-xs max-w-xs mx-auto text-red-500">
+                Your deposit has been received. It may take up to 10 minutes to show up in your wallet.
               </div>
             </div>
           {:else}

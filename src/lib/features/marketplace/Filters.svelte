@@ -109,8 +109,8 @@
   ];
 
   const nftTypeFilters: { id: string; label: string }[] = [
-    { id: 'ETH', label: 'ERC721' },
-    { id: 'USD', label: 'HTS' },
+    { id: 'ETH', label: 'Ethereum (ERC721)' },
+    { id: 'USD', label: 'Hedera (HTS)' },
   ];
 
   let priceRange: [string, string];
