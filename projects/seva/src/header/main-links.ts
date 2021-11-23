@@ -1,5 +1,5 @@
 export const links = [
   { id: 'index', label: 'Home' },
   { id: 'marketplace', label: 'Exchange' },
-  { id: 'about', label: 'About Us' },
+  { id: 'externalAbout', label: 'About Us' },
 ];
