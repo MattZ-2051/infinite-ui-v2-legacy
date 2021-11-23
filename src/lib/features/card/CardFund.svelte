@@ -92,9 +92,9 @@
     <div class="w-full">
       <FormElement class="w-1/3" name="cvv" placeholder="Enter CVV" />
     </div>
-    <span class="text-gray-500 text-center"
-      >Withdrawal of credit card deposits can be initiated 30 days after deposit</span
-    >
+    <span class="text-start text-md font-extralight" style="color: var(--red)">
+      Withdrawal of credit card deposits can be initiated 30 days after deposit
+    </span>
     <div class="w-full">
       <FormElement
         variant="rounded"
