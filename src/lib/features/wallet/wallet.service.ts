@@ -20,7 +20,7 @@ export function handleWalletDepositError(error: ApiError) {
         error.data.args['totalSelectedCardDepositCents'] / 100
       )}  USD. The current allowable lifetime limit is ${formatCurrency(
         error.data.args['totalDepositCentsLimit'] / 100
-      )}  USD. If you would like to deposit more funds, you may do so using cryptocurrency."`;
+      )}  USD. If you would like to deposit more funds, you may do so using cryptocurrency.`;
     default:
       return 'We couldn’t process your payment and the transaction was cancelled.';
   }
