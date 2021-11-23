@@ -75,25 +75,25 @@
     <div class="p-10 text-gray-500">
       {#if address}
         {#if kind === 'eth-native'}
-          <p class="m-auto w-max max-w-sm">
+          <p class="m-auto w-max max-w-xs">
             Wallet address successfully created! ETH sent to the following address will be credited to your account.
             These funds will be stored in ETH and can be withdrawn as ETH.
           </p>
         {:else}
-          <p class="m-auto w-max max-w-sm">
+          <p class="m-auto w-max max-w-xs">
             Wallet address succesfully created! Send the funds to the following address and they will be automatically
             credited to your account.
           </p>
         {/if}
       {:else}
-        <p class="m-auto w-max max-w-sm">
+        <p class="m-auto w-max max-w-xs">
           Generate the {coinName} Address and then deposit your funds to that address. Funds sent to the following address
           will be automatically credited to your account.
         </p>
       {/if}
       {#if address}
         <div class="mt-8 text-center">
-          <input type="text" disabled value={address} class="border-b-2 border-dotted bg-transparent w-96" />
+          <input type="text" disabled value={address} class="border-b-2 border-dotted bg-transparent w-full" />
           <div class="mt-4 text-xs max-w-xs mx-auto">
             This is a {coinName} ({chainName}) address. Please do not send any other currencies to this address, it
             accepts {coinName} only. Funds sent to this address will be automatically credited to your account.
