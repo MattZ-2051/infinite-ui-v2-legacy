@@ -21,7 +21,7 @@
   </div>
   {#if sku.redeemable}
     <div class={cellClass}>
-      <div class={headerClass}>Condition</div>
+      <div class={headerClass}>Redemption Status</div>
       <div class="flex gap-2">
         <IconRedeem>Redeemable</IconRedeem>
       </div>

@@ -82,7 +82,7 @@
   }
   @screen md {
     .sticky-content {
-      height: 100%;
+      height: inherit;
     }
   }
   .share:hover,
