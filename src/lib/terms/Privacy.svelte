@@ -1,13 +1,5 @@
-<script>
-  import { CLIENT_COMPANY_NAME } from '$project/variables';
-</script>
-
 <div class="container py-8">
-  <h3>
-    Privacy Notice <strong
-      >(ADAPTED FROM https://dev.goinfinite.io/privacy - TO BE AMENDED FOR {CLIENT_COMPANY_NAME} EXCHANGE)</strong
-    >
-  </h3>
+  <h3>Privacy Notice</h3>
   <p>Effective date: May 19, 2021</p>
   <p>Our privacy notice is available in PDF form here.</p>
   <p>At Infinite Assets, Inc. dba/ “INFINITE”, we respect your privacy and are committed to protecting it.</p>
