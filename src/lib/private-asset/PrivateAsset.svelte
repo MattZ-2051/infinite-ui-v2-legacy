@@ -15,7 +15,7 @@
     privateAssets.set(await getPrivateAssets({ skuId: id, ownerId: $userId }));
   }
 
-  $: $userId && loadPrivateAssets(skuId);
+  $: loadPrivateAssets(skuId);
 </script>
 
 <slot total={$privateAssets?.total} />

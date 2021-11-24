@@ -10,14 +10,19 @@ export async function getPrivateAssets({
   ownerId: string;
   page?: number;
 }): Promise<{ total: number; assets: FileAsset[]; isOwner: boolean; productId: string }> {
-  const [{ total, data: assets }, { data }] = await Promise.all([
-    getPage<FileAsset>(`skus/${skuId}/private-assets`),
-    getPage<CollectorProduct>(`products/collectors/${skuId}`, {
+  const responseFileAssets = await getPage<FileAsset>(`skus/${skuId}/private-assets`);
+  const responseCollectors =
+    ownerId &&
+    (await getPage<CollectorProduct>(`products/collectors/${skuId}`, {
       params: { page: '1', per_page: '1', includeFunctions: 'true', ownerId },
-    }),
-  ]);
+    }));
 
-  return { total, assets, isOwner: data.length > 0, productId: data[0]?._id };
+  return {
+    total: responseFileAssets.total,
+    assets: responseFileAssets.data,
+    isOwner: responseFileAssets.data.length > 0,
+    productId: (await responseCollectors)?.data[0]?._id,
+  };
 }
 
 export async function getPreSignedUrl({
