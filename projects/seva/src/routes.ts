@@ -4,5 +4,5 @@ import routes from '$lib/routes';
 export default {
   ...routes,
   externalAbout: 'https://seva.love',
-  resources: 'https://info.seva.love/resources',
+  resources: 'https://info.seva.love',
 };

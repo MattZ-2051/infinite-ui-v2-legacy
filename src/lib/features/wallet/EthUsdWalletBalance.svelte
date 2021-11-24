@@ -94,7 +94,7 @@
   <div class="p-6 text-white-opacity-50" style="background: var(--wallet-balance-content-bg-color-secondary)">
     <span class="text-sm text-gray-500 ">
       {helpText}
-      <a href="https://info.seva.love/resources" target="_blank" rel="noopener noreferrer" class="underline"
+      <a href="https://info.seva.love/seva-love-resources-faq#my-wallet" target="_blank" rel="noopener noreferrer" class="underline"
         >Learn more.</a
       >
     </span>
