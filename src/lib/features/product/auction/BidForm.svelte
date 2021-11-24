@@ -44,7 +44,7 @@
       const amountWithFee = amount + amount * fee;
       const userUsdBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'USD').totalBalance;
       const userEthBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'ETH').totalBalance;
-      const userBalance = listing.currency === 'ETH' ? userEthBalance : userUsdBalance;
+      const userBalance = product.sku.currency === 'ETH' ? userEthBalance : userUsdBalance;
 
       if (Number.isNaN(amount)) {
         return toast.danger(`Not a valid number.`);

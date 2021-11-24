@@ -48,9 +48,9 @@
         return toast.danger(`Not a valid number.`);
       }
       const amountWithFee = amount.times(1 + fee);
-      const userUsdBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'USD').totalBalance;
-      const userEthBalance = +$wallet?.balanceInfo.find((x) => x.currency === 'ETH').totalBalance;
-      const userBalance = new Big(listing.currency === 'ETH' ? userEthBalance : userUsdBalance);
+      const userUsdBalance = $wallet?.balanceInfo.find((x) => x.currency === 'USD').totalBalance;
+      const userEthBalance = $wallet?.balanceInfo.find((x) => x.currency === 'ETH').totalBalance;
+      const userBalance = new Big(sku.currency === 'ETH' ? userEthBalance : userUsdBalance);
 
       if (amount.lt(acceptedBidPrice)) {
         return toast.danger(
