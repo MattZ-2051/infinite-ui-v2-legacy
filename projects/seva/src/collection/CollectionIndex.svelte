@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Profile } from '$lib/sku-item/types';
   import CollectionTabs from '$lib/features/collection/CollectionTabs.svelte';
-  import { skus } from '$lib/features/collection/collection.store';
+  import { featuredSku } from '$lib/features/collection/collection.store';
   import Emilia from './emilia/Emilia.svelte';
 
-  export const profile: Profile = undefined;
+  export let profile: Profile;
 
   $: items = [
     {
@@ -18,6 +18,6 @@
   ];
 </script>
 
-<Emilia skus={$skus}>
+<Emilia {profile} featuredSku={$featuredSku}>
   <CollectionTabs isIssuer {items} />
 </Emilia>

@@ -1,7 +1,7 @@
 import type { Profile, Product, Sku } from '$lib/sku-item/types';
 import { get, getPage } from '$lib/api';
 
-export async function loadProfile({ username, fetch }: { username: string; fetch?: Fetch }) {
+export async function loadProfile({ username, fetch }: { username: string; fetch?: Fetch }): Promise<Profile> {
   const profiles = await get<Profile[]>(`users?username=${username}`, { fetch });
   const profile = profiles[0];
 
@@ -61,4 +61,10 @@ export async function loadProducts({
   );
 
   return { products, totalProducts };
+}
+
+export async function loadFeaturedSku({ id, fetch }: { id: string; fetch: Fetch }) {
+  return await get<Sku>(`skus/${id}/?includeFunctions=true`, {
+    fetch,
+  });
 }

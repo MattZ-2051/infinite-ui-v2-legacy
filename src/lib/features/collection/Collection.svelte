@@ -13,7 +13,7 @@
 
 <ThemeContext id="collection">
   <div class="flex flex-col flex-grow">
-    {#if isIssuer}
+    {#if isIssuer && 'templateId' in $profile}
       <CollectionIndex profile={$profile} />
     {:else if isIssuer}
       <div class="container mt-4 md:mt-8">

@@ -1,25 +1,18 @@
 <script lang="ts">
+  import type { Sku } from '$lib/sku-item/types';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import { media } from '$lib/media-query.store';
   import SkuItem from '$project/sku-item/SkuItem.svelte';
   import purpleLineImg from './assets/purple-curvy-line.png';
-  import emiliaPhoto from './assets/emilia-photo.png';
   import leftGreyLineImg from './assets/left-light-grey-line.png';
   import rightGreyLineImg from './assets/right-light-grey-line.png';
-  // export let profile: Profile;
-  // TODO (Matt): This will be the prop the accepts the sku data
-  // export let skuLandingHeadData;
-  // const photos = Object.fromEntries(
-  //   profile.profilePhotoUrls.map(({ position, url }) => {
-  //     return [position, { url }];
-  //   })
-  // );
-  // const textFields = Object.fromEntries(
-  //   profile.profileTextFields.map(({ position, text }) => {
-  //     return [position, text];
-  //   })
-  // );
-  export let sku;
+
+  export let sku: Sku;
+
+  export let title1: string;
+  export let title2: string;
+  export let title3: string;
+  export let photo: string;
 
   const handleScrollToCollection = () => {
     const collection = document.querySelector('#collection');
@@ -32,17 +25,13 @@
     <div class="lg:grid lg:grid-cols-2 items-center container relative px-6 mt-8 lg:mt-20">
       <div class="z-30 w-full lg:w-11/12 ">
         <div class="text-5xl font-medium sm:text-7xl text-center lg:text-left" style="color: #FFD54E;">
-          Emilia Clarke's
-        </div>
-        <div class="text-5xl font-medium pt-4 sm:text-7xl text-center lg:text-left" style="color: #FFD54E;">
-          SameYou NFT collection
+          {title1}
         </div>
         <div class="text-xl sm:text-2xl text-white font-normal pt-8 text-center lg:text-left">
-          Benefitting the SameYou non-profit focused on treatment for brain injury and stroke recovery.
+          {title2}
         </div>
         <div class="text-white-opacity-50 pt-4 font-light text-center lg:text-left">
-          Featuring an experiential poetic mindscape of brain injury healing with spoken word by Emilia Clarke,
-          physically redeemable items, and unique ownership benefits.
+          {title3}
         </div>
         <div class=" mt-8 mb-12 flex items-center justify-center lg:justify-start w-full">
           <button
@@ -54,26 +43,28 @@
           >
         </div>
       </div>
-      <div class="relative">
-        {#if !$media.lg}
-          <div class="flex justify-center">
-            <div class="center-card right-1/4 rounded-md flex justify-center max-w-sm">
-              <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
+      {#if sku}
+        <div class="relative">
+          {#if !$media.lg}
+            <div class="flex justify-center">
+              <div class="center-card right-1/4 rounded-md flex justify-center max-w-sm">
+                <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
+              </div>
             </div>
+          {/if}
+        </div>
+        {#if $media.lg}
+          <div class="center-card absolute z-30 right-1/4 rounded-md flex max-w-sm justify-center">
+            <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
           </div>
         {/if}
-      </div>
-      {#if $media.lg}
-        <div class="center-card absolute z-30 right-1/4 rounded-md flex max-w-sm justify-center">
-          <SkuItem {sku} --sku-item-bg-color="#ffd54e" />
-        </div>
       {/if}
       {#if $media.lg}
-        <img src={emiliaPhoto} alt="" class="absolute z-10 -bottom-1/4 right-0 w-2/5" />
+        <img src={photo} alt="" class="absolute z-10 -bottom-1/4 right-0 w-2/5" />
       {/if}
     </div>
     {#if !$media.lg}
-      <img src={emiliaPhoto} alt="" class="w-full mt-8 bottom-0 " />
+      <img src={photo} alt="" class="w-full mt-8 bottom-0 " />
     {/if}
     {#if !$media.lg}
       <img src={purpleLineImg} alt="" class="absolute w-full purple-line z-20" />

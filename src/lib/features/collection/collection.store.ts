@@ -3,7 +3,7 @@ import type { Profile, Product, Sku } from '$lib/sku-item/types';
 import { createEffect, createStore, createEvent, forward } from 'effector';
 import { browser } from '$app/env';
 import { gotoQueryParameters } from '$util/queryParameter';
-import { loadProfile, loadSkus, loadProducts } from './collection.api';
+import { loadProfile, loadSkus, loadProducts, loadFeaturedSku } from './collection.api';
 
 export const changeTab = createEvent<'Releases' | 'NFTs'>();
 export const changePage = createEvent<number>();
@@ -29,9 +29,20 @@ export const loadCollectionFx = createEffect(
     sortBy: string;
     forSale?: string;
     fetch: Fetch;
-  }): Promise<{ profile: Profile; totalSkus?: number; skus?: Sku[]; totalProducts?: number; products?: Product[] }> => {
+  }): Promise<{
+    profile: Profile;
+    totalSkus?: number;
+    skus?: Sku[];
+    totalProducts?: number;
+    products?: Product[];
+    featuredSku?: Sku;
+  }> => {
     const current = profile.getState() as Profile;
     const _profile = browser && username === current?.username ? current : await loadProfile({ username, fetch });
+
+    const featuredSkuPromise = _profile.featuredSku
+      ? loadFeaturedSku({ id: _profile.featuredSku, fetch })
+      : Promise.resolve(undefined);
 
     tab = tab || (_profile.role === 'issuer' ? 'Releases' : 'NFTs');
     const parameters = {
@@ -43,11 +54,14 @@ export const loadCollectionFx = createEffect(
       fetch,
     };
     if (tab === 'Releases') {
-      const { skus, totalSkus } = await loadSkusFx(parameters);
-      return { profile: _profile, skus, totalSkus };
+      const [{ skus, totalSkus }, featuredSku] = await Promise.all([loadSkusFx(parameters), featuredSkuPromise]);
+      return { profile: _profile, skus, totalSkus, featuredSku };
     } else if (tab === 'NFTs') {
-      const { products, totalProducts } = await loadProductsFx(parameters);
-      return { profile: _profile, products, totalProducts };
+      const [{ products, totalProducts }, featuredSku] = await Promise.all([
+        loadProductsFx(parameters),
+        featuredSkuPromise,
+      ]);
+      return { profile: _profile, products, totalProducts, featuredSku };
     }
   }
 );
@@ -124,6 +138,11 @@ export const productsTotal = createStore<number>(null)
     // eslint-disable-next-line unicorn/no-null
     return payload === 'NFTs' ? null : state;
   });
+
+// eslint-disable-next-line unicorn/no-null
+export const featuredSku = createStore<Sku>(null)
+  .on(setCollection, (state, payload) => ('featuredSku' in payload ? payload.featuredSku : state))
+  .reset(clearCollection);
 
 const changeTabfx = createEffect((parameters) => {
   gotoQueryParameters(
