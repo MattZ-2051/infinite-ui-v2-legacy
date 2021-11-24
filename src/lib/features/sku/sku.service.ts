@@ -72,6 +72,10 @@ export const createSkuMessageType = (sku: Sku): SupplyInfo => {
     return limitedEditionMessageSelector(sku.circulatingSupply);
   }
 
+  if (isFixed && !hasListings) {
+    return limitedEditionMessageSelector(sku.maxSupply);
+  }
+
   if (isVariable) {
     return sku.minStartDate > new Date()
       ? { type: 'released', quantity: sku.totalUpcomingSupply }

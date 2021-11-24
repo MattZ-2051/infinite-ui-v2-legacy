@@ -14,7 +14,6 @@
       tab: page.query.get(`tab`) as 'Releases' | 'NFTs',
       page: _page,
       sortBy,
-      forSale: 'true',
       fetch,
     });
 

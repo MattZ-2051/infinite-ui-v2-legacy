@@ -4,7 +4,7 @@ import { loadSingleSku } from '../about/about.api';
 
 export async function loadData({ fetch }: { fetch: Fetch }) {
   const [{ data: skus }, { singleSkuData }] = await Promise.all([
-    await getPage<Sku>(`skus/tiles/?page=1&per_page=8&sortBy=startDate:1`, { fetch }),
+    await getPage<Sku>(`skus/tiles/?page=1&per_page=8&sortBy=startDate:1&featured=true`, { fetch }),
     await loadSingleSku({ fetch }),
   ]);
 
