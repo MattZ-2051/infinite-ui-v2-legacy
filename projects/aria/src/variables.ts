@@ -1,3 +1,5 @@
+import type { ModeFilterStatus } from '$lib/features/marketplace/types';
+
 export const CLIENT_DOC_TITLE = 'ARIA Exchange';
 export const CLIENT_DOC_DESCRIPTION = 'The most dynamic, original, transparent, secure and sustainable NFT Exchange';
 export const CLIENT_COMPANY_NAME = 'ARIA Exchange';
@@ -15,3 +17,4 @@ export const CLIENT_REDEEM_URL = 'https://aria-network.force.com/support/s/artic
 export const CLIENT_API_HEADER = 'aria';
 export const ENABLE_ETH_CURRENCY = false;
 export const KYC_INFO = 'https://aria-network.force.com/support/s/article/KYC-and-ID-Verification-Troubleshooting';
+export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'available';

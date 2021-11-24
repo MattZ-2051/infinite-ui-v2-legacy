@@ -1,6 +1,7 @@
 <script lang="ts">
   import { mdiWindowClose } from '@mdi/js';
   import type { Profile, Edition, Series } from '$lib/sku-item/types';
+  import type { FilterType } from './types';
   import { createEventDispatcher } from 'svelte';
   import type { ActiveType } from '$ui/accordion/AccordionGroup.svelte';
   import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
@@ -18,12 +19,6 @@
   import { setFilters, modeFilters } from './marketplace.service';
 
   const dispatch = createEventDispatcher();
-
-  type FilterType = {
-    type: 'category' | 'series' | 'issuerId' | 'price' | 'date' | 'search' | 'saleType' | 'currency';
-    label: string;
-    id: string;
-  };
 
   const removeFilter = (filter: FilterType) => {
     // eslint-disable-next-line unicorn/prefer-switch

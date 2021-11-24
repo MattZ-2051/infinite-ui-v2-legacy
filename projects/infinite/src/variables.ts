@@ -1,3 +1,5 @@
+import type { ModeFilterStatus } from '$lib/features/marketplace/types';
+
 export const CLIENT_DOC_TITLE = 'INFINITE by SUKU';
 export const CLIENT_DOC_DESCRIPTION = 'Start your INFINITE NFT collection today!';
 export const CLIENT_COMPANY_NAME = ' Infinite';
@@ -16,3 +18,4 @@ export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-rede
 export const CLIENT_API_HEADER = 'infinite';
 export const ENABLE_ETH_CURRENCY = false;
 export const KYC_INFO = 'https://support.suku.world/infinite/id-verification-troubleshooting';
+export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'available';

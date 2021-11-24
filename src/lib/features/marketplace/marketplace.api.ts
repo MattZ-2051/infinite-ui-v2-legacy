@@ -1,18 +1,15 @@
 import type { Sku, Profile, Series } from '$lib/sku-item/types';
+import type { ModeFilterStatus } from './types';
 import { getPage, fetchTracker } from '$lib/api';
+import { modeFilters } from './marketplace.service';
 
 export const loading = fetchTracker();
 
-const getModeParameters = (status: string) => {
-  if (!status) {
-    return { forSale: 'true' };
-  }
-  if (status === 'soldout') {
-    return { forSale: 'false' };
-  }
-  if (status === 'upcoming') {
-    return { status: 'upcoming' };
-  }
+const getModeParameters = (status: ModeFilterStatus) => {
+  // if status is falsy convert it to ''
+  // if status is not any of the strings in ModeFilterStatus, default to the first mode (all)
+  const { parameters } = modeFilters.find((mf) => mf.status === (status || '')) || modeFilters[0];
+  return parameters;
 };
 
 export async function loadMarketplaceFilters({
@@ -22,7 +19,7 @@ export async function loadMarketplaceFilters({
   fetch: Fetch;
   query: URLSearchParams;
 }): Promise<{ maxPrice: number; creators: Profile[]; series: Series[]; categories: Sku[]; contentTotal: number }> {
-  const mode = getModeParameters(query.get('mode'));
+  const mode = getModeParameters(query.get('mode') as ModeFilterStatus);
   const { headers, total } = await getPage<Sku>(`skus/tiles/`, {
     fetch,
     params: {
@@ -50,7 +47,7 @@ export async function loadMarketplaceItems({
   query: URLSearchParams;
 }): Promise<{ total: number; data: Sku[] }> {
   const page: number = +query.get('page') || 1;
-  const mode = getModeParameters(query.get('mode'));
+  const mode = getModeParameters(query.get('mode') as ModeFilterStatus);
   const category: string = query.get('category');
   const typeEdition: string = query.get('typeEdition');
   const series: string = query.get('series');

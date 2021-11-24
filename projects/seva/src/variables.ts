@@ -1,3 +1,5 @@
+import type { ModeFilterStatus } from '$lib/features/marketplace/types';
+
 export const CLIENT_DOC_TITLE = 'SEVA.LOVE';
 export const CLIENT_DOC_DESCRIPTION = 'The world’s first NFT goodness exchange.';
 export const CLIENT_COMPANY_NAME = 'SEVA.LOVE';
@@ -16,3 +18,4 @@ export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-rede
 export const CLIENT_API_HEADER = 'seva';
 export const ENABLE_ETH_CURRENCY = true;
 export const KYC_INFO = 'https://info.seva.love/infinite/id-verification-troubleshooting';
+export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'all';
