@@ -10,6 +10,7 @@
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import { FormElement } from '$lib/components/form';
   import tooltip from '$ui/tooltip';
+  import { toast } from '$ui/toast';
   import { creditCardFundsAddFx, creditCardRemoveFx } from './card.store';
   import CreditCardComponent from './CreditCard.svelte';
   import CircleContainer from './CircleContainer.svelte';
@@ -18,8 +19,19 @@
 
   export let card: CreditCard;
 
+  $: isFailed = card.status === 'failed';
   $: isActive = card.status === 'complete' && card.verification?.cvv === 'pass';
-  $: isPending = card.status === 'pending';
+  $: isFailed &&
+    toast.danger(
+      'There was an issue adding your credit card. Please remove this card and try again. If the issue persists, try another card or contact support.'
+    );
+  $: tooltipText =
+    card.status === 'failed'
+      ? 'Adding your credit card failed. Remove this card and try again.'
+      : // eslint-disable-next-line unicorn/no-nested-ternary
+      card.status === 'pending'
+      ? 'Please wait a few moments while your credit card is activated. This can take up to 2 minutes.'
+      : '';
 
   const saving = creditCardFundsAddFx.pending;
   const removing = creditCardRemoveFx.pending;
@@ -106,12 +118,7 @@
         before="$"
       />
     </div>
-    <div
-      use:tooltip={isPending
-        ? 'Please wait a few moments while your credit card is activated. This can take up to 2 minutes.'
-        : ''}
-      class="w-full"
-    >
+    <div use:tooltip={tooltipText} class="w-full">
       <Button --button-padding="13px 32px" class="w-full" variant="brand" type="submit" disabled={!isActive || $saving}
         >Add Funds</Button
       >
