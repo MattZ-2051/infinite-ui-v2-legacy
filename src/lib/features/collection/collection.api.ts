@@ -27,7 +27,7 @@ export async function loadSkus({
     params: {
       page: page.toString(10),
       per_page: perPage.toString(10),
-      isuerId: profileId,
+      issuerId: profileId,
       ...(sortBy && { sortBy }),
       ...(forSale && { forSale }),
     },
