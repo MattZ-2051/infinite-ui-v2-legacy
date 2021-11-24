@@ -45,8 +45,9 @@
     <div class="bg-white rounded-2xl flex flex-col sm:flex-row md:justify-between">
       <div class="px-6 md:px-16 lg:w-8/12 sm:w-7/12 mb-8 sm:mb-0">
         <div class="font-medium text-3xl lg:text-4xl pt-10 md:pt-8 lg:pt-14 pb-4">
-          Our next Seva.Love collection will feature exclusive access to insights for transforming wellbeing with
-          renowned author and integrative medicine pioneer Deepak Chopra.
+          "While participating in the everyday world, it isn't possible to see beyond the illusion. Going beyond is
+          needed. Which is why the shift to metahuman is needed."
+          <span class="inline-block mt-2"> - Deepak Chopra </span>
         </div>
         <div class="pb-6 lg:pb-20 md:pb-10">
           Subscribe to our newsletter to learn about upcoming drops and special offers. By Subscribing to our list you
