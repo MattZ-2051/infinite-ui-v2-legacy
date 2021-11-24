@@ -61,7 +61,7 @@
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
         <div class="text-xl">Upcoming</div>
-        <div class="text-gray-500 text-sm">{sku?.totalUpcomingSupply} NFT</div>
+        {#if sku?.supplyType !== 'variable'}<div class="text-gray-500 text-sm">{sku?.totalUpcomingSupply} NFT</div>{/if}
       </div>
       <div class="flex-grow justify-center text-right text-xl">
         <TimeDifference date={sku?.minStartDate} />
