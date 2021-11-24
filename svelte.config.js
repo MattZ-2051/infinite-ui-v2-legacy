@@ -56,7 +56,7 @@ const config = {
   },
 };
 
-const { SVELTEKIT_ADAPTER: adapter, SVELTEKIT_MODE } = process.env;
+const { SVELTEKIT_ADAPTER: adapter, SVELTEKIT_MODE, NODE_ENV } = process.env;
 
 switch (adapter) {
   case 'node': {
@@ -84,6 +84,11 @@ switch (adapter) {
 
 if (SVELTEKIT_MODE) {
   config.kit.vite.mode = SVELTEKIT_MODE;
+}
+
+// For local development we use a proxy for API calls
+if (NODE_ENV === 'development' && !SVELTEKIT_MODE) {
+  process.env.VITE_API_URL = 'http://localhost:3001';
 }
 
 export default config;
