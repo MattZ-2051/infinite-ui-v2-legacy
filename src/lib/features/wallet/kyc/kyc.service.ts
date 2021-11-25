@@ -14,15 +14,12 @@ export function getDailyDepositLimitDisclaimer(level: number, dailyDepositLimit:
 export const getKYCLevelDepositDisclaimer = (level: number) => {
   switch (level) {
     case 0:
-      return `You may deposit up to $1,000 per transaction, up to $2,000 per day, up to $3,000 lifetime from a
-      major credit card. Level 1 verification is required for cryptocurrency deposits under $10,000 USD and Level 2 verification is required
-      for cryptocurrency deposits equal to or over $10,000 USD.`;
+      return 'You may deposit funds using credit card through our partner MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://support.moonpay.com/hc/en-gb/articles/4407710995217-What-are-your-account-limits-">here</a>.<br/> Level 1 verification is required for cryptocurrency deposits under $10,000 USD and Level 2 verification is required for cryptocurrency deposits equal to or over $10,000 USD.';
     case 1:
-      return `You may deposit up to $1,000 per transaction, up to $2,000 per day, up to $3,000
-      lifetime from a major credit card. Also, you may deposit cryptocurrency up to $10,000 USD.
+      return `You may deposit funds using credit card through our partner MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://support.moonpay.com/hc/en-gb/articles/4407710995217-What-are-your-account-limits-">here</a><br/>.
       Level 2 verification is required for cryptocurrency deposits equal to or over $10,000 USD.`;
+
     case 2:
-      return `You may deposit up to $1,000 per transaction, up to $2,000 per day, up to $3,000 lifetime from a major credit card.
-      Also, you may deposit any amount of cryptocurrency.`;
+      return 'You may deposit funds using credit card through our partner MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://support.moonpay.com/hc/en-gb/articles/4407710995217-What-are-your-account-limits-">here</a>. <br/> Also, you may deposit any amount of cryptocurrency.';
   }
 };
