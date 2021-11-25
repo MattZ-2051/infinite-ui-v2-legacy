@@ -74,7 +74,7 @@
       <span>{transaction.transactionData.deposit.card?.network}</span>
       credit card ending in
       <span>{transaction.transactionData.deposit.card?.last4} </span>
-    {:else if deposit.type === 'circle' || deposit.type === 'hbar'}
+    {:else if deposit.type === 'moonpay' || deposit.type === 'circle' || deposit.type === 'hbar'}
       You added
       <span> {formatCurrency(+deposit.amount, { currency: deposit?.balanceCurrency })} </span>
       by depositing

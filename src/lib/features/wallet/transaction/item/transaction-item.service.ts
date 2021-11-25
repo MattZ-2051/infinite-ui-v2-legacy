@@ -1,4 +1,5 @@
 import type { Transaction } from '$lib/sku-item/types';
+import moonpay from '$lib/features/wallet/deposit/moonpay-avatar-2.png';
 import soldNormal from '../assets/sold-normal.png';
 import boughtNormal from '../assets/bought-normal.png';
 import withdrawalFunds from '../assets/withdrew-funds.png';
@@ -44,6 +45,8 @@ export const selectLogo = (transaction: Transaction): [string, string] => {
       switch (deposit.type) {
         case 'cc':
           return [getCardLogo(deposit.card?.network), 'added'];
+        case 'moonpay':
+          return [moonpay, 'moonpay'];
         case 'circle': {
           switch (deposit.circleType) {
             case 'eth':

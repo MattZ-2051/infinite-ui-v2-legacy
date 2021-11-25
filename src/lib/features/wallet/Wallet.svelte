@@ -78,10 +78,14 @@
     }
   }
 
-  function onDepositSelect(id: 'circle' | 'usdc' | 'btc' | 'eth' | 'eth-native' | 'hbar') {
+  async function onDepositSelect(id: 'circle' | 'usdc' | 'btc' | 'eth' | 'eth-native' | 'hbar' | 'moonpay') {
     // Credit cards do not need KYC
     if (id === 'circle') {
       goto(routes.deposit);
+      return;
+    }
+    if (id === 'moonpay') {
+      goto(routes.depositMoonPay);
       return;
     }
 

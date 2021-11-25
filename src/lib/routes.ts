@@ -8,6 +8,7 @@ export default {
   collectors: (skuId, queryParameters = '') => `/collectors/${skuId}${queryParameters}`,
   wallet: '/u/wallet',
   deposit: '/u/wallet/deposit',
+  depositMoonPay: '/u/wallet/deposit-moonpay',
   account: '/u/account',
   help: '/help',
   privacy: '/privacy',
