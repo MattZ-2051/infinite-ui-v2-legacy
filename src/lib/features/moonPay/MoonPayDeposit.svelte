@@ -35,7 +35,6 @@
         width="100%"
         title="MoonPay deposit"
         class="max-w-lg px-7 border-0 m-auto"
-        scrolling="no"
       >
         <p>Your browser does not support iframes.</p>
       </iframe>

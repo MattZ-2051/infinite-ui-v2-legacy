@@ -35,8 +35,8 @@
             : 'group hover:border-black cursor-pointer'} flex gap-6 items-center py-6 border-b border-gray-300"
           on:click={() => onSelect(option)}
         >
-          <Image src={option.image} class="flex-none w-12 h-12" />
-          <div class="flex-grow ">
+          <Image src={option.image} class="flex-1 w-12 h-12" />
+          <div class="flex-1 ">
             <div class="text-black">{option.title}</div>
             <div class="text-gray-500 font-bold">{option.subtitle}</div>
           </div>
