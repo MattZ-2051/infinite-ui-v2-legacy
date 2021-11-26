@@ -2,14 +2,17 @@
   import { createEventDispatcher } from 'svelte';
   import arrowRight from '$lib/features/wallet/assets/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
+  import tooltip from '$ui/tooltip';
 
   const dispatch = createEventDispatcher();
 </script>
 
 <div class="flex flex-col divide-y divide-black border-t md-border-t-0 md:border-r border-black">
+  <div use:tooltip={'Deposits will be enabled before drops go live.'}>
   <button
     type="button"
-    class="sticky-cta group flex items-center justify-between py-4 px-10 w-full font-medium text-2xl"
+    class="sticky-cta group flex items-center justify-between py-4 px-10 w-full font-medium text-2xl opacity-50"
+    disabled={true}
     on:click={() => dispatch('deposit')}
   >
     <span>Deposit</span>
@@ -19,6 +22,7 @@
       size="2"
     />
   </button>
+  </div>
   <button
     type="button"
     class="sticky-cta group flex items-center justify-between py-4 px-10 w-full font-medium text-2xl"
