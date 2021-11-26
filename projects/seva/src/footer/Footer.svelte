@@ -11,7 +11,7 @@
   <svelte:fragment slot="start">
     <a href={routes.resources} target="_blank" rel="noreferrer">Resources</a>
     <a href={routes.help}>Help</a>
-    <a href={routes.about}>About</a>
+    <a href={routes.externalAbout} target="_blank">About Us</a>
     <a href={routes.privacy}>Privacy Policy</a>
     <a href={routes.terms}>Terms & Conditions</a>
     <span class="flex flex-wrap items-center"><Icon path={infiniteWorld} size="1.25em" />Powered by InfiniteWorld</span>
