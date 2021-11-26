@@ -1,8 +1,9 @@
 <script>
   import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
-  import SevaImage from './assets/SevaImage2x.png';
-  import Line from './assets/Line.png';
+  import Image from '$ui/image/Image.svelte';
+  import SevaImage from './assets/SevaImage.png?w=400;800&format=avif;webp;png&metadata=src;format;width;height';
+  import Line from './assets/Line.png?w=400;800;1200&format=avif;webp;png&metadata=src;format;width;height';
 </script>
 
 <div class="pt-16 md:pt-24 flex justify-center" style="background-color:#FFD54E;">
@@ -48,10 +49,10 @@
       >
     </div>
     <div class="w-full lg:w-2/3 xl:w-7/12 ">
-      <img src={SevaImage} alt="SevaImage" />
+      <Image src={SevaImage} alt="SevaImage" />
     </div>
   </div>
   <div class="line-top h-0 w-full absolute">
-    <img src={Line} alt="line" class="w-full relative z-0 left-0 top-32 sm:top-56 md:top-80 xl:top-96 lg:top-96" />
+    <Image src={Line} alt="line" class="w-full relative z-0 left-0 top-32 sm:top-56 md:top-80 xl:top-96 lg:top-96" />
   </div>
 </div>

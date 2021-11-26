@@ -5,8 +5,9 @@
   import { CLIENT_COMPANY_NAME } from '$project/variables';
   import routes from '$project/routes';
   import Button from '$lib/components/Button.svelte';
-  import lastPic from './assets/lastPic.png';
-  import lastPicMobile from './assets/lastPicMobile.png';
+  import Image from '$ui/image/Image.svelte';
+  import lastPic from './assets/lastPic.png?w=400&format=avif;webp;png&metadata=src;format;width;height';
+  import lastPicMobile from './assets/lastPicMobile.png?w=350&format=avif;webp;png&metadata=src;format;width;height';
   import { hsSubscribeEmail } from '../hubspot';
 
   const schema = yup.object({
@@ -72,12 +73,12 @@
         </form>
       </div>
       <div class="lg:w-4/12 sm:w-5/12 ">
-        <img
+        <Image
           src={lastPic}
           alt="founder pic"
           class="hidden sm:block md:w-full sm:rounded-r-2xl sm:h-full lg:h-full object-cover"
         />
-        <img src={lastPicMobile} alt="founder pic" class="sm:hidden w-full object-cover" />
+        <Image src={lastPicMobile} alt="founder pic" class="sm:hidden w-full object-cover" />
       </div>
     </div>
   </div>
