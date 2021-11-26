@@ -1,5 +1,5 @@
 import type { Transaction } from '$lib/sku-item/types';
-import moonpay from '$lib/features/wallet/deposit/moonpay-avatar-2.png';
+import moonpay from '../assets/moonpay-avatar.png';
 import soldNormal from '../assets/sold-normal.png';
 import boughtNormal from '../assets/bought-normal.png';
 import withdrawalFunds from '../assets/withdrew-funds.png';
