@@ -2,6 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import arrowRight from '$lib/features/wallet/assets/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
+
   const dispatch = createEventDispatcher();
 </script>
 
