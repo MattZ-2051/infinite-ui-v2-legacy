@@ -20,12 +20,32 @@ export async function loadMarketplaceFilters({
   query: URLSearchParams;
 }): Promise<{ maxPrice: number; creators: Profile[]; series: Series[]; categories: Sku[]; contentTotal: number }> {
   const mode = getModeParameters(query.get('mode') as ModeFilterStatus);
+  const category: string = query.get('category');
+  const typeEdition: string = query.get('typeEdition');
+  const series: string = query.get('series');
+  const issuerId: string = query.get('issuerId');
+  const minPrice: string = query.get('minPrice');
+  const maxPrice: string = query.get('maxPrice');
+  const startDate: string = query.get('startDate');
+  const endDate: string = query.get('endDate');
+  const search: string = query.get('search');
+  const saleType: string = query.get('saleType');
   const { headers, total } = await getPage<Sku>(`skus/tiles/`, {
     fetch,
     params: {
       page: '1',
       per_page: '1',
       ...mode,
+      ...(category && { category }),
+      ...(typeEdition && { typeEdition }),
+      ...(series && { series }),
+      ...(issuerId && { issuerId }),
+      ...(minPrice && { minPrice }),
+      ...(maxPrice && { maxPrice }),
+      ...(startDate && { startDate }),
+      ...(endDate && { endDate }),
+      ...(search && { search }),
+      ...(saleType && { saleType }),
     },
   });
   return {
