@@ -10,18 +10,19 @@ export async function getPrivateAssets({
   ownerId: string;
   page?: number;
 }): Promise<{ total: number; assets: FileAsset[]; isOwner: boolean; productId: string }> {
-  const responseFileAssets = await getPage<FileAsset>(`skus/${skuId}/private-assets`);
-  const responseCollectors =
+  const [responseFileAssets, responseCollectors] = await Promise.all([
+    getPage<FileAsset>(`skus/${skuId}/private-assets`),
     ownerId &&
-    (await getPage<CollectorProduct>(`products/collectors/${skuId}`, {
-      params: { page: '1', per_page: '1', includeFunctions: 'true', ownerId },
-    }));
+      getPage<CollectorProduct>(`products/collectors/${skuId}`, {
+        params: { page: '1', per_page: '1', includeFunctions: 'true', ownerId },
+      }),
+  ]);
 
   return {
-    total: responseFileAssets.total,
-    assets: responseFileAssets.data,
-    isOwner: responseFileAssets.data.length > 0,
-    productId: (await responseCollectors)?.data[0]?._id,
+    total: responseFileAssets?.total,
+    assets: responseFileAssets?.data,
+    isOwner: responseFileAssets?.data.length > 0,
+    productId: responseCollectors?.data[0]?._id,
   };
 }
 
