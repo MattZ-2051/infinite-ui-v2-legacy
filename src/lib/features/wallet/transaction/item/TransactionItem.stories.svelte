@@ -21,7 +21,7 @@
       control: { type: 'select' },
     },
     depositType: {
-      options: ['usdc', 'cc', 'circle', 'coinbase', 'hbar'],
+      options: ['usdc', 'cc', 'circle', 'coinbase', 'hbar', 'moonpay'],
       control: { type: 'select' },
     },
     status: {
@@ -55,6 +55,10 @@
 <Story
   name="Deposit circle USDC"
   args={{ type: 'deposit', depositType: 'circle', amountUnrated: '100', circleType: 'usdc' }}
+/>
+<Story
+  name="Deposit moonPay USDC"
+  args={{ type: 'deposit', depositType: 'moonpay', amountUnrated: '100', circleType: 'usdc' }}
 />
 <Story
   name="Deposit circle BTC"

@@ -74,14 +74,20 @@
       <span>{transaction.transactionData.deposit.card?.network}</span>
       credit card ending in
       <span>{transaction.transactionData.deposit.card?.last4} </span>
-    {:else if deposit.type === 'moonpay' || deposit.type === 'circle' || deposit.type === 'hbar'}
-      You added
-      <span> {formatCurrency(+deposit.amount, { currency: deposit?.balanceCurrency })} </span>
-      by depositing
-      <span> {+deposit.amountUnrated} </span>
-      <span>
-        {(deposit?.circleType ?? deposit.type).toUpperCase()}
-      </span>
+    {:else if deposit.type === 'circle' || deposit.type === 'hbar' || deposit.type === 'moonpay'}
+      {#if deposit.type === 'moonpay'}
+        You have deposited
+        <span> {formatCurrency(+deposit.amount, { currency: deposit?.balanceCurrency })} </span>
+        USDC via MoonPay
+      {:else}
+        You added
+        <span> {formatCurrency(+deposit.amount, { currency: deposit?.balanceCurrency })} </span>
+        by depositing
+        <span> {+deposit.amountUnrated} </span>
+        <span>
+          {(deposit?.circleType ?? deposit.type).toUpperCase()}
+        </span>
+      {/if}
     {:else if !isEth}
       funds by depositing
       <span> {formatCurrency(+deposit.amount, { currency: deposit?.balanceCurrency })} </span>
