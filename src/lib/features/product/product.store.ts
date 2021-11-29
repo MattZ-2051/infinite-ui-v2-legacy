@@ -223,7 +223,7 @@ pollTransactionFx.doneData.watch(async (response) => {
         const $polls = polls.getState();
         $polls[$sku._id].stop();
         toast.danger(
-          '"Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help}>contact support</a> if the issue persists."'
+          `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help}>contact support</a> if the issue persists.`
         );
       }
     }
