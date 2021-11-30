@@ -1,16 +1,22 @@
 import type { Product, SaleType, Sku, Status } from '$lib/sku-item/types';
 import dayjs from 'dayjs';
 
-const getActiveTileTitle = (saleType: SaleType, product?: boolean, simpleTitle?: boolean): string => {
+const getActiveTileTitle = (
+  saleType: SaleType,
+  product?: boolean,
+  simpleTitle?: boolean,
+  existsBids?: boolean
+): string => {
   switch (saleType) {
     case 'giveaway':
       return simpleTitle ? 'Active Giveaway' : 'Active Giveaway:';
     case 'fixed':
       if (simpleTitle) return 'Active Sale';
 
-      return product ? 'Selling For:' : 'Starting Price:';
+      return product ? 'Selling For:' : 'Listing Price:';
     case 'auction':
-      return simpleTitle ? 'Active Auction' : 'Latest Bid:';
+      if (simpleTitle) return 'Active Auction';
+      else return existsBids ? 'Latest Bid:' : 'Minimum bid:';
     default:
       return '';
   }
@@ -28,6 +34,7 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
           return previousPrice < currentPrice ? previousListing : currentListing;
         })
       : undefined;
+    const existsBid: boolean = lowestPriceListing?.minBid !== lowestPriceListing?.minHighestBid;
     const lowestPrice =
       lowestPriceListing?.saleType === 'auction'
         ? Math.max(lowestPriceListing?.minBid, lowestPriceListing?.minHighestBid || 0)
@@ -46,11 +53,11 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
       if (hasProductListings) {
         minPrice = hasSkuListings ? Math.min(lowestPrice, lowestSkuPrice) : lowestPrice;
         saleTypeTitle = lowestPriceIsSkuListing
-          ? getActiveTileTitle(activeSkuSaleType, undefined, simpleTitle)
-          : getActiveTileTitle(lowestPriceListing.saleType, undefined, simpleTitle);
+          ? getActiveTileTitle(activeSkuSaleType, undefined, simpleTitle, existsBid)
+          : getActiveTileTitle(lowestPriceListing.saleType, undefined, simpleTitle, existsBid);
       } else {
         minPrice = lowestSkuPrice;
-        saleTypeTitle = getActiveTileTitle(activeSkuSaleType, undefined, simpleTitle);
+        saleTypeTitle = getActiveTileTitle(activeSkuSaleType, undefined, simpleTitle, existsBid);
       }
     }
     return { status: 'active', minPrice, saleTypeTitle };
@@ -91,9 +98,11 @@ export const productStatus = (product: Product, simpleTitle?: boolean): Status =
     }
   }
   if (product?.totalSupplyLeft !== 0 && product?.activeProductListings?.length !== 0) {
-    const productListing = product?.listing;
+    const productListing = product?.activeProductListings[0]; // change to use the active product listing instead of first listing (product.listing).
     const minPrice = productListing?.minBid ? productListing?.minBid : productListing?.price;
-    const saleTypeTitle = getActiveTileTitle(productListing?.saleType, true, simpleTitle);
+    const existsBid: boolean = productListing?.minBid !== productListing?.minHighestBid;
+
+    const saleTypeTitle = getActiveTileTitle(productListing?.saleType, true, simpleTitle, existsBid);
     return { status: 'active', minPrice, saleTypeTitle };
   }
   if (product?.activeProductListings?.length === 0 && product?.upcomingProductListings?.length === 0) {
