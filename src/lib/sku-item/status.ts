@@ -34,7 +34,6 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
           return previousPrice < currentPrice ? previousListing : currentListing;
         })
       : undefined;
-    const existsBid: boolean = lowestPriceListing?.minBid !== lowestPriceListing?.minHighestBid;
     const lowestPrice =
       lowestPriceListing?.saleType === 'auction'
         ? Math.max(lowestPriceListing?.minBid, lowestPriceListing?.minHighestBid || 0)
@@ -42,6 +41,9 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
     const lowestSkuPrice =
       activeSkuSaleType === 'auction' ? Math.max(activeSku.minBid, activeSku.minHighestBid || 0) : sku.minSkuPrice;
 
+    const existsBid: boolean = lowestPriceListing
+      ? lowestPriceListing.highestBid !== undefined
+      : activeSku.highestBid !== undefined;
     const lowestPriceIsSkuListing = hasSkuListings && lowestPrice > lowestSkuPrice;
 
     let saleTypeTitle: string;
