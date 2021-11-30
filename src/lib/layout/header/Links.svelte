@@ -41,7 +41,11 @@
       <MenuTrigger slot="trigger" class="header-link w-full">
         <div class="flex sm:gap-1 md:gap-1.5 w-full">
           {#if user.profilePhotoUrl}
-            <img class="w-6 object-cover rounded-full" src={user.profilePhotoUrl} alt="" />
+            <img
+              class="w-6 object-cover rounded-full"
+              src={`${user.profilePhotoUrl}?t=${user.updatedAt}`}
+              alt="profilePhoto"
+            />
           {:else}
             <Icon path={account} />
           {/if}
