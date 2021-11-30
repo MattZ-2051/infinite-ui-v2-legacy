@@ -10,6 +10,7 @@
 
   const cellClass = 'flex flex-col gap-1.5 py-4 px-6 overflow-hidden';
   const headerClass = 'text-gray-500 text-sm';
+  const OPENSEA_URL = import.meta.env.VITE_OPENSEA_URL;
 </script>
 
 <div
@@ -44,9 +45,7 @@
     <div class={headerClass}>ERC721 Contract</div>
     <div class="flex flex-row items-center">
       <div class="truncate flex-1">
-        <a class="link" href="https://testnets.opensea.io/collection/seva-nft" target="_blank" rel="noopener noreferrer"
-          >seva-nft</a
-        >
+        <a class="link" href={OPENSEA_URL} target="_blank" rel="noopener noreferrer"> seva-nft </a>
       </div>
     </div>
   </div>
