@@ -32,7 +32,7 @@
 </script>
 
 <div
-  class="rounded-lg border border-gray-200 text-white overflow-hidden grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:divide-x lg:divide-gray-200 flex-grow"
+  class="rounded-lg border border-gray-200 text-white overflow-hidden grid grid-cols-2 2xl:grid-cols-none 2xl:grid-flow-col 2xl:divide-x 2xl:divide-gray-200 flex-grow"
 >
   <div class={cellClass}>
     <div class={headerClass}>Status</div>
