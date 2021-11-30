@@ -33,7 +33,10 @@
       status = 'transfer-pending';
       await transferProductFx({ product, user: toUser });
       status = 'transfer-success';
-    } catch {
+    } catch (error) {
+      if (error.data?.appCode === 'TRANSFER_WITH_PENDING_TRANSACTIONS') {
+        titleMap['transfer-error'] = error.data?.message;
+      }
       status = 'transfer-error';
     }
   }
