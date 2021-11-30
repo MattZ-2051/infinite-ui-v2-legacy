@@ -22,7 +22,7 @@ export async function getPrivateAssets({
     return {
       total: responseFileAssets?.total,
       assets: responseFileAssets?.data,
-      isOwner: responseFileAssets?.data.length > 0,
+      isOwner: responseCollectors?.data.length > 0,
       productId: responseCollectors?.data[0]?._id,
     };
   } catch (error) {
