@@ -3,15 +3,19 @@
   import Button from '$lib/components/Button.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import SkuItem from '$project/sku-item/SkuItem.svelte';
+  import Image from '$ui/image/Image.svelte';
   import LineImage from '../images/line-image.svg';
   import LineImageMobile from '../images/line-image-mobile.svg';
   import Bubbles from '../images/bubbles-landing.svg';
+  import bgImage from '../images/back-min.png?w=1600&format=avif;webp;png&metadata=src;format;width;height';
 
   export let sku;
 </script>
 
-<div class="container-custom -mb-24 sm:mb-0">
-  <div class="container text-center max-w-7xl pt-12 px-6">
+<div class="-mb-24 sm:mb-0 relative overflow-hidden">
+  <Image src={bgImage} class="w-full object-cover 2xl:object-fill absolute top-0 left-0 z-0" style="height:90%" />
+
+  <div class="relative container text-center max-w-7xl pt-12 px-6">
     <div class="flex flex-col items-center align-middle text-4xl lg:text-6xl font-semibold" style="color:#ffd54e">
       <p>Seva.Love<br class="hidden lg:block" /> a platform for good</p>
       <div class="text-xl text-white text-center opacity-90 mt-8 font-semibold max-w-3xl leading-8">
@@ -21,7 +25,7 @@
     </div>
   </div>
 
-  <div class="grid grid-rows-1 lg:grid-rows-2 mb-4 lg:mb-32">
+  <div class="relative grid grid-rows-1 lg:grid-rows-2 mb-4 lg:mb-32">
     <div class="container flex flex-col items-center lg:items-start justify-center lg:flex-row max-w-7xl px-6">
       <ThemeContext id="landing-head-left-card">
         <div class="font-normal text-left lg:text-right mt-16 lg:mt-32 lg:flex flex-col order-2 lg:w-1/3 lg:order-1">
@@ -88,13 +92,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .container-custom {
-    background-image: url('../images/back-min.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-x: center;
-    background-position-y: -12.5em;
-  }
-</style>
