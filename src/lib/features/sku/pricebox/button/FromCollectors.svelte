@@ -60,7 +60,7 @@
           <div class="text-xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-sm">{isUniqueAuction ? 'Highest Bid' : 'Starting at'}</div>
+          <div class="text-gray-500 text-sm">{isUniqueAuction ? 'Highest Bid' : 'Latest Bid'}</div>
         </div>
       </div>
     {/if}
@@ -75,7 +75,7 @@
           <div class="text-xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-sm">Starting at</div>
+          <div class="text-gray-500 text-sm">Starting Bid</div>
         </div>
       </div>
     {/if}
