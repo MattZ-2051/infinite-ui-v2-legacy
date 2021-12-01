@@ -16,6 +16,7 @@
   import { queryParameter } from '$util/queryParameter';
   import Tag from '$ui/Tag/Tag.svelte';
   import routes from '$project/routes';
+  import { ENABLE_ETH_CURRENCY } from '$project/variables';
   import { setFilters, modeFilters } from './marketplace.service';
 
   const dispatch = createEventDispatcher();
@@ -388,7 +389,7 @@
         {/each}
       </Accordion>
     {/if}
-    {#if nftTypeFilters.length}
+    {#if ENABLE_ETH_CURRENCY && nftTypeFilters.length > 0}
       <Accordion
         id="currency"
         titleClass="py-4 px-6"
