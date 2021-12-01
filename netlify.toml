@@ -17,4 +17,4 @@
 # Sed is being used to find "VITE_API_URL=" in the .env file and replacing that with the preview url
 # This is needed because a url is generated for each preview
 [context.deploy-preview]
-  command = 'sed -i "s%^.*VITE_API_URL.*$%VITE_API_URL=\"${DEPLOY_PRIME_URL}/api\"%" ./projects/$PROJECT/.env.production && echo "/api/* $API_URL/:splat  200" > _redirects && npm run build $PROJECT'
+  command = 'sed -i "s%^.*VITE_API_URL.*$%VITE_API_URL=\"${DEPLOY_PRIME_URL}/api\"%" ./projects/$PROJECT/.env.development && echo "/api/* $API_URL/:splat  200" > _redirects && npm run build $PROJECT'
