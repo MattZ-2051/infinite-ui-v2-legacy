@@ -50,18 +50,18 @@
   {#if isActiveProductAuction}
     <div class="p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
       <div class="flex flex-col gap-2 text-left">
-        <div class="text-gray-500 text-sm">Auction Start:</div>
+        <div class="text-gray-500 text-sm">Auction Starts:</div>
         <div>{formatDate(activeProduct.startDate)}</div>
       </div>
       <div class="flex flex-col gap-2 text-right">
-        <div class="text-gray-500 text-sm">Auction End:</div>
+        <div class="text-gray-500 text-sm">Auction Ends:</div>
         <div>{formatDate(activeProduct.endDate)}</div>
       </div>
     </div>
   {:else if isActiveSkuAuction}
     <div class="p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
       <div class="flex flex-col gap-2 text-left">
-        <div class="text-gray-500 text-sm">Auction Start:</div>
+        <div class="text-gray-500 text-sm">Auction Starts:</div>
         <div>{formatDate(activeSku.startDate)}</div>
       </div>
       <div class="flex flex-col gap-2 text-right">
@@ -72,8 +72,12 @@
   {:else if isActiveSale}
     <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
       <div class="flex flex-col gap-2 text-left">
-        <div class="text-gray-500 text-sm">Active Sale:</div>
-        <div>Started {formatDate(activeProduct?.startDate || activeSku?.startDate)}</div>
+        <div class="text-gray-500 text-sm">Active Sale Starts:</div>
+        <div>{formatDate(activeProduct?.startDate || activeSku?.startDate)}</div>
+      </div>
+      <div class="flex flex-col gap-2 text-right">
+        <div class="text-gray-500 text-sm">Active Sale Ends:</div>
+        <div>{formatDate(activeProduct?.endDate || activeSku?.endDate)}</div>
       </div>
     </div>
   {/if}
