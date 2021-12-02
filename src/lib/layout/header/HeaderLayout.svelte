@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { afterUpdate } from 'svelte';
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
   import Logo from '$project/Logo.svelte';
+  import { toast } from '$ui/toast';
+  import { variables } from '$lib/variables';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import SidebarToggle from '$ui/sidebar-toggle/SidebarToggle.svelte';
   import routes from '$project/routes';
@@ -11,6 +14,16 @@
   let showSidebar = false;
   export let user: User;
   export let links: Link[];
+
+  afterUpdate(async () => {
+    const isUserloggedIn = user?.username;
+    if (variables.maintenance.maintenanceMode === 'true' && isUserloggedIn) {
+      routes.signout();
+      toast.warning(
+        `The site is currently in maintenance mode, sign-ups and sign-ins are temporarily disabled. We'll be back shortly.`
+      );
+    }
+  });
 </script>
 
 <ThemeContext id="header">
