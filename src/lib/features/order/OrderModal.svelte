@@ -62,7 +62,9 @@
         if (result) {
           closeModal();
           skuBought();
-          toast.success('Your NFT was successfully minted!');
+          toast.success(
+            'Your request is being processed. Minting of your giveaway NFT may take up to two (2) minutes.'
+          );
         }
       } catch (error) {
         toast.danger(handleSkuClaimError(error));
