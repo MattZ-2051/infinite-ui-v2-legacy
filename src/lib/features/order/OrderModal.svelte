@@ -58,14 +58,10 @@
 
     if (isGiveAway) {
       try {
-        result = await claimGiveawaySkuListing(listing._id);
-        if (result) {
-          closeModal();
-          skuBought();
-          toast.success(
-            'Your request is being processed. Minting of your giveaway NFT may take up to two (2) minutes.'
-          );
-        }
+        await claimGiveawaySkuListing(listing._id);
+        closeModal();
+        skuBought();
+        toast.success('Your request is being processed. Minting of your giveaway NFT may take up to two (2) minutes.');
       } catch (error) {
         toast.danger(handleSkuClaimError(error));
       } finally {
