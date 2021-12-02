@@ -62,7 +62,7 @@
     {:else if status === 'withdrawal-error'}
       <p class="text-gray-500 px-10 my-4 max-w-md">
         There was an issue processing your request. Please try again or visit the <a
-          class="text-black underline"
+          class="text-black underline font-bold"
           sveltekit:prefetch
           href={routes.help}
           target="_blank"
