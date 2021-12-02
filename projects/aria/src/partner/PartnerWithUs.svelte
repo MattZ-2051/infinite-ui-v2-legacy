@@ -27,19 +27,26 @@
   ];
 
   const contactFields = [
-    { name: 'name', label: 'What is your name? *', placeholder: 'John Doe' },
+    { name: 'firstName', label: 'What is your First Name? *', placeholder: 'John' },
+    { name: 'lastName', label: 'What is your Last Name? *', placeholder: 'Doe' },
     { name: 'email', label: 'What is your email address? *', placeholder: 'john.brown@example.com' },
+    { name: 'phone', label: 'What is your phone number? *', placeholder: '+1 202 555 0156' },
     { name: 'industry', label: 'What is your industry? *', placeholder: 'Art, Music, Sports, etc.' },
     { name: 'talent', label: 'Who do you represent? *', placeholder: 'John Brown' },
-    { name: 'role', label: 'What is your role? *', placeholder: 'Manager, etc.' },
+    { name: 'relationship', label: 'What is your role? *', placeholder: 'Manager, etc.' },
   ];
 
   const schema = yup.object({
-    name: yup.string().required('Name is required.'),
+    firstName: yup.string().required('First Name is required.'),
+    lastName: yup.string().required('Last Name is required.'),
     email: yup.string().email('Please enter valid email.').required('Email is required.'),
+    phone: yup
+      .string()
+      .matches(/^\+?\d+?[\W\d]{1,17}$/, { message: 'Please enter a valid phone number.' })
+      .required('Phone number is required.'),
     industry: yup.string().required('Industry is required.'),
     talent: yup.string().required('Brand/talent name is required.'),
-    role: yup.string().required('Role is required.'),
+    relationship: yup.string().required('Role is required.'),
   });
 
   const { form, errors, reset, isSubmitting } = createForm<{ email: string }>({
@@ -72,7 +79,7 @@
     <div class="mx-auto text-2xl text-center max-w-6xl space-y-4">
       <p>
         ARIA Exchange creates and sells innovative, culturally driven collectibles for the world’s most iconic athletes,
-        entertainers, artists, and brands. We are experts at merging the digital universe with unforgettable physical
+        entertainers, artists, and brands. We’re experts at merging the digital universe with unforgettable physical
         experiences to deliver the most cutting-edge collectibles ever created.
       </p>
       <p>Let us help you bring your vision into the future.</p>
