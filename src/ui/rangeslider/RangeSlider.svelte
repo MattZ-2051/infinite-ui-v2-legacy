@@ -50,7 +50,7 @@
     {min}
     {step}
     on:change={onStop}
-    on:input={() => (values[0] = `${Math.min(+values[0], +values[1] - 1)}`)}
+    on:input={() => (values[1] = `${Math.max(+values[0], +values[1])}`)}
     on:mouseover={() => activateThumb('L')}
     on:focus={() => activateThumb('L')}
     on:mouseout={() => activateThumb(undefined)}
@@ -65,7 +65,7 @@
     {min}
     {step}
     on:change={onStop}
-    on:input={() => (values[1] = `${Math.max(+values[0] + 1, +values[1])}`)}
+    on:input={() => (values[0] = `${Math.min(+values[0], +values[1])}`)}
     on:mouseover={() => activateThumb('R')}
     on:focus={() => activateThumb('R')}
     on:mouseout={() => activateThumb(undefined)}
