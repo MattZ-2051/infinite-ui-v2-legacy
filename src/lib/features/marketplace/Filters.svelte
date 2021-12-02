@@ -202,14 +202,11 @@
 </script>
 
 <div class="flex flex-col gap-7 md:gap-8">
-  <div class="flex flex-col md:order-3">
+  <div class="flex flex-col order-2">
     <div class="flex items-center gap-2 text-lg">
       <span class="flex-auto">Filter by</span>
-      <button class="md:hidden" type="button" on:click={close}>
-        <Icon path={mdiWindowClose} size="1.66" class="rounded-2xl p-1" />
-      </button>
       {#if filters.length > 0}
-        <div on:click={removeAllFilters} class="hidden gap-1 text-base cursor-pointer md:flex">
+        <div on:click={removeAllFilters} class="gap-1 text-base cursor-pointer flex">
           Clear All
           <Icon path={mdiWindowClose} size="0.75" class="self-center cursor-pointer" />
         </div>
@@ -226,33 +223,41 @@
       </div>
     {/if}
   </div>
-  <div class="flex flex-col md:order-1">
-    {#each modeFilters as { label, status }}
-      <div
-        use:queryParameter={{
-          base: routes.marketplace,
-          params: {
-            mode: status,
-            page: '',
-            category: '',
-            typeEdition: '',
-            series: '',
-            issuerId: '',
-            minPrice: '',
-            maxPrice: '',
-            startDate: '',
-            endDate: '',
-          },
-        }}
-        class="text-gray-500 hover:text-gray-400 flex gap-2 items-center py-3 cursor-pointer text-lg"
-        class:active={status ? $page.query.get('mode') === status : !$page.query.get('mode')}
-      >
-        <span class="label">{label}</span>
-      </div>
-    {/each}
+  <div class="flex flex-col order-1">
+    <div class="flex items-center gap-2 text-lg md:hidden">
+      <span class="flex-auto text-2xl">Filters</span>
+      <button type="button" on:click={close}>
+        <Icon path={mdiWindowClose} size="1.66" class="rounded-2xl p-1" />
+      </button>
+    </div>
+    <div class="mt-1">
+      {#each modeFilters as { label, status }}
+        <div
+          use:queryParameter={{
+            base: routes.marketplace,
+            params: {
+              mode: status,
+              page: '',
+              category: '',
+              typeEdition: '',
+              series: '',
+              issuerId: '',
+              minPrice: '',
+              maxPrice: '',
+              startDate: '',
+              endDate: '',
+            },
+          }}
+          class="text-gray-500 hover:text-gray-400 flex gap-2 items-center py-3 cursor-pointer text-lg"
+          class:active={status ? $page.query.get('mode') === status : !$page.query.get('mode')}
+        >
+          <span class="label">{label}</span>
+        </div>
+      {/each}
+    </div>
   </div>
 
-  <AccordionGroup class="c-filter-accordion md:order-4" multiple bind:active>
+  <AccordionGroup class="c-filter-accordion order-3" multiple bind:active>
     {#if creators.length}
       <Accordion
         id="talent"
@@ -415,7 +420,7 @@
     {/if}
   </AccordionGroup>
 
-  <Button variant="brand" on:click={close} class="self-center w-full py-3 text-2xl text-center md:hidden">
+  <Button variant="brand" on:click={close} class="self-center w-full py-3 text-2xl text-center md:hidden order-4">
     {total > 0 ? `View Matching Results (${total})` : 'No Matching Results'}
   </Button>
 </div>
