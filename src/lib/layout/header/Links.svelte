@@ -66,7 +66,7 @@
       </MenuList>
     </Menu>
   {/if}
-{:else if variables.maintenance.maintenanceMode !== 'true'}
+{:else if variables?.maintenance?.maintenanceMode !== 'true'}
   <button class="flex header-link" on:click={routes.signin}>Sign In</button>
   <Button variant="brand" on:click={routes.signup} class="whitespace-nowrap">Sign Up</Button>
 {/if}

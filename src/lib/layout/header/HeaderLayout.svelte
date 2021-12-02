@@ -17,7 +17,7 @@
 
   afterUpdate(async () => {
     const isUserloggedIn = user?.username;
-    if (variables.maintenance.maintenanceMode === 'true' && isUserloggedIn) {
+    if (variables?.maintenance?.maintenanceMode === 'true' && isUserloggedIn) {
       routes.signout();
       toast.warning(
         `The site is currently in maintenance mode, sign-ups and sign-ins are temporarily disabled. We'll be back shortly.`
