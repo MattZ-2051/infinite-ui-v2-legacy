@@ -19,7 +19,7 @@
   };
 </script>
 
-<div class="inline-flex items-center gap-2" use:tooltipAction={tooltipMessage}>
+<div class="inline-flex items-center gap-2 2xl:gap-0" use:tooltipAction={tooltipMessage}>
   <span
     class="redeem-trigger relative inline-flex"
     on:click|preventDefault|stopPropagation

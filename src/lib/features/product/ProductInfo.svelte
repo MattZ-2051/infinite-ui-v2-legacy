@@ -17,7 +17,7 @@
   let sku: Sku;
   $: sku = product.sku;
 
-  const cellClass = 'flex flex-col gap-1.5 py-4 px-6 overflow-hidden';
+  const cellClass = 'flex flex-col gap-1.5 py-4 px-3 overflow-hidden';
   const headerClass = 'text-gray-500 text-sm';
 
   let copiedLink = false;
@@ -41,11 +41,7 @@
   {#if sku.redeemable}
     <div class={cellClass}>
       <div class={headerClass}>Redemption Status</div>
-      <div class="flex gap-2">
-        <IconRedeem>
-          {product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}
-        </IconRedeem>
-      </div>
+      <IconRedeem><span>{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span></IconRedeem>
     </div>
   {/if}
   <div class={cellClass}>
