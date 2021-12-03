@@ -21,6 +21,7 @@
   export let collectorListing: Listing;
 
   const isUniqueAuction = sku?.maxSupply === 1 && sku?.issuer?._id === collectorListing?.issuer?._id;
+  const existsBid: boolean = collectorListing ? collectorListing.highestBid !== undefined : false;
   const isUniqueProductListing = sku?.countProductListings === 1 && sku?.circulatingSupply === 1;
   const href = isUniqueProductListing
     ? routes.product(collectorListing.product)
@@ -44,6 +45,7 @@
           <div class="text-xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
+          <div class="text-sm text-right text-gray-500 ">Listing Price</div>
         </div>
       </div>
     {/if}
@@ -60,7 +62,9 @@
           <div class="text-xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-sm">{isUniqueAuction ? 'Highest Bid' : 'Latest Bid'}</div>
+          <div class="text-gray-500 text-sm">
+            {(isUniqueAuction ? 'Highest Bid' : existsBid) ? 'Latest Bid' : 'Minimum Bid'}
+          </div>
         </div>
       </div>
     {/if}

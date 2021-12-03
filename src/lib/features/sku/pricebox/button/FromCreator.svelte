@@ -35,9 +35,6 @@
             {sku?.totalSupplyLeft === 1 ? 'Item Left' : 'Items Left'}
           </div>
         {/if}
-        {#if state === 'noSale'}
-          <div class="text-gray-500 text-sm">Initial Listing Price</div>
-        {/if}
       </div>
       {#if state === 'active'}
         <div class="flex justify-end">
@@ -46,7 +43,7 @@
               {formatCurrencyWithOptionalFractionDigits(skuPrice, { currency: sku.currency })}
             </div>
             <div class="text-sm text-right text-gray-500 ">
-              {activeListing.saleType === 'auction' ? 'Active Auction' : 'Initial Listing Price'}
+              {activeListing.saleType === 'auction' ? 'Active Auction' : 'Listing Price'}
             </div>
           </div>
         </div>
