@@ -6,7 +6,6 @@
   import { page } from '$app/stores';
   import { Menu, MenuList, MenuTrigger, MenuItem } from '$ui/menu';
   import routes from '$project/routes';
-  import { variables } from '$lib/variables';
   import Button from '$lib/components/Button.svelte';
   import account from './assets/account';
 
@@ -66,7 +65,7 @@
       </MenuList>
     </Menu>
   {/if}
-{:else if variables?.maintenance?.maintenanceMode !== 'true'}
+{:else}
   <button class="flex header-link" on:click={routes.signin}>Sign In</button>
   <Button variant="brand" on:click={routes.signup} class="whitespace-nowrap">Sign Up</Button>
 {/if}
