@@ -68,7 +68,12 @@
 </script>
 
 <div bind:this={tabContainer} style="scroll-margin-top: var(--header-height);">
-  <Tabs {items} defaultSelectedId={tab} class="text-2xl font-medium mt-6 md:mt-12 mb-4" on:select={onSelectTab}>
+  <Tabs
+    {items}
+    defaultSelectedId={tab}
+    class="text-2xl font-medium mt-6 md:mt-12 mb-4 section-title"
+    on:select={onSelectTab}
+  >
     <Tab id="Releases">
       {#if $skusTotal === 0}
         <div class="text-gray-500  text-center mt-12 text-2xl ">No releases found.</div>
