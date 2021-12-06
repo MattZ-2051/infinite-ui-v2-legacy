@@ -34,7 +34,7 @@
   <div slot="sticky-content" class="h-full sku-sticky-content">
     <div class="flex flex-col px-4 md:px-8 gap-4 md:gap-8 mt-8 md:mt-16 mb-8 md:mb-0">
       <div class="flex flex-col gap-8">
-        <div class="text-gradient-primary text-3xl md:text-4xl font-medium">{$sku.name}</div>
+        <div class="text-gradient-primary text-3xl md:text-4xl font-medium section-title">{$sku.name}</div>
         <SkuInfo sku={$sku} />
       </div>
     </div>

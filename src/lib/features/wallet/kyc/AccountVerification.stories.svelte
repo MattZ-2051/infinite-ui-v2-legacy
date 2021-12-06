@@ -1,7 +1,7 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
   import AccountVerification from './AccountVerification.svelte';
-  import { getDailyDepositLimitDisclaimer } from './kyc.service';
+  import { getKYCLevelDepositDisclaimer } from './kyc.service';
 </script>
 
 <Meta
@@ -22,7 +22,7 @@
     <AccountVerification {...args} />
   </div>
   <div class="text-xs font-medium text-gray-500 mt-4">
-    {getDailyDepositLimitDisclaimer(args.level, 2000)}
+    {getKYCLevelDepositDisclaimer(args.level)}
   </div>
 </Template>
 
