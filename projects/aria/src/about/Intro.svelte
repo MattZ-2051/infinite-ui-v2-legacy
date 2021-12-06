@@ -15,7 +15,7 @@
 
 <section class="container py-0 flex flex-col gap-6 md:gap-12">
   <div class="flex justify-center flex-col items-center text-center gap-8 max-w-4xl mx-auto">
-    <h2 class="text-4xl text-gradient-primary">What is ARIA Exchange?</h2>
+    <h2 class="text-4xl text-gradient-primary section-title">What is ARIA Exchange?</h2>
     <p class="text-lg">
       We are a creative marketplace that partners with the world’s most iconic artists, athletes and brands to bring you
       the rarest mix of collectibles in the world. Our community platform allows you to discover, buy, and sell highly
@@ -28,8 +28,8 @@
       <div class="h-44 flex items-center">
         <Image src={trust} />
       </div>
-      <span class="text-2xl">TRUST</span>
-      <div class="space-y-4 max-w-sm">
+      <span class="text-2xl section-title">TRUST</span>
+      <div class="space-y-4 max-w-sm paragraph-content">
         <p>Your privacy is our priority.</p>
         <p>
           We’ve created a marketplace that is 100% safe and secure so you can buy and sell your collectibles with peace
@@ -42,9 +42,9 @@
       <div class="h-44 flex items-center">
         <Image src={carbon} />
       </div>
-      <span class="text-2xl">CARBON NEGATIVE</span>
-      <div class="space-y-4 max-w-sm">
-        <p>The only thing we love more than collectibles is our planet.</p>
+      <span class="text-2xl section-title">CARBON NEGATIVE</span>
+      <div class="space-y-4 max-w-sm paragraph-content">
+        <p>We love our planet.</p>
         <p>
           With the goal to be the most environmentally responsible NFT marketplace on Earth, we redeposit 2X the energy
           we consume via carbon offsets.
@@ -56,8 +56,8 @@
       <div class="h-44 flex items-center">
         <Image src={currency} />
       </div>
-      <span class="text-2xl">CURRENCY</span>
-      <div class="space-y-4 max-w-sm">
+      <span class="text-2xl section-title">CURRENCY</span>
+      <div class="space-y-4 max-w-sm paragraph-content">
         <p>Your money is good here.</p>
         <p>We accept a wide range of payment options, including Credit Cards, Bitcoin, Ether, HBAR, and USDC.</p>
       </div>
@@ -114,6 +114,10 @@
 </section>
 
 <style lang="postcss">
+  .paragraph-content {
+    font-family: 'Space Mono', monospace;
+  }
+
   .intro-grid {
     font-size: 27px;
     grid-template-columns: repeat(1, minmax(0, 1fr));

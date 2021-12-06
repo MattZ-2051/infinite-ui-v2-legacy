@@ -72,7 +72,7 @@
   <ThemeContext id="sku-offsreen">
     <div style="background-color: var(--sku-offscreen-bg-color, rgba(255, 255, 255, 0.95))">
       <div class="container mt-12 md:pt-20 md:pb-40">
-        <Tabs items={[{ id: 'related', title: 'Related Collectibles' }]} itemClass="text-2xl">
+        <Tabs items={[{ id: 'related', title: 'Related Collectibles' }]} itemClass="text-2xl section-title">
           <Tab id="related">
             <SkuItemGrid class="mt-4" skus={$related} />
           </Tab>

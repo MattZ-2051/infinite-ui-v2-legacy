@@ -1,5 +1,5 @@
 body {
-  font-family: 'Graphik';
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .sticky-cta {
@@ -30,4 +30,9 @@ button.sticky-cta:hover {
 
 .text-gradient-primary {
   line-height: 1.5;
+}
+
+.section-title {
+  font-family: var(--title-font-family);
+  text-transform: var(--title-text-transform);
 }

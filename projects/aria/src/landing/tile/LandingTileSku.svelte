@@ -27,7 +27,7 @@
           <div class="flex flex-col justify-between w-full h-full">
             <div>
               <div class="flex gap-1 items-center justify-between mb-2.5">
-                <a {href} class="text-primary text-2xl font-medium truncate">{sku.name}</a>
+                <a {href} class="text-primary text-2xl font-medium truncate section-title">{sku.name}</a>
                 <SkuEdition {sku} />
               </div>
               <TalentLink profile={sku.issuer} class="text-lg mb-2.5" style="color: #717171" />

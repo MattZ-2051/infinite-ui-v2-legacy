@@ -7,7 +7,7 @@
 </script>
 
 <div class="container">
-  <div class="text-2xl font-bold mt-6 mb-4">Account Settings</div>
+  <div class="text-2xl font-bold mt-6 mb-4 section-title">Account Settings</div>
   <div style="height: 2px; background-color: #EBEBEB;" />
 
   <div class="flex flex-col items-center md:flex-row md:items-start gap-x-24 gap-y-6 mt-6">

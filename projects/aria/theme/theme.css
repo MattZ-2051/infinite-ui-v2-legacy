@@ -109,6 +109,10 @@
 
   /* CreditCard */
   --credit-card-background-color: theme('colors.gray.200');
+
+  /* Titles */
+  --title-font-family: 'AlmarenaDisplay', sans-serif;
+  --title-text-transform: uppercase;
 }
 
 .theme-brand-tabs {
@@ -154,4 +158,8 @@
   --button-outline-brand-color-hover: #000000;
   --button-outline-brand-bg-color-hover: #ffffff;
   --button-outline-brand-border-color-hover: #5e29ff;
+
+  /* Titles */
+  --title-font-family: 'AlmarenaDisplay', sans-serif;
+  --title-text-transform: uppercase;
 }

@@ -51,7 +51,7 @@
 
 <div class="container flex flex-col gap-8 md:gap-14 mt-8">
   <div class="mb-16">
-    <Tabs items={[{ id: 'talents', title: 'Featured Talent' }]} class="text-3xl mb-4">
+    <Tabs items={[{ id: 'talents', title: 'Featured Talent' }]} class="text-3xl mb-4 section-title">
       <Tab id="talents">
         <div class="-mr-4 sm:mr-0">
           <Swiper {...swiperConfig}>
@@ -66,7 +66,7 @@
     </Tabs>
   </div>
   <div class="mb-16">
-    <Tabs items={[{ id: 'drops', title: 'Featured Drops' }]} class="text-3xl mb-4">
+    <Tabs items={[{ id: 'drops', title: 'Featured Drops' }]} class="text-3xl mb-4 section-title">
       <Tab id="drops">
         <div class="-mr-4 sm:mr-0">
           <Swiper {...swiperConfig}>
@@ -82,7 +82,7 @@
   </div>
 
   {#if upcomings.length > 0}
-    <Tabs items={[{ id: 'upcomings', title: 'Upcoming Drops' }]} class="text-3xl mb-4">
+    <Tabs items={[{ id: 'upcomings', title: 'Upcoming Drops' }]} class="text-3xl mb-4 section-title">
       <Tab id="upcomings">
         <div class="-mr-4 sm:mr-0">
           <Swiper {...swiperConfig}>

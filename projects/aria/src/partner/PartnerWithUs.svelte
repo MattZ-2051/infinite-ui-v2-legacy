@@ -75,7 +75,7 @@
 
 <section data-style="container" class="flex flex-col gap-8 text-white bg-black">
   <div class="flex flex-col gap-12 text-center container mt-8">
-    <h2 class="text-4xl max-w-4xl mx-auto font-medium uppercase">A Collaborative Community</h2>
+    <h2 class="text-4xl max-w-4xl mx-auto font-medium section-title">A Collaborative Community</h2>
     <div class="mx-auto text-2xl text-center max-w-6xl space-y-4">
       <p>
         ARIA Exchange creates and sells innovative, culturally driven collectibles for the world’s most iconic athletes,
