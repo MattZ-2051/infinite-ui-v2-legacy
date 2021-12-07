@@ -25,7 +25,7 @@
 </script>
 
 <div class="border border-white border-opacity-20 rounded-lg text-white overflow-hidden">
-  <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
+  <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between">
     <div class="flex flex-col gap-2">
       <div class="text-gray-500 text-sm">Edition</div>
       <div><SkuEdition {sku} /></div>
@@ -48,7 +48,7 @@
     {/if}
   </div>
   {#if isActiveProductAuction}
-    <div class="p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
+    <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
       <div class="flex flex-col gap-2 text-left">
         <div class="text-gray-500 text-sm">Auction Starts:</div>
         <div>{formatDate(activeProduct.startDate)}</div>
@@ -59,7 +59,7 @@
       </div>
     </div>
   {:else if isActiveSkuAuction}
-    <div class="p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
+    <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
       <div class="flex flex-col gap-2 text-left">
         <div class="text-gray-500 text-sm">Auction Starts:</div>
         <div>{formatDate(activeSku.startDate)}</div>
@@ -70,7 +70,7 @@
       </div>
     </div>
   {:else if isActiveSale}
-    <div class="p-6 border-b border-opacity-20 border-white flex justify-between">
+    <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between">
       <div class="flex flex-col gap-2 text-left">
         <div class="text-gray-500 text-sm">Active Sale Starts:</div>
         <div>{formatDate(activeProduct?.startDate || activeSku?.startDate)}</div>
@@ -81,7 +81,7 @@
       </div>
     </div>
   {/if}
-  <div class="p-6 border-b border-opacity-20 flex justify-between">
+  <div class="sku-info-row p-6 border-b border-opacity-20 flex justify-between">
     <div class="flex flex-col gap-2 min-w-0 mr-3">
       <div class="text-gray-500 text-sm">Created by</div>
       <TalentLink profile={sku.issuer} />
@@ -97,7 +97,7 @@
     <Notify profile={sku.issuer} let:loading let:subscription let:notifyHandler>
       <button
         type="button"
-        class="flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
+        class="sku-info-row flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
         disabled={loading}
         on:click={notifyHandler}
         ><Icon path={subscription ? mdiBellOffOutline : mdiBellOutline} />
@@ -106,8 +106,17 @@
     </Notify>
     <button
       type="button"
-      class="flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
+      class="sku-info-row flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
       use:socialShareAction={{ sku }}><Icon path={shareIcon} />Share</button
     >
   </ButtonGroup>
 </div>
+
+<style lang="postcss">
+  @screen md {
+    .sku-info-row {
+      padding-top: min(1.8vh, 1.25rem);
+      padding-bottom: min(1.8vh, 1.25rem);
+    }
+  }
+</style>
