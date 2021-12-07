@@ -5,7 +5,6 @@
   import Button from '$lib/components/Button.svelte';
   import { Input } from '$lib/components/form';
   import { isEthAddress } from '$util/validateEthAddress';
-  import { CLIENT_COMPANY_NAME_LEGAL } from '$project/variables';
   import { cryptoWithdrawFx } from './account-withdraw/account-withdraw.store';
 
   export let isOpen: boolean;
@@ -16,7 +15,6 @@
 
   let amount: number;
   let targetAddress: string;
-  let acceptedTerms: boolean;
 
   const pending = cryptoWithdrawFx.pending;
 
@@ -90,17 +88,15 @@
         />
       </div>
       <div class="mt-8">
-        <label class="inline-flex">
-          <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mt-1.5 mr-2" />
-          <div class="text-black-opacity-50 text-base">
-            I have access to the above wallet and {CLIENT_COMPANY_NAME_LEGAL} is not responsible for funds sent to this address.
-          </div>
-        </label>
+        <div class="text-black-opacity-50 text-base">
+          This needs to be your USDC (Ethereum mainnet) address. If you enter an incorrect address then these funds may
+          not be recoverable.
+        </div>
       </div>
       <div class="flex mt-4 flex-col">
-        <Button variant="brand" on:click={onConfirm} disabled={!acceptedTerms || $pending}
-          >Submit Withdrawal Request</Button
-        >
+        <Button variant="brand" on:click={onConfirm} disabled={$pending || !targetAddress || !amount}>
+          Submit Withdrawal Request
+        </Button>
         <Button variant="outline-brand" class="mt-4" on:click={closeModal}>Go Back</Button>
       </div>
     </div>
