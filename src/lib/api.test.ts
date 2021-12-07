@@ -52,6 +52,14 @@ describe('API', () => {
       expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', expect.objectContaining({ method: 'GET' }));
     });
 
+    it('should send custom headers without the tenant', async () => {
+      await send('my/path', { fetch: mockFetch, method: 'GET', skipTenant: true });
+      expect(mockFetch).toHaveBeenLastCalledWith(
+        'http://api/my/path',
+        expect.not.objectContaining({ headers: { 'Content-Type': 'application/json', 'X-Tenant': CLIENT_API_HEADER } })
+      );
+    });
+
     it('should not prepend base `apiUrl` if absolute', async () => {
       await send('http://my-absolute.path', { fetch: mockFetch });
       expect(mockFetch).toHaveBeenLastCalledWith('http://my-absolute.path', {

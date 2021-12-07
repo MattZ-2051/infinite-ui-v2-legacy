@@ -13,6 +13,7 @@ type ApiOptions = RequestInit & {
   params?: string | string[][] | Record<string, string> | URLSearchParams;
   tracker?: ApiFetchTracker;
   parseResponseAsText?: boolean;
+  skipTenant?: boolean;
 };
 
 export async function send<T>(path: string, _options?: ApiOptions): Promise<{ headers: Headers; body: T }> {
@@ -29,7 +30,7 @@ export async function send<T>(path: string, _options?: ApiOptions): Promise<{ he
 
   let url = buildFullPath(baseUrl, path);
 
-  if (url.startsWith(variables.apiUrl)) {
+  if (url.startsWith(variables.apiUrl) && !options.skipTenant) {
     options.headers = { ...options.headers, 'X-Tenant': CLIENT_API_HEADER };
   }
 
