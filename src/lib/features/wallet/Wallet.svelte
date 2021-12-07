@@ -8,6 +8,7 @@
   import routes from '$project/routes';
   import { variables } from '$lib/variables';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
+  import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { ENABLE_ETH_CURRENCY, KYC_INFO } from '$project/variables';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
@@ -30,8 +31,11 @@
   import SelectWithdrawMethodModal from './withdraw/SelectWithdrawMethodModal.svelte';
   import EthUsdWalletBalance from './EthUsdWalletBalance.svelte';
 
+  const LOW_KYC_LEVEL = import.meta.env.VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD;
+  const formattedLowKYC = `${formatCurrencyWithOptionalFractionDigits(LOW_KYC_LEVEL)} USD`;
+
   export let tab: 'transactions' | 'bids';
-  const kycLevelNeeded = `If your ETH or USDC wallet balance exceed $10,000 USD (or the ETH equivalent), 
+  const kycLevelNeeded = `If your ETH or USDC wallet balance exceed ${formattedLowKYC} (or the ETH equivalent), 
     you will need to complete KYC level 2; you will not be able to make deposits, withdrawals, or purchases until you do so.`;
   $: isKycCleared = $wallet?.kycMaxLevel >= 1;
   $: isKycPending = $wallet?.kycPending;

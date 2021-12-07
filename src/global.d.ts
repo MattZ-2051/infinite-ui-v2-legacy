@@ -21,6 +21,7 @@ interface CommonImportMetaEnvironment {
   VITE_MAINTENANCE_MODE: string;
   VITE_MAINTENANCE_MESSAGE: string;
   VITE_OPENSEA_URL: string;
+  VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD: number;
 }
 
 declare module '*format=avif;webp;png&metadata=src;format;width;height';
