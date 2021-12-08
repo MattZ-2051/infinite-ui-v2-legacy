@@ -20,7 +20,6 @@
   import { setFilters, modeFilters } from './marketplace.service';
 
   const dispatch = createEventDispatcher();
-  const maxPriceDefault = 10_000;
 
   const removeFilter = (filter: FilterType) => {
     // eslint-disable-next-line unicorn/prefer-switch
@@ -284,45 +283,47 @@
       </Accordion>
     {/if}
 
-    <Accordion
-      id="price"
-      titleClass="py-4 px-6"
-      class="c-filter-accordion border border-gray-200 -mb-px {active.includes('price') ? 'expanded' : ''}"
-    >
-      <div slot="title" class="text-lg leading-8 text-left">
-        Price Range
-        {#if priceSelectedObject}
-          <span class="text-default text-xs align-top">({priceSelectedObject})</span>
-        {/if}
-      </div>
+    {#if maxPrice > 0}
+      <Accordion
+        id="price"
+        titleClass="py-4 px-6"
+        class="c-filter-accordion border border-gray-200 -mb-px {active.includes('price') ? 'expanded' : ''}"
+      >
+        <div slot="title" class="text-lg leading-8 text-left">
+          Price Range
+          {#if priceSelectedObject}
+            <span class="text-default text-xs align-top">({priceSelectedObject})</span>
+          {/if}
+        </div>
 
-      <RangeSlider
-        bind:values={priceRange}
-        format={formatCurrencyWithOptionalFractionDigits}
-        min={0}
-        max={maxPrice || maxPriceDefault}
-        on:stop={({ detail }) => onPriceRangeChange(detail)}
-      />
+        <RangeSlider
+          bind:values={priceRange}
+          format={formatCurrencyWithOptionalFractionDigits}
+          min={0}
+          max={maxPrice}
+          on:stop={({ detail }) => onPriceRangeChange(detail)}
+        />
 
-      <div class="flex gap-6 mt-10">
-        <Input
-          type="number"
-          label="From"
-          value={priceRange[0]}
-          on:input={onMinPriceChange}
-          step="0.000000000000000001"
-          min="0"
-        />
-        <Input
-          type="number"
-          label="To"
-          value={priceRange[1]}
-          on:input={onMaxPriceChange}
-          step="0.000000000000000001"
-          min="0"
-        />
-      </div>
-    </Accordion>
+        <div class="flex gap-6 mt-10">
+          <Input
+            type="number"
+            label="From"
+            value={priceRange[0]}
+            on:input={onMinPriceChange}
+            step="0.000000000000000001"
+            min="0"
+          />
+          <Input
+            type="number"
+            label="To"
+            value={priceRange[1]}
+            on:input={onMaxPriceChange}
+            step="0.000000000000000001"
+            min="0"
+          />
+        </div>
+      </Accordion>
+    {/if}
 
     <Accordion
       id="typeEdition"
