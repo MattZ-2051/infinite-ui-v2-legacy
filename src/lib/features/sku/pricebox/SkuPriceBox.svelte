@@ -39,7 +39,7 @@
   $: active = activeListings.length > 0 && sku.totalSupplyLeft && activeListings?.[0]?.saleType !== 'giveaway';
   $: activeNftGiveAway = activeListings[0]?.saleType === 'giveaway';
   $: upcomingNftGiveAway = upcomingSkuListings[0]?.saleType === 'giveaway';
-  $: noSale = sku.totalSupplyLeft === 0 && sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
+  $: noSale = sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
   $: noCollectorSales = sku.activeProductListings?.length === 0 && sku.upcomingProductListings?.length === 0;
   $: ethSkuSale = sku?.currency === 'ETH' && sku.skuListings[0]?.saleType === 'fixed';
   $: lowestActivePriceListing = getLowestProductListing(sku.activeProductListings);
@@ -50,6 +50,7 @@
   $: isUpcomingAuction =
     lowestUpcomingPriceListing?.saleType === 'auction' && lowestUpcomingPriceListing?.status === 'upcoming';
 
+  $: notMinted = sku.circulatingSupply === 0;
   $: hasActiveAuctionListing = sku.activeProductListings?.some((listing) => {
     return listing?.saleType === 'auction' && listing?.status === 'active';
   });
@@ -70,6 +71,8 @@
     <FromCreator {sku} state="upcomingNftGiveAway" {upcomingSkuListings} {onBuy} />
   {:else if activeNftGiveAway}
     <FromCreator {sku} state="activeNftGiveAway" {activeListings} {onBuy} />
+  {:else if notMinted}
+    <FromCreator state="notMinted" {sku} {onBuy} />
   {:else if noSale}
     <FromCreator state="noSale" {sku} {onBuy} />
   {/if}

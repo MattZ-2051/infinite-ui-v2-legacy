@@ -8,7 +8,14 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
 
-  type FromCreatorState = 'upcoming' | 'noSale' | 'active' | 'upcomingNftGiveAway' | 'activeNftGiveAway' | '';
+  type FromCreatorState =
+    | 'upcoming'
+    | 'noSale'
+    | 'active'
+    | 'upcomingNftGiveAway'
+    | 'activeNftGiveAway'
+    | 'notMinted'
+    | '';
   $: isPolling = $polls[sku._id]?.$isActive || readable(false);
 
   export let sku: Sku;
@@ -25,7 +32,7 @@
 </script>
 
 <SkuPriceBoxButton action={state === 'active' || state === 'activeNftGiveAway'} polling={$isPolling} on:click={onBuy}>
-  {#if state === 'active' || state === 'noSale'}
+  {#if state === 'active' || state === 'noSale' || 'notMinted'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
         <div class="text-xl">From Creator</div>
@@ -49,7 +56,10 @@
         </div>
       {/if}
       {#if state === 'noSale'}
-        <div class="text-base text-gray-500 text-right">Sold Out</div>
+        <div class="text-base text-gray-500 text-right">Not for sale</div>
+      {/if}
+      {#if state === 'notMinted'}
+        <div class="text-base text-gray-500 text-right">Upcoming</div>
       {/if}
     </div>
   {/if}
