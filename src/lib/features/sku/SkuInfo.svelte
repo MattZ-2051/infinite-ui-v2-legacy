@@ -17,11 +17,27 @@
 
   export let sku: Sku;
 
-  $: activeProduct = sku.activeProductListings?.[0];
-  $: activeSku = sku.activeSkuListings?.[0];
-  $: isActiveProductAuction = activeProduct?.saleType === 'auction';
+  let listing = sku.activeSkuListings?.[0];
+  let issuerProductListing = sku.activeProductListings.find((p) => p.issuer._id === sku.issuer._id);
+  listing = listing || issuerProductListing;
+  if (!listing) {
+    listing =
+      sku.expiredSkuListings.length > 0
+        ? sku.expiredSkuListings?.reduce(
+            (previous, act) => (previous.endDate > act.endDate ? previous : act),
+            sku.expiredSkuListings[0]
+          )
+        : sku.soldSkuListings?.reduce(
+            (previous, act) => (previous.endDate > act.endDate ? previous : act),
+            sku.soldSkuListings[0]
+          );
+  }
+
+  $: activeSku = listing;
   $: isActiveSkuAuction = activeSku?.saleType === 'auction';
-  $: isActiveSale = activeProduct?.saleType === 'fixed' || activeSku?.saleType === 'fixed';
+  $: isActiveSale = activeSku?.saleType === 'fixed' || activeSku?.saleType === 'giveaway';
+  $: startDate = activeSku?.startDate || '';
+  $: endDate = activeSku?.endDate || '';
 </script>
 
 <div class="border border-white border-opacity-20 rounded-lg text-white overflow-hidden">
@@ -47,38 +63,29 @@
       </div>
     {/if}
   </div>
-  {#if isActiveProductAuction}
+  {#if isActiveSkuAuction}
     <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
       <div class="flex flex-col gap-2 text-left">
         <div class="text-gray-500 text-sm">Auction Starts:</div>
-        <div>{formatDate(activeProduct.startDate)}</div>
+        <div>{formatDate(startDate)}</div>
       </div>
       <div class="flex flex-col gap-2 text-right">
         <div class="text-gray-500 text-sm">Auction Ends:</div>
-        <div>{formatDate(activeProduct.endDate)}</div>
-      </div>
-    </div>
-  {:else if isActiveSkuAuction}
-    <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
-      <div class="flex flex-col gap-2 text-left">
-        <div class="text-gray-500 text-sm">Auction Starts:</div>
-        <div>{formatDate(activeSku.startDate)}</div>
-      </div>
-      <div class="flex flex-col gap-2 text-right">
-        <div class="text-gray-500 text-sm">Auction Ends:</div>
-        <div>{formatDate(activeSku.endDate)}</div>
+        <div>{formatDate(endDate)}</div>
       </div>
     </div>
   {:else if isActiveSale}
     <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between">
       <div class="flex flex-col gap-2 text-left">
         <div class="text-gray-500 text-sm">Active Sale Starts:</div>
-        <div>{formatDate(activeProduct?.startDate || activeSku?.startDate)}</div>
+        <div>{formatDate(startDate)}</div>
       </div>
-      <div class="flex flex-col gap-2 text-right">
-        <div class="text-gray-500 text-sm">Active Sale Ends:</div>
-        <div>{formatDate(activeProduct?.endDate || activeSku?.endDate)}</div>
-      </div>
+      {#if activeSku?.endDate}
+        <div class="flex flex-col gap-2 text-right">
+          <div class="text-gray-500 text-sm">Active Sale Ends:</div>
+          <div>{formatDate(endDate)}</div>
+        </div>
+      {/if}
     </div>
   {/if}
   <div class="sku-info-row p-6 border-b border-opacity-20 flex justify-between">

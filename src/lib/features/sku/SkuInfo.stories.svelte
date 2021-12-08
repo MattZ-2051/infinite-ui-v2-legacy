@@ -164,7 +164,14 @@
       totalUpcomingSupply: 4,
       totalSupply: 10,
       circulatingSupply: 20,
-      activeProductListings: [{ saleType: 'auction', endDate: futureMinStartDate }],
+      activeProductListings: [
+        {
+          saleType: 'auction',
+          endDate: futureMinStartDate,
+          startDate: '2021-08-06T00:07:53.637Z',
+          issuer: { _id: '60c12baa28051939033aca02' },
+        },
+      ],
     },
   }}
 />
@@ -178,7 +185,7 @@
       supplyType: 'variable',
       skuListings: [{ _id: '1' }],
       circulatingSupply: 20,
-      activeProductListings: [{ saleType: 'fixed', startDate: new Date() }],
+      activeSkuListings: [{ saleType: 'fixed', startDate: new Date() }],
     },
   }}
 />
@@ -193,6 +200,126 @@
       skuListings: [{ _id: '1' }],
       circulatingSupply: 13,
       activeSkuListings: [{ _id: '1', saleType: 'fixed', startDate: new Date() }],
+    },
+  }}
+/>
+
+<!-- Scenario where there is an Expired Sku listing and no active-->
+<Story
+  name="Expired sku listing"
+  args={{
+    sku: {
+      ...sku,
+      supplyType: 'variable',
+      skuListings: [{ _id: '1' }],
+      circulatingSupply: 13,
+      expiredSkuListings: [{ _id: '1', saleType: 'fixed', startDate: '2021-08-01T00:07:53.637Z' }],
+    },
+  }}
+/>
+
+<!-- Scenario where there is an Expired Sku listing and no active listings with end date-->
+<Story
+  name="Expired sku listing with end date"
+  args={{
+    sku: {
+      ...sku,
+      supplyType: 'variable',
+      skuListings: [{ _id: '1' }],
+      circulatingSupply: 13,
+      expiredSkuListings: [{ _id: '1', saleType: 'fixed', startDate: '2021-05-01T00:07:53.637Z', endDate: new Date() }],
+    },
+  }}
+/>
+
+<!-- Scenario where there is an sold sku listing and no active-->
+<Story
+  name="Sold sku listing with end date without active listings"
+  args={{
+    sku: {
+      ...sku,
+      supplyType: 'variable',
+      skuListings: [{ _id: '1' }],
+      circulatingSupply: 13,
+      soldSkuListings: [{ _id: '1', saleType: 'fixed', endDate: new Date(), startDate: '2021-06-01T00:07:53.637Z' }],
+    },
+  }}
+/>
+
+<!-- Scenario where there is a sold sku listing and active-->
+<Story
+  name="Sold sku listing with end date with active listings"
+  args={{
+    sku: {
+      ...sku,
+      supplyType: 'variable',
+      skuListings: [{ _id: '1' }],
+      circulatingSupply: 13,
+      soldSkuListings: [{ _id: '1', saleType: 'fixed', endDate: new Date() }],
+      activeSkuListings: [
+        { _id: '1', saleType: 'auction', startDate: '2021-01-03T00:07:53.637Z', endDate: '2021-01-10T00:07:53.637Z' },
+      ],
+    },
+  }}
+/>
+
+<Story
+  name="Sold sku listing with end date with auction active listings"
+  args={{
+    sku: {
+      ...sku,
+      supplyType: 'variable',
+      skuListings: [{ _id: '1' }],
+      circulatingSupply: 13,
+      soldSkuListings: [{ _id: '1', saleType: 'fixed', endDate: new Date() }],
+      activeSkuListings: [
+        { _id: '1', saleType: 'auction', startDate: '2021-01-03T00:07:53.637Z', endDate: '2021-01-10T00:07:53.637Z' },
+      ],
+    },
+  }}
+/>
+
+<Story
+  name="Product listing created by the issuer"
+  args={{
+    sku: {
+      ...sku,
+      supplyType: 'variable',
+      skuListings: [{ _id: '1' }],
+      circulatingSupply: 13,
+      soldSkuListings: [{ _id: '1', saleType: 'fixed', endDate: new Date() }],
+      activeProductListings: [
+        {
+          saleType: 'auction',
+          endDate: futureMinStartDate,
+          startDate: '2021-08-06T00:07:53.637Z',
+          issuer: { _id: '60c12baa28051939033aca02' },
+        },
+      ],
+    },
+  }}
+/>
+
+<Story
+  name="Product listing created by the issuer with an active sku listing"
+  args={{
+    sku: {
+      ...sku,
+      supplyType: 'variable',
+      skuListings: [{ _id: '1' }],
+      circulatingSupply: 13,
+      soldSkuListings: [{ _id: '1', saleType: 'fixed', endDate: new Date() }],
+      activeSkuListings: [
+        { _id: '1', saleType: 'fixed', startDate: '2021-01-03T00:07:53.637Z', endDate: '2021-01-10T00:07:53.637Z' },
+      ],
+      activeProductListings: [
+        {
+          saleType: 'auction',
+          endDate: futureMinStartDate,
+          startDate: '2021-08-06T00:07:53.637Z',
+          issuer: { _id: '60c12baa28051939033aca02' },
+        },
+      ],
     },
   }}
 />
