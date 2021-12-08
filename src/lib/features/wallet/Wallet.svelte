@@ -102,7 +102,7 @@
 
       toast.warning(`${prompt}`, {
         onClick: { verificationStepsCb: openUpgradeKYCLevel },
-        classes: 'text-xs lg:text-base',
+        classes: 'text-center text-xs lg:text-base',
       });
       return;
     }
