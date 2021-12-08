@@ -82,7 +82,7 @@
           variant="rounded"
           type="text"
           id="address"
-          placeholder={`Enter ${currency} Address`}
+          placeholder={`Enter ${currency} address`}
           class="bg-gray-50 py-3"
           bind:value={targetAddress}
         />
