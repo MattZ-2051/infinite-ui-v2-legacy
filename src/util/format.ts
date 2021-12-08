@@ -1,6 +1,9 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat.js';
 
+const maxCompleteNumber = 1 * 10 ** 6;
+const maxCompactNumber = 1 * 10 ** 18;
+
 dayjs.extend(advancedFormat);
 
 type FormatNumberOptions = Intl.NumberFormatOptions & { fallback?: string };
@@ -14,7 +17,9 @@ export function formatCurrency(value: number | string, options?: FormatNumberOpt
   if (options?.currency === 'ETH') {
     return formatEthCurrency(value);
   }
-
+  if (value >= maxCompleteNumber && value <= maxCompactNumber)
+    options = { notation: 'compact', maximumSignificantDigits: 7, ...options };
+  if (value > maxCompactNumber) options = { notation: 'engineering', maximumSignificantDigits: 7, ...options };
   return numberFormat(value, { ...options, style: 'currency', currency: 'USD' });
 }
 
