@@ -74,7 +74,7 @@ function getSuccessMessage({ type, transactionData: { sku, withdraw, deposit, pr
       return `The sale transaction for ${sku.name} is complete.`;
     }
     case 'withdrawal': {
-      return `The withdrawal to bank ${withdraw.institution_name} is complete.`;
+      return `The withdrawal to bank ${withdraw.institution_name} has been successfully submitted for review.`;
     }
     case 'deposit': {
       switch (deposit.type) {

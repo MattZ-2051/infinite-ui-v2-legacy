@@ -28,7 +28,7 @@ cryptoWithdrawFx.done.watch(({ params: { currency } }) => {
   loadWalletFx();
   updateUser();
   loadMyTransactionsFx({});
-  toast.success(`The withdrawal to the ${currency} address was successful.`);
+  toast.success(`The withdrawal to the ${currency} address has been successfully submitted for review.`);
 });
 
 cryptoWithdrawFx.fail.watch(() => toast.danger('There was an error with your withdrawal. Please, try again.'));
