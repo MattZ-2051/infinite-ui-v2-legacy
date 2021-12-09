@@ -9,8 +9,10 @@
   export let step = 1;
   export let debounce = 100;
 
-  $: _valueLeft = Math.max(min, Math.min(+values[0], +values[1]));
-  $: _valueRight = Math.min(max, Math.max(+values[0], +values[1]));
+  let valueLeft = +values[0];
+  let valueRight = +values[1];
+  $: _percentageLeft = getPercentage(valueLeft);
+  $: _percentageRight = getPercentage(valueRight);
 
   const dispatch = createEventDispatcher();
 
@@ -25,32 +27,45 @@
   function activateThumb(thumb: 'L' | 'R' | undefined) {
     activeThumb = thumb;
   }
+
+  async function onInput(thumb: 'L' | 'R') {
+    if (thumb === 'L' && valueRight === 0) {
+      valueLeft = Math.max(valueLeft, step);
+    } else if (thumb === 'R' && valueLeft === 0) {
+      valueRight = Math.max(valueRight, step);
+    }
+    values = [`${Math.min(valueLeft, valueRight)}`, `${Math.max(valueLeft, valueRight)}`];
+  }
 </script>
 
 <div class="slider">
   <div>
-    <div class="inverse-left" style="width:{getPercentage(_valueLeft)}%;" />
-    <div class="inverse-right" style="width:{100 - getPercentage(_valueRight)}%;" />
-    <div class="range" style="left:{getPercentage(_valueLeft)}%;right:{100 - getPercentage(_valueRight)}%;" />
-    <span class="thumb" class:active={activeThumb === 'L'} style="left:{getPercentage(_valueLeft)}%;" />
-    <span class="thumb" class:active={activeThumb === 'R'} style="left:{getPercentage(_valueRight)}%;" />
-    <div class="sign" class:activeSign={activeThumb === 'L'} style="left:{getPercentage(_valueLeft)}%;">
-      <span id="value">{format(_valueLeft)}</span>
+    <div class="inverse-left" style="width:{_percentageLeft}%;" />
+    <div class="inverse-right" style="width:{100 - _percentageRight}%;" />
+    <div
+      class="range"
+      style="left:{getPercentage(Math.min(valueLeft, valueRight))}%;right:{100 -
+        getPercentage(Math.max(valueLeft, valueRight))}%;"
+    />
+    <span class="thumb" class:active={activeThumb === 'L'} style="left:{_percentageLeft}%;" />
+    <span class="thumb" class:active={activeThumb === 'R'} style="left:{_percentageRight}%;" />
+    <div class="sign" class:activeSign={activeThumb === 'L'} style="left:{_percentageLeft}%;">
+      <span id="value">{format(valueLeft)}</span>
     </div>
-    <div class="sign" class:activeSign={activeThumb === 'R'} style="left:{getPercentage(_valueRight)}%;">
-      <span id="value">{format(_valueRight)}</span>
+    <div class="sign" class:activeSign={activeThumb === 'R'} style="left:{_percentageRight}%;">
+      <span id="value">{format(valueRight)}</span>
     </div>
   </div>
   <input
     class="cursor-pointer"
     type="range"
     tabindex="0"
-    bind:value={values[0]}
+    bind:value={valueLeft}
     {max}
     {min}
     {step}
     on:change={onStop}
-    on:input={() => (values[1] = `${Math.max(+values[0], +values[1])}`)}
+    on:input={() => onInput('L')}
     on:mouseover={() => activateThumb('L')}
     on:focus={() => activateThumb('L')}
     on:mouseout={() => activateThumb(undefined)}
@@ -60,12 +75,12 @@
     class="cursor-pointer"
     type="range"
     tabindex="0"
-    bind:value={values[1]}
+    bind:value={valueRight}
     {max}
     {min}
     {step}
     on:change={onStop}
-    on:input={() => (values[0] = `${Math.min(+values[0], +values[1])}`)}
+    on:input={() => onInput('R')}
     on:mouseover={() => activateThumb('R')}
     on:focus={() => activateThumb('R')}
     on:mouseout={() => activateThumb(undefined)}
