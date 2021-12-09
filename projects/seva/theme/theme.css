@@ -14,6 +14,7 @@
   --edition-open-color: var(--default-color);
   --gradient-start-color: var(--default-color);
   --gradient-end-color: var(--default-color);
+  --header-height: 88px;
 
   /* Grayscale */
   --gray-50: rgba(255, 255, 255, 0.05);
