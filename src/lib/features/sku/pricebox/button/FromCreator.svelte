@@ -59,7 +59,7 @@
               {formatCurrencyWithOptionalFractionDigits(skuPrice, { currency: sku.currency })}
             </div>
             <div class="text-sm text-right text-gray-500 ">
-              {getAuctionLabelCreator(activeListing?.saleType)}
+              {getAuctionLabelCreator(activeListing.saleType)}
             </div>
           </div>
         </div>
