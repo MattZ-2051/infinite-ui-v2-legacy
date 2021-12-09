@@ -72,7 +72,7 @@
 </script>
 
 <div class={`tabs flex justify-between ${_class}`} {...$$restProps}>
-  <ul role="tablist" class="flex gap-10" on:keydown={handleKeydown}>
+  <ul role="tablist" class="flex lg:gap-10 gap-2" on:keydown={handleKeydown}>
     {#if renderDropdown}
       <TabHeader {...$selectedTab} active={true} class={`pb-5 ${itemClass}`} />
       <TabMenu

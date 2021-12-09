@@ -64,10 +64,10 @@
     <button
       type="button"
       on:click={() => (showFilters = true)}
-      class="w-10 h-10 bg-gray-200 rounded-full md:hidden flex items-center justify-center"
+      class="w-10 h-10 button-filter rounded-full md:hidden flex items-center justify-center"
       aria-label="Show filters"
     >
-      <Icon path={mdiTuneVariant} />
+      <Icon path={mdiTuneVariant} color="black" />
     </button>
   </div>
   <div class="gap-2 {showFilters && !$media.md ? 'hidden' : 'flex'}">
@@ -108,5 +108,8 @@
   }
   .sort-container:container(width > 220) {
     @apply text-lg;
+  }
+  .button-filter {
+    background-color: var(--button-marketplace-filter-color);
   }
 </style>

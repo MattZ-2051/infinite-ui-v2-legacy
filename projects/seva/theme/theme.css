@@ -65,6 +65,7 @@
   --button-outline-brand-color-hover: #ffd54e;
   --button-outline-brand-bg-color-hover: #000000;
   --button-outline-brand-border-color-hover: #ffd54e;
+  --button-marketplace-filter-color: transparent;
 
   /* Menu */
   --menu-item-background-selected: #ffd54e;

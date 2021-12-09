@@ -56,6 +56,7 @@
   --button-outline-brand-color-hover: #ffffff;
   --button-outline-brand-bg-color-hover: #000000;
   --button-outline-brand-border-color-hover: #5e29ff;
+  --button-marketplace-filter-color: #f0f0f0;
 
   /* ButtonGroup */
   --button-group-color-hover: var(--default-color);

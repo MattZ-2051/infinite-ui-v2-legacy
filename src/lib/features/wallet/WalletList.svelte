@@ -59,9 +59,15 @@
   <Tab id="transactions"><TransactionList /></Tab>
   <Tab id="bids"><BidList /></Tab>
   <div slot="extra" class="mb-5">
-    <div class="flex gap-6 ">
+    <div class="flex lg:gap-3 gap-2">
       {#if tab === 'transactions'}
-        <Sort on:select={onFilter} sortOptions={transactionTypes} key="type" label="Transaction type:" />
+        <Sort
+          on:select={onFilter}
+          sortOptions={transactionTypes}
+          key="type"
+          label="Transaction type:"
+          iconType="filter"
+        />
       {/if}
       <Sort on:select={onFilter} {sortOptions} />
     </div>

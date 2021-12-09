@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-  import { mdiChevronDown, mdiSortVariant } from '@mdi/js';
+  import { mdiChevronDown, mdiSortVariant, mdiTuneVariant } from '@mdi/js';
   import { createEventDispatcher } from 'svelte';
   import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
   import Icon from '$ui/icon/Icon.svelte';
@@ -18,6 +18,7 @@
   export let sortOptions: SortOption[];
   export let label = 'Sort by:';
   export let key = 'sortBy';
+  export let iconType = 'sort';
 
   const getSelected = () => {
     const value = $page.query.get(key);
@@ -44,7 +45,11 @@
       </div>
     </div>
     <div class="lg:hidden rounded-full bg-default text-inverse">
-      <Icon path={mdiSortVariant} size="1.5" class="p-1 rounded-full" />
+      {#if iconType === 'sort'}
+        <Icon path={mdiSortVariant} size="1.5" class="p-1 rounded-full" />
+      {:else}
+        <Icon path={mdiTuneVariant} size="1.5" class="p-1 rounded-full" />
+      {/if}
     </div>
   </MenuTrigger>
 

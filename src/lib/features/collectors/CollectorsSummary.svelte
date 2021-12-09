@@ -76,7 +76,7 @@
   </div>
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
-      <Sort sortOptions={statusOptions} on:select={onFilter} key="saleType" label="Sale Type:" />
+      <Sort sortOptions={statusOptions} on:select={onFilter} key="saleType" label="Sale Type:" iconType="filter" />
     </div>
     <div class="flex cursor-pointer gap-2">
       <Sort {sortOptions} on:select={onFilter} />
