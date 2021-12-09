@@ -29,6 +29,15 @@
     activeListing?.saleType === 'auction'
       ? Math.max(activeListing.minHighestBid || 0, activeListing.minBid)
       : activeListing?.price;
+
+  const getAuctionLabelCreator = (saleType) => {
+    if (saleType === 'auction') {
+      const existsBid: boolean = activeListing.highestBid !== undefined;
+      return existsBid ? 'Latest bid' : 'Minimum bid';
+    } else {
+      return 'Listing price';
+    }
+  };
 </script>
 
 <SkuPriceBoxButton action={state === 'active' || state === 'activeNftGiveAway'} polling={$isPolling} on:click={onBuy}>
@@ -50,7 +59,7 @@
               {formatCurrencyWithOptionalFractionDigits(skuPrice, { currency: sku.currency })}
             </div>
             <div class="text-sm text-right text-gray-500 ">
-              {activeListing.saleType === 'auction' ? 'Active Auction' : 'Listing Price'}
+              {getAuctionLabelCreator(activeListing?.saleType)}
             </div>
           </div>
         </div>

@@ -21,7 +21,6 @@
   export let collectorListing: Listing;
 
   const isUniqueAuction = sku?.maxSupply === 1 && sku?.issuer?._id === collectorListing?.issuer?._id;
-  const existsBid: boolean = collectorListing ? collectorListing.highestBid !== undefined : false;
   const isUniqueProductListing = sku?.countProductListings === 1 && sku?.circulatingSupply === 1;
   const href = isUniqueProductListing
     ? routes.product(collectorListing.product)
@@ -31,6 +30,16 @@
     collectorListing?.saleType === 'auction'
       ? Math.max(collectorListing?.minHighestBid || 0, collectorListing?.minBid)
       : collectorListing?.price;
+
+  const getAuctionLabelCollector = (saleType) => {
+    if (saleType === 'auction') {
+      const existsBid: boolean = collectorListing.highestBid !== undefined;
+      if (!isUniqueAuction) return 'Lowest bid';
+
+      return existsBid ? 'Latest bid' : 'Minimum bid';
+    }
+    return 'Lowest listing price';
+  };
 </script>
 
 <SkuPriceBoxButton {href} polling={$isPolling}>
@@ -45,7 +54,9 @@
           <div class="text-xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-sm text-right text-gray-500 ">Listing Price</div>
+          <div class="text-sm text-right text-gray-500 ">
+            {isUniqueProductListing ? 'Listing price' : 'Lowest listing price'}
+          </div>
         </div>
       </div>
     {/if}
@@ -63,7 +74,7 @@
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
           <div class="text-gray-500 text-sm">
-            {(isUniqueAuction ? 'Highest Bid' : existsBid) ? 'Latest Bid' : 'Minimum Bid'}
+            {getAuctionLabelCollector('auction')}
           </div>
         </div>
       </div>
@@ -103,7 +114,9 @@
           <div class="text-xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-sm">Lowest Listing Price</div>
+          <div class="text-gray-500 text-sm">
+            {getAuctionLabelCollector(collectorListing?.saleType)}
+          </div>
         </div>
       </div>
     {/if}
