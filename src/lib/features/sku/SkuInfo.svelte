@@ -18,8 +18,9 @@
   export let sku: Sku;
 
   let listing = sku.activeSkuListings?.[0];
-  let issuerProductListing = sku.activeProductListings.find((p) => p.issuer._id === sku.issuer._id);
+  let issuerProductListing = sku.activeProductListings.find((p) => p.issuer === sku.issuer._id);
   listing = listing || issuerProductListing;
+
   if (!listing) {
     listing =
       sku.expiredSkuListings.length > 0
