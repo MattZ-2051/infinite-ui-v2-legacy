@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mdiClose } from '@mdi/js';
+  import arrowLeft from '$lib/features/product/assets/arrow-left';
   import shareIcon from '$lib/features/sku/assets/share';
   import { browser } from '$app/env';
   import { userId } from '$lib/user';
@@ -32,6 +32,12 @@
   <div class="flex flex-col md:px-0" slot="onscreen-content" style="min-height: calc(100vh - var(--header-height));">
     <div class="mx-4 md:pl-4 mt-8 md:mt-10">
       <div class="flex md:flex-wrap items-center text-2xl sm:text-3xl md:text-4xl font-medium justify-between gap-6">
+        {#if hasCloseButton}
+          <button type="button" on:click={onClose} class="close rounded-full bg-gray-100 text-white">
+            <Icon path={arrowLeft} size="1.75" class="transform scale-90 sm:scale-100 md:scale-110 p-1 rounded-full" />
+            <span class="sr-only">Back</span>
+          </button>
+        {/if}
         <div class="flex items-center overflow-hidden">
           <a
             sveltekit:prefetch
@@ -51,12 +57,6 @@
                 class="hidden md:inline">Share</span
               ></button
             >
-          {/if}
-          {#if hasCloseButton}
-            <button type="button" on:click={onClose} class="close rounded-full bg-gray-100 text-white">
-              <Icon path={mdiClose} size="1.75" class="transform scale-90 sm:scale-100 md:scale-110 p-1 rounded-full" />
-              <span class="sr-only">Back</span>
-            </button>
           {/if}
         </div>
       </div>

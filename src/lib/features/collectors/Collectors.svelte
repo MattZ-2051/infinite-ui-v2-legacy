@@ -1,8 +1,11 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import routes from '$project/routes';
+  import arrowLeft from '$lib/features/product/assets/arrow-left';
+  import { browser } from '$app/env';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
+  import Icon from '$ui/icon/Icon.svelte';
   import CollectorsSummary from './CollectorsSummary.svelte';
 
   export let sku: Sku;
@@ -11,6 +14,12 @@
   export let search: string;
   export let total: number;
   export let perPage: number;
+
+  const hasCloseButton = browser && history.length > 1;
+
+  function onClose() {
+    history.back();
+  }
 </script>
 
 <StickyColumn reverse>
@@ -19,17 +28,21 @@
   </div>
   <div class="mr-4 ml-4 md:ml-0" slot="onscreen-content">
     <div class="md:pl-8 mt-8 md:mt-10">
-      <div class="flex flex-wrap gap-2 md:gap-0 md:items-center text-3xl md:text-4xl font-medium">
-        <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
-        <div class="flex items-center">
-          <span class="mx-3 text-gray-300">/</span>
-          <span class="text-gradient-primary">Collectors</span>
+      <div class="flex justify-between items-center">
+        <div class="flex flex-wrap text-3xl md:text-4xl gap-2 md:gap-0 font-medium">
+          <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
+          <div class="flex items-center">
+            <span class="mx-3 text-gray-300">/</span>
+            <span class="text-gradient-primary">Collectors</span>
+          </div>
         </div>
+        {#if hasCloseButton}
+          <button type="button" on:click={onClose} class="close rounded-full bg-gray-100 text-white">
+            <Icon path={arrowLeft} size="1.75" class="transform scale-90 sm:scale-100 md:scale-110 p-1 rounded-full" />
+            <span class="sr-only">Back</span>
+          </button>
+        {/if}
       </div>
-
-      <!-- <div class="mt-6">
-        <ProductInfo product={$product} />
-      </div> -->
     </div>
 
     <div class="mt-20 md:pl-8">
@@ -46,5 +59,10 @@
     .sticky-content {
       height: inherit;
     }
+  }
+  .close:hover {
+    color: var(--button-brand-color-hover);
+    background-color: var(--button-brand-bg-color-hover);
+    border-color: var(--button-brand-border-color-hover);
   }
 </style>
