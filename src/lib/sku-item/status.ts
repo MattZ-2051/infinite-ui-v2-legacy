@@ -90,9 +90,9 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
 };
 
 export const productStatus = (product: Product, simpleTitle?: boolean): Status => {
-  const minStartDate = product?.listing?.startDate;
-  if (dayjs(minStartDate).isAfter(dayjs())) {
-    if (product.productListings?.length === 0 || dayjs(product.minStartDate).diff(new Date(), 'day', true) > 3) {
+  const minStartDate = product?.minStartDate;
+  if (minStartDate !== undefined && dayjs(minStartDate).isAfter(dayjs())) {
+    if (dayjs(minStartDate).diff(new Date(), 'day', true) > 3) {
       return { status: 'upcoming', minStartDate };
     }
     if (product.upcomingProductListings?.length !== 0) {
