@@ -41,7 +41,7 @@
   $: upcomingNftGiveAway = upcomingSkuListings[0]?.saleType === 'giveaway';
   $: noSale = sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
   $: noCollectorSales = sku.activeProductListings?.length === 0 && sku.upcomingProductListings?.length === 0;
-  $: ethSkuSale = sku?.currency === 'ETH' && sku.skuListings[0]?.saleType === 'fixed';
+  $: ethSkuSale = sku?.currency === 'ETH' && sku.skuListings?.[0]?.saleType === 'fixed';
   $: lowestActivePriceListing = getLowestProductListing(sku.activeProductListings);
   $: lowestUpcomingPriceListing = getLowestProductListing(sku.upcomingProductListings);
   $: isActiveSale = lowestActivePriceListing?.saleType === 'fixed' && lowestActivePriceListing?.status === 'active';
