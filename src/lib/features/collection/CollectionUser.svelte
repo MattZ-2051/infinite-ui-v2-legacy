@@ -12,11 +12,7 @@
     <img src={`${profile.profilePhotoUrl}?t=${profile.updatedAt}`} alt="" class="w-24 h-24 p-1 rounded-full" />
   {/if}
   <div class="text-xl md:text-2xl font-medium text-center mt-6">
-    {#if profile.firstName && profile.lastName}
-      {profile.firstName} {profile.lastName}
-    {:else}
-      @{profile.username}
-    {/if}
+    @{profile.username}
   </div>
   {#if profile.tagline}
     <div class="mt-2 text-sm font-medium text-gray-500 text-center">{profile.tagline}</div>
