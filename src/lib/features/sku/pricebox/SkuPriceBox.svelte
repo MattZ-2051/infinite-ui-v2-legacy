@@ -8,6 +8,7 @@
     getUpcomingListings,
     getLimitedAuctionCollector,
     getLowestProductListing,
+    getLowestUpcomingProductListing,
   } from '../sku.service';
   import { loadProduct } from '../../product/product.api';
   import FromCreator from './button/FromCreator.svelte';
@@ -42,8 +43,8 @@
   $: noSale = sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
   $: noCollectorSales = sku.activeProductListings?.length === 0 && sku.upcomingProductListings?.length === 0;
   $: ethSkuSale = sku?.currency === 'ETH' && sku.skuListings?.[0]?.saleType === 'fixed';
-  $: lowestActivePriceListing = getLowestProductListing(sku.activeProductListings);
-  $: lowestUpcomingPriceListing = getLowestProductListing(sku.upcomingProductListings);
+  $: lowestActivePriceListing = getLowestProductListing(sku);
+  $: lowestUpcomingPriceListing = getLowestUpcomingProductListing(sku);
   $: isActiveSale = lowestActivePriceListing?.saleType === 'fixed' && lowestActivePriceListing?.status === 'active';
   $: isActiveAuction =
     lowestActivePriceListing?.saleType === 'auction' && lowestActivePriceListing?.status === 'active';

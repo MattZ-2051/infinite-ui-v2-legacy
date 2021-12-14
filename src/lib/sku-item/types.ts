@@ -69,10 +69,19 @@ export type Sku = {
   nftSocialAssets?: SocialFileAsset[];
   minSkuPrice?: number;
   customNftTerms?: string;
-  minHighestBid?: number;
   initialBuyersFeePercentage: number;
   tenant?: string;
   currency?: 'USD' | 'ETH';
+  activeGiveawayListingsCounter?: number;
+  lowestSkuListingPrice?: number;
+  lowestProductListingPrice?: number;
+  minHighestBidSkuListing?: number;
+  minBidAuctionsNoBidsSkuListings?: number;
+  minPriceBuyNowSkuListings?: number;
+  minHighestBidProductListing?: number;
+  minBidAuctionsNoBidsProductListings?: number;
+  minPriceBuyNowProductListings?: number;
+  forSaleListingsCounter?: number;
 };
 
 export type Profile = {
@@ -101,9 +110,7 @@ export type Profile = {
   nftSocialAssets?: SocialFileAsset[];
   templateId?: string;
 };
-
 export type SaleType = 'giveaway' | 'fixed' | 'auction';
-
 export type Listing = {
   canceled?: boolean;
   price: number;
@@ -117,7 +124,7 @@ export type Listing = {
   _id: string;
   endDate: Date;
   minBid?: number;
-  minHighestBid?: number;
+  minHighestBid?: Bid;
   issuer: Partial<Profile>;
   createdAt: Date;
   updatedAt: Date;
@@ -141,7 +148,9 @@ export type ListingSalePayload = {
 export type Product = {
   serialNumber?: string;
   activeProductListings?: Listing[];
+  activeProductListing?: Listing;
   upcomingProductListings?: Listing[];
+  upcomingProductListing?: Listing;
   expiredProductListings?: Listing[];
   soldProductListings?: Listing[];
   redeemedStatus?: 'NA' | 'pending' | 'redeemed';

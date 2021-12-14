@@ -27,7 +27,7 @@
   $: activeListing = activeListings?.[0];
   $: skuPrice =
     activeListing?.saleType === 'auction'
-      ? Math.max(activeListing.minHighestBid || 0, activeListing.minBid)
+      ? Math.max(activeListing.highestBid?.bidAmt || 0, activeListing?.minBid)
       : activeListing?.price;
 
   const getAuctionLabelCreator = (saleType) => {

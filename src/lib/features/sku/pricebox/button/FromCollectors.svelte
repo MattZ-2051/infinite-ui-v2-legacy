@@ -28,7 +28,7 @@
 
   const minPrice =
     collectorListing?.saleType === 'auction'
-      ? Math.max(collectorListing?.minHighestBid || 0, collectorListing?.minBid)
+      ? Math.max(collectorListing?.highestBid?.bidAmt || 0, collectorListing?.minBid)
       : collectorListing?.price;
 
   const getAuctionLabelCollector = (saleType) => {

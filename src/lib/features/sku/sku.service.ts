@@ -26,11 +26,24 @@ export const getLimitedAuctionCollector = (sku: Sku, collectors: CollectorProduc
   }
 };
 
-export const getLowestProductListing = (listings: Listing[]): Listing | undefined => {
-  return listings.length > 0
-    ? listings?.reduce((previousListing, currentListing) => {
-        return (Math.max(previousListing.minHighestBid || 0, previousListing.minBid || 0) || previousListing.price) <
-          (Math.max(currentListing.minHighestBid || 0, currentListing.minBid || 0) || currentListing.price)
+export const getLowestProductListing = (sku: Sku): Listing | undefined => {
+  if (sku?.lowestProductListingPrice === sku?.minHighestBidProductListing) {
+    return sku?.activeProductListings.find((listing) => listing?.highestBid?.bidAmt === sku?.lowestProductListingPrice);
+  }
+  if (sku?.lowestProductListingPrice === sku?.minBidAuctionsNoBidsProductListings) {
+    return sku?.activeProductListings.find((listing) => listing?.minBid === sku?.lowestProductListingPrice);
+  }
+  if (sku?.lowestProductListingPrice === sku?.minPriceBuyNowProductListings) {
+    return sku?.activeProductListings.find((listing) => listing?.price === sku?.lowestProductListingPrice);
+  }
+};
+
+export const getLowestUpcomingProductListing = (sku: Sku): Listing | undefined => {
+  return sku?.upcomingProductListings.length > 0
+    ? sku?.upcomingProductListings?.reduce((previousListing, currentListing) => {
+        return (Math.max(previousListing?.highestBid?.bidAmt || 0, previousListing?.minBid || 0) ||
+          previousListing?.price) <
+          (Math.max(currentListing?.highestBid?.bidAmt || 0, currentListing?.minBid || 0) || currentListing?.price)
           ? previousListing
           : currentListing;
       })
