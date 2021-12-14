@@ -35,7 +35,7 @@
       status = 'transfer-success';
     } catch (error) {
       if (error.data?.appCode === 'TRANSFER_WITH_PENDING_TRANSACTIONS') {
-        titleMap['transfer-error'] = error.data?.message;
+        titleMap['transfer-error'] = 'This product has pending transactions';
       }
       status = 'transfer-error';
     }

@@ -22,7 +22,7 @@
       selectedUser = undefined;
       page = page_ || 1;
 
-      ({ data: users } = username ? await searchUsersFx({ username, page, perPage }) : { data: [] });
+      ({ data: users } = username ? await searchUsersFx({ username, page, perPage, skipTenant: true }) : { data: [] });
 
       if (users.length > 0) {
         selectUser(users[0]);

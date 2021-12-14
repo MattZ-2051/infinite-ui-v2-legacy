@@ -17,11 +17,13 @@ export const searchUsersFx = createEffect(
     username,
     page,
     perPage,
+    skipTenant,
   }: {
     username: string;
     page: number;
     perPage: number;
+    skipTenant?: boolean;
   }): Promise<{ data: Profile[]; total: number }> => {
-    return await getUsers({ username, page, perPage });
+    return await getUsers({ username, page, perPage, skipTenant });
   }
 );
