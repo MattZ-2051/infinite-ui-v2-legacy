@@ -18,6 +18,7 @@ export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: 
       onClick: {
         signIn: routes.signin,
       },
+      toastId: 'ORDER_ERROR_LOGIN',
     });
     return;
   }
