@@ -27,9 +27,7 @@
   async function showAuctionHistory(listingId: string) {
     openModal(AuctionHistoryModal, {
       product: $product,
-      listing:
-        $product.soldProductListings.find((listing) => listing._id === listingId) ||
-        $product.sku.soldSkuListings.find((listing) => listing._id === listingId),
+      listing: $product.soldProductListings.find((listing) => listing._id === listingId) || $product.listing,
     });
   }
 </script>
