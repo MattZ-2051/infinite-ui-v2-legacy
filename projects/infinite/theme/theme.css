@@ -63,7 +63,7 @@
 
   /* Menu */
   --menu-item-background-selected: #000000;
-  --menu-item-color: rgba(0, 0, 0, 0.5);
+  --menu-item-color: var(--menu-item-background-selected);
   --menu-item-color-selected: #ffffff;
 
   /* ButtonGroup */

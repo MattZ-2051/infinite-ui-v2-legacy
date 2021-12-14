@@ -1,7 +1,9 @@
 <script lang="ts">
-  import type { Link } from './types';
-  import { mdiCogOutline, mdiCreditCardOutline, mdiLogout } from '@mdi/js';
   import type { User } from '$lib/user/types';
+  import type { Link } from './types';
+  import { mdiLogout } from '@mdi/js';
+  import mdiCogOutline from '$lib/layout/header/assets/gear';
+  import mdiCreditCardOutline from '$lib/layout/header/assets/wallet';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
   import { Menu, MenuList, MenuTrigger, MenuItem } from '$ui/menu';
@@ -52,7 +54,7 @@
           <span class="truncate">{user.username}</span>
         </div>
       </MenuTrigger>
-      <MenuList slot="menu">
+      <MenuList slot="menu" class="sm:mt-4 font-medium text-sm">
         <MenuItem href={routes.account} class={$page.path === routes.account ? 'hidden' : ''}>
           <Icon path={mdiCogOutline} class="flex-shrink-0 float-left mr-3" />Account Settings
         </MenuItem>
