@@ -23,7 +23,7 @@
     <FilePreview item={activeItem} {fileType} />
   </div>
   <div class="flex flex-wrap w-full justify-left">
-    {#if items}
+    {#if items && items?.length > 1}
       {#each items as item}
         <div
           class="cursor-pointer hover:opacity-100 {activeItem === item ? '' : 'opacity-50'}"

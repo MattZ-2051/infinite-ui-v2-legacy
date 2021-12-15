@@ -121,10 +121,10 @@
 </div>
 
 <style lang="postcss">
-  @screen md {
+  @media screen and (min-width: 768px) and (max-height: 920px) {
     .sku-info-row {
-      padding-top: min(1.8vh, 1.25rem);
-      padding-bottom: min(1.8vh, 1.25rem);
+      padding-top: min(1.8vh, 1.5rem);
+      padding-bottom: min(1.8vh, 1.5rem);
     }
   }
 </style>

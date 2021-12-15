@@ -32,15 +32,15 @@
     <Gallery items={$sku.nftPublicAssets} />
   </div>
   <div slot="sticky-content" class="h-full sku-sticky-content">
-    <div class="sku-name-block flex flex-col px-4 md:px-8 gap-4 md:gap-8 mt-8 mb-8 md:mb-0">
+    <div class="sku-name-block flex flex-col px-4 md:px-10 lg:px-12 gap-4 md:gap-8 pt-8 mb-8 md:mb-0">
       <div class="name-info-wrapper flex flex-col gap-8">
-        <div class="text-gradient-primary text-3xl md:text-4xl font-medium section-title">{$sku.name}</div>
+        <header class="text-gradient-primary text-3xl md:text-4xl font-medium section-title">{$sku.name}</header>
         <SkuInfo sku={$sku} />
       </div>
     </div>
   </div>
   <SkuPriceBox slot="sticky-cta" sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
-  <div slot="tabs" class="px-4 pt-12 pd:pt-16 pb-4" style="min-height: 300px">
+  <div slot="tabs" class="px-4 md:px-12 pt-12 pd:pt-16 pb-4" style="min-height: 300px">
     <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
       <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-2xl">
         <Tab id="description">
@@ -83,14 +83,20 @@
 {/if}
 
 <style lang="postcss">
-  @screen md {
+  @media screen and (min-width: 768px) and (max-height: 920px) {
     .sku-name-block {
-      margin-top: min(5vh, 4rem);
+      padding-top: min(5vh, 4rem);
       margin-bottom: min(2.5vh, 2rem);
     }
 
     .name-info-wrapper {
       gap: min(2.5vh, 2rem);
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-height: 768px) {
+    .name-info-wrapper > header {
+      @apply text-3xl;
     }
   }
 </style>

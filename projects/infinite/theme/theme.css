@@ -14,6 +14,7 @@
   --edition-open-color: var(--default-color);
   --gradient-start-color: var(--default-color);
   --gradient-end-color: var(--default-color);
+  --header-height: 67px;
 
   /* Grayscale */
   --gray-50: rgba(255, 255, 255, 0.05);
@@ -152,7 +153,7 @@
   --separator-bg-color: rgba(0, 0, 0, 0.16);
 
   /* Footer */
-  --footer-bg-color: #ddf874;
+  --footer-bg-color: rgba(255, 255, 255, 0.95);
   --footer-color: rgba(0, 0, 0, 0.5);
   --footer-color-hover: #000000;
   --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
