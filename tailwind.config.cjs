@@ -76,6 +76,9 @@ module.exports = {
         10: '10',
         11: '11',
       },
+      gap: {
+        18: '4.5rem',
+      },
     },
   },
   variants: {

@@ -25,7 +25,7 @@
 </script>
 
 <ThemeContext id="header">
-  <header class="w-full flex flex-col">
+  <header>
     <div class="w-full h-full flex">
       {#if showSidebar}
         <div class="fixed top-0 right-0 left-0 bottom-0 z-40 md:hidden">
@@ -33,7 +33,7 @@
         </div>
       {/if}
       <div class="container links-container flex justify-between items-center py-3">
-        <a href={routes.index} aria-label="Home" class="flex gap-1 mr-2 sm:mr-3 items-end"><Logo /> </a>
+        <a href={routes.index} aria-label="Home" class="self-end flex gap-1 mr-2 sm:mr-3 items-end"><Logo /> </a>
         <slot name="support" klass="text-current ml-auto mr-3 sm:mr-5 md:hidden" size={1.25} />
         <div class="flex md:hidden">
           {#if $$slots.credits}
@@ -47,7 +47,7 @@
             class="md:hidden text-default"
           />
         </div>
-        <div class="hidden md:flex gap-1 md:gap-5 lg:gap-12 md:items-center min-w-0">
+        <div class="hidden md:flex gap-1 md:gap-2 lg:gap-12 md:items-center min-w-0">
           <Links {links} {user} />
           <slot name="support" klass="header-link" size="1.25rem" />
         </div>

@@ -30,8 +30,8 @@
       <FilePreview item={sku.nftPublicAssets?.[0]} preview />
       {#if activeListing?.endDate}
         <figcaption
-          class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold rounded-md"
-          style="background-color: var(--sku-item-bg-color); color: var(--default-color)"
+          class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold bg-white bg-opacity-80"
+          style="color: var(--default-color)"
         >
           <span class="opacity-50">Ends</span>
           <span>{formatDate(activeListing.endDate)}</span>
@@ -39,10 +39,12 @@
       {/if}
     </figure>
     <div class="info mx-6 space-y-4">
-      <section class="text-gray-800 flex flex-row items-center flex-wrap justify-between">
-        <TalentLink profile={sku.issuer} hideImage />
+      <section class="text-gray-500 flex flex-row items-center flex-wrap justify-between">
+        <div class="issuer-link">
+          <TalentLink profile={sku.issuer} hideImage />
+        </div>
         {#if sku.redeemable}
-          <div class="flex flex-row items-center space-x-2">
+          <div class="flex flex-row items-center space-x-2 text-gray-700 font-normal">
             <IconRedeem size={24}>Redeemable</IconRedeem>
           </div>
         {/if}
@@ -51,11 +53,11 @@
         <div class="mb-4 flex text-2xl items-center gap-2 justify-between">
           <h2 class="line-clamp-2">{sku.name}</h2>
           {#if product?.serialNumber}
-            <div>#{product.serialNumber}</div>
+            <div class="font-light">#{product.serialNumber}</div>
           {/if}
         </div>
       </header>
-      <div class="flex flex-row items-center space-x-2">
+      <div class="flex flex-row items-center space-x-2 font-normal text-sm">
         {#if currency === 'USD'}
           <Icon path={hedera} size="1em" tooltip="HTS NFT minted on Hedera" class="inline align-baseline" />
         {:else if currency === 'ETH'}
@@ -88,5 +90,10 @@
   }
   .item-link {
     color: var(--sku-item-bg-color, var(--default-color));
+  }
+  .issuer-link {
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: uppercase;
   }
 </style>

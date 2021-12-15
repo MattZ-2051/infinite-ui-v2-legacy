@@ -11,3 +11,11 @@ a.sticky-cta:hover,
 button.sticky-cta:hover {
   background-color: #ddf874;
 }
+
+.item-link {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.5rem;
+  padding: 0.32rem;
+  background-color: #000000;
+}

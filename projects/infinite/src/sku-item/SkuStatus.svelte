@@ -22,7 +22,7 @@
   {:else if tileInfo.status === 'no-sale'}
     <span class:text-gray-500={!productStatus}>Not for sale</span>
   {:else if tileInfo.status === 'active'}
-    <span class:text-gray-500={!productStatus}>{tileInfo.saleTypeTitle}</span>
+    <span class="text-gray-500 mr-2">{tileInfo.saleTypeTitle}</span>
     {#if !forProductStatus}
       <span class="text-default">
         {formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice, { currency: sku.currency })}

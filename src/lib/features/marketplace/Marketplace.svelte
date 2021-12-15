@@ -58,20 +58,20 @@
 
 <svelte:window bind:scrollY />
 
-<div class="container flex gap-8 flex-col pt-6 md:grid marketplace-container">
-  <div class={`${showFilters && !$media.md ? 'hidden' : 'flex'} md:flex items-center justify-between`}>
+<div class="container lg:gap-y-1 lg:gap-18 flex gap-8 flex-col pt-6 lg:grid marketplace-container">
+  <div class={`${showFilters && !$media.md ? 'hidden' : 'flex'} lg:flex items-center justify-between`}>
     <h1 class="text-4xl title">Marketplace</h1>
     <button
       type="button"
       on:click={() => (showFilters = true)}
-      class="w-10 h-10 button-filter rounded-full md:hidden flex items-center justify-center"
+      class="w-10 h-10 button-filter rounded-full lg:hidden flex items-center justify-center"
       aria-label="Show filters"
     >
       <Icon path={mdiTuneVariant} color="black" />
     </button>
   </div>
-  <div class="gap-2 {showFilters && !$media.md ? 'hidden' : 'flex'}">
-    <div class="flex flex-wrap items-center justify-end md:justify-between w-full">
+  <div class="gap-2 {showFilters && !$media.lg ? 'hidden' : 'flex'}">
+    <div class="flex flex-wrap items-center justify-end lg:justify-between w-full">
       <div class="py-3 flex-1">
         <Search on:input={handleInput} value={$page.query.get('search') || ''} />
       </div>
@@ -80,12 +80,12 @@
       </div>
     </div>
   </div>
-  <div class:hidden={!showFilters} class="md:block">
+  <div class:hidden={!showFilters} class="lg:block">
     <Filters {categories} {creators} {series} {total} {maxPrice} on:close={closeFilters} />
   </div>
   <div class="inline" class:opacity-40={$loading}>
     {#if !$loading && skus.length === 0}
-      <NoResults class="mt-4 md:mt-12" />
+      <NoResults class="mt-4 lg:mt-12" />
     {:else}
       <SkuItemGrid {skus} maxCols={3} />
       <Pagination page={p} {total} {perPage} class="my-8 flex justify-end" on:change={gotoPage} />

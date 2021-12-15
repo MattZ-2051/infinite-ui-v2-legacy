@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --container-max-width: 1536px;
+  --container-max-width: 1920px;
   --product-tabs-bg: #1a1a1a;
 }
 
@@ -45,9 +45,16 @@ input[type='number'] {
   .container {
     width: 100%;
     max-width: var(--container-max-width);
-    padding: 1rem;
-    margin-left: auto;
+    padding: 1rem 1.5rem;
     margin-right: auto;
+    margin-left: auto;
+  }
+
+  @screen lg {
+    .container {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
   }
 }
 

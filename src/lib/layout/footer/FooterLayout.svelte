@@ -9,11 +9,13 @@
       <div class="flex flex-wrap items-center justify-center gap-4 md:gap-4">
         <slot name="start" />
       </div>
-      <span class="px-4 flex flex-wrap gap-1 justify-center text-center">
-        <slot name="copyright" />
-      </span>
-      <div class="flex flex-wrap items-center justify-center text-center gap-x-8 gap-y-4 md:gap-5">
-        <slot name="end" />
+      <div class="lg:flex-row flex flex-col items-center px-4">
+        <span class="pb-4 lg:pb-0 px-4 flex flex-wrap gap-1 justify-center text-center">
+          <slot name="copyright" />
+        </span>
+        <div class="flex flex-wrap items-center justify-center text-center gap-x-8 gap-y-4 md:gap-5">
+          <slot name="end" />
+        </div>
       </div>
     </div>
   </footer>

@@ -247,7 +247,7 @@
               endDate: '',
             },
           }}
-          class="text-gray-500 hover:text-gray-400 flex gap-2 items-center py-3 cursor-pointer text-lg"
+          class="text-gray-500 hover:text-gray-400 flex gap-2 items-center py-1 cursor-pointer text-lg"
           class:active={status ? $page.query.get('mode') === status : !$page.query.get('mode')}
         >
           <span class="label">{label}</span>

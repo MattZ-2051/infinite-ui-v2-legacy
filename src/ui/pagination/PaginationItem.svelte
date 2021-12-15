@@ -3,7 +3,7 @@
   export let disabled = false;
 </script>
 
-<li class="text-lg w-8 h-8" class:disabled class:active>
+<li class="text-base w-8 h-8" class:disabled class:active>
   <button
     type="button"
     {disabled}
