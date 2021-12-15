@@ -56,7 +56,11 @@
         Withdrawable Balance <span class="font-semibold">{formatCurrency(withdrawableBalance, { currency })}</span>
       </div>
       <div class="text-black-opacity-50 text-base">
-        (The withdrawable amount excludes pending transactions and credit card payments less than 30 days old.)
+        {#if currency === 'ETH'}
+          (The withdrawable amount excludes pending transactions.)
+        {:else}
+          (The withdrawable amount excludes pending transactions and credit card payments less than 30 days old.)
+        {/if}
       </div>
       <div class="mt-8">
         <div class="text-black-opacity-50 text-base mb-4">Enter the amount you would like to withdraw</div>
