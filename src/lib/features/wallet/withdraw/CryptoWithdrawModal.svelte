@@ -25,18 +25,20 @@
   };
 
   const onConfirm = async () => {
+    const toastId = 'INVALID_CRYPTO_WITHDRAW';
+
     if (!amount || amount <= 0) {
-      toast.danger(`Please, provide a valid amount.`);
+      toast.danger(`Please enter an amount > ${currencySymbol}0.`, { toastId });
       return;
     }
 
     if (amount > withdrawableBalance) {
-      toast.danger(`The amount can’t be higher than the widthrawable balance.`);
+      toast.danger(`The amount can’t be higher than the widthrawable balance.`, { toastId });
       return;
     }
 
     if (!isEthAddress(targetAddress)) {
-      toast.danger('Please enter a valid ERC20 address.');
+      toast.danger('Please enter a valid ERC20 address.', { toastId });
       return;
     }
 

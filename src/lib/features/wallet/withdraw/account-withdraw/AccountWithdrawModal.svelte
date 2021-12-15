@@ -30,13 +30,15 @@
   };
 
   async function onConfirm() {
+    const toastId = 'INVALID_WITHDRAW';
+
     if (!amount || amount <= 0) {
-      toast.danger(`Please, provide a valid amount.`);
+      toast.danger(`Please enter an amount > $0.`, { toastId });
       return;
     }
 
     if (amount > withdrawableAmount) {
-      toast.danger(`Cannot withdraw more than ${formatCurrency(withdrawableAmount)}.`);
+      toast.danger(`Cannot withdraw more than ${formatCurrency(withdrawableAmount)}.`, { toastId });
       return;
     }
 
