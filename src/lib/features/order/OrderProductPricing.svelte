@@ -22,7 +22,7 @@
 <hr class="h-px w-full my-4" />
 <div class="grid grid-cols-2 w-full">
   <div class="font-medium">Total:</div>
-  <div class="text-right font-semibold">
+  <div class="text-right text-lg">
     {formatCurrency(priceWFee, { currency })}
   </div>
 </div>

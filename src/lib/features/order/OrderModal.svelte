@@ -132,14 +132,15 @@
   } else if (result?.status === 'pending' || purchasing) {
     title = `We're processing your order!`;
   } else if (insufficientFunds) {
-    title = 'Whoops, insufficient funds!';
+    title = 'Insufficient funds!';
   } else {
     title = 'Complete your purchase:';
   }
 </script>
 
 {#if isOpen}
-  <Modal {title} class="max-w-md">
+  <Modal class="max-w-md">
+    <svelte:fragment slot="title"><span class="font-medium text-2xl">{title}</span></svelte:fragment>
     <div class="px-10 flex flex-col gap-6 pb-10">
       {#if _sku.currency === 'ETH'}
         <div class="text-2xl font-normal pr-8">1. ETH address destination</div>
@@ -182,9 +183,9 @@
         {#if !result}
           <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} />
         {/if}
-        <div class={`flex justify-between ${insufficientFunds ? 'text-red-500' : 'text-green-500'}`}>
+        <div class={`flex items-center justify-between pt-2 ${insufficientFunds ? 'text-red-500' : 'text-green-500'}`}>
           <span> Your current balance: </span>
-          <span>
+          <span class="flex text-lg">
             {formatCurrency(userBalance, { currency: _sku.currency })}
           </span>
         </div>

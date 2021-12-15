@@ -37,7 +37,7 @@
 {#if isOpen}
   <Modal {persistent} class="max-w-md">
     <svelte:fragment slot="title"><span class="text-2xl text-left w-full">{title}</span></svelte:fragment>
-    <div class="px-10 py-5">
+    <div class="px-10 py-4">
       <slot name="message">
         {#if typeof message === 'string'}
           {@html message}
@@ -46,9 +46,21 @@
         {/if}
       </slot>
     </div>
-    <div slot="footer" class="flex flex-col gap-4">
-      <Button variant="brand" on:click={() => onSelect(true)} {disabled}>{labels?.confirm}</Button>
-      <Button variant="outline-brand" on:click={() => onSelect(false)} {disabled}>{labels?.cancel}</Button>
+    <div slot="footer" class="flex flex-col gap-8 text-2xl font-normal">
+      <Button
+        variant="brand"
+        style="height: 4rem; border-radius: var(--button-confirm-modal-radius)"
+        on:click={() => onSelect(true)}
+        {disabled}>{labels?.confirm}</Button
+      >
+      <Button
+        variant="outline-brand"
+        style="height: 4rem; border-radius: var(--button-confirm-modal-radius)"
+        on:click={() => onSelect(false)}
+        {disabled}
+      >
+        {labels?.cancel}
+      </Button>
     </div>
   </Modal>
 {/if}

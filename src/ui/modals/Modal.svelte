@@ -1,9 +1,9 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
-  import { mdiClose } from '@mdi/js';
+  import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import trapFocus from '$util/trapFocus';
-  import ThemeContext from '$lib/theme/ThemeContext.svelte';
+  import closeIcon from './assets/close';
   import { closeModal } from './store';
 
   export let title = '';
@@ -70,9 +70,10 @@
             on:click={() => requestClose('close')}
             data-style="close"
             title="Close"
-            class="absolute right-10 top-8 text-black py-1 inline-flex items-center justify-center"
-            ><Icon path={mdiClose} /></button
+            class="absolute right-10 top-7 text-black inline-flex items-center justify-center"
           >
+            <Icon path={closeIcon} size={1.4} />
+          </button>
         {/if}
         {#if $$slots.header || $$slots.title || title || $$slots.icon}
           <slot name="header">

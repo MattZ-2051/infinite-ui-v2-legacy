@@ -58,6 +58,7 @@
   --button-outline-brand-bg-color-hover: #000000;
   --button-outline-brand-border-color-hover: #5e29ff;
   --button-marketplace-filter-color: #f0f0f0;
+  --button-confirm-modal-radius: 32px;
 
   /* ButtonGroup */
   --button-group-color-hover: var(--default-color);

@@ -23,7 +23,7 @@
   onConfirm={handleNotify}
   {isOpen}
 >
-  <div slot="title" class="text-2xl">
+  <div slot="title" class="text-3xl">
     <span class="flex items-center gap-2"
       ><Icon path={mdiBell} /><span>
         {#if !$subscription}
@@ -34,7 +34,7 @@
       </span></span
     >
   </div>
-  <div slot="message" class="flex flex-col items-center py-5 gray-border font-semibold mb-10">
+  <div slot="message" class="flex flex-col items-center gray-border font-medium">
     <div>
       {#if !$subscription}
         <span class="text-gray-500">Stay in the loop on all exclusive releases and updates from</span>
