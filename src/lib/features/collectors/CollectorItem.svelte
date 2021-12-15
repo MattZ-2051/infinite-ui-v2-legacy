@@ -14,7 +14,10 @@
 </script>
 
 <a href={routes.product(collector._id)}>
-  <div class="flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 py-4">
+  <div
+    class="flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 p-4 md:px-8"
+    style="background-color: var(--collector-item-bg)"
+  >
     <div class="flex gap-3 md:gap-5 mr-auto">
       {#if collector?.owner?.profilePhotoUrl}
         <img

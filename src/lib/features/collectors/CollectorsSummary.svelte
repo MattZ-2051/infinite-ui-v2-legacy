@@ -68,7 +68,7 @@
   }
 </script>
 
-<div class="flex flex-col md:flex-row justify-between w-full items-center gap-8 pb-10">
+<div class="flex flex-col md:flex-row justify-between w-full items-center gap-8 px-4 md:px-8 pb-10">
   <div class="flex w-full">
     <div class="flex-1">
       <Search placeholder="Search an owner" value={search} on:input={handleInput} />
@@ -90,4 +90,4 @@
     <div class="no-results">No collector editions found</div>
   {/each}
 </div>
-<Pagination {page} {total} {perPage} class="flex justify-end my-5" on:change={gotoPage} />
+<Pagination {page} {total} {perPage} class="flex justify-end my-5 pr-4 md:pr-8" on:change={gotoPage} />

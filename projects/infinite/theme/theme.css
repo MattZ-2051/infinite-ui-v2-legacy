@@ -46,6 +46,10 @@
   /* SkuItem */
   --sku-item-bg-color: var(--bg-color);
 
+  /* Collectors view */
+  --collectors-content-bg: rgba(255, 255, 255, 0.05);
+  --collector-item-bg: rgba(255, 255, 255, 0.1);
+
   /* Button */
   --button-padding: 13px 24px;
   --button-border-radius: 0;
