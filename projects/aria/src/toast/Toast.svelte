@@ -13,8 +13,9 @@
   let:close
   let:showProgressBar
   let:progress
+  let:classes
 >
-  <div class="shadow relative toast toast-{severity}">
+  <div class="shadow relative toast toast-{severity} {classes}">
     <div class="container flex items-center justify-between">
       <div class="toast-message" on:click={onMessageClick}>{@html message}</div>
       {#if closeable}
