@@ -19,8 +19,8 @@
     username: yup
       .string()
       .required('Username is required.')
-      .min(3, 'Username is too short.')
-      .max(18, 'Username is too long.')
+      .min(3, 'Username must be at least 3 characters long.')
+      .max(18, 'Username must be shorter than 18 characters.')
       .matches(/^[\w.-]*$/, 'Only letters, digits, dashes (-), and underscores (_) are allowed.'),
     tagline: yup.string().max(150, 'About me must be at most 150 characters.'),
   });
