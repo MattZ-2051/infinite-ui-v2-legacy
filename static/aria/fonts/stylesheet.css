@@ -117,7 +117,7 @@
 
 /* almarena-bold */
 @font-face {
-  font-family: 'AlmarenaDisplay', sans-serif;
+  font-family: 'Almarena Display Bold';
   font-style: normal;
   font-weight: 700;
   src: url('Almarena/AlmarenaDisplayBold.eot'); /* IE9 Compat Modes */
@@ -128,9 +128,9 @@
        url('Almarena/AlmarenaDisplayBold.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
-/* almarena-bold */
+/* almarena-regular */
 @font-face {
-  font-family: 'AlmarenaDisplay', sans-serif;
+  font-family: 'Almarena Display Regular';
   font-style: normal;
   font-weight: 400;
   src: url('Almarena/AlmarenaDisplayRegular.eot'); /* IE9 Compat Modes */

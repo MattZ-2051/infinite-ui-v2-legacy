@@ -41,6 +41,48 @@
     type="font/woff2"
     crossorigin="anonymous"
   />
+  <link
+    rel="preload"
+    as="font"
+    href="/fonts/Space-Mono/SpaceMono-Regular.woff2"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    as="font"
+    href="/fonts/Space-Mono/SpaceMono-Bold.woff2"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    as="font"
+    href="/fonts/Space-Mono/SpaceMono-BoldItalic.woff2"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    as="font"
+    href="/fonts/Space-Mono/SpaceMono-Italic.woff2"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    as="font"
+    href="/fonts/Almarena/AlmarenaDisplayBold.woff2"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    as="font"
+    href="/fonts/Almarena/AlmarenaDisplayRegular.woff2"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
   <link rel="stylesheet" href="/fonts/stylesheet.css" />
   <script type="text/javascript" src={import.meta.env.VITE_SALESFORCE_BEACON} async></script>
   {@html gtag}
