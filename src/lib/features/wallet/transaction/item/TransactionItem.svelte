@@ -20,9 +20,15 @@
 
     switch (type) {
       case 'royalty_fee':
-        return `+${formatCurrency(transactionData.cost?.royaltyFee)}`;
+        return `+${formatCurrency(
+          transactionData.cost?.royaltyFee,
+          transaction.transactionData.cost?.currency === 'ETH' ? { currency: 'ETH' } : {}
+        )}`;
       case 'sale':
-        return `+${formatCurrency(transactionData.cost?.finalPayout)}`;
+        return `+${formatCurrency(
+          transactionData.cost?.finalPayout,
+          transaction.transactionData.cost?.currency === 'ETH' ? { currency: 'ETH' } : {}
+        )}`;
       case 'deposit':
         return `${depositAmount}`;
       case 'purchase':
