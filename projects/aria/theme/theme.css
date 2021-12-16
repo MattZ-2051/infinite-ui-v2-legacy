@@ -114,7 +114,7 @@
   --credit-card-background-color: theme('colors.gray.200');
 
   /* Titles */
-  --title-font-family: Almarena Display Bold;
+  --title-font-family: Almarena Display Regular;
   --title-text-transform: uppercase;
 }
 
@@ -163,6 +163,6 @@
   --button-outline-brand-border-color-hover: #5e29ff;
 
   /* Titles */
-  --title-font-family: Almarena Display Bold;
+  --title-font-family: Almarena Display Regular;
   --title-text-transform: uppercase;
 }
