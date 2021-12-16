@@ -28,7 +28,7 @@
     const toastId = 'INVALID_CRYPTO_WITHDRAW';
 
     if (!amount || amount <= 0) {
-      toast.danger(`Please enter an amount > ${currencySymbol}0.`, { toastId });
+      toast.danger(`Please enter an amount > ${formatCurrency(0, { currency })}`, { toastId });
       return;
     }
 
