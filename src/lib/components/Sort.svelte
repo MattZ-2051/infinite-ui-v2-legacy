@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-  import { mdiChevronDown, mdiSortVariant, mdiTuneVariant } from '@mdi/js';
+  import { mdiChevronDown, mdiChevronUp, mdiSortVariant, mdiTuneVariant } from '@mdi/js';
   import { createEventDispatcher } from 'svelte';
   import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
   import Icon from '$ui/icon/Icon.svelte';
@@ -36,22 +36,24 @@
 </script>
 
 <Menu placement="bottom-end">
-  <MenuTrigger slot="trigger" class="gap-2" data-testid="sort-container" aria-label={label}>
-    <div class="flex-col items-end hidden lg:flex">
-      <div class="text-gray-500 text-sm whitespace-nowrap">{label}</div>
-      <div class="whitespace-nowrap">
-        {selected.name}
-        <Icon class="inline" path={mdiChevronDown} />
+  <svelte:fragment slot="trigger">
+    <MenuTrigger class="gap-2" data-testid="sort-container" aria-label={label} let:visible>
+      <div class="flex-col items-end hidden lg:flex">
+        <div class="text-gray-500 text-sm whitespace-nowrap">{label}</div>
+        <div class="whitespace-nowrap">
+          {selected.name}
+          <Icon class="inline" path={visible ? mdiChevronUp : mdiChevronDown} />
+        </div>
       </div>
-    </div>
-    <div class="lg:hidden rounded-full bg-default text-inverse">
-      {#if iconType === 'sort'}
-        <Icon path={mdiSortVariant} size="1.5" class="p-1 rounded-full" />
-      {:else}
-        <Icon path={mdiTuneVariant} size="1.5" class="p-1 rounded-full" />
-      {/if}
-    </div>
-  </MenuTrigger>
+      <div class="lg:hidden rounded-full bg-default text-inverse">
+        {#if iconType === 'sort'}
+          <Icon path={mdiSortVariant} size="1.5" class="p-1 rounded-full" />
+        {:else}
+          <Icon path={mdiTuneVariant} size="1.5" class="p-1 rounded-full" />
+        {/if}
+      </div>
+    </MenuTrigger>
+  </svelte:fragment>
 
   <MenuList slot="menu">
     {#each sortOptions as option (option.value)}

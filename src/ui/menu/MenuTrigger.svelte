@@ -40,7 +40,7 @@
   {...$$restProps}
   aria-label="Menu"
 >
-  <slot />
+  <slot visible={$visibleStore.visible} />
 </button>
 
 <style lang="postcss">

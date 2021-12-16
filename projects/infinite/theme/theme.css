@@ -70,6 +70,7 @@
   --menu-item-background-selected: #000000;
   --menu-item-color: var(--menu-item-background-selected);
   --menu-item-color-selected: #ffffff;
+  --menu-item-border: 1px solid #373737;
 
   /* ButtonGroup */
   --button-group-color-hover: #000000;

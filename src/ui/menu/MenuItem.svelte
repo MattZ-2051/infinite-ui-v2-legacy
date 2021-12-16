@@ -76,4 +76,11 @@
     background: var(--menu-item-background-selected);
     color: var(--menu-item-color-selected);
   }
+
+  li {
+    border: var(--menu-item-border, none);
+  }
+  li:not(:nth-of-type(1)) {
+    border-top: none;
+  }
 </style>

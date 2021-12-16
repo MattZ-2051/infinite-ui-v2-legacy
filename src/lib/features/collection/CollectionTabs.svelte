@@ -86,12 +86,12 @@
     </Tab>
     <Tab id="NFTs">
       {#if $productsTotal === 0}
-        <div class="text-gray-500 text-center mt-12 text-2xl space-y-12">
+        <div class="text-gray-500 text-center mt-12 text-lg space-y-12">
           <div>
             <p>You don’t have any collectibles yet.</p>
             <p>Start curating your collection today!</p>
           </div>
-          <Button variant="brand" href={routes.marketplace}>Explore the Marketplace</Button>
+          <Button variant="brand" style="padding: 13px 3rem" href={routes.marketplace}>Explore the Marketplace</Button>
         </div>
       {:else if $productsTotal === null}
         <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
