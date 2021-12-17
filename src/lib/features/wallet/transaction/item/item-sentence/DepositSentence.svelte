@@ -11,7 +11,7 @@
 
 {#if isEth}
   <span> {formatCurrency(deposit.amount, { currency: deposit?.balanceCurrency })} </span>
-  added to your balance
+  Added to your balance
 {:else if deposit.type === 'cc'}
   {status === 'error' ? 'You tried to add' : 'You added'}
   funds from your
@@ -31,7 +31,7 @@
     {(deposit?.circleType ?? deposit.type).toUpperCase()}
   </span>
 {:else}
-  funds by depositing
+  Funds by depositing
   <span> {formatCurrency(+deposit.amount, { currency: deposit?.balanceCurrency })} </span>
   using Coinbase
 {/if}

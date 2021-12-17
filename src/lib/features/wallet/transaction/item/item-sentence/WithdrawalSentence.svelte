@@ -10,6 +10,6 @@
 {:else if withdrawType === 'eth'}
   ETH to wallet address
 {:else}
-  funds to bank {transaction.transactionData.withdraw.institution_name} and account ending in
+  Funds to bank {transaction.transactionData.withdraw.institution_name} and account ending in
   <span>{transaction.transactionData.withdraw.ach_number}</span>
 {/if}
