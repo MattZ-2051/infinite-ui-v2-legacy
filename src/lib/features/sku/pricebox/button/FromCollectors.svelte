@@ -20,8 +20,8 @@
   export let sku: Sku;
   export let collectorListing: Listing;
 
-  const isUniqueAuction = sku?.maxSupply === 1 && sku?.issuer?._id === collectorListing?.issuer?._id;
-  const isUniqueProductListing = sku?.countProductListings === 1 && sku?.circulatingSupply === 1;
+  const isUniqueAuction = sku?.activeAuctionProductListingsCounter === 1;
+  const isUniqueProductListing = sku?.activeBuyNowProductListingsCounter === 1;
   const href = isUniqueProductListing
     ? routes.product(collectorListing.product)
     : routes.collectors(sku._id, '?saleType=all');
@@ -38,7 +38,7 @@
 
       return existsBid ? 'Latest bid' : 'Minimum bid';
     }
-    return 'Lowest listing price';
+    return isUniqueProductListing ? 'Listing Price' : 'Lowest listing price';
   };
 </script>
 

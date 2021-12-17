@@ -5,17 +5,20 @@ const getActiveTileTitle = (
   saleType: SaleType,
   product?: boolean,
   simpleTitle?: boolean,
-  existsBids?: boolean
+  existsBids?: boolean,
+  isUniqueListing?: boolean
 ): string => {
   switch (saleType) {
     case 'giveaway':
       return simpleTitle ? 'Active Giveaway' : 'Active Giveaway:';
     case 'fixed':
       if (simpleTitle) return 'Active Sale';
-      return product ? 'Selling For:' : 'Listing Price:';
+      if (product) return 'Selling For:';
+      return isUniqueListing ? 'Listing Price' : 'Lowest Listing Price:';
     case 'auction':
       if (simpleTitle) return 'Active Auction';
-      else return existsBids ? 'Latest Bid:' : 'Minimum Bid:';
+      if (!isUniqueListing) return 'Lowest bid';
+      return existsBids ? 'Latest Bid:' : 'Minimum Bid:';
     default:
       return '';
   }
@@ -25,6 +28,19 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
   let saleTypeTitle: string;
   let minPrice: number;
   const minStartDate = sku?.minStartDate;
+
+  const isUniqueBuyNowListing: boolean =
+    !sku?.activeAuctionSkuListingsCounter &&
+    !sku?.activeAuctionProductListingsCounter &&
+    !sku?.activeGiveawayListingsCounter &&
+    sku?.activeBuyNowSkuListingsCounter + sku?.activeBuyNowProductListingsCounter === 1;
+
+  const isUniqueAuction: boolean =
+    !sku?.activeBuyNowSkuListingsCounter &&
+    !sku?.activeBuyNowProductListingsCounter &&
+    !sku?.activeGiveawayListingsCounter &&
+    sku?.activeAuctionSkuListingsCounter + sku?.activeAuctionProductListingsCounter === 1;
+
   if (sku?.forSaleListingsCounter > 0) {
     if (sku?.activeGiveawayListingsCounter > 0) {
       minPrice = 0;
@@ -33,25 +49,25 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
       if (sku?.minPrice === sku?.lowestProductListingPrice) {
         minPrice = sku?.lowestProductListingPrice;
         if (sku?.lowestProductListingPrice === sku?.minHighestBidProductListing) {
-          saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, true);
+          saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, true, isUniqueAuction);
         }
         if (sku?.lowestProductListingPrice === sku?.minBidAuctionsNoBidsProductListings) {
-          saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, false);
+          saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, false, isUniqueAuction);
         }
         if (sku?.lowestProductListingPrice === sku?.minPriceBuyNowProductListings) {
-          saleTypeTitle = getActiveTileTitle('fixed', undefined, simpleTitle);
+          saleTypeTitle = getActiveTileTitle('fixed', undefined, simpleTitle, undefined, isUniqueBuyNowListing);
         }
       }
       if (sku?.minPrice === sku?.lowestSkuListingPrice) {
         minPrice = sku?.lowestSkuListingPrice;
         if (sku?.lowestSkuListingPrice === sku?.minHighestBidSkuListing) {
-          saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, true);
+          saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, true, isUniqueAuction);
         }
         if (sku?.lowestSkuListingPrice === sku?.minBidAuctionsNoBidsSkuListings) {
-          saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, false);
+          saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, false, isUniqueAuction);
         }
         if (sku?.lowestSkuListingPrice === sku?.minPriceBuyNowSkuListings) {
-          saleTypeTitle = getActiveTileTitle('fixed', undefined, simpleTitle);
+          saleTypeTitle = getActiveTileTitle('fixed', undefined, simpleTitle, undefined, isUniqueBuyNowListing);
         }
       }
     }

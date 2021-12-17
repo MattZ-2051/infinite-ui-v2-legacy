@@ -82,6 +82,10 @@ export type Sku = {
   minBidAuctionsNoBidsProductListings?: number;
   minPriceBuyNowProductListings?: number;
   forSaleListingsCounter?: number;
+  activeAuctionProductListingsCounter?: number;
+  activeBuyNowProductListingsCounter?: number;
+  activeAuctionSkuListingsCounter?: number;
+  activeBuyNowSkuListingsCounter?: number;
 };
 
 export type Profile = {
