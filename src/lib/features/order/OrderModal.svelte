@@ -33,13 +33,14 @@
   let acceptedTerms = false;
   let acceptedTermsNft = false;
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
+  const LOW_KYC_LVL_DEPOSIT_LIMIT_USD = import.meta.env?.VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD;
 
   async function submitOrder() {
     if ($wallet.kycRequired) {
       return toast.danger(
         `Your wallet balance is currently >= ${formatCurrency(
-          10_000
-        )} USD, therefore, you will not be able to make deposits, withdrawals, purchases, or bids until you complete KYC level 2.`
+          LOW_KYC_LVL_DEPOSIT_LIMIT_USD
+        )}, therefore, you will not be able to make deposits, withdrawals, purchases, or bids until you complete KYC level 2.`
       );
     }
     if (!acceptedTerms || (_sku?.customNftTerms && !acceptedTermsNft)) {

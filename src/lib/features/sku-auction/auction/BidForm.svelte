@@ -20,7 +20,7 @@
   export let fee: number;
 
   const dispatch = createEventDispatcher();
-
+  const LOW_KYC_LVL_DEPOSIT_LIMIT_USD = import.meta.env?.VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD;
   loadWalletFx();
 
   $: acceptedBidPrice = maxPlacedBid ? new Big(maxPlacedBid).add(listing.auctionBidIncrement) : new Big(listing.minBid);
@@ -36,8 +36,8 @@
       if ($wallet.kycRequired) {
         return toast.danger(
           `Your wallet balance is currently >= ${formatCurrency(
-            10_000
-          )} USD, therefore, you will not be able to make deposits, withdrawals, purchases, or bids until you complete KYC level 2.`
+            LOW_KYC_LVL_DEPOSIT_LIMIT_USD
+          )}, therefore, you will not be able to make deposits, withdrawals, purchases, or bids until you complete KYC level 2.`
         );
       }
 
