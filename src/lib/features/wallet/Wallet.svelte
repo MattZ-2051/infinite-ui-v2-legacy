@@ -156,7 +156,9 @@
           availableEthBalance={$wallet?.balanceInfo.find((balanceInfo) => balanceInfo.currency === 'ETH').totalBalance}
           currencyType={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'ETH').currency}
           helpText={'Your ETH balance can only be used for purchasing NFTs priced in ETH.'}
-          showWithdrawableBalance={false}
+          withdrawableBalance={$wallet?.balanceInfo.find((withdrawalInfo) => withdrawalInfo.currency === 'ETH')
+            .withdrawableBalance}
+          showWithdrawableBalance={true}
         />
         <EthUsdWalletBalance
           usdBalance={$wallet?.balance.find((balanceInfo) => balanceInfo.currency === 'USD').amount}
