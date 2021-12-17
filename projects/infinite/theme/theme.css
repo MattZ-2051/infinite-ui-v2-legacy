@@ -4,7 +4,7 @@
   --default-color: #ffffff;
   --inverse-color: #000000;
   --bg-color: #000000;
-  --primary-color: #ffffff;
+  --primary-color: rgba(255, 255, 255, 0.1);
   --link-color: var(--default-color);
   --no-results-link-color: var(--default-color);
   --separator-bg-color: var(--gray-100);

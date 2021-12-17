@@ -35,6 +35,6 @@
     </AccordionGroup>
     <Pagination total={$myTransactionsTotal} page={p} class="mt-4 flex justify-end" on:change={gotoPage} />
   {:else if $myTransactionsTotal === 0 && !$loading}
-    <div class="no-results">No transactions found</div>
+    <div class="no-results font-normal text-base">No transactions found</div>
   {/if}
 </div>

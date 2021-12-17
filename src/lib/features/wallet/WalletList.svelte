@@ -53,8 +53,6 @@
   defaultSelectedId={tab}
   itemClass="text-xl lg:text-2xl items-center"
   on:select={changeTab}
-  --tab-border-color="transparent"
-  --tab-border-color-active="transparent"
 >
   <Tab id="transactions"><TransactionList /></Tab>
   <Tab id="bids"><BidList /></Tab>

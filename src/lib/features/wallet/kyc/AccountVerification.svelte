@@ -43,8 +43,8 @@
     {/if}
   </div>
   {#if !pending && level < 2}
-    <Button variant="brand" style="--button-padding:0.2em" on:click={() => dispatch('upgrade')}>
-      <Icon path={arrowRight} />
+    <Button variant="brand" style="--button-padding:0.3em" on:click={() => dispatch('upgrade')}>
+      <Icon path={arrowRight} size="20px" />
       <span class="sr-only">Verify account</span>
     </Button>
   {/if}
