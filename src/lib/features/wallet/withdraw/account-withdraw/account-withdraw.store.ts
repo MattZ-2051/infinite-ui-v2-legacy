@@ -21,7 +21,7 @@ achAccountWithdrawFx.done.watch(() => {
   loadWalletFx();
   updateUser();
   loadMyTransactionsFx({});
-  toast.success('Congrats! Your withdrawal is processing. ');
+  toast.success('Congrats! Your withdrawal is under review.');
 });
 
 cryptoWithdrawFx.done.watch(({ params: { currency } }) => {
