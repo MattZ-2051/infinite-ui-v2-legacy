@@ -6,7 +6,7 @@
   import * as yup from 'yup';
   import { closeModal, Modal } from '$ui/modals';
   import routes from '$project/routes';
-  import { patchUser } from '$lib/user';
+  import { patchUser, onSignOut } from '$lib/user';
   import { FormElement, Textarea } from '$lib/components/form';
   import Button from '$lib/components/Button.svelte';
   import { accountDetailsValidation, handleUserApiError, phoneNumberConsentText } from './account.service';
@@ -123,7 +123,7 @@
         </div>
         <div class="flex flex-col gap-4 pt-6 border-t border-gray-200">
           <Button variant="brand" disabled={!canSave} type="submit">Save</Button>
-          <Button on:click={routes.signout}>Logout</Button>
+          <Button on:click={onSignOut}>Logout</Button>
         </div>
       </form>
     </div>

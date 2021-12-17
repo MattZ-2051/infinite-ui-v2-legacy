@@ -3,7 +3,7 @@ import type { User } from '$lib/user/types';
 import type { ApiError } from '$lib/api';
 import { get as getStoreValue } from 'svelte/store';
 import { toast } from '$ui/toast';
-import { user } from '$lib/user';
+import { user, onSignIn } from '$lib/user';
 import { openModal } from '$ui/modals';
 import routes from '$project/routes';
 import OrderModal from '$lib/features/order/OrderModal.svelte';
@@ -16,7 +16,7 @@ export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: 
   if (!currentUser) {
     toast.danger(`Please <a data-toast="signIn" class="cursor-pointer">sign in</a> to complete your purchase.`, {
       onClick: {
-        signIn: routes.signin,
+        signIn: onSignIn,
       },
       toastId: 'ORDER_ERROR_LOGIN',
     });

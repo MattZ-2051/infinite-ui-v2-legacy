@@ -1,7 +1,8 @@
 import type { Writable } from 'svelte/store';
-import { writable, derived } from 'svelte/store';
+import { writable, derived, get as getStoreValue } from 'svelte/store';
 import { variables } from '$lib/variables';
-import { CLIENT_API_HEADER } from '$project/variables';
+import { authToken } from '$lib/user';
+import { AUTH_PROVIDER_IS_AUTH0, CLIENT_API_HEADER } from '$project/variables';
 
 export type ApiError = { status: number; statusText: string; url: string; data?: { [key: string]: unknown } };
 
@@ -13,14 +14,30 @@ type ApiOptions = RequestInit & {
   params?: string | string[][] | Record<string, string> | URLSearchParams;
   tracker?: ApiFetchTracker;
   parseResponseAsText?: boolean;
+  authorization?: boolean;
   skipTenant?: boolean;
 };
 
 export async function send<T>(path: string, _options?: ApiOptions): Promise<{ headers: Headers; body: T }> {
-  const { baseUrl = variables.apiUrl, fetch: f, params, tracker, ...options } = { ..._options };
+  const isAbsolute = isAbsoluteURL(path);
+  const {
+    baseUrl = variables.apiUrl,
+    fetch: f,
+    authorization = !isAbsolute,
+    params,
+    tracker,
+    ...options
+  } = { ..._options };
 
   if (tracker) {
     tracker.set(true);
+  }
+
+  if (authorization && AUTH_PROVIDER_IS_AUTH0) {
+    const bearer = getStoreValue(authToken);
+    if (bearer) {
+      options.headers = { ...options.headers, Authorization: `Bearer ${bearer}` };
+    }
   }
 
   if (options.body && !(options.body instanceof File) && !(options.body instanceof FormData)) {
@@ -38,7 +55,10 @@ export async function send<T>(path: string, _options?: ApiOptions): Promise<{ he
     url += (url.includes('?') ? '&' : '?') + new URLSearchParams(params).toString();
   }
 
-  return (f || fetch)(url, { mode: 'cors', credentials: 'include', ...options }).then(async (r) => {
+  const finalOptions = AUTH_PROVIDER_IS_AUTH0
+    ? options
+    : { mode: 'cors' as const, credentials: 'include' as const, ...options };
+  return (f || fetch)(url, finalOptions).then(async (r) => {
     if (tracker) {
       tracker.set(false);
     }

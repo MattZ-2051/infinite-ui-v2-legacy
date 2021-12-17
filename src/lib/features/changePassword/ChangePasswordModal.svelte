@@ -1,15 +1,15 @@
 <script lang="ts">
   import { createForm } from 'felte';
+  import { onSignOut } from '$lib/user';
   import { Modal } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import PasswordInput from '$ui/password-input/PasswordInput.svelte';
-  import routes from '$project/routes';
 
   export let isOpen: boolean;
   export let onConfirm: (newPassword: string, code: string, cognitoId: string) => unknown;
 
   async function onCancelButton() {
-    routes.signout();
+    onSignOut();
   }
 
   const queryString = window.location.search;

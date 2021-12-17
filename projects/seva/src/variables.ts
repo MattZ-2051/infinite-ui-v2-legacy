@@ -17,5 +17,6 @@ export const CLIENT_HEDERA_URL = 'https://info.seva.love/infinite/hedera-hashgra
 export const CLIENT_REDEEM_URL = 'https://info.seva.love/infinite/can-i-redeem-an-item';
 export const CLIENT_API_HEADER = 'seva';
 export const ENABLE_ETH_CURRENCY = true;
+export const AUTH_PROVIDER_IS_AUTH0 = false;
 export const KYC_INFO = 'https://info.seva.love/infinite/how-does-kyc-work';
 export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'all';

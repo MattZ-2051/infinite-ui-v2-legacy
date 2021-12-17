@@ -25,6 +25,7 @@
     "chromatic": "chromatic"
   },
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.19.3",
     "@felte/validator-yup": "0.2.9",
     "@mdi/js": "6.4.95",
     "@popperjs/core": "2.10.2",

@@ -3,28 +3,35 @@ import type { Readable } from 'svelte/store';
 
 import { derived, get as getStoreValue, writable } from 'svelte/store';
 import { session } from '$app/stores';
-import { localStorageWritable } from '$util/localstorage-store';
 import { patch, post, get } from '$lib/api';
 import routes from '$project/routes';
 import { openModal } from '$ui/modals';
 
 import AccountInitialSetupModal from '$lib/features/account/AccountInitialSetupModal.svelte';
+import { AUTH_PROVIDER_IS_AUTH0 } from '$project/variables';
+import { getClient } from '$lib/auth/auth0';
+import { localStorageWritable } from '$util/localstorage-store';
 
-// Keep a mapping between the external oauth2 provider id and the backend user id
 const userIdExternalIdMap = localStorageWritable<Pick<User, '_id' | 'externalId'>>('user:id', undefined);
 const externalId = localStorageWritable<string>('user:externalId', undefined);
+export const isLoading = writable<boolean>(AUTH_PROVIDER_IS_AUTH0);
+export const authToken = writable<string>(<string>undefined);
 
+export const isAuthenticated = writable<boolean>(false);
 export const user = writable<User>(undefined);
 
 export const userId: Readable<string> = derived(
-  [externalId, userIdExternalIdMap],
-  ([$externalId, $userIdExternalIdMap]) => {
-    return $externalId && $externalId === $userIdExternalIdMap?.externalId ? $userIdExternalIdMap._id : undefined;
+  [isAuthenticated, externalId, userIdExternalIdMap],
+  ([$isAuthenticated, $externalId, $userIdExternalIdMap]) => {
+    return $isAuthenticated && $externalId && $externalId === $userIdExternalIdMap?.externalId
+      ? $userIdExternalIdMap._id
+      : undefined;
   }
 );
 
 export async function updateUser(): Promise<User> {
   const me = await get<User>('users/me');
+  externalId.set(me.externalId);
   userIdExternalIdMap.set({ _id: me._id, externalId: me.cognitoId });
   user.set(me);
   return me;
@@ -37,6 +44,7 @@ export async function patchUser(data: Partial<User>) {
 
 export function clearUser(): void {
   user.set(undefined);
+  externalId.set(undefined);
   userIdExternalIdMap.set(undefined);
 }
 
@@ -45,7 +53,16 @@ export async function getPersonalToken(): Promise<string> {
 }
 
 export async function initUserAuth() {
-  initSessionSubscription();
+  if (AUTH_PROVIDER_IS_AUTH0) {
+    await initAuth();
+    if (getStoreValue(isAuthenticated)) {
+      updateUser();
+    } else {
+      clearUser();
+    }
+  } else {
+    initSessionSubscription();
+  }
 }
 
 let accountSetupTriggered = false;
@@ -131,4 +148,84 @@ function initSessionSubscription() {
       return;
     }
   });
+}
+
+async function initAuth(): Promise<void> {
+  try {
+    isLoading.set(true);
+
+    const client = await getClient();
+    const authenticated = await client.isAuthenticated();
+    const _authToken = authenticated ? await getAuthToken() : undefined;
+
+    if (authenticated) {
+      const userHere = await client.getUser();
+      externalId.set(userHere?.sub);
+    }
+    authToken.set(_authToken);
+    isAuthenticated.set(authenticated);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Error updating authorization: ${error}`);
+  } finally {
+    isLoading.set(false);
+  }
+}
+
+async function login(returnUrl = window.location.pathname) {
+  isLoading.set(true);
+
+  const client = await getClient();
+  let redirectUri = `${window.location.origin}/authorize`;
+  if (returnUrl !== '/') {
+    redirectUri += `?returnUrl=${returnUrl}`;
+  }
+  await client.loginWithRedirect({
+    redirect_uri: redirectUri,
+  });
+}
+
+async function logout(redirectUri: string) {
+  isLoading.set(true);
+
+  const client = await getClient();
+
+  client.logout({
+    returnTo: redirectUri,
+  });
+}
+
+export async function getAuthToken(): Promise<string> {
+  const client = await getClient();
+  return await client.getTokenSilently();
+}
+
+export function onSignOut() {
+  if (AUTH_PROVIDER_IS_AUTH0) {
+    clearUser();
+    logout(`${window.location.origin}`);
+  } else {
+    document.location.href = '/auth/signout';
+  }
+}
+
+export function onSignUp() {
+  if (AUTH_PROVIDER_IS_AUTH0) {
+    return login();
+  } else {
+    document.location.href = '/auth/signup';
+  }
+}
+
+export function onSignIn() {
+  if (AUTH_PROVIDER_IS_AUTH0) {
+    return login();
+  } else {
+    document.location.href = `/auth/signin?returnUrl=${window.location.href}`;
+  }
+}
+
+export async function handleRedirectCallback(callbackUrl: string) {
+  const client = await getClient();
+  await client.handleRedirectCallback(callbackUrl);
 }

@@ -2,8 +2,7 @@
   import { mdiArrowRight } from '@mdi/js';
   import Image from '$ui/image/Image.svelte';
   import Icon from '$ui/icon/Icon.svelte';
-  import { user } from '$lib/user';
-  import routes from '$project/routes';
+  import { user, onSignUp } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
   import trust from './assets/trust.png?w=184&format=avif;webp;png&metadata=src;format;width;height';
   import carbon from './assets/carbon.png?w=135&format=avif;webp;png&metadata=src;format;width;height';
@@ -73,9 +72,7 @@
     </h2>
     {#if !$user}
       <div class="flex justify-center">
-        <Button variant="brand" on:click={routes.signup} --button-padding="8px 40px" sveltekit:noscroll
-          >JOIN ARIA</Button
-        >
+        <Button variant="brand" on:click={onSignUp} --button-padding="8px 40px" sveltekit:noscroll>JOIN ARIA</Button>
       </div>
     {/if}
     <div class="intro-grid grid gap-x-1 gap-y-4">

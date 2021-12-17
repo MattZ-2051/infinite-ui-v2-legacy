@@ -1,26 +1,36 @@
 import { createEffect, createEvent, forward } from 'effector';
 import { toast } from '$ui/toast';
+import { AUTH_PROVIDER_IS_AUTH0 } from '$project/variables';
 import { openModal } from '$ui/modals';
-import { clearUser } from '$lib/user';
-import routes from '$project/routes';
+import { clearUser, onSignOut } from '$lib/user';
+import ConfirmModal from '$lib/components/ConfirmModal.svelte';
 import ResetPasswordModal from './ResetPasswordModal.svelte';
-
 import { passwordReset } from './account.api';
 
-export const passwordResetRequested = createEvent<void>();
+export const passwordResetRequested = createEvent<{ email?: string }>();
 
-const passwordResetConfirmed = createEvent<string>();
+const passwordResetConfirmed = createEvent<{ email?: string }>();
 
-export const passwordResetFx = createEffect(async () => {
-  await passwordReset();
-  clearUser();
-  routes.signout();
+export const passwordResetFx = createEffect(async ({ email }: { email?: string }) => {
+  await passwordReset(email);
+  if (!AUTH_PROVIDER_IS_AUTH0) {
+    clearUser();
+    onSignOut();
+  }
 });
 
-passwordResetRequested.watch(() => {
-  openModal(ResetPasswordModal, {
-    onConfirm: passwordResetFx,
-  });
+passwordResetRequested.watch(({ email }) => {
+  if (AUTH_PROVIDER_IS_AUTH0) {
+    openModal(ConfirmModal, {
+      title: 'Reset password?',
+      message: `You are going to receive an email at <span class="underline">${email}</span> with a link to reset your password.`,
+      onConfirm: () => passwordResetConfirmed({ email }),
+    });
+  } else {
+    openModal(ResetPasswordModal, {
+      onConfirm: passwordResetFx,
+    });
+  }
 });
 
 forward({

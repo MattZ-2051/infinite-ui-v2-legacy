@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
   import { derived } from 'svelte/store';
   import { browser } from '$app/env';
+  import { isLoading, initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { variables } from '$lib/variables';
 
   if (variables.apiMocking) {
@@ -18,7 +19,6 @@
 
 <script lang="ts">
   import { navigating, page } from '$app/stores';
-  import { initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { pollWallet, pollPendingTransactions } from '$lib/features/wallet/wallet.poll';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
   import Header from '$project/header/Header.svelte';
@@ -51,7 +51,7 @@
 <Head />
 
 <ThemeContext display id="root">
-  {#if $navigationPathChanging}
+  {#if $navigationPathChanging || $isLoading}
     <PreloadIndicator />
   {/if}
 

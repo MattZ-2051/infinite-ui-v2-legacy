@@ -2,6 +2,8 @@
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
   import { mdiLogout } from '@mdi/js';
+  import { AUTH_PROVIDER_IS_AUTH0 } from '$project/variables';
+  import { onSignOut, onSignIn, onSignUp, isLoading } from '$lib/user';
   import mdiCogOutline from '$lib/layout/header/assets/gear';
   import mdiCreditCardOutline from '$lib/layout/header/assets/wallet';
   import Icon from '$ui/icon/Icon.svelte';
@@ -37,7 +39,7 @@
       >Account Settings</a
     >
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
-    <button type="button" on:click={routes.signout} class="header-link">Sign Out</button>
+    <button type="button" on:click={onSignOut} class="header-link">Sign Out</button>
   {:else}
     <Menu placement="bottom-start" class="min-w-0">
       <MenuTrigger slot="trigger" class="header-link w-full">
@@ -61,15 +63,17 @@
         <MenuItem href={routes.wallet} class={$page.path === routes.wallet ? 'hidden' : ''}>
           <Icon path={mdiCreditCardOutline} class="flex-shrink-0 float-left mr-3" /> My Wallet
         </MenuItem>
-        <MenuItem on:select={routes.signout}>
+        <MenuItem on:select={onSignOut}>
           <Icon path={mdiLogout} class="flex-shrink-0 float-left mr-3" /> Sign Out
         </MenuItem>
       </MenuList>
     </Menu>
   {/if}
 {:else}
-  <button class="flex header-link" on:click={routes.signin}>Sign In</button>
-  <Button variant="brand" on:click={routes.signup} class="whitespace-nowrap">Sign Up</Button>
+  <button class="flex header-link" on:click={onSignIn} disabled={$isLoading}>Sign In</button>
+  {#if !AUTH_PROVIDER_IS_AUTH0}
+    <Button variant="brand" on:click={onSignUp} class="whitespace-nowrap">Sign Up</Button>
+  {/if}
 {/if}
 
 <style lang="postcss">

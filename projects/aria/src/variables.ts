@@ -16,5 +16,6 @@ export const CLIENT_HEDERA_URL = 'https://aria-network.force.com/support/s/artic
 export const CLIENT_REDEEM_URL = 'https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT';
 export const CLIENT_API_HEADER = 'aria';
 export const ENABLE_ETH_CURRENCY = false;
+export const AUTH_PROVIDER_IS_AUTH0 = true;
 export const KYC_INFO = 'https://aria-network.force.com/support/s/article/KYC-and-ID-Verification-Troubleshooting';
 export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'available';

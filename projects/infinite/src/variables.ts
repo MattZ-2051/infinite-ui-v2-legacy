@@ -17,5 +17,6 @@ export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-has
 export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-redeem-an-item';
 export const CLIENT_API_HEADER = 'infinite';
 export const ENABLE_ETH_CURRENCY = false;
+export const AUTH_PROVIDER_IS_AUTH0 = true;
 export const KYC_INFO = 'https://support.suku.world/infinite/id-verification-troubleshooting';
 export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'available';

@@ -1,10 +1,12 @@
-import { CLIENT_API_HEADER } from '$project/variables';
+import { CLIENT_API_HEADER, AUTH_PROVIDER_IS_AUTH0 } from '$project/variables';
 import { send, get, post, del, put, getPage } from './api';
 
-const defaultApiOptions = {
-  credentials: 'include',
-  mode: 'cors',
-};
+const defaultApiOptions = AUTH_PROVIDER_IS_AUTH0
+  ? {}
+  : {
+      credentials: 'include',
+      mode: 'cors',
+    };
 
 jest.mock('$lib/variables', () => ({
   variables: {
@@ -107,8 +109,14 @@ describe('API', () => {
       it('should opt-out from sending credentials', async () => {
         await send('/my/path', { fetch: mockFetch, credentials: 'omit' });
         expect(mockFetch).toHaveBeenLastCalledWith('http://api/my/path', {
-          credentials: 'omit',
-          mode: 'cors',
+          ...(AUTH_PROVIDER_IS_AUTH0
+            ? {
+                credentials: 'omit',
+              }
+            : {
+                credentials: 'omit',
+                mode: 'cors',
+              }),
           headers: { 'X-Tenant': CLIENT_API_HEADER },
         });
       });

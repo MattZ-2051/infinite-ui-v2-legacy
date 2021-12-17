@@ -15,14 +15,5 @@ export default {
   terms: '/terms',
   about: '/about',
   careers: '/careers',
-  signin() {
-    document.location.href = `/auth/signin?returnUrl=${window.location.href}`;
-  },
-  signout() {
-    document.location.href = '/auth/signout';
-  },
-  signup() {
-    document.location.href = '/auth/signup';
-  },
   partner: '/partner',
 };

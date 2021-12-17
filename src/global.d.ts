@@ -20,6 +20,9 @@ interface CommonImportMetaEnvironment {
   VITE_AWS_COGNITO_STATE_CIPHER_KEY: string;
   VITE_MAINTENANCE_MODE: string;
   VITE_MAINTENANCE_MESSAGE: string;
+  VITE_AUTH0_DOMAIN: string;
+  VITE_AUTH0_CLIENT_ID: string;
+  VITE_AUTH0_AUDIENCE: string;
   VITE_OPENSEA_URL: string;
   VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD: number;
 }
