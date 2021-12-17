@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { HbarTransaction } from '$lib/features/wallet/types';
   import { createEventDispatcher, onMount } from 'svelte';
-  import { Modal, closeModal } from '$ui/modals';
+  import { Modal, closeAllModals } from '$ui/modals';
   import Button from '$lib/components/Button.svelte';
   import Image from '$ui/image/Image.svelte';
   import Hbar from '$lib/features/wallet/deposit/hbar-avatar.png?w=32&format=avif;webp;png&metadata=src;format;width;height';
@@ -28,7 +28,7 @@
   const dispatch = createEventDispatcher();
 
   const onClose = () => {
-    closeModal();
+    closeAllModals();
     dispatch('close');
     if (transactionsView) {
       onCloseWithResults();
