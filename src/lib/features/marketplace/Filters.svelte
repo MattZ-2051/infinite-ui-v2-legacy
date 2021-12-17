@@ -6,7 +6,6 @@
   import type { ActiveType } from '$ui/accordion/AccordionGroup.svelte';
   import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
   import Accordion from '$ui/accordion/Accordion.svelte';
-  import { Input } from '$lib/components/form';
   import Button from '$lib/components/Button.svelte';
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
@@ -47,33 +46,11 @@
     const [minPrice_, maxPrice_] = range;
     setFilters({
       params: {
-        minPrice: +minPrice_ > 0 ? +minPrice_ : false,
-        maxPrice: +maxPrice_ < maxPrice ? +maxPrice_ : false,
+        minPrice: +minPrice_ > 0 ? minPrice_ : false,
+        maxPrice: +maxPrice_ < maxPrice ? maxPrice_ : false,
         page: 1,
       },
     });
-  };
-
-  const onMinPriceChange = (event) => {
-    const tValue = (event.target as HTMLInputElement).value;
-    const value = +tValue;
-    if (value < 0 || value >= +priceRange[1]) {
-      event.preventDefault();
-      return;
-    }
-    priceRange = [tValue, priceRange[1]];
-    onPriceRangeChange(priceRange);
-  };
-
-  const onMaxPriceChange = (event) => {
-    const tValue = (event.target as HTMLInputElement).value;
-    const value = +tValue;
-    if (value <= +priceRange[0]) {
-      event.preventDefault();
-      return;
-    }
-    priceRange = [priceRange[0], tValue];
-    onPriceRangeChange(priceRange);
   };
 
   function removeAllFilters() {
@@ -108,12 +85,7 @@
     { id: 'USD', label: 'Hedera (HTS)' },
   ];
 
-  let priceRange: [string, string];
-
-  function initSlider(min, max) {
-    priceRange = [min, max];
-  }
-  $: initSlider($page.query.get('minPrice') || '0', $page.query.get('maxPrice') || `${maxPrice}`);
+  // let priceRange: [string, string];
 
   function toggle(
     type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType' | 'currency',
@@ -297,31 +269,12 @@
         </div>
 
         <RangeSlider
-          bind:values={priceRange}
+          values={[$page.query.get('minPrice') || '0', $page.query.get('maxPrice') || `${maxPrice}`]}
           format={formatCurrencyWithOptionalFractionDigits}
           min={0}
           max={maxPrice}
           on:stop={({ detail }) => onPriceRangeChange(detail)}
         />
-
-        <div class="flex gap-6 mt-10">
-          <Input
-            type="number"
-            label="From"
-            value={priceRange[0]}
-            on:input={onMinPriceChange}
-            step="0.000000000000000001"
-            min="0"
-          />
-          <Input
-            type="number"
-            label="To"
-            value={priceRange[1]}
-            on:input={onMaxPriceChange}
-            step="0.000000000000000001"
-            min="0"
-          />
-        </div>
       </Accordion>
     {/if}
 

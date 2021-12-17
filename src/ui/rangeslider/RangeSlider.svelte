@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import debounceFunction from 'just-debounce';
+  import { Input } from '$lib/components/form';
 
   export let format = (value) => value;
   export let min = 0;
@@ -9,33 +10,76 @@
   export let step = 1;
   export let debounce = 100;
 
-  let valueLeft = +values[0];
-  let valueRight = +values[1];
+  let valueLeft;
+  let valueRight;
+  let activeThumb: 'L' | 'R' = undefined;
+  let movingThumb: 'L' | 'R' = undefined;
+  let movingThumbState: 'min' | 'max';
+
+  function updateValue(a1, a2) {
+    if (movingThumb === 'L') {
+      valueRight = movingThumbState === 'min' ? a2 : a1;
+    } else if (movingThumb === 'R') {
+      valueLeft = movingThumbState === 'min' ? a2 : a1;
+    } else {
+      [valueLeft, valueRight] = [a1, a2];
+    }
+  }
+  $: updateValue(+values[0], +values[1]);
   $: _percentageLeft = getPercentage(valueLeft);
   $: _percentageRight = getPercentage(valueRight);
 
   const dispatch = createEventDispatcher();
 
-  const onStop = debounceFunction(() => dispatch('stop', values), debounce);
+  const onStop = debounceFunction(
+    () => dispatch('stop', [`${Math.min(valueLeft, valueRight)}`, `${Math.max(valueLeft, valueRight)}`]),
+    debounce
+  );
 
   function getPercentage(value: number) {
     return ((value - min) / (max - min)) * 100;
   }
 
-  let activeThumb: 'L' | 'R' = undefined;
-
   function activateThumb(thumb: 'L' | 'R' | undefined) {
     activeThumb = thumb;
   }
 
-  async function onInput(thumb: 'L' | 'R') {
-    if (thumb === 'L' && valueRight === 0) {
-      valueLeft = Math.max(valueLeft, step);
-    } else if (thumb === 'R' && valueLeft === 0) {
-      valueRight = Math.max(valueRight, step);
+  function onInput(thumb: 'L' | 'R') {
+    if (thumb !== movingThumb) {
+      movingThumb = thumb;
+      movingThumbState =
+        (movingThumb === 'L' && valueLeft < valueRight) || (movingThumb === 'R' && valueLeft > valueRight)
+          ? 'min'
+          : 'max';
     }
-    values = [`${Math.min(valueLeft, valueRight)}`, `${Math.max(valueLeft, valueRight)}`];
   }
+
+  function onChange() {
+    movingThumb = undefined;
+    onStop();
+  }
+
+  const onMinPriceChange = (event) => {
+    const tValue = (event.target as HTMLInputElement).value;
+    const value = +tValue;
+    if (value < min || value > valueRight) {
+      event.preventDefault();
+      return;
+    }
+    valueLeft = value;
+    onStop();
+  };
+
+  const onMaxPriceChange = (event) => {
+    const tValue = (event.target as HTMLInputElement).value;
+    const value = +tValue;
+    if (value <= valueLeft || value > max) {
+      event.preventDefault();
+      return;
+    }
+    valueRight = value;
+    onStop();
+  };
 </script>
 
 <div class="slider">
@@ -64,8 +108,8 @@
     {max}
     {min}
     {step}
-    on:change={onStop}
     on:input={() => onInput('L')}
+    on:change={onChange}
     on:mouseover={() => activateThumb('L')}
     on:focus={() => activateThumb('L')}
     on:mouseout={() => activateThumb(undefined)}
@@ -79,12 +123,33 @@
     {max}
     {min}
     {step}
-    on:change={onStop}
     on:input={() => onInput('R')}
+    on:change={onChange}
     on:mouseover={() => activateThumb('R')}
     on:focus={() => activateThumb('R')}
     on:mouseout={() => activateThumb(undefined)}
     on:blur={() => activateThumb(undefined)}
+  />
+</div>
+
+<div class="grid grid-cols-2 gap-6 mt-10">
+  <Input
+    type="number"
+    label="From"
+    value={Math.min(valueLeft, valueRight)}
+    on:input={onMinPriceChange}
+    min="0"
+    {step}
+    {max}
+  />
+  <Input
+    type="number"
+    label="To"
+    value={Math.max(valueLeft, valueRight)}
+    on:input={onMaxPriceChange}
+    min="0"
+    {step}
+    {max}
   />
 </div>
 
