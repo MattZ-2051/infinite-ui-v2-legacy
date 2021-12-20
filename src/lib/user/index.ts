@@ -172,7 +172,7 @@ async function initAuth(): Promise<void> {
   }
 }
 
-async function login(returnUrl = window.location.pathname) {
+async function login(returnUrl = window.location.pathname, options = {}) {
   isLoading.set(true);
 
   const client = await getClient();
@@ -182,6 +182,7 @@ async function login(returnUrl = window.location.pathname) {
   }
   await client.loginWithRedirect({
     redirect_uri: redirectUri,
+    ...options,
   });
 }
 
@@ -211,7 +212,7 @@ export function onSignOut() {
 
 export function onSignUp() {
   if (AUTH_PROVIDER_IS_AUTH0) {
-    return login();
+    return login(undefined, { screen_hint: 'signup' });
   } else {
     document.location.href = '/auth/signup';
   }

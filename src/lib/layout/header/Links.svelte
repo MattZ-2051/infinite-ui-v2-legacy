@@ -2,7 +2,6 @@
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
   import { mdiLogout } from '@mdi/js';
-  import { AUTH_PROVIDER_IS_AUTH0 } from '$project/variables';
   import { onSignOut, onSignIn, onSignUp, isLoading } from '$lib/user';
   import mdiCogOutline from '$lib/layout/header/assets/gear';
   import mdiCreditCardOutline from '$lib/layout/header/assets/wallet';
@@ -71,9 +70,7 @@
   {/if}
 {:else}
   <button class="flex header-link" on:click={onSignIn} disabled={$isLoading}>Sign In</button>
-  {#if !AUTH_PROVIDER_IS_AUTH0}
-    <Button variant="brand" on:click={onSignUp} class="whitespace-nowrap">Sign Up</Button>
-  {/if}
+  <Button variant="brand" on:click={onSignUp} class="whitespace-nowrap">Sign Up</Button>
 {/if}
 
 <style lang="postcss">
