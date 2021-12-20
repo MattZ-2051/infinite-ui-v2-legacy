@@ -32,7 +32,7 @@ export const userId: Readable<string> = derived(
 export async function updateUser(): Promise<User> {
   const me = await get<User>('users/me');
   externalId.set(me.externalId);
-  userIdExternalIdMap.set({ _id: me._id, externalId: me.cognitoId });
+  userIdExternalIdMap.set({ _id: me._id, externalId: AUTH_PROVIDER_IS_AUTH0 ? me.externalId : me.cognitoId });
   user.set(me);
   return me;
 }

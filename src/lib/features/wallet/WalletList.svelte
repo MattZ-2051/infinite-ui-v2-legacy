@@ -23,7 +23,7 @@
     { name: 'NFT redeem', value: 'nft_redeem' },
   ];
 
-  if ($user.role !== 'user') transactionTypes.push({ name: 'Royalty fee', value: 'royalty_fee' });
+  if ($user && $user.role !== 'user') transactionTypes.push({ name: 'Royalty fee', value: 'royalty_fee' });
 
   function redirect(parameters) {
     gotoQueryParameters(
