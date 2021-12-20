@@ -4,9 +4,10 @@
   import { loadData } from '$project/landing/landing.api';
 
   const redirect = import.meta.env.VITE_REDIRECT_INDEX;
+  const maintenance = import.meta.env.VITE_MAINTENANCE_MODE === 'true';
 
   export async function load({ fetch }) {
-    if (redirect) {
+    if (redirect && !maintenance) {
       return {
         status: 302,
         redirect: routes.marketplace,

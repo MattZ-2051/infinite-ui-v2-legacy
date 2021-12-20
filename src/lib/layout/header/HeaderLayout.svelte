@@ -11,17 +11,6 @@
   let showSidebar = false;
   export let user: User;
   export let links: Link[];
-
-  // TODO (Matt) - comment out to not break storybook finding solution for env vars and storybook
-  // afterUpdate(async () => {
-  //   const isUserloggedIn = user?.username;
-  //   if (variables.maintenance.maintenanceMode === 'true' && isUserloggedIn) {
-  //     routes.signout();
-  //     toast.warning(
-  //       `The site is currently in maintenance mode, sign-ups and sign-ins are temporarily disabled. We'll be back shortly.`
-  //     );
-  //   }
-  // });
 </script>
 
 <ThemeContext id="header">
