@@ -6,7 +6,7 @@ export async function withdrawToAchAccount(accountId: string, amount: number) {
 }
 
 export async function withdrawToCryptoAddress(amount: string, currency: 'ETH' | 'USD', usdcAddress: string) {
-  await post('wallet/crypto/payouts', {
+  await post('wallet/payout-request', {
     amount: {
       quantity: amount || '0',
       currency,

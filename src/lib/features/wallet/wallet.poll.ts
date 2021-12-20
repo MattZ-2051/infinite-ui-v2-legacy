@@ -63,7 +63,11 @@ async function poller() {
   return false;
 }
 
-function getSuccessMessage({ type, transactionData: { sku, withdraw, deposit, product } }: Transaction): string {
+function getSuccessMessage({
+  type,
+  status,
+  transactionData: { sku, withdraw, deposit, product },
+}: Transaction): string {
   switch (type) {
     case 'purchase': {
       return `Congrats! Your NFT purchase was processed successfully! Click <a href=${routes.product(
@@ -74,7 +78,9 @@ function getSuccessMessage({ type, transactionData: { sku, withdraw, deposit, pr
       return `The sale transaction for ${sku.name} is complete.`;
     }
     case 'withdrawal': {
-      return `The withdrawal to bank ${withdraw.institution_name} has been successfully submitted for review.`;
+      return withdraw.institution_name
+        ? `The withdrawal to bank ${withdraw.institution_name} has been successfully submitted for review.`
+        : `The withdrawal to ${withdraw.usdcAddress} was ${status === 'success' ? 'approved' : 'rejected'}.`;
     }
     case 'deposit': {
       switch (deposit.type) {

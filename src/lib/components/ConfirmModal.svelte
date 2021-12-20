@@ -18,8 +18,15 @@
     if (confirmed) {
       disabled = true;
       try {
-        await onConfirm();
-        closeModal();
+        const result = onConfirm();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((result as any)?.then) {
+          await result;
+          closeModal();
+        } else {
+          closeModal();
+          onConfirm();
+        }
       } catch {
         // Nothing special to do in case of error
       } finally {
