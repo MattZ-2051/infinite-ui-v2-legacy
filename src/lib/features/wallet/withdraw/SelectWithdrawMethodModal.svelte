@@ -2,6 +2,7 @@
   import type { ImageMetadata } from '$ui/image/Image.svelte';
   import mdiChevronRight from '$lib/features/wallet/assets/chevron-right';
   import { Modal, openModal } from '$ui/modals';
+  import { variables } from '$lib/variables';
 
   import Image from '$ui/image/Image.svelte';
   import Icon from '$ui/icon/Icon.svelte';
@@ -21,10 +22,11 @@
     disabled?: boolean;
   };
 
-  const options: WithdrawOption[] = [
-    { id: 'ach', title: 'ACH', subtitle: 'Withdraw to bank account', image: achImg, alt: 'ACH withdraw' },
+  let options: WithdrawOption[] = [
     { id: 'usdc', title: 'USDC Coin', subtitle: 'Withdraw to USDC address', image: usdcImg, alt: 'USDC withdraw' },
   ];
+  if (variables.achEnabled)
+    options.push({ id: 'ach', title: 'ACH', subtitle: 'Withdraw to bank account', image: achImg, alt: 'ACH withdraw' });
 
   const handleWithdrawSelection = (id) => {
     if (id === 'ach') {

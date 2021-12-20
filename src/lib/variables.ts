@@ -27,4 +27,5 @@ export const variables = {
     client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
     audience: import.meta.env.VITE_AUTH0_AUDIENCE,
   },
+  achEnabled: import.meta.env.VITE_ACH_ENABLED === 'true',
 };

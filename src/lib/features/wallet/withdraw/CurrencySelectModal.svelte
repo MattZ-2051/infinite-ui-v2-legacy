@@ -5,6 +5,7 @@
   import { Modal } from '$ui/modals';
   import Image from '$ui/image/Image.svelte';
   import Icon from '$ui/icon/Icon.svelte';
+  import { variables } from '$lib/variables';
 
   import EthCoin from './assets/ethcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
   import usDollar from './assets/usdollar-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
@@ -24,7 +25,7 @@
     {
       id: 'usd',
       title: 'From USD balance',
-      subtitle: 'To your bank or USDC address',
+      subtitle: `To your ${variables.achEnabled ? 'bank or' : ''} USDC address`,
       image: usDollar,
     },
   ];
