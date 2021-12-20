@@ -1,7 +1,7 @@
 <script>
   import { Meta, Story } from '@storybook/addon-svelte-csf';
   import { user, userWithProfilePhoto } from '$mocks/resolvers/user/data';
-  import { links } from './main-links';
+  import { links } from '$project/header/main-links';
   import PureHeader from './PureHeader.svelte';
 </script>
 

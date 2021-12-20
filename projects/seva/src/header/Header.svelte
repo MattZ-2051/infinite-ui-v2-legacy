@@ -1,7 +1,7 @@
 <script lang="ts">
   import { user } from '$lib/user';
+  import { links } from '$project/header/main-links';
   import PureHeader from './PureHeader.svelte';
-  import { links } from './main-links';
 </script>
 
 <PureHeader {links} user={$user} />
