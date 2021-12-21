@@ -25,16 +25,16 @@
       [valueLeft, valueRight] = [a1, a2];
     }
   }
+
   $: updateValue(+values[0], +values[1]);
   $: _percentageLeft = getPercentage(valueLeft);
   $: _percentageRight = getPercentage(valueRight);
+  $: minValue = Math.min(valueLeft, valueRight);
+  $: maxValue = Math.max(valueLeft, valueRight);
 
   const dispatch = createEventDispatcher();
 
-  const onStop = debounceFunction(
-    () => dispatch('stop', [`${Math.min(valueLeft, valueRight)}`, `${Math.max(valueLeft, valueRight)}`]),
-    debounce
-  );
+  const onStop = debounceFunction(() => dispatch('stop', [`${minValue}`, `${maxValue}`]), debounce);
 
   function getPercentage(value: number) {
     return ((value - min) / (max - min)) * 100;
@@ -62,7 +62,7 @@
   const onMinPriceChange = (event) => {
     const tValue = (event.target as HTMLInputElement).value;
     const value = +tValue;
-    if (value < min || value > valueRight) {
+    if (value < min || value > maxValue) {
       event.preventDefault();
       return;
     }
@@ -73,24 +73,37 @@
   const onMaxPriceChange = (event) => {
     const tValue = (event.target as HTMLInputElement).value;
     const value = +tValue;
-    if (value <= valueLeft || value > max) {
+    if (value <= minValue || value > max) {
       event.preventDefault();
       return;
     }
     valueRight = value;
     onStop();
   };
+
+  let focusedInput: 'L' | 'R' = undefined;
+
+  let minInputValue;
+  let maxInputValue;
+
+  function inputValues(a, b) {
+    if (focusedInput !== 'L') {
+      minInputValue = Math.min(a, b);
+    }
+
+    if (focusedInput !== 'R') {
+      maxInputValue = Math.max(a, b);
+    }
+  }
+
+  $: inputValues(valueLeft, valueRight);
 </script>
 
 <div class="slider">
   <div>
     <div class="inverse-left" style="width:{_percentageLeft}%;" />
     <div class="inverse-right" style="width:{100 - _percentageRight}%;" />
-    <div
-      class="range"
-      style="left:{getPercentage(Math.min(valueLeft, valueRight))}%;right:{100 -
-        getPercentage(Math.max(valueLeft, valueRight))}%;"
-    />
+    <div class="range" style="left:{getPercentage(minValue)}%;right:{100 - getPercentage(maxValue)}%;" />
     <span class="thumb" class:active={activeThumb === 'L'} style="left:{_percentageLeft}%;" />
     <span class="thumb" class:active={activeThumb === 'R'} style="left:{_percentageRight}%;" />
     <div class="sign" class:activeSign={activeThumb === 'L'} style="left:{_percentageLeft}%;">
@@ -133,24 +146,49 @@
 </div>
 
 <div class="grid grid-cols-2 gap-6 mt-10">
-  <Input
-    type="number"
-    label="From"
-    value={Math.min(valueLeft, valueRight)}
-    on:input={onMinPriceChange}
-    min="0"
-    {step}
-    {max}
-  />
-  <Input
-    type="number"
-    label="To"
-    value={Math.max(valueLeft, valueRight)}
-    on:input={onMaxPriceChange}
-    min="0"
-    {step}
-    {max}
-  />
+  <div class="flex flex-col">
+    <Input
+      type="number"
+      label="From"
+      bind:value={minInputValue}
+      on:input={onMinPriceChange}
+      on:focus={() => (focusedInput = 'L')}
+      on:focusout={() => (focusedInput = undefined)}
+      min="0"
+      {step}
+      {max}
+    />
+
+    <span class="text-red-600 text-sm">
+      {#if minInputValue < min}
+        Amount must be greater than {min}
+      {:else if minInputValue > maxValue}
+        Amount must be lower than {maxValue}
+      {/if}
+    </span>
+  </div>
+
+  <div class="flex flex-col">
+    <Input
+      type="number"
+      label="To"
+      bind:value={maxInputValue}
+      on:input={onMaxPriceChange}
+      on:focus={() => (focusedInput = 'R')}
+      on:focusout={() => (focusedInput = undefined)}
+      min="0"
+      {step}
+      {max}
+    />
+
+    <span class="text-red-600 text-sm">
+      {#if maxInputValue <= minValue}
+        Amount must be greater than {minValue}
+      {:else if maxInputValue > max}
+        Amount must be lower than {max}
+      {/if}
+    </span>
+  </div>
 </div>
 
 <style>
