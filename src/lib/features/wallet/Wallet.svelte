@@ -35,8 +35,11 @@
   const formattedLowKYC = `${formatCurrencyWithOptionalFractionDigits(LOW_KYC_LEVEL)} USD`;
 
   export let tab: 'transactions' | 'bids';
-  const kycLevelNeeded = `If your ETH or USDC wallet balance exceed ${formattedLowKYC} (or the ETH equivalent),
-    you will need to complete KYC level 2; you will not be able to make deposits, withdrawals, or purchases until you do so.`;
+  const kycLevelNeeded =
+    (ENABLE_ETH_CURRENCY
+      ? `If your ETH or USDC wallet balance exceed ${formattedLowKYC} (or the ETH equivalent),`
+      : `If your USDC wallet balance exceed ${formattedLowKYC},`) +
+    ` you will need to complete KYC level 2; you will not be able to make deposits, withdrawals, or purchases until you do so.`;
   $: isKycCleared = $wallet?.kycMaxLevel >= 1;
   $: isKycPending = $wallet?.kycPending;
 
