@@ -39,7 +39,9 @@ forward({
 });
 
 passwordResetFx.done.watch(() =>
-  toast.success('Check your email address for the email with the link we sent you to reset your password.')
+  toast.success('Check your email address for the email with the link we sent you to reset your password.', {
+    toastId: 'reset-password-email',
+  })
 );
 
 passwordResetFx.fail.watch(() => toast.danger('Whoops, something went wrong - please try again.'));
