@@ -94,6 +94,7 @@
   --bg-color: #ffffff;
   --primary-color: #000000;
   --link-color: var(--default-color);
+  --no-results-link-color: var(--default-color);
   --separator-bg-color: var(--gray-100);
   --icon-bg-color: #2d2d2d;
   --edition-single-color: var(--default-color);
