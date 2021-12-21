@@ -5,7 +5,6 @@
   import { Modal } from '$ui/modals';
   import Image from '$ui/image/Image.svelte';
   import Icon from '$ui/icon/Icon.svelte';
-  import { variables } from '$lib/variables';
   import { depositOptions } from './deposit-options';
 
   import EthCoin from './ethcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
@@ -57,8 +56,8 @@
           {#if option.id === 'usd'}
             <div class="px-14 sm:px-20">
               <p class="mt-3 text-sm text-gray-500">
-                Choose to deposit from {variables.achEnabled ? 'credit card,' : ''} BTC, ETH, USDC, or HBAR. Note, ALL deposits
-                will get converted into USD Coin (USDC).
+                Choose to deposit from credit card, BTC, ETH, USDC, or HBAR. Note, ALL deposits will get converted into
+                USD Coin (USDC).
               </p>
               <div class="mt-4 flex flex-row space-x-3">
                 {#each depositOptions as depositOption (depositOption.id)}

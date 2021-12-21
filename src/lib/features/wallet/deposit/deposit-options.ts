@@ -1,6 +1,5 @@
 import type { ImageMetadata } from '$ui/image/Image.svelte';
 // import Circle from './circle-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
-import { variables } from '$lib/variables';
 import MoonPay from './moonpay-avatar-2.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 import BitCoin from './bitcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 import EthCoin from './ethcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
@@ -25,15 +24,14 @@ const options: DepositOption[] = [
   { id: 'suku', title: 'SUKU', subtitle: 'Coming soon', image: Suku, disabled: true },
 ];
 
-export const depositOptions: DepositOption[] = variables.achEnabled
-  ? [
-      // { id: 'circle', title: 'Credit Card', subtitle: 'Deposit funds using a credit card', image: Circle },
-      {
-        id: 'moonpay',
-        title: 'Credit Card',
-        subtitle: 'Use MoonPay to deposit funds using a credit card',
-        image: MoonPay,
-      },
-      ...options,
-    ]
-  : options;
+export const depositOptions: DepositOption[] =
+  // { id: 'circle', title: 'Credit Card', subtitle: 'Deposit funds using a credit card', image: Circle },
+  [
+    {
+      id: 'moonpay',
+      title: 'Credit Card',
+      subtitle: 'Use MoonPay to deposit funds using a credit card',
+      image: MoonPay,
+    },
+    ...options,
+  ];
