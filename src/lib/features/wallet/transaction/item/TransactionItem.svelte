@@ -11,9 +11,11 @@
   $: typeText = capitalizeFirstLetter(type);
 
   const getCurrencyFormatted = (): string => {
-    const depositAmount = `+${formatCurrency(transactionData.deposit?.amount, {
-      currency: transactionData.deposit?.balanceCurrency,
-    })}`;
+    const depositAmount = transactionData.deposit
+      ? `+${formatCurrency(transactionData.deposit.amount, {
+          currency: transactionData.deposit.balanceCurrency,
+        })}`
+      : '';
     const purchaseAmount = `- ${formatCurrency(transactionData.cost?.totalCost, {
       currency: transactionData.cost?.currency,
     })}`;

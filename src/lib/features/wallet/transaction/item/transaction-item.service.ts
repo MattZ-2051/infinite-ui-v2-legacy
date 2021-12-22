@@ -42,7 +42,7 @@ export const selectLogo = (transaction: Transaction): [string, string] => {
       ];
 
     case 'deposit':
-      switch (deposit.type) {
+      switch (deposit?.type) {
         case 'cc':
           return [getCardLogo(deposit.card?.network), 'added'];
         case 'moonpay':

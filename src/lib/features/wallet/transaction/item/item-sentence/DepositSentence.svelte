@@ -12,6 +12,8 @@
 {#if isEth}
   <span> {formatCurrency(deposit.amount, { currency: deposit?.balanceCurrency })} </span>
   Added to your balance
+{:else if !deposit}
+  Transaction data still pending
 {:else if deposit.type === 'cc'}
   {status === 'error' ? 'You tried to add' : 'You added'}
   funds from your
