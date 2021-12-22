@@ -46,15 +46,15 @@
   <div class="flex justify-between gap-2">
     {#if status === 'activeSale'}
       <div>
-        <div class="text-xl">Active Sale</div>
-        <div class="text-gray-500 text-sm">Started {formatDate(collectorListing.startDate)}</div>
+        <div class="text-2xl">Active Sale</div>
+        <div class="text-gray-500 text-base">Started {formatDate(collectorListing.startDate)}</div>
       </div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-xl text-right">
+          <div class="text-2xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-sm text-right text-gray-500 ">
+          <div class="text-base text-right text-gray-500 ">
             {isUniqueProductListing ? 'Listing price' : 'Lowest listing price'}
           </div>
         </div>
@@ -63,17 +63,17 @@
 
     {#if status === 'activeAuction'}
       <div>
-        <div class="text-xl">{isUniqueAuction ? 'Active Auction' : 'From Collector'}</div>
-        <div class="text-gray-500 text-sm">
+        <div class="text-2xl">{isUniqueAuction ? 'Active Auction' : 'From Collector'}</div>
+        <div class="text-gray-500 text-base">
           {isUniqueAuction ? `Ends ${formatDate(collectorListing.endDate)}` : 'Auction Active'}
         </div>
       </div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-xl text-right">
+          <div class="text-2xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-sm">
+          <div class="text-gray-500 text-base">
             {getAuctionLabelCollector('auction')}
           </div>
         </div>
@@ -82,46 +82,46 @@
 
     {#if status === 'upcomingAuction'}
       <div>
-        <div class="text-xl">Upcoming Auction</div>
-        <div class="text-gray-500 text-sm">Starts {formatDate(collectorListing.startDate)}</div>
+        <div class="text-2xl">Upcoming Auction</div>
+        <div class="text-gray-500 text-base">Starts {formatDate(collectorListing.startDate)}</div>
       </div>
       <div class="flex items-center justify-end">
         <div>
-          <div class="text-xl text-right">
+          <div class="text-2xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-sm">Starting Bid</div>
+          <div class="text-gray-500 text-base">Starting Bid</div>
         </div>
       </div>
     {/if}
 
     {#if status === 'noneForSale'}
-      <div class="text-xl">From Collector</div>
+      <div class="text-2xl">From Collector</div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-xl text-right">-</div>
-          <div class="text-gray-500 text-sm">0 on Sale</div>
+          <div class="text-2xl text-right">-</div>
+          <div class="text-gray-500 text-base">0 on Sale</div>
         </div>
       </div>
     {/if}
     {#if status === 'activeAuctionAndSale'}
       <div>
-        <div class="text-xl">From Collector</div>
-        <div class="text-gray-500 text-sm">Buy Now / Auction</div>
+        <div class="text-2xl">From Collector</div>
+        <div class="text-gray-500 text-base">Buy Now / Auction</div>
       </div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-xl text-right">
+          <div class="text-2xl text-right">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-sm">
+          <div class="text-gray-500 text-base">
             {getAuctionLabelCollector(collectorListing?.saleType)}
           </div>
         </div>
       </div>
     {/if}
     {#if status === 'ethSkuSale'}
-      <div class="text-xl">From Collector</div>
+      <div class="text-2xl">From Collector</div>
       <div class="flex justify-end items-center" />
     {/if}
   </div>

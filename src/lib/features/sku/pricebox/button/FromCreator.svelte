@@ -44,9 +44,9 @@
   {#if state === 'active' || state === 'noSale' || 'notMinted'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
-        <div class="text-xl">From Creator</div>
+        <div class="text-2xl">From Creator</div>
         {#if state === 'active' && sku?.supplyType !== 'variable'}
-          <div class="text-gray-500 text-sm">
+          <div class="text-gray-500 text-base">
             {sku?.totalSupplyLeft}
             {sku?.totalSupplyLeft === 1 ? 'Item Left' : 'Items Left'}
           </div>
@@ -55,10 +55,10 @@
       {#if state === 'active'}
         <div class="flex justify-end">
           <div>
-            <div class="text-xl text-right">
+            <div class="text-2xl text-right">
               {formatCurrencyWithOptionalFractionDigits(skuPrice, { currency: sku.currency })}
             </div>
-            <div class="text-sm text-right text-gray-500 ">
+            <div class="text-base text-right text-gray-500 ">
               {getAuctionLabelCreator(activeListing.saleType)}
             </div>
           </div>
@@ -76,14 +76,16 @@
   {#if state === 'upcoming'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
-        <div class="text-xl">Upcoming</div>
-        {#if sku?.supplyType !== 'variable'}<div class="text-gray-500 text-sm">{sku?.totalUpcomingSupply} NFT</div>{/if}
+        <div class="text-2xl">Upcoming</div>
+        {#if sku?.supplyType !== 'variable'}<div class="text-gray-500 text-base">
+            {sku?.totalUpcomingSupply} NFT
+          </div>{/if}
       </div>
-      <div class="flex-grow justify-center text-right text-xl">
+      <div class="flex-grow justify-center text-right text-2xl">
         <TimeDifference date={sku?.minStartDate} />
-        <div class="text-gray-500 text-sm">{formatDate(sku.minStartDate)}</div>
+        <div class="text-gray-500 text-base">{formatDate(sku.minStartDate)}</div>
       </div>
-      <div class="pl-4 text-xl text-center">
+      <div class="pl-4 text-2xl text-center">
         {formatCurrencyWithOptionalFractionDigits(upcomingSkuListings[0]?.price, { currency: sku.currency })}
       </div>
     </div>
@@ -92,8 +94,8 @@
   {#if state === 'upcomingNftGiveAway'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
-        <div class="text-xl">Upcoming NFT Giveaway</div>
-        <div class="text-gray-500 text-sm">Starts {formatDate(upcomingSkuListings[0]?.startDate)}</div>
+        <div class="text-2xl">Upcoming NFT Giveaway</div>
+        <div class="text-gray-500 text-base">Starts {formatDate(upcomingSkuListings[0]?.startDate)}</div>
       </div>
       <div class="flex justify-end">
         {#if sku.supplyType === 'variable'}
@@ -101,12 +103,12 @@
             <div class="flex justify-end">
               <Icon path={mdiInfinity} size="1.5" />
             </div>
-            <div class="text-sm text-right text-gray-500">Open Edition</div>
+            <div class="text-base text-right text-gray-500">Open Edition</div>
           </div>
         {:else}
           <div>
-            <div class="text-xl text-right">{sku?.maxSupply}</div>
-            <div class="text-sm text-right text-gray-500">To be released</div>
+            <div class="text-2xl text-right">{sku?.maxSupply}</div>
+            <div class="text-base text-right text-gray-500">To be released</div>
           </div>
         {/if}
       </div>
@@ -116,8 +118,8 @@
   {#if state === 'activeNftGiveAway'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
-        <div class="text-xl">NFT Giveaway</div>
-        <div class="text-gray-500 text-sm">Started {formatDate(activeListing.startDate)}</div>
+        <div class="text-2xl">NFT Giveaway</div>
+        <div class="text-gray-500 text-base">Started {formatDate(activeListing.startDate)}</div>
       </div>
       <div class="flex justify-end">
         {#if sku.supplyType === 'variable'}
@@ -125,12 +127,12 @@
             <div class="flex justify-end">
               <Icon path={mdiInfinity} size="1.5" />
             </div>
-            <div class="text-sm text-right text-gray-500">Open Edition</div>
+            <div class="text-base text-right text-gray-500">Open Edition</div>
           </div>
         {:else}
           <div>
-            <div class="text-xl text-right">{sku?.totalSkuListingSupplyLeft}</div>
-            <div class="text-sm text-right text-gray-500">Remaining</div>
+            <div class="text-2xl text-right">{sku?.totalSkuListingSupplyLeft}</div>
+            <div class="text-base text-right text-gray-500">Remaining</div>
           </div>
         {/if}
       </div>

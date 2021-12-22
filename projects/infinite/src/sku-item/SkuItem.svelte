@@ -44,7 +44,7 @@
           <TalentLink profile={sku.issuer} hideImage />
         </div>
         {#if sku.redeemable}
-          <div class="flex flex-row items-center space-x-2 text-gray-700 font-normal">
+          <div class="flex flex-row items-center space-x-2 text-gray-700 font-normal text-base">
             <IconRedeem size={24}>Redeemable</IconRedeem>
           </div>
         {/if}
@@ -57,7 +57,7 @@
           {/if}
         </div>
       </header>
-      <div class="flex flex-row items-center space-x-2 font-normal text-sm">
+      <div class="flex flex-row items-center space-x-2 font-normal text-base">
         {#if currency === 'USD'}
           <Icon path={hedera} size="1em" tooltip="HTS NFT minted on Hedera" class="inline align-baseline" />
         {:else if currency === 'ETH'}

@@ -65,6 +65,7 @@ module.exports = {
       },
       fontSize: {
         '2.5xl': ['1.6rem', '2rem'],
+        '4.5xl': ['2.5rem', '3.5rem'],
       },
       listStyleType: {
         circle: 'circle',
