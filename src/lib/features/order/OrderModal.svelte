@@ -39,7 +39,7 @@
       return toast.danger(
         `Your wallet balance is currently >= ${formatCurrency(
           10_000
-        )} USD, therefore, you will not be able to make deposits, withdrawals, purchases until you complete KYC level 2.`
+        )} USD, therefore, you will not be able to make deposits, withdrawals, purchases, or bids until you complete KYC level 2.`
       );
     }
     if (!acceptedTerms || (_sku?.customNftTerms && !acceptedTermsNft)) {

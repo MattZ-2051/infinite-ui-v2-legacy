@@ -36,7 +36,7 @@
         return toast.danger(
           `Your wallet balance is currently >= ${formatCurrency(
             10_000
-          )} USD, therefore, you will not be able to make deposits, withdrawals, purchases until you complete KYC level 2.`
+          )} USD, therefore, you will not be able to make deposits, withdrawals, purchases, or bids until you complete KYC level 2.`
         );
       }
 
@@ -51,9 +51,7 @@
       }
       if (amount < acceptedBidPrice) {
         return toast.danger(
-          `The minimum bid amount is ${formatCurrency(acceptedBidPrice, {
-            currency: product.sku.currency,
-          })}. Please place a higher bid.`
+          `Whoops! Your bid amount is lower than the current highest bid. Please place a higher bid to participate in this auction.`
         );
       }
       if (amountWithFee > userBalance) {
