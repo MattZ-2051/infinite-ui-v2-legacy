@@ -24,7 +24,7 @@ passwordResetRequested.watch(({ email }) => {
     openModal(ConfirmModal, {
       title: 'Reset password?',
       message: `You are going to receive an email at <span class="underline">${email}</span> with a link to reset your password.`,
-      onConfirm: () => passwordResetConfirmed({ email }),
+      onConfirm: () => passwordResetFx({ email }),
     });
   } else {
     openModal(ResetPasswordModal, {
