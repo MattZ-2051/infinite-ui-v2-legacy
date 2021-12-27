@@ -4,6 +4,7 @@ import { toast } from '$ui/toast';
 import { updateUser } from '$lib/user';
 import { withdrawToAchAccount, withdrawToCryptoAddress } from './account-withdraw.api';
 import { loadMyTransactionsFx, loadWalletFx } from '../../wallet.store';
+import { kycLevel1ErrorHandler } from './accountWhidrawalErrorHandler';
 
 export const achAccountWithdrawFx = createEffect(
   async ({ achAccount, amount }: { achAccount: AchAccount; amount: number }) => {
@@ -31,4 +32,4 @@ cryptoWithdrawFx.done.watch(({ params: { currency } }) => {
   toast.success(`The withdrawal to the ${currency} address has been successfully submitted for review.`);
 });
 
-cryptoWithdrawFx.fail.watch(() => toast.danger('There was an error with your withdrawal. Please, try again.'));
+cryptoWithdrawFx.fail.watch(({ error }) => kycLevel1ErrorHandler(error));
