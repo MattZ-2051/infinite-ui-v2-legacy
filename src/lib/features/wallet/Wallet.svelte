@@ -45,7 +45,7 @@
 
   function handleDepositSelectModal() {
     if ($wallet.kycRequired) {
-      toast.danger(kycLevelNeeded);
+      toast.danger(kycLevelNeeded, { toastId: 'KYC-LVL-NEEDED' });
     } else {
       if (ENABLE_ETH_CURRENCY) {
         openModal(CurrencySelectModal, { onCurrencySelect });
