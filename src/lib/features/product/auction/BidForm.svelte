@@ -86,6 +86,8 @@
   <div class="relative w-full">
     <input
       type="number"
+      min="0"
+      step="0.000000000000000001"
       autocomplete="off"
       class="h-20 md:h-full w-full text-default placeholder-gray-200 text-2xl text-center pb-8 px-10 md:pl-10 md:text-left focus:outline-none focus:border-blue-500 bg-transparent overflow-hidden"
       name="placeBid"
