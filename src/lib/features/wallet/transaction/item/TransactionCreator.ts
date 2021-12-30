@@ -77,6 +77,7 @@ const getDummyTransaction = (): Transaction => {
     minPrice: 3,
     minCurrentBid: 3,
     circulatingSupply: 3,
+    products: [],
     totalSupply: 3,
     totalSupplyLeft: 3,
     totalSkuSupplyLeft: 3,

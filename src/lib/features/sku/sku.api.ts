@@ -1,15 +1,12 @@
-import type { Sku, CollectorProduct } from '$lib/sku-item/types';
-import { get, getPage } from '$lib/api';
+import type { Sku } from '$lib/sku-item/types';
+import { get } from '$lib/api';
 
 export async function loadSku({ id, fetch }: { id: string; fetch?: Fetch }) {
-  const [sku, { total: totalCollectors, data: collectors }] = await Promise.all([
-    getSkuOnly({ id, fetch }),
-    getPage<CollectorProduct>(`products/collectors/${id}?includeFunctions=true&page=1&per_page=100`, { fetch }),
-  ]);
+  const sku = await getSkuOnly({ id, fetch });
 
   const related = await getSkuRelated({ sku, fetch });
 
-  return { sku, collectors, totalCollectors, related };
+  return { sku, related };
 }
 
 export async function getSkuOnly({ id, fetch }: { id: string; fetch?: Fetch }) {

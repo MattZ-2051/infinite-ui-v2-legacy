@@ -33,6 +33,7 @@ export type Sku = {
   minPrice: number;
   minCurrentBid: number;
   circulatingSupply: number;
+  products: CollectorProduct[];
   totalSupply: number;
   totalSupplyLeft: number;
   totalSkuSupplyLeft: number;

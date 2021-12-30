@@ -12,9 +12,9 @@ export const loadSkuFx = createEffect(async ({ id, fetch }: { id: string; fetch?
 // eslint-disable-next-line unicorn/no-null
 export const sku = createStore<Sku>(null).on(setSku, (state, payload) => payload.sku);
 
-export const collectors = createStore<CollectorProduct[]>([]).on(setSku, (state, payload) => payload.collectors);
+export const collectors = createStore<CollectorProduct[]>([]).on(setSku, (state, payload) => payload.sku.products);
 
-export const totalCollectors = createStore<number>(0).on(setSku, (state, payload) => payload.totalCollectors);
+export const totalCollectors = createStore<number>(0).on(setSku, (state, payload) => payload.sku.circulatingSupply);
 
 export const related = createStore<Sku[]>([]).on(setSku, (state, payload) => payload.related);
 
