@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import { derived } from 'svelte/store';
-  import { browser } from '$app/env';
+  import { browser, mode } from '$app/env';
   import { isLoading, initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { variables } from '$lib/variables';
   import Maintenance from '$lib/components/Maintenance.svelte';
@@ -22,9 +22,11 @@
   import { navigating, page } from '$app/stores';
   import { pollWallet, pollPendingTransactions } from '$lib/features/wallet/wallet.poll';
   import PreloadIndicator from '$lib/layout/PreloadIndicator.svelte';
+  import initializeSentry from '$lib/sentry';
   import Header from '$project/header/Header.svelte';
   import Footer from '$project/footer/Footer.svelte';
   import Toast from '$project/toast/Toast.svelte';
+  import { CLIENT_API_HEADER } from '$project/variables';
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
   import GdprBanner from '$lib/components/GdprBanner.svelte';
@@ -47,6 +49,7 @@
   $: $user && pollPendingTransactions();
   $: $user && pollWallet();
   $: mustSetupAccount($user, $page.path);
+  $: initializeSentry(mode, $user, CLIENT_API_HEADER);
 </script>
 
 <Head />

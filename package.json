@@ -29,6 +29,8 @@
     "@felte/validator-yup": "0.2.9",
     "@mdi/js": "6.4.95",
     "@popperjs/core": "2.10.2",
+    "@sentry/browser": "^6.16.1",
+    "@sentry/tracing": "^6.16.1",
     "@tailwindcss/forms": "0.3.4",
     "@tailwindcss/line-clamp": "0.2.2",
     "big.js": "^6.1.1",
