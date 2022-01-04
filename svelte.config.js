@@ -56,7 +56,7 @@ const config = {
   },
 };
 
-const { SVELTEKIT_ADAPTER: adapter, SVELTEKIT_MODE, NODE_ENV } = process.env;
+const { SVELTEKIT_ADAPTER: adapter, SVELTEKIT_MODE, NODE_ENV, VITE_API_URL, DEPLOY_PRIME_URL } = process.env;
 
 switch (adapter) {
   case 'node': {
@@ -86,9 +86,13 @@ if (SVELTEKIT_MODE) {
   config.kit.vite.mode = SVELTEKIT_MODE;
 }
 
-// For local development we use a proxy for API calls
-if (NODE_ENV === 'development' && !SVELTEKIT_MODE) {
-  process.env.VITE_API_URL = 'http://localhost:3001';
+if (!VITE_API_URL) {
+  if (DEPLOY_PRIME_URL) {
+    process.env.VITE_API_URL = `${DEPLOY_PRIME_URL}/api`;
+  } else if (NODE_ENV === 'development' && !SVELTEKIT_MODE) {
+    // For local development we use a proxy for API calls
+    process.env.VITE_API_URL = 'http://localhost:3001';
+  }
 }
 
 export default config;
