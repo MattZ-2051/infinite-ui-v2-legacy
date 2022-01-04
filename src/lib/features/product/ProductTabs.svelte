@@ -9,12 +9,13 @@
 
   export let product: Product;
   export let tab: 'auction' | 'history' | 'owner';
+  export let isProductOwner: boolean;
 
   function redirect({ detail }: CustomEvent<'auction' | 'history' | 'owner'>) {
     goto(`${routes.product(product._id)}?tab=${detail}`, { keepfocus: true });
   }
 
-  function getItems(totalPrivateAssets: number) {
+  function getItems() {
     let items = [
       {
         id: 'auction',
@@ -24,11 +25,8 @@
         id: 'history',
         title: 'History',
       },
+      { id: 'owner', title: 'Owner Access' },
     ];
-
-    if (totalPrivateAssets > 0) {
-      items.push({ id: 'owner', title: 'Owner Access' });
-    }
 
     return items;
   }
@@ -37,7 +35,7 @@
 <PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
   <Tabs
     class="px-4 md:pl-8 lg:pl-12"
-    items={getItems(totalPrivateAssets)}
+    items={getItems()}
     itemClass="text-xl lg:text-2xl items-center"
     menuBreakpoint="sm"
     defaultSelectedId={tab}
@@ -53,7 +51,7 @@
       <ProductHistory />
     {/if}
     {#if tab === 'owner'}
-      <PrivateAssetList />
+      <PrivateAssetList {isProductOwner} />
     {/if}
   </div>
 </PrivateAsset>

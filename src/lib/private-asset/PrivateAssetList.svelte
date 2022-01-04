@@ -9,8 +9,10 @@
 
   const privateAssets: Writable<PrivateAssets> = getContext('PrivateAssets');
 
+  export let isProductOwner = false;
+
   $: assets = $privateAssets?.assets || [];
-  $: isOwner = $privateAssets?.isOwner;
+  $: isOwner = $privateAssets?.isOwner || isProductOwner;
   $: productId = $privateAssets?.productId;
 
   async function download(key: string, filename: string) {

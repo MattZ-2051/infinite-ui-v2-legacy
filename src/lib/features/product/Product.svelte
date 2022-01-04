@@ -66,7 +66,7 @@
     </div>
 
     <div class="mt-12 md:mx-0 flex flex-col flex-grow">
-      <ProductTabs product={$product} {tab} />
+      <ProductTabs product={$product} {tab} {isProductOwner} />
     </div>
 
     <ProductStatus
