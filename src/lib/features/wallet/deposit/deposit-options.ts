@@ -1,5 +1,6 @@
 import type { ImageMetadata } from '$ui/image/Image.svelte';
 // import Circle from './circle-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
+import { ENABLE_ETH_CURRENCY } from '$project/variables';
 import MoonPay from './moonpay-avatar-2.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 import BitCoin from './bitcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
 import EthCoin from './ethcoin-avatar.png?w=48&format=avif;webp;png&metadata=src;format;width;height';
@@ -18,7 +19,7 @@ export type DepositOption = {
 const options: DepositOption[] = [
   // { id: 'circle', title: 'Credit Card', subtitle: 'Deposit funds using a credit card', image: Circle },
   { id: 'btc', title: 'BTC', subtitle: 'Deposit funds using BTC', image: BitCoin },
-  { id: 'eth', title: 'ETH', subtitle: 'Deposit funds using ETH', image: EthCoin },
+  { id: 'eth', title: 'ETH', subtitle: 'Deposit funds using ETH', image: EthCoin, disabled: !ENABLE_ETH_CURRENCY },
   { id: 'usdc', title: 'USDC', subtitle: 'Deposit funds using USDC', image: USDCoin },
   { id: 'hbar', title: 'HBAR', subtitle: 'Deposit funds using HBAR', image: Hbar },
   { id: 'suku', title: 'SUKU', subtitle: 'Coming soon', image: Suku, disabled: true },

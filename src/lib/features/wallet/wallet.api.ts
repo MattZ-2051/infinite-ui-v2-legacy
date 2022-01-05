@@ -1,6 +1,7 @@
 import type { BalanceInfo, Wallet, HbarDeposits, HbarTransaction, KycInfo } from './types';
 import type { Transaction, Bid } from '$lib/sku-item/types';
 import { get, getPage, fetchTracker, post } from '$lib/api';
+import { AVAILABLE_DEPOSIT_TYPES } from '$project/variables';
 
 export const loadingHbarTransactions = fetchTracker();
 
@@ -88,6 +89,7 @@ async function loadTransactionsWithFilter(
       ...(page && { page: `${page}`, per_page: '10' }),
       ...(sortBy && { sortBy }),
       ...(type && { type }),
+      depositCircleType: AVAILABLE_DEPOSIT_TYPES,
     },
   });
 

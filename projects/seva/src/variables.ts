@@ -21,3 +21,4 @@ export const AUTH_PROVIDER_IS_AUTH0 = true;
 export const KYC_INFO = 'https://info.seva.love/infinite/how-does-kyc-work';
 export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'all';
 export const SENTRY_DNS = 'https://b93ec290c306467f812048e6bc22db15@o734225.ingest.sentry.io/6132955';
+export const AVAILABLE_DEPOSIT_TYPES = 'eth,usdc,btc,hbar,suku';
