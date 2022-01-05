@@ -56,7 +56,16 @@ const config = {
   },
 };
 
-const { SVELTEKIT_ADAPTER: adapter, SVELTEKIT_MODE, NODE_ENV, VITE_API_URL, DEPLOY_PRIME_URL } = process.env;
+const {
+  SVELTEKIT_ADAPTER: adapter,
+  SVELTEKIT_MODE,
+  NODE_ENV,
+  VITE_API_URL,
+  NETLIFY,
+  CONTEXT,
+  URL,
+  DEPLOY_PRIME_URL,
+} = process.env;
 
 switch (adapter) {
   case 'node': {
@@ -87,8 +96,8 @@ if (SVELTEKIT_MODE) {
 }
 
 if (!VITE_API_URL) {
-  if (DEPLOY_PRIME_URL) {
-    process.env.VITE_API_URL = `${DEPLOY_PRIME_URL}/api`;
+  if (NETLIFY) {
+    process.env.VITE_API_URL = CONTEXT === 'deploy-preview' ? `${DEPLOY_PRIME_URL}/api` : `${URL}/api`;
   } else if (NODE_ENV === 'development' && !SVELTEKIT_MODE) {
     // For local development we use a proxy for API calls
     process.env.VITE_API_URL = 'http://localhost:3001';
