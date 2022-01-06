@@ -5,8 +5,12 @@
   # The command creates a _redirects file that will be used when building the project.
   # The added rule will redirect all requests to /api to the actual backend url.
   # This redirect is needed for aws cognito to work
-  command = 'echo "/api/* $API_URL/:splat  200" > _redirects && npm run build $PROJECT'
+  command = 'echo "/api/* $API_URL/:splat  200" > _redirects && pnpm build $PROJECT'
 
 [build.environment]
   NODE_VERSION = "14.18.0"
   SVELTEKIT_ADAPTER = "netlify"
+  NPM_FLAGS="--prefix=/dev/null"
+
+[[plugins]]
+  package = "/.netlify/netlify-plugin-pnpm"
