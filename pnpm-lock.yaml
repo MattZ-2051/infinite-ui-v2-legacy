@@ -23,8 +23,6 @@ specifiers:
   '@storybook/manager-webpack5': 6.4.0-beta.5
   '@storybook/svelte': 6.4.0-beta.5
   '@sveltejs/adapter-netlify': 1.0.0-next.35
-  '@sveltejs/adapter-node': 1.0.0-next.55
-  '@sveltejs/adapter-static': 1.0.0-next.21
   '@sveltejs/kit': 1.0.0-next.192
   '@tailwindcss/forms': 0.3.4
   '@tailwindcss/line-clamp': 0.2.2
@@ -154,8 +152,6 @@ devDependencies:
   '@storybook/manager-webpack5': 6.4.0-beta.5_typescript@4.4.4
   '@storybook/svelte': 6.4.0-beta.5_14ec6fdd8991c64586a44121800e85c9
   '@sveltejs/adapter-netlify': 1.0.0-next.35
-  '@sveltejs/adapter-node': 1.0.0-next.55
-  '@sveltejs/adapter-static': 1.0.0-next.21
   '@sveltejs/kit': 1.0.0-next.192_svelte@3.44.1
   '@testing-library/jest-dom': 5.15.0
   '@testing-library/svelte': 3.0.3_svelte@3.44.1
@@ -6001,17 +5997,6 @@ packages:
       esbuild: 0.13.5
     dev: true
 
-  /@sveltejs/adapter-node/1.0.0-next.55:
-    resolution: {integrity: sha512-Kmh8lx8kIY7W6rkqjC78y4dQTyjiAHD9D1WfmUTtYuDW1jAIG+YbZmPC9127kH5KOSGK4+tI8mpReDVB1lgf8g==}
-    dependencies:
-      esbuild: 0.13.5
-      tiny-glob: 0.2.9
-    dev: true
-
-  /@sveltejs/adapter-static/1.0.0-next.21:
-    resolution: {integrity: sha512-B4+QoUVAaANKx+mHntG8SqF45zbj3Ct4Akg/cGauo6COyfKZRhO5OsMa+wPuT2TKJBZC4eEDK0p+p9nyQBkxKQ==}
-    dev: true
-
   /@sveltejs/kit/1.0.0-next.192_svelte@3.44.1:
     resolution: {integrity: sha512-8LyPeEwxzMFMMr05I27j77qgvBdw92eVCH+W8+nW8kA7dkfA1e38GZXEb3qshd0Jez2Cng8MAzVMoETzGaQcng==}
     engines: {node: '>=14.13'}
@@ -11120,6 +11105,7 @@ packages:
 
   /globalyzer/0.1.0:
     resolution: {integrity: sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==}
+    dev: false
 
   /globby/11.0.1:
     resolution: {integrity: sha512-iH9RmgwCmUJHi2z5o2l3eTtGBtXek1OYlHrbcxOYugyHLmAsZrPj43OtHThd62Buh/Vv6VyCBD2bdyWcGNQqoQ==}
@@ -11161,6 +11147,7 @@ packages:
 
   /globrex/0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+    dev: false
 
   /graceful-fs/4.2.8:
     resolution: {integrity: sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==}
@@ -17386,6 +17373,7 @@ packages:
     dependencies:
       globalyzer: 0.1.0
       globrex: 0.1.2
+    dev: false
 
   /tinycolor2/1.4.2:
     resolution: {integrity: sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==}

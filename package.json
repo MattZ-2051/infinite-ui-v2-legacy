@@ -75,8 +75,6 @@
     "@storybook/manager-webpack5": "6.4.0-beta.5",
     "@storybook/svelte": "6.4.0-beta.5",
     "@sveltejs/adapter-netlify": "1.0.0-next.35",
-    "@sveltejs/adapter-node": "1.0.0-next.55",
-    "@sveltejs/adapter-static": "1.0.0-next.21",
     "@sveltejs/kit": "1.0.0-next.192",
     "@testing-library/jest-dom": "5.15.0",
     "@testing-library/svelte": "3.0.3",

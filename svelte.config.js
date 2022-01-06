@@ -4,8 +4,6 @@ import fs from 'node:fs';
 import preprocess from 'svelte-preprocess';
 import { imagetools } from 'vite-imagetools';
 import netlifyAdapter from '@sveltejs/adapter-netlify';
-import nodeAdapter from '@sveltejs/adapter-node';
-import staticAdapter from '@sveltejs/adapter-static';
 import tailwindConfig from './scripts/tailwind/fullConfig.js';
 import { alias } from './path-alias.js';
 
@@ -22,6 +20,8 @@ const config = {
   ],
 
   kit: {
+    adapter: netlifyAdapter(),
+
     // hydrate the <div id="svelte"> element in src/app.html
     target: '#svelte',
 
@@ -56,40 +56,7 @@ const config = {
   },
 };
 
-const {
-  SVELTEKIT_ADAPTER: adapter,
-  SVELTEKIT_MODE,
-  NODE_ENV,
-  VITE_API_URL,
-  NETLIFY,
-  CONTEXT,
-  URL,
-  DEPLOY_PRIME_URL,
-} = process.env;
-
-switch (adapter) {
-  case 'node': {
-    config.kit.adapter = nodeAdapter();
-    break;
-  }
-
-  case 'netlify': {
-    config.kit.adapter = netlifyAdapter();
-    break;
-  }
-
-  case 'static': {
-    config.kit.ssr = false;
-    config.kit.prerender = { pages: ['/'] };
-    config.kit.adapter = staticAdapter({ fallback: '/index.html' });
-    break;
-  }
-
-  default:
-    if (adapter) {
-      throw new Error(`Adapter "${adapter}" is not supported.`);
-    }
-}
+const { SVELTEKIT_MODE, NODE_ENV, VITE_API_URL, NETLIFY, CONTEXT, URL, DEPLOY_PRIME_URL } = process.env;
 
 if (SVELTEKIT_MODE) {
   config.kit.vite.mode = SVELTEKIT_MODE;
