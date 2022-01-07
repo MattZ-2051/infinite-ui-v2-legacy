@@ -58,7 +58,7 @@
   function handleWithdrawSelectModal() {
     if ($withdrawableBalanceUsd <= 0 && $withdrawableBalanceEth <= 0)
       toast.danger('Whoops! You cannot withdraw funds since your balance is 0!', { toastId: 'NO-FUNDS' });
-    else if ($wallet.kycRequired) toast.danger(kycLevelNeeded);
+    else if ($wallet.kycRequired) toast.danger(kycLevelNeeded, { toastId: 'KYC-LVL-NEEDED' });
     else {
       if (ENABLE_ETH_CURRENCY) {
         openModal(WithdrawCurrencySelectModal, { onCurrencySelect: onWithdrawCurrencySelect });
