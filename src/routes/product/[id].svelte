@@ -4,10 +4,10 @@
   import ProductPage from '$lib/features/product/Product.svelte';
   import { product, fetchProductFx, setProduct } from '$lib/features/product/product.store';
 
-  export async function load({ page: location, fetch }: LoadInput) {
-    const { id } = location.params;
-    const page = +location.query.get(`page`) || 1;
-    const tab = location.query.get(`tab`) as 'auction' | 'history' | 'owner';
+  export async function load({ url, params, fetch }: LoadInput) {
+    const { id } = params;
+    const page = +url.searchParams.get(`page`) || 1;
+    const tab = url.searchParams.get(`tab`) as 'auction' | 'history' | 'owner';
 
     return {
       props: { data: await fetchProductFx({ id, tab, page, fetch }) },

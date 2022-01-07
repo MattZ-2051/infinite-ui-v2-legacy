@@ -41,6 +41,7 @@
       .required('Start date is required.')
       .when('startImmediately', {
         is: false,
+        // eslint-disable-next-line unicorn/no-thenable
         then: yup.date().test(
           'is-same-or-after',
           'Start date must be in the future.',
@@ -53,6 +54,7 @@
       .required('End date is required.')
       .when('startImmediately', {
         is: true,
+        // eslint-disable-next-line unicorn/no-thenable
         then: yup
           .date()
           .test('is-after', 'Please set an end date that is later than the start date.', (value) =>

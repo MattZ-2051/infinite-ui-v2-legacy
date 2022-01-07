@@ -43,12 +43,12 @@
 
   const navigationPathChanging = derived(
     navigating,
-    ($navigating) => $navigating && $navigating.from.path !== $navigating.to.path
+    ($navigating) => $navigating && $navigating.from.pathname !== $navigating.to.pathname
   );
 
   $: $user && pollPendingTransactions();
   $: $user && pollWallet();
-  $: mustSetupAccount($user, $page.path);
+  $: mustSetupAccount($user, $page.url.pathname);
   $: initializeSentry(mode, $user, CLIENT_API_HEADER);
 </script>
 

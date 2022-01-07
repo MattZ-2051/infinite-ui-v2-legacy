@@ -28,7 +28,8 @@
   });
 
   async function onGenerateCryptoAddress() {
-    address = (await crypto.generateCryptoAddress(kind)).address;
+    const response = await crypto.generateCryptoAddress(kind);
+    address = response.address;
 
     const txLinkReceivedStore = writable(<string>undefined);
     txLinkUnsubscriber = txLinkReceivedStore.subscribe((_txLink) => {

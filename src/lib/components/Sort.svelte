@@ -21,7 +21,7 @@
   export let iconType = 'sort';
 
   const getSelected = () => {
-    const value = $page.query.get(key);
+    const value = $page.url.searchParams.get(key);
     if (!value) {
       return sortOptions[0];
     }

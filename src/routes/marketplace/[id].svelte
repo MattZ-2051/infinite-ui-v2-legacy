@@ -3,8 +3,8 @@
   import type { Awaited } from 'ts-essentials';
   import { loadSkuFx, setSku } from '$lib/features/sku/sku.store';
 
-  export async function load({ page, fetch }: LoadInput) {
-    const { id } = page.params;
+  export async function load({ params, fetch }: LoadInput) {
+    const { id } = params;
     return {
       props: { data: await loadSkuFx({ id, fetch }) },
     };

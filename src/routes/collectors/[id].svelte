@@ -7,10 +7,10 @@
   import { loadCollectorProducts } from '$lib/features/collectors/collectors.api';
 
   export const load = debounce(
-    async ({ page, fetch }: LoadInput) => {
-      const { id } = page.params;
+    async ({ url, params, fetch }: LoadInput) => {
+      const { id } = params;
       return {
-        props: await loadCollectorProducts({ id, fetch, query: page.query }),
+        props: await loadCollectorProducts({ id, fetch, query: url.searchParams }),
       };
     },
     browser ? 300 : 0

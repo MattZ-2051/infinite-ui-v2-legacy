@@ -17,7 +17,7 @@
   export let links: Link[];
 
   $: isRoute = function (route: string) {
-    return new RegExp(`^${route}(?:/|$)`).test($page.path);
+    return new RegExp(`^${route}(?:/|$)`).test($page.url.pathname);
   };
 </script>
 
@@ -56,14 +56,14 @@
         </div>
       </MenuTrigger>
       <MenuList slot="menu" class="sm:mt-4 font-medium text-sm">
-        <MenuItem href={routes.account} class={$page.path === routes.account ? 'hidden' : ''}>
-          <Icon path={mdiCogOutline} class="flex-shrink-0 float-left mr-3" />Account Settings
+        <MenuItem href={routes.account} class={$page.url.pathname === routes.account ? 'hidden' : ''}>
+          <Icon path={mdiCogOutline} class="shrink-0 float-left mr-3" />Account Settings
         </MenuItem>
-        <MenuItem href={routes.wallet} class={$page.path === routes.wallet ? 'hidden' : ''}>
-          <Icon path={mdiCreditCardOutline} class="flex-shrink-0 float-left mr-3" /> My Wallet
+        <MenuItem href={routes.wallet} class={$page.url.pathname === routes.wallet ? 'hidden' : ''}>
+          <Icon path={mdiCreditCardOutline} class="shrink-0 float-left mr-3" /> My Wallet
         </MenuItem>
         <MenuItem on:select={onSignOut}>
-          <Icon path={mdiLogout} class="flex-shrink-0 float-left mr-3" /> Sign Out
+          <Icon path={mdiLogout} class="shrink-0 float-left mr-3" /> Sign Out
         </MenuItem>
       </MenuList>
     </Menu>

@@ -20,7 +20,7 @@ describe('Sort', () => {
     ],
   };
   beforeEach(() => {
-    jest.spyOn($page.query, 'get').mockReturnValue('');
+    jest.spyOn($page.url.searchParams, 'get').mockReturnValue('');
   });
   it('should render correctly', async () => {
     const { getByText } = render(Sort, { props: properties });
@@ -49,7 +49,7 @@ describe('Sort', () => {
   });
 
   it('should be able to set selected externally', () => {
-    jest.spyOn($page.query, 'get').mockReturnValue('sortTest:desc');
+    jest.spyOn($page.url.searchParams, 'get').mockReturnValue('sortTest:desc');
     const { getByText } = render(Sort, { props: properties });
     const selectedLabel = getByText('sort desc');
     expect(selectedLabel).toHaveTextContent('sort desc');

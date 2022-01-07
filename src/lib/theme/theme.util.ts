@@ -1,11 +1,10 @@
-import type { Page } from '@sveltejs/kit';
 import { themeConfig } from '$theme/theme.config';
 
 const _matchers = parseMatchers(themeConfig);
 
-export function getCurrentPage(page: Page) {
+export function getCurrentPage(url: URL) {
   return (
-    page.path
+    url.pathname
       ?.split('/')
       .filter(Boolean)
       .map((part) => `$${part}`)

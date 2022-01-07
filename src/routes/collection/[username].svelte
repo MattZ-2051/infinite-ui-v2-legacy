@@ -4,14 +4,14 @@
   import { onDestroy } from 'svelte';
   import { clearCollection, loadCollectionFx, setCollection } from '$lib/features/collection/collection.store';
 
-  export async function load({ page, fetch }: LoadInput) {
-    const { username } = page.params;
-    const _page = +page.query.get(`page`) || 1;
-    const sortBy: string = page.query.get('sortBy');
+  export async function load({ url, params, fetch }: LoadInput) {
+    const { username } = params;
+    const _page = +url.searchParams.get(`page`) || 1;
+    const sortBy: string = url.searchParams.get('sortBy');
 
     const data = await loadCollectionFx({
       username,
-      tab: page.query.get(`tab`) as 'Releases' | 'NFTs',
+      tab: url.searchParams.get(`tab`) as 'Releases' | 'NFTs',
       page: _page,
       sortBy,
       fetch,

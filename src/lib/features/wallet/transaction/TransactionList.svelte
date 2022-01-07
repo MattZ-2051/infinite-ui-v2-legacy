@@ -15,7 +15,7 @@
     });
   }
 
-  $: p = +$page.query.get(`page`) || 1;
+  $: p = +$page.url.searchParams.get(`page`) || 1;
 
   const loading = loadMyTransactionsFx.pending;
   let active: ActiveType = [];

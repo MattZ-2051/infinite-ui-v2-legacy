@@ -3,7 +3,8 @@ import type { PlaidPublicToken, PlaidSuccessMetadata } from './plaid';
 import { post } from '$lib/api';
 
 export async function getAchLinkToken(): Promise<string> {
-  return (await post<AchLinkToken>('wallet/ach/link', {})).linkToken;
+  const response = await post<AchLinkToken>('wallet/ach/link', {});
+  return response.linkToken;
 }
 
 export async function getAchAccessToken(

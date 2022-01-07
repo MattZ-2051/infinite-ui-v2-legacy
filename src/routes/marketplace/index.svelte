@@ -6,10 +6,10 @@
   import { loadMarketplaceFilters, loadMarketplaceItems } from '$lib/features/marketplace/marketplace.api';
 
   export const load = debounce(
-    async ({ fetch, page }: LoadInput) => {
+    async ({ fetch, url }: LoadInput) => {
       const [filters, items] = await Promise.all([
-        loadMarketplaceFilters({ fetch, query: page.query }),
-        loadMarketplaceItems({ fetch, query: page.query }),
+        loadMarketplaceFilters({ fetch, query: url.searchParams }),
+        loadMarketplaceItems({ fetch, query: url.searchParams }),
       ]);
       const { data, total } = items;
 

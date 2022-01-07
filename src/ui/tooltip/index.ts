@@ -1,4 +1,6 @@
 import type { Instance, Props } from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
+import './themes.css';
 
 export type TooltipInput = string | { [key: string]: unknown };
 
@@ -18,11 +20,7 @@ function setTippy(userInput: TooltipInput, instance: Instance<Props>) {
 
 export default function tooltip(node: HTMLElement | SVGSVGElement, userInput: TooltipInput): SvelteActionReturn {
   (async () => {
-    const [{ default: tippy }] = await Promise.all([
-      import('tippy.js'),
-      import('tippy.js/dist/tippy.css'),
-      import('./themes.css'),
-    ]);
+    const { default: tippy } = await import('tippy.js');
 
     const instance = tippy(node, {});
 

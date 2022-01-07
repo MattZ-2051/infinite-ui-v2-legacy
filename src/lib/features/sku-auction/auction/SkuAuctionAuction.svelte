@@ -14,7 +14,7 @@
   export let sku: Sku;
 
   $: listing = hasAuction(sku) && (sku.activeSkuListings?.[0] || sku.upcomingProductListings?.[0]);
-  $: bidsPage = +$page.query.get(`page`) || 1;
+  $: bidsPage = +$page.url.searchParams.get(`page`) || 1;
 
   const gotoPage = (event: CustomEvent) => {
     gotoQueryParameters(

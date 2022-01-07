@@ -55,7 +55,7 @@
 
   function removeAllFilters() {
     setFilters({
-      params: { mode: $page.query.get('mode') },
+      params: { mode: $page.url.searchParams.get('mode') },
       reset: true,
     });
   }
@@ -121,43 +121,45 @@
     }
   }
 
-  $: categorySelected = $page.query.get('category') ? $page.query.get('category').split(',') : [];
+  $: categorySelected = $page.url.searchParams.get('category') ? $page.url.searchParams.get('category').split(',') : [];
   $: categorySelectedObject = categorySelected.map((id) => categories.find((c) => c._id === id)).filter(Boolean);
   $: availableCategorySelected = categorySelectedObject.map((c) => c._id);
 
-  $: seriesSelected = $page.query.get('series') ? $page.query.get('series').split(',') : [];
+  $: seriesSelected = $page.url.searchParams.get('series') ? $page.url.searchParams.get('series').split(',') : [];
   $: seriesSelectedObject = seriesSelected.map((id) => series.find((c) => c._id === id)).filter(Boolean);
 
-  $: editionSelected = $page.query.get('typeEdition') ? $page.query.get('typeEdition').split(',') : [];
+  $: editionSelected = $page.url.searchParams.get('typeEdition')
+    ? $page.url.searchParams.get('typeEdition').split(',')
+    : [];
   $: editionSelectedObject = editionSelected.map((id) => editionFilters.find((c) => c.id === id)).filter(Boolean);
 
-  $: saleTypeSelected = $page.query.get('saleType') ? $page.query.get('saleType').split(',') : [];
+  $: saleTypeSelected = $page.url.searchParams.get('saleType') ? $page.url.searchParams.get('saleType').split(',') : [];
   $: saleTypeSelectedObject = saleTypeSelected.map((id) => saleTypeFilters.find((c) => c.id === id)).filter(Boolean);
 
-  $: nftTypeSelected = $page.query.get('currency') ? $page.query.get('currency').split(',') : [];
+  $: nftTypeSelected = $page.url.searchParams.get('currency') ? $page.url.searchParams.get('currency').split(',') : [];
   $: nftTypeSelectedObject = nftTypeSelected.map((id) => nftTypeFilters.find((c) => c.id === id)).filter(Boolean);
   $: availableNftTypeSelected = nftTypeSelectedObject.map((c) => c.id);
 
-  $: creatorsSelected = $page.query.get('issuerId') ? $page.query.get('issuerId').split(',') : [];
+  $: creatorsSelected = $page.url.searchParams.get('issuerId') ? $page.url.searchParams.get('issuerId').split(',') : [];
   $: creatorsSelectedObject = creatorsSelected.map((_id) => creators.find((c) => c._id === _id)).filter(Boolean);
   $: availableCreatorsSelected = creatorsSelectedObject.map((c) => c._id);
 
-  $: startDateSelected = $page.query.get('startDate');
-  $: endDateSelected = $page.query.get('endDate');
+  $: startDateSelected = $page.url.searchParams.get('startDate');
+  $: endDateSelected = $page.url.searchParams.get('endDate');
   $: dateFilter = formatDateRange(startDateSelected, endDateSelected);
 
   $: priceSelectedObject =
-    $page.query.has('minPrice') || $page.query.has('maxPrice')
-      ? `${formatCurrencyWithOptionalFractionDigits(+$page.query.get('minPrice') || 0, {
+    $page.url.searchParams.has('minPrice') || $page.url.searchParams.has('maxPrice')
+      ? `${formatCurrencyWithOptionalFractionDigits(+$page.url.searchParams.get('minPrice') || 0, {
           minimumFractionDigits: 0,
           maximumFractionDigits: 18,
-        })}-${formatCurrencyWithOptionalFractionDigits(+$page.query.get('maxPrice') || maxPrice, {
+        })}-${formatCurrencyWithOptionalFractionDigits(+$page.url.searchParams.get('maxPrice') || maxPrice, {
           minimumFractionDigits: 0,
           maximumFractionDigits: 18,
         })}`
       : undefined;
 
-  $: searchFilter = $page.query.get('search') || '';
+  $: searchFilter = $page.url.searchParams.get('search') || '';
 
   $: filters = <FilterType[]>[
     ...(searchFilter ? [{ type: 'search', label: searchFilter }] : []),
@@ -220,7 +222,7 @@
             },
           }}
           class="text-gray-500 hover:text-gray-400 flex gap-2 items-center py-1 cursor-pointer text-lg"
-          class:active={status ? $page.query.get('mode') === status : !$page.query.get('mode')}
+          class:active={status ? $page.url.searchParams.get('mode') === status : !$page.url.searchParams.get('mode')}
         >
           <span class="label">{label}</span>
         </div>
@@ -269,7 +271,10 @@
         </div>
 
         <RangeSlider
-          values={[$page.query.get('minPrice') || '0', $page.query.get('maxPrice') || `${maxPrice}`]}
+          values={[
+            $page.url.searchParams.get('minPrice') || '0',
+            $page.url.searchParams.get('maxPrice') || `${maxPrice}`,
+          ]}
           format={formatCurrencyWithOptionalFractionDigits}
           min={0}
           max={maxPrice}

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { usePrevious } from 'svelte-previous';
+  import { withPrevious } from 'svelte-previous';
   import Icon from '$ui/icon/Icon.svelte';
   import addTooltip from '$ui/tooltip';
 
@@ -11,7 +11,7 @@
   let _class = '';
   export { _class as class };
 
-  const [currentActive, previousActive] = usePrevious(active);
+  const [currentActive, previousActive] = withPrevious(active);
   let anchorElement: HTMLAnchorElement;
 
   $: {
@@ -47,7 +47,7 @@
   </a>
 </li>
 
-<style>
+<style lang="postcss">
   li {
     color: theme('colors.gray.500');
   }

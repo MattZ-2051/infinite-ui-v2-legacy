@@ -1,23 +1,23 @@
 <script lang="ts" context="module">
   import type { LoadInput } from '@sveltejs/kit';
 
-  export async function load({ page: { host, path, query } }: LoadInput) {
-    let url: string = undefined;
+  export async function load({ url }: LoadInput) {
+    let urlString: string = undefined;
 
-    if (query.has('code') && query.has('state')) {
-      url = `://${host}${path}?${query}`;
-    } else if (query.has('error')) {
+    if (url.searchParams.has('code') && url.searchParams.has('state')) {
+      urlString = `://${url.hostname}${url.pathname}?${url.searchParams}`;
+    } else if (url.searchParams.has('error')) {
       return {
         status: 401,
-        error: query.get('error_description') || 'Unknown authorization error',
+        error: url.searchParams.get('error_description') || 'Unknown authorization error',
       };
     }
 
     return {
       status: 200,
       props: {
-        url,
-        returnUrl: query.get('returnUrl'),
+        url: urlString,
+        returnUrl: url.searchParams.get('returnUrl'),
       },
     };
   }

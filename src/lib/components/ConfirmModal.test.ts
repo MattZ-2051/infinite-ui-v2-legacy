@@ -21,8 +21,8 @@ describe('ConfirmModal', () => {
     expect(container).toHaveTextContent('My title');
     expect(container).toHaveTextContent('My custom message');
 
-    expect(getByText('OK').tagName).toEqual(`BUTTON`);
-    expect(getByText('Cancel').tagName).toEqual(`BUTTON`);
+    expect(getByText('OK').tagName).toBe(`BUTTON`);
+    expect(getByText('Cancel').tagName).toBe(`BUTTON`);
   });
 
   it('handles confirm action', async () => {

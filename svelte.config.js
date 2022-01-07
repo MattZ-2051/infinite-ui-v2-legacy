@@ -39,8 +39,12 @@ const config = {
 
       plugins: [imagetools()],
 
+      optimizeDeps: {
+        include: ['swiper'],
+      },
+
       ssr: {
-        noExternal: ['p-debounce', 'web-social-share'],
+        noExternal: ['p-debounce', 'svelte-previous', 'swiper', 'web-social-share'],
       },
 
       define: {

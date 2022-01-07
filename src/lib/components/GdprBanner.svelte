@@ -30,7 +30,7 @@
           We use cookies to provide you with a great experience and to help our website run effectively.
         </p>
       </div>
-      <div class="flex-grow-0">
+      <div class="grow-0">
         <button
           type="button"
           on:click={onClose}

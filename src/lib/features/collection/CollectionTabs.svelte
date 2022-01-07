@@ -35,9 +35,9 @@
     },
   ];
 
-  $: p = +$page.query.get(`page`) || 1;
+  $: p = +$page.url.searchParams.get(`page`) || 1;
 
-  $: tab = $page.query.get(`tab`) || (isIssuer ? 'Releases' : 'NFTs');
+  $: tab = $page.url.searchParams.get(`tab`) || (isIssuer ? 'Releases' : 'NFTs');
 
   const perPage = isIssuer ? perPageIssuer : perPageUser;
   let tabContainer: HTMLElement;

@@ -1,4 +1,3 @@
-import type { Page } from '@sveltejs/kit';
 import { getCurrentPage, parseMatchers, getMatch } from './theme.util';
 
 const config = {
@@ -25,7 +24,7 @@ describe('getCurrentPage', () => {
     ];
 
     for (const [input, expectedValue] of cases) {
-      expect(getCurrentPage(<Page>{ path: input })).toBe(expectedValue);
+      expect(getCurrentPage(<URL>{ pathname: input })).toBe(expectedValue);
     }
   });
 });

@@ -10,7 +10,7 @@
   <span>Menu</span>
 </button>
 
-<style>
+<style lang="postcss">
   button {
     border: none;
     width: 30px;

@@ -53,7 +53,7 @@
     },
   ];
 
-  $: p = +$page.query.get('page') || 1;
+  $: p = +$page.url.searchParams.get('page') || 1;
 </script>
 
 <svelte:window bind:scrollY />
@@ -73,7 +73,7 @@
   <div class="gap-2 {showFilters && !$media.lg ? 'hidden' : 'flex'}">
     <div class="flex flex-wrap items-center justify-end lg:justify-between w-full">
       <div class="py-3 flex-1">
-        <Search on:input={handleInput} value={$page.query.get('search') || ''} />
+        <Search on:input={handleInput} value={$page.url.searchParams.get('search') || ''} />
       </div>
       <div class="py-3 ml-12 sort-container">
         <Sort on:select={sort} {sortOptions} />

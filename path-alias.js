@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import stripJsonComments from 'strip-json-comments';
 
-const contents = await readFile(new URL('./tsconfig.json', import.meta.url));
+const contents = await readFile(new URL('tsconfig.json', import.meta.url));
 const json = JSON.parse(stripJsonComments(contents.toString()));
 
 const { paths } = json.compilerOptions;

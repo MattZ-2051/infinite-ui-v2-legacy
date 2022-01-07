@@ -49,7 +49,8 @@ export function clearUser(): void {
 }
 
 export async function getPersonalToken(): Promise<string> {
-  return (await post<{ token: string }>('users/personal-token', {}))?.token;
+  const response = await post<{ token: string }>('users/personal-token', {});
+  return response?.token;
 }
 
 export async function initUserAuth() {

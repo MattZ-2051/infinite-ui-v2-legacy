@@ -1,13 +1,13 @@
 <script context="module" lang="ts">
   import type { LoadInput } from '@sveltejs/kit';
 
-  export async function load({ page }: LoadInput) {
+  export async function load({ url }: LoadInput) {
     return {
       props: {
-        page: page.query.get(`page`) || 1,
-        tab: page.query.get(`tab`) || 'transactions',
-        sortBy: page.query.get('sortBy') || 'createdAt:desc',
-        type: page.query.get('type') || '',
+        page: url.searchParams.get(`page`) || 1,
+        tab: url.searchParams.get(`tab`) || 'transactions',
+        sortBy: url.searchParams.get('sortBy') || 'createdAt:desc',
+        type: url.searchParams.get('type') || '',
       },
     };
   }

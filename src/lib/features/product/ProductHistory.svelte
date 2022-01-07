@@ -13,7 +13,7 @@
   import { loadingTransactions } from './product.api';
   import { product, transactions, totalTransactions } from './product.store';
 
-  $: p = +$page.query.get(`page`) || 1;
+  $: p = +$page.url.searchParams.get(`page`) || 1;
 
   const gotoPage = (event: CustomEvent) => {
     gotoQueryParameters(

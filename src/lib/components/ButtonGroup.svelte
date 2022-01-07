@@ -1,5 +1,4 @@
-<script>
-</script>
+<script></script>
 
 <div {...$$restProps}>
   <slot />

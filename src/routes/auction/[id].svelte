@@ -5,9 +5,9 @@
   import AuctionPage from '../../lib/features/sku-auction/SkuAuction.svelte';
   import { loadSkuAuctionFx, setSkuAuction } from '../../lib/features/sku-auction/sku-auction.store';
 
-  export async function load({ page: pageData, fetch }: LoadInput) {
-    const { id } = pageData.params;
-    const page = +pageData.query.get(`page`) || 1;
+  export async function load({ params, url, fetch }: LoadInput) {
+    const { id } = params;
+    const page = +url.searchParams.get(`page`) || 1;
     return {
       props: { data: await loadSkuAuctionFx({ id, page, fetch }) },
     };
