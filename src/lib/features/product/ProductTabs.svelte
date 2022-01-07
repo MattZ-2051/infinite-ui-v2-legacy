@@ -25,7 +25,7 @@
         id: 'history',
         title: 'History',
       },
-      { id: 'owner', title: 'Owner Access' },
+      { id: 'owner', title: 'Unlockable Content' },
     ];
 
     return items;

@@ -20,7 +20,7 @@
     }
 
     if (totalPrivateAssets > 0) {
-      items.push({ id: 'owner', title: 'Owner Access' });
+      items.push({ id: 'owner', title: 'Unlockable Content' });
     }
 
     return items;
