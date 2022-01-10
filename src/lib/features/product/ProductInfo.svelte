@@ -60,9 +60,9 @@
         <div class="truncate inline"><UserLink username={product.owner.username} /></div>
       </div>
     {:else if sku.currency === 'ETH'}
-      <div class={`${headerClass} flex justify-between`}>
+      <div class={`${headerClass} flex`}>
         Minted by
-        <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer">
+        <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
           <Icon
             path={information}
             size="0.9em"
@@ -85,14 +85,10 @@
     {/if}
   </div>
   <div class={cellClass}>
-    <div class={`${headerClass} flex justify-between`}>
+    <div class={`${headerClass} flex`}>
       Created by
-      <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer">
-        <Icon
-          path={information}
-          size="0.9em"
-          tooltip="User who issued the NFT and who was who created the assets for this NFT."
-        />
+      <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
+        <Icon path={information} size="0.9em" tooltip="User who issued the NFT and created the assets for this NFT." />
       </div>
     </div>
     <div><TalentLink profile={sku.issuer} /></div>
