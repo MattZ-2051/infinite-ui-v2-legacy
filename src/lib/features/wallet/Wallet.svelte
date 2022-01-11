@@ -100,7 +100,7 @@
     if (!isKycCleared) {
       const prompt = isKycPending
         ? 'Please, wait until we validate your identity.'
-        : `In order to make a cryptocurrency deposit, you need to complete the <a data-toast="verificationStepsCb" class="cursor-pointer">account verification</a> process (KYC level 1).<br>
+        : `In order to make a cryptocurrency deposit, you need to complete the <a data-toast="verificationStepsCb" class="cursor-pointer font-bold">account verification</a> process (KYC level 1).<br>
           ${kycLevelNeeded}`;
 
       toast.warning(`${prompt}`, {

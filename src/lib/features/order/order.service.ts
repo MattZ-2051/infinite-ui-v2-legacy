@@ -14,12 +14,15 @@ export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: 
   loadWalletFx();
 
   if (!currentUser) {
-    toast.danger(`Please <a data-toast="signIn" class="cursor-pointer">sign in</a> to complete your purchase.`, {
-      onClick: {
-        signIn: onSignIn,
-      },
-      toastId: 'ORDER_ERROR_LOGIN',
-    });
+    toast.danger(
+      `Please <a data-toast="signIn" class="cursor-pointer font-bold">sign in</a> to complete your purchase.`,
+      {
+        onClick: {
+          signIn: onSignIn,
+        },
+        toastId: 'ORDER_ERROR_LOGIN',
+      }
+    );
     return;
   }
 

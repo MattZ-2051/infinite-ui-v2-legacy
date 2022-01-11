@@ -43,7 +43,7 @@
         reset();
       } catch {
         toast.danger(
-          `Whoops! We were not able to subscribe you to our mailing list. Please try again or <a href=${routes.help}>contact support</a> if this issue continues.`,
+          `Whoops! We were not able to subscribe you to our mailing list. Please try again or <a href=${routes.help} class="font-bold">contact support</a> if this issue continues.`,
           { toastId }
         );
       }

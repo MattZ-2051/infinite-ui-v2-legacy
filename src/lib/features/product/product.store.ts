@@ -201,7 +201,7 @@ pollTransactionFx.doneData.watch(async (response) => {
         if ($polls[$product._id].$isActive) {
           $polls[$product._id].stop();
           toast.danger(
-            `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help}>contact support</a> if the issue persists.`
+            `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help} class="font-bold">contact support</a> if the issue persists.`
           );
         }
       }
@@ -223,7 +223,7 @@ pollTransactionFx.doneData.watch(async (response) => {
         const $polls = polls.getState();
         $polls[$sku._id].stop();
         toast.danger(
-          `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help}>contact support</a> if the issue persists.`
+          `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help} class="font-bold">contact support</a> if the issue persists.`
         );
       }
     }
@@ -235,9 +235,11 @@ const transactionSuccessMessage = (transactionData?: TransactionData) => {
     `Congrats! Your NFT purchase was processed successfully!` +
       (!transactionData
         ? ''
-        : ` Click <a href=${routes.product(transactionData.product._id)}>here</a> to view your new collectible: ${
-            transactionData.sku.name
-          } #${transactionData.product.serialNumber}.`)
+        : ` Click <a href=${routes.product(
+            transactionData.product._id
+          )} class="font-bold">here</a> to view your new collectible: ${transactionData.sku.name} #${
+            transactionData.product.serialNumber
+          }.`)
   );
 };
 

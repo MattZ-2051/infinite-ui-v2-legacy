@@ -72,7 +72,7 @@ function getSuccessMessage({
     case 'purchase': {
       return `Congrats! Your NFT purchase was processed successfully! Click <a href=${routes.product(
         product._id
-      )}>here</a> to view your new collectible: ${sku.name} #${product.serialNumber}.`;
+      )} class="font-bold">here</a> to view your new collectible: ${sku.name} #${product.serialNumber}.`;
     }
     case 'sale': {
       return `The sale transaction for ${sku.name} is complete.`;

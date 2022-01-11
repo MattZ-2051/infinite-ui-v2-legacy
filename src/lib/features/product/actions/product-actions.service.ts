@@ -42,7 +42,7 @@ export function onAction(type: ActionType, product: Product) {
                 break;
               default:
                 toast.danger(
-                  `Whoops! Something went wrong. Please try again or <a href=${routes.help}>contact us</a> if this issue continues.`
+                  `Whoops! Something went wrong. Please try again or <a href=${routes.help} class="font-bold">contact us</a> if this issue continues.`
                 );
             }
           }
@@ -78,7 +78,7 @@ export function onAction(type: ActionType, product: Product) {
                 break;
               default:
                 toast.danger(
-                  `Whoops! Something went wrong. Please try again or <a href=${routes.help}>contact us</a> if this issue continues.`
+                  `Whoops! Something went wrong. Please try again or <a href=${routes.help} class="font-bold">contact us</a> if this issue continues.`
                 );
             }
           }

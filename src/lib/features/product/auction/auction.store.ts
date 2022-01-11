@@ -22,7 +22,9 @@ placeBidFx.done.watch(async ({ params: { listing } }) => {
 
   const message = [`You've successfully placed your bid.`];
   if (CLIENT_SUPPORT_URL) {
-    message.push(`Learn more about bidding <a target="_blank" href="${CLIENT_SUPPORT_URL}" rel="noreferrer">here</a>.`);
+    message.push(
+      `Learn more about bidding <a target="_blank" href="${CLIENT_SUPPORT_URL}" rel="noreferrer" class="font-bold">here</a>.`
+    );
   }
   toast.success(message.join(' '));
 });
