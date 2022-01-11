@@ -22,6 +22,7 @@
   import { onAction, onBid } from '../actions/product-actions.service';
   import ProductStatusUpcoming from './ProductStatusUpcoming.svelte';
   import { getBiddingFee } from '../product.fee';
+  import ProductStatusLayout from './ProductStatusLayout.svelte';
 
   export let product: Product;
   export let userId: string;
@@ -46,52 +47,47 @@
 
 <div {...$$restProps}>
   {#if showActiveSale}
-    <div
-      class="flex flex-col md:flex-row w-full h-full md:rounded-lg overflow-hidden whitespace-nowrap"
-      style="background-color: #313131;"
-    >
-      <div
-        class="flex flex-grow flex-col md:flex-row md:px-6 py-2 md:py-4 justify-center md:justify-between items-center"
-      >
-        <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
-          <div class="text-sm text-gray-500">Active Sale:</div>
-          <div class="flex gap-1">
-            Started on
-            <div class="text-gray-300">
-              {formatDate(activeProductListing?.startDate)}
-            </div>
+    <ProductStatusLayout>
+      <div class="flex flex-row lg:flex-col gap-1 items-center lg:items-start">
+        <div class="text-sm text-gray-500">Active Sale:</div>
+        <div class="flex gap-1">
+          Started on
+          <div class="text-gray-300">
+            {formatDate(activeProductListing?.startDate)}
           </div>
         </div>
-        {#if isProductOwner}
-          <div class={textClass}>
-            Selling for {formatCurrency(activeProductListing?.price)}
-          </div>
-        {/if}
       </div>
-
       {#if isProductOwner}
-        <Button
-          variant="brand"
-          --button-border-radius="0"
-          on:click={() => onAction('cancel-sale', product)}
-          class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
-          >Cancel Sale<Icon size="1.2" path={mdiClose} /></Button
-        >
-      {:else}
-        <Button
-          variant="brand"
-          --button-border-radius="0"
-          disabled={$isActive}
-          on:click={onBuy}
-          class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
-        >
-          {$isActive ? 'Processing...' : `Buy Now for ${formatCurrency(activeProductListing?.price)}`}<Icon
-            size="1.2"
-            path={arrowRight}
-          /></Button
-        >
+        <div class={textClass}>
+          Selling for {formatCurrency(activeProductListing?.price)}
+        </div>
       {/if}
-    </div>
+
+      <svelte:fragment slot="action">
+        {#if isProductOwner}
+          <Button
+            variant="brand"
+            --button-border-radius="0"
+            on:click={() => onAction('cancel-sale', product)}
+            class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
+            >Cancel Sale<Icon size="1.2" path={mdiClose} /></Button
+          >
+        {:else}
+          <Button
+            variant="brand"
+            --button-border-radius="0"
+            disabled={$isActive}
+            on:click={onBuy}
+            class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
+          >
+            {$isActive ? 'Processing...' : `Buy Now for ${formatCurrency(activeProductListing?.price)}`}<Icon
+              size="1.2"
+              path={arrowRight}
+            /></Button
+          >
+        {/if}
+      </svelte:fragment>
+    </ProductStatusLayout>
   {/if}
 
   {#if showUpcomingSale}
@@ -118,43 +114,38 @@
 
   {#if showActiveAuction}
     {#if isProductOwner}
-      <div
-        class="flex flex-col md:flex-row w-full h-full md:rounded-lg overflow-hidden"
-        style="background-color: #313131;"
-      >
-        <div
-          class="flex flex-grow flex-col md:flex-row md:px-6 py-2 md:py-4 justify-center md:justify-between items-center"
-        >
-          <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
-            <div class="text-sm text-gray-500">Auction ends in:</div>
-            <div class="flex gap-1">
-              <TimeDifference date={activeProductListing?.endDate} on:zero={() => auctionEnded()} />
-              <div class="text-gray-300">
-                — {formatDate(activeProductListing?.endDate)}
-              </div>
+      <ProductStatusLayout>
+        <div class="flex flex-row lg:flex-col gap-1 items-center lg:items-start">
+          <div class="text-sm text-gray-500">Auction ends in:</div>
+          <div class="flex gap-1">
+            <TimeDifference date={activeProductListing?.endDate} on:zero={() => auctionEnded()} />
+            <div class="text-gray-300">
+              — {formatDate(activeProductListing?.endDate)}
             </div>
           </div>
-          {#if !canCancelAuction}
-            <div class={textClass}>
-              Current bid {formatCurrency($maxPlacedBid)}
-            </div>
-          {:else}
-            <div class={textClass}>
-              Starting price {formatCurrency(activeProductListing?.minBid)}
-            </div>
-          {/if}
         </div>
-
-        {#if canCancelAuction}
-          <Button
-            variant="brand"
-            --button-border-radius="0"
-            on:click={() => onAction('cancel-auction', product)}
-            class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
-            >Cancel Auction<Icon size="1.2" path={mdiClose} /></Button
-          >
+        {#if !canCancelAuction}
+          <div class={textClass}>
+            Current bid {formatCurrency($maxPlacedBid)}
+          </div>
+        {:else}
+          <div class={textClass}>
+            Starting price {formatCurrency(activeProductListing?.minBid)}
+          </div>
         {/if}
-      </div>
+
+        <svelte:fragment slot="action">
+          {#if canCancelAuction}
+            <Button
+              variant="brand"
+              --button-border-radius="0"
+              on:click={() => onAction('cancel-auction', product)}
+              class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
+              >Cancel Auction<Icon size="1.2" path={mdiClose} /></Button
+            >
+          {/if}
+        </svelte:fragment>
+      </ProductStatusLayout>
     {:else}
       <BidForm
         {product}

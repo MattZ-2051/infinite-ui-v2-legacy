@@ -5,6 +5,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatCurrency, formatDate } from '$util/format';
+  import ProductStatusLayout from './ProductStatusLayout.svelte';
 
   export let startDate: Date;
   export let isProductOwner: boolean;
@@ -31,34 +32,34 @@
   const textClass = 'text-2xl md:text-xl lg:text-2xl';
 </script>
 
-<div class="flex flex-col md:flex-row w-full h-full md:rounded-lg overflow-hidden" style="background-color: #313131;">
-  <div class="flex flex-grow flex-col md:flex-row md:px-6 py-2 md:py-4 justify-center md:justify-between items-center">
-    <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
-      <div class="text-sm text-gray-500">{messages[type].startsIn}</div>
-      <div class="flex gap-1">
-        <TimeDifference date={startDate} on:zero />
-        <div class="text-gray-300">
-          — {formatDate(startDate)}
-        </div>
+<ProductStatusLayout>
+  <div class="flex flex-row lg:flex-col gap-1 items-center lg:items-start">
+    <div class="text-sm text-gray-500">{messages[type].startsIn}</div>
+    <div class="flex gap-1">
+      <TimeDifference date={startDate} on:zero />
+      <div class="text-gray-300">
+        — {formatDate(startDate)}
       </div>
     </div>
-    <div class={textClass}>
-      {#if isProductOwner}
-        {messages[type].textOwner}
-      {:else}
-        {messages[type].textNonOwner}
-      {/if}
-      {formatCurrency(price)}
-    </div>
+  </div>
+  <div class={textClass}>
+    {#if isProductOwner}
+      {messages[type].textOwner}
+    {:else}
+      {messages[type].textNonOwner}
+    {/if}
+    {formatCurrency(price)}
   </div>
 
-  {#if isProductOwner}
-    <Button
-      variant="brand"
-      --button-border-radius="0"
-      on:click={() => dispatch('cancel')}
-      class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
-      >{messages[type].cancel}<Icon size="1.2" path={mdiClose} /></Button
-    >
-  {/if}
-</div>
+  <svelte:fragment slot="action">
+    {#if isProductOwner}
+      <Button
+        variant="brand"
+        --button-border-radius="0"
+        on:click={() => dispatch('cancel')}
+        class="flex items-center gap-2 px-6 h-20 md:h-auto {textClass}"
+        >{messages[type].cancel}<Icon size="1.2" path={mdiClose} /></Button
+      >
+    {/if}
+  </svelte:fragment>
+</ProductStatusLayout>
