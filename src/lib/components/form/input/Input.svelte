@@ -6,6 +6,7 @@
   import { get_current_component } from 'svelte/internal';
   import type { FormElementVariant } from '../types';
   import { forwardEventsBuilder } from '$util/forwardEvents';
+  import Button from '$lib/components/Button.svelte';
   import BaseElement from '../BaseElement.svelte';
 
   export let id = `input-${uid++}`;
@@ -16,10 +17,13 @@
   export let value = undefined;
   export let error: string | string[] = '';
   export let variant: FormElementVariant = 'base';
+  export let isEthInput = false;
+  export let withdrawableAmount = 0;
   let _class = '';
   export { _class as class };
 
   const forwardEvents = forwardEventsBuilder(get_current_component());
+  const hasBalance = withdrawableAmount > 0;
 </script>
 
 <BaseElement {id} {label} {error} {variant} class={_class} let:klass>
@@ -29,6 +33,17 @@
   <input use:forwardEvents {id} {name} class={klass} bind:value {...$$restProps} />
   {#if $$slots.after || after}
     <div class="input-icon flex-none"><slot name="after" class="flex-none">{after}</slot></div>
+  {/if}
+  {#if isEthInput}
+    <Button
+      type="button"
+      variant="brand"
+      class="w-1/2"
+      --button-border-radius="0.5rem"
+      disabled={!hasBalance}
+      style
+      on:click={() => (value = withdrawableAmount)}>Enter Max</Button
+    >
   {/if}
 </BaseElement>
 

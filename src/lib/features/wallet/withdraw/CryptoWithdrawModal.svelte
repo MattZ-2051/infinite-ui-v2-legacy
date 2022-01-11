@@ -78,6 +78,8 @@
           bind:value={amount}
           on:change={onPriceChange}
           before={currencySymbol}
+          withdrawableAmount={withdrawableBalance}
+          isEthInput={currency === 'ETH'}
         />
       </div>
       <div class="mt-8">
