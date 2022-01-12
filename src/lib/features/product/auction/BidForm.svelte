@@ -68,11 +68,11 @@
 
 <form
   use:form
-  class="flex flex-col md:flex-row w-full h-full md:rounded-lg overflow-hidden whitespace-nowrap"
+  class="flex flex-col lg:flex-row w-full h-full lg:rounded-lg overflow-hidden whitespace-nowrap"
   style="background-color: #313131;"
 >
-  <div class="flex md:px-6 py-2 md:py-4 justify-center md:justify-between items-center">
-    <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
+  <div class="flex lg:px-6 py-2 lg:py-4 justify-center lg:justify-between items-center">
+    <div class="flex flex-col gap-1 items-center lg:items-start">
       <div class="text-sm text-gray-500">Auction ends in:</div>
       <div class="flex gap-1">
         <TimeDifference date={listing?.endDate} on:zero={() => auctionEnded()} />
@@ -101,7 +101,7 @@
 
   <Button
     variant="brand"
-    class="flex gap-2 h-20 md:h-auto w-full md:w-48 lg:w-96 text-2xl"
+    class="flex gap-2 h-20 md:h-auto w-full md:w-full lg:w-96 text-2xl"
     type="submit"
     --button-border-radius="0"
     >Place a bid <Icon path={arrowRight} size="1.5" />
