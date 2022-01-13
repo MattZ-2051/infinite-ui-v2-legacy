@@ -31,6 +31,14 @@
       name: 'Serial Z to A',
       value: 'serialNumber:desc',
     },
+    {
+      name: 'Price high to low',
+      value: 'price:desc',
+    },
+    {
+      name: 'Price low to high',
+      value: 'price:asc',
+    },
   ];
 
   const statusOptions = [
