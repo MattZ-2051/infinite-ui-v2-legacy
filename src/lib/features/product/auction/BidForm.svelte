@@ -12,6 +12,7 @@
   import routes from '$project/routes';
   import { loadWalletFx, wallet } from '$lib/features/wallet/wallet.store';
   import { auctionEnded } from '../product.store';
+  import ProductStatusLayout from '../status/ProductStatusLayout.svelte';
 
   export let product: Product;
   export let listing: Listing;
@@ -66,12 +67,8 @@
   });
 </script>
 
-<form
-  use:form
-  class="flex flex-col lg:flex-row w-full h-full lg:rounded-lg overflow-hidden whitespace-nowrap"
-  style="background-color: #313131;"
->
-  <div class="flex lg:px-6 py-2 lg:py-4 justify-center lg:justify-between items-center">
+<form use:form>
+  <ProductStatusLayout>
     <div class="flex flex-col gap-1 items-center lg:items-start">
       <div class="text-sm text-gray-500">Auction ends in:</div>
       <div class="flex gap-1">
@@ -81,31 +78,32 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="relative w-full">
-    <input
-      type="number"
-      min="0"
-      step="0.000000000000000001"
-      autocomplete="off"
-      class="h-20 md:h-full w-full text-default placeholder-gray-200 text-2xl text-center pb-8 px-10 md:pl-10 md:text-left focus:outline-none focus:border-blue-500 bg-transparent overflow-hidden"
-      name="placeBid"
-      placeholder="Enter bid"
-    />
-    <span class="absolute bottom-9 left-4 text-2xl text-gray-500">{product.sku.currency === 'USD' ? '$' : 'Ξ'}</span>
-    <div class="absoulte left-4 bottom-4 text-sm text-gray-500" style="position:absolute;">
-      *Min. bid amount is {formatCurrency(acceptedBidPrice, { currency: product.sku.currency })}
-    </div>
-  </div>
-
-  <Button
-    variant="brand"
-    class="flex gap-2 h-20 md:h-auto w-full md:w-full lg:w-96 text-2xl"
-    type="submit"
-    --button-border-radius="0"
-    >Place a bid <Icon path={arrowRight} size="1.5" />
-  </Button>
+    <svelte:fragment slot="action">
+      <div class="relative w-full">
+        <input
+          type="number"
+          min="0"
+          step="0.000000000000000001"
+          autocomplete="off"
+          class="h-20 md:h-full w-full text-default placeholder-gray-200 text-2xl text-center pb-8 px-10 md:pl-10 md:text-left focus:outline-none focus:border-blue-500 bg-transparent overflow-hidden"
+          name="placeBid"
+          placeholder="Enter bid"
+        />
+        <span class="absolute bottom-9 left-4 text-2xl text-gray-500">{product.sku.currency === 'USD' ? '$' : 'Ξ'}</span
+        >
+        <div class="absoulte left-4 bottom-4 text-sm text-gray-500" style="position:absolute;">
+          *Min. bid amount is {formatCurrency(acceptedBidPrice, { currency: product.sku.currency })}
+        </div>
+      </div>
+      <Button
+        variant="brand"
+        class="flex gap-2 h-20 md:h-auto w-full md:w-full lg:w-96 text-2xl"
+        type="submit"
+        --button-border-radius="0"
+        >Place a bid <Icon path={arrowRight} size="1.5" />
+      </Button>
+    </svelte:fragment>
+  </ProductStatusLayout>
 </form>
 
 <style lang="postcss">
