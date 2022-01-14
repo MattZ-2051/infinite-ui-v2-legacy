@@ -72,10 +72,10 @@
     <FromCreator {sku} state="upcomingNftGiveAway" {upcomingSkuListings} {onBuy} />
   {:else if activeNftGiveAway}
     <FromCreator {sku} state="activeNftGiveAway" {activeListings} {onBuy} />
-  {:else if notMinted}
-    <FromCreator state="notMinted" {sku} {onBuy} />
   {:else if noSale}
     <FromCreator state="noSale" {sku} {onBuy} />
+  {:else if notMinted}
+    <FromCreator state="notMinted" {sku} {onBuy} />
   {/if}
 
   {#if totalCollectors > 0}
