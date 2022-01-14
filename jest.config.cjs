@@ -2,6 +2,7 @@ module.exports = async () => {
   const { alias } = await import('./path-alias.js');
 
   const config = {
+    testEnvironment: 'jsdom',
     rootDir: __dirname,
     testMatch: ['<rootDir>/src/**/+(*.)+(spec|test).+(ts|js)'],
     transform: {
@@ -9,6 +10,7 @@ module.exports = async () => {
       '^.+\\.(ts|js)$': 'ts-jest',
     },
     moduleFileExtensions: ['js', 'ts', 'svelte'],
+    extensionsToTreatAsEsm: ['.ts'],
     moduleNameMapper: {
       '\\.css$': '<rootDir>/scripts/test/file-stub.js',
       '\\$app/(.+)$': '<rootDir>/scripts/test/$app/$1',
@@ -21,6 +23,7 @@ module.exports = async () => {
     globals: {
       'ts-jest': {
         tsconfig: 'tsconfig.spec.json',
+        useESM: true,
       },
     },
     globalSetup: '<rootDir>/scripts/test/global-setup.cjs',
