@@ -175,6 +175,7 @@ async function initAuth(): Promise<void> {
 
 async function login(returnUrl = window.location.pathname, options = {}) {
   isLoading.set(true);
+  await logout(''); // clean up previous session.
 
   const client = await getClient();
   let redirectUri = `${window.location.origin}/authorize`;
