@@ -162,7 +162,7 @@
     <span class="text-red-600 text-sm">
       {#if minInputValue < min}
         Amount must be greater than {min}
-      {:else if minInputValue > maxValue}
+      {:else if minInputValue >= maxValue}
         Amount must be lower than {maxValue}
       {/if}
     </span>
@@ -182,10 +182,10 @@
     />
 
     <span class="text-red-600 text-sm">
-      {#if maxInputValue <= minValue}
+      {#if maxInputValue <= minValue && minValue < maxValue}
         Amount must be greater than {minValue}
       {:else if maxInputValue > max}
-        Amount must be lower than {max}
+        Amount must be lower or equal to {max}
       {/if}
     </span>
   </div>
