@@ -51,6 +51,9 @@
             {sku?.totalSupplyLeft === 1 ? 'Item Left' : 'Items Left'}
           </div>
         {/if}
+        {#if state === 'noSale'}
+          <div class="text-gray-500 text-sm">Initial Listing Price</div>
+        {/if}
       </div>
       {#if state === 'active'}
         <div class="flex justify-end">
