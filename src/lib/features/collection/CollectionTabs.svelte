@@ -88,8 +88,7 @@
       {#if $productsTotal === 0}
         <div class="text-gray-500 text-center mt-12 text-lg space-y-12">
           <div>
-            <p>You don’t have any collectibles yet.</p>
-            <p>Start curating your collection today!</p>
+            <p>No collectibles yet!</p>
           </div>
           <Button variant="brand" style="padding: 13px 3rem" href={routes.marketplace}>Explore the Marketplace</Button>
         </div>
