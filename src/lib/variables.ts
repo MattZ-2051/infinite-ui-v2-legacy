@@ -28,4 +28,5 @@ export const variables = {
     audience: import.meta.env.VITE_AUTH0_AUDIENCE,
   },
   achEnabled: import.meta.env.VITE_ACH_ENABLED === 'true',
+  hederaNetwork: import.meta.env.VITE_HEDERA_NETWORK,
 };

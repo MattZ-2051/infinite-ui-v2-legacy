@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
-  import { mdiLogout } from '@mdi/js';
+  import { mdiLogout, mdiPower } from '@mdi/js';
   import { onSignOut, onSignIn, onSignUp, isLoading } from '$lib/user';
   import mdiCogOutline from '$lib/layout/header/assets/gear';
   import mdiCreditCardOutline from '$lib/layout/header/assets/wallet';
@@ -9,8 +9,15 @@
   import { page } from '$app/stores';
   import { Menu, MenuList, MenuTrigger, MenuItem } from '$ui/menu';
   import routes from '$project/routes';
+  import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
+  import {
+    InfiniteExtensionLoginFx,
+    InfiniteExtensionLogoutFx,
+    InfiniteExtensionStore,
+  } from '$lib/features/infinite-wallet/infinite-wallet.store';
   import Button from '$lib/components/Button.svelte';
   import account from './assets/account';
+  import connectWalletIcon from './assets/connect-wallet';
 
   export let flatten = false;
   export let user: User;
@@ -38,6 +45,18 @@
       >Account Settings</a
     >
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
+    {#if INFINITE_EXTENSION_ENABLED}
+      {#if $InfiniteExtensionStore.extensionAvailable && !$InfiniteExtensionStore.logedIn}
+        <button
+          on:click={() => InfiniteExtensionLoginFx()}
+          class={!$InfiniteExtensionStore.extensionAvailable ? 'opacity-50' : ''}
+        >
+          Connect external wallet
+        </button>
+      {:else if $InfiniteExtensionStore.extensionAvailable && $InfiniteExtensionStore.logedIn}
+        <button on:click={() => InfiniteExtensionLogoutFx()}>Disconnect {$InfiniteExtensionStore.current.id}</button>
+      {/if}
+    {/if}
     <button type="button" on:click={onSignOut} class="header-link">Sign Out</button>
   {:else}
     <Menu placement="bottom-start" class="min-w-0">
@@ -62,6 +81,28 @@
         <MenuItem href={routes.wallet} class={$page.url.pathname === routes.wallet ? 'hidden' : ''}>
           <Icon path={mdiCreditCardOutline} class="shrink-0 float-left mr-3" /> My Wallet
         </MenuItem>
+        {#if INFINITE_EXTENSION_ENABLED}
+          {#if !$InfiniteExtensionStore.logedIn}
+            <MenuItem
+              on:select={() => InfiniteExtensionLoginFx()}
+              class={!$InfiniteExtensionStore.extensionAvailable ? 'opacity-50' : ''}
+            >
+              <Icon path={connectWalletIcon} class="flex-shrink-0 float-left mr-3" />
+              Connect external wallet
+            </MenuItem>
+          {:else if $InfiniteExtensionStore.logedIn}
+            <MenuItem disabled={true}>
+              <Icon path={connectWalletIcon} class="flex-shrink-0 float-left mr-3" />
+              Connected to {$InfiniteExtensionStore.current.id}
+            </MenuItem>
+            <MenuItem on:select={() => InfiniteExtensionLogoutFx()} style="padding: 0;">
+              <span class="pl-12 text-red-400 hover:text-current w-full py-1">
+                <Icon path={mdiPower} class="flex-shrink-0 float-left mr-1" />
+                Disconnect
+              </span>
+            </MenuItem>
+          {/if}
+        {/if}
         <MenuItem on:select={onSignOut}>
           <Icon path={mdiLogout} class="shrink-0 float-left mr-3" /> Sign Out
         </MenuItem>

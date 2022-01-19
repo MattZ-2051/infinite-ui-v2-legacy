@@ -26,12 +26,13 @@
   import Header from '$project/header/Header.svelte';
   import Footer from '$project/footer/Footer.svelte';
   import Toast from '$project/toast/Toast.svelte';
-  import { CLIENT_API_HEADER } from '$project/variables';
+  import { CLIENT_API_HEADER, INFINITE_EXTENSION_ENABLED } from '$project/variables';
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
   import GdprBanner from '$lib/components/GdprBanner.svelte';
   import Head from '$project/Head.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
+  import { InfiniteExtensionLoadFx } from '$lib/features/infinite-wallet/infinite-wallet.store';
 
   import '$theme/theme.css';
   import '../app.css';
@@ -39,6 +40,11 @@
 
   if (browser) {
     initUserAuth();
+
+    if (INFINITE_EXTENSION_ENABLED) {
+      InfiniteExtensionLoadFx();
+      document.addEventListener('hederaWalletLoaded', () => InfiniteExtensionLoadFx());
+    }
   }
 
   const navigationPathChanging = derived(
