@@ -29,3 +29,34 @@ export interface InfiniteExtensionState {
   logedIn?: boolean;
   current?: AccountData;
 }
+
+export interface MirrorNodeBalanceToken {
+  admin_key: { _type: string; key: string };
+  symbol: string;
+  token_id: string;
+  type: 'FUNGIBLE_COMMON' | 'NON_FUNGIBLE_UNIQUE';
+}
+
+export interface MirrorNodeBalanceResponse {
+  tokens: MirrorNodeBalanceToken[];
+  links: {
+    next: string | null;
+  };
+}
+
+interface NftSerialData {
+  account_id: string;
+  created_timestamp: string;
+  deleted: boolean;
+  metadata: string;
+  modified_timestamp: string;
+  serial_number: number;
+  token_id: string;
+}
+
+export interface MirrorNodeNftResponse {
+  nfts: NftSerialData[];
+  links: {
+    next: string | null;
+  };
+}

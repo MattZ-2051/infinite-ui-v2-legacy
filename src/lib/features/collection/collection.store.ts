@@ -3,9 +3,10 @@ import type { Profile, Product, Sku } from '$lib/sku-item/types';
 import { createEffect, createStore, createEvent, forward } from 'effector';
 import { browser } from '$app/env';
 import { gotoQueryParameters } from '$util/queryParameter';
-import { loadProfile, loadSkus, loadProducts, loadFeaturedSku } from './collection.api';
+import { tokenBalance, nftBalance } from '$lib/features/infinite-wallet/infinite-wallet.store';
+import { loadProfile, loadSkus, loadProducts, loadFeaturedSku, loadExternalProducts } from './collection.api';
 
-export const changeTab = createEvent<'Releases' | 'NFTs'>();
+export const changeTab = createEvent<'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens'>();
 export const changePage = createEvent<number>();
 export const changeSort = createEvent<string>();
 export const setCollection = createEvent<Awaited<ReturnType<typeof loadCollectionFx>>>();
@@ -24,7 +25,7 @@ export const loadCollectionFx = createEffect(
     fetch,
   }: {
     username: string;
-    tab: 'Releases' | 'NFTs';
+    tab: 'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens';
     page: number;
     sortBy: string;
     forSale?: string;
@@ -53,6 +54,7 @@ export const loadCollectionFx = createEffect(
       forSale,
       fetch,
     };
+    // eslint-disable-next-line unicorn/prefer-switch
     if (tab === 'Releases') {
       const [{ skus, totalSkus }, featuredSku] = await Promise.all([loadSkusFx(parameters), featuredSkuPromise]);
       return { profile: _profile, skus, totalSkus, featuredSku };
@@ -62,6 +64,20 @@ export const loadCollectionFx = createEffect(
         featuredSkuPromise,
       ]);
       return { profile: _profile, products, totalProducts, featuredSku };
+    } else if (tab === 'ExternalNFTs' || tab === 'ExternalTokens') {
+      let ids: string[];
+      if (tab === 'ExternalNFTs') {
+        nftBalance.watch((store) => (ids = store));
+      } else {
+        tokenBalance.watch((store) => (ids = store));
+      }
+
+      const { products, totalProducts } = await loadExternalProductsFx({
+        ...parameters,
+        ids,
+      });
+
+      return { profile: _profile, products, totalProducts };
     }
   }
 );
@@ -127,6 +143,27 @@ const loadProductsFx = createEffect(
   }
 );
 
+const loadExternalProductsFx = createEffect(
+  async ({
+    ids,
+    page,
+    sortBy,
+    perPage,
+    fetch,
+  }: {
+    ids: string[];
+    page: number;
+    sortBy: string;
+    perPage: number;
+    fetch: Fetch;
+  }): Promise<{
+    totalProducts: number;
+    products: Product[];
+  }> => {
+    return await loadExternalProducts({ ids, page, sortBy, perPage, fetch });
+  }
+);
+
 export const products = createStore<Product[]>([]).on(setCollection, (state, payload) =>
   'products' in payload ? payload.products : state
 );
@@ -136,7 +173,7 @@ export const productsTotal = createStore<number>(null)
   .on(setCollection, (state, payload) => ('totalProducts' in payload ? payload.totalProducts : state))
   .on(changeTab, (state, payload) => {
     // eslint-disable-next-line unicorn/no-null
-    return payload === 'NFTs' ? null : state;
+    return payload === 'NFTs' || payload === 'ExternalNFTs' || payload === 'ExternalTokens' ? null : state;
   });
 
 // eslint-disable-next-line unicorn/no-null

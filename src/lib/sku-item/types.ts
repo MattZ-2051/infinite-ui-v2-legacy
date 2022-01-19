@@ -181,6 +181,9 @@ export type Product = {
   totalSupplyLeft: number;
   activeSkuListings: Listing[];
   minPrice: number;
+  nftSerial?: string;
+  ownedByExternalWallet: boolean;
+  externalWallet: string;
 };
 
 export type Cost = {

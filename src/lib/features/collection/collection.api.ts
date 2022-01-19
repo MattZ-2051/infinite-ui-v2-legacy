@@ -68,3 +68,29 @@ export async function loadFeaturedSku({ id, fetch }: { id: string; fetch: Fetch 
     fetch,
   });
 }
+
+export async function loadExternalProducts({
+  ids,
+  page,
+  sortBy,
+  perPage,
+  fetch,
+}: {
+  ids: string[];
+  page: number;
+  sortBy: string;
+  perPage: number;
+  fetch?: Fetch;
+}) {
+  const { data: products, total: totalProducts } = await getPage<Product>(
+    `products?tokenId=${ids}&includeFunctions=true&page=${page}&per_page=${perPage}`,
+    {
+      params: {
+        ...(sortBy && { sortBy }),
+      },
+      fetch,
+    }
+  );
+
+  return { products, totalProducts };
+}

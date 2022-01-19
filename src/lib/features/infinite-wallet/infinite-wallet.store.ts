@@ -1,8 +1,18 @@
-import type { InfiniteExtension, InfiniteExtensionState, AccountData, AccountError } from './types';
-import { createEffect, createStore } from 'effector';
+import type {
+  InfiniteExtension,
+  InfiniteExtensionState,
+  AccountData,
+  AccountError,
+  MirrorNodeNftResponse,
+  MirrorNodeBalanceResponse,
+} from './types';
+import type TokenBalanceMap from '@hashgraph/sdk/lib/account/TokenBalanceMap';
+import { createEffect, createStore, forward } from 'effector';
 import { browser } from '$app/env';
 import { variables } from '$lib/variables';
 import { toast } from '$ui/toast';
+import { getMirrorTokenBalance, getNftBalance } from './mirror-node-api';
+import { getTokenBalance } from './infinite-wallet.service';
 
 // Declare injected wallet object as property of window
 declare global {
@@ -132,3 +142,109 @@ export const InfiniteExtensionStore = createStore<InfiniteExtensionState>({
   .on(InfiniteExtensionLogoutFx.failData, (state, error) => {
     if (error['type'] === 'locked') return { ...state, walletLocked: true };
   });
+
+// Effect to load wallet state on component mount
+export const QueryBalanceLoadFx = createEffect(async (account: AccountData): Promise<TokenBalanceMap> => {
+  if (account?.id) {
+    const balance = await getTokenBalance(account);
+    return balance;
+  }
+  // eslint-disable-next-line unicorn/no-null
+  return null;
+});
+
+QueryBalanceLoadFx.fail.watch(() => toast.danger('There was an error loading wallet balance data from Hedera.'));
+
+forward({ from: InfiniteExtensionStore.map((state) => state.current), to: QueryBalanceLoadFx });
+
+// eslint-disable-next-line unicorn/no-null
+export const QueryBalanceStore = createStore<TokenBalanceMap>(null).on(
+  QueryBalanceLoadFx.doneData,
+  (state, payload) => payload
+);
+
+export const MirrorNodeBalanceLoadFx = createEffect(
+  async (account: AccountData): Promise<MirrorNodeBalanceResponse> => {
+    if (account?.id) {
+      const balance = await getMirrorTokenBalance({ walletId: account.id });
+
+      return balance;
+    }
+    // eslint-disable-next-line unicorn/no-null
+    return null;
+  }
+);
+
+MirrorNodeBalanceLoadFx.fail.watch(() =>
+  toast.danger('There was an error loading Hedera wallet balance data from mirror node.')
+);
+
+forward({ from: InfiniteExtensionStore.map((state) => state.current), to: MirrorNodeBalanceLoadFx });
+
+// eslint-disable-next-line unicorn/no-null
+export const MirrorNodeBalanceDataStore = createStore<MirrorNodeBalanceResponse>(null).on(
+  MirrorNodeBalanceLoadFx.doneData,
+  (state, payload) => payload
+);
+
+export const SerialDataLoadFx = createEffect(async (): Promise<MirrorNodeNftResponse[]> => {
+  let balance = {};
+  let balanceData: MirrorNodeBalanceResponse;
+  let accountId: string;
+  let pending: boolean;
+  MirrorNodeBalanceLoadFx.pending.watch((state) => (pending = state));
+  QueryBalanceLoadFx.pending.watch((state) => (pending = pending && state));
+
+  if (!pending) {
+    MirrorNodeBalanceDataStore.watch((tokenData) => (balanceData = tokenData));
+    QueryBalanceStore.watch((tokens) => {
+      if (tokens?.toString()) balance = JSON.parse(tokens.toString());
+    });
+    InfiniteExtensionStore.watch((state) => (accountId = state?.current?.id));
+
+    const nfts = balanceData?.tokens?.filter(
+      (token) => +balance[token.token_id] > 0 && token.type.includes('NON_FUNGIBLE')
+    );
+    const serials = await getNftBalance({ nfts, walletId: accountId });
+
+    return serials;
+  }
+});
+
+forward({ from: [MirrorNodeBalanceLoadFx.done, QueryBalanceLoadFx.done], to: SerialDataLoadFx });
+
+// eslint-disable-next-line unicorn/no-null
+export const nftBalance = createStore<string[]>(null).on(SerialDataLoadFx.doneData, (state, payload) => {
+  // eslint-disable-next-line unicorn/no-null
+  if (!payload?.length) return null;
+
+  return payload.reduce((collection, token) => {
+    const ids = token.nfts.map((nft) => `${nft.token_id}@${nft.serial_number}`);
+    return [...collection, ...ids];
+  }, []);
+});
+
+// eslint-disable-next-line unicorn/no-null
+export const tokenBalance = createStore<string[]>(null).on(
+  [MirrorNodeBalanceLoadFx.doneData, QueryBalanceLoadFx.doneData],
+  (state) => {
+    let balance = {};
+    let balanceData: MirrorNodeBalanceResponse;
+    let pending: boolean;
+    MirrorNodeBalanceLoadFx.pending.watch((fxState) => (pending = fxState));
+    QueryBalanceLoadFx.pending.watch((fxState) => (pending = pending && fxState));
+
+    if (!pending) {
+      MirrorNodeBalanceDataStore.watch((tokenData) => (balanceData = tokenData));
+      QueryBalanceStore.watch((tokens) => {
+        if (tokens?.toString()) balance = JSON.parse(tokens.toString());
+      });
+
+      const tokens = balanceData?.tokens?.filter(
+        (token) => +balance[token.token_id] > 0 && !token.type.includes('NON_FUNGIBLE')
+      );
+      return tokens.map((token) => token.token_id);
+    }
+    return state;
+  }
+);

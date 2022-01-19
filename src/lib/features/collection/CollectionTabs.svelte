@@ -7,6 +7,11 @@
   import Sort from '$lib/components/Sort.svelte';
   import Button from '$lib/components/Button.svelte';
   import {
+    InfiniteExtensionStore,
+    nftBalance,
+    tokenBalance,
+  } from '$lib/features/infinite-wallet/infinite-wallet.store';
+  import {
     products,
     productsTotal,
     skus,
@@ -35,6 +40,23 @@
     },
   ];
 
+  $: externalTabs = [
+    $nftBalance?.length && {
+      id: 'ExternalNFTs',
+      title: 'External Wallet NFTs',
+      tooltip: `These NFTs are owned by wallet ${$InfiniteExtensionStore?.current?.id}`,
+    },
+    $tokenBalance?.length && {
+      id: 'ExternalTokens',
+      title: 'External Wallet Tokens',
+      tooltip: `These tokens are owned by wallet ${$InfiniteExtensionStore?.current?.id}`,
+    },
+  ];
+
+  $: visibleTabs = $InfiniteExtensionStore.logedIn
+    ? (visibleTabs = [...items, ...externalTabs.filter(Boolean)])
+    : items;
+
   $: p = +$page.url.searchParams.get(`page`) || 1;
 
   $: tab = $page.url.searchParams.get(`tab`) || (isIssuer ? 'Releases' : 'NFTs');
@@ -42,7 +64,7 @@
   const perPage = isIssuer ? perPageIssuer : perPageUser;
   let tabContainer: HTMLElement;
 
-  function onSelectTab({ detail }: CustomEvent<'Releases' | 'NFTs'>) {
+  function onSelectTab({ detail }: CustomEvent<'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens'>) {
     changeTab(detail);
   }
 
@@ -69,7 +91,7 @@
 
 <div bind:this={tabContainer} style="scroll-margin-top: var(--header-height);">
   <Tabs
-    {items}
+    items={visibleTabs}
     defaultSelectedId={tab}
     class="text-2xl font-medium mt-6 md:mt-12 mb-4 section-title"
     on:select={onSelectTab}
@@ -92,6 +114,26 @@
           </div>
           <Button variant="brand" style="padding: 13px 3rem" href={routes.marketplace}>Explore the Marketplace</Button>
         </div>
+      {:else if $productsTotal === null}
+        <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+      {:else}
+        <SkuItemGrid products={$products} />
+        <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
+      {/if}
+    </Tab>
+    <Tab id="ExternalNFTs">
+      {#if $productsTotal === 0}
+        <div class="text-gray-500  text-center mt-12 text-2xl ">No NFTs found.</div>
+      {:else if $productsTotal === null}
+        <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+      {:else}
+        <SkuItemGrid products={$products} />
+        <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
+      {/if}
+    </Tab>
+    <Tab id="ExternalTokens">
+      {#if $productsTotal === 0}
+        <div class="text-gray-500  text-center mt-12 text-2xl ">No Tokens found.</div>
       {:else if $productsTotal === null}
         <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
       {:else}
