@@ -147,7 +147,7 @@
     </ThemeContext>
     <div
       slot="sticky-content"
-      class="h-full px-4 py-6 md:px-8 md:py-12"
+      class="px-4 py-6 md:px-8 md:py-12"
       style="background: var(--wallet-balance-content-bg-color);"
     >
       {#if ENABLE_ETH_CURRENCY}
