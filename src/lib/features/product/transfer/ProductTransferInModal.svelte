@@ -73,9 +73,6 @@
         </span>
       {/if}
       {#if status !== 'transfer-error'}
-        <!--<div class="flex justify-center items-center bg-black h-72">
-          <FilePreview item={sku.nftPublicAssets?.[0]} preview />
-        </div>-->
         {#if status !== 'transfer-pending'}
           <ProductModalInfo {sku} {product} />
         {/if}
