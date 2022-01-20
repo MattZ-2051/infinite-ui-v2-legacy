@@ -13,6 +13,7 @@ import RedeemModal from '../redeem/RedeemModal.svelte';
 import AuctionModal from '../auction/AuctionModal.svelte';
 import BidModal from '../auction/BidModal.svelte';
 import ProductTransferModal from '../transfer/ProductTransferModal.svelte';
+import ProductTransferInModal from '../transfer/ProductTransferInModal.svelte';
 
 export function onAction(type: ActionType, product: Product) {
   switch (type) {
@@ -88,6 +89,10 @@ export function onAction(type: ActionType, product: Product) {
     }
     case 'transfer': {
       openModal(ProductTransferModal, { product });
+      break;
+    }
+    case 'transfer-in': {
+      openModal(ProductTransferInModal, { product });
       break;
     }
   }

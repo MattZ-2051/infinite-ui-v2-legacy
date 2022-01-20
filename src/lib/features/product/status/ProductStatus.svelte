@@ -1,13 +1,20 @@
 <script lang="ts">
-  import type { Product } from '$lib/sku-item/types';
+  import type { Product, Transaction } from '$lib/sku-item/types';
+  import type { ActionType } from '$lib/features/product/actions/types';
   import { readable } from 'svelte/store';
-  import { mdiClose } from '@mdi/js';
+  import { mdiClose, mdiArrowCollapseLeft } from '@mdi/js';
   import arrowRight from '$lib/features/product/assets/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
+  import { toast } from '$ui/toast';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatCurrency, formatDate } from '$util/format';
   import { auctionStarted, polls, saleStarted, totalBids } from '$lib/features/product/product.store';
   import Button from '$lib/components/Button.svelte';
+  import {
+    InfiniteExtensionStore,
+    nftBalance,
+    QueryBalanceStore,
+  } from '$lib/features/infinite-wallet/infinite-wallet.store';
   import {
     hasActiveSale,
     hasUpcomingSale,
@@ -15,6 +22,10 @@
     isOwner,
     hasUpcomingAuction,
     canCancelAuction as canCancelAuctionFunction,
+    transferredOut,
+    inExternalBalance,
+    currentOwnerOfExternalProduct,
+    currentExternalWalletOwner,
   } from '../product.service';
   import { maxPlacedBid, auctionEnded } from '../product.store';
   import BidForm from '../auction/BidForm.svelte';
@@ -26,9 +37,24 @@
 
   export let product: Product;
   export let userId: string;
+  export let transactions: Transaction[];
+
+  function verifyExtensionState(action: ActionType) {
+    if ($InfiniteExtensionStore.walletLocked) {
+      toast.danger('Please unlock the INFINITE browser wallet and refresh the window to use this feature.');
+    } else if (!$InfiniteExtensionStore.extensionAvailable || !$InfiniteExtensionStore.logedIn) {
+      toast.danger('Please connect the INFINITE browser wallet to use this feature, <a>learn more</a>.');
+    } else {
+      onAction(action, product);
+    }
+  }
 
   function onBuy() {
     onOrderIntent({ product: product, listing: product.activeProductListings[0] });
+  }
+
+  function onTransferIn() {
+    verifyExtensionState('transfer-in');
   }
 
   $: showActiveSale = hasActiveSale(product);
@@ -41,6 +67,13 @@
 
   $: activeProductListing = product?.activeProductListings?.[0];
   $: upcomingProductListing = product?.upcomingProductListings?.[0];
+
+  $: isTransferredOut = transferredOut(product, transactions);
+  $: isInExternalBalance = inExternalBalance(product, $QueryBalanceStore, $nftBalance);
+  $: needsAssociation =
+    isInExternalBalance &&
+    (!currentOwnerOfExternalProduct(product, userId) ||
+      !currentExternalWalletOwner(product, $InfiniteExtensionStore?.current?.id));
 
   const textClass = 'text-2xl md:text-xl lg:text-2xl';
 </script>
@@ -155,5 +188,30 @@
         on:place-bid={(event) => onBid(event.detail.amount, product)}
       />
     {/if}
+  {/if}
+
+  {#if isTransferredOut}
+    <div
+      class="flex flex-col md:flex-row w-full h-full md:rounded-lg overflow-hidden"
+      style="background-color: #313131;"
+    >
+      <div
+        class="flex flex-grow flex-col md:flex-row md:px-6 py-2 md:py-4 justify-center md:justify-between items-center"
+      >
+        <div class="flex flex-row md:flex-col gap-1 items-center md:items-start">
+          <div class="text-sm text-gray-500">External wallet:</div>
+          <div class="text-base text-gray-300">Hedera {product.externalWallet}</div>
+        </div>
+      </div>
+      {#if $InfiniteExtensionStore?.current?.id && !needsAssociation}
+        <Button
+          --button-border-radius="0"
+          animate={false}
+          on:click={() => onTransferIn()}
+          class="flex items-center gap-2 px-6 h-20 md:h-auto"
+          variant="brand">Transfer In<Icon size="1.2" path={mdiArrowCollapseLeft} /></Button
+        >
+      {/if}
+    </div>
   {/if}
 </div>

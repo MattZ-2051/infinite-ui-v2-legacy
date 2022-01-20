@@ -48,6 +48,7 @@
     "jsonwebtoken": "8.5.1",
     "just-debounce": "1.1.0",
     "jwk-to-pem": "2.0.5",
+    "long": "^5.2.0",
     "p-debounce": "4.0.0",
     "simple-icons": "6.6.0",
     "stream": "^0.0.2",

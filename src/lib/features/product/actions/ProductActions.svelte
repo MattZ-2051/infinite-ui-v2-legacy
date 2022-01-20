@@ -17,6 +17,7 @@
   $: hasStartAuctionAction = canStartAuction(product, userId);
   $: hasRedeemAction = canRedeem(product, userId);
   $: hasTransferAction = canTransfer(product, userId);
+  $: externalWalletOwnsProduct = product.ownedByExternalWallet;
 
   let visibleActions: Action[] = [];
   $: visibleActions = [
@@ -43,7 +44,7 @@
   ].filter(Boolean) as Action[];
 </script>
 
-{#if visibleActions.length > 0}
+{#if visibleActions.length > 0 && !externalWalletOwnsProduct}
   <ButtonGroup class="flex col-span-2 lg:col-span-1">
     {#each visibleActions as { type, label, icon } (type)}
       <button

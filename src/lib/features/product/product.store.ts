@@ -86,6 +86,12 @@ export const fetchProductTransactionsFx = createEffect(
   }
 );
 
+export const refetchProductTransactionsFx = createEffect(async (): Promise<{ total: number; data: Transaction[] }> => {
+  const current = product.getState();
+  const query = getQueryParameters();
+  return await loadProductTransactions({ id: current._id, page: +query.get('page') || 1 });
+});
+
 export const fetchProductBidsFx = createEffect(
   async ({
     id,
@@ -107,13 +113,15 @@ export const fetchProductBidsFx = createEffect(
 // eslint-disable-next-line unicorn/no-null
 export const product = createStore<Product>(null).on(setProduct, (state, payload) => payload.product);
 
-export const transactions = createStore<Transaction[]>([]).on(setProduct, (state, payload) =>
-  'productTransactions' in payload ? payload.productTransactions : state
-);
+export const transactions = createStore<Transaction[]>([])
+  .on(setProduct, (state, payload) => ('productTransactions' in payload ? payload.productTransactions : state))
+  .on(refetchProductTransactionsFx.doneData, (state, payload) => payload.data);
 
-export const totalTransactions = createStore<number>(0).on(setProduct, (state, payload) =>
-  'totalProductTransactions' in payload ? payload.totalProductTransactions : state
-);
+export const totalTransactions = createStore<number>(0)
+  .on(setProduct, (state, payload) =>
+    'totalProductTransactions' in payload ? payload.totalProductTransactions : state
+  )
+  .on(refetchProductTransactionsFx.doneData, (state, payload) => payload.total);
 
 export const bids = createStore<Bid[]>([])
   .on(setProduct, (state, payload) => ('productBids' in payload ? payload.productBids : state))
@@ -137,15 +145,29 @@ export const maxPlacedBid = createStore<number | null>(null)
 export const saleStarted = createEvent<{ product: Product }>();
 export const saleCancelled = createEvent<{ listingId: string }>();
 export const productBought = createEvent<{ product: Product }>();
+export const productTransferred = createEvent<{ product: Product }>();
 
 forward({
   from: [saleStarted, saleCancelled],
   to: refetchProductFx,
 });
 
+const productBoughtFx = createEffect(async () => {
+  return await Promise.all([refetchProductFx(), refetchProductTransactionsFx()]);
+});
+
 forward({
   from: productBought,
   to: refetchProductFx,
+});
+
+const productTransferredFx = createEffect(async () => {
+  return await Promise.all([refetchProductFx(), refetchProductTransactionsFx()]);
+});
+
+forward({
+  from: productTransferred,
+  to: productTransferredFx,
 });
 
 export const productRedeemed = createEvent();
@@ -193,6 +215,7 @@ pollTransactionFx.doneData.watch(async (response) => {
           //added check to avoid having more than one message due to race conditions (not best solution but will do for now.)
           $polls[$product._id].stop();
           transactionSuccessMessage();
+          await productBoughtFx();
           await refetchProductFx();
         }
       }

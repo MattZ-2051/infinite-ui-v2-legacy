@@ -15,6 +15,10 @@ import {
   canRedeem,
   canBuy,
   hasNoSale,
+  inExternalBalance,
+  transferredOut,
+  currentOwnerOfExternalProduct,
+  currentExternalWalletOwner,
 } from './product.service';
 import { TestProduct } from './test/product-utils';
 
@@ -267,5 +271,30 @@ describe('product service', () => {
   it('the user does not see no sale because the product has listings', () => {
     const { product, user } = new TestProduct().withDifferentOwner().withActiveListings();
     expect(hasNoSale(product, user)).toBe(false);
+  });
+
+  it('the product is transferred out', () => {
+    const { product, transactions } = new TestProduct().ownedByExternalWallet().withTransferOutTransaction();
+    expect(transferredOut(product, transactions)).toBe(true);
+  });
+
+  it('the product transfer in is still pending', () => {
+    const { product, transactions } = new TestProduct().ownedByExternalWallet().withTransferInPendingTransaction();
+    expect(transferredOut(product, transactions)).toBe(true);
+  });
+
+  it('the product is in external wallet balance', () => {
+    const { product, balance } = new TestProduct().inExternalWalletBalance();
+    expect(inExternalBalance(product, balance)).toBe(true);
+  });
+
+  it('the user that owns an external product is different from the last associated user', () => {
+    const { product, user } = new TestProduct().withDifferentOwner().ownedByExternalWallet();
+    expect(currentOwnerOfExternalProduct(product, user)).toBe(false);
+  });
+
+  it('the wallet that owns the product has changed after being transferred out', () => {
+    const { product, walletId } = new TestProduct().ownedByExternalWallet().withDifferentExternalWalletId();
+    expect(currentExternalWalletOwner(product, walletId)).toBe(false);
   });
 });

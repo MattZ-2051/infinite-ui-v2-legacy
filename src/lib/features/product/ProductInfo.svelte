@@ -1,7 +1,7 @@
 <script lang="ts">
   import copy from 'clipboard-copy';
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
-  import type { Product, Sku } from '$lib/sku-item/types';
+  import type { Product, Sku, Transaction } from '$lib/sku-item/types';
   import information from '$lib/components/icons/information';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
@@ -11,11 +11,16 @@
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import SkuStatus from '$project/sku-item/SkuStatus.svelte';
   import ProductActions from './actions/ProductActions.svelte';
+  import { transferredOut, transferInPending } from './product.service';
 
   export let product: Product;
+  export let transactions: Transaction[];
 
   let sku: Sku;
   $: sku = product.sku;
+
+  $: isTransferredOut = transferredOut(product, transactions);
+  $: isTransferInPending = transferInPending(product, transactions);
 
   const cellClass = 'flex flex-col gap-1.5 py-4 px-3 overflow-hidden';
   const headerClass = 'text-gray-500 text-sm';
@@ -38,7 +43,18 @@
     <div class={headerClass}>Status</div>
     <SkuStatus {sku} {product} forProductStatus />
   </div>
-  {#if sku.redeemable}
+  {#if isTransferredOut || isTransferInPending}
+    <div class={cellClass}>
+      <div class={headerClass}>Status</div>
+      <div class="flex gap-2">
+        {#if isTransferredOut}
+          Transferred Out
+        {:else if isTransferInPending}
+          Transfer In Pending
+        {/if}
+      </div>
+    </div>
+  {:else if sku.redeemable}
     <div class={cellClass}>
       <div class={headerClass}>Redemption Status</div>
       <IconRedeem><span>{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span></IconRedeem>

@@ -1,4 +1,5 @@
-import type { Product } from '$lib/sku-item/types';
+import type { Product, Transaction } from '$lib/sku-item/types';
+import type TokenBalanceMap from '@hashgraph/sdk/lib/account/TokenBalanceMap';
 
 export function isOwner(product: Product, userId: string): boolean {
   return userId && userId === product?.owner?._id;
@@ -76,4 +77,38 @@ export function hasNoSale(product: Product, userId: string): boolean {
 
 export function canTransfer(product: Product, userId: string): boolean {
   return isOwner(product, userId) && !hasAuction(product) && !hasSale(product);
+}
+
+export function transferredOut(product: Product, transactions: Transaction[]): boolean {
+  return product.ownedByExternalWallet && transactions[0].type === 'transfer_out';
+}
+
+export function transferInPending(product: Product, transactions: Transaction[]): boolean {
+  return (
+    product.ownedByExternalWallet && transactions[0].type === 'transfer_in' && transactions[0].status === 'pending'
+  );
+}
+
+export function inExternalBalance(product: Product, balance: TokenBalanceMap, nfts?: string[]) {
+  if (!balance?.size) return false;
+  const balanceData = JSON.parse(balance.toString());
+  const hasBalance = +balanceData[product.tokenId] > 0;
+
+  if (!hasBalance || !product.nftSerial) return hasBalance;
+
+  return hasBalance && nfts.includes(`${product.tokenId}@${product.nftSerial}`);
+}
+
+export function currentOwnerOfExternalProduct(product: Product, userId: string) {
+  /* If the account that owned a product when it was transferred out isn't the same as the one that 
+  is currently signed in, then the product has to be associated before transfer-in.
+   */
+  return product.ownedByExternalWallet && isOwner(product, userId);
+}
+
+export function currentExternalWalletOwner(product: Product, walletId: string) {
+  /* If product was transferred outside of our marketplace, the wallet that currently owns it
+  will be different than the externalWallet value stored in our database.
+  */
+  return product.ownedByExternalWallet && product.externalWallet === walletId;
 }

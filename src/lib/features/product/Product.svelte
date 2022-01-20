@@ -11,7 +11,7 @@
   import ProductTabs from './ProductTabs.svelte';
   import ProductInfo from './ProductInfo.svelte';
   import ProductStatus from './status/ProductStatus.svelte';
-  import { product } from './product.store';
+  import { product, transactions } from './product.store';
   import { isOwner } from './product.service';
 
   export let tab: 'auction' | 'history' | 'owner';
@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="mt-6">
-        <ProductInfo product={$product} />
+        <ProductInfo product={$product} transactions={$transactions} />
       </div>
     </div>
 
@@ -74,6 +74,7 @@
       style="background-color: var(--product-tabs-bg);"
       product={$product}
       userId={$userId}
+      transactions={$transactions}
     />
   </div>
 </StickyColumn>

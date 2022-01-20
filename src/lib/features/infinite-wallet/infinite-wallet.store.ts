@@ -13,6 +13,7 @@ import { variables } from '$lib/variables';
 import { toast } from '$ui/toast';
 import { getMirrorTokenBalance, getNftBalance } from './mirror-node-api';
 import { getTokenBalance } from './infinite-wallet.service';
+import { transferProductInFx, transferProductOutFx } from '../product/transfer/product-transfer.store';
 
 // Declare injected wallet object as property of window
 declare global {
@@ -180,6 +181,17 @@ MirrorNodeBalanceLoadFx.fail.watch(() =>
 );
 
 forward({ from: InfiniteExtensionStore.map((state) => state.current), to: MirrorNodeBalanceLoadFx });
+
+const ReloadBalanceDataFx = createEffect(() => {
+  let account: AccountData;
+  InfiniteExtensionStore.watch((state) => (account = state?.current));
+  if (account) {
+    QueryBalanceLoadFx(account);
+    MirrorNodeBalanceLoadFx(account);
+  }
+});
+
+forward({ from: [transferProductOutFx.done, transferProductInFx.done], to: ReloadBalanceDataFx });
 
 // eslint-disable-next-line unicorn/no-null
 export const MirrorNodeBalanceDataStore = createStore<MirrorNodeBalanceResponse>(null).on(

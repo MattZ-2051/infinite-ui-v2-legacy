@@ -5,7 +5,8 @@ export type ActionType =
   | 'cancel-auction'
   | 'create-sale'
   | 'cancel-sale'
-  | 'transfer';
+  | 'transfer'
+  | 'transfer-in';
 
 export type Action = {
   type: ActionType;

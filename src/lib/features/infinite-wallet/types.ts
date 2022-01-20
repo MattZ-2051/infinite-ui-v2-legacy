@@ -60,3 +60,24 @@ export interface MirrorNodeNftResponse {
     next: string | null;
   };
 }
+
+export interface TransferOutResponse {
+  _id: string;
+  type: 'transfer_out';
+  status: 'success' | 'pending' | 'error';
+  owner: string;
+  transactionData: {
+    product: string;
+    wallet: string;
+    transactionHash: string;
+    transactionId: string;
+    from: string;
+    to: string;
+    tokenId: string;
+    status: string;
+    explorerLink: string;
+  };
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+}
