@@ -49,7 +49,7 @@
     </div>
     {#if ENABLE_ETH_CURRENCY}
       <div class="flex flex-col gap-2">
-        <div class="text-gray-500 text-sm text-right">NFT Type:</div>
+        <div class="text-gray-500 text-sm text-right">NFT Type</div>
         {#if sku.currency === 'ETH'}
           <div use:tooltip={'ERC721 NFT minted on Ethereum'} class="flex flex-row items-center space-x-1 justify-end">
             <Icon path={ethereum} size="1em" class="inline align-baseline mx-0.5" />
@@ -67,23 +67,23 @@
   {#if isActiveSkuAuction}
     <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
       <div class="flex flex-col gap-2 text-left">
-        <div class="text-gray-500 text-sm">Auction Starts:</div>
+        <div class="text-gray-500 text-sm">Auction Starts</div>
         <div>{formatDate(startDate)}</div>
       </div>
       <div class="flex flex-col gap-2 text-right">
-        <div class="text-gray-500 text-sm">Auction Ends:</div>
+        <div class="text-gray-500 text-sm">Auction Ends</div>
         <div>{formatDate(endDate)}</div>
       </div>
     </div>
   {:else if isActiveSale}
     <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between">
       <div class="flex flex-col gap-2 text-left">
-        <div class="text-gray-500 text-sm">Active Sale Starts:</div>
+        <div class="text-gray-500 text-sm">Active Sale Starts</div>
         <div>{formatDate(startDate)}</div>
       </div>
       {#if activeSku?.endDate}
         <div class="flex flex-col gap-2 text-right">
-          <div class="text-gray-500 text-sm">Active Sale Ends:</div>
+          <div class="text-gray-500 text-sm">Active Sale Ends</div>
           <div>{formatDate(endDate)}</div>
         </div>
       {/if}
