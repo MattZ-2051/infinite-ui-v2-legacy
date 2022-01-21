@@ -186,11 +186,11 @@ async function initAuth(): Promise<void> {
 
 async function login(returnUrl = window.location.pathname, options = {}) {
   isLoading.set(true);
-  await logout(''); // clean up previous session.
+  await logout('', true); // clean up previous session.
 
   const client = await getClient();
   let redirectUri = `${window.location.origin}/authorize`;
-  if (returnUrl !== '/') {
+  if (returnUrl !== '/' && returnUrl !== '/authorize') {
     redirectUri += `?returnUrl=${returnUrl}`;
   }
   await client.loginWithRedirect({
@@ -199,14 +199,18 @@ async function login(returnUrl = window.location.pathname, options = {}) {
   });
 }
 
-async function logout(redirectUri: string) {
+async function logout(redirectUri: string, avoidRedirect?: boolean) {
   isLoading.set(true);
 
   const client = await getClient();
 
-  client.logout({
-    returnTo: redirectUri,
-  });
+  if (!avoidRedirect) {
+    client.logout({
+      returnTo: redirectUri,
+    });
+  } else {
+    client.logout();
+  }
 }
 
 export async function getAuthToken(): Promise<string> {
@@ -214,10 +218,10 @@ export async function getAuthToken(): Promise<string> {
   return await client.getTokenSilently();
 }
 
-export function onSignOut() {
+export function onSignOut(avoidRedirect?: boolean) {
   if (AUTH_PROVIDER_IS_AUTH0) {
     clearUser();
-    logout(`${window.location.origin}`);
+    logout(avoidRedirect ? `` : `${window.location.origin}`, avoidRedirect);
   } else {
     document.location.href = '/auth/signout';
   }

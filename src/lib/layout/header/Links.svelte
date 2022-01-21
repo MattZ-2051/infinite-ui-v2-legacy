@@ -85,7 +85,7 @@
         <button on:click={() => InfiniteExtensionLogoutFx()}>Disconnect {$InfiniteExtensionStore.current.id}</button>
       {/if}
     {/if}
-    <button type="button" on:click={onSignOut} class="header-link">Sign Out</button>
+    <button type="button" on:click={() => onSignOut()} class="header-link">Sign Out</button>
   {:else}
     <Menu placement="bottom-start" class="min-w-0">
       <MenuTrigger slot="trigger" class="header-link w-full">
@@ -131,7 +131,7 @@
             </MenuItem>
           {/if}
         {/if}
-        <MenuItem on:select={onSignOut}>
+        <MenuItem on:select={() => onSignOut()}>
           <Icon path={mdiLogout} class="shrink-0 float-left mr-3" /> Sign Out
         </MenuItem>
       </MenuList>

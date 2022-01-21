@@ -12,7 +12,6 @@
         error: url.searchParams.get('error_description') || 'Unknown authorization error',
       };
     }
-
     return {
       status: 200,
       props: {
