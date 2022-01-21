@@ -1,6 +1,6 @@
 import type { User } from './types';
 import type { Readable } from 'svelte/store';
-
+import { ethers } from 'ethers';
 import { derived, get as getStoreValue, writable } from 'svelte/store';
 import { session } from '$app/stores';
 import { patch, post, get } from '$lib/api';
@@ -19,6 +19,17 @@ export const authToken = writable<string>(<string>undefined);
 
 export const isAuthenticated = writable<boolean>(false);
 export const user = writable<User>(undefined);
+declare global {
+  interface Window {
+    ethereum: ethers.providers.ExternalProvider | ethers.providers.JsonRpcFetchFunc;
+  }
+}
+
+let provider: ethers.providers.Web3Provider;
+/* eslint-disable @typescript-eslint/no-unused-vars */
+let signer: ethers.providers.JsonRpcSigner;
+
+export const walletConnected = writable<boolean>(false);
 
 export const userId: Readable<string> = derived(
   [isAuthenticated, externalId, userIdExternalIdMap],
@@ -231,4 +242,38 @@ export function onSignIn() {
 export async function handleRedirectCallback(callbackUrl: string) {
   const client = await getClient();
   await client.handleRedirectCallback(callbackUrl);
+}
+
+export async function checkWalletInstalled() {
+  if (typeof window?.ethereum !== 'undefined') {
+    provider = new ethers.providers.Web3Provider(window?.ethereum);
+    return;
+  }
+
+  throw new Error('Metamask extension not found on browser');
+}
+
+export async function connectWallet() {
+  /*  eslint-disable promise/always-return */
+  return checkWalletInstalled()
+    .then(() => {
+      isLoading.set(true);
+      provider.send('eth_requestAccounts', []);
+    })
+    .then(async () => {
+      signer = provider.getSigner();
+      walletConnected.set(true);
+      isLoading.set(false);
+    })
+    .catch((error) => {
+      isLoading.set(false);
+      walletConnected.set(false);
+      throw error;
+    });
+}
+
+export async function disconnectWallet() {
+  provider = undefined;
+  signer = undefined;
+  walletConnected.set(false);
 }

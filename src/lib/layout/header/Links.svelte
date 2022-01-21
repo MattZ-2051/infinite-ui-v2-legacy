@@ -2,10 +2,19 @@
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
   import { mdiLogout, mdiPower } from '@mdi/js';
-  import { onSignOut, onSignIn, onSignUp, isLoading } from '$lib/user';
+  import {
+    onSignOut,
+    onSignIn,
+    onSignUp,
+    isLoading,
+    connectWallet,
+    walletConnected,
+    disconnectWallet,
+  } from '$lib/user';
   import mdiCogOutline from '$lib/layout/header/assets/gear';
   import mdiCreditCardOutline from '$lib/layout/header/assets/wallet';
   import Icon from '$ui/icon/Icon.svelte';
+  import { toast } from '$ui/toast';
   import { page } from '$app/stores';
   import { Menu, MenuList, MenuTrigger, MenuItem } from '$ui/menu';
   import routes from '$project/routes';
@@ -26,24 +35,43 @@
   $: isRoute = function (route: string) {
     return new RegExp(`^${route}(?:/|$)`).test($page.url.pathname);
   };
+
+  const handleWalletConnection = async () => {
+    try {
+      await connectWallet();
+    } catch (error) {
+      toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
+      window.open('https://metamask.io/download/', '_blank').focus();
+    }
+  };
 </script>
 
 {#each links as { id, label }}
   <a sveltekit:prefetch href={routes[id]} class="header-link" class:active={isRoute(routes[id])}>{label}</a>
 {/each}
 
+{#if $walletConnected}
+  <button class="flex header-link" on:click={disconnectWallet} disabled={$isLoading}>Disconnect External Wallet</button>
+{:else}
+  <button class="flex header-link" on:click={handleWalletConnection} disabled={$isLoading}
+    >Connect External Wallet</button
+  >
+{/if}
+
 {#if user}
   <a
     sveltekit:prefetch
     href={routes.collection(user.username)}
     class="header-link"
-    class:active={isRoute(routes.collection(user.username))}>My Collection</a
+    class:active={isRoute(routes.collection(user.username))}
   >
+    My Collection
+  </a>
 
   {#if flatten}
-    <a sveltekit:prefetch href={routes.account} class="header-link" class:hidden={isRoute(routes.account)}
-      >Account Settings</a
-    >
+    <a sveltekit:prefetch href={routes.account} class="header-link" class:hidden={isRoute(routes.account)}>
+      Account Settings
+    </a>
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
     {#if INFINITE_EXTENSION_ENABLED}
       {#if $InfiniteExtensionStore.extensionAvailable && !$InfiniteExtensionStore.logedIn}

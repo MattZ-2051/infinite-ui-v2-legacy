@@ -38,6 +38,7 @@ export function onOrderIntent({ sku, listing, product }: { sku?: Sku; product?: 
     toast.danger('Cannot purchase your own product');
     return;
   }
+
   openModal(OrderModal, {
     sku,
     product,
