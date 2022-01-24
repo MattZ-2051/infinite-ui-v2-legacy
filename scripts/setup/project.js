@@ -65,6 +65,7 @@ async function resolveProject() {
         { name: 'aria', message: 'Aria' },
         { name: 'infinite', message: 'Infinite' },
         { name: 'seva', message: 'Seva' },
+        { name: 'mclaren', message: 'McLaren' },
       ],
     },
   ];
