@@ -30,8 +30,7 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
   const minStartDate = sku?.minStartDate;
 
   const isOnlyBuyNowListing: boolean =
-    (sku?.activeBuyNowSkuListingsCounter ||
-      sku?.activeBuyNowProductListingsCounter) &&
+    (sku?.activeBuyNowSkuListingsCounter || sku?.activeBuyNowProductListingsCounter) &&
     !sku?.activeGiveawayListingsCounter &&
     !sku?.activeAuctionSkuListingsCounter &&
     !sku?.activeAuctionProductListingsCounter;
