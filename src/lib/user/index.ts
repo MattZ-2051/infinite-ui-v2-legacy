@@ -260,14 +260,18 @@ export async function checkWalletInstalled() {
 export async function connectWallet() {
   /*  eslint-disable promise/always-return */
   return checkWalletInstalled()
-    .then(() => {
-      isLoading.set(true);
-      provider.send('eth_requestAccounts', []);
-    })
     .then(async () => {
-      signer = provider.getSigner();
-      walletConnected.set(true);
-      isLoading.set(false);
+      isLoading.set(true);
+      try {
+        await provider.send('eth_requestAccounts', []);
+        signer = provider.getSigner();
+        walletConnected.set(true);
+        isLoading.set(false);
+      } catch (error) {
+        isLoading.set(false);
+        walletConnected.set(false);
+        throw error;
+      }
     })
     .catch((error) => {
       isLoading.set(false);

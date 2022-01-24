@@ -28,6 +28,8 @@
   import account from './assets/account';
   import connectWalletIcon from './assets/connect-wallet';
 
+  const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED;
+
   export let flatten = false;
   export let user: User;
   export let links: Link[];
@@ -40,8 +42,12 @@
     try {
       await connectWallet();
     } catch (error) {
-      toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
-      window.open('https://metamask.io/download/', '_blank').focus();
+      if (error?.code) {
+        toast.danger(error?.message, { toastId: error?.code });
+      } else {
+        toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
+        window.open('https://metamask.io/download/', '_blank').focus();
+      }
     }
   };
 </script>
@@ -50,12 +56,16 @@
   <a sveltekit:prefetch href={routes[id]} class="header-link" class:active={isRoute(routes[id])}>{label}</a>
 {/each}
 
-{#if $walletConnected}
-  <button class="flex header-link" on:click={disconnectWallet} disabled={$isLoading}>Disconnect External Wallet</button>
-{:else}
-  <button class="flex header-link" on:click={handleWalletConnection} disabled={$isLoading}
-    >Connect External Wallet</button
-  >
+{#if MM_WALLET_ENABLED === 'true'}
+  {#if $walletConnected}
+    <button class="flex header-link" on:click={disconnectWallet} disabled={$isLoading}>
+      Disconnect External Wallet
+    </button>
+  {:else}
+    <button class="flex header-link" on:click={handleWalletConnection} disabled={$isLoading}>
+      Connect External Wallet
+    </button>
+  {/if}
 {/if}
 
 {#if user}
