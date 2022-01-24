@@ -2,9 +2,7 @@ import type { Profile, Product, Sku } from '$lib/sku-item/types';
 import { get, getPage } from '$lib/api';
 
 export async function loadProfile({ username, fetch }: { username: string; fetch?: Fetch }): Promise<Profile> {
-  const profiles = await get<Profile[]>(`users?username=${username}`, { fetch, skipTenant: true });
-  const profile = profiles[0];
-
+  const profile = await get<Profile>(`users/issuers/${username}`, { fetch, skipTenant: true });
   return profile;
 }
 
