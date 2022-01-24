@@ -29,16 +29,14 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
   let minPrice: number;
   const minStartDate = sku?.minStartDate;
 
-  const isUniqueBuyNowListing: boolean =
-    !sku?.activeAuctionSkuListingsCounter &&
-    !sku?.activeAuctionProductListingsCounter &&
+  const isOnlyBuyNowListing: boolean =
+    (sku?.activeBuyNowSkuListingsCounter ||
+      sku?.activeBuyNowProductListingsCounter) &&
     !sku?.activeGiveawayListingsCounter &&
-    sku?.activeBuyNowSkuListingsCounter + sku?.activeBuyNowProductListingsCounter === 1;
+    !sku?.activeAuctionSkuListingsCounter &&
+    !sku?.activeAuctionProductListingsCounter;
 
   const isUniqueAuction: boolean =
-    !sku?.activeBuyNowSkuListingsCounter &&
-    !sku?.activeBuyNowProductListingsCounter &&
-    !sku?.activeGiveawayListingsCounter &&
     sku?.activeAuctionSkuListingsCounter + sku?.activeAuctionProductListingsCounter === 1;
 
   if (sku?.forSaleListingsCounter > 0) {
@@ -55,7 +53,7 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
           saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, false, isUniqueAuction);
         }
         if (sku?.lowestProductListingPrice === sku?.minPriceBuyNowProductListings) {
-          saleTypeTitle = getActiveTileTitle('fixed', undefined, simpleTitle, undefined, isUniqueBuyNowListing);
+          saleTypeTitle = getActiveTileTitle('fixed', undefined, simpleTitle, undefined, isOnlyBuyNowListing);
         }
       }
       if (sku?.minPrice === sku?.lowestSkuListingPrice) {
@@ -67,7 +65,7 @@ export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {
           saleTypeTitle = getActiveTileTitle('auction', undefined, simpleTitle, false, isUniqueAuction);
         }
         if (sku?.lowestSkuListingPrice === sku?.minPriceBuyNowSkuListings) {
-          saleTypeTitle = getActiveTileTitle('fixed', undefined, simpleTitle, undefined, isUniqueBuyNowListing);
+          saleTypeTitle = getActiveTileTitle('fixed', undefined, simpleTitle, undefined, isOnlyBuyNowListing);
         }
       }
     }
