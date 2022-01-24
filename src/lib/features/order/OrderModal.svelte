@@ -70,28 +70,17 @@
       }
     } else {
       try {
-        if (_sku.currency === 'USD') {
-          result = await purchaseSkuListing(listing._id);
-        } else if (_sku.currency === 'ETH') {
-          result = await purchaseSkuListing(listing._id, ethAddress);
-        }
-
-        if (product) {
-          if (result?.status === 'pending') {
-            pendingBuyCreated(product._id);
-          } else if (result?.status === 'success') {
-            productBought({ product });
-          }
-        } else {
-          if (result?.status === 'pending') {
-            pendingBuyCreated(_sku._id);
-          } else if (result?.status === 'success') {
-            skuBought();
-          }
-        }
+        result = await purchaseSkuListing(listing._id, _sku.currency === 'USD' ? '' : ethAddress);
 
         if (!result || result.errorLog || result.status === 'error') {
           throw new Error('error');
+        }
+
+        if (result?.status === 'pending') {
+          pendingBuyCreated(product ? product._id : _sku._id);
+        } else if (result?.status === 'success') {
+          if (product) productBought({ product });
+          else skuBought();
         }
       } catch (error) {
         toast.danger(handleSkuClaimError(error));

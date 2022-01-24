@@ -21,7 +21,7 @@
 
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
-    activeListings.length > 0 && sku.totalSupplyLeft && activeListings?.[0]?.saleType !== 'giveaway';
+
     if (goToSkuAuctionPage) {
       goto(routes.skuAuction(sku._id));
     } else if (activeListings[0].product) {
