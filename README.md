@@ -76,3 +76,7 @@ Use the "summary" field to provide a succinct description of the change:
 - use the imperative, present tense: "change" not "changed" nor "changes"
 - don't capitalize the first letter
 - no dot (.) at the end
+
+# How to add tenants, modify styles, and further changes
+
+Please refer to https://github.com/SukuLab/runbooks/tree/master/infinite
