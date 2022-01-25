@@ -1593,7 +1593,7 @@
   </p>
   <p class="mb-3">
     All feedback, comments, requests for technical support and other communications relating to the Platform should be
-    directed to: support@infiniteworld.com
+    directed to: support@goinfinite.io
   </p>
   <p class="mb-3">
     If you are a California resident, in accordance with Cal. Civ. Code §1789.3, you may report complaints to the

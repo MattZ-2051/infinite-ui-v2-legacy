@@ -11,7 +11,7 @@ export const CLIENT_SOCIAL_IMAGE = {
   alt: 'INFINITE by SUKU | NFT Marketplace',
 };
 export const HUBSPOT_FORM_URL = '//js.hsforms.net/forms/v2.js';
-export const CLIENT_SUPPORT_EMAIL = 'help@infinite.com';
+export const CLIENT_SUPPORT_EMAIL = 'support@goinfinite.io';
 export const CLIENT_SUPPORT_URL = 'https://support.suku.world/infinite-powered-by-suku';
 export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-hashgraph-hts';
 export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-redeem-an-item';
