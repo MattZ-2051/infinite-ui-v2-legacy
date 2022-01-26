@@ -819,7 +819,7 @@
 
   <p class="mb-3 text-lg">
     PLEASE REPORT ANY VIOLATIONS OF THIS SECTION OR THE TERMS OF SERVICE TO COMPANY’S
-    <u> CUSTOMER SERVICE DEPARTMENT at support@infiniteworld.com. </u>
+    <u> CUSTOMER SERVICE DEPARTMENT at support@goinfinite.com. </u>
   </p>
 
   <div class="ml-6 mb-3 flex items-center text-lg">
@@ -1545,7 +1545,7 @@
   </p>
 
   <div class="ml-6 mb-3 flex items-center text-lg">
-    <span class="mr-3">41.</span>
+    <span class="mr-3">42.</span>
     <h2 class="underline uppercase">
       <strong>DIGITAL MILLENNIUM COPYRIGHT ACT</strong>
     </h2>
@@ -1582,7 +1582,7 @@
   </p>
 
   <div class="ml-6 mb-3 flex items-center text-lg">
-    <span class="mr-3">41.</span>
+    <span class="mr-3">43.</span>
     <h2 class="underline uppercase">
       <strong>YOUR COMMENTS AND CONCERNS</strong>
     </h2>
