@@ -54,7 +54,7 @@ async function poller() {
   for (const transactionId of Object.keys(transactionWatchlist)) {
     // Check if a watched pending transaction is no longer pending.
     if (!pendingTransactionIds[transactionId]) {
-      toast.success(getSuccessMessage(transactionWatchlist[transactionId]));
+      toast.success(getSuccessMessage(transactionWatchlist[transactionId]), { toastId: 'pending-tx-success' });
 
       delete transactionWatchlist[transactionId];
     }
