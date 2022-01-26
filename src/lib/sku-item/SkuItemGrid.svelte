@@ -71,7 +71,7 @@
     }
   }
 
-  @media (min-width: 1280px) {
+  @media (min-width: 1480px) {
     .grid-max-cols-3 {
       @apply grid-cols-3;
     }

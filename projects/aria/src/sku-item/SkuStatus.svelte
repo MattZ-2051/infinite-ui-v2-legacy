@@ -13,9 +13,9 @@
 </script>
 
 <div
-  class="{forProductStatus
+  class={forProductStatus
     ? ''
-    : 'card-status text-xl flex gap-2 justify-center items-center rounded-full py-3 mx-3 whitespace-nowrap px-6'}}"
+    : 'card-status text-xl flex gap-2 justify-center items-center rounded-full py-3 whitespace-nowrap px-6'}
   class:no-sale={tileInfo.status === 'no-sale'}
 >
   {#if tileInfo.status === 'upcoming'}
