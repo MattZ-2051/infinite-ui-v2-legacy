@@ -4,6 +4,7 @@
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
   import { polls } from '$lib/features/product/product.store';
   import routes from '$project/routes';
+  import { goto } from '$app/navigation';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
 
   type FromCollectorStatus =
@@ -48,7 +49,7 @@
   };
 </script>
 
-<SkuPriceBoxButton {href} polling={$isPolling}>
+<SkuPriceBoxButton action={href !== undefined} polling={$isPolling} on:click={() => goto(href)}>
   <div class="flex justify-between gap-2">
     {#if status === 'activeSale'}
       <div>

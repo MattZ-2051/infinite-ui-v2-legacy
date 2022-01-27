@@ -191,13 +191,28 @@ const pollTransactionFx = createEffect(async () => {
 });
 
 export const pendingBuyCreated = createEvent<string>();
+const failedTransaction = createEvent<void>(); //Event to add failed attempt
+const resetFails = createEvent<void>(); //event to reset failed attempts.
+const failAttempts = createStore(0).on(failedTransaction, (numberOfAttempts) => {
+  //store created to count the number of failed attempts to stop
+  return numberOfAttempts + 1;
+});
+failAttempts.on(resetFails, () => 0);
+
 export const polls = createStore({}).on(pendingBuyCreated, (state, payload) => {
-  const fx = createEffect(() => {
-    pollTransactionFx();
-  });
-  const poll = createPolling(fx);
+  const poll = createPolling(pollTransactionFx, 1500);
   poll.start();
+  resetFails();
   return { ...state, [payload]: poll };
+});
+
+pollTransactionFx.fail.watch(() => {
+  //in case the call gets an error re try at least 5 times.
+  if (failAttempts.getState() < 5) {
+    const $polls = polls.getState();
+    $polls[product.getState()._id || sku.getState()._id].start();
+  }
+  failedTransaction();
 });
 
 pollTransactionFx.doneData.watch(async (response) => {
@@ -237,18 +252,22 @@ pollTransactionFx.doneData.watch(async (response) => {
 
       if (pendingTx?.status === 'success') {
         const $polls = polls.getState();
-        $polls[$sku._id].stop();
-        skuBought();
-        const transactionData = pendingTx.transactionData;
-        transactionSuccessMessage(transactionData);
+        if ($polls[$sku._id].$isActive) {
+          $polls[$sku._id].stop();
+          skuBought();
+          const transactionData = pendingTx.transactionData;
+          transactionSuccessMessage(transactionData);
+        }
       }
       if (pendingTx?.status === 'error') {
         const $polls = polls.getState();
-        $polls[$sku._id].stop();
-        toast.danger(
-          `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help} class="font-bold">contact support</a> if the issue persists.`,
-          { toastId: 'sku-purchase-error' }
-        );
+        if ($polls[$sku._id].$isActive) {
+          $polls[$sku._id].stop();
+          toast.danger(
+            `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help} class="font-bold">contact support</a> if the issue persists.`,
+            { toastId: 'sku-purchase-error' }
+          );
+        }
       }
     }
   }
