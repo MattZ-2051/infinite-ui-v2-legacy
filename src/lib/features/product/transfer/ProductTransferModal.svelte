@@ -12,6 +12,7 @@
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import { InfiniteExtensionStore } from '$lib/features/infinite-wallet/infinite-wallet.store';
+  import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
   import routes from '$project/routes';
   import SelectUser from './SelectUser.svelte';
   import SelectExternalWallet from './SelectExternalWallet.svelte';
@@ -145,13 +146,16 @@
               on:click={() => ((transferType = 'user'), (status = 'select-recipient'))}
               >To a User <Icon path={mdiAccountOutline} /></Button
             >
-            <Button
-              type="button"
-              variant="brand"
-              class="inline-flex items-center gap-2 text-xl md:gap-4 md:text-2xl"
-              on:click={() => ((transferType = 'external-wallet'), (status = 'select-recipient'))}
-              >To an external wallet <Icon path={mdiWalletOutline} /></Button
-            >
+            {#if INFINITE_EXTENSION_ENABLED}
+              <Button
+                type="button"
+                variant="brand"
+                class="inline-flex items-center gap-2 text-xl md:gap-4 md:text-2xl"
+                on:click={() => ((transferType = 'external-wallet'), (status = 'select-recipient'))}
+              >
+                To an external wallet <Icon path={mdiWalletOutline} />
+              </Button>
+            {/if}
           </div>
         {:else if status === 'select-recipient'}
           <Button
