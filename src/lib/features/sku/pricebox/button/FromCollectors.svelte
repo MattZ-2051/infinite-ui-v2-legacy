@@ -20,8 +20,14 @@
   export let sku: Sku;
   export let collectorListing: Listing;
 
-  const isUniqueAuction = sku?.activeAuctionProductListingsCounter === 1;
-  const isUniqueProductListing = sku?.activeBuyNowProductListingsCounter === 1;
+  const isOnlyAuction = sku?.activeAuctionProductListingsCounter === 1;
+  const isNoAuctions = sku?.activeAuctionProductListingsCounter !== 0;
+  const isOnlyBuyNow = sku?.activeBuyNowProductListingsCounter === 1;
+  const isNoBuyNows = sku?.activeBuyNowProductListingsCounter !== 0;
+
+  const isUniqueAuction = isOnlyAuction && isNoBuyNows;
+  const isUniqueBuyNow = isOnlyBuyNow && isNoAuctions;
+  const isUniqueProductListing = isUniqueAuction || isUniqueBuyNow;
   const href = isUniqueProductListing
     ? routes.product(collectorListing.product)
     : routes.collectors(sku._id, '?saleType=all');
@@ -34,7 +40,7 @@
   const getAuctionLabelCollector = (saleType) => {
     if (saleType === 'auction') {
       const existsBid: boolean = collectorListing.highestBid !== undefined;
-      if (!isUniqueAuction) return 'Lowest bid';
+      if (!isOnlyAuction) return 'Lowest bid';
 
       return existsBid ? 'Latest bid' : 'Minimum bid';
     }
