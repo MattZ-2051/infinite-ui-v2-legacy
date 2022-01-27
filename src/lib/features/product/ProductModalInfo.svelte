@@ -14,13 +14,13 @@
       <span class="text-sm text-gray-500">Item Name</span>
       <div class="flex items-center gap-2">
         <div>{sku.name}</div>
-        {#if product?.serialNumber}
-          <div>#{product.serialNumber}</div>
-        {/if}
       </div>
     </div>
     <div class="flex flex-col gap-2 items-end">
       <span class="text-sm text-gray-500">Edition</span>
+      {#if product?.serialNumber}
+        <div>#{product.serialNumber}</div>
+      {/if}
       <SkuEdition {sku} {product} />
     </div>
   </div>
