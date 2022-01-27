@@ -1,8 +1,11 @@
 <script lang="ts">
   import copy from 'clipboard-copy';
+  import { onMount } from 'svelte';
+  import type { ethers } from 'ethers';
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
+  import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
   import type { Listing, Sku, Product } from '$lib/sku-item/types';
-  import type { SkuPurchaseTransaction } from './types';
+  import { walletConnected, getWalletInfo, sendTransaction } from '$lib/user';
   import { closeModal, Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
   import Icon from '$ui/icon/Icon.svelte';
@@ -25,80 +28,133 @@
   export let sku: Sku = undefined;
   export let product: Product = undefined;
   export let listing: Listing;
+  export let validETHPurchase: ValidETHListingData;
 
   let purchasing = false;
   let result: SkuPurchaseTransaction;
+  let directPurchaseResult: ethers.providers.TransactionResponse;
+  let balance;
   $: _sku = product ? product.sku : sku;
+  $: ethAddress = '';
+  $: validEthAddress = undefined;
+  $: directPurchasing = false;
+
+  onMount(async () => {
+    if ($walletConnected) {
+      const data = await getWalletInfo();
+      balance = data.balance;
+      ethAddress = data.address;
+      validEthAddress = isEthAddress(ethAddress);
+    } else {
+      balance = $wallet?.balanceInfo.find((x) => x.currency === _sku.currency).totalBalance;
+    }
+  });
 
   let acceptedTerms = false;
   let acceptedTermsNft = false;
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
   const LOW_KYC_LVL_DEPOSIT_LIMIT_USD = import.meta.env?.VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD;
 
-  async function submitOrder() {
-    if ($wallet.kycRequired) {
-      return toast.danger(
-        `Your wallet balance is currently >= ${formatCurrency(
-          LOW_KYC_LVL_DEPOSIT_LIMIT_USD
-        )}, therefore, you will not be able to make deposits, withdrawals, purchases, or bids until you complete KYC level 2.`
-      );
-    }
+  const checkTerms = () => {
     if (!acceptedTerms || (_sku?.customNftTerms && !acceptedTermsNft)) {
-      toast.danger('Please agree to the Terms and Conditions in order to move forward.');
-      return;
+      toast.danger('Please agree to the Terms and Conditions in order to move forward.', { toastId: 'TERMS' });
+      return false;
     }
+    return true;
+  };
 
+  const checkValidETHAddress = () => {
     if (_sku.currency === 'ETH' && !validEthAddress) {
-      toast.danger('Please enter a valid ERC20 address to send the NFT to.');
-      return;
+      toast.danger('Please enter a valid ERC20 address to send the NFT to.', { toastId: 'INVALID_ETH' });
+      return false;
     }
+    return true;
+  };
 
-    purchasing = true;
-
-    const isGiveAway = listing.saleType === 'giveaway';
-
-    if (isGiveAway) {
-      try {
-        await claimGiveawaySkuListing(listing._id);
-        closeModal();
-        skuBought();
-        toast.success('Your request is being processed. Minting of your giveaway NFT may take up to two (2) minutes.');
-      } catch (error) {
-        toast.danger(handleSkuClaimError(error));
-      } finally {
-        purchasing = false;
-      }
-    } else {
-      try {
-        result = await purchaseSkuListing(listing._id, _sku.currency === 'USD' ? '' : ethAddress);
-
-        if (!result || result.errorLog || result.status === 'error') {
-          throw new Error('error');
+  async function submitOrder() {
+    if (checkTerms() && checkValidETHAddress()) {
+      if ($walletConnected) {
+        directPurchasing = true;
+        await sendTransaction(validETHPurchase.externalPurchaseAddressEth, validETHPurchase.cost.totalCost)
+          .then((response) => {
+            directPurchaseResult = response;
+            toast.success('Your request is being processed. Minting of your NFT may take up to 30 minutes.', {
+              toastId: 'TXR_SUCCESS',
+            });
+            purchasing = true;
+            closeModal();
+            return;
+          })
+          .catch((error) => {
+            toast.danger(error?.message, { toastId: 'TRX_ERROR' });
+          })
+          .finally(() => {
+            directPurchasing = false;
+          });
+      } else {
+        if ($wallet.kycRequired) {
+          return toast.danger(
+            `Your wallet balance is currently >= ${formatCurrency(
+              LOW_KYC_LVL_DEPOSIT_LIMIT_USD
+            )}, therefore, you will not be able to make deposits, withdrawals, purchases, or bids until you complete KYC level 2.`
+          );
         }
 
-        if (result?.status === 'pending') {
-          pendingBuyCreated(product ? product._id : _sku._id);
-        } else if (result?.status === 'success') {
-          if (product) productBought({ product });
-          else skuBought();
+        purchasing = true;
+        const isGiveAway = listing.saleType === 'giveaway';
+
+        if (isGiveAway) {
+          try {
+            await claimGiveawaySkuListing(listing._id);
+            closeModal();
+            skuBought();
+            toast.success(
+              'Your request is being processed. Minting of your giveaway NFT may take up to two (2) minutes.'
+            );
+          } catch (error) {
+            toast.danger(handleSkuClaimError(error));
+          } finally {
+            purchasing = false;
+          }
+        } else {
+          try {
+            if (_sku.currency === 'USD') {
+              result = await purchaseSkuListing(listing._id);
+            } else if (_sku.currency === 'ETH') {
+              result = await purchaseSkuListing(listing._id, ethAddress);
+            }
+
+            if (product) {
+              if (result?.status === 'pending') {
+                pendingBuyCreated(product._id);
+              } else if (result?.status === 'success') {
+                productBought({ product });
+              }
+            } else {
+              if (result?.status === 'pending') {
+                pendingBuyCreated(_sku._id);
+              } else if (result?.status === 'success') {
+                skuBought();
+              }
+            }
+
+            if (!result || result.errorLog || result.status === 'error') {
+              throw new Error('error');
+            }
+          } catch (error) {
+            toast.danger(handleSkuClaimError(error));
+          } finally {
+            purchasing = false;
+          }
         }
-      } catch (error) {
-        toast.danger(handleSkuClaimError(error));
-      } finally {
-        purchasing = false;
       }
     }
   }
 
-  const userUsdBalance = $wallet?.balanceInfo.find((x) => x.currency === 'USD').totalBalance;
-  const userEthBalance = $wallet?.balanceInfo.find((x) => x.currency === 'ETH').totalBalance;
-  $: userBalance = _sku.currency === 'ETH' ? userEthBalance : userUsdBalance;
-
+  $: userBalance = balance;
   $: marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
   $: total = listing.price * (1 + marketplaceFee);
   $: insufficientFunds = total > +userBalance;
-  $: ethAddress = '';
-  $: validEthAddress = undefined;
 
   function onEthAddressInput(event) {
     const { value } = event.target as HTMLInputElement;
@@ -181,7 +237,18 @@
         </div>
       </div>
       <div class="flex flex-col gap-5 text-gray-500">
-        {#if result?.status === 'success'}
+        {#if $walletConnected && !directPurchasing && directPurchaseResult?.hash}
+          <span>
+            You can check the status of the transaction on the
+            <a
+              href={`https://goerli.etherscan.io/tx/${directPurchaseResult.hash}`}
+              target="_blank"
+              class="cursor-pointer font-bold"
+              >block explorer
+            </a>
+          </span>
+          <a class="font-medium self-center" href={routes.marketplace}> Back to Marketplace </a>
+        {:else if result?.status === 'success'}
           <span>You successfully bought this item, and now is part of your collection.</span>
           <div class="flex flex-col gap-5">
             {#if result.product._id}

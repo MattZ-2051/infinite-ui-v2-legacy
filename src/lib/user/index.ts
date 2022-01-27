@@ -12,6 +12,7 @@ import AccountInitialSetupModal from '$lib/features/account/AccountInitialSetupM
 import { AUTH_PROVIDER_IS_AUTH0 } from '$project/variables';
 import { getClient } from '$lib/auth/auth0';
 import { localStorageWritable } from '$util/localstorage-store';
+import { toast } from '$ui/toast';
 
 const userIdExternalIdMap = localStorageWritable<Pick<User, '_id' | 'externalId'>>('user:id', undefined);
 const externalId = localStorageWritable<string>('user:externalId', undefined);
@@ -255,10 +256,30 @@ export async function handleRedirectCallback(callbackUrl: string) {
 export async function checkWalletInstalled() {
   if (typeof window?.ethereum !== 'undefined') {
     provider = new ethers.providers.Web3Provider(window?.ethereum);
+
+    // Check if user is already connected
+    const addresses = await provider.listAccounts();
+    if (addresses.length > 0) {
+      signer = provider.getSigner();
+      walletConnected.set(true);
+    }
     return;
   }
 
   throw new Error('Metamask extension not found on browser');
+}
+
+export async function handleWalletConnection() {
+  try {
+    await connectWallet();
+  } catch (error) {
+    if (error?.code) {
+      toast.danger(error?.message, { toastId: error?.code });
+    } else {
+      toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
+      window.open('https://metamask.io/download/', '_blank').focus();
+    }
+  }
 }
 
 export async function connectWallet() {
@@ -288,4 +309,23 @@ export async function disconnectWallet() {
   provider = undefined;
   signer = undefined;
   walletConnected.set(false);
+}
+
+export async function getWalletInfo() {
+  const address = await signer.getAddress();
+  const response = await provider.getBalance(address);
+  const balance = ethers.utils.formatEther(response);
+  return { balance, address };
+}
+
+export async function sendTransaction(destinationAddress: string, totalCost: number) {
+  const address = await signer.getAddress();
+  const rawTrx = {
+    from: address,
+    to: destinationAddress,
+    nonce: await provider.getTransactionCount(address, 'latest'),
+    value: ethers.utils.parseEther(totalCost.toString()),
+  };
+
+  return await signer.sendTransaction(rawTrx);
 }

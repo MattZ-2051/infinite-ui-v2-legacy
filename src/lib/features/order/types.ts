@@ -25,3 +25,21 @@ export type OrderFlowStep = {
   modal: typeof SvelteComponent | undefined;
   options: Record<string, unknown> | undefined;
 };
+
+export type ValidETHListingData = {
+  cost: ETHListingCosts;
+  externalPurchaseAddressEth: string;
+};
+
+export type ETHListingCosts = {
+  currency: string;
+  finalPayout: number;
+  initialBuyersFee: number;
+  initialBuyersFeePercentage: number;
+  initialSellersFee: number;
+  initialSellersFeePercentage: number;
+  resale: boolean;
+  resaleBuyersFeePercentage: number;
+  serviceEarnings: number;
+  totalCost: number;
+};

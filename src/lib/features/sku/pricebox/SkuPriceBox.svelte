@@ -3,6 +3,7 @@
   import { onOrderIntent } from '$lib/features/order/order.service';
   import routes from '$project/routes';
   import { goto } from '$app/navigation';
+  import { walletConnected } from '$lib/user';
   import {
     getActiveListings,
     getUpcomingListings,
@@ -26,9 +27,9 @@
       goto(routes.skuAuction(sku._id));
     } else if (activeListings[0].product) {
       const product = await loadProduct({ id: activeListings[0].product });
-      return onOrderIntent({ sku, listing: activeListings[0], product });
+      return onOrderIntent({ sku, listing: activeListings[0], product, walletConnected: $walletConnected });
     } else {
-      return onOrderIntent({ sku, listing: activeListings[0] });
+      return onOrderIntent({ sku, listing: activeListings[0], walletConnected: $walletConnected });
     }
   }
 

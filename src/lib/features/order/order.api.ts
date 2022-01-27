@@ -1,5 +1,5 @@
-import type { SkuPurchaseTransaction } from './types';
-import { patch, post } from '$lib/api';
+import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
+import { patch, post, get } from '$lib/api';
 import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
 
 export async function purchaseSkuListing(listingId: string, mintToAddress?: string): Promise<SkuPurchaseTransaction> {
@@ -26,4 +26,8 @@ async function processResponse(response: SkuPurchaseTransaction) {
   }
 
   return response;
+}
+
+export async function validETHdirectPurchase(listingId: string) {
+  return await get<ValidETHListingData>(`listings/${listingId}/is-valid-direct-eth-purchase`, {});
 }
