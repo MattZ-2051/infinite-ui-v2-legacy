@@ -21,12 +21,17 @@
 
   // `frame` is populated by Svelte in its CompileError and is a Rollup/Vite convention
   export let error: Error & { frame?: string } = undefined;
+
+  $: errorKind = error.message.split('#');
 </script>
 
 <ThemeContext id="error" class="flex flex-grow items-center justify-center" display>
   <div class="container flex flex-col gap-5 md:gap-10 items-center text-center">
-    {#if error.message === 'Please verify your email before logging in.'}
-      <div class="text-xl md:text-3xl font-semibold">{error.message}</div>
+    {#if errorKind[0] === 'Email not verified'}
+      <div class="text-xl md:text-3xl font-semibold">We've sent an email to {errorKind[1] + ''}</div>
+      <div class="text-base md:text-lg mt-4">
+        Check your inbox and follow the instructions provided to verify your email.
+      </div>
     {:else}
       <div class="text-6xl font-extrabold text-gradient-primary">Oh, no!</div>
       <div class="flex flex-col gap-4 md:gap-8">
