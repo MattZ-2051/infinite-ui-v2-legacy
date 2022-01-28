@@ -11,7 +11,7 @@ const {
 
 module.exports = async function (content) {
   const srcURL = parseURL(this.resource);
-  const parameters = extractEntries(srcURL);
+  const parameters = extractEntries(srcURL.searchParams);
   const imageConfigs = resolveConfigs(parameters, builtinOutputFormats);
   const img = loadImage(decodeURIComponent(srcURL.pathname));
   const outputMetadatas = [];
