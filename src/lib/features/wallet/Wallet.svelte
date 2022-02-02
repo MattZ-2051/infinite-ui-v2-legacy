@@ -148,7 +148,10 @@
     <div
       slot="sticky-content"
       class="px-4 py-6 md:px-8 md:py-12"
-      style="background: var(--wallet-balance-content-bg-color);"
+      style="background: var(--wallet-balance-content-bg-color); 
+            border-radius: var(--wallet-balance-content-border-radius);
+            margin: var(--wallet-balance-content-margin);
+            max-width: var(--wallet-balance-content-max-width);"
     >
       {#if ENABLE_ETH_CURRENCY}
         <div class="font-medium">
@@ -195,32 +198,43 @@
             </span>
           </div>
         </div>
+        <ThemeContext id="wallet-buttons">
+          <div class="mt-8">
+            <WalletButtons on:deposit={handleDepositSelectModal} on:withdraw={handleWithdrawSelectModal} />
+          </div>
+        </ThemeContext>
       {:else}
-        <WalletBalance
-          balance={Number.parseFloat($wallet?.balanceInfo[0]?.circleBalance)}
-          availableBalance={Number.parseFloat($wallet?.balanceInfo[0]?.totalBalance)}
-          withdrawableBalance={$withdrawableBalanceUsd}
-        >
-          <svelte:fragment slot="kyc">
-            {#if $wallet}
-              <AccountVerification
-                on:upgrade={openUpgradeKYCLevel}
-                level={$wallet.kycMaxLevel}
-                pending={$wallet.kycPending}
-              />
-            {/if}
-            <div class="mt-6">
-              <span class="text-sm text-gray-500">
-                {#if $wallet}
-                  {@html getKYCLevelDepositDisclaimer($wallet.kycMaxLevel)}
-                  <a href={KYC_INFO} target="_blank" rel="noopener noreferrer" class="underline">Learn more.</a>
-                {/if}
-              </span>
-            </div>
-          </svelte:fragment>
-        </WalletBalance>
+        <ThemeContext id="wallet-balance">
+          <WalletBalance
+            balance={Number.parseFloat($wallet?.balanceInfo[0]?.circleBalance)}
+            availableBalance={Number.parseFloat($wallet?.balanceInfo[0]?.totalBalance)}
+            withdrawableBalance={$withdrawableBalanceUsd}
+          >
+            <svelte:fragment slot="kyc">
+              {#if $wallet}
+                <AccountVerification
+                  on:upgrade={openUpgradeKYCLevel}
+                  level={$wallet.kycMaxLevel}
+                  pending={$wallet.kycPending}
+                />
+              {/if}
+              <div class="mt-6">
+                <span class="text-sm text-gray-500">
+                  {#if $wallet}
+                    {@html getKYCLevelDepositDisclaimer($wallet.kycMaxLevel)}
+                    <a href={KYC_INFO} target="_blank" rel="noopener noreferrer" class="underline">Learn more.</a>
+                  {/if}
+                </span>
+              </div>
+            </svelte:fragment>
+          </WalletBalance>
+        </ThemeContext>
+        <ThemeContext id="wallet-buttons">
+          <div class="mt-8">
+            <WalletButtons on:deposit={handleDepositSelectModal} on:withdraw={handleWithdrawSelectModal} />
+          </div>
+        </ThemeContext>
       {/if}
     </div>
-    <WalletButtons slot="sticky-cta" on:deposit={handleDepositSelectModal} on:withdraw={handleWithdrawSelectModal} />
   </StickyColumn>
 </div>

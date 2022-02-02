@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mdiInformationVariant } from '@mdi/js';
+  import mdiInformationVariant from '$lib/features/wallet/assets/info';
   import { formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
   import tooltip from '$ui/tooltip';
@@ -11,7 +11,7 @@
 
 <div class="font-medium">
   <div class="text-xl md:text-2xl section-title font-normal">My Wallet</div>
-  <div class="text-3xl md:text-5xl tracking-tight mt-3 md:mt-5" style="color: var(--wallet-balance-heading-color)">
+  <div class="text-3xl md:text-5xl tracking-tight mt-3 md:mt-5 gradient-balance-text">
     {#if balance === undefined}
       <div class="animate-pulse bg-gray-300 rounded h-10 w-52" />
     {:else}
@@ -30,8 +30,12 @@
         {:else}
           {formatCurrency(availableBalance)}
         {/if}
-        <div tabindex="0" use:tooltip={'The available funds exclude pending transactions and active bids.'}>
-          <Icon path={mdiInformationVariant} class="px-1 bg-white bg-opacity-10 rounded-full" />
+        <div
+          tabindex="0"
+          class="rounded-full wallet-info-content"
+          use:tooltip={'The available funds exclude pending transactions and active bids.'}
+        >
+          <Icon path={mdiInformationVariant} />
         </div>
       </div>
     </div>
@@ -48,9 +52,10 @@
         {/if}
         <div
           tabindex="0"
+          class="rounded-full wallet-info-content"
           use:tooltip={'The withdrawable amount excludes pending transactions and credit card payments less than 30 days old.'}
         >
-          <Icon path={mdiInformationVariant} class="px-1 bg-white bg-opacity-10 rounded-full" />
+          <Icon path={mdiInformationVariant} />
         </div>
       </div>
     </div>
@@ -63,3 +68,16 @@
     <slot name="kyc">yoooo</slot>
   </div>
 </div>
+
+<style lang="postcss">
+  .gradient-balance-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r;
+    --tw-gradient-from: var(--text-balance-gradient-from);
+    --tw-gradient-to: var(--text-balance-gradient-to);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+  .wallet-info-content {
+    background: var(--wallet-icon-info-bg-color, rgba(255, 255, 255, 0.1));
+    padding: var(--wallet-icon-info-padding, 0.1);
+  }
+</style>

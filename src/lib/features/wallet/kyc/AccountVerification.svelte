@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { mdiShieldOutline, mdiShieldCheckOutline, mdiShieldOffOutline } from '@mdi/js';
   import shieldPlus from '$lib/features/wallet/assets/shield-plus';
-  import arrowRight from '$lib/features/wallet/assets/arrow-right';
+  import ArrowRight from '$lib/features/wallet/kyc/assets/ArrowRight.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import Button from '$lib/components/Button.svelte';
 
@@ -44,7 +44,7 @@
   </div>
   {#if !pending && level < 2}
     <Button variant="brand" style="--button-padding:0.3em" on:click={() => dispatch('upgrade')}>
-      <Icon path={arrowRight} size="20px" />
+      <ArrowRight />
       <span class="sr-only">Verify account</span>
     </Button>
   {/if}

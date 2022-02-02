@@ -6,12 +6,14 @@
 </script>
 
 <script lang="ts">
-  import { mdiChevronDown, mdiChevronUp, mdiSortVariant, mdiTuneVariant } from '@mdi/js';
+  import { mdiSortVariant, mdiTuneVariant } from '@mdi/js';
   import { createEventDispatcher } from 'svelte';
   import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
   import { media } from '$lib/media-query.store';
+  import mdiChevronDown from '$lib/components/icons/arrow-down';
+  import mdiChevronUp from '$lib/components/icons/arrow-up';
 
   let dispatch = createEventDispatcher();
 

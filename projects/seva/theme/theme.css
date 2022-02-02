@@ -81,6 +81,9 @@
   --wallet-balance-content-bg-color: rgba(0, 0, 0, 0.95);
   --wallet-balance-content-bg-color-secondary: rgba(255, 255, 255, 0.05);
   --wallet-balance-heading-color: #ffd54e;
+  --wallet-balance-content-margin: 0;
+  --wallet-balance-content-border-radius: 0;
+  --wallet-balance-content-max-width: 100%;
 
   /* WalletList */
   --wallet-list-bg-color: #f7f9fc;
