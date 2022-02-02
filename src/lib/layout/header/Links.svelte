@@ -1,32 +1,20 @@
 <script lang="ts">
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
-  import { mdiLogout, mdiPower } from '@mdi/js';
-  import {
-    onSignOut,
-    onSignIn,
-    onSignUp,
-    isLoading,
-    connectWallet,
-    walletConnected,
-    disconnectWallet,
-  } from '$lib/user';
+  import { mdiLogout } from '@mdi/js';
+  import { onSignOut, onSignIn, onSignUp, isLoading } from '$lib/user';
   import mdiCogOutline from '$lib/layout/header/assets/gear';
   import mdiCreditCardOutline from '$lib/layout/header/assets/wallet';
   import Icon from '$ui/icon/Icon.svelte';
-  import { toast } from '$ui/toast';
   import { page } from '$app/stores';
   import { Menu, MenuList, MenuTrigger, MenuItem } from '$ui/menu';
+  import { openModal } from '$ui/modals';
   import routes from '$project/routes';
   import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
-  import {
-    InfiniteExtensionLoginFx,
-    InfiniteExtensionLogoutFx,
-    InfiniteExtensionStore,
-  } from '$lib/features/infinite-wallet/infinite-wallet.store';
+  import WalletConnectionModal from '$lib/features/connect-wallet-extensions/WalletConnectionModal.svelte';
+
   import Button from '$lib/components/Button.svelte';
   import account from './assets/account';
-  import connectWalletIcon from './assets/connect-wallet';
 
   const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED;
 
@@ -34,21 +22,12 @@
   export let user: User;
   export let links: Link[];
 
-  $: isRoute = function (route: string) {
-    return new RegExp(`^${route}(?:/|$)`).test($page.url.pathname);
+  const handleWalletModal = () => {
+    openModal(WalletConnectionModal, { user });
   };
 
-  const handleWalletConnection = async () => {
-    try {
-      await connectWallet();
-    } catch (error) {
-      if (error?.code) {
-        toast.danger(error?.message, { toastId: error?.code });
-      } else {
-        toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
-        window.open('https://metamask.io/download/', '_blank').focus();
-      }
-    }
+  $: isRoute = function (route: string) {
+    return new RegExp(`^${route}(?:/|$)`).test($page.url.pathname);
   };
 </script>
 
@@ -56,16 +35,8 @@
   <a sveltekit:prefetch href={routes[id]} class="header-link" class:active={isRoute(routes[id])}>{label}</a>
 {/each}
 
-{#if MM_WALLET_ENABLED === 'true'}
-  {#if $walletConnected}
-    <button class="flex header-link" on:click={disconnectWallet} disabled={$isLoading}>
-      Disconnect External Wallet
-    </button>
-  {:else}
-    <button class="flex header-link" on:click={handleWalletConnection} disabled={$isLoading}>
-      Connect External Wallet
-    </button>
-  {/if}
+{#if MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED}
+  <button on:click|preventDefault={handleWalletModal}>Wallet</button>
 {/if}
 
 {#if user}
@@ -83,17 +54,8 @@
       Account Settings
     </a>
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
-    {#if INFINITE_EXTENSION_ENABLED}
-      {#if $InfiniteExtensionStore.extensionAvailable && !$InfiniteExtensionStore.logedIn}
-        <button
-          on:click={() => InfiniteExtensionLoginFx()}
-          class={!$InfiniteExtensionStore.extensionAvailable ? 'opacity-50' : ''}
-        >
-          Connect external wallet
-        </button>
-      {:else if $InfiniteExtensionStore.extensionAvailable && $InfiniteExtensionStore.logedIn}
-        <button on:click={() => InfiniteExtensionLogoutFx()}>Disconnect {$InfiniteExtensionStore.current.id}</button>
-      {/if}
+    {#if MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED}
+      <button on:click|preventDefault={handleWalletModal}>Wallet</button>
     {/if}
     <button type="button" on:click={() => onSignOut()} class="header-link">Sign Out</button>
   {:else}
@@ -119,28 +81,6 @@
         <MenuItem href={routes.wallet} class={$page.url.pathname === routes.wallet ? 'hidden' : ''}>
           <Icon path={mdiCreditCardOutline} class="shrink-0 float-left mr-3" /> My Wallet
         </MenuItem>
-        {#if INFINITE_EXTENSION_ENABLED}
-          {#if !$InfiniteExtensionStore.logedIn}
-            <MenuItem
-              on:select={() => InfiniteExtensionLoginFx()}
-              class={!$InfiniteExtensionStore.extensionAvailable ? 'opacity-50' : ''}
-            >
-              <Icon path={connectWalletIcon} class="flex-shrink-0 float-left mr-3" />
-              Connect external wallet
-            </MenuItem>
-          {:else if $InfiniteExtensionStore.logedIn}
-            <MenuItem disabled={true}>
-              <Icon path={connectWalletIcon} class="flex-shrink-0 float-left mr-3" />
-              Connected to {$InfiniteExtensionStore.current.id}
-            </MenuItem>
-            <MenuItem on:select={() => InfiniteExtensionLogoutFx()} style="padding: 0;">
-              <span class="pl-12 text-red-400 hover:text-current w-full py-1">
-                <Icon path={mdiPower} class="flex-shrink-0 float-left mr-1" />
-                Disconnect
-              </span>
-            </MenuItem>
-          {/if}
-        {/if}
         <MenuItem on:select={() => onSignOut()}>
           <Icon path={mdiLogout} class="shrink-0 float-left mr-3" /> Sign Out
         </MenuItem>

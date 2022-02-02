@@ -21,7 +21,7 @@
   /**
    * The appearance of the button.
    */
-  export let variant: 'base' | 'brand' | 'outline-brand' = 'base';
+  export let variant: 'base' | 'brand' | 'outline-brand' | 'invert-brand' = 'base';
 
   let _class = '';
   /**
@@ -77,5 +77,15 @@
     color: var(--button-outline-brand-color-hover);
     background-color: var(--button-outline-brand-bg-color-hover);
     border-color: var(--button-outline-brand-border-color-hover);
+  }
+  .invert-brand {
+    color: var(--button-brand-color-hover);
+    background-color: var(--button-brand-bg-color-hover);
+    border-color: var(--button-brand-border-color-hover);
+  }
+  .invert-brand:hover {
+    color: var(--button-brand-color);
+    background-color: var(--button-brand-bg-color);
+    border-color: var(--button-brand-border-color);
   }
 </style>

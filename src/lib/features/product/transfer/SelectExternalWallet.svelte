@@ -35,7 +35,7 @@
   }
 
   $: externalWalletSelected = () =>
-    $InfiniteExtensionStore.logedIn && selectedWallet === $InfiniteExtensionStore.current?.id;
+    $InfiniteExtensionStore.loggedIn && selectedWallet === $InfiniteExtensionStore.current?.id;
 
   $: tooltipLable = externalWalletSelected()
     ? 'The wallet address has been retrieved from your browser extension, you do not need to change it.'

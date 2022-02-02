@@ -37,7 +37,7 @@ export const InfiniteExtensionLoadFx = createEffect(() => {
   const extensionState: InfiniteExtensionState = {
     extensionAvailable: wallet !== undefined,
     walletLocked: isError(account) && (account as AccountError).type === 'locked',
-    logedIn: account !== null && !isError(account),
+    loggedIn: account !== null && !isError(account),
     current: account !== null && !isError(account) ? account : undefined,
   };
   return extensionState;
@@ -53,14 +53,14 @@ export const InfiniteExtensionLoginFx = createEffect(async () => {
 
   // Check if the user is already loged in and return data if so
   if (account !== null && !isError(account)) {
-    extensionState = { walletLocked: false, logedIn: true, current: account };
+    extensionState = { walletLocked: false, loggedIn: true, current: account };
     return extensionState;
   }
 
   const updateAccount = await wallet.login(variables.hederaNetwork as string);
 
   extensionState = {
-    logedIn: updateAccount !== null,
+    loggedIn: updateAccount !== null,
     current: updateAccount !== null ? (updateAccount as AccountData) : undefined,
   };
 
@@ -76,7 +76,7 @@ export const InfiniteExtensionLogoutFx = createEffect(async () => {
   if (logoutResponse === false) throw new Error('Logout attempt was unsuccessful.');
 
   const extensionState: InfiniteExtensionState = {
-    logedIn: false,
+    loggedIn: false,
     current: undefined,
   };
 
@@ -87,46 +87,56 @@ export const InfiniteExtensionLogoutFx = createEffect(async () => {
 InfiniteExtensionLoadFx.fail.watch((payload) => {
   // Prevent error feedback of missing window object due to SSR
   if (browser) {
-    toast.danger(payload?.error?.message);
+    toast.danger(payload?.error?.message, { toastId: 'Inf-ext-error' });
   }
 });
 // Handle feedback for login attempts
 InfiniteExtensionLoginFx.fail.watch(({ error }) => {
   if (error['type'] === 'locked') {
     toast.danger(
-      'Your INFINITE browser wallet seems to be locked. Please open your INFINITE Wallet browser extension and unlock your wallet.'
+      'Your INFINITE browser wallet seems to be locked. Please open your INFINITE Wallet browser extension and unlock your wallet.',
+      { toastId: 'Inf-ext-locked' }
     );
   } else if (error['type'] === 'no_account') {
     toast.danger(
-      `No account found in INFINITE Wallet browser extension for this network (${variables.hederaNetwork}).`
+      `No account found in INFINITE Wallet browser extension for this network (${variables.hederaNetwork}).`,
+      { toastId: 'Inf-ext-no-network' }
     );
   } else {
-    toast.danger('INFINITE Wallet browser extension not installed.');
+    toast.danger(
+      'INFINITE Wallet browser extension not installed. <a href="https://chrome.google.com/webstore/detail/infinite-browser-wallet/jijmcpjphgekceoblbgeffccmganjaig">Install it from the Chrome Web Store.</a>',
+      { toastId: 'Inf-ext-not-installed' }
+    );
   }
 });
 InfiniteExtensionLoginFx.done.watch(({ result }) => {
-  toast.success(`Successfully connected to INFINITE Wallet browser extension with address: ${result.current.id}`);
+  toast.success(`Successfully connected to INFINITE Wallet browser extension with address: ${result.current.id}`),
+    { toastId: 'Inf-ext-login-success' };
 });
 
 // Handle feedback for logout attempts
 InfiniteExtensionLogoutFx.fail.watch(({ error }) => {
   if (error['type'] === 'locked') {
     toast.danger(
-      'Your INFINITE browser wallet seems to be locked. Please open your INFINITE Wallet browser extension and unlock your wallet.'
+      'Your INFINITE browser wallet seems to be locked. Please open your INFINITE Wallet browser extension and unlock your wallet.',
+      { toastId: 'Inf-ext-logout-locked' }
     );
   } else {
-    toast.danger(error.message);
+    toast.danger(error.message, { toastId: 'Inf-ext-logout-error' });
   }
 });
+
 InfiniteExtensionLogoutFx.done.watch(() => {
-  toast.success(`Successfully disconnected from INFINITE Wallet browser extension.`);
+  toast.success(`Successfully disconnected from INFINITE Wallet browser extension.`, {
+    toastId: 'Inf-ext-logout-success',
+  });
 });
 
 // Store for wallet extension state
 export const InfiniteExtensionStore = createStore<InfiniteExtensionState>({
   extensionAvailable: undefined,
   walletLocked: undefined,
-  logedIn: undefined,
+  loggedIn: undefined,
   current: undefined,
 })
   .on(
@@ -154,7 +164,11 @@ export const QueryBalanceLoadFx = createEffect(async (account: AccountData): Pro
   return null;
 });
 
-QueryBalanceLoadFx.fail.watch(() => toast.danger('There was an error loading wallet balance data from Hedera.'));
+QueryBalanceLoadFx.fail.watch(() =>
+  toast.danger('There was an error loading wallet balance data from Hedera.', {
+    toastId: 'Inf-ext-error-loading-balance',
+  })
+);
 
 forward({ from: InfiniteExtensionStore.map((state) => state.current), to: QueryBalanceLoadFx });
 
@@ -177,7 +191,9 @@ export const MirrorNodeBalanceLoadFx = createEffect(
 );
 
 MirrorNodeBalanceLoadFx.fail.watch(() =>
-  toast.danger('There was an error loading Hedera wallet balance data from mirror node.')
+  toast.danger('There was an error loading Hedera wallet balance data from mirror node.', {
+    toastId: 'Inf-ext-error-loading-mirror-data',
+  })
 );
 
 forward({ from: InfiniteExtensionStore.map((state) => state.current), to: MirrorNodeBalanceLoadFx });

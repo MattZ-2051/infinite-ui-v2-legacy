@@ -1,5 +1,6 @@
 import type { User } from './types';
 import type { Readable } from 'svelte/store';
+import type { InfiniteExtension } from '$lib/features/infinite-wallet/types';
 import { ethers } from 'ethers';
 import { derived, get as getStoreValue, writable } from 'svelte/store';
 import { session } from '$app/stores';
@@ -22,6 +23,7 @@ export const user = writable<User>(undefined);
 declare global {
   interface Window {
     ethereum: ethers.providers.ExternalProvider | ethers.providers.JsonRpcFetchFunc;
+    wallet: InfiniteExtension | undefined;
   }
 }
 
@@ -219,6 +221,8 @@ export async function getAuthToken(): Promise<string> {
 }
 
 export function onSignOut(avoidRedirect?: boolean) {
+  if (typeof window?.wallet?.account !== null) window.wallet.logout();
+
   if (AUTH_PROVIDER_IS_AUTH0) {
     clearUser();
     logout(avoidRedirect ? `` : `${window.location.origin}`, avoidRedirect);

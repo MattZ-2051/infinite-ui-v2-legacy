@@ -40,11 +40,11 @@
 
   if (browser) {
     initUserAuth();
+  }
 
-    if (INFINITE_EXTENSION_ENABLED) {
-      InfiniteExtensionLoadFx();
-      document.addEventListener('hederaWalletLoaded', () => InfiniteExtensionLoadFx());
-    }
+  $: if (browser && INFINITE_EXTENSION_ENABLED && $user) {
+    InfiniteExtensionLoadFx();
+    document.addEventListener('hederaWalletLoaded', () => InfiniteExtensionLoadFx());
   }
 
   const navigationPathChanging = derived(

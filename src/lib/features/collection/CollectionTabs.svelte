@@ -53,7 +53,7 @@
     },
   ];
 
-  $: visibleTabs = $InfiniteExtensionStore.logedIn
+  $: visibleTabs = $InfiniteExtensionStore.loggedIn
     ? (visibleTabs = [...items, ...externalTabs.filter(Boolean)])
     : items;
 

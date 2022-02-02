@@ -26,7 +26,7 @@ export interface InfiniteExtension {
 export interface InfiniteExtensionState {
   extensionAvailable?: boolean;
   walletLocked?: boolean;
-  logedIn?: boolean;
+  loggedIn?: boolean;
   current?: AccountData;
 }
 

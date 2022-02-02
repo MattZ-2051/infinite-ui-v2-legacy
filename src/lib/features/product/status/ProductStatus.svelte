@@ -42,7 +42,7 @@
   function verifyExtensionState(action: ActionType) {
     if ($InfiniteExtensionStore.walletLocked) {
       toast.danger('Please unlock the INFINITE browser wallet and refresh the window to use this feature.');
-    } else if (!$InfiniteExtensionStore.extensionAvailable || !$InfiniteExtensionStore.logedIn) {
+    } else if (!$InfiniteExtensionStore.extensionAvailable || !$InfiniteExtensionStore.loggedIn) {
       toast.danger('Please connect the INFINITE browser wallet to use this feature, <a>learn more</a>.');
     } else {
       onAction(action, product);

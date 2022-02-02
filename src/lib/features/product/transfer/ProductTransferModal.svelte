@@ -53,7 +53,7 @@
       if (type === 'user') {
         await transferProductFx({ product, user: recipient as Profile });
       } else {
-        if ($InfiniteExtensionStore.logedIn && selectedWallet === $InfiniteExtensionStore.current?.id) {
+        if ($InfiniteExtensionStore.loggedIn && selectedWallet === $InfiniteExtensionStore.current?.id) {
           await transferProductOutFx({ product, account: $InfiniteExtensionStore.current });
         } else {
           await transferProductOutFx({ product, walletAddress: selectedWallet });
