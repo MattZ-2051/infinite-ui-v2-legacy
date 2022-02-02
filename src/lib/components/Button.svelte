@@ -138,4 +138,14 @@
     background: var(--button-brand-bg-gradient-hover, none transparent);
     border-radius: var(--button-border-radius);
   }
+  .invert-brand {
+    color: var(--button-brand-color-hover);
+    background-color: var(--button-brand-bg-color-hover);
+    border-color: var(--button-brand-border-color-hover);
+  }
+  .invert-brand:hover {
+    color: var(--button-brand-color);
+    background-color: var(--button-brand-bg-color);
+    border-color: var(--button-brand-border-color);
+  }
 </style>
