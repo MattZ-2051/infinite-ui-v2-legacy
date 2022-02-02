@@ -264,6 +264,7 @@ export type TransactionData = {
   cost: Cost;
   explorerLink?: string;
   status?: string;
+  reverted?: boolean;
   service?: string;
   deposit?: {
     id: string;

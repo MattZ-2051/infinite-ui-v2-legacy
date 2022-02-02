@@ -11,6 +11,7 @@
 
   $: type = transaction.type;
   $: status = transaction.status;
+  $: reverted = transaction.transactionData.reverted;
 </script>
 
 <span class="text-left cursor-default text-default" on:click={(event) => event.stopPropagation()}>
@@ -30,6 +31,10 @@
   {#if status === 'pending'}
     <span> (Pending)</span>
   {:else if status === 'error'}
-    <span class="text-red-600"> (Transaction failed)</span>
+    {#if reverted}
+      <span class="text-red-600"> (Transaction reverted)</span>
+    {:else}
+      <span class="text-red-600"> (Transaction failed)</span>
+    {/if}
   {/if}
 </span>
