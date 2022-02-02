@@ -12,7 +12,7 @@
   }
 </script>
 
-<div class="absolute bottom-2.5 right-2.5 z-10">
+<div class="absolute right-2.5 z-10" style="bottom:var(--edit-profile-picture-bottom-positioning, 0.625rem)">
   <AccountEditButton on:click={() => avatarUpload.click()} />
 </div>
 

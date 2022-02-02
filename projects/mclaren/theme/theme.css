@@ -53,20 +53,30 @@
   --sku-item-bg-color: var(--bg-color);
 
   /* Button */
-  --button-brand-color: #000000;
-  --button-brand-bg-color: #ffffff;
-  --button-brand-border-color: var(--gray-400);
-  --button-brand-color-hover: #000000;
-  --button-brand-bg-color-hover: #ddf874;
-  --button-brand-border-color-hover: #ddf874;
+  --button-brand-color: #ffffff;
+  --button-brand-bg: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  --button-brand-border-color: transparent;
+  --button-brand-color-hover: #ffffff;
+  --button-brand-bg-hover: linear-gradient(225deg, #181c20 0%, #363f45 100%);
+  --button-brand-border-color-hover: transparent;
   --button-outline-brand-color: #000000;
-  --button-outline-brand-bg-color: #ffffff;
-  --button-outline-brand-border-color: #000000;
-  --button-outline-brand-color-hover: #a8c039;
-  --button-outline-brand-bg-color-hover: #ffffff;
-  --button-outline-brand-border-color-hover: #a8c039;
-  --button-padding: 9px 24px;
+  --button-outline-brand-bg: linear-gradient(161.99deg, #ffffff -1.04%, #f8f8f8 111.86%);
+  --button-outline-brand-border-color: rgba(0, 0, 0, 0.05);
+  --button-outline-brand-color-hover: #000000;
+  --button-outline-brand-bg-hover: linear-gradient(161.99deg, #ffffff -1.04%, #f8f8f8 111.86%);
+  --button-outline-brand-border-color-hover: transparent;
+  --button-padding: 14px 24px;
   --button-border-radius: 50px;
+  --button-outline-brand-gradient-color-border-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  --button-outline-brand-bg-gradient-hover: linear-gradient(161.99deg, #ffffff -1.04%, #f8f8f8 111.86%);
+  --button-outline-brand-gradient-border-width-hover: -1px; /*border width should be negative*/
+  --button-confirm-modal-radius: 40px;
+
+  /*Edit Profile*/
+  --edit-picture-button-width: 2rem;
+  --edit-picture-button-height: 2rem;
+  --edit-picture-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+  --edit-picture-bottom-positioning: 0.2rem;
 }
 .theme-dark {
   /* Common */

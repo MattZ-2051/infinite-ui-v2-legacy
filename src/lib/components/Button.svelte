@@ -32,7 +32,7 @@
   const forwardEvents = forwardEventsBuilder(get_current_component());
 
   $: classes = clsx(
-    'button inline-flex items-center justify-center border select-none transition duration-200',
+    'button inline-flex items-center justify-center border select-none transition duration-200 relative z-10',
     _class,
     variant,
     disabled && 'opacity-50 pointer-events-none cursor-default'
@@ -62,21 +62,51 @@
     color: var(--button-brand-color);
     background-color: var(--button-brand-bg-color);
     border-color: var(--button-brand-border-color);
+    background: var(--button-brand-bg, none var(--button-brand-bg-color));
   }
   .brand:hover {
     color: var(--button-brand-color-hover);
     background-color: var(--button-brand-bg-color-hover);
     border-color: var(--button-brand-border-color-hover);
+    background: var(--button-brand-bg-hover, none var(--button-brand-bg-color-hover));
   }
   .outline-brand {
     color: var(--button-outline-brand-color);
     background-color: var(--button-outline-brand-bg-color);
     border-color: var(--button-outline-brand-border-color);
+    background: var(--button-outline-brand-bg, none var(--button-outline-brand-bg-color));
   }
   .outline-brand:hover {
     color: var(--button-outline-brand-color-hover);
     background-color: var(--button-outline-brand-bg-color-hover);
     border-color: var(--button-outline-brand-border-color-hover);
+    background: var(--button-outline-brand-bg-hover, none var(--button-outline-brand-bg-color-hover));
+  }
+  .gradient {
+    border: 0px;
+    @apply button inline-flex items-center justify-center border select-none transition duration-200;
+  }
+  .outline-brand:hover::after {
+    position: absolute;
+    top: var(--button-outline-brand-gradient-border-width-hover);
+    bottom: var(--button-outline-brand-gradient-border-width-hover);
+    left: var(--button-outline-brand-gradient-border-width-hover);
+    right: var(--button-outline-brand-gradient-border-width-hover);
+    content: '';
+    z-index: -2;
+    background: var(--button-outline-brand-gradient-color-border-hover, none transparent);
+    border-radius: var(--button-border-radius);
+  }
+  .outline-brand:hover::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    z-index: -1;
+    background: var(--button-outline-brand-bg-gradient-hover, none transparent);
+    border-radius: var(--button-border-radius);
   }
   .invert-brand {
     color: var(--button-brand-color-hover);
