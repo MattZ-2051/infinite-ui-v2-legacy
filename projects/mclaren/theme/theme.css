@@ -1,5 +1,6 @@
 :root,
 .theme-light {
+  --mobile-menu-background-color: white;
   /* Common */
   --default-color: #000000;
   --inverse-color: #ffffff;
@@ -15,6 +16,8 @@
   --gradient-start-color: var(--default-color);
   --gradient-end-color: var(--default-color);
   --header-background-color: var(--inverse-color);
+  --header-height: 4.5rem;
+  --header-links-text-transform: uppercase;
 
   /* Grayscale */
   --gray-50: rgba(0, 0, 0, 0.05);
@@ -93,7 +96,7 @@
   --edition-open-color: var(--default-color);
   --gradient-start-color: var(--default-color);
   --gradient-end-color: var(--default-color);
-  --header-height: 67px;
+  --header-height: 3.5rem;
   --header-background-color: var(--inverse-color);
   /* Grayscale */
   --gray-50: rgba(255, 255, 255, 0.05);
@@ -180,4 +183,14 @@
   --footer-icon-color: rgba(0, 0, 0, 0.5);
   --footer-icon-bg-color-hover: #000000;
   --footer-icon-color-hover: #ffffff;
+}
+
+.theme-variant-2 {
+  --button-padding: 0.5rem 2rem;
+  --button-brand-color: black;
+  --button-brand-bg: none transparent;
+  --button-brand-border-color: rgba(40, 44, 47, 0.2);
+  --button-brand-color-hover: white;
+  --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  --button-brand-border-color-hover: #ff5e17;
 }

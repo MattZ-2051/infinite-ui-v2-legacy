@@ -1,12 +1,12 @@
 const Theme = {
   Dark: 'theme-dark',
   Light: 'theme-light',
-  BrandFooter: 'theme-brand-footer',
+  variant2: 'theme-variant-2',
+  // BrandFooter: 'theme-brand-footer',
 };
 
 export const themeConfig = {
-  '$index.root': Theme.Dark,
-  // '*.header': Theme.Light,
+  '*.header': Theme.variant2,
   // '$marketplace.root': Theme.Light,
   // '$marketplace.*.footer': Theme.BrandFooter,
   // '$marketplace.root.footer': Theme.Light,

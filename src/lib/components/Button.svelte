@@ -115,4 +115,27 @@
     background-color: var(--button-brand-bg-color);
     border-color: var(--button-brand-border-color);
   }
+
+  .brand:hover::after {
+    position: absolute;
+    top: var(--button-brand-gradient-border-width-hover);
+    bottom: var(--button-brand-gradient-border-width-hover);
+    left: var(--button-brand-gradient-border-width-hover);
+    right: var(--button-brand-gradient-border-width-hover);
+    content: '';
+    z-index: -2;
+    background: var(--button-brand-gradient-color-border-hover, none transparent);
+    border-radius: var(--button-border-radius);
+  }
+  .brand:hover::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    z-index: -1;
+    background: var(--button-brand-bg-gradient-hover, none transparent);
+    border-radius: var(--button-border-radius);
+  }
 </style>

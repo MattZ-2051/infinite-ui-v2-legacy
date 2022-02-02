@@ -89,13 +89,14 @@
   {/if}
 {:else}
   <button class="flex header-link" on:click={onSignIn} disabled={$isLoading}>Sign In</button>
-  <Button variant="brand" on:click={onSignUp} class="whitespace-nowrap">Sign Up</Button>
+  <Button variant="brand" on:click={onSignUp} class="whitespace-nowrap header-link">Sign Up</Button>
 {/if}
 
 <style lang="postcss">
   :global(.header-link) {
     @apply whitespace-nowrap;
     color: var(--header-color, theme('colors.gray.500'));
+    text-transform: var(--header-links-text-transform, none);
   }
 
   .active,
