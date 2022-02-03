@@ -36,10 +36,14 @@
   --footer-bg-color: #ffffff;
   --footer-color: theme('colors.gray.500');
   --footer-color-hover: #000000;
-  --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
-  --footer-icon-color: rgba(0, 0, 0, 0.5);
+  --footer-icon-bg-color: rgba(0, 0, 0, 0);
+  --footer-icon-color: #282c2f;
   --footer-icon-bg-color-hover: #000000;
   --footer-icon-color-hover: #ffffff;
+  --footer-icon-border-radius: 16px;
+  --footer-icon-border: 1px solid rgba(40, 44, 47, 0.1);
+  --footer-icon-border-hover: 1px solid black;
+  --footer-gap-links: 1.5rem;
 
   /* Pagination */
   --pagination-color: #9e9e9e;

@@ -6,7 +6,7 @@
   <footer>
     <div class="separator" />
     <div class="container flex flex-col gap-y-8 justify-evenly items-center text-sm md:flex-row md:justify-between">
-      <div class="flex flex-wrap items-center justify-center gap-4 md:gap-4">
+      <div class="flex flex-wrap items-center justify-center gap-4 md:footer-gap-md">
         <slot name="start" />
       </div>
       <div class="lg:flex-row flex flex-col items-center px-4">
@@ -25,5 +25,9 @@
   footer {
     color: var(--footer-color);
     background-color: var(--footer-bg-color);
+  }
+
+  footer-gap-md {
+    gap: var(--footer-gap-links, 1rem);
   }
 </style>
