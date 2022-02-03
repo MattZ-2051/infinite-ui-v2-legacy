@@ -14,8 +14,17 @@
 <script lang="ts">
   import { Seo, chooseSkuSocialImage } from '$lib/seo';
   import SkuContainer from '$lib/features/sku/Sku.svelte';
+  import { verifyStripeStatusFx } from '$lib/features/stripe/stripe.store';
+  import { page } from '$app/stores';
 
   export let data: Awaited<ReturnType<typeof loadSkuFx>>;
+
+  $: {
+    const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
+    if (clientSecret && !!data.sku) {
+      verifyStripeStatusFx({ clientSecret, sku: data.sku });
+    }
+  }
 
   $: setSku(data);
 </script>

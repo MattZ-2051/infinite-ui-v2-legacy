@@ -4,10 +4,9 @@
   import type { ethers } from 'ethers';
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
-  import type { Listing, Sku, Product } from '$lib/sku-item/types';
+  import type { Listing, Sku, Product, PaymentMethod } from '$lib/sku-item/types';
   import { walletConnected, getWalletInfo, sendTransaction } from '$lib/user';
   import { closeModal, Modal } from '$ui/modals';
-  import { FilePreview } from '$ui/file';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';
   import { isEthAddress } from '$util/validateEthAddress';
@@ -20,14 +19,23 @@
   import routes from '$project/routes';
   import { skuBought } from '$lib/features/sku/sku.store';
   import { wallet } from '$lib/features/wallet/wallet.store';
-  import OrderProductPricing from './OrderProductPricing.svelte';
+  import StripeCheckout from '$lib/features/stripe/StripeCheckout.svelte';
+  import { goto } from '$app/navigation';
+  import { variables } from '$lib/variables';
+  import visa from '$lib/components/icons/visa';
+  import mastercard from '$lib/components/icons/mastercard';
+  import applepay from '$lib/components/icons/applepay';
+  import googlepay from '$lib/components/icons/googlepay';
+  import americanExpress from './assets/american-express.svg';
   import { purchaseSkuListing, claimGiveawaySkuListing } from './order.api';
   import { handleSkuClaimError } from './order.service';
+  import OrderDetails from './OrderDetails.svelte';
 
   export let isOpen: boolean;
   export let sku: Sku = undefined;
   export let product: Product = undefined;
   export let listing: Listing;
+  export let stripeSucceded = false;
   export let validETHPurchase: ValidETHListingData;
 
   let purchasing = false;
@@ -49,6 +57,8 @@
       balance = $wallet?.balanceInfo.find((x) => x.currency === _sku.currency).totalBalance;
     }
   });
+
+  let paymentMethod: PaymentMethod = undefined;
 
   let acceptedTerms = false;
   let acceptedTermsNft = false;
@@ -151,6 +161,10 @@
     }
   }
 
+  const selectPaymentMethod = (value?: PaymentMethod) => {
+    paymentMethod = value;
+  };
+
   $: userBalance = balance;
   $: marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
   $: total = listing.price * (1 + marketplaceFee);
@@ -172,134 +186,195 @@
     }, 5000);
   };
 
+  const handleCloseModal = () => {
+    if (stripeSucceded) {
+      goto(routes.sku(sku._id), { replaceState: true });
+    }
+    closeModal();
+  };
+
+  const handleNavigation = (route: string) => {
+    if (stripeSucceded) {
+      goto(route, { replaceState: true });
+    }
+    closeModal();
+  };
+
+  const STRIPE_ENABLED = variables.stripe.enabled;
+
+  $: isHederaNFT = _sku?.currency === 'USD';
+  $: isBuyNow = listing.saleType === 'fixed';
+  $: isPrimarySale = listing.issuer === _sku?.issuer?._id;
+
+  $: isStripeAllowed = STRIPE_ENABLED && isHederaNFT && isBuyNow && isPrimarySale;
+
+  $: {
+    if (!isStripeAllowed) {
+      paymentMethod = 'balance';
+    }
+  }
+
   let title = '';
   $: if (result?.status === 'success') {
     title === 'Yeah! Payment successful.';
-  } else if (result?.status === 'pending' || purchasing) {
-    title = `We're processing your order!`;
-  } else if (insufficientFunds) {
-    title = 'Insufficient funds!';
+  } else if (result?.status === 'pending' || purchasing || stripeSucceded) {
+    title = `We're processing your order`;
+  } else if (isStripeAllowed && !paymentMethod) {
+    title = 'Select Payment Method';
+  } else if (isStripeAllowed && paymentMethod === 'stripe') {
+    title = 'Other Payment Methods';
+  } else if (isStripeAllowed && paymentMethod === 'balance') {
+    title = 'Pay with Wallet Funds';
   } else {
-    title = 'Complete your purchase:';
+    title = 'Complete your purchase';
   }
 </script>
 
 {#if isOpen}
-  <Modal class="max-w-md">
+  <Modal class="max-w-md" onClose={handleCloseModal}>
     <svelte:fragment slot="title"><span class="font-medium text-2xl">{title}</span></svelte:fragment>
     <div class="px-10 flex flex-col gap-6 pb-10">
-      {#if _sku.currency === 'ETH'}
-        <div class="text-2xl font-normal pr-8">1. ETH address destination</div>
-      {/if}
-      {#if _sku.currency === 'USD'}
-        <div class="flex justify-center items-center bg-black h-72">
-          <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
-        </div>
-      {:else if _sku.currency === 'ETH'}
-        <div class="border-solid border-b border-gray-200 pb-8">
-          <Input
-            name="eth-address"
-            class={`pb-10 px-6 bg-gray-50 mt-4 mb-2 border border-solid border-gray-50 rounded-xl ${
-              validEthAddress === false ? 'text-red-500' : ''
-            }`}
-            style="padding-bottom: 1rem; padding-top: 1rem"
-            variant="base"
-            error={validEthAddress === false ? '*This does not appear to be a valid ERC20 address' : ''}
-            label="Enter the wallet ERC20 address to send the NFT to:"
-            value={ethAddress}
-            on:input={onEthAddressInput}
+      {#if result?.status === 'pending' || purchasing || stripeSucceded}
+        <span
+          >We’ll send you an email when your purchase has been completed. You can refresh the page to view the updated
+          status.</span
+        >
+        <ProductModalInfo sku={_sku} />
+        <div class="flex flex-col gap-5">
+          <Button variant="brand" class="mt-6" on:click={() => handleNavigation(routes.marketplace)}
+            >Back to Marketplace</Button
           >
-            <svelte:fragment slot="after">
-              {#if validEthAddress === true}
-                {#if copiedLink}
-                  <Icon path={mdiCheckCircle} color="green" />
-                {:else}
-                  <Icon path={mdiContentCopy} class="group-hover:opacity-40 ml-2" on:click={onCopyLink} />
-                {/if}
-              {/if}
-            </svelte:fragment>
-          </Input>
+          <Button class="font-medium self-center" on:click={() => handleNavigation(routes.wallet)}
+            >View Pending Transactions</Button
+          >
         </div>
-      {/if}
-      {#if _sku.currency === 'ETH'}
-        <div class="text-2xl font-normal pr-8">2. Confirm your purchase</div>
-      {/if}
-      <ProductModalInfo sku={_sku} />
-      <div>
-        {#if !result}
-          <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} />
+      {:else if isStripeAllowed && !paymentMethod}
+        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} />
+        <div class="flex flex-col items-center">
+          <Button
+            variant="brand"
+            class="mt-6 w-full"
+            disabled={purchasing || insufficientFunds}
+            on:click={() => selectPaymentMethod('balance')}>Pay with Wallet Funds</Button
+          >
+          {#if insufficientFunds}
+            <div class="mt-3">
+              <span>Insufficient balance, </span>
+              <a class="underline font-semibold hover:cursor-pointer" href={routes.wallet}>add funds to continue.</a>
+            </div>
+          {/if}
+        </div>
+        <Button variant="brand" disabled={purchasing} on:click={() => selectPaymentMethod('stripe')}
+          >Other Payment Methods</Button
+        >
+        <div class="flex w-56 self-center items-center justify-between">
+          <Icon viewBox="0 0 36 24" style="width:36px; height:24px" path={visa} />
+          <Icon viewBox="0 0 36 24" style="width:36px; height:24px" path={mastercard} />
+          <img src={americanExpress} alt="American Express" />
+          <Icon viewBox="0 0 36 24" style="width:36px; height:24px" path={applepay} />
+          <Icon viewBox="0 0 36 24" style="width:36px; height:24px" path={googlepay} />
+        </div>
+      {:else if paymentMethod === 'balance'}
+        {#if _sku.currency === 'ETH'}
+          <div class="text-2xl font-normal pr-8">1. ETH address destination</div>
         {/if}
-        <div class={`flex items-center justify-between pt-2 ${insufficientFunds ? 'text-red-500' : 'text-green-500'}`}>
-          <span> Your current balance: </span>
-          <span class="flex text-lg">
-            {formatCurrency(userBalance, { currency: _sku.currency })}
-          </span>
-        </div>
-      </div>
-      <div class="flex flex-col gap-5 text-gray-500">
-        {#if $walletConnected && !directPurchasing && directPurchaseResult?.hash}
-          <span>
-            You can check the status of the transaction on the
-            <a
-              href={`https://goerli.etherscan.io/tx/${directPurchaseResult.hash}`}
-              target="_blank"
-              class="cursor-pointer font-bold"
-              >block explorer
-            </a>
-          </span>
-          <a class="font-medium self-center" href={routes.marketplace}> Back to Marketplace </a>
-        {:else if result?.status === 'success'}
-          <span>You successfully bought this item, and now is part of your collection.</span>
-          <div class="flex flex-col gap-5">
-            {#if result.product._id}
-              <a href={routes.product(result.product._id)}>View Your Product</a>
-            {/if}
+        {#if _sku.currency === 'ETH'}
+          <div class="border-solid border-b border-gray-200 pb-8">
+            <Input
+              name="eth-address"
+              class={`pb-10 px-6 bg-gray-50 mt-4 mb-2 border border-solid border-gray-50 rounded-xl ${
+                validEthAddress === false ? 'text-red-500' : ''
+              }`}
+              style="padding-bottom: 1rem; padding-top: 1rem"
+              variant="base"
+              error={validEthAddress === false ? '*This does not appear to be a valid ERC20 address' : ''}
+              label="Enter the wallet ERC20 address to send the NFT to:"
+              value={ethAddress}
+              on:input={onEthAddressInput}
+            >
+              <svelte:fragment slot="after">
+                {#if validEthAddress === true}
+                  {#if copiedLink}
+                    <Icon path={mdiCheckCircle} color="green" />
+                  {:else}
+                    <Icon path={mdiContentCopy} class="group-hover:opacity-40 ml-2" on:click={onCopyLink} />
+                  {/if}
+                {/if}
+              </svelte:fragment>
+            </Input>
+          </div>
+        {/if}
+        {#if _sku.currency === 'ETH'}
+          <div class="text-2xl font-normal pr-8">2. Confirm your purchase</div>
+        {/if}
+        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} />
+        <div class="flex flex-col gap-5 text-gray-500">
+          {#if $walletConnected && !directPurchasing && directPurchaseResult?.hash}
+            <span>
+              You can check the status of the transaction on the
+              <a
+                href={`https://goerli.etherscan.io/tx/${directPurchaseResult.hash}`}
+                target="_blank"
+                class="cursor-pointer font-bold"
+                >block explorer
+              </a>
+            </span>
             <a class="font-medium self-center" href={routes.marketplace}> Back to Marketplace </a>
-          </div>
-        {:else if result?.status === 'pending' || purchasing}
-          <span
-            >We will send your an email when your purchase has been completed. Refresh the page to view the updated
-            status.</span
-          >
-          <div class="flex flex-col gap-5">
-            <Button variant="brand" class="mt-6" on:click={closeModal}>Continue</Button>
-            <Button class="font-medium self-center" href={routes.wallet}>View Pending Transactions</Button>
-          </div>
-        {:else if insufficientFunds}
-          <span> You need more funds to make this purchase. </span>
-          <Button variant="brand" class="mt-6" href={routes.wallet}>Add Funds</Button>
-        {:else}
-          <div class="flex items-center justify-start">
-            <label class="inline-flex items-center">
-              <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
-              I agree to the
-              <a href={routes.terms} class="ml-1 underline text-black" target="_blank" rel="noopener noreferrer"
-                >Terms & Conditions</a
-              >
-            </label>
-          </div>
-          {#if _sku?.customNftTerms}
-            <div class="flex items-center justify-start">
-              <label class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  bind:checked={acceptedTermsNft}
-                  class="border-gray-400 border-2 text-black mr-2"
-                />
-                I agree to the
-                <a href={_sku.customNftTerms} class="ml-1 underline" target="_blank" rel="noopener noreferrer"
-                  >Nft Terms & Conditions</a
+          {:else if result?.status === 'success'}
+            <span>You successfully bought this item, and now is part of your collection.</span>
+            <div class="flex flex-col gap-5">
+              {#if result.product._id}
+                <a href={routes.product(result.product._id)}>View Your Product</a>
+              {/if}
+              <a class="font-medium self-center" href={routes.marketplace}> Back to Marketplace </a>
+            </div>
+          {:else if insufficientFunds}
+            <div class="flex flex-col items-center">
+              <Button variant="brand" class="mt-6 w-full" href={routes.wallet}>Add Funds</Button>
+              <span class="mt-4"> You need more funds to make this purchase. </span>
+            </div>
+          {:else}
+            <div class="flex items-center justify-start mb-3">
+              <label class="inline-flex items-center text-sm">
+                <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
+                <span class="text-gray-500">I agree to the</span>
+                <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer"
+                  >Terms & Conditions</a
                 >
               </label>
             </div>
+            {#if _sku?.customNftTerms}
+              <div class="flex items-center justify-start mb-3">
+                <label class="inline-flex items-center text-sm">
+                  <input
+                    type="checkbox"
+                    bind:checked={acceptedTermsNft}
+                    class="border-gray-400 border-2 text-black mr-2"
+                  />
+                  <span class="text-gray-500">I agree to the</span>
+                  <a href={_sku.customNftTerms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer"
+                    >Nft Terms & Conditions</a
+                  >
+                </label>
+              </div>
+            {/if}
+            <span class="text-sm text-gray-500 mt-4"
+              >All resales of this product are subject to a 5% royalty fee set by and to be paid to the original
+              creator.</span
+            >
+            <Button variant="brand" class="mt-6" disabled={purchasing} on:click={submitOrder}>Buy Now</Button>
+            <Button variant="outline-brand" on:click={handleCloseModal}>Cancel</Button>
           {/if}
-          <div class="text-sm text-gray-600">
-            Confirming your order below will deduct this total from your current wallet balance.
-          </div>
-          <Button variant="brand" class="mt-6" disabled={purchasing} on:click={submitOrder}>Buy Now</Button>
-          <Button variant="outline-brand" on:click={closeModal}>Cancel</Button>
-        {/if}
-      </div>
+        </div>
+      {:else if paymentMethod === 'stripe'}
+        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} hideWalletBalance />
+        <StripeCheckout {listing} {total} />
+      {/if}
+      {#if isStripeAllowed && !!paymentMethod}
+        <span class="text-center hover:underline cursor-pointer" on:click={() => selectPaymentMethod(undefined)}
+          >Back to Payment Method</span
+        >
+      {/if}
     </div>
   </Modal>
 {/if}

@@ -377,6 +377,8 @@ export type StatusType = 'upcoming' | 'upcoming-soon' | 'no-sale' | 'active' | u
 
 export type Media = 'video' | 'image' | 'audio' | 'vector' | undefined;
 
+export type PaymentMethod = 'balance' | 'stripe';
+
 export interface Status {
   status: StatusType;
   minStartDate?: Date;

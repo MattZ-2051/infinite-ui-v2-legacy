@@ -4,6 +4,7 @@
   import { isLoading, initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { variables } from '$lib/variables';
   import Maintenance from '$lib/components/Maintenance.svelte';
+  import '@stripe/stripe-js';
 
   if (variables.apiMocking) {
     (async () => {
