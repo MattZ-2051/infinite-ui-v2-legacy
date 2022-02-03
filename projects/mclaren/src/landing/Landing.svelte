@@ -1,7 +1,11 @@
 <script lang="ts">
+  import Hero from './Hero.svelte';
+
   export const skus = [];
 </script>
 
-<h1>McLaren Landing</h1>
+<div>
+  <Hero />
+</div>
 
 <styles />

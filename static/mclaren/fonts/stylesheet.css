@@ -38,3 +38,45 @@
   font-family: 'Circular';
   src: url('Circular/CircularStd-Medium.otf');
 }
+
+@font-face {
+  font-family: 'McLaren';
+  src: url('McLarenBespoke/McLarenBespoke_Lt.ttf');
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'McLaren';
+  src: url('McLarenBespoke/McLarenBespoke_Lt.ttf');
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'McLaren';
+  src: url('McLarenBespoke/McLarenBespoke_Rg.ttf');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'McLaren';
+  src: url('McLarenBespoke/McLarenBespoke_Rg.ttf');
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'McLaren';
+  src: url('McLarenBespoke/McLarenBespoke_Bd.ttf');
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'McLaren';
+  src: url('McLarenBespoke/McLarenBespoke_Bd.ttf');
+  font-style: normal;
+  font-weight: 700;
+}

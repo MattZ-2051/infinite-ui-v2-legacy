@@ -145,8 +145,8 @@
 
 .theme-variant-2 {
   --button-padding: 0.5rem 2rem;
-  --button-brand-color: #000000;
-  --button-brand-bg: none transparent;
+  --button-brand-color: black;
+  --button-brand-bg: white;
   --button-brand-border-color: rgba(40, 44, 47, 0.2);
   --button-brand-color-hover: #ffffff;
   --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
