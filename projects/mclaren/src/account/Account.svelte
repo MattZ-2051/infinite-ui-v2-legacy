@@ -14,8 +14,9 @@
   import { passwordResetRequested } from '$lib/features/account/account.store';
   import { toast } from '$ui/toast';
   import { goto } from '$app/navigation';
+  import arrowRight from '$lib/features/product/assets/arrow-right';
+  import Icon from '$ui/icon/Icon.svelte';
   import NoProfileImage from '../assets/no-profile-fallback.svelte';
-  import ArrowLeft from '../assets/ArrowLeft.svelte';
 
   export let user: User;
 
@@ -77,8 +78,10 @@
 <div class="container flex flex-col items-center pt-14">
   <div class="sm:max-w-lg w-full">
     <div class="flex justify-between w-full mb-24">
-      <div class="flex-1">
-        <button class="mr-2" on:click={() => goto(routes.marketplace)}><ArrowLeft /></button>
+      <div class="flex-1 flex items-center">
+        <button class="mr-2 " on:click={() => goto(routes.marketplace)}
+          ><Icon class="transform rotate-180" path={arrowRight} size="1.6" /></button
+        >
       </div>
       <div class="text-3xl font-normal text-center" style="color:#282C2F">Account Settings</div>
       <div class="flex-1" style="min-width:2.5rem" />
@@ -118,9 +121,9 @@
           <FormElement label="Phone Number #" name="phoneNumber" />
           <FormElement label="Email *" name="email" />
           <div class="text-xl my-4">Forgot your password?</div>
-          <Button variant="outline-brand" on:click={onResetPassword} class="text-sm">RESET PASSWORD</Button>
+          <Button variant="outline-brand" on:click={onResetPassword} class="text-sm uppercase">Reset password</Button>
           <div class="flex flex-col gap-4 sm:pt-4 pt-5">
-            <Button variant="brand" type="submit" class="text-sm" disabled={submitting}>SAVE CHANGES</Button>
+            <Button variant="brand" type="submit" class="text-sm uppercase" disabled={submitting}>Save changes</Button>
           </div>
         </form>
       </div>
