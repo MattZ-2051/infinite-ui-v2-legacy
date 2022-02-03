@@ -82,10 +82,7 @@
     border-color: var(--button-outline-brand-border-color-hover);
     background: var(--button-outline-brand-bg-hover, none var(--button-outline-brand-bg-color-hover));
   }
-  .gradient {
-    border: 0px;
-    @apply button inline-flex items-center justify-center border select-none transition duration-200;
-  }
+
   .outline-brand:hover::after {
     position: absolute;
     top: var(--button-outline-brand-gradient-border-width-hover);
