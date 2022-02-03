@@ -63,6 +63,10 @@
                   NFT Minted
                 {:else if transaction.type === 'nft_redeem'}
                   Redeemed this product
+                {:else if transaction.type === 'transfer_out'}
+                  Transferred out
+                {:else if transaction.type === 'transfer_in'}
+                  Transferred in
                 {:else}
                   Received Transfer
                 {/if}

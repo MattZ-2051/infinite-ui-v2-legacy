@@ -2,9 +2,6 @@ import type { Product, Listing, Sku, Transaction } from '$lib/sku-item/types';
 import type TokenBalanceMap from '@hashgraph/sdk/lib/account/TokenBalanceMap';
 import { TokenId } from '@hashgraph/sdk';
 import Long from 'long';
-//import ObjectMap from '@hashgraph/sdk/lib/ObjectMap';
-// import type TokenBalanceMap from '@hashgraph/sdk/lib/account/TokenBalanceMap';
-//import AccountBalance from '@hashgraph/sdk/lib/account/AccountBalance';
 
 export class TestProduct {
   product: Product;
@@ -51,10 +48,6 @@ export class TestProduct {
   ownedByExternalWallet() {
     this.product = { ...this.product, ownedByExternalWallet: true };
     return this;
-  }
-  withDifferentExternalWalletId() {
-    this.product = { ...this.product, externalWallet: '0.0.54321' };
-    return { ...this, walletId: '0.0.12345' };
   }
   withTransferOutTransaction() {
     return { ...this, transactions: [{ type: 'transfer_out' } as Transaction] };

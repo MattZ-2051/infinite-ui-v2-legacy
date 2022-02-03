@@ -39,10 +39,6 @@
 <div
   class="rounded-lg border border-gray-200 text-white overflow-hidden grid grid-cols-2 2xl:grid-cols-none 2xl:grid-flow-col 2xl:divide-x 2xl:divide-gray-200 flex-grow"
 >
-  <div class={cellClass}>
-    <div class={headerClass}>Status</div>
-    <SkuStatus {sku} {product} forProductStatus />
-  </div>
   {#if isTransferredOut || isTransferInPending}
     <div class={cellClass}>
       <div class={headerClass}>Status</div>
@@ -54,7 +50,13 @@
         {/if}
       </div>
     </div>
-  {:else if sku.redeemable}
+  {:else}
+    <div class={cellClass}>
+      <div class={headerClass}>Status</div>
+      <SkuStatus {sku} {product} forProductStatus />
+    </div>
+  {/if}
+  {#if sku.redeemable}
     <div class={cellClass}>
       <div class={headerClass}>Redemption Status</div>
       <IconRedeem><span>{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span></IconRedeem>

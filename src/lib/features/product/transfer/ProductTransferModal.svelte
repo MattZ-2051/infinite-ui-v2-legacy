@@ -70,7 +70,7 @@
 </script>
 
 {#if isOpen}
-  <Modal title={titleMap[status]} class="max-w-md">
+  <Modal title={titleMap[status]} class="max-w-md" persistent={status === 'transfer-pending'}>
     <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
       {#if status === 'transfer-success'}
         <span class="inline-flex gap-2"

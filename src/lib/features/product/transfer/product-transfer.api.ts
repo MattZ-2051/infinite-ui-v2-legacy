@@ -1,7 +1,7 @@
 import type { User } from '$lib/user/types';
 import type { Product, Profile } from '$lib/sku-item/types';
 import type { AccountData, MirrorNodeBalanceResponse, TransferOutResponse } from '$lib/features/infinite-wallet/types';
-import { getPage, patch } from '$lib/api';
+import { getPage, patch, post } from '$lib/api';
 import { associateToken, dissociateToken, transferToken } from '$lib/features/infinite-wallet/infinite-wallet.service';
 
 export async function transferProduct(product: Product, to: string) {
@@ -50,12 +50,19 @@ export async function transferProductOut(
   return response;
 }
 
+export async function associateProduct(product: Product) {
+  const { tokenId } = product;
+  await post('products/token-associate', { tokenId });
+  return;
+}
+
 export async function transferProductIn(
   product: Product,
   account: AccountData,
   balanceData: MirrorNodeBalanceResponse,
   user: User
 ): Promise<TransferOutResponse> {
+  await associateProduct(product);
   const transferResult = await transferToken(product, account, balanceData, user);
   const response: TransferOutResponse = await patch(`products/${product._id}/wallet-transfer-in`, {
     hash: transferResult.txHash,

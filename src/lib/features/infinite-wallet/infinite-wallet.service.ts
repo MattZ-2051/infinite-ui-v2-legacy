@@ -81,7 +81,7 @@ export async function dissociateToken(tokenId: TokenId | string, account: Accoun
   let txReceipt: TransactionReceipt | void;
   const client = await constructClient(account);
   const tx = new TokenDissociateTransaction().setAccountId(account.id).setTokenIds([tokenId]);
-  // await tx.signWithOperator(client);
+
   const response = await tx.execute(client).catch((error) => {
     throw error;
   });

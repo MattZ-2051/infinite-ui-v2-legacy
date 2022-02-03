@@ -96,19 +96,5 @@ export function inExternalBalance(product: Product, balance: TokenBalanceMap, nf
 
   if (!hasBalance || !product.nftSerial) return hasBalance;
 
-  return hasBalance && nfts.includes(`${product.tokenId}@${product.nftSerial}`);
-}
-
-export function currentOwnerOfExternalProduct(product: Product, userId: string) {
-  /* If the account that owned a product when it was transferred out isn't the same as the one that 
-  is currently signed in, then the product has to be associated before transfer-in.
-   */
-  return product.ownedByExternalWallet && isOwner(product, userId);
-}
-
-export function currentExternalWalletOwner(product: Product, walletId: string) {
-  /* If product was transferred outside of our marketplace, the wallet that currently owns it
-  will be different than the externalWallet value stored in our database.
-  */
-  return product.ownedByExternalWallet && product.externalWallet === walletId;
+  return hasBalance && nfts?.includes(`${product.tokenId}@${product.nftSerial}`);
 }

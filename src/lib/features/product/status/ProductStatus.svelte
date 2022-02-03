@@ -24,8 +24,6 @@
     canCancelAuction as canCancelAuctionFunction,
     transferredOut,
     inExternalBalance,
-    currentOwnerOfExternalProduct,
-    currentExternalWalletOwner,
   } from '../product.service';
   import { maxPlacedBid, auctionEnded } from '../product.store';
   import BidForm from '../auction/BidForm.svelte';
@@ -70,10 +68,6 @@
 
   $: isTransferredOut = transferredOut(product, transactions);
   $: isInExternalBalance = inExternalBalance(product, $QueryBalanceStore, $nftBalance);
-  $: needsAssociation =
-    isInExternalBalance &&
-    (!currentOwnerOfExternalProduct(product, userId) ||
-      !currentExternalWalletOwner(product, $InfiniteExtensionStore?.current?.id));
 
   const textClass = 'text-2xl md:text-xl lg:text-2xl';
 </script>
@@ -203,7 +197,7 @@
           <div class="text-base text-gray-300">Hedera {product.externalWallet}</div>
         </div>
       </div>
-      {#if $InfiniteExtensionStore?.current?.id && !needsAssociation}
+      {#if $InfiniteExtensionStore?.current?.id && isInExternalBalance}
         <Button
           --button-border-radius="0"
           animate={false}
