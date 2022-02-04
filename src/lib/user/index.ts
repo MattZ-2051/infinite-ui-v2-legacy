@@ -222,7 +222,7 @@ export async function getAuthToken(): Promise<string> {
 }
 
 export function onSignOut(avoidRedirect?: boolean) {
-  if (typeof window?.wallet?.account !== null) window.wallet.logout();
+  if (window?.wallet?.account) window.wallet.logout();
 
   if (AUTH_PROVIDER_IS_AUTH0) {
     clearUser();
