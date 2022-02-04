@@ -61,6 +61,13 @@ export async function onOrderIntent({
     }
   } catch {
     isLoading.set(false);
+
+    if (sku?.currency === 'ETH' && !validETHPurchase) {
+      canOpenModal = false;
+      toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
+      return;
+    }
+
     if (currentUser) {
       if (sku && sku.issuer?._id === currentUser._id && listing.saleType === 'giveaway') {
         toast.danger('Whoops! You cannot claim your own SKU / NFT!');
