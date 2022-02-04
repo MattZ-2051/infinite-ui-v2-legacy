@@ -64,7 +64,7 @@
                 {:else if transaction.type === 'nft_redeem'}
                   Redeemed this product
                 {:else if transaction.type === 'transfer_out'}
-                  Transferred out
+                  Transferred to {transaction.transactionData?.wallet}
                 {:else if transaction.type === 'transfer_in'}
                   Transferred in
                 {:else}
@@ -76,6 +76,16 @@
             <div class="w-16 flex items-center justify-center">
               {#if transaction?.transactionData?.explorerLink}
                 <a href={transaction?.transactionData?.explorerLink} target="_blank" rel="noreferrer">
+                  <Icon
+                    tooltip={{ content: 'View transaction' }}
+                    path={mdiLinkVariant}
+                    size="0.8"
+                    class="w-6 justify-self-center text-gray-200 hover:text-default"
+                  />
+                  <span class="sr-only">View transaction</span>
+                </a>
+              {:else if transaction?.transactionData?.hederaTransaction?.explorerLink}
+                <a href={transaction.transactionData.hederaTransaction.explorerLink} target="_blank" rel="noreferrer">
                   <Icon
                     tooltip={{ content: 'View transaction' }}
                     path={mdiLinkVariant}
