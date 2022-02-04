@@ -3,7 +3,7 @@
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import trapFocus from '$util/trapFocus';
-  import closeIcon from './assets/close';
+  import closeIcon from '$ui/modals/assets/close';
   import { closeModal } from './store';
 
   export let title = '';

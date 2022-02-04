@@ -120,6 +120,9 @@
   --text-balance-gradient-to: #ff5e17;
   --wallet-icon-info-bg-color: transparent;
   --wallet-icon-info-padding: 0px;
+
+  /*Loading */
+  --lds-color: linear-gradient(90deg, #ff8d1c 0%, #ff5e17 47.92%, #ff3414 100%);
 }
 
 .theme-brand-footer {

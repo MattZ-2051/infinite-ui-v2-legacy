@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { AchAccount } from './types';
-  import mdiArrowRight from '$lib/features/wallet/assets/arrow-right';
+  import mdiArrowRight from '$lib/features/wallet/assets/chevron-right';
   import mdiDeleteOutline from '$lib/features/wallet/assets/delete-icon';
   import Icon from '$ui/icon/Icon.svelte';
 
