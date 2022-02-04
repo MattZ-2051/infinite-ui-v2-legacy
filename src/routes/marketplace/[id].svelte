@@ -19,11 +19,9 @@
 
   export let data: Awaited<ReturnType<typeof loadSkuFx>>;
 
-  $: {
-    const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
-    if (clientSecret && !!data.sku) {
-      verifyStripeStatusFx({ clientSecret, sku: data.sku });
-    }
+  const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
+  if (clientSecret && !!data.sku) {
+    verifyStripeStatusFx({ clientSecret, sku: data.sku });
   }
 
   $: setSku(data);
