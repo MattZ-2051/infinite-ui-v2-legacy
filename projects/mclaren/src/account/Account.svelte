@@ -73,6 +73,13 @@
   });
 
   setContext('errors', errors);
+  $: dataHasNotChanged =
+    $data.tagline === user.tagline &&
+    $data.firstName === user.firstName &&
+    $data.lastName === user.lastName &&
+    $data.username === user.username &&
+    $data.phoneNumber === user.phoneNumber &&
+    $data.email === user.email;
 </script>
 
 <div class="container flex flex-col items-center pt-14">
@@ -123,7 +130,9 @@
           <div class="text-xl my-4">Forgot your password?</div>
           <Button variant="outline-brand" on:click={onResetPassword} class="text-sm uppercase">Reset password</Button>
           <div class="flex flex-col gap-4 sm:pt-4 pt-5">
-            <Button variant="brand" type="submit" class="text-sm uppercase" disabled={submitting}>Save changes</Button>
+            <Button variant="brand" type="submit" class="text-sm uppercase" disabled={submitting || dataHasNotChanged}
+              >Save changes</Button
+            >
           </div>
         </form>
       </div>

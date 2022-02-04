@@ -68,7 +68,7 @@
           {:else}
             <Icon path={account} />
           {/if}
-          <span class="truncate">{user.username}</span>
+          <span class="truncate flex items-center">{user.username}</span>
         </div>
       </MenuTrigger>
       <MenuList slot="menu" class="sm:mt-4 font-medium text-sm">
