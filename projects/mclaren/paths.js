@@ -1,6 +1,6 @@
 export const paths = {
   '$project/about/*': 'projects/aria/src/about/*',
-  '$project/collection/*': 'projects/aria/src/collection/*',
+  '$project/collection/CollectionIndex.svelte': 'projects/aria/src/collection/CollectionIndex.svelte',
   '$ui/pagination/assets/chevron-left': 'projects/infinite/src/assets/lib/arrow-left',
   '$lib/features/wallet/assets/arrow-right': 'projects/mclaren/src/assets/lib/arrow-right',
   '$lib/features/wallet/assets/info': 'projects/mclaren/src/assets/lib/info',

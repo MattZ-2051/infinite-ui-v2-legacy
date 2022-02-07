@@ -2,8 +2,8 @@
   import { user } from '$lib/user';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import CollectionIndex from '$project/collection/CollectionIndex.svelte';
+  import CollectionUser from '$project/collection/CollectionUser.svelte';
   import CollectionIssuerDefault from './CollectionIssuer.svelte';
-  import CollectionUser from './CollectionUser.svelte';
   import CollectionTabs from './CollectionTabs.svelte';
   import { profile } from './collection.store';
 
