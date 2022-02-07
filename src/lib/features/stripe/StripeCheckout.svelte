@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import type { Listing } from '$lib/sku-item/types';
   import type { StripeElements, StripePaymentElement } from '@stripe/stripe-js';
   import { loadStripe } from '@stripe/stripe-js';
@@ -21,7 +22,7 @@
   let elements: StripeElements;
   let paymentElementNode: HTMLElement;
 
-  initialize();
+  onMount(initialize);
 
   // Fetches a payment intent and captures the client secret
   async function initialize() {
@@ -29,8 +30,6 @@
     const stripe = await stripePromise;
 
     const clientSecret = await stripeCreatePaymentIntentFx({ listingId: listing._id });
-
-    isLoading = false;
 
     const style = getComputedStyle(paymentElementNode);
     const theme: 'flat' | 'stripe' | 'night' | 'none' = 'stripe';
@@ -48,6 +47,8 @@
 
     // Inject stripe iframe in selected element node
     paymentElement.mount(paymentElementNode);
+
+    paymentElement.on('ready', () => (isLoading = false));
   }
 
   async function handleSubmit() {
@@ -56,9 +57,9 @@
       return;
     }
 
-    const stripe = await stripePromise;
-
     isLoading = true;
+
+    const stripe = await stripePromise;
 
     const { error } = await stripe.confirmPayment({
       elements,
