@@ -72,6 +72,7 @@
   --menu-item-background-selected: #ffd54e;
   --menu-item-color: rgba(0, 0, 0, 0.5);
   --menu-item-color-selected: #000000;
+  --menu-list-border-radius: 0px;
 
   /* ButtonGroup */
   --button-group-color-hover: #000000;

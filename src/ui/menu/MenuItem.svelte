@@ -76,6 +76,14 @@
     background: var(--menu-item-background-selected);
     color: var(--menu-item-color-selected);
   }
+  li:first-child > a:hover {
+    border-top-right-radius: var(--menu-list-border-radius);
+    border-top-left-radius: var(--menu-list-border-radius);
+  }
+  li:last-child > a:hover {
+    border-bottom-right-radius: var(--menu-list-border-radius);
+    border-bottom-left-radius: var(--menu-list-border-radius);
+  }
 
   li {
     border: var(--menu-item-border, none);

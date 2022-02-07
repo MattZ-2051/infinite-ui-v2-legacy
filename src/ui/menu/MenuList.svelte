@@ -65,5 +65,6 @@
 <style>
   ul {
     background: var(--menu-list-background-color, #ffffff);
+    border-radius: var(--menu-list-border-radius, 0px);
   }
 </style>

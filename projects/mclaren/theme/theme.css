@@ -95,12 +95,20 @@
   --wallet-balance-content-margin: 2rem auto 2.6rem auto;
   --wallet-balance-content-border-radius: 1.25rem;
   --wallet-balance-content-max-width: 26rem;
+
+  /* Menu */
+  --menu-item-background-selected: #282c2f;
+  --menu-item-color: rgba(40, 44, 47, 0.5);
+  --menu-item-color-selected: #ffffff;
+  --menu-item-border: none;
+  --menu-list-border-radius: 0.625rem;
 }
 
 .theme-wallet-balance {
   /* Common */
   --default-color: #ffffff;
   --inverse-color: #000000;
+  --primary-color: #53595c;
 
   /* Grayscale */
   --gray-50: rgba(255, 255, 255, 0.05);
