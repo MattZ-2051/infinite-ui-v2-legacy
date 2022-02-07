@@ -48,7 +48,7 @@
   $: directPurchasing = false;
 
   onMount(async () => {
-    if ($walletConnected) {
+    if ($walletConnected && validETHPurchase) {
       const data = await getWalletInfo();
       balance = data.balance;
       ethAddress = data.address;
