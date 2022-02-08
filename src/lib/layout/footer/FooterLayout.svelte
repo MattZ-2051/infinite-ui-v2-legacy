@@ -6,7 +6,7 @@
   <footer>
     <div class="separator" />
     <div class="container flex flex-col gap-y-8 justify-evenly items-center text-sm md:flex-row md:justify-between">
-      <div class="flex flex-wrap items-center justify-center gap-4 md:footer-gap-md">
+      <div class="flex flex-wrap items-center justify-center gap-4 footer-gap-lg">
         <slot name="start" />
       </div>
       <div class="lg:flex-row flex flex-col items-center px-4">
@@ -27,7 +27,9 @@
     background-color: var(--footer-bg-color);
   }
 
-  footer-gap-md {
-    gap: var(--footer-gap-links, 1rem);
+  @screen lg {
+    .footer-gap-lg {
+      gap: var(--footer-gap-links, 1rem);
+    }
   }
 </style>
