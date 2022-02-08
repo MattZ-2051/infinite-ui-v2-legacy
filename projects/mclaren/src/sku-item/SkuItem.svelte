@@ -27,7 +27,7 @@
 <article id={sku._id} class="space-y-4 py-6" in:fade={{ duration: 300 }}>
   <a sveltekit:prefetch {href} class="space-y-4 py-6">
     <figure class="relative mx-6 mb-0">
-      <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+      <FilePreview item={sku.nftPublicAssets?.[0]} preview borderRadius={'0.65rem'} />
       {#if activeListing?.endDate}
         <figcaption
           class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold bg-white bg-opacity-80"
@@ -66,14 +66,18 @@
         <SkuEdition {sku} {product} />
       </div>
     </div>
-    <div
-      class="mt-5 mx-6 pt-4 flex flex-row items-center border-current border-solid border-t text-lg"
-      aria-label="Product details"
-    >
-      <SkuStatus {sku} {product} />
-      <span class="item-link ml-auto">
-        <Icon path={arrowRightCircle} size={1.5} color="var(--sku-item-color, var(--default-color))" />
-      </span>
+    <div class="sku-status mr-6">
+      <div class="mt-5 mx-6 flex flex-row items-center text-lg" aria-label="Product details">
+        <SkuStatus {sku} {product} />
+        <span class="item-link ml-auto -mr-6">
+          <Icon
+            path={arrowRightCircle}
+            size={1.7}
+            color="var(--sku-item-color, var(--default-color))"
+            viewBox="0 -4 14 32"
+          />
+        </span>
+      </div>
     </div>
   </a>
 </article>
@@ -84,6 +88,13 @@
     background-color: var(--sku-item-bg-color);
     border: var(--sku-item-border-width, 1px) solid var(--sku-item-border-color, var(--default-color));
     border-radius: var(--sku-item-border-radius, 0);
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
+  }
+  .sku-status {
+    border-color: var(--sku-item-status-border-color);
+    border-style: solid;
+    border-top-width: 2px;
+    border-radius: 60px 0 0 0;
   }
   .info {
     min-height: 9.5rem;

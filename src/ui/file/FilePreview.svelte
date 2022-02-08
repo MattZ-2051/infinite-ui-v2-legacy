@@ -33,9 +33,13 @@
   let showFallbackImage = false;
   let videoElement: HTMLVideoElement;
 
+  export let borderRadius = '';
+
   $: style = styles({
     ...(item ? getAspectRatioStyle(item, preview) : {}),
     filter: blur > 0 ? `blur(${blur}px)` : undefined,
+    'border-radius': borderRadius ? borderRadius : undefined,
+    'box-shadow': borderRadius ? '0px 10px 30px rgb(0 0 0 / 15%)' : undefined,
   });
 </script>
 

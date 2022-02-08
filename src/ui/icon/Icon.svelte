@@ -16,6 +16,7 @@
   export let spin: boolean | number = false;
   export let title = '';
   export let tooltip: TooltipInput = undefined;
+  export let viewBox: string = undefined;
 
   // SPIN properties
   $: inverse = typeof spin !== 'boolean' && spin < 0 ? true : false;
@@ -57,7 +58,7 @@
     .map((p) => ({ fill: color || 'currentColor', ...(typeof p === 'string' ? { d: p } : { ...p }) }));
 </script>
 
-<svg viewBox="0 0 24 24" {style} {...$$restProps} on:click use:useActions={_actions}>
+<svg viewBox={viewBox ? viewBox : '0 0 24 24'} {style} {...$$restProps} on:click use:useActions={_actions}>
   {#if title}<title>{title}</title>{/if}
   {#if spin !== false}
     {#if inverse}

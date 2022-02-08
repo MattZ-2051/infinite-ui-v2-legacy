@@ -59,6 +59,10 @@
   /* SkuItem */
   --sku-item-color: var(--default-color);
   --sku-item-bg-color: var(--bg-color);
+  --sku-item-border-radius: 1.25rem;
+  --sku-item-border-color: 'white';
+  --sku-item-status-border-color: rgba(0, 0, 0, 0.05);
+  --sku-item-img-border-radius: 0.6rem;
 
   /* Button */
   --button-brand-color: #ffffff;
