@@ -23,7 +23,7 @@
   <div class="flex justify-center w-full mb-4">
     <Button
       variant="brand"
-      class="text-xs font-medium w-full"
+      class="text-xl font-medium w-full"
       on:click={() => showInfoModal('deposit')}
       --button-padding="22px 40px"
       sveltekit:noscroll>DEPOSIT</Button
@@ -32,7 +32,7 @@
   <div class="flex justify-center">
     <Button
       variant="brand"
-      class="text-xs font-medium w-full"
+      class="text-xl font-medium w-full"
       on:click={() => showInfoModal('withdraw')}
       --button-padding="22px 40px"
       sveltekit:noscroll>WITHDRAW</Button
