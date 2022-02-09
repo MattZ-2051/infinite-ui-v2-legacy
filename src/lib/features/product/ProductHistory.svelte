@@ -66,7 +66,11 @@
                 {:else if transaction.type === 'transfer_out'}
                   Transferred to {transaction.transactionData?.wallet}
                 {:else if transaction.type === 'transfer_in'}
-                  Transferred in
+                  {#if transaction.status !== 'success'}
+                    <span class="capitalize">Transfer in {transaction.status}</span>
+                  {:else}
+                    Transferred in
+                  {/if}
                 {:else}
                   Received Transfer
                 {/if}

@@ -83,9 +83,12 @@ export function transferredOut(product: Product, transactions: Transaction[]): b
   return product.ownedByExternalWallet && transactions[0].type === 'transfer_out';
 }
 
-export function transferInPending(product: Product, transactions: Transaction[]): boolean {
+export function transferInUnresolved(product: Product, transactions: Transaction[]): boolean {
+  const { status } = transactions[0];
   return (
-    product.ownedByExternalWallet && transactions[0].type === 'transfer_in' && transactions[0].status === 'pending'
+    product.ownedByExternalWallet &&
+    transactions[0].type === 'transfer_in' &&
+    (status === 'pending' || status === 'error')
   );
 }
 

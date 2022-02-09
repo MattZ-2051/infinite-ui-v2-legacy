@@ -11,7 +11,7 @@
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import SkuStatus from '$project/sku-item/SkuStatus.svelte';
   import ProductActions from './actions/ProductActions.svelte';
-  import { transferredOut, transferInPending } from './product.service';
+  import { transferredOut, transferInUnresolved } from './product.service';
 
   export let product: Product;
   export let transactions: Transaction[];
@@ -20,7 +20,7 @@
   $: sku = product.sku;
 
   $: isTransferredOut = transferredOut(product, transactions);
-  $: isTransferInPending = transferInPending(product, transactions);
+  $: isTransferInUnresolved = transferInUnresolved(product, transactions);
 
   const cellClass = 'flex flex-col gap-1.5 py-4 px-3 overflow-hidden';
   const headerClass = 'text-gray-500 text-sm';
@@ -39,14 +39,14 @@
 <div
   class="rounded-lg border border-gray-200 text-white overflow-hidden grid grid-cols-2 2xl:grid-cols-none 2xl:grid-flow-col 2xl:divide-x 2xl:divide-gray-200 flex-grow"
 >
-  {#if isTransferredOut || isTransferInPending}
+  {#if isTransferredOut || isTransferInUnresolved}
     <div class={cellClass}>
       <div class={headerClass}>Status</div>
-      <div class="flex gap-2">
+      <div class="flex gap-2 capitalize">
         {#if isTransferredOut}
           Transferred Out
-        {:else if isTransferInPending}
-          Transfer In Pending
+        {:else if isTransferInUnresolved}
+          Transfer In {transactions[0].status}
         {/if}
       </div>
     </div>
