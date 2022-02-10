@@ -83,6 +83,7 @@
   --button-outline-brand-bg-gradient-hover: linear-gradient(161.99deg, #ffffff -1.04%, #f8f8f8 111.86%);
   --button-outline-brand-gradient-border-width-hover: -1px; /*border width should be negative*/
   --button-confirm-modal-radius: 40px;
+  --button-text-transform: uppercase;
 
   /*Edit Profile*/
   --edit-picture-button-width: 2rem;
@@ -159,7 +160,7 @@
   --footer-icon-color-hover: #ffffff;
 }
 
-.theme-variant-2 {
+.theme-buttons-variant-2 {
   --button-padding: 0.5rem 2rem;
   --button-brand-color: black;
   --button-brand-bg: white;
@@ -176,4 +177,26 @@
   --button-brand-border-color-hover: transparent;
   --button-brand-bg: linear-gradient(#ffffff 0%, #f8f8f8 100%);
   --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+}
+
+.theme-dark {
+  --bg-gradient: linear-gradient(225deg, #181c20 0%, #363f45 100%);
+  --gradient-end-color: #ff5e17;
+  --gradient-start-color: #ff8d1c;
+  --error-branded-title-weight: 400;
+  --error-text-weight: 300;
+  --default-color: #ffffff;
+  --button-brand-color: #000000;
+  --button-brand-color-hover: #ffffff;
+  --button-brand-border-color-hover: transparent;
+  --button-brand-bg: linear-gradient(#ffffff 0%, #f8f8f8 100%);
+  --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  --button-padding: 22px 55px;
+  --button-text-transform: uppercase;
+  --button-font-size: 12px;
+  --button-font-weight: 700;
+  --error-description-weight: 300;
+  --error-description-color: #bebebe;
+  --button-border-radius: 48px;
+  --no-results-link-color: var(--default-color);
 }

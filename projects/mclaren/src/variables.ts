@@ -22,4 +22,4 @@ export const KYC_INFO = 'https://support.suku.world/infinite/id-verification-tro
 export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'available';
 export const SENTRY_DNS = 'https://b93ec290c306467f812048e6bc22db15@o734225.ingest.sentry.io/6132955';
 export const AVAILABLE_DEPOSIT_TYPES = 'eth,usdc,btc,hbar,suku';
-export const INFINITE_EXTENSION_ENABLED = true;
+export const INFINITE_EXTENSION_ENABLED = false;

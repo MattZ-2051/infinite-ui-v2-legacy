@@ -33,18 +33,21 @@
         Check your inbox and follow the instructions provided to verify your email.
       </div>
     {:else}
-      <div class="text-6xl font-extrabold text-gradient-primary">Oh, no!</div>
+      <div class="text-6xl text-gradient-primary extra oh-no-message">Oh, no!</div>
       <div class="flex flex-col gap-4 md:gap-8">
         {#if status === 404}
-          <div class="text-2xl md:text-5xl font-semibold">This page does not exist.</div>
+          <div class="text-2xl md:text-5xl error-message">This page does not exist.</div>
+          <div class="text-sm md:text-base error-description">
+            The page you are looking for was moved, removed, renamed or might have never existed!
+          </div>
         {:else}
-          <div class="text-2xl md:text-5xl font-semibold">There was an unexpected problem.</div>
-          <div class="text-sm md:text-base text-gray-500">
+          <div class="text-2xl md:text-5xl error-message">There was an unexpected problem.</div>
+          <div class="text-sm md:text-base error-description">
             Please try again in a few minutes or <a href={routes.help} class="hover:underline ">contact support.</a>
           </div>
         {/if}
       </div>
-      <Button variant="brand" href={routes.index}>Go to homepage</Button>
+      <Button variant="brand" href={routes.index} class="error-button">Go to homepage</Button>
       {#if dev}
         {#if error.frame}
           <pre class="m-4 p-4 border whitespace-pre-line">{error.frame}</pre>
@@ -60,5 +63,17 @@
 <style>
   a {
     color: var(--no-results-link-color);
+  }
+  .oh-no-message {
+    font-weight: var(--error-branded-title-weight, 800);
+  }
+
+  .error-message {
+    font-weight: var(--error-text-weight, 600);
+  }
+
+  .error-description {
+    font-weight: var(--error-description-weight, 400);
+    color: var(--error-description-color, --gray-500);
   }
 </style>

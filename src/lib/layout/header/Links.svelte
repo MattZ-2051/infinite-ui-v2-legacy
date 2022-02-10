@@ -54,6 +54,9 @@
       Account Settings
     </a>
     <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
+    {#if MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED}
+      <button on:click|preventDefault={handleWalletModal} class="header-link">Wallet</button>
+    {/if}
     <button type="button" on:click={() => onSignOut()} class="header-link">Sign Out</button>
   {:else}
     <Menu placement="bottom-start" class="min-w-0">

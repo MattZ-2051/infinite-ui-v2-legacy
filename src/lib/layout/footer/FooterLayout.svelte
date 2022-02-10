@@ -26,7 +26,6 @@
     color: var(--footer-color);
     background-color: var(--footer-bg-color);
   }
-
   @screen lg {
     .footer-gap-lg {
       gap: var(--footer-gap-links, 1rem);

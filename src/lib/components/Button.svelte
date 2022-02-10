@@ -57,6 +57,8 @@
     padding: var(--button-padding);
     border-radius: var(--button-border-radius);
     border-color: transparent;
+    text-transform: var(--button-text-transform, none);
+    font-weight: var(--button-font-weight, 400);
   }
   .brand {
     color: var(--button-brand-color);
