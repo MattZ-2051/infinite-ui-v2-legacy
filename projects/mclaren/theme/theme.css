@@ -125,6 +125,10 @@
   --wallet-icon-info-bg-color: transparent;
   --wallet-icon-info-padding: 0px;
 
+  /*Button*/
+  --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  --button-brand-color-hover: #ffffff;
+
   /*Loading */
   --lds-color: linear-gradient(90deg, #ff8d1c 0%, #ff5e17 47.92%, #ff3414 100%);
 }
