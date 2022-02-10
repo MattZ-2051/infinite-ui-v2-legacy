@@ -41,3 +41,12 @@ type SvelteActionReturn = {
 } | void;
 
 type Fetch = (info: RequestInfo, init?: RequestInit) => Promise<Response>;
+
+declare namespace App {
+  interface Session {
+    user?: { username: string; externalId: string };
+    expiration?: number;
+    invalid?: boolean;
+    expired?: boolean;
+  }
+}

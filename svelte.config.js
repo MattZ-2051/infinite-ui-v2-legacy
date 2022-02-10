@@ -22,9 +22,6 @@ const config = {
   kit: {
     adapter: netlifyAdapter(),
 
-    // hydrate the <div id="svelte"> element in src/app.html
-    target: '#svelte',
-
     files: {
       assets: `static/${project}`,
       template: fs.existsSync(`projects/${project}/app.html`) ? `projects/${project}/app.html` : 'src/app.html',
