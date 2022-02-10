@@ -5,7 +5,14 @@ import type { ApiError } from '$lib/api';
 import { get as getStoreValue } from 'svelte/store';
 import { browser } from '$app/env';
 import { toast } from '$ui/toast';
-import { user, onSignIn, isLoading, handleWalletConnection, checkWalletInstalled } from '$lib/user';
+import {
+  user,
+  onSignIn,
+  isLoading,
+  handleWalletConnection,
+  checkWalletInstalled,
+  walletConnected as metamaskConnected,
+} from '$lib/user';
 import { openModal } from '$ui/modals';
 import routes from '$project/routes';
 import OrderModal from '$lib/features/order/OrderModal.svelte';
@@ -21,6 +28,10 @@ if (browser) {
 
 const connectWallet = async () => {
   await handleWalletConnection();
+  if (metamaskConnected) {
+    toast.clear();
+    toast.success('You are now connected to Metamask', { toastId: 'MM_SUCCESS' });
+  }
 };
 
 const showLoginToast = (content = 'sign in', data = 'signIn') => {
@@ -61,7 +72,7 @@ export async function onOrderIntent({
     }
   } catch {
     isLoading.set(false);
-
+    validETHPurchase = undefined;
     if (sku?.currency === 'ETH' && !validETHPurchase) {
       canOpenModal = false;
       toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
