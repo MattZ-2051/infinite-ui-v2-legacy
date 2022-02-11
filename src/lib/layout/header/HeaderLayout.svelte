@@ -22,7 +22,9 @@
         </div>
       {/if}
       <div class="container links-container flex justify-between items-center py-3">
-        <a href={routes.index} aria-label="Home" class="self-center flex gap-1 mr-2 sm:mr-3 items-end"><Logo /> </a>
+        <a href={routes.index} aria-label="Home" class="self-center flex gap-1 mr-2 sm:mr-3 items-end">
+          <Logo />
+        </a>
         <slot name="support" klass="text-current ml-auto mr-3 sm:mr-5 md:hidden" size={1.25} />
         <div class="flex md:hidden">
           {#if $$slots.credits}
