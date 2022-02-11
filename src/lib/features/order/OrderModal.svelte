@@ -239,7 +239,7 @@
           >We’ll send you an email when your purchase has been completed. You can refresh the page to view the updated
           status.</span
         >
-        <ProductModalInfo sku={_sku} />
+        <ProductModalInfo sku={_sku} {product} />
         <div class="flex flex-col gap-5">
           <Button variant="brand" class="mt-6" on:click={() => handleNavigation(routes.marketplace)}
             >Back to Marketplace</Button
@@ -249,7 +249,7 @@
           >
         </div>
       {:else if isStripeAllowed && !paymentMethod}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} />
+        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} {product} />
         <div class="flex flex-col items-center">
           <Button
             variant="brand"
@@ -307,7 +307,7 @@
         {#if _sku.currency === 'ETH'}
           <div class="text-2xl font-normal pr-8">2. Confirm your purchase</div>
         {/if}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} />
+        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} {product} />
         <div class="flex flex-col gap-5 text-gray-500">
           {#if $walletConnected && !directPurchasing && directPurchaseResult?.hash}
             <span>
@@ -367,7 +367,7 @@
           {/if}
         </div>
       {:else if paymentMethod === 'stripe'}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} hideWalletBalance />
+        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} hideWalletBalance {product} />
         <StripeCheckout {listing} {total} />
       {/if}
       {#if isStripeAllowed && !!paymentMethod}
