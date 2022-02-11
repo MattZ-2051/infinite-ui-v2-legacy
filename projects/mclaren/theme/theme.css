@@ -84,6 +84,7 @@
   --button-outline-brand-gradient-border-width-hover: -1px; /*border width should be negative*/
   --button-confirm-modal-radius: 40px;
   --button-text-transform: uppercase;
+  --button-font-weight: 700;
 
   /*Edit Profile*/
   --edit-picture-button-width: 2rem;
