@@ -19,8 +19,8 @@
   let sku: Sku;
   $: sku = product.sku;
 
-  $: isTransferredOut = transferredOut(product, transactions);
-  $: isTransferInUnresolved = transferInUnresolved(product, transactions);
+  $: isTransferredOut = transactions.length > 0 ? transferredOut(product, transactions) : false;
+  $: isTransferInUnresolved = transactions.length > 0 ? transferInUnresolved(product, transactions) : false;
 
   const cellClass = 'flex flex-col gap-1.5 py-4 px-3 overflow-hidden';
   const headerClass = 'text-gray-500 text-sm';
