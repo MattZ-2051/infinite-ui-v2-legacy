@@ -104,7 +104,7 @@ InfiniteExtensionLoginFx.fail.watch(({ error }) => {
     );
   } else {
     toast.danger(
-      'INFINITE Wallet browser extension not installed. <a href="https://chrome.google.com/webstore/detail/infinite-browser-wallet/jijmcpjphgekceoblbgeffccmganjaig">Install it from the Chrome Web Store.</a>',
+      'INFINITE Wallet browser extension not installed. <a target="_blank" noreferrer href="https://chrome.google.com/webstore/detail/infinite-browser-wallet/jijmcpjphgekceoblbgeffccmganjaig">Install it from the Chrome Web Store.</a>',
       { toastId: 'Inf-ext-not-installed' }
     );
   }

@@ -6,6 +6,7 @@
   import { goto } from '$app/navigation';
   import { user } from '$lib/user';
   import { closeModal, Modal } from '$ui/modals';
+  import { FilePreview } from '$ui/file';
   import routes from '$project/routes';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
@@ -73,6 +74,9 @@
         </span>
       {/if}
       {#if status !== 'transfer-error'}
+        <div class="flex justify-center items-center bg-black h-72">
+          <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+        </div>
         {#if status !== 'transfer-pending'}
           <ProductModalInfo {sku} {product} />
         {/if}

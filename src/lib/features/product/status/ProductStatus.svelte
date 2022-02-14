@@ -41,7 +41,11 @@
     if ($InfiniteExtensionStore.walletLocked) {
       toast.danger('Please unlock the INFINITE browser wallet and refresh the window to use this feature.');
     } else if (!$InfiniteExtensionStore.extensionAvailable || !$InfiniteExtensionStore.loggedIn) {
-      toast.danger('Please connect the INFINITE browser wallet to use this feature, <a>learn more</a>.');
+      toast.danger(
+        'Please connect the INFINITE browser wallet to use this feature, <a target="_blank" noreferrer href="https://chrome.google.com/webstore/detail/infinite-browser-wallet/jijmcpjphgekceoblbgeffccmganjaig">learn more</a>.'
+      );
+    } else if ($InfiniteExtensionStore.loggedIn && !isInExternalBalance) {
+      toast.danger("This product isn't in your external wallet balance.");
     } else {
       onAction(action, product);
     }
@@ -197,15 +201,13 @@
           <div class="text-base text-gray-300">Hedera {product.externalWallet}</div>
         </div>
       </div>
-      {#if $InfiniteExtensionStore?.current?.id && isInExternalBalance}
-        <Button
-          --button-border-radius="0"
-          animate={false}
-          on:click={() => onTransferIn()}
-          class="flex items-center gap-2 px-6 h-20 md:h-auto"
-          variant="brand">Transfer In<Icon size="1.2" path={mdiArrowCollapseLeft} /></Button
-        >
-      {/if}
+      <Button
+        --button-border-radius="0"
+        animate={false}
+        on:click={() => onTransferIn()}
+        class="flex items-center gap-2 px-6 h-20 md:h-auto"
+        variant="brand">Transfer In<Icon size="1.2" path={mdiArrowCollapseLeft} /></Button
+      >
     </div>
   {/if}
 </div>
