@@ -31,10 +31,12 @@
       <div class="px-4 md:px-8 md:pl-8 pt-8 md:pt-10">
         <div class="flex justify-between items-center">
           <div class="flex flex-wrap text-3xl md:text-4xl gap-2 md:gap-0 font-medium">
-            <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
+            <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary collectors-title"
+              >{sku.name}</a
+            >
             <div class="flex items-center">
               <span class="mx-3 text-gray-300">/</span>
-              <span class="text-gradient-primary">Collectors</span>
+              <span class="text-gradient-primary collectors-title">Collectors</span>
             </div>
           </div>
           {#if hasCloseButton}
@@ -73,5 +75,9 @@
     color: var(--button-brand-color-hover);
     background-color: var(--button-brand-bg-color-hover);
     border-color: var(--button-brand-border-color-hover);
+  }
+
+  .collectors-title {
+    font-family: var(--collectors-title-font);
   }
 </style>

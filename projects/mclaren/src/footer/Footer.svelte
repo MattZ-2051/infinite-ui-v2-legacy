@@ -1,10 +1,9 @@
 <script lang="ts">
   import routes from '$project/routes';
-  import { CLIENT_COMPANY_NAME_LEGAL } from '$project/variables';
   import poweredByInfinite from '$project/poweredByInfiniteLogo';
   import Icon from '$ui/icon/Icon.svelte';
-  import { SocialLinks, FooterLayout } from '$lib/layout/footer';
-  import { links } from './social-links';
+  import { FooterLayout } from '$lib/layout/footer';
+  import FooterLogo from './assets/FooterLogo.svelte';
 </script>
 
 <FooterLayout>
@@ -19,10 +18,8 @@
       <span class="sm:hidden lg:block"> Powered by infiniteworld </span>
     </a>
   </svelte:fragment>
-  <svelte:fragment slot="copyright">
-    {CLIENT_COMPANY_NAME_LEGAL}© {new Date().getFullYear()} All rights reserved.
-  </svelte:fragment>
-  <SocialLinks slot="end" {links} />
+
+  <FooterLogo slot="end" />
 </FooterLayout>
 
 <style>

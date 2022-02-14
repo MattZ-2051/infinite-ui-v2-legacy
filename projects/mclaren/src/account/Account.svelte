@@ -90,7 +90,7 @@
           ><Icon class="transform rotate-180" path={arrowRight} size="1.6" /></button
         >
       </div>
-      <div class="text-3xl font-normal text-center" style="color:#282C2F">Account Settings</div>
+      <div class="text-3xl font-normal text-center second-font" style="color:#282C2F">Account Settings</div>
       <div class="flex-1" style="min-width:2.5rem" />
     </div>
   </div>
@@ -118,7 +118,7 @@
         </div>
       </div>
       <div class="pb-12 pt-14 sm:px-10 container ">
-        <div class="text-2xl pb-8">Profile details</div>
+        <div class="text-2xl pb-8 second-font">Profile details</div>
         <form use:form autocomplete="off" class="flex flex-col gap-3">
           <FormElement label="First name *" name="firstName" />
           <FormElement label="Last name *" name="lastName" />
@@ -127,7 +127,7 @@
           <FormElement label="Username *" name="username" />
           <FormElement label="Phone Number #" name="phoneNumber" />
           <FormElement label="Email *" name="email" />
-          <div class="text-xl my-4">Forgot your password?</div>
+          <div class="text-xl my-4 second-font">Forgot your password?</div>
           <Button variant="outline-brand" on:click={onResetPassword} class="text-sm uppercase">Reset password</Button>
           <div class="flex flex-col gap-4 sm:pt-4 pt-5">
             <Button variant="brand" type="submit" class="text-sm uppercase" disabled={submitting || dataHasNotChanged}
@@ -139,3 +139,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  .second-font {
+    font-family: var(--second-font);
+  }
+</style>

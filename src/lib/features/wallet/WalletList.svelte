@@ -44,7 +44,7 @@
 </script>
 
 <Tabs
-  class="items-end"
+  class="items-end "
   items={[
     { id: 'transactions', title: 'Transaction History' },
     { id: 'bids', title: 'Active Bids' },

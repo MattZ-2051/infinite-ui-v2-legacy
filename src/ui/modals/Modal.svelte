@@ -78,7 +78,9 @@
         {#if $$slots.header || $$slots.title || title || $$slots.icon}
           <slot name="header">
             <header class="flex items-center gap-2 pt-8 pb-4 px-10">
-              <slot name="icon" /><slot name="title"><div class="text-2xl font-normal pr-8">{title}</div></slot>
+              <slot name="icon" /><slot name="title"
+                ><div class="text-2xl font-normal pr-8 modal-title">{title}</div></slot
+              >
             </header>
           </slot>
         {/if}
@@ -92,3 +94,9 @@
     </div>
   </div>
 </ThemeContext>
+
+<style>
+  .modal-title {
+    font-family: var(--modal-title-font);
+  }
+</style>

@@ -1,5 +1,6 @@
 :root,
 .theme-light {
+  --second-font: McLaren;
   --mobile-menu-background-color: #ffffff;
   /* Common */
   --default-color: #000000;
@@ -33,17 +34,18 @@
   --gray-900: rgba(0, 0, 0, 0.9);
 
   /* Footer */
-  --footer-bg-color: #ffffff;
-  --footer-color: theme('colors.gray.500');
-  --footer-color-hover: #000000;
+  --footer-bg-color: #000000;
+  --footer-color: #9fa8ad;
+  --footer-color-hover: #ffffff;
   --footer-icon-bg-color: rgba(0, 0, 0, 0);
-  --footer-icon-color: #282c2f;
+  --footer-icon-color: #ffffff;
   --footer-icon-bg-color-hover: #000000;
   --footer-icon-color-hover: #ffffff;
   --footer-icon-border-radius: 16px;
   --footer-icon-border: 1px solid rgba(40, 44, 47, 0.1);
   --footer-icon-border-hover: 1px solid black;
   --footer-gap-links: 1.5rem;
+  --footer-min-height: 8rem;
 
   /* Pagination */
   --pagination-color: #9e9e9e;
@@ -63,6 +65,7 @@
   --sku-item-border-color: 'white';
   --sku-item-status-border-color: rgba(0, 0, 0, 0.05);
   --sku-item-img-border-radius: 0.6rem;
+  --sku-info-color: black;
 
   /* Button */
   --button-brand-color: #ffffff;
@@ -104,6 +107,15 @@
   --menu-item-color-selected: #ffffff;
   --menu-item-border: none;
   --menu-list-border-radius: 0.625rem;
+
+  /* Fonts */
+  --market-no-result-title-font: var(--second-font);
+  --market-heading-font: var(--second-font);
+  --product-title-font: var(--second-font);
+  --title-font-family: var(--second-font);
+  --collectors-title-font: var(--second-font);
+  --tab-title-font: var(--second-font);
+  --modal-title-font: var(--second-font);
 }
 
 .theme-wallet-balance {
@@ -145,6 +157,9 @@
 
   /*Loading */
   --lds-color: linear-gradient(90deg, #ff8d1c 0%, #ff5e17 47.92%, #ff3414 100%);
+
+  /* Titles */
+  --title-font-family: McLaren;
 }
 
 .theme-brand-footer {
@@ -169,6 +184,7 @@
   --button-brand-color-hover: #ffffff;
   --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
   --button-brand-border-color-hover: #ff5e17;
+  --header-links-font: var(--second-font);
 }
 
 .theme-brand-wallet-buttons {
@@ -200,4 +216,5 @@
   --error-description-color: #bebebe;
   --button-border-radius: 48px;
   --no-results-link-color: var(--default-color);
+  --error-branded-title-font: var(--second-font);
 }

@@ -42,10 +42,11 @@
           <a
             sveltekit:prefetch
             href={routes.sku($product.sku._id)}
-            class="text-gradient-primary truncate md:overflow-visible md:whitespace-pre-wrap">{$product.sku.name}</a
+            class="text-gradient-primary truncate md:overflow-visible md:whitespace-pre-wrap sku-title"
+            >{$product.sku.name}</a
           >
           <span class="mx-3 text-gray-300">/</span>
-          <span class="text-gradient-primary">#{$product.serialNumber}</span>
+          <span class="text-gradient-primary sku-title">#{$product.serialNumber}</span>
         </div>
         <div class="flex flex-row items-center space-x-4 ml-auto">
           {#if isProductOwner}
@@ -87,6 +88,9 @@
     .sticky-content {
       height: inherit;
     }
+  }
+  .sku-title {
+    font-family: var(--product-title-font);
   }
   .share:hover,
   .close:hover {

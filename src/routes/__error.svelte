@@ -66,6 +66,7 @@
   }
   .oh-no-message {
     font-weight: var(--error-branded-title-weight, 800);
+    font-family: var(--error-branded-title-font);
   }
 
   .error-message {

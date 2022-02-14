@@ -41,7 +41,7 @@
   $: endDate = activeSku?.endDate || '';
 </script>
 
-<div class="border border-white border-opacity-20 rounded-lg text-white overflow-hidden">
+<div class="border border-white border-opacity-20 rounded-lg overflow-hidden sku-info">
   <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between">
     <div class="flex flex-col gap-2">
       <div class="text-gray-500 text-sm">Edition</div>
@@ -126,5 +126,9 @@
       padding-top: min(1.8vh, 1.5rem);
       padding-bottom: min(1.8vh, 1.5rem);
     }
+  }
+
+  .sku-info {
+    color: var(--sku-info-color, white);
   }
 </style>

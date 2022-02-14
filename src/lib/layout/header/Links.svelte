@@ -95,6 +95,7 @@
     color: var(--header-color, theme('colors.gray.500'));
     text-transform: var(--header-links-text-transform, none);
     font-size: var(--header-links-text-size, 0.875rem);
+    font-family: var(--header-links-font);
   }
 
   .active,

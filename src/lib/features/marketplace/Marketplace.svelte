@@ -99,6 +99,7 @@
   }
   .title {
     color: var(--marketplace-heading-color);
+    font-family: var(--market-heading-font);
   }
   .title:container(320 > width) {
     @apply text-2xl;

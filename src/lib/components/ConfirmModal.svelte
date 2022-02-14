@@ -43,7 +43,7 @@
 
 {#if isOpen}
   <Modal {persistent} class="max-w-md">
-    <svelte:fragment slot="title"><span class="text-2xl text-left w-full">{title}</span></svelte:fragment>
+    <svelte:fragment slot="title"><span class="text-2xl text-left w-full modal-title">{title}</span></svelte:fragment>
     <div class="px-10 py-4">
       <slot name="message">
         {#if typeof message === 'string'}
@@ -71,3 +71,9 @@
     </div>
   </Modal>
 {/if}
+
+<style>
+  .modal-title {
+    font-family: var(--modal-title-font);
+  }
+</style>

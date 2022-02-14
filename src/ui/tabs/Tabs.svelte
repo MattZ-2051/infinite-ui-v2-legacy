@@ -71,8 +71,8 @@
   setContext('selectedTab', selectedTab);
 </script>
 
-<div class={`tabs flex justify-between ${_class}`} {...$$restProps}>
-  <ul role="tablist" class="flex lg:gap-10 gap-2" on:keydown={handleKeydown}>
+<div class={`tabs flex justify-between  ${_class}`} {...$$restProps}>
+  <ul role="tablist" class="flex lg:gap-10 gap-2 tab-title" on:keydown={handleKeydown}>
     {#if renderDropdown}
       <TabHeader {...$selectedTab} active={true} class={`pb-5 ${itemClass}`} />
       <TabMenu
@@ -103,5 +103,8 @@
 <style lang="postcss">
   .tabs {
     box-shadow: inset 0 -2px var(--tab-border-color, theme('colors.gray.200'));
+  }
+  .tab-title {
+    font-family: var(--tab-title-font);
   }
 </style>
