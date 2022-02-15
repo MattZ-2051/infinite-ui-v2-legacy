@@ -7,7 +7,7 @@
   <div class="h-2/3 bg-black w-full absolute top-0" />
   <div class="h-full w-full text-white flex justify-center items-center">
     <div class="z-10 text-center">
-      <p class="text-xl font-light pb-2 uppercase" style="letter-spacing: 0.2em;">featured collection</p>
+      <p class="text-base md:text-xl font-light pb-2 uppercase" style="letter-spacing: 0.2em;">featured collection</p>
       <p class="text-5xl font-light pb-8 tracking-widest">McLAREN F1 CLASSICS</p>
       <p class="text-base font-light max-w-4xl leading-7">
         Nam a tellus mollis nisi laoreet rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. In at
