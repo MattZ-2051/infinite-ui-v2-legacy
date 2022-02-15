@@ -1,12 +1,19 @@
 <script lang="ts">
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
+
+  export let useContainer = true;
 </script>
 
 <ThemeContext id="footer">
-  <footer>
-    <div class="separator" />
-    <div class="container flex flex-col gap-y-8 justify-evenly items-center text-sm md:flex-row md:justify-between">
-      <div class="flex flex-wrap items-center justify-center gap-4 footer-gap-lg">
+  <footer class="w-full">
+    <div class="footer-separator">
+      <div class="separator" />
+    </div>
+    <div
+      class="flex flex-col gap-y-8 justify-evenly items-center text-sm md:flex-row md:justify-between footer-container"
+      class:container={useContainer}
+    >
+      <div class="flex flex-wrap items-center justify-center gap-4 footer-links">
         <slot name="start" />
       </div>
       <div class="lg:flex-row flex flex-col items-center px-4">
@@ -26,8 +33,25 @@
     color: var(--footer-color);
     background-color: var(--footer-bg-color);
   }
-  @screen lg {
-    .footer-gap-lg {
+  .footer-container {
+    min-height: var(--footer-min-height, 0);
+    margin-top: var(--footer-margin-top-mobile);
+    align-items: var(--footer-align-links-mobile, center);
+  }
+
+  @screen md {
+    .footer-container {
+      margin-top: 0;
+      align-items: center;
+    }
+  }
+
+  .footer-links {
+    justify-content: var(--footer-justify-links-mobile, center);
+  }
+
+  @screen md {
+    .footer-links {
       gap: var(--footer-gap-links, 1rem);
     }
   }

@@ -1,8 +1,11 @@
-import { mdiTwitter, mdiYoutube } from '@mdi/js';
-import instagram from '$project/assets/lib/instagram';
+import facebook from './assets/facebook';
+import youtube from './assets/youtube';
+import instagram from './assets/instagram';
+import twitter from './assets/twitter';
 
 export const links = [
-  { id: 'Twitter', href: 'https://twitter.com/infinitebysuku', path: mdiTwitter },
-  { id: 'Instagram', href: 'https://www.instagram.com/infinitebysuku/', path: instagram },
-  { id: 'Youtube', href: 'https://www.instagram.com/infinitebysuku/', path: mdiYoutube },
+  { id: 'Facebook', href: 'https://facebook.com/mclarenautomotive', path: facebook },
+  { id: 'Twitter', href: 'https://twitter.com/McLarenAuto', path: twitter },
+  { id: 'Instagram', href: 'https://www.instagram.com/mclarenauto/', path: instagram },
+  { id: 'Youtube', href: 'https://www.youtube.com/channel/UCiWQ5eQPkw2BX2L4jeHKEVQ', path: youtube },
 ];

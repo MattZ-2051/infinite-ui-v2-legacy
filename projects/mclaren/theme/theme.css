@@ -9,7 +9,7 @@
   --primary-color: #000000;
   --link-color: var(--default-color);
   --no-results-link-color: var(--default-color);
-  --separator-bg-color: var(--gray-100);
+  --separator-bg-color: rgba(255, 255, 255, 0.2);
   --icon-bg-color: #2d2d2d;
   --edition-single-color: var(--default-color);
   --edition-limited-color: var(--default-color);
@@ -46,6 +46,13 @@
   --footer-icon-border-hover: 1px solid black;
   --footer-gap-links: 1.5rem;
   --footer-min-height: 8rem;
+  --footer-margin-top-mobile: 1rem;
+  --footer-justify-links-mobile: space-around;
+  --footer-align-links-mobile: space-around;
+  /* Pagination */
+  --pagination-color: #9e9e9e;
+  --pagination-color-active: #ffffff;
+  --pagination-background-color-active: #000000;
 
   /* RangeSlider */
   --range-slider-bg-color: theme('colors.black-opacity.20');
