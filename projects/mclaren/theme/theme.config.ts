@@ -22,6 +22,6 @@ export const themeConfig = {
   // '$u.$wallet.$deposit.root': Theme.Light,
   // '$help.*.root': Theme.Light,
   // '*.sku-offsreen': Theme.Light,
-  // '*.modal': Theme.Light,
+  '*.modal': Theme.Light,
   // '*.error': Theme.Light,
 };

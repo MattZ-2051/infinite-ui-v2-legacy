@@ -75,7 +75,7 @@
       {#if $isSubmitting}
         <div class="form-overlay" />
       {/if}
-      <span class="text-base text-gray-900 text-center">
+      <span class="text-base text-gray-900 text-left">
         We love getting to know our community. Please tell us more about yourself in the form below.
       </span>
       <form use:form autocomplete="off" class="flex flex-col gap-3">
@@ -103,8 +103,11 @@
             class="w-5 h-5 text-black bg-white"
           />
           <label for="termsAndConditionsConsentGiven" class="text-gray-900 text-sm"
-            >I accept the <a href={routes.terms} target="_blank" rel="noreferrer" class="underline hover:no-underline"
-              >Terms and Conditions</a
+            >I agree to the <a
+              href={routes.terms}
+              target="_blank"
+              rel="noreferrer"
+              class="underline hover:no-underline font-semibold">Terms and Conditions</a
             >.</label
           >
         </div>
@@ -116,8 +119,11 @@
             class="w-5 h-5 text-black bg-white"
           />
           <label for="privacyPolicyConsentGiven" class="text-gray-900 text-sm"
-            >I accept the <a href={routes.privacy} target="_blank" rel="noreferrer" class="underline hover:no-underline"
-              >Privacy Policy</a
+            >I accept the <a
+              href={routes.privacy}
+              target="_blank"
+              rel="noreferrer"
+              class="underline hover:no-underline font-semibold">Privacy Policy</a
             >.</label
           >
         </div>
