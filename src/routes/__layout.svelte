@@ -27,6 +27,7 @@
   import Header from '$project/header/Header.svelte';
   import Footer from '$project/footer/Footer.svelte';
   import Toast from '$project/toast/Toast.svelte';
+  import { onAfterNavigate } from '$project/navigation';
   import { CLIENT_API_HEADER, INFINITE_EXTENSION_ENABLED } from '$project/variables';
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
@@ -57,6 +58,9 @@
   $: $user && pollWallet();
   $: mustSetupAccount($user, $page.url.pathname);
   $: initializeSentry(mode, $user, CLIENT_API_HEADER);
+
+  // Call lifecycle hooks from project
+  onAfterNavigate();
 </script>
 
 <Head />

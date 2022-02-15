@@ -37,7 +37,7 @@ const config = {
       plugins: [imagetools()],
 
       optimizeDeps: {
-        include: ['swiper'],
+        include: ['p-debounce', 'swiper'],
       },
 
       ssr: {
