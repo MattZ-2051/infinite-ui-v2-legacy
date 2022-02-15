@@ -65,6 +65,7 @@ export async function transferProductIn(
   await associateProduct(product);
   const transferResult = await transferToken(product, account, balanceData, user);
   const response: TransferOutResponse = await patch(`products/${product._id}/wallet-transfer-in`, {
+    id: transferResult.txId,
     hash: transferResult.txHash,
   });
 
