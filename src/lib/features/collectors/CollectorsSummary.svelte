@@ -78,7 +78,7 @@
 
 <div class="flex flex-col md:flex-row justify-between w-full items-center gap-8 px-4 md:px-8 pb-10">
   <div class="flex w-full">
-    <div class="flex-1">
+    <div class="flex-1 collector-custom-search-input">
       <Search placeholder="Search an owner" value={search} on:input={handleInput} />
     </div>
   </div>
@@ -99,3 +99,12 @@
   {/each}
 </div>
 <Pagination {page} {total} {perPage} class="flex justify-end my-5 pr-4 md:pr-8" on:change={gotoPage} />
+
+<style lang="postcss">
+  .collector-custom-search-input {
+    border: var(--border-input-search, 0px);
+    border-radius: var(--border-radius-input-search, 0px);
+    padding: var(--input-search-padding, 0px);
+    border-color: var(--border-input-search-color, none);
+  }
+</style>

@@ -90,6 +90,18 @@
   --button-font-weight: 700;
   --button-letter-spacing: 0.2em;
 
+  /*Collectors*/
+  --button-back-bg-color: transparent;
+  --button-back-color: #000000;
+  --button-back-hover-color: var(--gray-300);
+  --border-input-search: solid 1px;
+  --border-input-search-color: var(--gray-300);
+  --border-radius-input-search: 2rem;
+  --input-search-padding: 0.75rem;
+
+  /* File Preview - Gallery */
+  --gallery-display-file-preview: none;
+
   /*Edit Profile*/
   --edit-picture-button-width: 2rem;
   --edit-picture-button-height: 2rem;
@@ -117,6 +129,18 @@
   --collectors-title-font: var(--second-font);
   --tab-title-font: var(--second-font);
   --modal-title-font: var(--second-font);
+
+  /*Base Element*/
+  --base-element-border-bottom-width: 0px;
+
+  /* File Thumbnail */
+  --file-thumbnail-border-radius: 999px;
+  --file-thumbnail-border: 1px solid;
+  --file-thumbnail-border-color: var(--gray-300);
+  --file-thumbnail-color: #000000;
+  --file-thumbnail-bg-color: transparent;
+
+  --file-preview-border-radius: 20px;
 }
 
 .theme-wallet-balance {

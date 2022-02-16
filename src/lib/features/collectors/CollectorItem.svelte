@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { CollectorProduct } from '$lib/sku-item/types';
-  import { mdiAccountCircle, mdiChevronRight } from '@mdi/js';
+  import { mdiAccountCircle } from '@mdi/js';
+  import mdiChevronRight from '$lib/components/icons/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import imageError from '$util/imageError';

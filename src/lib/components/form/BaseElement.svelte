@@ -34,7 +34,7 @@
   .base-element.form-element-container {
     padding-bottom: 0.125rem;
     border-color: theme('colors.gray.300');
-    border-bottom-width: 1px;
+    border-bottom-width: var(--base-element-border-bottom-width, 1px);
   }
   .rounded-element.form-element-container {
     @apply px-3 border border-transparent rounded-lg;

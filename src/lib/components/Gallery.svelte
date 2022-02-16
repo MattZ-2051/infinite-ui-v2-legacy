@@ -20,13 +20,13 @@
 >
   <div><!-- empty --></div>
   <div class="relative flex-1 w-full max-w-2xl">
-    <FilePreview item={activeItem} {fileType} />
+    <FilePreview item={activeItem} {fileType} borderRadius="var(--file-preview-border-radius, undefined)" />
   </div>
   <div class="flex flex-wrap w-full justify-left">
     {#if items && items?.length > 1}
       {#each items as item}
         <div
-          class="cursor-pointer hover:opacity-100 {activeItem === item ? '' : 'opacity-50'}"
+          class="cursor-pointer hover:opacity-100 mr-6 {activeItem === item ? '' : 'opacity-50'}"
           on:click={() => (selectedItem = item)}
         >
           <FileThumbnail {item} />
@@ -34,7 +34,11 @@
       {/each}
     {/if}
   </div>
-  <div class="absolute top-0 left-0 right-0 bottom-0 -z-1 overflow-hidden" class:bg-gray-100={!useBlurBackground}>
+  <div
+    class="absolute top-0 left-0 right-0 bottom-0 -z-1 overflow-hidden custom-hidden-preview"
+    style="display: var(--gallery-display-file-preview, block)"
+    class:bg-gray-100={!useBlurBackground}
+  >
     {#if useBlurBackground}
       <FilePreview item={activeItem} {fileType} preview blur={20} />
     {/if}

@@ -15,4 +15,8 @@ export const paths = {
   '$lib/components/icons/arrow-up': 'projects/mclaren/src/assets/lib/arrow-up',
   '$lib/features/wallet/assets/chevron-right': 'projects/mclaren/src/assets/lib/chevron-right',
   '$ui/modals/assets/close': 'projects/mclaren/src/assets/lib/close-icon',
+  '$lib/features/product/assets/arrow-left': 'projects/mclaren/src/assets/lib/arrow-left',
+  '$lib/components/icons/arrow-right': 'projects/mclaren/src/assets/lib/chevron-right-circle',
+  '$ui/file/assets/arrow-right': 'projects/mclaren/src/assets/lib/arrow-right',
+  '$lib/components/icons/tune-variant': 'projects/mclaren/src/assets/lib/tune-variant',
 };
