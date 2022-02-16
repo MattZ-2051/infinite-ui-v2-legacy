@@ -1,11 +1,7 @@
-<script lang="ts">
-  import routes from '$project/routes';
-</script>
-
 <div>
-  I understand that all withdrawals are subject to a review process that may take up to 30 days.
+  Please note that it can take up to 30 minutes for funds to be reflected in your marketplace wallet upon a successful
+  deposit.
   <br />
   <br />
-  If you have any questions, please contact
-  <a href={routes.help} target="_blank" style="text-decoration: underline;">support</a>.
+  Also, all future withdrawals are subject to a review process.
 </div>

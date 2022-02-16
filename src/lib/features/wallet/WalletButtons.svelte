@@ -9,7 +9,7 @@
 
   function showInfoModal(option: 'withdraw' | 'deposit') {
     openModal(ConfirmModal, {
-      title: 'Important Notice',
+      title: 'Notice',
       message: WithdrawNoticeModalBody,
       labels: { cancel: 'Go back', confirm: 'I Agree & Continue' },
       onConfirm: () => {
