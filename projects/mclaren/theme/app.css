@@ -30,3 +30,7 @@ button {
 .section-title {
   font-family: var(--title-font-family);
 }
+
+.second-font {
+  font-family: var(--second-font);
+}

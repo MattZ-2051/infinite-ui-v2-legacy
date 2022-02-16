@@ -65,6 +65,7 @@
     background-color: var(--button-brand-bg-color);
     border-color: var(--button-brand-border-color);
     background: var(--button-brand-bg, none var(--button-brand-bg-color));
+    letter-spacing: var(--button-letter-spacing, normal);
   }
   .brand:hover {
     color: var(--button-brand-color-hover);

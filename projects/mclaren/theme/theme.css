@@ -88,6 +88,7 @@
   --button-confirm-modal-radius: 40px;
   --button-text-transform: uppercase;
   --button-font-weight: 700;
+  --button-letter-spacing: 0.2em;
 
   /*Edit Profile*/
   --edit-picture-button-width: 2rem;
