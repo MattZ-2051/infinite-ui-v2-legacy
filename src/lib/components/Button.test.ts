@@ -52,6 +52,14 @@ describe('Button', () => {
     expect(button).toHaveClass('outline-brand');
   });
 
+  it('should support invert-brand variant', () => {
+    const { getByRole } = render(Button, {
+      props: { variant: 'invert-brand' },
+    });
+    const button = getByRole('button');
+    expect(button).toHaveClass('invert-brand');
+  });
+
   it('should have disabled state', () => {
     const { getByRole } = render(Button, {
       props: { disabled: true },

@@ -25,3 +25,4 @@
 <Story name="Base" args={{ variant: 'base' }} />
 <Story name="Brand" args={{ variant: 'brand' }} />
 <Story name="Outline Brand" args={{ variant: 'outline-brand' }} />
+<Story name="Invert Brand" args={{ variant: 'invert-brand' }} />
