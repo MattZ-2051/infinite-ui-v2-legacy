@@ -4,11 +4,13 @@
 </script>
 
 <div class="h-full w-full bg-white py-24 flex justify-center align-center">
-  <div class="w-full grid grid-cols-3 h-full text-black items-center max-w-7xl">
-    <div class="col-span-2">
-      <p class="text-base font-normal pb-2 uppercase" style="letter-spacing: 0.2em;">discover the new world of</p>
-      <p class="text-5xl font-light tracking-widest pb-10">McLAREN COLLECTIVES</p>
-      <div class="w-2/3 font-light text-base leading-7">
+  <div class="flex flex-col lg:grid grid-cols-2 h-full text-black items-center max-w-7xl container">
+    <div class="text-center lg:text-left sm:text-left md:text-center">
+      <p class="text-sm sm:text-base font-normal pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
+        discover the new world of
+      </p>
+      <p class="text-4xl sm:text-5xl font-light tracking-widest pb-10 second-font">McLAREN COLLECTIVES</p>
+      <div class="w-full lg:w-2/3 font-light text-sm sm:text-base leading-7">
         <p class="leading-7 pb-6">
           McLaren Racing today announced the creation of the McLaren Racing Collective, a global community of collectors
           and fans served through an innovative digital platform, where fans can buy McLaren Racing digital collectibles
@@ -24,10 +26,14 @@
           Partner, InfiniteWorld, who are collaborating with McLaren to create the limited digital assets so that fans
           can connect directly with the brand.
         </p>
-        <Button variant="brand" class="h-16 w-80 font-bold text-xs tracking-widest uppercase">see our journey</Button>
+        <Button
+          variant="brand"
+          class="w-full h-12 mb-14 lg:mb-0 lg:h-16 lg:w-80 font-bold text-xs tracking-widest uppercase"
+          >see our journey</Button
+        >
       </div>
     </div>
-    <div class="justify-self-end col-span-1">
+    <div class="justify-self-end">
       <img src={collectiveSvg} alt="mclaren collective" class="img-card rounded-3xl" />
     </div>
   </div>
