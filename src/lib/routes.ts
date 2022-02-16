@@ -6,6 +6,8 @@ export default {
   product: (productId) => `/product/${productId}`,
   collection: (username) => `/collection/${username}`,
   collectors: (skuId, queryParameters = '') => `/collectors/${skuId}${queryParameters}`,
+  checkoutSku: (id) => `/checkout/product/${id}`,
+  checkoutProduct: (id) => `/checkout/sku/${id}`,
   wallet: '/u/wallet',
   deposit: '/u/wallet/deposit',
   depositMoonPay: '/u/wallet/deposit-moonpay',
