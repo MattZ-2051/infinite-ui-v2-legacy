@@ -16,6 +16,7 @@ import {
 import { openModal } from '$ui/modals';
 import routes from '$project/routes';
 import OrderModal from '$lib/features/order/OrderModal.svelte';
+import OrderModalETH from '$lib/features/order/OrderModalETH.svelte';
 import { loadWalletFx } from '../wallet/wallet.store';
 import { validETHdirectPurchase } from './order.api';
 
@@ -34,7 +35,7 @@ const connectWallet = async () => {
   }
 };
 
-const showLoginToast = (content = 'sign in', data = 'signIn') => {
+export const showLoginToast = (content = 'sign in', data = 'signIn') => {
   toast.danger(
     `Please <a data-toast="${data}" class="cursor-pointer font-bold">${content}</a> to complete your purchase.`,
     {
@@ -51,12 +52,10 @@ export async function onOrderIntent({
   sku,
   listing,
   product,
-  walletConnected,
 }: {
   sku?: Sku;
   listing: Listing;
   product?: Product;
-  walletConnected?: boolean;
 }): Promise<void> {
   const currentUser = getStoreValue<User>(user);
   loadWalletFx();
@@ -64,11 +63,16 @@ export async function onOrderIntent({
   try {
     isLoading.set(true);
     validETHPurchase = await validETHdirectPurchase(listing._id);
-    if (validETHPurchase && !walletConnected) {
-      showLoginToast('connect your wallet', 'externalWallet');
-      canOpenModal = false;
-    } else {
-      canOpenModal = true;
+    isLoading.set(false);
+
+    if (validETHPurchase) {
+      openModal(OrderModalETH, {
+        sku,
+        product,
+        listing,
+        validETHPurchase,
+      });
+      return;
     }
   } catch {
     isLoading.set(false);
@@ -100,8 +104,6 @@ export async function onOrderIntent({
       return;
     }
   }
-
-  isLoading.set(false);
 
   if (canOpenModal) {
     openModal(OrderModal, {

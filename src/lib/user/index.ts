@@ -272,6 +272,7 @@ export async function checkWalletInstalled() {
 export async function handleWalletConnection() {
   try {
     await connectWallet();
+    return true;
   } catch (error) {
     if (error?.code) {
       toast.danger(error?.message, { toastId: error?.code });
@@ -279,6 +280,7 @@ export async function handleWalletConnection() {
       toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
       window.open('https://metamask.io/download/', '_blank').focus();
     }
+    return false;
   }
 }
 

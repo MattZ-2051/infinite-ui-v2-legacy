@@ -3,6 +3,9 @@
   import type { Listing } from '$lib/sku-item/types';
   import type { StripeElements, StripePaymentElement } from '@stripe/stripe-js';
   import { loadStripe } from '@stripe/stripe-js';
+  import type { CurrencyType } from '../wallet/types';
+  import { isAuthenticated } from '$lib/user';
+  import { formatCurrency } from '$util/format';
   import { page } from '$app/stores';
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
@@ -10,11 +13,13 @@
   import { variables } from '$lib/variables';
   import routes from '$project/routes';
   import { stripeCreatePaymentIntentFx } from './stripe.store';
+  import OrderProductPricing from '../order/OrderProductPricing.svelte';
+  import { showLoginToast } from '../order/order.service';
 
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
   export let listing: Listing;
-  export let total: number;
+  export let mintToAddress: string;
   let acceptedTerms = false;
 
   $: isLoading = false;
@@ -22,14 +27,42 @@
   let elements: StripeElements;
   let paymentElementNode: HTMLElement;
 
+  let currency: CurrencyType;
+  let totalCost: string;
+  let listingPrice: number;
+  let marketplaceFee: number;
+  let gasFee: number;
+  let rate: number;
+
   onMount(initialize);
 
   // Fetches a payment intent and captures the client secret
   async function initialize() {
     isLoading = true;
+
+    if (!$isAuthenticated) {
+      showLoginToast();
+      return;
+    }
+
     const stripe = await stripePromise;
 
-    const clientSecret = await stripeCreatePaymentIntentFx({ listingId: listing._id });
+    const {
+      client_secret: clientSecret,
+      cost,
+      networkFee,
+      rate: rateUSD,
+    } = await stripeCreatePaymentIntentFx({
+      listingId: listing._id,
+      mintToAddress,
+    });
+
+    currency = cost.currency;
+    listingPrice = cost.finalPayout + cost.initialSellersFee;
+    marketplaceFee = cost.initialSellersFeePercentage / 100;
+    gasFee = +networkFee.gas;
+    rate = +rateUSD.amount;
+    totalCost = formatCurrency((cost.totalCost + +networkFee.gas) * rate, { currency: 'USD' });
 
     const style = getComputedStyle(paymentElementNode);
     const theme: 'flat' | 'stripe' | 'night' | 'none' = 'stripe';
@@ -74,6 +107,7 @@
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
+
     if (error.type === 'card_error' || error.type === 'validation_error') {
       toast.danger(error.message);
     } else {
@@ -94,6 +128,11 @@
       <DualRingLoader />
     </div>
   {:else}
+    {#if currency === 'ETH'}
+      <div class="mt-6 mb-3">
+        <OrderProductPricing price={listingPrice} {currency} {marketplaceFee} {gasFee} {rate} />
+      </div>
+    {/if}
     <div class="flex items-center justify-start mt-6 mb-3">
       <label class="inline-flex items-center text-sm">
         <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
@@ -105,7 +144,7 @@
       >All resales of this product are subject to a 5% royalty fee set by and to be paid to the original creator.</span
     >
     <Button variant="brand" class="w-full mt-6" type="submit" disabled={isLoading || !acceptedTerms}
-      >Buy Now for ${total}</Button
+      >Buy Now for {totalCost}</Button
     >
   {/if}
 </form>

@@ -5,7 +5,7 @@
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
   import type { Listing, Sku, Product, PaymentMethod } from '$lib/sku-item/types';
-  import { walletConnected, getWalletInfo, sendTransaction } from '$lib/user';
+  import { walletConnected, getWalletInfo, sendTransaction, handleWalletConnection } from '$lib/user';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';
@@ -42,19 +42,21 @@
   let result: SkuPurchaseTransaction;
   let directPurchaseResult: ethers.providers.TransactionResponse;
   let balance;
+
   $: _sku = product ? product.sku : sku;
   $: ethAddress = '';
   $: validEthAddress = undefined;
   $: directPurchasing = false;
+  $: shortenEthAddress = `${ethAddress.slice(0, 21)}...${ethAddress.slice(36, 42)}`;
 
   onMount(async () => {
-    if ($walletConnected && validETHPurchase) {
+    try {
       const data = await getWalletInfo();
       balance = data.balance;
       ethAddress = data.address;
       validEthAddress = isEthAddress(ethAddress);
-    } else {
-      balance = $wallet?.balanceInfo.find((x) => x.currency === _sku.currency).totalBalance;
+    } catch {
+      walletConnected.set(false);
     }
   });
 
@@ -79,6 +81,16 @@
       return false;
     }
     return true;
+  };
+
+  const connectWallet = async () => {
+    const success = await handleWalletConnection();
+    if (success) {
+      const data = await getWalletInfo();
+      balance = data.balance;
+      ethAddress = data.address;
+      validEthAddress = isEthAddress(ethAddress);
+    }
   };
 
   async function submitOrder() {
@@ -202,11 +214,10 @@
 
   const STRIPE_ENABLED = variables.stripe.enabled;
 
-  $: isHederaNFT = _sku?.currency === 'USD';
   $: isBuyNow = listing.saleType === 'fixed';
   $: isPrimarySale = listing.issuer === _sku?.issuer?._id;
 
-  $: isStripeAllowed = STRIPE_ENABLED && isHederaNFT && isBuyNow && isPrimarySale;
+  $: isStripeAllowed = STRIPE_ENABLED && isBuyNow && isPrimarySale;
 
   $: {
     if (!isStripeAllowed) {
@@ -219,10 +230,12 @@
     title === 'Yeah! Payment successful.';
   } else if (result?.status === 'pending' || purchasing || stripeSucceded) {
     title = `We're processing your order`;
+  } else if (!$walletConnected) {
+    title = 'Connect your wallet';
   } else if (isStripeAllowed && !paymentMethod) {
     title = 'Select Payment Method';
   } else if (isStripeAllowed && paymentMethod === 'stripe') {
-    title = 'Other Payment Methods';
+    title = 'Buy now';
   } else if (isStripeAllowed && paymentMethod === 'balance') {
     title = 'Pay with Wallet Funds';
   } else {
@@ -239,7 +252,7 @@
           >We’ll send you an email when your purchase has been completed. You can refresh the page to view the updated
           status.</span
         >
-        <ProductModalInfo sku={_sku} {product} />
+        <ProductModalInfo sku={_sku} />
         <div class="flex flex-col gap-5">
           <Button variant="brand" class="mt-6" on:click={() => handleNavigation(routes.marketplace)}
             >Back to Marketplace</Button
@@ -248,25 +261,14 @@
             >View Pending Transactions</Button
           >
         </div>
-      {:else if isStripeAllowed && !paymentMethod}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} {product} />
-        <div class="flex flex-col items-center">
-          <Button
-            variant="brand"
-            class="mt-6 w-full"
-            disabled={purchasing || insufficientFunds}
-            on:click={() => selectPaymentMethod('balance')}>Pay with Wallet Funds</Button
-          >
-          {#if insufficientFunds}
-            <div class="mt-3">
-              <span>Insufficient balance, </span>
-              <a class="underline font-semibold hover:cursor-pointer" href={routes.wallet}>add funds to continue.</a>
-            </div>
-          {/if}
-        </div>
-        <Button variant="brand" disabled={purchasing} on:click={() => selectPaymentMethod('stripe')}
-          >Other Payment Methods</Button
+      {:else if !$walletConnected}
+        <span class="text-gray-400"
+          >In order to purchase this NFT you need to be connected with Metamask and an ERC20 address.</span
         >
+        <Button variant="brand" on:click={connectWallet}>Connect Metamask</Button>
+      {:else if isStripeAllowed && !paymentMethod}
+        <ProductModalInfo sku={_sku} />
+        <Button variant="brand" disabled={purchasing} on:click={() => selectPaymentMethod('stripe')}>Buy Now</Button>
         <div class="flex w-56 self-center items-center justify-between">
           <Icon viewBox="0 0 36 24" style="width:36px; height:24px" path={visa} />
           <Icon viewBox="0 0 36 24" style="width:36px; height:24px" path={mastercard} />
@@ -274,6 +276,10 @@
           <Icon viewBox="0 0 36 24" style="width:36px; height:24px" path={applepay} />
           <Icon viewBox="0 0 36 24" style="width:36px; height:24px" path={googlepay} />
         </div>
+        <div class="border-solid border-b border-gray-200" />
+        <Button variant="outline-brand" disabled={purchasing} on:click={() => selectPaymentMethod('balance')}
+          >Pay with Metamask</Button
+        >
       {:else if paymentMethod === 'balance'}
         {#if _sku.currency === 'ETH'}
           <div class="text-2xl font-normal pr-8">1. ETH address destination</div>
@@ -307,7 +313,7 @@
         {#if _sku.currency === 'ETH'}
           <div class="text-2xl font-normal pr-8">2. Confirm your purchase</div>
         {/if}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} {product} />
+        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} />
         <div class="flex flex-col gap-5 text-gray-500">
           {#if $walletConnected && !directPurchasing && directPurchaseResult?.hash}
             <span>
@@ -367,7 +373,20 @@
           {/if}
         </div>
       {:else if paymentMethod === 'stripe'}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} hideWalletBalance {product} />
+        <ProductModalInfo sku={_sku} />
+        <Input
+          name="eth-address"
+          class={`px-6 mt-4 mb-2 border border-solid border-gray-50 rounded font-extralight text-center ${
+            validEthAddress === false ? 'text-red-500' : ''
+          }`}
+          style="padding-bottom: 0.5rem; padding-top: 0.5rem; font-weight: 200;"
+          variant="base"
+          error={validEthAddress === false ? '*This does not appear to be a valid ERC20 address' : ''}
+          label="We'll send the NFT to your Metamask wallet address:"
+          value={shortenEthAddress}
+          placeholder="ERC20 Wallet address"
+          disabled
+        />
         <StripeCheckout {listing} mintToAddress={ethAddress} />
       {/if}
       {#if isStripeAllowed && !!paymentMethod}
