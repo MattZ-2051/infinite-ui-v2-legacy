@@ -4,13 +4,14 @@
   import { openModal } from '$ui/modals';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import WithdrawNoticeModalBody from './WithdrawNoticeModalBody.svelte';
+  import DepositNoticeModalBody from './DepositNoticeModalBody.svelte';
 
   const dispatch = createEventDispatcher();
 
   function showInfoModal(option: 'withdraw' | 'deposit') {
     openModal(ConfirmModal, {
       title: 'Notice',
-      message: WithdrawNoticeModalBody,
+      message: option === 'deposit' ? DepositNoticeModalBody : WithdrawNoticeModalBody,
       labels: { cancel: 'Go back', confirm: 'I Agree & Continue' },
       onConfirm: () => {
         dispatch(option);
