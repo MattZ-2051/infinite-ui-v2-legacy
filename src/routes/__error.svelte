@@ -60,15 +60,21 @@
   </div>
 </ThemeContext>
 
-<style>
+<style lang="postcss">
   a {
     color: var(--no-results-link-color);
   }
   .oh-no-message {
     font-weight: var(--error-branded-title-weight, 800);
     font-family: var(--error-branded-title-font);
+    font-size: var(--error-branded-title-font-size-mobile, 3.75rem);
   }
 
+  @screen sm {
+    .oh-no-message {
+      font-size: var(--error-branded-title-font-size-desktop, 3.75rem);
+    }
+  }
   .error-message {
     font-weight: var(--error-text-weight, 600);
   }

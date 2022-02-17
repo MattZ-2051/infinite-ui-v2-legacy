@@ -255,4 +255,6 @@
   --button-border-radius: 48px;
   --no-results-link-color: var(--default-color);
   --error-branded-title-font: var(--second-font);
+  --error-branded-title-font-size-desktop: 4rem;
+  --error-branded-title-font-size-mobile: 3.5rem;
 }
