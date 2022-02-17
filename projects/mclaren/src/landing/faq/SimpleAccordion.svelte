@@ -26,7 +26,7 @@
 >
   <div style="color:{textColor};">
     <div class=" flex justify-between items-center" style="color:{active ? selectedColor : textColor}">
-      <div class="text-2xl lg:text-3xl font-light pr-1 second-font">{title}</div>
+      <div class="text-2xl lg:text-4xl font-light pr-1 second-font">{title}</div>
       {#if !active}
         <Icon path={arrowDown} size={1} class="sm:hidden" />
         <Icon path={arrowDown} size={1.3} class="sm:block hidden" />
