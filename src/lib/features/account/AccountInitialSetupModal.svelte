@@ -70,7 +70,8 @@
 </script>
 
 {#if isOpen}
-  <Modal title="Profile Details" persistent={true} closeButton={false}>
+  <Modal persistent={true} closeButton={false}>
+    <div slot="title" class="text-3xl"><span>Profile Details</span></div>
     <div class="flex flex-col max-w-sm border-t border-gray-200 justify-evenly gap-5 px-10 py-6 relative">
       {#if $isSubmitting}
         <div class="form-overlay" />
@@ -128,8 +129,8 @@
           >
         </div>
         <div class="flex flex-col gap-4 pt-6 border-t border-gray-200">
-          <Button variant="brand" disabled={!canSave} type="submit">Save</Button>
-          <Button on:click={() => onSignOut()}>Logout</Button>
+          <Button variant="brand" disabled={!canSave} type="submit" class="text-xs font-semibold">Save</Button>
+          <Button on:click={() => onSignOut()} class="text-xs font-semibold">Logout</Button>
         </div>
       </form>
     </div>
