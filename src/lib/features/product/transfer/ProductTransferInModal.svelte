@@ -8,6 +8,7 @@
   import { closeModal, Modal } from '$ui/modals';
   import { FilePreview } from '$ui/file';
   import routes from '$project/routes';
+  import { CLIENT_COMPANY_NAME } from '$project/variables';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import Button from '$lib/components/Button.svelte';
@@ -90,7 +91,9 @@
         </div>
         <div class="text-gray-500 text-sm text-center">
           {#if status === 'confirm-transfer'}
-            Would you like to transfer token to your INFINITE in app wallet?
+            Would you like to transfer token to the
+            <span class="uppercase"> {CLIENT_COMPANY_NAME} </span>
+            platform?
           {:else if status === 'transfer-success'}
             The transfer will remain as pending while is validated & we will let you know once is complete.
           {/if}
