@@ -11,6 +11,7 @@ export const themeConfig = {
   '$marketplace.root.footer': Theme.Light,
   '$u.$wallet.$deposit.root': Theme.Light,
   '$help.*.root': Theme.Light,
+  '$checkout.*.root': Theme.Light,
   '*.sku-offsreen': Theme.Light,
   '*.wallet-list': Theme.Light,
   '*.modal': Theme.Light,

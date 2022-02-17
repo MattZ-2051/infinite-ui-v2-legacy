@@ -1,14 +1,16 @@
 <script lang="ts">
   import type { Product, Sku } from '$lib/sku-item/types';
+  import { getActiveListings } from '$lib/features/sku/sku.service';
+  import OrderSummary from './OrderSummary.svelte';
 
-  let _sku: Sku = undefined;
-  let _product: Product = undefined;
+  export let sku: Sku = undefined;
+  export let product: Product = undefined;
 
-  const product = _sku ? _sku : _product;
-
-  export { _sku as sku };
-  export { _product as product };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _sku = sku ? sku : product.sku;
+  const [listing] = getActiveListings(sku);
 </script>
 
-<div>checkout page</div>
-<h1>product {product._id}</h1>
+<div class="container grid grid-cols-2">
+  <OrderSummary {sku} {product} {listing} />
+</div>
