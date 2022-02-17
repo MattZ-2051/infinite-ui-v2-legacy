@@ -11,8 +11,10 @@
         class="focus:outline-none rounded-full w-full p-3 pl-4  text-white bg-transparent placeholder-white border-none"
         placeholder="Enter your email"
       />
-      <Button type="submit" class="text-xs w-52 h-14 font-medium tracking-widest" variant="brand">Subscribe</Button>
+      <Button type="submit" class="text-xs w-52 h-14 font-medium tracking-widest hidden md:block" variant="brand"
+        >Subscribe</Button
+      >
     </div>
-    <Button type="submit" variant="brand" class=" lg:hidden h-14">Subscribe</Button>
+    <Button type="submit" variant="brand" class="md:hidden h-14">Subscribe</Button>
   </form>
 </div>
