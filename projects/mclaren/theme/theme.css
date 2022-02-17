@@ -47,11 +47,6 @@
   --footer-gap-links: 1.5rem;
   --footer-min-height: 8rem;
 
-  /* Pagination */
-  --pagination-color: #9e9e9e;
-  --pagination-color-active: #ffffff;
-  --pagination-background-color-active: #000000;
-
   /* RangeSlider */
   --range-slider-bg-color: theme('colors.black-opacity.20');
   --range-slider-bg-color-selected: #000000;
@@ -141,6 +136,17 @@
   --file-thumbnail-bg-color: transparent;
 
   --file-preview-border-radius: 20px;
+
+  /* Pagination */
+  --pagination-color: #9e9e9e;
+  --pagination-color-active: #ff5e17;
+  --pagination-border-active: 1px solid;
+  --pagination-active-border-radius: 999px;
+  --pagination-background-color-active: linear-gradient(#ff8d1c 0%, #ff3414 100%);
+  --pagination-bg-after-active: #ffffff;
+  --pagination-focus-ring: none;
+  --text-pagination-gradient-from: #ff8d1c;
+  --text-pagination-gradient-to: #ff5e17;
 }
 
 .theme-wallet-balance {

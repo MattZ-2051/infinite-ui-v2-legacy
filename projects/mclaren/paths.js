@@ -1,7 +1,6 @@
 export const paths = {
   '$project/about/*': 'projects/aria/src/about/*',
   '$project/collection/CollectionIndex.svelte': 'projects/aria/src/collection/CollectionIndex.svelte',
-  '$ui/pagination/assets/chevron-left': 'projects/infinite/src/assets/lib/arrow-left',
   '$lib/features/wallet/assets/arrow-right': 'projects/mclaren/src/assets/lib/arrow-right',
   '$lib/features/wallet/assets/info': 'projects/mclaren/src/assets/lib/info',
   '$lib/features/sku/assets/arrow-right': 'projects/infinite/src/assets/lib/arrow-right',
@@ -19,4 +18,5 @@ export const paths = {
   '$lib/components/icons/arrow-right': 'projects/mclaren/src/assets/lib/chevron-right-circle',
   '$ui/file/assets/arrow-right': 'projects/mclaren/src/assets/lib/arrow-right',
   '$lib/components/icons/tune-variant': 'projects/mclaren/src/assets/lib/tune-variant',
+  '$ui/pagination/assets/chevron-left': 'projects/mclaren/src/assets/lib/chevron-left',
 };
