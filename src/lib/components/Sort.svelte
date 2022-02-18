@@ -1,13 +1,7 @@
-<script context="module" lang="ts">
-  export type SortOption = {
-    name: string;
-    value: string;
-  };
-</script>
-
 <script lang="ts">
   import { mdiSortVariant } from '@mdi/js';
   import { createEventDispatcher } from 'svelte';
+  import type { SortOption } from '$lib/sku-item/types';
   import { Menu, MenuList, MenuItem, MenuTrigger } from '$ui/menu';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
@@ -22,6 +16,7 @@
   export let label = 'Sort by:';
   export let key = 'sortBy';
   export let iconType = 'sort';
+  export let defaultValue: SortOption | undefined = undefined;
 
   const getSelected = () => {
     const value = $page.url.searchParams.get(key);
@@ -30,6 +25,9 @@
     }
     return sortOptions.find((item) => item.value === value) || sortOptions[0];
   };
+
+  $: defaultValue && select(defaultValue);
+
   let selected = getSelected();
 
   const select = (option: SortOption): void => {

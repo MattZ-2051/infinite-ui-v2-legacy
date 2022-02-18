@@ -386,3 +386,8 @@ export interface Status {
   minPrice?: number;
   saleTypeTitle?: string;
 }
+
+export type SortOption = {
+  name: string;
+  value: string;
+};

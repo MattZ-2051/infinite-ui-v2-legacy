@@ -1,11 +1,12 @@
 <script lang="ts">
-  import type { CollectorProduct, Sku } from '$lib/sku-item/types';
+  import type { CollectorProduct, Sku, SortOption } from '$lib/sku-item/types';
   import { Pagination } from '$ui/pagination';
   import Sort from '$lib/components/Sort.svelte';
   import Search from '$lib/components/Search.svelte';
   import { gotoQueryParameters } from '$util/queryParameter';
   import CollectorItem from './CollectorItem.svelte';
   import { loading } from './collectors.api';
+  import { INITIAL_SORT_OPTIONS, INITIAL_STATUS_OPTIONS } from './constants';
 
   export let sku: Sku;
   export let collectors: CollectorProduct[];
@@ -16,49 +17,26 @@
 
   const onFilter = (event: CustomEvent) => {
     const { key, value } = event.detail;
+    handleChangeSortLists(value);
     navigate({
       [key]: `${value}`,
       page: false,
     });
   };
+  let sortOptions: SortOption[] = INITIAL_SORT_OPTIONS;
 
-  const sortOptions = [
-    {
-      name: 'Serial A to Z',
-      value: 'serialNumber:asc',
-    },
-    {
-      name: 'Serial Z to A',
-      value: 'serialNumber:desc',
-    },
-    {
-      name: 'Price high to low',
-      value: 'price:desc',
-    },
-    {
-      name: 'Price low to high',
-      value: 'price:asc',
-    },
-  ];
+  let statusOptions: SortOption[] = INITIAL_STATUS_OPTIONS;
 
-  const statusOptions = [
-    {
-      name: 'All for sale',
-      value: '',
-    },
-    {
-      name: 'All',
-      value: 'all',
-    },
-    {
-      name: 'Auction Only',
-      value: 'auction',
-    },
-    {
-      name: 'Buy Now Only',
-      value: 'fixed',
-    },
-  ];
+  let sortOptionsDefaultValue: SortOption | undefined;
+
+  let statusOptionsDefaultValue: SortOption | undefined;
+
+  const handleChangeSortLists = (value: string) => {
+    statusOptions = value.includes('price') ? statusOptions.filter((s) => s.value !== 'all') : INITIAL_STATUS_OPTIONS;
+    statusOptions = value !== '' ? INITIAL_STATUS_OPTIONS : statusOptions;
+    statusOptionsDefaultValue = value.includes('price') ? statusOptions.find((s) => s.value === '') : undefined;
+    sortOptionsDefaultValue = value === 'all' ? sortOptions.find((s) => s.value === 'serialNumber:asc') : undefined;
+  };
 
   const gotoPage = (event: CustomEvent) => {
     navigate({ page: +event.detail.value });
@@ -84,10 +62,17 @@
   </div>
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
-      <Sort sortOptions={statusOptions} on:select={onFilter} key="saleType" label="Sale Type:" iconType="filter" />
+      <Sort
+        sortOptions={statusOptions}
+        on:select={onFilter}
+        key="saleType"
+        label="Sale Type:"
+        iconType="filter"
+        defaultValue={statusOptionsDefaultValue}
+      />
     </div>
     <div class="flex cursor-pointer gap-2">
-      <Sort {sortOptions} on:select={onFilter} />
+      <Sort {sortOptions} on:select={onFilter} defaultValue={sortOptionsDefaultValue} />
     </div>
   </div>
 </div>
