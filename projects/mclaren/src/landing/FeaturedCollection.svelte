@@ -8,7 +8,7 @@
   <div class="h-2/3 bg-black w-full absolute top-0" />
   <div class="h-full w-full text-white flex justify-center items-center container">
     <div class="z-10 text-center">
-      <p class="text-sm sm:text-xl font-light pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
+      <p class="text-base sm:text-xl font-light pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
         featured collection
       </p>
       <p class="text-3xl sm:text-5xl font-light pb-8 tracking-widest second-font">
@@ -18,8 +18,10 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit urna nulla, in pretium orci
         sollicitudin sed. Nunc sed purus et nunc sollicitudin.
       </p>
-      <Button variant="brand" class="w-52 h-12 sm:w-64 sm:h-16 text-xs font-bold mt-10 uppercase second-font"
-        >explore now</Button
+      <Button
+        variant="brand"
+        class="w-52 h-12 sm:w-64 sm:h-16 text-xs font-bold mt-10 uppercase "
+        --button-brand-bg="linear-gradient(161.99deg, #FFFFFF -1.04%, #F8F8F8 111.86%)">explore now</Button
       >
     </div>
   </div>

@@ -11,10 +11,18 @@
         class="focus:outline-none rounded-full w-full p-3 pl-4  text-white bg-transparent placeholder-white border-none"
         placeholder="Enter your email"
       />
-      <Button type="submit" class="text-xs w-52 h-14 font-medium tracking-widest hidden md:block" variant="brand"
-        >Subscribe</Button
+      <Button
+        type="submit"
+        class="text-xs w-52 h-14 font-medium tracking-widest hidden md:block"
+        variant="brand"
+        --button-brand-bg="linear-gradient(161.99deg, #FFFFFF -1.04%, #F8F8F8 111.86%)">Subscribe</Button
       >
     </div>
-    <Button type="submit" variant="brand" class="md:hidden h-14">Subscribe</Button>
+    <Button
+      type="submit"
+      variant="brand"
+      class=" md:hidden h-14 min-w-0"
+      --button-brand-bg="linear-gradient(161.99deg, #FFFFFF -1.04%, #F8F8F8 111.86%)">Subscribe</Button
+    >
   </form>
 </div>

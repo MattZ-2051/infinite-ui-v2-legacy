@@ -5,11 +5,11 @@
 
 <div class="h-full w-full bg-white py-24 flex justify-center align-center">
   <div class="flex flex-col lg:grid grid-cols-2 h-full text-black items-center max-w-7xl container">
-    <div class="text-center lg:text-left sm:text-left md:text-center">
-      <p class="text-sm sm:text-base font-normal pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
+    <div class="text-left lg:text-left sm:text-left md:text-center">
+      <p class="text-base sm:text-base font-normal pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
         discover the new world of
       </p>
-      <p class="text-4xl sm:text-5xl font-light tracking-widest pb-10 second-font">McLAREN COLLECTIVES</p>
+      <p class="text-3xl sm:text-5xl font-light tracking-widest pb-10 second-font">McLAREN COLLECTIVES</p>
       <div class="w-full lg:w-2/3 font-light text-sm sm:text-base leading-7">
         <p class="leading-7 pb-6">
           McLaren Racing today announced the creation of the McLaren Racing Collective, a global community of collectors
@@ -28,8 +28,8 @@
         </p>
         <Button
           variant="brand"
-          class="w-full h-12 mb-14 lg:mb-0 lg:h-16 lg:w-80 font-bold text-xs tracking-widest uppercase"
-          >see our journey</Button
+          class="hidden md:block w-full h-12 mb-14 lg:mb-0 lg:h-16 lg:w-80 font-bold text-xs tracking-widest uppercase"
+          --button-brand-bg="linear-gradient(161.99deg, #FFFFFF -1.04%, #F8F8F8 111.86%)">see our journey</Button
         >
       </div>
     </div>
