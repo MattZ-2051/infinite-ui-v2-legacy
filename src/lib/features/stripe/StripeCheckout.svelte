@@ -4,7 +4,6 @@
   import type { StripeElements, StripePaymentElement } from '@stripe/stripe-js';
   import { loadStripe } from '@stripe/stripe-js';
   import type { CurrencyType } from '../wallet/types';
-  import { isAuthenticated } from '$lib/user';
   import { formatCurrency } from '$util/format';
   import { page } from '$app/stores';
   import Button from '$lib/components/Button.svelte';
@@ -14,7 +13,6 @@
   import routes from '$project/routes';
   import { stripeCreatePaymentIntentFx } from './stripe.store';
   import OrderProductPricing from '../order/OrderProductPricing.svelte';
-  import { showLoginToast } from '../order/order.service';
 
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
@@ -39,11 +37,6 @@
   // Fetches a payment intent and captures the client secret
   async function initialize() {
     isLoading = true;
-
-    if (!$isAuthenticated) {
-      showLoginToast();
-      return;
-    }
 
     const stripe = await stripePromise;
 

@@ -42,7 +42,7 @@
       <div class="mt-10">
         <button
           type="button"
-          on:click={onSignIn}
+          on:click={() => onSignIn()}
           class="bg-white text-black hover:bg-gray-500 hover:text-white rounded-full font-bold text-lg px-12 py-3"
           >Login</button
         >

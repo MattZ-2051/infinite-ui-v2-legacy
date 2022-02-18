@@ -16,12 +16,23 @@
   import SkuContainer from '$lib/features/sku/Sku.svelte';
   import { verifyStripeStatusFx } from '$lib/features/stripe/stripe.store';
   import { page } from '$app/stores';
+  import { openModal } from '$ui/modals';
+  import OrderModalEth from '$lib/features/order/OrderModalETH.svelte';
+  import { getActiveListings } from '$lib/features/sku/sku.service';
 
   export let data: Awaited<ReturnType<typeof loadSkuFx>>;
 
+  const isPayingWithStripe = $page.url.searchParams.get('step') === 'stripe-checkout';
   const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
+
   if (clientSecret && !!data.sku) {
     verifyStripeStatusFx({ clientSecret, sku: data.sku });
+  }
+
+  if (isPayingWithStripe) {
+    const { sku } = data;
+    const activeListings = getActiveListings(sku);
+    openModal(OrderModalEth, { sku, listing: activeListings[0], paymentMethod: 'stripe' });
   }
 
   $: setSku(data);

@@ -70,7 +70,7 @@
         {#if wallet.needsLogin && user === undefined}
           <p class="text-lg mt-3 text-center">
             To use {wallet.name} you need to
-            <button class="underline contents font-bold" on:click={onSignIn}>login</button>
+            <button class="underline contents font-bold" on:click={() => onSignIn()}>login</button>
             or
             <button class="underline contents font-bold" on:click|preventDefault={onSignUp}>create a new account</button
             >.

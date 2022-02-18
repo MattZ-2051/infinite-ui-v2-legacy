@@ -5,7 +5,14 @@
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
   import type { Listing, Sku, Product, PaymentMethod } from '$lib/sku-item/types';
-  import { walletConnected, getWalletInfo, sendTransaction, handleWalletConnection } from '$lib/user';
+  import {
+    walletConnected,
+    getWalletInfo,
+    sendTransaction,
+    handleWalletConnection,
+    isAuthenticated,
+    onSignIn,
+  } from '$lib/user';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';
@@ -27,7 +34,7 @@
   import applepay from '$lib/components/icons/applepay';
   import googlepay from '$lib/components/icons/googlepay';
   import americanExpress from './assets/american-express.svg';
-  import { purchaseSkuListing, claimGiveawaySkuListing } from './order.api';
+  import { purchaseSkuListing, claimGiveawaySkuListing, validETHdirectPurchase } from './order.api';
   import { handleSkuClaimError } from './order.service';
   import OrderDetails from './OrderDetails.svelte';
 
@@ -55,12 +62,19 @@
       balance = data.balance;
       ethAddress = data.address;
       validEthAddress = isEthAddress(ethAddress);
+      if (!validETHPurchase) {
+        validETHPurchase = await validETHdirectPurchase(listing._id);
+      }
     } catch {
-      walletConnected.set(false);
+      if (!validETHPurchase) {
+        goto(routes.sku(sku._id), { replaceState: true });
+      } else {
+        walletConnected.set(false);
+      }
     }
   });
 
-  let paymentMethod: PaymentMethod = undefined;
+  export let paymentMethod: PaymentMethod = undefined;
 
   let acceptedTerms = false;
   let acceptedTermsNft = false;
@@ -174,6 +188,10 @@
   }
 
   const selectPaymentMethod = (value?: PaymentMethod) => {
+    if (value === 'stripe' && !$isAuthenticated) {
+      onSignIn(`${window.location.pathname}?step=stripe-checkout`);
+      return;
+    }
     paymentMethod = value;
   };
 
@@ -199,14 +217,14 @@
   };
 
   const handleCloseModal = () => {
-    if (stripeSucceded) {
+    if (stripeSucceded || paymentMethod) {
       goto(routes.sku(sku._id), { replaceState: true });
     }
     closeModal();
   };
 
   const handleNavigation = (route: string) => {
-    if (stripeSucceded) {
+    if (stripeSucceded || paymentMethod) {
       goto(route, { replaceState: true });
     }
     closeModal();

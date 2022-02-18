@@ -85,7 +85,7 @@
     </Menu>
   {/if}
 {:else}
-  <button class="flex header-link" on:click={onSignIn} disabled={$isLoading}>Sign In</button>
+  <button class="flex header-link" on:click={() => onSignIn()} disabled={$isLoading}>Sign In</button>
   <Button variant="brand" on:click={onSignUp} class="whitespace-nowrap header-link">Sign Up</Button>
 {/if}
 

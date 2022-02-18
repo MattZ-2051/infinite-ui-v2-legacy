@@ -240,9 +240,9 @@ export function onSignUp() {
   }
 }
 
-export function onSignIn() {
+export function onSignIn(returnUrl = window.location.pathname) {
   if (AUTH_PROVIDER_IS_AUTH0) {
-    return login();
+    return login(returnUrl);
   } else {
     document.location.href = `/auth/signin?returnUrl=${window.location.href}`;
   }
