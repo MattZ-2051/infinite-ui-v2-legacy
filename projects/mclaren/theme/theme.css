@@ -154,6 +154,12 @@
   --pagination-focus-ring: none;
   --text-pagination-gradient-from: #ff8d1c;
   --text-pagination-gradient-to: #ff5e17;
+
+  /* Marketplace*/
+  --market-active-filter-color: var(--gray-200);
+  --market-border-hover-color: linear-gradient(#ff8d1c 0%, #ff3414 100%);
+  --market-border-hover-width: -2px; /*in negative*/
+  --market-filter-option-hover-bg-color: var(--bg-color);
 }
 
 .theme-wallet-balance {

@@ -230,12 +230,14 @@
     </div>
   </div>
 
-  <AccordionGroup class="c-filter-accordion order-3" multiple bind:active>
+  <AccordionGroup class="c-filter-accordion order-3 " multiple bind:active>
     {#if creators.length}
       <Accordion
         id="talent"
         titleClass="py-4 px-6"
-        class="c-filter-accordion border border-gray-200 -mb-px {active.includes('talent') ? 'expanded' : ''}"
+        class="c-filter-accordion accordion-option border border-gray-200 -mb-px {active.includes('talent')
+          ? 'expanded'
+          : ''}"
       >
         <div slot="title" class="text-lg leading-8 text-left">
           Released by
@@ -261,7 +263,9 @@
       <Accordion
         id="price"
         titleClass="py-4 px-6"
-        class="c-filter-accordion border border-gray-200 -mb-px {active.includes('price') ? 'expanded' : ''}"
+        class="c-filter-accordion accordion-option border border-gray-200 -mb-px {active.includes('price')
+          ? 'expanded'
+          : ''}"
       >
         <div slot="title" class="text-lg leading-8 text-left">
           Price Range
@@ -286,7 +290,9 @@
     <Accordion
       id="typeEdition"
       titleClass="py-4 px-6"
-      class="c-filter-accordion border border-gray-200 -mb-px {active.includes('typeEdition') ? 'expanded' : ''}"
+      class="c-filter-accordion accordion-option border border-gray-200 -mb-px {active.includes('typeEdition')
+        ? 'expanded'
+        : ''}"
     >
       <div slot="title" class="text-lg leading-8 text-left">
         Edition Type
@@ -310,7 +316,7 @@
     <Accordion
       id="saleType"
       titleClass="py-4 px-6"
-      class="c-filter-accordion border border-gray-200 {active.includes('saleType') ? 'expanded' : ''}"
+      class="c-filter-accordion accordion-option border border-gray-200 {active.includes('saleType') ? 'expanded' : ''}"
     >
       <div slot="title" class="text-lg leading-8 text-left">
         Sale Type {#if saleTypeSelected.length}
@@ -333,7 +339,9 @@
       <Accordion
         id="category"
         titleClass="py-4 px-6"
-        class="c-filter-accordion border border-gray-200 {active.includes('category') ? 'expanded' : ''}"
+        class="c-filter-accordion accordion-option border border-gray-200 {active.includes('category')
+          ? 'expanded'
+          : ''}"
       >
         <div slot="title" class="text-lg leading-8 text-left">
           Category {#if availableCategorySelected.length}
@@ -357,7 +365,9 @@
       <Accordion
         id="currency"
         titleClass="py-4 px-6"
-        class="c-filter-accordion border border-gray-200 {active.includes('currency') ? 'expanded' : ''}"
+        class="c-filter-accordion accordion-option border border-gray-200 {active.includes('currency')
+          ? 'expanded'
+          : ''}"
       >
         <div slot="title" class="text-lg leading-8 text-left">
           NFT Type {#if availableNftTypeSelected.length}
@@ -393,6 +403,40 @@
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
   }
+  :global(.accordion-option) {
+    @apply relative z-10;
+  }
+  :global(.accordion-option:hover::after) {
+    position: absolute;
+    top: var(--market-border-hover-width);
+    bottom: var(--market-border-hover-width);
+    left: var(--market-border-hover-width);
+    right: var(--market-border-hover-width);
+    content: '';
+    z-index: -2;
+    background: var(--market-border-hover-color, none transparent);
+  }
+
+  :global(.accordion-option:hover::before) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: '';
+    z-index: -1;
+    background: var(--market-filter-option-hover-bg-color, none var(--bg-color));
+  }
+
+  :global(.accordion-option:first-child:hover::after, .accordion-option:first-child:hover::before) {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  :global(.accordion-option:last-child:hover::after, .accordion-option:last-child:hover::before) {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+
   .active {
     @apply cursor-default;
   }
@@ -411,6 +455,7 @@
   :global(.expanded) {
     --accordion-title-color: var(--primary-color);
     --accordion-title-icon-color: var(--primary-color);
-    @apply border-primary relative z-10;
+    border-color: var(--market-active-filter-color, --primary-color);
+    @apply relative z-10;
   }
 </style>
