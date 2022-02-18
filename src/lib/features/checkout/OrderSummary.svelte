@@ -15,7 +15,7 @@
   const marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
 </script>
 
-<article class="py-6 mx-auto max-w-sm">
+<article class="py-6 mx-auto max-w-xl xl:max-w-sm">
   <header><h3 class="text-2xl">Order Summary</h3></header>
   <figure class="m-10">
     <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
