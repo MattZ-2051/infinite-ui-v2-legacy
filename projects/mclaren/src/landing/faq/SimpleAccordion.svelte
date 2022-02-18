@@ -1,6 +1,6 @@
 <script>
   import Icon from '$ui/icon/Icon.svelte';
-  import arrowDown from '$project/assets/lib/arrow-down';
+  import arrowDown from '$project/assets/lib/chevron-down';
   import arrowUp from '$project/assets/lib/arrow-up';
 
   export let title;

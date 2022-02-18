@@ -72,7 +72,7 @@
   </div>
   <div class="gap-2 {showFilters && !$media.lg ? 'hidden' : 'flex'}">
     <div class="flex flex-wrap items-center justify-end lg:justify-between w-full">
-      <div class="py-3 flex-1 marketplace-custom-search-input">
+      <div class="flex-1 marketplace-custom-search-input">
         <Search on:input={handleInput} value={$page.url.searchParams.get('search') || ''} />
       </div>
       <div class="py-3 ml-12 sort-container">
@@ -118,5 +118,6 @@
     border-radius: var(--border-radius-input-search, 0px);
     padding: var(--input-search-padding, 0px);
     border-color: var(--border-input-search-color, none);
+    margin: var(--container-search-margin, 0.75rem 0 0.75rem 0);
   }
 </style>

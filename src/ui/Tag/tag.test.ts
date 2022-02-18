@@ -35,11 +35,11 @@ describe('Tag', () => {
     const { container, component } = render(Tag);
 
     const tag = container.firstElementChild.firstElementChild.firstElementChild;
-    expect(tag).toHaveClass('pl-2 pr-8 py-1');
+    expect(tag).toHaveClass('pr-8');
     expect(tag).not.toHaveClass('pr-2');
 
     await component.$set({ removable: false });
-    expect(tag).toHaveClass('pl-2 pr-2 py-1');
+    expect(tag).toHaveClass('pr-2');
     expect(tag).not.toHaveClass('pr-8');
   });
 

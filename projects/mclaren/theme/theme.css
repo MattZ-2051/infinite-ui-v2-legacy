@@ -105,7 +105,7 @@
   /* File Preview - Gallery */
   --gallery-display-file-preview: none;
 
-  /*Edit Profile*/
+  /* Edit Profile */
   --edit-picture-button-width: 2rem;
   --edit-picture-button-height: 2rem;
   --edit-picture-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
@@ -133,7 +133,7 @@
   --tab-title-font: var(--second-font);
   --modal-title-font: var(--second-font);
 
-  /*Base Element*/
+  /* Base Element */
   --base-element-border-bottom-width: 0px;
 
   /* File Thumbnail */
@@ -142,7 +142,6 @@
   --file-thumbnail-border-color: var(--gray-300);
   --file-thumbnail-color: #000000;
   --file-thumbnail-bg-color: transparent;
-
   --file-preview-border-radius: 20px;
 
   /* Pagination */
@@ -156,11 +155,30 @@
   --text-pagination-gradient-from: #ff8d1c;
   --text-pagination-gradient-to: #ff5e17;
 
+  /* Tag */
+  --tag-background: var(--gray-50);
+  --tag-border-radius: 20px;
+  --tag-padding: 9px 16px;
+  --tag-color: var(--default-color);
+  --tag-button-close-position-right: 1rem;
+  --tag-button-close-position-top: 55%;
+
+  /* Filters */
+  --filter-icon-size: 0.9rem;
+
+  /* Checkbox */
+  --checkbox-border-radius: 4px;
+  --checkbox-span-bg-color: linear-gradient(#ff0156, #feb889);
+  --checkbox-span-border: none;
+
   /* Marketplace*/
   --market-active-filter-color: var(--gray-200);
   --market-border-hover-color: linear-gradient(#ff8d1c 0%, #ff3414 100%);
   --market-border-hover-width: -2px; /*in negative*/
   --market-filter-option-hover-bg-color: var(--bg-color);
+  --container-search-margin: 1.5rem 0 1.5rem 0;
+
+  --filter-button-font-size: 10px;
 }
 
 .theme-wallet-balance {
@@ -201,7 +219,7 @@
   --button-brand-color-hover: #ffffff;
 
   /*Loading */
-  --lds-color: linear-gradient(90deg, #ff8d1c 0%, #ff5e17 47.92%, #ff3414 100%);
+  --lds-color: linear-gradient(90deg, #ff8d1c 0%, #b1afae 47.92%, #ff3414 100%);
 
   /* Titles */
   --title-font-family: McLaren;

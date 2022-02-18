@@ -36,7 +36,7 @@
 
 <label class="flex gap-2 items-center cursor-pointer select-none {_class || ''}" {...$$restProps}>
   <input class="sr-only" type="checkbox" bind:checked {value} use:forwardEvents />
-  <span class="flex-none relative checkmark border" />
+  <span class="flex-none relative checkmark" style="border-radius: var(--checkbox-border-radius, 0px);" />
   <div class="flex-grow"><slot {checked} /></div>
 </label>
 
@@ -44,8 +44,27 @@
   .checkmark {
     height: 16px;
     width: 16px;
-    border-color: theme('colors.gray.200');
+    border: 1px solid theme('colors.gray.200');
   }
+  input:checked + span {
+    z-index: 1;
+    background: var(--checkbox-span-bg-color, var(--bg-color));
+    border-radius: var(--checkbox-border-radius, 0px);
+    border: var(--checkbox-span-border, 1px solid theme('colors.gray.200'));
+  }
+
+  span::before {
+    position: absolute;
+    z-index: 0;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    background: var(--bg-color);
+    content: '';
+    border-radius: var(--checkbox-border-radius, 0px);
+  }
+
   input:checked ~ .checkmark:after {
     display: block;
   }

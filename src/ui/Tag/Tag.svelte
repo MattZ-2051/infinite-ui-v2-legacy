@@ -1,8 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { mdiClose } from '@mdi/js';
   import { fade } from 'svelte/transition';
   import Icon from '$ui/icon/Icon.svelte';
+  import mdiClose from '$lib/components/icons/close';
 
   export let removable = true;
   export let href: string = undefined;
@@ -11,14 +11,14 @@
   let _class = '';
   export { _class as class };
 
-  $: classes = `${_class} ${removable ? 'pr-8' : 'pr-2'} pl-2 py-1 focus:outline-none focus:ring-2 ${
+  $: classes = `${_class} ${removable ? 'pr-8' : 'pr-2'} focus:outline-none focus:ring-2 ${
     hasError ? 'border border-red-600 text-red-600' : ''
   } ${truncate ? 'truncate' : ''}`;
 
   const dispatch = createEventDispatcher();
 </script>
 
-<div transition:fade={{ duration: 100 }} class="tag bg-primary relative inline-flex items-center max-w-full">
+<div transition:fade={{ duration: 100 }} class="tag relative inline-flex items-center max-w-full">
   {#if href}
     <a {href} class={classes} {...$$restProps}><slot /></a>
   {:else}
@@ -29,9 +29,10 @@
       title="Remove"
       type="button"
       on:click={() => dispatch('remove')}
-      class="absolute transform -translate-y-1/2 top-1/2 right-1.5"
+      class="absolute transform -translate-y-1/2"
+      style="right: var(--tag-button-close-position-right, 0.25rem); top: var(--tag-button-close-position-top, 50%)"
     >
-      <Icon path={mdiClose} size="0.75" />
+      <Icon path={mdiClose} size="var(--filter-icon-size, 1.13rem)" />
     </button>
   {/if}
 </div>
@@ -39,5 +40,8 @@
 <style style="postcss">
   .tag {
     color: var(--tag-color, theme('colors.inverse'));
+    background-color: var(--tag-background, var(--primary-color));
+    border-radius: var(--tag-border-radius, 0px);
+    padding: var(--tag-padding, 0.25rem 0 0.25rem 0.5rem);
   }
 </style>

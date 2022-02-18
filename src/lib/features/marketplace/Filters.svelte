@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { mdiWindowClose } from '@mdi/js';
   import type { Profile, Edition, Series } from '$lib/sku-item/types';
   import type { FilterType } from './types';
   import { createEventDispatcher } from 'svelte';
@@ -15,6 +14,7 @@
   import { queryParameter } from '$util/queryParameter';
   import Tag from '$ui/Tag/Tag.svelte';
   import routes from '$project/routes';
+  import mdiWindowClose from '$lib/components/icons/window-close';
   import { ENABLE_ETH_CURRENCY } from '$project/variables';
   import { setFilters, modeFilters } from './marketplace.service';
 
@@ -181,7 +181,7 @@
       {#if filters.length > 0}
         <div on:click={removeAllFilters} class="gap-1 text-base cursor-pointer flex">
           Clear All
-          <Icon path={mdiWindowClose} size="0.75" class="self-center cursor-pointer" />
+          <Icon path={mdiWindowClose} size="var(--filter-icon-size, 1.1rem)" class="self-center cursor-pointer ml-2" />
         </div>
       {/if}
     </div>
@@ -389,7 +389,12 @@
     {/if}
   </AccordionGroup>
 
-  <Button variant="brand" on:click={close} class="self-center w-full py-3 text-2xl text-center md:hidden order-4">
+  <Button
+    variant="brand"
+    on:click={close}
+    class="self-center w-full py-3 text-center md:hidden order-4"
+    style="font-size:var(--filter-button-font-size, 24px)"
+  >
     {total > 0 ? `View Matching Results (${total})` : 'No Matching Results'}
   </Button>
 </div>
