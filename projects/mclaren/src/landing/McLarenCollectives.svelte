@@ -3,7 +3,7 @@
   import collectiveSvg from './images/collective-img.svg';
 </script>
 
-<div class="h-full w-full bg-white py-24 flex justify-center align-center">
+<div class="h-full w-full bg-white pb-40 sm:py-24 flex justify-center align-center">
   <div class="flex flex-col lg:grid grid-cols-2 h-full text-black items-center max-w-7xl container">
     <div class="text-left lg:text-left sm:text-left md:text-center">
       <p class="text-base sm:text-lg font-normal pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
@@ -28,7 +28,7 @@
         </p>
         <Button
           variant="brand"
-          class="hidden md:block w-full h-12 mb-14 lg:mb-0 lg:h-16 lg:w-80 font-bold text-xs tracking-widest uppercase"
+          class="w-full h-12 mb-14 lg:mb-0 lg:h-16 lg:w-80 font-bold text-xs tracking-widest uppercase second-font"
           --button-brand-bg="linear-gradient(161.99deg, #FFFFFF -1.04%, #F8F8F8 111.86%)">see our journey</Button
         >
       </div>

@@ -41,4 +41,10 @@
   .content-height {
     height: 60rem;
   }
+
+  @screen sm {
+    .content-height {
+      height: 50rem;
+    }
+  }
 </style>

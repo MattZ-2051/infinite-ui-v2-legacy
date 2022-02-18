@@ -6,7 +6,7 @@
   import mclarenSuperCarCardMobile from './images/mclaren-super-cars-collection-img-mobile.svg';
 </script>
 
-<div class="h-full w-full flex flex-col justify-center items-center relative container">
+<div class="h-full w-full flex flex-col justify-center items-center relative container mb-32 sm:mb-0">
   <img src={curvedBorder} alt="" class="absolute top-0 w-full" />
   <div class="text-black pb-8 pt-8">
     <p
