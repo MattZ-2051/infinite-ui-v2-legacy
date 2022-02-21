@@ -27,6 +27,7 @@ interface CommonImportMetaEnvironment {
   VITE_OPENSEA_URL: string;
   VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD: number;
   VITE_MM_WALLET_ENABLED: string;
+  VITE_HIDE_STAY_IN_LOOP: string;
 }
 
 declare module '*format=avif;webp;png&metadata=src;format;width;height';

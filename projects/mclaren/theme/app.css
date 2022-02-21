@@ -31,3 +31,7 @@ button.sticky-cta:hover {
 .second-font {
   font-family: var(--second-font);
 }
+
+.button {
+  font-size: 0.75rem;
+}

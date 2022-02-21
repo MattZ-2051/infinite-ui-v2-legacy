@@ -19,3 +19,4 @@ node_modules
 # Auto-generated
 /tsconfig.json
 .vscode/launch.json
+.vscode/settings.json

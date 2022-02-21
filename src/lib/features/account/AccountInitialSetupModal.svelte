@@ -9,6 +9,7 @@
   import { patchUser, onSignOut } from '$lib/user';
   import { FormElement, Textarea } from '$lib/components/form';
   import Button from '$lib/components/Button.svelte';
+  import { variables } from '$lib/variables';
   import { accountDetailsValidation, handleUserApiError, phoneNumberConsentText } from './account.service';
 
   export let isOpen: boolean;
@@ -66,12 +67,14 @@
     $data.privacyPolicyConsentGiven &&
     ($data.phoneNumber === '' ? true : $data.phoneNumberConsentGiven);
 
+  const hidePhoneConsent = variables.hidePhoneConsent || false;
+
   setContext('errors', errors);
 </script>
 
 {#if isOpen}
   <Modal persistent={true} closeButton={false}>
-    <div slot="title" class="text-3xl"><span>Profile Details</span></div>
+    <div slot="title" class="modal-title"><span>Profile Details</span></div>
     <div class="flex flex-col max-w-sm border-t border-gray-200 justify-evenly gap-5 px-10 py-6 relative">
       {#if $isSubmitting}
         <div class="form-overlay" />
@@ -86,16 +89,18 @@
         <FormElement label="Username *" name="username" />
         <FormElement label="Phone Number" name="phoneNumber" />
         <div class="flex gap-4 justify-end" />
-        <div class="flex gap-3 mb-4">
-          <input
-            id="phoneNumberConsentGiven"
-            type="checkbox"
-            name="phoneNumberConsentGiven"
-            class="w-5 h-5 text-black bg-white"
-            disabled={$data.phoneNumber === ''}
-          />
-          <label for="phoneNumberConsentGiven" class="text-gray-900 text-sm">{phoneNumberConsentText}</label>
-        </div>
+        {#if !hidePhoneConsent}
+          <div class="flex gap-3 mb-4">
+            <input
+              id="phoneNumberConsentGiven"
+              type="checkbox"
+              name="phoneNumberConsentGiven"
+              class="w-5 h-5 text-black bg-white"
+              disabled={$data.phoneNumber === ''}
+            />
+            <label for="phoneNumberConsentGiven" class="text-gray-900 text-sm">{phoneNumberConsentText}</label>
+          </div>
+        {/if}
         <div class="flex gap-3 mb-4">
           <input
             id="termsAndConditionsConsentGiven"
@@ -136,3 +141,10 @@
     </div>
   </Modal>
 {/if}
+
+<style lang="postcss">
+  .modal-title {
+    font-size: var(--account-initial-modal-title-font-size, 1.875rem);
+    font-family: var(--account-initial-modal-title-font);
+  }
+</style>
