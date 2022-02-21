@@ -64,7 +64,7 @@
 
 {#if pages > 1}
   <nav {...$$restProps}>
-    <ul class="flex items-center gap-3">
+    <ul class="flex items-center md:gap-3">
       {#if boundaryLinks}
         <PaginationItem on:click={() => go(1)} disabled={isFirstPage}>
           <slot name="first"><Icon path={chevronDoubleLeft} /><span class="sr-only">First</span></slot>
