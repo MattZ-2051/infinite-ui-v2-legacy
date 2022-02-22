@@ -125,6 +125,7 @@
   --menu-item-color-selected: #ffffff;
   --menu-item-border: none;
   --menu-list-border-radius: 0.625rem;
+  --menu-list-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.15);
 
   /* Fonts */
   --market-no-result-title-font: var(--second-font);
