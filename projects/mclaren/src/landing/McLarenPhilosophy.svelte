@@ -12,7 +12,7 @@
       <p class="tracking-widest sm:text-5xl text-3xl font-light pb-8 second-font leading-10 sm:leading-normal">
         McLAREN PHILOSOPHY
       </p>
-      <div class="text-base sm:text-xl font-light max-w-lg leading-9">
+      <div class="text-base sm:text-lg font-light max-w-lg leading-9">
         <p class="pb-6">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit urna nulla, in pretium orci
           sollicitudin sed. Nunc sed purus et nunc sollicitudin.

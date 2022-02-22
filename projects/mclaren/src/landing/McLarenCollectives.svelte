@@ -6,7 +6,7 @@
 <div class="h-full w-full bg-white py-24 flex justify-center align-center">
   <div class="flex flex-col lg:grid grid-cols-2 h-full text-black items-center max-w-7xl container">
     <div class="text-left lg:text-left sm:text-left md:text-center">
-      <p class="text-base sm:text-base font-normal pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
+      <p class="text-base sm:text-lg font-normal pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
         discover the new world of
       </p>
       <p class="text-3xl sm:text-5xl font-light tracking-widest pb-10 second-font">McLAREN COLLECTIVES</p>

@@ -8,7 +8,7 @@
   <div class="h-2/3 bg-black w-full absolute top-0" />
   <div class="h-full w-full text-white flex justify-center items-center container">
     <div class="z-10 text-center">
-      <p class="text-base sm:text-xl font-light pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
+      <p class="text-base sm:text-lg font-light pb-2 uppercase second-font" style="letter-spacing: 0.2em;">
         featured collection
       </p>
       <p class="text-3xl sm:text-5xl font-light pb-8 tracking-widest second-font">

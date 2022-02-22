@@ -34,7 +34,7 @@
         <div class="text-white">
           <p class="tracking-wider text-xl font-normal pb-2 second-font hidden sm:block">McLAREN CLASSICS 1ST</p>
           <p class="tracking-wider text-3xl font-normal pb-2 second-font block sm:hidden">McLaren F1 Classics</p>
-          <p class="text-5xl font-light pb-5 uppercase second-font hidden sm:block">collection</p>
+          <p class="text-6xl font-light pb-5 uppercase second-font hidden sm:block">collection</p>
           <p class="text-base font-light max-w-xl">
             Nam a tellus mollis nisi laoreet rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. In at
             purus ut orci aliquam egestas at id arcu. Nam a tellus mollis nisi laoreet rutrum.
@@ -56,7 +56,7 @@
       <div class="px-12 sm:pt-24 flex items-end sm:items-center text-container">
         <div class="text-white">
           <p class="tracking-wider  text-3xl sm:text-xl font-normal pb-2 second-font">McLAREN CLASSICS 1ST</p>
-          <p class="text-5xl font-light pb-5 uppercase second-font hidden sm:block">collection</p>
+          <p class="text-6xl font-light pb-5 uppercase second-font hidden sm:block">collection</p>
           <p class="text-base font-light max-w-xl">
             Nam a tellus mollis nisi laoreet rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. In at
             purus ut orci aliquam egestas at id arcu. Nam a tellus mollis nisi laoreet rutrum.
