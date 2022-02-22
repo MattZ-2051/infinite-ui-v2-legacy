@@ -8,6 +8,7 @@
   import OrderSummary from './OrderSummary.svelte';
   import ExitCheckout from './ExitCheckout.svelte';
   import PaymentButton from './PaymentButton.svelte';
+  import ProcessingOrder from './ProcessingOrder.svelte';
 
   export let sku: Sku = undefined;
   export let product: Product = undefined;
@@ -15,7 +16,9 @@
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _sku = sku ? sku : product.sku;
   const [listing] = getActiveListings(sku);
+
   let exitCheckout = false;
+  let processingOrder = false;
 
   const paymentMethods = [
     { id: 'cc', title: 'Credit Card', iconSource: creditCardIcon },
@@ -26,18 +29,27 @@
     // TODO: depending on the payment method selected, display correct form
     return id;
   };
+
+  const orderSummaryContainerClass =
+    exitCheckout || processingOrder ? 'hidden xl:col-start-1 xl:col-end-3 xl:grid' : 'xl:col-start-1 xl:col-end-3';
+
+  const orderArticleContainerClass = `${
+    exitCheckout || processingOrder ? 'flex items-center' : ''
+  } xl:col-start-4 xl:col-span-4 divide-x-4`;
 </script>
 
 <div class="container">
-  {#if exitCheckout}
-    <ExitCheckout onReturn={() => (exitCheckout = false)} onExit={() => goto(routes.sku(_sku._id))} />
-  {:else}
-    <div class="grid grid-flow-row xl:divide-x xl:divide-gray-200">
-      <div class="xl:col-start-1 xl:col-end-3">
-        <OrderSummary {sku} {product} {listing} />
-      </div>
-      <div class="xl:col-start-4 xl:col-span-4 divide-x-4">
-        <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
+  <div class="grid grid-flow-row xl:divide-x xl:divide-gray-200">
+    <div class={orderSummaryContainerClass}>
+      <OrderSummary {sku} {product} {listing} />
+    </div>
+    <div class={orderArticleContainerClass}>
+      <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
+        {#if exitCheckout}
+          <ExitCheckout onReturn={() => (exitCheckout = false)} onExit={() => goto(routes.sku(_sku._id))} />
+        {:else if processingOrder}
+          <ProcessingOrder etherscanLink="https://etherscan.io/" />
+        {:else}
           <h1 class="text-2xl mb-16 2xl:mb-52 2xl:text-3xl">Select your Payment Method</h1>
           <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center">
             {#each paymentMethods as paymentMethod, i}
@@ -50,8 +62,8 @@
               />
             {/each}
           </div>
-        </article>
-      </div>
+        {/if}
+      </article>
     </div>
-  {/if}
+  </div>
 </div>
