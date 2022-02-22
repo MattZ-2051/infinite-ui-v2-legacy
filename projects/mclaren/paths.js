@@ -22,4 +22,5 @@ export const paths = {
   '$ui/accordion/assets/chevron-down': 'projects/mclaren/src/assets/lib/chevron-down',
   '$lib/components/icons/close': 'projects/mclaren/src/assets/lib/close-icon',
   '$lib/components/icons/window-close': 'projects/mclaren/src/assets/lib/close-icon',
+  '$lib/features/marketplace/NoResults.svelte': 'projects/mclaren/src/marketplace/NoResults.svelte',
 };

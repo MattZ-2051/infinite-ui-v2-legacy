@@ -2,6 +2,7 @@
   import type { CollectorProduct, Sku, SortOption } from '$lib/sku-item/types';
   import { Pagination } from '$ui/pagination';
   import Sort from '$lib/components/Sort.svelte';
+  import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Search from '$lib/components/Search.svelte';
   import { gotoQueryParameters } from '$util/queryParameter';
   import CollectorItem from './CollectorItem.svelte';
@@ -56,9 +57,11 @@
 
 <div class="flex flex-col md:flex-row justify-between w-full items-center gap-8 px-4 md:px-8 pb-10">
   <div class="flex w-full">
-    <div class="flex-1 collector-custom-search-input">
-      <Search placeholder="Search an owner" value={search} on:input={handleInput} />
-    </div>
+    <ThemeContext id="search-bar">
+      <div class="flex-1 collector-custom-search-input">
+        <Search placeholder="Search an owner" value={search} on:input={handleInput} />
+      </div>
+    </ThemeContext>
   </div>
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">

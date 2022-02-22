@@ -136,9 +136,6 @@
   --modal-title-font: var(--second-font);
   --account-initial-modal-title-font: var(--second-font);
 
-  /* Base Element */
-  --base-element-border-bottom-width: 1px;
-
   /* File Thumbnail */
   --file-thumbnail-border-radius: 999px;
   --file-thumbnail-border: 1px solid;
@@ -179,9 +176,18 @@
   --market-border-hover-color: linear-gradient(#ff8d1c 0%, #ff3414 100%);
   --market-border-hover-width: -2px; /*in negative*/
   --market-filter-option-hover-bg-color: var(--bg-color);
-  --container-search-margin: 1.5rem 0 1.5rem 0;
+  --marketplace-search-input-bar-top: none;
 
   --filter-button-font-size: 10px;
+}
+
+.theme-search-bar {
+  --border-input-search: solid 1px;
+  --border-input-search-color: var(--gray-300);
+  --border-radius-input-search: 2rem;
+  --input-search-padding: 0.75rem;
+  --base-element-border-bottom-width: 0px;
+  --container-search-margin: 1.5rem 0 2rem 0;
 }
 
 .theme-wallet-balance {

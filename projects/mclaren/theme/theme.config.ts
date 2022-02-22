@@ -4,6 +4,7 @@ const Theme = {
   ButtonsVariant2: 'theme-buttons-variant-2',
   WalletButtons: 'theme-brand-wallet-buttons',
   WalletBalance: 'theme-wallet-balance',
+  SearchRoundedBar: 'theme-search-bar',
   // BrandFooter: 'theme-brand-footer',
 };
 
@@ -17,6 +18,7 @@ export const themeConfig = {
   // '$marketplace.*.footer': Theme.BrandFooter,
   // '$marketplace.root.footer': Theme.Light,
   '*.wallet-list': Theme.Light,
+  '*.search-bar': Theme.SearchRoundedBar,
   // '$u.$wallet.root': Theme.Dark,
   '*.error': Theme.Dark,
   // '$u.$wallet.$deposit.root': Theme.Light,
