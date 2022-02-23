@@ -5,9 +5,7 @@
   import { mdiContentCopy } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatDate, capitalizeFirstLetter } from '$util/format';
-  import { variables } from '$lib/variables';
-
-  const VITE_ETH_EXPLORER_BASE_URL = variables?.ethNetwork?.explorerBaseUrl;
+  import { getExplorerBaseUrl } from '$lib/payment/crypto';
 
   export let transaction: Transaction;
 
@@ -30,7 +28,7 @@
     if (trx && node === 'trxId') {
       copy(trx._id);
     } else if (trx.transactionData && node === 'trxHash') {
-      copy(generateEthScanURL());
+      copy(generateTxHashURL());
     } else {
       copy(str);
     }
@@ -49,8 +47,9 @@
     return type === 'withdrawal' && transactionData?.withdraw?.usdcAddress;
   };
 
-  const generateEthScanURL = () => {
-    return `${VITE_ETH_EXPLORER_BASE_URL}/${transaction?.transactionData.deposit?.detectedTransactionHash}`;
+  const generateTxHashURL = () => {
+    const url = getExplorerBaseUrl(transaction?.transactionData.deposit?.circleType);
+    return `${url}${transaction?.transactionData.deposit?.detectedTransactionHash}`;
   };
 </script>
 
@@ -83,7 +82,7 @@
         </div>
         <div class="flex justify-between align-baseline">
           <div class="truncate xs:max-w-xs">
-            <a href={generateEthScanURL()} target="_blank" rel="noopener noreferrer">
+            <a href={generateTxHashURL()} target="_blank" rel="noopener noreferrer">
               {transaction?.transactionData?.deposit?.detectedTransactionHash}
             </a>
           </div>
