@@ -259,6 +259,7 @@ export async function checkWalletInstalled() {
 
     // Check if user is already connected
     const addresses = await provider.listAccounts();
+
     if (addresses.length > 0) {
       signer = provider.getSigner();
       walletConnected.set(true);

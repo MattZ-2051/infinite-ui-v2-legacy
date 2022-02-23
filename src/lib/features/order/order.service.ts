@@ -16,7 +16,7 @@ import {
 import { openModal } from '$ui/modals';
 import routes from '$project/routes';
 import OrderModal from '$lib/features/order/OrderModal.svelte';
-import OrderModalETH from '$lib/features/order/OrderModalETH.svelte';
+import { goto } from '$app/navigation';
 import { loadWalletFx } from '../wallet/wallet.store';
 import { validETHdirectPurchase } from './order.api';
 
@@ -66,12 +66,7 @@ export async function onOrderIntent({
     isLoading.set(false);
 
     if (validETHPurchase) {
-      openModal(OrderModalETH, {
-        sku,
-        product,
-        listing,
-        validETHPurchase,
-      });
+      goto(`/checkout/sku/${sku._id}`);
       return;
     }
   } catch {

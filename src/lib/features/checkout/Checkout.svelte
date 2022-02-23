@@ -1,14 +1,20 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import type { Product, Sku } from '$lib/sku-item/types';
+  import type { ValidETHListingData } from '../order/types';
   import { getActiveListings } from '$lib/features/sku/sku.service';
+  import { walletConnected } from '$lib/user';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
+  import { toast } from '$ui/toast';
   import OrderSummary from './OrderSummary.svelte';
   import ExitCheckout from './ExitCheckout.svelte';
   import PaymentButton from './PaymentButton.svelte';
   import ProcessingOrder from './ProcessingOrder.svelte';
+  import { connectWallet } from './checkout.service';
+  import { validETHdirectPurchase } from '../order/order.api';
 
   export let sku: Sku = undefined;
   export let product: Product = undefined;
@@ -16,17 +22,35 @@
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _sku = sku ? sku : product.sku;
   const [listing] = getActiveListings(sku);
-
-  let exitCheckout = false;
-  let processingOrder = false;
-
   const paymentMethods = [
     { id: 'cc', title: 'Credit Card', iconSource: creditCardIcon },
     { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon },
   ];
 
-  const handlePayment = (id: string) => {
+  let exitCheckout = false;
+  let processingOrder = false;
+  let validETHPurchase: ValidETHListingData;
+
+  onMount(async () => {
+    try {
+      validETHPurchase = await validETHdirectPurchase(listing._id);
+    } catch {
+      validETHPurchase = undefined;
+      if (sku.currency === 'ETH') {
+        toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
+        return;
+      }
+    }
+  });
+
+  const handlePayment = async (id: string) => {
     // TODO: depending on the payment method selected, display correct form
+    if (id === 'mm' && !$walletConnected) {
+      await connectWallet();
+    } else if (id === 'mm' && $walletConnected && validETHPurchase) {
+      // TODO (matt): will change state here to show complete purchase component for metamask
+      return id;
+    }
     return id;
   };
 
