@@ -1,14 +1,17 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { mdiClose } from '@mdi/js';
   import type { Product, Sku } from '$lib/sku-item/types';
   import type { ValidETHListingData } from '../order/types';
   import { getActiveListings } from '$lib/features/sku/sku.service';
   import { walletConnected } from '$lib/user';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
+  import { media } from '$lib/media-query.store';
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import { toast } from '$ui/toast';
+  import Icon from '$ui/icon/Icon.svelte';
   import OrderSummary from './OrderSummary.svelte';
   import ExitCheckout from './ExitCheckout.svelte';
   import PaymentButton from './PaymentButton.svelte';
@@ -54,6 +57,10 @@
     return id;
   };
 
+  const handleExit = () => {
+    exitCheckout = true;
+  };
+
   const orderSummaryContainerClass =
     exitCheckout || processingOrder ? 'hidden xl:col-start-1 xl:col-end-3 xl:grid' : 'xl:col-start-1 xl:col-end-3';
 
@@ -65,7 +72,9 @@
 <div class="container">
   <div class="grid grid-flow-row xl:divide-x xl:divide-gray-200">
     <div class={orderSummaryContainerClass}>
-      <OrderSummary {sku} {product} {listing} />
+      {#if $media.xl || !exitCheckout}
+        <OrderSummary {sku} {product} {listing} closeIcon={handleExit} />
+      {/if}
     </div>
     <div class={orderArticleContainerClass}>
       <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
@@ -74,7 +83,12 @@
         {:else if processingOrder}
           <ProcessingOrder etherscanLink="https://etherscan.io/" />
         {:else}
-          <h1 class="text-2xl mb-16 2xl:mb-52 2xl:text-3xl">Select your Payment Method</h1>
+          <div class="flex justify-between">
+            <h1 class="text-2xl mb-16 2xl:mb-52 2xl:text-3xl">Select your Payment Method</h1>
+            {#if $media.xl}
+              <span on:click={handleExit} class=""><Icon path={mdiClose} size={1.5} /></span>
+            {/if}
+          </div>
           <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center">
             {#each paymentMethods as paymentMethod, i}
               <PaymentButton
