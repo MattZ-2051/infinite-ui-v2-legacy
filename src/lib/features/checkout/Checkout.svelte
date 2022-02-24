@@ -4,10 +4,11 @@
   import type { Product, Sku } from '$lib/sku-item/types';
   import type { ValidETHListingData } from '../order/types';
   import { getActiveListings } from '$lib/features/sku/sku.service';
-  import { walletConnected } from '$lib/user';
+  import { walletConnected, checkWalletInstalled, user, onSignIn, getWalletInfo } from '$lib/user';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
   import { media } from '$lib/media-query.store';
+  import { openModal } from '$ui/modals';
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import { toast } from '$ui/toast';
@@ -16,6 +17,7 @@
   import ExitCheckout from './ExitCheckout.svelte';
   import PaymentButton from './PaymentButton.svelte';
   import ProcessingOrder from './ProcessingOrder.svelte';
+  import EthAddressModal from './EthAddressModal.svelte';
   import { connectWallet } from './checkout.service';
   import { validETHdirectPurchase } from '../order/order.api';
 
@@ -33,18 +35,33 @@
   let exitCheckout = false;
   let processingOrder = false;
   let validETHPurchase: ValidETHListingData;
+  let ethAddress = undefined;
 
   onMount(async () => {
     try {
+      await checkWalletInstalled();
       validETHPurchase = await validETHdirectPurchase(listing._id);
-    } catch {
-      validETHPurchase = undefined;
-      if (sku.currency === 'ETH') {
-        toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
-        return;
+    } catch (error) {
+      if (error.message !== 'Metamask extension not found on browser') {
+        validETHPurchase = undefined;
+        if (sku.currency === 'ETH') {
+          toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
+          return;
+        }
       }
     }
   });
+
+  const handleEthModalCallback = async ({ address, option }) => {
+    if (option === 'metamask') {
+      const data = await getWalletInfo();
+      ethAddress = data.address;
+    } else if (option === 'manual') {
+      ethAddress = address;
+    }
+
+    // TODO: here display stripe form / form with mm data
+  };
 
   const handlePayment = async (id: string) => {
     // TODO: depending on the payment method selected, display correct form
@@ -53,8 +70,26 @@
     } else if (id === 'mm' && $walletConnected && validETHPurchase) {
       // TODO (matt): will change state here to show complete purchase component for metamask
       return id;
+    } else if (id === 'cc') {
+      if (!$user) {
+        showLoginToast();
+      } else {
+        openModal(EthAddressModal, { handleEthModalCallback });
+      }
     }
     return id;
+  };
+
+  export const showLoginToast = (content = 'sign in', data = 'signIn') => {
+    toast.danger(
+      `Please <a data-toast="${data}" class="cursor-pointer font-bold">${content}</a> to proceed with your purchase.`,
+      {
+        onClick: {
+          signIn: onSignIn,
+        },
+        toastId: 'ORDER_ERROR_LOGIN',
+      }
+    );
   };
 
   const handleExit = () => {

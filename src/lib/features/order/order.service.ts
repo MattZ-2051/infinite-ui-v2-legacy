@@ -3,7 +3,6 @@ import type { Listing, Sku, Product } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
 import type { ApiError } from '$lib/api';
 import { get as getStoreValue } from 'svelte/store';
-import { browser } from '$app/env';
 import { toast } from '$ui/toast';
 import {
   user,
@@ -23,16 +22,15 @@ import { validETHdirectPurchase } from './order.api';
 let validETHPurchase: ValidETHListingData;
 let canOpenModal = false;
 
-if (browser) {
-  checkWalletInstalled();
-}
-
 const connectWallet = async () => {
-  await handleWalletConnection();
-  if (metamaskConnected) {
-    toast.clear();
-    toast.success('You are now connected to Metamask', { toastId: 'MM_SUCCESS' });
-  }
+  try {
+    await checkWalletInstalled();
+    await handleWalletConnection();
+    if (metamaskConnected) {
+      toast.clear();
+      toast.success('You are now connected to Metamask', { toastId: 'MM_SUCCESS' });
+    }
+  } catch {}
 };
 
 export const showLoginToast = (content = 'sign in', data = 'signIn') => {

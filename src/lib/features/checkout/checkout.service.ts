@@ -1,10 +1,8 @@
-import { checkWalletInstalled, handleWalletConnection } from '$lib/user';
+import { handleWalletConnection } from '$lib/user';
 import { toast } from '$ui/toast';
-import { browser } from '$app/env';
 
-if (browser) {
-  checkWalletInstalled();
-}
+export let balance;
+export let ethAddress;
 
 export const connectWallet = async () => {
   const response = await handleWalletConnection();

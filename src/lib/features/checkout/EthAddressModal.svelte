@@ -1,0 +1,123 @@
+<script lang="ts">
+  import copy from 'clipboard-copy';
+  import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
+  import { isEthAddress } from '$util/validateEthAddress';
+  import { Modal, closeModal } from '$ui/modals';
+  import { toast } from '$ui/toast';
+  import Radiobutton from '$ui/radiobutton/Radiobutton.svelte';
+  import Button from '$lib/components/Button.svelte';
+  import { Input } from '$lib/components/form';
+  import Icon from '$ui/icon/Icon.svelte';
+  import { walletConnected } from '$lib/user';
+  import { connectWallet } from './checkout.service';
+
+  export let handleEthModalCallback: ({ address, option }) => void;
+
+  const title = 'NFT destination';
+  const options = [
+    { id: 1, value: 'manual', label: 'Enter ETH address' },
+    { id: 2, value: 'metamask', label: $walletConnected ? 'Continue with Metamask' : 'Connect Metamask' },
+  ];
+
+  let radioValue;
+  let address;
+  let buttonText = 'Continue';
+  let copiedLink = false;
+
+  $: validEthAddress = undefined;
+
+  function onEthAddressInput(event) {
+    const { value } = event.target as HTMLInputElement;
+    address = value;
+    validEthAddress = isEthAddress(value);
+  }
+
+  const onCopyLink = async () => {
+    await copy(address);
+    copiedLink = true;
+    setTimeout(() => {
+      copiedLink = false;
+    }, 5000);
+  };
+
+  const handleSubmit = async () => {
+    if (radioValue === 'metamask' && !$walletConnected) {
+      try {
+        await connectWallet();
+        handleEthModalCallback({ address, option: radioValue });
+        closeModal();
+      } catch (error) {
+        if (error?.code) {
+          toast.danger(error?.message, { toastId: error?.code });
+        } else {
+          toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
+          window.open('https://metamask.io/download/', '_blank').focus();
+        }
+      }
+    } else if (radioValue === 'metamask') {
+      handleEthModalCallback({ address, option: radioValue });
+      closeModal();
+    } else if (radioValue === 'manual') {
+      handleEthModalCallback({ address, option: radioValue });
+      closeModal();
+    }
+  };
+
+  $: if (radioValue === 'manual') {
+    buttonText = 'Continue with ETH address';
+  } else if (radioValue === 'metamask' && !$walletConnected) {
+    buttonText = 'Connect to Metamask';
+  } else if (radioValue === 'metamask' && $walletConnected) {
+    buttonText = 'Continue with Metamask';
+  }
+</script>
+
+<Modal class="max-w-lg">
+  <svelte:fragment slot="title"><span class="font-medium text-2xl">{title}</span></svelte:fragment>
+  <div class="px-10 flex flex-col gap-6 pb-10">
+    <span class="text-base" style="color: var(--gray-500)">
+      In order to receive this NFT you need a wallet with an ETH address. You can enter one manually or connect your
+    </span>
+    <span class="text-base" style="color: var(--gray-500)"
+      >If you don't have one at this moment, you can continue without a wallet:</span
+    >
+    <div>
+      <Radiobutton {options} bind:userSelected={radioValue} showInput={radioValue === 'manual'}>
+        {#if radioValue === 'manual'}
+          <div class="pb-5">
+            <Input
+              name="eth-address"
+              class={`mb-2 border border-solid border-gray-100 rounded-md ${
+                validEthAddress === false ? 'text-red-500' : ''
+              }`}
+              style="padding-bottom: 1rem; padding-top: 1rem"
+              variant="base"
+              error={validEthAddress === false ? 'This does not appear to be a valid ERC20 address' : ''}
+              value={address}
+              on:input={onEthAddressInput}
+            >
+              <svelte:fragment slot="after">
+                {#if validEthAddress === true}
+                  {#if copiedLink}
+                    <Icon path={mdiCheckCircle} color="green" />
+                  {:else}
+                    <Icon path={mdiContentCopy} class="group-hover:opacity-40 ml-2" on:click={onCopyLink} />
+                  {/if}
+                {/if}
+              </svelte:fragment>
+            </Input>
+          </div>
+        {/if}
+      </Radiobutton>
+    </div>
+
+    <Button
+      variant="brand"
+      class="mt-6"
+      disabled={!radioValue || (radioValue === 'manual' && !validEthAddress)}
+      on:click={() => handleSubmit()}
+    >
+      {buttonText}
+    </Button>
+  </div>
+</Modal>
