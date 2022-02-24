@@ -9,7 +9,6 @@
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
   import { RangeSlider } from '$ui/rangeslider';
-  import { Checkbox } from '$ui/checkbox';
   import { formatDate, formatCurrencyWithOptionalFractionDigits } from '$util/format';
   import { queryParameter } from '$util/queryParameter';
   import Tag from '$ui/Tag/Tag.svelte';
@@ -17,6 +16,7 @@
   import mdiWindowClose from '$lib/components/icons/window-close';
   import { ENABLE_ETH_CURRENCY } from '$project/variables';
   import { setFilters, modeFilters } from './marketplace.service';
+  import AccordionCheckBox from './accordion-types/AccordionCheckBox.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -86,14 +86,6 @@
   ];
 
   // let priceRange: [string, string];
-
-  function toggle(
-    type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType' | 'currency',
-    id: string,
-    event: Event
-  ) {
-    toggleCheckboxFilter(type, id, (event.target as HTMLInputElement).checked);
-  }
 
   function toggleCheckboxFilter(
     type: 'category' | 'typeEdition' | 'series' | 'issuerId' | 'saleType' | 'currency',
@@ -232,31 +224,17 @@
 
   <AccordionGroup class="c-filter-accordion order-3 " multiple bind:active>
     {#if creators.length}
-      <Accordion
+      <AccordionCheckBox
         id="talent"
-        titleClass="py-4 px-6"
-        class="c-filter-accordion accordion-option border border-gray-200 -mb-px {active.includes('talent')
-          ? 'expanded'
-          : ''}"
-      >
-        <div slot="title" class="text-lg leading-8 text-left">
-          Released by
-          {#if availableCreatorsSelected.length}
-            <span class="text-default text-xs align-top">({availableCreatorsSelected.length})</span>
-          {/if}
-        </div>
-        {#each creators as creator}
-          <Checkbox
-            class="mb-2"
-            value={creator._id}
-            group={availableCreatorsSelected}
-            on:change={(event) => toggle('issuerId', creator._id, event)}
-            let:checked
-          >
-            <span>{creator.username}</span>
-          </Checkbox>
-        {/each}
-      </Accordion>
+        title="Released by"
+        {active}
+        selectedGroup={availableCreatorsSelected}
+        options={creators}
+        {toggleCheckboxFilter}
+        toggleId="issuerId"
+        valueAtrName="_id"
+        labelAtrName="username"
+      />
     {/if}
 
     {#if maxPrice > 0}
@@ -287,105 +265,51 @@
       </Accordion>
     {/if}
 
-    <Accordion
+    <AccordionCheckBox
       id="typeEdition"
-      titleClass="py-4 px-6"
-      class="c-filter-accordion accordion-option border border-gray-200 -mb-px {active.includes('typeEdition')
-        ? 'expanded'
-        : ''}"
-    >
-      <div slot="title" class="text-lg leading-8 text-left">
-        Edition Type
-        {#if editionSelected.length}
-          <span class="text-default text-xs align-top">({editionSelected.length})</span>
-        {/if}
-      </div>
-      {#each editionFilters as { id, label } (id)}
-        <Checkbox
-          class="mb-2"
-          value={id}
-          group={editionSelected}
-          on:change={(event) => toggle('typeEdition', id, event)}
-          let:checked
-        >
-          <span class="{id}-text font-medium">{label}</span>
-        </Checkbox>
-      {/each}
-    </Accordion>
+      title="Edition type"
+      {active}
+      selectedGroup={editionSelected}
+      options={editionFilters}
+      {toggleCheckboxFilter}
+      valueAtrName="id"
+      labelAtrName="label"
+    />
 
-    <Accordion
+    <AccordionCheckBox
       id="saleType"
-      titleClass="py-4 px-6"
-      class="c-filter-accordion accordion-option border border-gray-200 {active.includes('saleType') ? 'expanded' : ''}"
-    >
-      <div slot="title" class="text-lg leading-8 text-left">
-        Sale Type {#if saleTypeSelected.length}
-          <span class="text-default text-xs align-top">({saleTypeSelected.length})</span>
-        {/if}
-      </div>
-      {#each saleTypeFilters as { id, label } (id)}
-        <Checkbox
-          class="mb-2"
-          value={id}
-          group={saleTypeSelected}
-          on:change={(event) => toggle('saleType', id, event)}
-          let:checked
-        >
-          <span>{label}</span>
-        </Checkbox>
-      {/each}
-    </Accordion>
+      title="Sale Type"
+      {active}
+      selectedGroup={saleTypeSelected}
+      options={saleTypeFilters}
+      {toggleCheckboxFilter}
+      valueAtrName="id"
+      labelAtrName="label"
+    />
+
     {#if categories.length}
-      <Accordion
+      <AccordionCheckBox
         id="category"
-        titleClass="py-4 px-6"
-        class="c-filter-accordion accordion-option border border-gray-200 {active.includes('category')
-          ? 'expanded'
-          : ''}"
-      >
-        <div slot="title" class="text-lg leading-8 text-left">
-          Category {#if availableCategorySelected.length}
-            <span class="text-default text-xs align-top">({availableCategorySelected.length})</span>
-          {/if}
-        </div>
-        {#each categories as category (category._id)}
-          <Checkbox
-            class="mb-2"
-            value={category._id}
-            group={availableCategorySelected}
-            on:change={(event) => toggle('category', category._id, event)}
-            let:checked
-          >
-            <span>{category.name}</span>
-          </Checkbox>
-        {/each}
-      </Accordion>
+        title="Category"
+        {active}
+        selectedGroup={availableCategorySelected}
+        options={categories}
+        {toggleCheckboxFilter}
+        valueAtrName="_id"
+        labelAtrName="name"
+      />
     {/if}
     {#if ENABLE_ETH_CURRENCY && nftTypeFilters.length > 0}
-      <Accordion
+      <AccordionCheckBox
         id="currency"
-        titleClass="py-4 px-6"
-        class="c-filter-accordion accordion-option border border-gray-200 {active.includes('currency')
-          ? 'expanded'
-          : ''}"
-      >
-        <div slot="title" class="text-lg leading-8 text-left">
-          NFT Type {#if availableNftTypeSelected.length}
-            <span class="text-default text-xs align-top">({availableNftTypeSelected.length})</span>
-          {/if}
-        </div>
-        {#each nftTypeFilters as { id, label } (id)}
-          <Checkbox
-            class="mb-2"
-            value={id}
-            group={availableNftTypeSelected}
-            on:change={(event) => toggle('currency', id, event)}
-            let:checked
-          >
-            <span>{label}</span>
-          </Checkbox>
-        {/each}
-      </Accordion>
+        title="NFT Type"
+        {active}
+        selectedGroup={availableNftTypeSelected}
+        options={nftTypeFilters}
+        {toggleCheckboxFilter}
+        valueAtrName="id"
+        labelAtrName="label"
+      />
     {/if}
   </AccordionGroup>
 
@@ -448,15 +372,7 @@
   .active > .label {
     color: var(--default-color);
   }
-  .single-text {
-    color: var(--edition-single-color);
-  }
-  .limited-text {
-    color: var(--edition-limited-color);
-  }
-  .open-text {
-    color: var(--edition-open-color);
-  }
+
   :global(.expanded) {
     --accordion-title-color: var(--primary-color);
     --accordion-title-icon-color: var(--primary-color);

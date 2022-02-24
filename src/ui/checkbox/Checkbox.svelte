@@ -5,6 +5,7 @@
   export let group: string[] | undefined = undefined;
   export let value = 'on';
   export let checked = false;
+  export let exclusive = false;
 
   let _class = '';
   export { _class as class };
@@ -34,11 +35,19 @@
   const forwardEvents = forwardEventsBuilder(get_current_component());
 </script>
 
-<label class="flex gap-2 items-center cursor-pointer select-none {_class || ''}" {...$$restProps}>
-  <input class="sr-only" type="checkbox" bind:checked {value} use:forwardEvents />
-  <span class="flex-none relative checkmark" style="border-radius: var(--checkbox-border-radius, 0px);" />
-  <div class="flex-grow"><slot {checked} /></div>
-</label>
+{#if exclusive}
+  <label class="flex gap-2 items-center cursor-pointer select-none {_class || ''}" {...$$restProps}>
+    <input class="sr-only" type="checkbox" bind:checked {value} use:forwardEvents />
+    <span class="flex-none relative point" />
+    <div class="flex-grow"><slot {checked} /></div>
+  </label>
+{:else}
+  <label class="flex gap-2 items-center cursor-pointer select-none {_class || ''}" {...$$restProps}>
+    <input class="sr-only" type="checkbox" bind:checked {value} use:forwardEvents />
+    <span class="flex-none relative checkmark" style="border-radius: var(--checkbox-border-radius, 0px);" />
+    <div class="flex-grow"><slot {checked} /></div>
+  </label>
+{/if}
 
 <style lang="postcss">
   .checkmark {
@@ -46,14 +55,20 @@
     width: 16px;
     border: 1px solid theme('colors.gray.200');
   }
-  input:checked + span {
+  .point {
+    height: 24px;
+    width: 24px;
+    border: 1px solid theme('colors.gray.200');
+    border-radius: 24px;
+  }
+  input:checked + .checkmark {
     z-index: 1;
     background: var(--checkbox-span-bg-color, var(--bg-color));
     border-radius: var(--checkbox-border-radius, 0px);
     border: var(--checkbox-span-border, 1px solid theme('colors.gray.200'));
   }
 
-  span::before {
+  .checkmark::before {
     position: absolute;
     z-index: 0;
     top: 1px;
@@ -79,5 +94,21 @@
     content: '';
     position: absolute;
     display: none;
+  }
+
+  input:checked ~ .point:before {
+    position: absolute;
+    z-index: 0;
+    top: var(--radio-button-selected-border-width);
+    left: var(--radio-button-selected-border-width);
+    right: var(--radio-button-selected-border-width);
+    bottom: var(--radio-button-selected-border-width);
+    background-color: var(--inverse-color);
+    content: '';
+    border-radius: 44px;
+  }
+  input:checked + .point {
+    background: var(--radio-button-border-color, black);
+    border-color: transparent;
   }
 </style>

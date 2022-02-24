@@ -172,6 +172,10 @@
   --checkbox-span-bg-color: linear-gradient(#ff0156, #feb889);
   --checkbox-span-border: none;
 
+  /*radiobutton*/
+  --radio-button-border-color: linear-gradient(90deg, #ff8d1c 0%, #ff5e17 47.92%, #ff3414 100%);
+  --radio-button-selected-border-width: 4px;
+
   /* Marketplace*/
   --market-active-filter-color: var(--gray-200);
   --market-border-hover-color: linear-gradient(#ff8d1c 0%, #ff3414 100%);
