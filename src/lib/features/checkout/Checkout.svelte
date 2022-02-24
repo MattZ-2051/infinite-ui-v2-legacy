@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { mdiClose } from '@mdi/js';
   import type { Product, Sku } from '$lib/sku-item/types';
-  import type { ValidETHListingData } from '../order/types';
+  import type { ValidETHListingData } from './types';
   import { getActiveListings } from '$lib/features/sku/sku.service';
   import { walletConnected, checkWalletInstalled, user, onSignIn, getWalletInfo } from '$lib/user';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
@@ -18,8 +18,10 @@
   import PaymentButton from './PaymentButton.svelte';
   import ProcessingOrder from './ProcessingOrder.svelte';
   import EthAddressModal from './EthAddressModal.svelte';
+  import CompletePurchaseMM from './CompletePurchaseMM.svelte';
   import { connectWallet } from './checkout.service';
-  import { validETHdirectPurchase } from '../order/order.api';
+  import { validETHdirectPurchase } from './checkout.api';
+  import { checkoutState, updateCheckoutState } from './checkout.store';
 
   export let sku: Sku = undefined;
   export let product: Product = undefined;
@@ -32,8 +34,8 @@
     { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon },
   ];
 
-  let exitCheckout = false;
-  let processingOrder = false;
+  let exitCheckout = $checkoutState === 'exit';
+  let processingOrder = $checkoutState === 'processing';
   let validETHPurchase: ValidETHListingData;
   let ethAddress = undefined;
 
@@ -69,6 +71,7 @@
       await connectWallet();
     } else if (id === 'mm' && $walletConnected && validETHPurchase) {
       // TODO (matt): will change state here to show complete purchase component for metamask
+      updateCheckoutState('ordering-mm');
       return id;
     } else if (id === 'cc') {
       if (!$user) {
@@ -113,7 +116,10 @@
     </div>
     <div class={orderArticleContainerClass}>
       <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
-        {#if exitCheckout}
+        {#if $checkoutState === 'ordering-mm'}
+          <h1 class="text-2xl mb-12 2xl:text-3xl">Complete your purchase</h1>
+          <CompletePurchaseMM {sku} {listing} />
+        {:else if exitCheckout}
           <ExitCheckout onReturn={() => (exitCheckout = false)} onExit={() => goto(routes.sku(_sku._id))} />
         {:else if processingOrder}
           <ProcessingOrder etherscanLink="https://etherscan.io/" />
