@@ -22,6 +22,7 @@
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import { productBought, pendingBuyCreated } from '$lib/features/product/product.store';
   import { getBuyingFee, getSkuBuyingFee } from '$lib/features/product/product.fee';
+  import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import { toast } from '$ui/toast';
   import routes from '$project/routes';
   import { skuBought } from '$lib/features/sku/sku.store';
@@ -391,21 +392,27 @@
           {/if}
         </div>
       {:else if paymentMethod === 'stripe'}
-        <ProductModalInfo sku={_sku} />
-        <Input
-          name="eth-address"
-          class={`px-6 mt-4 mb-2 border border-solid border-gray-50 rounded font-extralight text-center ${
-            validEthAddress === false ? 'text-red-500' : ''
-          }`}
-          style="padding-bottom: 0.5rem; padding-top: 0.5rem; font-weight: 200;"
-          variant="base"
-          error={validEthAddress === false ? '*This does not appear to be a valid ERC20 address' : ''}
-          label="We'll send the NFT to your Metamask wallet address:"
-          value={shortenEthAddress}
-          placeholder="ERC20 Wallet address"
-          disabled
-        />
-        <StripeCheckout {listing} mintToAddress={ethAddress} />
+        {#if !ethAddress}
+          <div class="flex justify-center">
+            <DualRingLoader />
+          </div>
+        {:else}
+          <ProductModalInfo sku={_sku} />
+          <Input
+            name="eth-address"
+            class={`px-6 mt-4 mb-2 border border-solid border-gray-50 rounded font-extralight text-center ${
+              validEthAddress === false ? 'text-red-500' : ''
+            }`}
+            style="padding-bottom: 0.5rem; padding-top: 0.5rem; font-weight: 200;"
+            variant="base"
+            error={validEthAddress === false ? 'This does not appear to be a valid ERC20 address' : ''}
+            label="We'll send the NFT to your Metamask wallet address:"
+            value={shortenEthAddress}
+            placeholder="ERC20 Wallet address"
+            disabled
+          />
+          <StripeCheckout {listing} mintToAddress={ethAddress} />
+        {/if}
       {/if}
       {#if isStripeAllowed && !!paymentMethod}
         <span class="text-center hover:underline cursor-pointer" on:click={() => selectPaymentMethod(undefined)}

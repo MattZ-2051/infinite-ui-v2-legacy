@@ -27,9 +27,7 @@
 
   if (clientSecret && !!data.sku) {
     verifyStripeStatusFx({ clientSecret, sku: data.sku });
-  }
-
-  if (isPayingWithStripe) {
+  } else if (isPayingWithStripe) {
     const { sku } = data;
     const activeListings = getActiveListings(sku);
     openModal(OrderModalEth, { sku, listing: activeListings[0], paymentMethod: 'stripe' });
