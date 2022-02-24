@@ -71,7 +71,7 @@
   function openUpgradeKYCLevel() {
     launchKYCPersona(
       $wallet.kycMaxLevel === 1 ? variables.persona.templateIdLevel2 : variables.persona.templateIdLevel1,
-      (inquiryId) => {
+      ({ inquiryId }) => {
         kycIsPending(inquiryId);
       }
     );
@@ -148,7 +148,7 @@
     <div
       slot="sticky-content"
       class="px-4 py-6 md:px-8 md:py-12"
-      style="background: var(--wallet-balance-content-bg-color); 
+      style="background: var(--wallet-balance-content-bg-color);
             border-radius: var(--wallet-balance-content-border-radius);
             margin: var(--wallet-balance-content-margin);
             max-width: var(--wallet-balance-content-max-width);"

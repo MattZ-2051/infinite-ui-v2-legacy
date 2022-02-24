@@ -12,7 +12,6 @@ declare namespace Persona {
      * Required when creating inquiries.
      */
     templateId?: string;
-    themeId?: string;
     /**
      * Defaults to 'production'.
      */
@@ -27,19 +26,17 @@ declare namespace Persona {
     referenceId?: string;
     accountId?: string;
     language?: string;
-    note?: string;
-    prefill?: InquiryAttributes;
+    fields?: InquiryAttributes;
     lockedAttributes?: InquiryAttributes;
-    onLoad?: (error: InquiryError | undefined) => void;
-    onReady?: (error: InquiryError | undefined) => void;
-    onStart?: (inquiryId: string) => void;
+    onLoad?: () => void;
+    onReady?: () => void;
+    onError?: (error: InquiryError | undefined) => void;
     // eslint-disable-next-line @typescript-eslint/ban-types
-    onComplete?: (inquiryId: string, scopes: {}) => void;
-    onFail?: (inquiryId: string) => void;
+    onComplete?: (parameters: { inquiryId: string; status: 'failed' | string; fields: InquiryAttributes }) => void;
     // eslint-disable-next-line @typescript-eslint/ban-types
     onEvent?: (name: Event, metadata: {}) => void;
     // eslint-disable-next-line @typescript-eslint/ban-types
-    onExit?: (error: InquiryError | undefined, metadata: {}) => void;
+    onCancel?: (error: InquiryError | undefined, metadata: {}) => void;
   }
 
   declare interface InquiryAttributes {
