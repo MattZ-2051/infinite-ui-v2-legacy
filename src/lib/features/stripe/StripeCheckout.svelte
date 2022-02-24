@@ -27,7 +27,8 @@
 
   let currency: CurrencyType;
   let totalCost: string;
-  let listingPrice: number;
+  let sellerPrice: number;
+  let sellerFee: number;
   let marketplaceFee: number;
   let gasFee: number;
   let rate: number;
@@ -51,11 +52,14 @@
     });
 
     currency = cost.currency;
-    listingPrice = cost.finalPayout + cost.initialSellersFee;
+    sellerPrice = cost.finalPayout;
+    sellerFee = cost.initialSellersFee;
     marketplaceFee = cost.initialSellersFeePercentage / 100;
     gasFee = +networkFee.gas;
     rate = +rateUSD.amount;
-    totalCost = formatCurrency((cost.totalCost + +networkFee.gas) * rate, { currency: 'USD' });
+
+    const total = sellerPrice + sellerFee + gasFee;
+    totalCost = formatCurrency(total * rate, { currency: 'USD' });
 
     const style = getComputedStyle(paymentElementNode);
     const theme: 'flat' | 'stripe' | 'night' | 'none' = 'stripe';
@@ -123,7 +127,7 @@
   {:else}
     {#if currency === 'ETH'}
       <div class="mt-6 mb-3">
-        <OrderProductPricing price={listingPrice} {currency} {marketplaceFee} {gasFee} {rate} />
+        <OrderProductPricing price={sellerPrice} {currency} {marketplaceFee} {gasFee} {rate} {sellerFee} />
       </div>
     {/if}
     <div class="flex items-center justify-start mt-6 mb-3">

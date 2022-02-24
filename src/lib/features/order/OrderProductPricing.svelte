@@ -6,8 +6,9 @@
   export let currency: 'USD' | 'ETH';
   export let gasFee = 0;
   export let rate: number = undefined;
+  export let sellerFee: number = undefined;
 
-  const priceWFee = (1 + marketplaceFee) * price + gasFee;
+  const priceWFee = sellerFee ? sellerFee + price + gasFee : (1 + marketplaceFee) * price + gasFee;
   const absoluteFee = marketplaceFee * price;
 </script>
 
