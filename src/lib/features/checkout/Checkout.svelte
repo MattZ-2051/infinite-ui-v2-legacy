@@ -18,6 +18,7 @@
   import PaymentButton from './PaymentButton.svelte';
   import ProcessingOrder from './ProcessingOrder.svelte';
   import EthAddressModal from './EthAddressModal.svelte';
+  import OrderStatus from './OrderStatus.svelte';
   import CompletePurchaseMM from './CompletePurchaseMM.svelte';
   import { connectWallet } from './checkout.service';
   import { validETHdirectPurchase } from './checkout.api';
@@ -34,8 +35,11 @@
     { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon },
   ];
 
-  let exitCheckout = $checkoutState === 'exit';
-  let processingOrder = $checkoutState === 'processing';
+  $: exitCheckout = $checkoutState === 'exit';
+  $: processingOrder = $checkoutState === 'processing';
+  $: orderSuccess = $checkoutState === 'success';
+  $: orderError = $checkoutState === 'error';
+  $: orderingMm = $checkoutState === 'ordering-mm';
   let validETHPurchase: ValidETHListingData;
   let ethAddress = undefined;
 
@@ -96,7 +100,7 @@
   };
 
   const handleExit = () => {
-    exitCheckout = true;
+    updateCheckoutState('exit');
   };
 
   const orderSummaryContainerClass =
@@ -116,7 +120,7 @@
     </div>
     <div class={orderArticleContainerClass}>
       <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
-        {#if $checkoutState === 'ordering-mm'}
+        {#if orderingMm}
           <div class="flex justify-between">
             <h1 class="text-2xl mb-16 2xl:text-3xl">Complete your purchase</h1>
             {#if $media.xl}
@@ -128,6 +132,8 @@
           <ExitCheckout onReturn={() => (exitCheckout = false)} onExit={() => goto(routes.sku(_sku._id))} />
         {:else if processingOrder}
           <ProcessingOrder etherscanLink="https://etherscan.io/" />
+        {:else if orderError || orderSuccess}
+          <OrderStatus orderState={orderError ? 'error' : 'success'} />
         {:else}
           <div class="flex justify-between">
             <h1 class="text-2xl mb-16 2xl:mb-52 2xl:text-3xl">Select your Payment Method</h1>
