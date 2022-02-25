@@ -15,7 +15,7 @@
   import OrderDetails from '../order/OrderDetails.svelte';
   import { getSkuBuyingFee } from '../product/product.fee';
   import { wallet } from '../wallet/wallet.store';
-  import { checkValidETHAddress, validETHPurchase } from './checkout.service';
+  import { checkTerms, checkValidETHAddress, validETHPurchase } from './checkout.service';
   import { updateCheckoutState } from './checkout.store';
 
   export let sku: Sku;
@@ -56,6 +56,10 @@
   };
 
   const submitOrder = async () => {
+    if (!checkTerms(acceptedTerms)) {
+      return;
+    }
+
     if (checkValidETHAddress(sku.currency, isEthAddress(ethAddress)) && $walletConnected) {
       purchasing = true;
 
@@ -100,6 +104,7 @@
     error={validEthAddress === false ? 'This does not appear to be a valid ERC20 address' : ''}
     label="We'll be sending the NFT to the following address"
     value={ethAddress}
+    disabled
     on:input={onEthAddressInput}
   >
     <svelte:fragment slot="after">
@@ -139,7 +144,9 @@
       <Button variant="outline-brand" class="border-none" on:click={() => updateCheckoutState('method-select')}
         >Back to Payment Method</Button
       >
-      <Button variant="brand" on:click={submitOrder}>Buy now for ETH {total.toFixed(3)}</Button>
+      <Button variant="brand" on:click={submitOrder} disabled={!acceptedTerms}
+        >Buy now for ETH {total.toFixed(3)}</Button
+      >
     </div>
   </div>
 </div>

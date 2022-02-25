@@ -25,3 +25,12 @@ export const checkValidETHAddress = (currency: 'USD' | 'ETH', validEthAddress: b
 export const validETHPurchase = async (listing: Listing) => {
   return await validETHdirectPurchase(listing._id);
 };
+
+export const checkTerms = (acceptedTC: boolean): boolean => {
+  if (!acceptedTC) {
+    toast.danger('Please agree to the Terms and Conditions in order to move forward.', { toastId: 'TERMS' });
+    return false;
+  }
+
+  return true;
+};
