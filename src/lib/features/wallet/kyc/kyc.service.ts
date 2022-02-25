@@ -1,7 +1,7 @@
 import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 import { KYC_LEVEL_DISCLAIMERS } from '$project/variables';
 
-const LOW_KYC_LEVEL = import.meta?.env?.VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD;
+const LOW_KYC_LEVEL = import.meta.env ? import.meta.env.VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD : undefined;
 
 export function getDailyDepositLimitDisclaimer(level: number, dailyDepositLimit: number) {
   const formattedDailyDepositLimit = formatCurrencyWithOptionalFractionDigits(dailyDepositLimit);

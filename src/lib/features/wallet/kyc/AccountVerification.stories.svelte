@@ -22,7 +22,7 @@
     <AccountVerification {...args} />
   </div>
   <div class="text-xs font-medium text-gray-500 mt-4">
-    {getKYCLevelDepositDisclaimer(args.level)}
+    {@html getKYCLevelDepositDisclaimer(args.level)}
   </div>
 </Template>
 
