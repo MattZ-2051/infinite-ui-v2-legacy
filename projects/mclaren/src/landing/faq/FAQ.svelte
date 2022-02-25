@@ -4,10 +4,10 @@
   import { FaqInfo } from './FAQInfo';
 </script>
 
-<div class="bg-white py-48">
+<div class="bg-white py-44 sm:py-48">
   <div class="flex flex-col items-center">
     <div class="max-w-5xl relative z-10 w-full container">
-      <div class="font-normal text-5xl mb-20 sm:text-5xl text-center tracking-widest uppercase second-font">
+      <div class="font-normal text-3xl mb-20 sm:text-5xl text-center tracking-widest uppercase second-font">
         frequently asked questions
       </div>
       <div class="w-full">

@@ -39,7 +39,8 @@
 
 <style lang="postcss">
   .content-height {
-    height: 60rem;
+    height: 54rem;
+    margin-bottom: -2.5rem;
   }
 
   @screen sm {
