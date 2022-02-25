@@ -6,10 +6,15 @@
   export let currency: 'USD' | 'ETH';
   export let gasFee = 0;
   export let rate: number = undefined;
-  export let sellerFee: number = undefined;
+  export let buyerFee: number = undefined;
 
-  const priceWFee = sellerFee ? sellerFee + price + gasFee : (1 + marketplaceFee) * price + gasFee;
-  const absoluteFee = marketplaceFee * price;
+  const priceWFee = buyerFee ? buyerFee + price + gasFee : (1 + marketplaceFee) * price + gasFee;
+  const absoluteFee = buyerFee || marketplaceFee * price;
+
+  const options = {
+    currency,
+    maximumFractionDigits: currency === 'ETH' ? 5 : 4,
+  };
 </script>
 
 <div class="grid grid-cols-2 text-gray-500 font-medium w-full">
@@ -21,7 +26,7 @@
       </div>
     {/if}
     <div class="text-right ml-1">
-      {formatCurrency(price, { currency })}
+      {formatCurrency(price, options)}
     </div>
   </div>
   {#if gasFee}
@@ -31,7 +36,7 @@
         {`${formatCurrency(gasFee * rate, { currency: 'USD' })} ≈`}
       </div>
       <div class="text-right ml-1">
-        {formatCurrency(gasFee, { currency })}
+        {formatCurrency(gasFee, options)}
       </div>
     </div>
   {/if}
@@ -43,7 +48,7 @@
       </div>
     {/if}
     <div class="text-right ml-1">
-      {formatCurrency(absoluteFee, { currency })}
+      {formatCurrency(absoluteFee, options)}
     </div>
   </div>
 </div>
@@ -57,7 +62,7 @@
       </div>
     {/if}
     <div class="text-right text-lg ml-1">
-      {formatCurrency(priceWFee, { currency })}
+      {formatCurrency(priceWFee, options)}
     </div>
   </div>
 </div>
