@@ -18,11 +18,7 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit urna nulla, in pretium orci
         sollicitudin sed. Nunc sed purus et nunc sollicitudin.
       </p>
-      <Button
-        variant="brand"
-        class="w-52 h-12 sm:w-64 sm:h-16 text-xs font-bold mt-10 uppercase "
-        --button-brand-bg="linear-gradient(161.99deg, #FFFFFF -1.04%, #F8F8F8 111.86%)">explore now</Button
-      >
+      <Button variant="brand" class="w-52 h-12 sm:w-64 sm:h-16 text-xs font-bold mt-10 uppercase ">explore now</Button>
     </div>
   </div>
   <img

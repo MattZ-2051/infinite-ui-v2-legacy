@@ -22,10 +22,8 @@
           sollicitudin sed. Nunc sed purus et nunc sollicitudin.
         </p>
       </div>
-      <Button
-        variant="brand"
-        class="h-12 sm:h-16 w-full sm:w-80 font-bold text-xs tracking-widest uppercase"
-        --button-brand-bg="linear-gradient(161.99deg, #FFFFFF -1.04%, #F8F8F8 111.86%)">discover our philosophy</Button
+      <Button variant="brand" class="h-12 sm:h-16 w-full sm:w-80 font-bold text-xs tracking-widest uppercase"
+        >discover our philosophy</Button
       >
     </div>
   </div>

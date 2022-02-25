@@ -1,7 +1,8 @@
 const Theme = {
   Dark: 'theme-dark',
   Light: 'theme-light',
-  ButtonsVariant2: 'theme-buttons-variant-2',
+  ButtonsVariantHeader: 'theme-buttons-variant-header',
+  ButtonsVariantPresentationPages: 'theme-buttons-variant-presentation-pages',
   WalletButtons: 'theme-brand-wallet-buttons',
   WalletBalance: 'theme-wallet-balance',
   SearchRoundedBar: 'theme-search-bar',
@@ -9,22 +10,14 @@ const Theme = {
 };
 
 export const themeConfig = {
-  '*.header': Theme.ButtonsVariant2,
-  '$index.root': Theme.ButtonsVariant2,
+  '*.header': Theme.ButtonsVariantHeader,
+  '$index.root': Theme.ButtonsVariantPresentationPages,
   '*.wallet-buttons': Theme.WalletButtons,
   '*.wallet-balance': Theme.WalletBalance,
-  // '$index.root': Theme.Dark,
-  // '$marketplace.root': Theme.Light,
-  // '$marketplace.*.footer': Theme.BrandFooter,
-  // '$marketplace.root.footer': Theme.Light,
+  '$collections.root': Theme.ButtonsVariantPresentationPages,
   '*.wallet-list': Theme.Light,
   '*.search-bar': Theme.SearchRoundedBar,
-  // '$u.$wallet.root': Theme.Dark,
   '*.error': Theme.Dark,
-  // '$u.$wallet.$deposit.root': Theme.Light,
-  // '$help.*.root': Theme.Light,
-  // '*.sku-offsreen': Theme.Light,
   '*.modal': Theme.Light,
-  // '*.error': Theme.Light,
   '*.footer': Theme.Footer,
 };

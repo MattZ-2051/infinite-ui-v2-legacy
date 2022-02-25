@@ -23,7 +23,6 @@
             variant="brand"
             class="whitespace-nowrap h-16 w-full md:w-80 sm:w-64 py-12 md:py-0 tracking-widest font-bold text-xs uppercase"
             type="submit"
-            --button-brand-bg="linear-gradient(161.99deg, #FFFFFF -1.04%, #F8F8F8 111.86%)"
             on:click={() => window.open('https://www.mclaren.com/racing/inside-the-mtc/nft-guide/')}
           >
             see all</Button

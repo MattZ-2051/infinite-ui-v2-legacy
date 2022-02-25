@@ -19,8 +19,7 @@
       </p>
       <Button
         class="text-xs w-60 h-14 sm:w-64 sm:h-16 mt-12 font-semibold tracking-widest uppercase second-font"
-        variant="brand"
-        --button-brand-bg="linear-gradient(161.99deg, #FFFFFF -1.04%, #F8F8F8 111.86%)">explore the drop</Button
+        variant="brand">explore the drop</Button
       >
     </div>
   </div>
