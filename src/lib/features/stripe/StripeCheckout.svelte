@@ -67,7 +67,7 @@
       theme,
       variables: {
         colorBackground: style.backgroundColor,
-        colorText: style.color,
+        colorText: 'black',
         colorPrimary: style.getPropertyValue('--primary-color'),
       },
     };
@@ -134,7 +134,7 @@
       <label class="inline-flex items-center text-sm">
         <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
         <span class="text-gray-500">I agree to the</span>
-        <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+        <a href={routes.terms} class="ml-1" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
       </label>
     </div>
     <span class="text-sm text-gray-500 mt-4"
