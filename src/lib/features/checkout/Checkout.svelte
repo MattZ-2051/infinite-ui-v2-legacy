@@ -40,6 +40,8 @@
   $: orderSuccess = $checkoutState === 'success';
   $: orderError = $checkoutState === 'error';
   $: orderingMm = $checkoutState === 'ordering-mm';
+  $: paymentSelection = $checkoutState === 'method-select';
+
   let validETHPurchase: ValidETHListingData;
   let ethAddress = undefined;
 
@@ -120,25 +122,28 @@
     </div>
     <div class={orderArticleContainerClass}>
       <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
-        {#if orderingMm}
+        {#if exitCheckout}
+          <ExitCheckout
+            onReturn={() => updateCheckoutState('method-select')}
+            onExit={() => goto(routes.sku(_sku._id))}
+          />
+        {:else if orderingMm}
           <div class="flex justify-between">
             <h1 class="text-2xl mb-16 2xl:text-3xl">Complete your purchase</h1>
             {#if $media.xl}
-              <span on:click={handleExit} class=""><Icon path={mdiClose} size={1.5} /></span>
+              <span class="cursor-pointer" on:click={handleExit}><Icon path={mdiClose} size={1.5} /></span>
             {/if}
           </div>
           <CompletePurchaseMM {sku} {listing} />
-        {:else if exitCheckout}
-          <ExitCheckout onReturn={() => (exitCheckout = false)} onExit={() => goto(routes.sku(_sku._id))} />
         {:else if processingOrder}
           <ProcessingOrder etherscanLink="https://etherscan.io/" />
         {:else if orderError || orderSuccess}
           <OrderStatus orderState={orderError ? 'error' : 'success'} />
-        {:else}
+        {:else if paymentSelection}
           <div class="flex justify-between">
             <h1 class="text-2xl mb-16 2xl:mb-52 2xl:text-3xl">Select your Payment Method</h1>
             {#if $media.xl}
-              <span on:click={handleExit} class=""><Icon path={mdiClose} size={1.5} /></span>
+              <span class="cursor-pointer" on:click={handleExit}><Icon path={mdiClose} size={1.5} /></span>
             {/if}
           </div>
           <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center">
