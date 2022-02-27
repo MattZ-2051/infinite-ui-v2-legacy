@@ -41,7 +41,7 @@
     {#if orderFailed}
       <Button variant="brand" class="h-16 w-full text-2xl font-normal">Try again</Button>
     {:else if orderSuccess}
-      <Button variant="brand" class="h-16 w-full text-2xl font-normal">View your product</Button>
+      <Button variant="brand" class="h-16 w-full text-2xl font-normal">View NFT</Button>
     {/if}
     <Button
       variant="outline-brand"
