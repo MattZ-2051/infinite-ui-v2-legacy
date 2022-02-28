@@ -1,4 +1,4 @@
-import type { ValidETHListingData } from './types';
+import type { CheckoutState, ValidETHListingData } from './types';
 import type { Listing } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
 import { handleWalletConnection } from '$lib/user';
@@ -66,7 +66,7 @@ export const handlePayment = async ({
   if (id === 'mm' && !walletConnected) {
     await connectWallet();
   } else if (id === 'mm' && walletConnected && validETHPurchase) {
-    updateCheckoutState('ordering-mm');
+    handleStateChange('ordering-mm');
     return id;
   } else if (id === 'cc') {
     if (!user) {
@@ -80,4 +80,9 @@ export const handlePayment = async ({
 
 export const handleExit = () => {
   updateCheckoutState('exit');
+};
+
+export const handleStateChange = (value: CheckoutState) => {
+  updateCheckoutState(value);
+  localStorage.setItem('checkout-state', value);
 };

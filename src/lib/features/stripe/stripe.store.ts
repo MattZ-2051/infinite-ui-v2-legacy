@@ -5,7 +5,7 @@ import { toast } from '$ui/toast';
 import { variables } from '$lib/variables';
 import { pendingBuyCreated } from '../product/product.store';
 import { connectStripeAccount, stripeCreatePaymentIntent } from './stripe.api';
-import { updateCheckoutState } from '../checkout/checkout.store';
+import { handleStateChange } from '../checkout/checkout.service';
 
 const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
@@ -34,7 +34,7 @@ export const verifyStripeStatusFx = createEffect(async ({ clientSecret, sku }: V
     return;
   }
 
-  updateCheckoutState('processing');
+  handleStateChange('processing');
 
   const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
 

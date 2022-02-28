@@ -15,8 +15,7 @@
   import OrderDetails from '../order/OrderDetails.svelte';
   import { getSkuBuyingFee } from '../product/product.fee';
   import { wallet } from '../wallet/wallet.store';
-  import { checkTerms, checkValidETHAddress, validETHPurchase } from './checkout.service';
-  import { updateCheckoutState } from './checkout.store';
+  import { checkTerms, checkValidETHAddress, handleStateChange, validETHPurchase } from './checkout.service';
 
   export let sku: Sku;
   export let listing: Listing;
@@ -70,7 +69,7 @@
             toastId: 'TXR_SUCCESS',
           });
           purchasing = true;
-          updateCheckoutState('success');
+          handleStateChange('success');
           return;
         })
         .catch((error) => {
@@ -141,7 +140,7 @@
       </label>
     </div>
     <div class="grid grid-cols-2 mt-12">
-      <Button variant="outline-brand" class="border-none" on:click={() => updateCheckoutState('method-select')}
+      <Button variant="outline-brand" class="border-none" on:click={() => handleStateChange('method-select')}
         >Back to Payment Method</Button
       >
       <Button variant="brand" on:click={submitOrder} disabled={!acceptedTerms}

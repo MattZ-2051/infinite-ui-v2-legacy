@@ -9,6 +9,7 @@
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
   import { media } from '$lib/media-query.store';
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import routes from '$project/routes';
   import { toast } from '$ui/toast';
   import Icon from '$ui/icon/Icon.svelte';
@@ -18,9 +19,9 @@
   import ProcessingOrder from './ProcessingOrder.svelte';
   import OrderStatus from './OrderStatus.svelte';
   import CompletePurchaseMM from './CompletePurchaseMM.svelte';
-  import { handlePayment, handleExit } from './checkout.service';
+  import { handlePayment, handleExit, handleStateChange } from './checkout.service';
   import { validETHdirectPurchase } from './checkout.api';
-  import { checkoutState, updateCheckoutState } from './checkout.store';
+  import { checkoutState } from './checkout.store';
   import StripeCheckout from '../stripe/StripeCheckout.svelte';
 
   export let sku: Sku = undefined;
@@ -49,9 +50,11 @@
   let ethAddress = undefined;
 
   onMount(async () => {
-    updateCheckoutState('method-select');
     await handleWalletConnection();
-
+    const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
+    if (!clientSecret) {
+      handleStateChange('method-select');
+    }
     try {
       validETHPurchase = await validETHdirectPurchase(listing._id);
     } catch {
@@ -70,7 +73,7 @@
     } else if (option === 'manual') {
       ethAddress = address;
     }
-    updateCheckoutState('ordering-stripe');
+    handleStateChange('ordering-stripe');
   };
 
   const handlePaymentButton = (id: string) => {
@@ -112,10 +115,7 @@
           {/if}
         </div>
         {#if exitCheckout}
-          <ExitCheckout
-            onReturn={() => updateCheckoutState('method-select')}
-            onExit={() => goto(routes.sku(_sku._id))}
-          />
+          <ExitCheckout onReturn={() => handleStateChange('method-select')} onExit={() => goto(routes.sku(_sku._id))} />
         {:else if processingOrder}
           <ProcessingOrder etherscanLink="https://etherscan.io/" />
         {:else if orderSuccess || orderError}

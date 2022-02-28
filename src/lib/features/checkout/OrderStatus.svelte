@@ -4,9 +4,9 @@
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import { FilePreview } from '$ui/file';
-  import { updateCheckoutState } from './checkout.store';
   import errorIcon from './assets/error-icon.svg';
   import successIcon from './assets/success-icon.svg';
+  import { handleStateChange } from './checkout.service';
 
   export let sku: Sku = undefined;
   export let orderState: 'success' | 'error';
@@ -15,7 +15,7 @@
   const orderFailed = orderState === 'error';
 
   const handleRetry = () => {
-    updateCheckoutState('method-select');
+    handleStateChange('method-select');
   };
 
   const handleViewNFT = () => {
