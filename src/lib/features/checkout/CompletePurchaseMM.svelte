@@ -15,7 +15,13 @@
   import OrderDetails from '../order/OrderDetails.svelte';
   import { getSkuBuyingFee } from '../product/product.fee';
   import { wallet } from '../wallet/wallet.store';
-  import { checkTerms, checkValidETHAddress, handleStateChange, validETHPurchase } from './checkout.service';
+  import {
+    checkTerms,
+    checkValidETHAddress,
+    connectWallet,
+    handleStateChange,
+    validETHPurchase,
+  } from './checkout.service';
 
   const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
 
@@ -39,7 +45,8 @@
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
 
   onMount(async () => {
-    if ($walletConnected) {
+    const isWalletConnected = await connectWallet();
+    if (isWalletConnected) {
       const data = await getWalletInfo();
       purchaseInfo = await validETHPurchase(listing);
       balance = data.balance;

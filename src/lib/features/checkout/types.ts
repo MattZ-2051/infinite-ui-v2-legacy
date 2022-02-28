@@ -13,7 +13,8 @@ export type CheckoutState =
   | 'ordering-mm'
   | 'ordering-stripe'
   | 'method-select'
-  | 'exit';
+  | 'exit'
+  | 'loading';
 
 export type TransactionData = {
   sku: string;

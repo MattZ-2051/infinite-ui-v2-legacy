@@ -11,12 +11,13 @@ import EthAddressModal from './EthAddressModal.svelte';
 export let balance;
 export let ethAddress;
 
-export const connectWallet = async (): Promise<void> => {
+export const connectWallet = async (): Promise<boolean> => {
   const response = await handleWalletConnection();
   if (response) {
     toast.clear();
     toast.success('You are now connected to Metamask', { toastId: 'MM_SUCCESS' });
   }
+  return response;
 };
 
 export const checkValidETHAddress = (currency: 'USD' | 'ETH', validEthAddress: boolean): boolean => {
@@ -54,19 +55,18 @@ export const showLoginToast = (onSignIn?: () => Promise<void>): void => {
 
 export const handlePayment = async ({
   id,
-  walletConnected,
   user,
   handleEthModalCallback,
 }: {
   id: string;
-  walletConnected: boolean;
   user: User;
   handleEthModalCallback: ({ address, option }: { address: string; option: string }) => void;
 }) => {
-  if (id === 'mm' && !walletConnected) {
-    await connectWallet();
-  } else if (id === 'mm' && walletConnected && validETHPurchase) {
-    handleStateChange('ordering-mm');
+  if (id === 'mm') {
+    const isWalletConnected = await connectWallet();
+    if (isWalletConnected && validETHPurchase) {
+      handleStateChange('ordering-mm');
+    }
     return id;
   } else if (id === 'cc') {
     if (!user) {
@@ -79,7 +79,7 @@ export const handlePayment = async ({
 };
 
 export const handleExit = () => {
-  updateCheckoutState('exit');
+  handleStateChange('exit');
 };
 
 export const handleStateChange = (value: CheckoutState) => {

@@ -2,11 +2,12 @@
   import { onMount } from 'svelte';
   import { mdiClose } from '@mdi/js';
   import type { Product, Sku } from '$lib/sku-item/types';
-  import type { ValidETHListingData } from './types';
+  import type { CheckoutState, ValidETHListingData } from './types';
   import { getActiveListings } from '$lib/features/sku/sku.service';
-  import { getWalletInfo, user, walletConnected, handleWalletConnection } from '$lib/user';
+  import { getWalletInfo, user } from '$lib/user';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
+  import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import { media } from '$lib/media-query.store';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
@@ -42,6 +43,7 @@
   $: orderingMm = $checkoutState === 'ordering-mm';
   $: orderingStripe = $checkoutState === 'ordering-stripe';
   $: paymentSelection = $checkoutState === 'method-select';
+  $: isLoading = $checkoutState === 'loading';
   $: isOrdering = $checkoutState.startsWith('ordering');
 
   $: isFullScreenComponent = orderSuccess || orderError;
@@ -50,10 +52,9 @@
   let ethAddress = undefined;
 
   onMount(async () => {
-    await handleWalletConnection();
     const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
     if (!clientSecret) {
-      handleStateChange('method-select');
+      handleStateChange(localStorage.getItem('checkout-state') as CheckoutState);
     }
     try {
       validETHPurchase = await validETHdirectPurchase(listing._id);
@@ -77,7 +78,7 @@
   };
 
   const handlePaymentButton = (id: string) => {
-    handlePayment({ id, walletConnected: $walletConnected, user: $user, handleEthModalCallback });
+    handlePayment({ id, user: $user, handleEthModalCallback });
   };
 
   $: gridContainerClass =
@@ -94,52 +95,61 @@
 </script>
 
 <div class="container">
-  <div class={gridContainerClass}>
-    <div class={orderSummaryContainerClass}>
-      {#if ($media.xl || (!exitCheckout && !processingOrder)) && !isFullScreenComponent}
-        <OrderSummary {sku} {product} {listing} closeIcon={handleExit} />
-      {/if}
+  {#if isLoading}
+    <div class="w-full h-screen flex justify-center items-center">
+      <DualRingLoader />
     </div>
-    <div class={orderArticleContainerClass}>
-      <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
-        <div class="flex justify-between">
-          <h1 class="text-2xl mb-16 2xl:text-3xl">
-            {#if paymentSelection}
-              Select your Payment Method
-            {:else if isOrdering}
-              Complete your Purchase
-            {/if}
-          </h1>
-          {#if $media.xl}
-            <span class="cursor-pointer" on:click={handleExit}><Icon path={mdiClose} size={1.5} /></span>
-          {/if}
-        </div>
-        {#if exitCheckout}
-          <ExitCheckout onReturn={() => handleStateChange('method-select')} onExit={() => goto(routes.sku(_sku._id))} />
-        {:else if processingOrder}
-          <ProcessingOrder etherscanLink="https://etherscan.io/" />
-        {:else if orderSuccess || orderError}
-          <OrderStatus orderState={orderError ? 'error' : 'success'} {sku} />
-        {:else if isOrdering}
-          {#if orderingMm}
-            <CompletePurchaseMM {sku} {listing} />
-          {:else if orderingStripe}
-            <StripeCheckout mintToAddress={ethAddress} {listing} />
-          {/if}
-        {:else if paymentSelection}
-          <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center">
-            {#each paymentMethods as paymentMethod, i}
-              <PaymentButton
-                onClick={() => handlePaymentButton(paymentMethod.id)}
-                classNames={i === 0 && 'mb-6 md:mb-0 md:mr-6 xl:mr-0 xl:mb-6 2xl:mr-6 2xl:mb-0'}
-                title={paymentMethod.title}
-                iconSource={paymentMethod.iconSource}
-                id={paymentMethod.id}
-              />
-            {/each}
-          </div>
+  {:else}
+    <div class={gridContainerClass}>
+      <div class={orderSummaryContainerClass}>
+        {#if ($media.xl || (!exitCheckout && !processingOrder)) && !isFullScreenComponent}
+          <OrderSummary {sku} {product} {listing} closeIcon={handleExit} />
         {/if}
-      </article>
+      </div>
+      <div class={orderArticleContainerClass}>
+        <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
+          <div class="flex justify-between">
+            <h1 class="text-2xl mb-16 2xl:text-3xl">
+              {#if paymentSelection}
+                Select your Payment Method
+              {:else if isOrdering}
+                Complete your Purchase
+              {/if}
+            </h1>
+            {#if $media.xl}
+              <span class="cursor-pointer" on:click={handleExit}><Icon path={mdiClose} size={1.5} /></span>
+            {/if}
+          </div>
+          {#if exitCheckout}
+            <ExitCheckout
+              onReturn={() => handleStateChange('method-select')}
+              onExit={() => goto(routes.sku(_sku._id))}
+            />
+          {:else if processingOrder}
+            <ProcessingOrder etherscanLink="https://etherscan.io/" />
+          {:else if orderSuccess || orderError}
+            <OrderStatus orderState={orderError ? 'error' : 'success'} {sku} />
+          {:else if isOrdering}
+            {#if orderingMm}
+              <CompletePurchaseMM {sku} {listing} />
+            {:else if orderingStripe}
+              <StripeCheckout mintToAddress={ethAddress} {listing} />
+            {/if}
+          {:else if paymentSelection}
+            <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center">
+              {#each paymentMethods as paymentMethod, i}
+                <PaymentButton
+                  onClick={() => handlePaymentButton(paymentMethod.id)}
+                  classNames={i === 0 && 'mb-6 md:mb-0 md:mr-6 xl:mr-0 xl:mb-6 2xl:mr-6 2xl:mb-0'}
+                  title={paymentMethod.title}
+                  iconSource={paymentMethod.iconSource}
+                  id={paymentMethod.id}
+                />
+              {/each}
+            </div>
+          {/if}
+        </article>
+      </div>
     </div>
-  </div>
+  {/if}
 </div>
