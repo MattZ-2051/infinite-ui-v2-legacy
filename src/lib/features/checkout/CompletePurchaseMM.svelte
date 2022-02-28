@@ -7,7 +7,7 @@
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { getWalletInfo, sendTransaction, walletConnected } from '$lib/user';
+  import { checkNetwork, getWalletInfo, sendTransaction, walletConnected } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
   import routes from '$project/routes';
@@ -16,6 +16,8 @@
   import { getSkuBuyingFee } from '../product/product.fee';
   import { wallet } from '../wallet/wallet.store';
   import { checkTerms, checkValidETHAddress, handleStateChange, validETHPurchase } from './checkout.service';
+
+  const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
 
   export let sku: Sku;
   export let listing: Listing;
@@ -61,23 +63,27 @@
 
     if (checkValidETHAddress(sku.currency, isEthAddress(ethAddress)) && $walletConnected) {
       purchasing = true;
-
-      await sendTransaction(purchaseInfo.externalPurchaseAddressEth, purchaseInfo.cost.totalCost)
-        .then((response) => {
-          purchaseResult = response;
-          toast.success('Your request is being processed. Minting of your NFT may take up to 30 minutes.', {
-            toastId: 'TXR_SUCCESS',
+      const network = await checkNetwork();
+      if (network.name === 'homestead' || MM_TEST_NETWORK_ENABLED) {
+        await sendTransaction(purchaseInfo.externalPurchaseAddressEth, purchaseInfo.cost.totalCost)
+          .then((response) => {
+            purchaseResult = response;
+            toast.success('Your request is being processed. Minting of your NFT may take up to 30 minutes.', {
+              toastId: 'TXR_SUCCESS',
+            });
+            purchasing = true;
+            handleStateChange('success');
+            return;
+          })
+          .catch((error) => {
+            toast.danger(error?.message, { toastId: 'TRX_ERROR' });
+          })
+          .finally(() => {
+            purchasing = false;
           });
-          purchasing = true;
-          handleStateChange('success');
-          return;
-        })
-        .catch((error) => {
-          toast.danger(error?.message, { toastId: 'TRX_ERROR' });
-        })
-        .finally(() => {
-          purchasing = false;
-        });
+      } else {
+        toast.warning('You need to change to Ethereum Mainnet', { toastId: 'INVALID_NETWORK' });
+      }
     }
   };
 

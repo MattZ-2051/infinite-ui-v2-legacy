@@ -255,7 +255,15 @@ export async function handleRedirectCallback(callbackUrl: string) {
 
 export async function checkWalletInstalled() {
   if (typeof window?.ethereum !== 'undefined') {
-    provider = new ethers.providers.Web3Provider(window?.ethereum);
+    provider = new ethers.providers.Web3Provider(window?.ethereum, 'any');
+    provider.on('network', (newNetwork, oldNetwork) => {
+      // When a Provider makes its initial connection, it emits a "network"
+      // event with a null oldNetwork along with the newNetwork. So, if the
+      // oldNetwork exists, it represents a changing network
+      if (oldNetwork) {
+        window.location.reload();
+      }
+    });
 
     // Check if user is already connected
     const addresses = await provider.listAccounts();
@@ -336,4 +344,9 @@ export async function sendTransaction(destinationAddress: string, totalCost: num
   };
 
   return await signer.sendTransaction(rawTrx);
+}
+
+export async function checkNetwork() {
+  const chainId = await signer.getChainId();
+  return ethers.providers.getNetwork(chainId);
 }
