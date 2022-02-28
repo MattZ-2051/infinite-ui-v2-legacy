@@ -2,7 +2,7 @@ import type { Bid, Listing } from '$lib/sku-item/types';
 import { createEffect } from 'effector';
 import { toast } from '$ui/toast';
 import { getQueryParameters } from '$util/queryParameter';
-import { CLIENT_SUPPORT_URL } from '$project/variables';
+import { CLIENT_BIDDING_URL } from '$project/variables';
 import { placeBid, loadProductBids } from './auction.api';
 import { fetchProductBidsFx, setProductBids } from '../product.store';
 import { placeBidFxErrorHandler } from './auctionErrorHandler';
@@ -21,9 +21,9 @@ placeBidFx.done.watch(async ({ params: { listing } }) => {
   setProductBids({ data, total, max });
 
   const message = [`You've successfully placed your bid.`];
-  if (CLIENT_SUPPORT_URL) {
+  if (CLIENT_BIDDING_URL) {
     message.push(
-      `Learn more about bidding <a target="_blank" href="${CLIENT_SUPPORT_URL}" rel="noreferrer" class="font-bold">here</a>.`
+      `Learn more about bidding <a target="_blank" href="${CLIENT_BIDDING_URL}" rel="noreferrer" class="font-bold">here</a>.`
     );
   }
   toast.success(message.join(' '));

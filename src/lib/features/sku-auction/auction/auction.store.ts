@@ -2,7 +2,7 @@ import type { Bid, Listing } from '$lib/sku-item/types';
 import { createEffect } from 'effector';
 import { toast } from '$ui/toast';
 import { getQueryParameters } from '$util/queryParameter';
-import { CLIENT_SUPPORT_URL } from '$project/variables';
+import { CLIENT_BIDDING_URL } from '$project/variables';
 import { placeBid, loadProductBids } from './auction.api';
 import { fetchSkuBidsFx, setSkuBids } from '../sku-auction.store';
 import { placeBidFxErrorHandler } from './auctionErrorHandler';
@@ -21,8 +21,8 @@ placeBidFx.done.watch(async ({ params: { listing } }) => {
   setSkuBids({ data, total, max });
 
   const message = [`You've successfully placed your bid.`];
-  if (CLIENT_SUPPORT_URL) {
-    message.push(`Learn more about bidding <a target="_blank" href="${CLIENT_SUPPORT_URL}" rel="noreferrer">here</a>.`);
+  if (CLIENT_BIDDING_URL) {
+    message.push(`Learn more about bidding <a target="_blank" href="${CLIENT_BIDDING_URL}" rel="noreferrer">here</a>.`);
   }
   toast.success(message.join(' '));
 });
