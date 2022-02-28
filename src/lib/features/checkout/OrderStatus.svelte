@@ -4,6 +4,7 @@
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import { FilePreview } from '$ui/file';
+  import { updateCheckoutState } from './checkout.store';
   import errorIcon from './assets/error-icon.svg';
   import successIcon from './assets/success-icon.svg';
 
@@ -12,6 +13,14 @@
 
   const orderSuccess = orderState === 'success';
   const orderFailed = orderState === 'error';
+
+  const handleRetry = () => {
+    updateCheckoutState('method-select');
+  };
+
+  const handleViewNFT = () => {
+    goto('https://opensea.io/account?tab=activity');
+  };
 </script>
 
 <div class="w-full h-full flex justify-center items-center col-span-2">
@@ -39,9 +48,9 @@
       <FilePreview item={sku.nftPublicAssets?.[0]} preview />
     </figure>
     {#if orderFailed}
-      <Button variant="brand" class="h-16 w-full text-2xl font-normal">Try again</Button>
+      <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleRetry}>Try again</Button>
     {:else if orderSuccess}
-      <Button variant="brand" class="h-16 w-full text-2xl font-normal">View NFT</Button>
+      <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleViewNFT}>View NFT</Button>
     {/if}
     <Button
       variant="outline-brand"

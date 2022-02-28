@@ -263,6 +263,9 @@ export async function checkWalletInstalled() {
     if (addresses.length > 0) {
       signer = provider.getSigner();
       walletConnected.set(true);
+    } else {
+      walletConnected.set(false);
+      throw new Error('User is not logged in to MetaMask');
     }
     return;
   }
@@ -277,6 +280,8 @@ export async function handleWalletConnection() {
   } catch (error) {
     if (error?.code) {
       toast.danger(error?.message, { toastId: error?.code });
+    } else if (error?.message === 'User is not logged in to MetaMask') {
+      toast.danger(error?.message, { toastId: 'MM-NOT-LOGGED' });
     } else {
       toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
       window.open('https://metamask.io/download/', '_blank').focus();

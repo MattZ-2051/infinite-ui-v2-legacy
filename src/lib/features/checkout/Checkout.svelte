@@ -4,7 +4,7 @@
   import type { Product, Sku } from '$lib/sku-item/types';
   import type { ValidETHListingData } from './types';
   import { getActiveListings } from '$lib/features/sku/sku.service';
-  import { checkWalletInstalled, getWalletInfo, user, walletConnected } from '$lib/user';
+  import { getWalletInfo, user, walletConnected, handleWalletConnection } from '$lib/user';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
   import { media } from '$lib/media-query.store';
@@ -12,7 +12,6 @@
   import routes from '$project/routes';
   import { toast } from '$ui/toast';
   import Icon from '$ui/icon/Icon.svelte';
-  import { page } from '$app/stores';
   import OrderSummary from './OrderSummary.svelte';
   import ExitCheckout from './ExitCheckout.svelte';
   import PaymentButton from './PaymentButton.svelte';
@@ -50,20 +49,16 @@
   let ethAddress = undefined;
 
   onMount(async () => {
-    const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
-    if (!clientSecret) {
-      updateCheckoutState('method-select');
-    }
+    updateCheckoutState('method-select');
+    await handleWalletConnection();
+
     try {
-      await checkWalletInstalled();
       validETHPurchase = await validETHdirectPurchase(listing._id);
-    } catch (error) {
-      if (error.message !== 'Metamask extension not found on browser') {
-        validETHPurchase = undefined;
-        if (sku.currency === 'ETH') {
-          toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
-          return;
-        }
+    } catch {
+      validETHPurchase = undefined;
+      if (sku.currency === 'ETH') {
+        toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
+        return;
       }
     }
   });
