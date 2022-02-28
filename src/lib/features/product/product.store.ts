@@ -12,6 +12,7 @@ import { hasActiveAuction, hasAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
 import { skuBought, sku } from '../sku/sku.store';
 import { handleStateChange } from '../checkout/checkout.service';
+import { productBoughtCheckout } from '../checkout/checkout.store';
 
 export const setProduct = createEvent<Awaited<ReturnType<typeof fetchProductFx>> & { oldProductId: string | null }>();
 export const setProductBids = createEvent<{ data: Bid[]; total: number; max: number }>();
@@ -230,6 +231,7 @@ pollTransactionFx.doneData.watch(async (response) => {
         if ($polls[$product._id].$isActive) {
           //added check to avoid having more than one message due to race conditions (not best solution but will do for now.)
           $polls[$product._id].stop();
+          productBoughtCheckout({ id: pendingTx.transactionData.product._id });
           handleStateChange('success');
           transactionSuccessMessage();
           await productBoughtFx();

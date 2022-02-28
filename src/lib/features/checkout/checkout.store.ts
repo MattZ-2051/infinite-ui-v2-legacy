@@ -6,3 +6,9 @@ export const checkoutState = createStore<CheckoutState>('loading', { name: 'chec
   updateCheckoutState,
   (_, newState) => newState
 );
+
+export const productBoughtCheckout = createEvent<{ id: string }>();
+export const productId = createStore<{ id: string }>({ id: '' }, { name: 'product' }).on(
+  productBoughtCheckout,
+  (_, newId) => newId
+);

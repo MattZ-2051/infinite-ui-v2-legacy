@@ -7,6 +7,7 @@
   import errorIcon from './assets/error-icon.svg';
   import successIcon from './assets/success-icon.svg';
   import { handleStateChange } from './checkout.service';
+  import { productId } from './checkout.store';
 
   export let sku: Sku = undefined;
   export let orderState: 'success' | 'error';
@@ -19,7 +20,11 @@
   };
 
   const handleViewNFT = () => {
-    goto('https://opensea.io/account?tab=activity');
+    if ($productId.id) {
+      goto(routes.product($productId.id));
+    } else {
+      window.open('https://opensea.io/account?tab=activity');
+    }
   };
 </script>
 

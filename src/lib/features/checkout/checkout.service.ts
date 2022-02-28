@@ -1,7 +1,7 @@
 import type { CheckoutState, ValidETHListingData } from './types';
 import type { Listing } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
-import { handleWalletConnection } from '$lib/user';
+import { handleWalletConnection, onSignIn } from '$lib/user';
 import { openModal } from '$ui/modals';
 import { toast } from '$ui/toast';
 import { validETHdirectPurchase } from './checkout.api';
@@ -41,12 +41,12 @@ export const checkTerms = (acceptedTC: boolean): boolean => {
   return true;
 };
 
-export const showLoginToast = (onSignIn?: () => Promise<void>): void => {
+export const showLoginToast = (): void => {
   toast.danger(
     `Please <a data-toast="signIn" class="cursor-pointer font-bold">sign in</a> to proceed with your purchase.`,
     {
       onClick: {
-        signIn: onSignIn,
+        signIn: () => onSignIn(),
       },
       toastId: 'ORDER_ERROR_LOGIN',
     }

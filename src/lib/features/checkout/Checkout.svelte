@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import { mdiClose } from '@mdi/js';
   import type { Product, Sku } from '$lib/sku-item/types';
   import type { CheckoutState, ValidETHListingData } from './types';
@@ -67,6 +67,9 @@
     }
   });
 
+  onDestroy(async () => {
+    localStorage.setItem('checkout-state', 'method-select');
+  });
   const handleEthModalCallback = async ({ address, option }: { address: string; option: string }): Promise<void> => {
     if (option === 'metamask') {
       const data = await getWalletInfo();
