@@ -77,6 +77,7 @@
   <div class="px-10 flex flex-col gap-6 pb-10">
     <span class="text-base" style="color: var(--gray-500)">
       In order to receive this NFT you need a wallet with an ETH address. You can enter one manually or connect your
+      Metamask.
     </span>
     <span class="text-base" style="color: var(--gray-500)"
       >If you don't have one at this moment, you can continue without a wallet:</span
