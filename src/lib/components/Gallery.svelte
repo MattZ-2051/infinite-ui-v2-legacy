@@ -26,7 +26,8 @@
     {#if items && items?.length > 1}
       {#each items as item}
         <div
-          class="cursor-pointer hover:opacity-100 mr-6 {activeItem === item ? '' : 'opacity-50'}"
+          class="cursor-pointer hover:opacity-100 {activeItem === item ? '' : 'opacity-50'}"
+          style="margin-right: var(--file-thumbnail-margin-right, 0px);"
           on:click={() => (selectedItem = item)}
         >
           <FileThumbnail {item} />
