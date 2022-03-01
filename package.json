@@ -33,6 +33,7 @@
     "@sentry/browser": "6.17.9",
     "@sentry/tracing": "6.17.9",
     "@stripe/stripe-js": "1.23.0",
+    "@sveltejs/vite-plugin-svelte": "1.0.0-next.36",
     "@tailwindcss/forms": "0.4.0",
     "@tailwindcss/line-clamp": "0.3.1",
     "big.js": "6.1.1",
