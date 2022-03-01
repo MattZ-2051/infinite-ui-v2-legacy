@@ -5,7 +5,7 @@ const Theme = {
   WalletButtons: 'theme-brand-wallet-buttons',
   WalletBalance: 'theme-wallet-balance',
   SearchRoundedBar: 'theme-search-bar',
-  // BrandFooter: 'theme-brand-footer',
+  Footer: 'theme-footer',
 };
 
 export const themeConfig = {
@@ -26,4 +26,5 @@ export const themeConfig = {
   // '*.sku-offsreen': Theme.Light,
   '*.modal': Theme.Light,
   // '*.error': Theme.Light,
+  '*.footer': Theme.Footer,
 };

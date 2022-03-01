@@ -25,7 +25,12 @@
   $: errorKind = error.message.split('#');
 </script>
 
-<ThemeContext id="error" class="flex flex-grow items-center justify-center" display>
+<ThemeContext
+  id="error"
+  class="flex flex-grow items-center justify-center"
+  display
+  style="min-height: var(--error-min-height, 0);"
+>
   <div class="container flex flex-col gap-5 md:gap-10 items-center text-center">
     {#if errorKind[0] === 'Email not verified'}
       <div class="text-xl md:text-3xl font-semibold">We've sent an email to {errorKind[1] + ''}</div>

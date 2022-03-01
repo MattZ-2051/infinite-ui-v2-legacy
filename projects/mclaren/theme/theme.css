@@ -240,18 +240,9 @@
   --title-font-family: McLaren;
 }
 
-.theme-brand-footer {
+.theme-footer {
   /* Common */
-  --separator-bg-color: rgba(0, 0, 0, 0.16);
-
-  /* Footer */
-  --footer-bg-color: rgba(255, 255, 255, 0.95);
-  --footer-color: rgba(0, 0, 0, 0.5);
-  --footer-color-hover: #000000;
-  --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
-  --footer-icon-color: rgba(0, 0, 0, 0.5);
-  --footer-icon-bg-color-hover: #000000;
-  --footer-icon-color-hover: #ffffff;
+  --separator-bg-color: rgba(255, 255, 255, 0.2);
 }
 
 .theme-buttons-variant-2 {
@@ -279,7 +270,7 @@
   --bg-gradient: linear-gradient(225deg, #181c20 0%, #363f45 100%);
   --gradient-end-color: #ff5e17;
   --gradient-start-color: #ff8d1c;
-  --error-branded-title-weight: 400;
+  --error-branded-title-weight: 300;
   --error-text-weight: 300;
   --default-color: #ffffff;
   --button-brand-color: #000000;
@@ -298,4 +289,5 @@
   --error-branded-title-font: var(--second-font);
   --error-branded-title-font-size-desktop: 4rem;
   --error-branded-title-font-size-mobile: 3.5rem;
+  --error-min-height: calc(100vh - var(--header-height));
 }
