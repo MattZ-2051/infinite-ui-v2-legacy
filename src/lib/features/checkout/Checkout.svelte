@@ -54,7 +54,7 @@
   onMount(async () => {
     const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
     if (!clientSecret) {
-      handleStateChange(localStorage.getItem('checkout-state') as CheckoutState);
+      handleStateChange((localStorage.getItem('checkout-state') as CheckoutState) || 'method-select');
     }
     try {
       validETHPurchase = await validETHdirectPurchase(listing._id);
@@ -68,8 +68,9 @@
   });
 
   onDestroy(async () => {
-    localStorage.setItem('checkout-state', 'method-select');
+    localStorage.removeItem('checkout-state');
   });
+
   const handleEthModalCallback = async ({ address, option }: { address: string; option: string }): Promise<void> => {
     if (option === 'metamask') {
       const data = await getWalletInfo();

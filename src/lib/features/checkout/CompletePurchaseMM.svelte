@@ -22,6 +22,7 @@
     handleStateChange,
     validETHPurchase,
   } from './checkout.service';
+  import { updateCheckoutState } from './checkout.store';
 
   const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
 
@@ -79,7 +80,7 @@
               toastId: 'TXR_SUCCESS',
             });
             purchasing = true;
-            handleStateChange('success');
+            updateCheckoutState('success');
             return;
           })
           .catch((error) => {
