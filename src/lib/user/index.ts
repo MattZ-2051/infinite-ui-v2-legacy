@@ -273,7 +273,7 @@ export async function checkWalletInstalled() {
       walletConnected.set(true);
     } else {
       walletConnected.set(false);
-      throw new Error('User is not logged in to MetaMask');
+      // throw new Error('User is not logged in to MetaMask');
     }
     return;
   }
