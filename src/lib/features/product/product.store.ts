@@ -258,6 +258,7 @@ pollTransactionFx.doneData.watch(async (response) => {
         if ($polls[$sku._id].$isActive) {
           $polls[$sku._id].stop();
           skuBought();
+          productBoughtCheckout({ id: pendingTx.transactionData.product._id });
           const transactionData = pendingTx.transactionData;
           updateCheckoutState('success');
           transactionSuccessMessage(transactionData);
