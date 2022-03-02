@@ -11,7 +11,9 @@
   import routes from '$project/routes';
   import { formatDate } from '$util/format';
   import SkuEdition from './SkuEdition.svelte';
+  import SkuCollection from './SkuCollection.svelte';
   import SkuStatus from './SkuStatus.svelte';
+  import RectanguleBar from './assets/rectangule-bar.svg';
 
   let _sku: Sku = undefined;
 
@@ -64,6 +66,10 @@
           <Icon path={ethereum} size="1em" tooltip="ERC721 NFT minted on Ethereum" class="inline align-baseline" />
         {/if}
         <SkuEdition {sku} {product} />
+        {#if sku._id}
+          <img src={RectanguleBar} alt="rectangule-bar" />
+          <SkuCollection {sku} />
+        {/if}
       </div>
     </div>
     <div class="sku-status mr-6">
