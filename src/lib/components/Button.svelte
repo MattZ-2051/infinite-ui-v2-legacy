@@ -78,6 +78,7 @@
     background-color: var(--button-outline-brand-bg-color);
     border-color: var(--button-outline-brand-border-color);
     background: var(--button-outline-brand-bg, none var(--button-outline-brand-bg-color));
+    letter-spacing: var(--button-letter-spacing, normal);
   }
   .outline-brand:hover {
     color: var(--button-outline-brand-color-hover);

@@ -15,6 +15,7 @@ export const themeConfig = {
   '*.wallet-buttons': Theme.WalletButtons,
   '*.wallet-balance': Theme.WalletBalance,
   '$collections.root': Theme.ButtonsVariantPresentationPages,
+  '$collections.*': Theme.ButtonsVariantPresentationPages,
   '*.wallet-list': Theme.Light,
   '*.search-bar': Theme.SearchRoundedBar,
   '*.error': Theme.Dark,

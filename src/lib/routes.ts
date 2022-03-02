@@ -5,6 +5,8 @@ export default {
   skuAuction: (skuId) => `/auction/${skuId}`,
   product: (productId) => `/product/${productId}`,
   collection: (username) => `/collection/${username}`,
+  skuCollections: '/collections',
+  skuCollection: (skuCollectionId) => `/collections/${skuCollectionId}`,
   collectors: (skuId, queryParameters = '') => `/collectors/${skuId}${queryParameters}`,
   checkoutSku: (id, stateParamaters = '') => `/checkout/product/${id}${stateParamaters}`,
   checkoutProduct: (id) => `/checkout/sku/${id}`,
