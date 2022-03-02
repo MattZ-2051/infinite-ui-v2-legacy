@@ -16,19 +16,19 @@
   export let currency: 'USD' | 'ETH';
 </script>
 
-<div class="flex flex-col items-end" {...$$restProps}>
+<div class={'flex flex-col items-start sm:items-end'} {...$$restProps}>
   {#if !hasListing(collector)}
     <div>Not for sale</div>
   {:else if hasUpcomingListing(collector)}
     <div>Upcoming</div>
     {#if collector.upcomingProductListing?.startDate}
-      <div class="text-sm text-white-opacity-40">
+      <div class="text-sm subtitle">
         Starts in
         <TimeDifference date={new Date(collector.upcomingProductListing.startDate)} />
       </div>
     {/if}
   {:else if hasActiveSale(collector)}
-    <div class="flex">
+    <div class="flex items-center">
       <span>Sale for</span>
       <Icon path={mdiChevronRight} color="gray" />
       <span class="highlight">
@@ -36,7 +36,7 @@
       </span>
     </div>
   {:else if hasActiveAuction(collector)}
-    <div class="flex">
+    <div class="flex items-center">
       <span>Bid for</span>
       <Icon path={mdiChevronRight} color="gray" />
       <span class="highlight">
@@ -44,7 +44,7 @@
       </span>
     </div>
     {#if collector.activeProductListing?.endDate}
-      <div class="text-sm text-white-opacity-40">
+      <div class="text-sm subtitle">
         Expires in
         <TimeDifference date={new Date(collector.activeProductListing.endDate)} />
       </div>
@@ -55,5 +55,16 @@
 <style lang="postcss">
   .highlight {
     color: var(--collector-item-status-highlight, #ffffff);
+  }
+
+  .subtitle {
+    color: var(--item-status-information-subtitle, rgba(255, 255, 255, 0.4));
+    font-size: var(--collector-list-description-small-text-size-mobile, 0.875rem);
+  }
+
+  @screen sm {
+    .subtitle {
+      font-size: var(--collector-list-description-small-text-size, 0.875rem);
+    }
   }
 </style>

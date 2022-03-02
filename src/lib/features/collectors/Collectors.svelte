@@ -40,13 +40,11 @@
               <span class="sr-only">Back</span>
             </button>
           {/if}
-          <div class="flex flex-wrap text-3xl md:text-4xl gap-2 md:gap-0 font-medium">
-            <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary collectors-title"
-              >{sku.name}</a
-            >
+          <div class="flex flex-wrap text-3xl md:text-4xl gap-2 md:gap-0 font-medium collectors-title">
+            <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
             <div class="flex items-center">
               <span class="mx-3 text-gray-300">/</span>
-              <span class="text-gradient-primary collectors-title">Collectors</span>
+              <span class="text-gradient-primary ">Collectors</span>
             </div>
           </div>
         </div>
@@ -63,11 +61,11 @@
   .sticky-content {
     height: 60vh;
   }
-  @screen md {
-    .sticky-content {
-      height: inherit;
-    }
+  .collectors-title {
+    font-family: var(--collectors-title-font);
+    font-size: var(--collector-title-font-size-mobile, 1.875rem);
   }
+
   .collectors-content {
     --sticky-scroll-bg: var(--collectors-content-bg);
   }
@@ -77,14 +75,20 @@
     border-color: var(--button-brand-border-color-hover);
   }
 
-  .collectors-title {
-    font-family: var(--collectors-title-font);
-  }
   .collectors-custom-button-back {
     background-color: var(--button-back-bg-color, rgba(255, 255, 255, 0.1));
     color: var(--button-back-color, #ffffff);
   }
   .collectors-custom-button-back:hover {
     color: var(--button-back-hover-color, #ffffff);
+  }
+
+  @screen md {
+    .sticky-content {
+      height: inherit;
+    }
+    .collectors-title {
+      font-size: var(--collectors-title-font-size, 2.25rem);
+    }
   }
 </style>

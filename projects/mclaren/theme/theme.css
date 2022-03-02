@@ -100,6 +100,12 @@
   --border-radius-input-search: 2rem;
   --input-search-padding: 0.75rem;
   --collector-item-status-highlight: var(--default-color);
+  --collectors-title-font-size: 2rem;
+  --collector-title-font-size-mobile: 1.75rem;
+  --collector-list-description-big-text-size-mobile: 0.875rem;
+  --collector-list-description-small-text-size-mobile: 0.8125rem;
+  --collector-list-description-small-text-size: 0.875rem;
+  --item-status-information-subtitle: rgba(0, 0, 0, 0.5);
 
   /* File Preview - Gallery */
   --gallery-display-file-preview: none;

@@ -32,3 +32,4 @@ export const KYC_LEVEL_DISCLAIMERS = (formattedLowKYC: string) => ({
   2: `You may deposit funds using credit card through our partner MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://support.moonpay.com/hc/en-gb/articles/4407710995217-What-are-your-account-limits-" class="font-bold">here</a>. <br/>
         Also, you may deposit any amount of cryptocurrency.`,
 });
+export const RIGHT_ARROW_SIZE_ON_HISTORY = '1.5rem';
