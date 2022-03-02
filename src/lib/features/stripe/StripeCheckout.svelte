@@ -12,7 +12,7 @@
   import { variables } from '$lib/variables';
   import routes from '$project/routes';
   import { stripeCreatePaymentIntentFx } from './stripe.store';
-  import OrderProductPricing from '../order/OrderProductPricing.svelte';
+  import { handleStateChange } from '../checkout/checkout.service';
 
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
@@ -54,7 +54,7 @@
     currency = cost.currency;
     sellerPrice = cost.finalPayout;
     buyerFee = cost.initialBuyersFee;
-    marketplaceFee = cost.initialSellersFeePercentage / 100;
+    marketplaceFee = cost.initialBuyersFeePercentage / 100;
     gasFee = +networkFee.gas;
     rate = +rateUSD.amount;
 
@@ -125,23 +125,25 @@
       <DualRingLoader />
     </div>
   {:else}
-    {#if currency === 'ETH'}
-      <div class="mt-6 mb-3">
-        <OrderProductPricing price={sellerPrice} {currency} {marketplaceFee} {gasFee} {rate} {buyerFee} />
-      </div>
-    {/if}
-    <div class="flex items-center justify-start mt-6 mb-3">
+    <div class="mt-10">
+      <span class="text-sm text-gray-500"
+        >All resales of this product are subject to a 5% royalty fee set by and to be paid to the original creator.</span
+      >
+    </div>
+    <div class="flex items-center justify-start mt-2.5 mb-3">
       <label class="inline-flex items-center text-sm">
         <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
         <span class="text-gray-500">I agree to the</span>
         <a href={routes.terms} class="ml-1" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
       </label>
     </div>
-    <span class="text-sm text-gray-500 mt-4"
-      >All resales of this product are subject to a 5% royalty fee set by and to be paid to the original creator.</span
-    >
-    <Button variant="brand" class="w-full mt-6" type="submit" disabled={isLoading || !acceptedTerms}
-      >Buy Now for {totalCost}</Button
-    >
+    <div class="grid grid-cols-2 mt-8">
+      <Button variant="outline-brand" class="border-none" on:click={() => handleStateChange('method-select')}
+        >Back to Payment Method</Button
+      >
+      <Button variant="brand" class="" type="submit" disabled={isLoading || !acceptedTerms}
+        >Buy Now for {totalCost}</Button
+      >
+    </div>
   {/if}
 </form>
