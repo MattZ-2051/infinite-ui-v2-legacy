@@ -14,8 +14,9 @@ import {
 } from '$lib/user';
 import { openModal } from '$ui/modals';
 import routes from '$project/routes';
-import OrderModal from '$lib/features/order/OrderModal.svelte';
 import { goto } from '$app/navigation';
+import OrderModal from '$lib/features/order/OrderModal.svelte';
+import OrderModalETH from '$lib/features/order/OrderModalETH.svelte';
 import { loadWalletFx } from '../wallet/wallet.store';
 import { validETHdirectPurchase } from './order.api';
 
@@ -64,8 +65,17 @@ export async function onOrderIntent({
     isLoading.set(false);
 
     if (validETHPurchase) {
-      goto(`/checkout/sku/${sku._id}`);
-      return;
+      if (import.meta?.env?.VITE_ENABLE_CHECKOUT === 'true') {
+        goto(`/checkout/sku/${sku._id}`);
+      } else {
+        openModal(OrderModalETH, {
+          sku,
+          product,
+          listing,
+          validETHPurchase,
+        });
+        return;
+      }
     }
   } catch {
     isLoading.set(false);
