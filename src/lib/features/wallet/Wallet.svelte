@@ -197,8 +197,8 @@
                     href={KYC_INFO}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="underline">Learn more.</a
-                  >{/if}
+                    class="underline">Learn more</a
+                  >.{/if}
               {/if}
             </span>
           </div>
@@ -231,8 +231,8 @@
                         href={KYC_INFO}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">Learn more.</a
-                      >{/if}
+                        class="underline">Learn more</a
+                      >.{/if}
                   {/if}
                 </span>
               </div>

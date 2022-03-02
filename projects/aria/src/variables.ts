@@ -24,9 +24,9 @@ export const SENTRY_DNS = 'https://b93ec290c306467f812048e6bc22db15@o734225.inge
 export const AVAILABLE_DEPOSIT_TYPES = 'usdc,btc,hbar,suku';
 export const INFINITE_EXTENSION_ENABLED = false;
 export const KYC_LEVEL_DISCLAIMERS = (formattedLowKYC: string) => ({
-  0: `You may deposit funds using credit card through our partner, MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://aria-network.force.com/support/s/article/How-much-money-can-I-deposit-through-MoonPay" class="font-bold">here</a>.</br>
+  0: `You may deposit funds using credit card through our partner, MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://aria-network.force.com/support/s/article/How-much-money-can-I-deposit-through-MoonPay" class="font-bold">here</a>.</br></br>
     Level 1 verification is required for withdrawals and cryptocurrency deposits under ${formattedLowKYC}. Level 2 verification is required for cryptocurrency deposits equal to or over ${formattedLowKYC}.`,
-  1: `You may now perform withdrawals and deposit cryptocurrency under ${formattedLowKYC}. You may continue to deposit funds using credit card through our partner, MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://aria-network.force.com/support/s/article/How-much-money-can-I-deposit-through-MoonPay" class="font-bold">here</a>.</br>
+  1: `You may now perform withdrawals and deposit cryptocurrency under ${formattedLowKYC}. You may continue to deposit funds using credit card through our partner, MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://aria-network.force.com/support/s/article/How-much-money-can-I-deposit-through-MoonPay" class="font-bold">here</a>.</br></br>
     Level 2 verification is required for cryptocurrency deposits equal to or over ${formattedLowKYC}.`,
   2: `You may now deposit any amount of cryptocurrency, perform withdrawals, and continue to deposit funds using credit card through our partner, MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://aria-network.force.com/support/s/article/How-much-money-can-I-deposit-through-MoonPay" class="font-bold">here</a>.`,
 });
