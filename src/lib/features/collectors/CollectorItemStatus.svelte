@@ -16,7 +16,7 @@
   export let currency: 'USD' | 'ETH';
 </script>
 
-<div class={'flex flex-col items-start sm:items-end'} {...$$restProps}>
+<div class={'flex flex-col items-start sm:items-end md:items-start lg:items-end'} {...$$restProps}>
   {#if !hasListing(collector)}
     <div>Not for sale</div>
   {:else if hasUpcomingListing(collector)}

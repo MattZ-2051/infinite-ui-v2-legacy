@@ -33,5 +33,5 @@ export const variables = {
     enabled: import.meta.env?.VITE_STRIPE_ENABLED === 'true',
     pubKey: import.meta.env.VITE_STRIPE_PUBKEY,
   },
-  hidePhoneConsent: import.meta.env.VITE_PHONE_CONSENT,
+  hidePhoneConsent: import.meta.env.VITE_HIDE_PHONE_CONSENT,
 };

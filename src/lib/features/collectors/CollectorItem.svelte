@@ -39,20 +39,20 @@
             <IconRedeem disabled={collector.redeemedStatus === 'redeemed'} size={20} />
           {/if}
           <span class="collection-small-text">
-            <UserLink username={collector.owner?.username} class="sm:hidden " />
+            <UserLink username={collector.owner?.username} class="sm:hidden md:block lg:hidden " />
           </span>
         </div>
         <span class="collection-small-text">
-          <UserLink username={collector.owner?.username} class="text-gray-400 hidden sm:block" />
+          <UserLink username={collector.owner?.username} class="text-gray-400 hidden sm:block md:hidden lg:block" />
         </span>
-        <div class="flex flex-col items-start gap-1 text-left sm:hidden text-sm ">
+        <div class="flex flex-col items-start gap-1 text-left sm:hidden text-sm md:block lg:hidden">
           <CollectorItemStatus {collector} {currency} />
         </div>
       </div>
     </div>
 
     <div class="flex items-center gap-6 ">
-      <div class="sm:flex flex-col gap-1 text-right hidden">
+      <div class="sm:flex flex-col gap-1 text-right hidden md:hidden lg:block">
         <CollectorItemStatus {collector} {currency} />
       </div>
       <Icon path={mdiChevronRight} class="justify-self-center " size={RIGHT_ARROW_SIZE_ON_HISTORY} />

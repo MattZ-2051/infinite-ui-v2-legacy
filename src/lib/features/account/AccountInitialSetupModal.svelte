@@ -65,7 +65,7 @@
   $: canSave =
     $data.termsAndConditionsConsentGiven &&
     $data.privacyPolicyConsentGiven &&
-    ($data.phoneNumber === '' ? true : $data.phoneNumberConsentGiven);
+    ($data.phoneNumber === '' || hidePhoneConsent ? true : $data.phoneNumberConsentGiven);
 
   const hidePhoneConsent = variables.hidePhoneConsent || false;
 
