@@ -71,7 +71,8 @@
 
 <style lang="postcss">
   .gradient-balance-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r;
+    @apply bg-clip-text bg-gradient-to-r;
+    color: var(--wallet-balance-text-color);
     --tw-gradient-from: var(--text-balance-gradient-from);
     --tw-gradient-to: var(--text-balance-gradient-to);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
