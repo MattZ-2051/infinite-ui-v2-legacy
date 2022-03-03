@@ -23,6 +23,8 @@ import { validETHdirectPurchase } from './order.api';
 let validETHPurchase: ValidETHListingData;
 let canOpenModal = false;
 
+const ENABLE_CHECKOUT = import.meta.env?.VITE_ENABLE_CHECKOUT;
+
 const connectWallet = async () => {
   try {
     await checkWalletInstalled();
@@ -65,7 +67,7 @@ export async function onOrderIntent({
     isLoading.set(false);
 
     if (validETHPurchase) {
-      if (import.meta?.env?.VITE_ENABLE_CHECKOUT === 'true') {
+      if (ENABLE_CHECKOUT === 'true') {
         goto(`/checkout/sku/${sku._id}`);
       } else {
         openModal(OrderModalETH, {
