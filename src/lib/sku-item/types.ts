@@ -87,6 +87,23 @@ export type Sku = {
   activeBuyNowProductListingsCounter?: number;
   activeAuctionSkuListingsCounter?: number;
   activeBuyNowSkuListingsCounter?: number;
+  skuCollection?: SkuCollection[];
+};
+
+export type SkuCollection = {
+  _id: string;
+  allowedIssuers: string[];
+  name: string;
+  title: SkuCollectionTitle[];
+  description: string;
+  descriptionShort: string;
+  featuredSkuId: string;
+  tenant: string;
+};
+
+export type SkuCollectionTitle = {
+  text: string;
+  position: string;
 };
 
 export type Profile = {
