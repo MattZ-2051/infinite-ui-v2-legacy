@@ -55,6 +55,11 @@
     width: 16px;
     border: 1px solid theme('colors.gray.200');
   }
+  label:hover .checkmark,
+  label:hover .point {
+    transition: 0.5s;
+    border: 1px solid var(--market-checkmark-hover-color, theme('colors.gray.200'));
+  }
   .point {
     height: 24px;
     width: 24px;

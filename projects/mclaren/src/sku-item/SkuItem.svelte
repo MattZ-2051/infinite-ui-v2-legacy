@@ -94,7 +94,17 @@
     border: var(--sku-item-border-width, 1px) solid var(--sku-item-border-color, var(--default-color));
     border-radius: var(--sku-item-border-radius, 0);
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
+    transition: 0.5s;
   }
+  article:hover {
+    transition: 0.5s;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  article:hover .item-link {
+    background: none black;
+  }
+
   .sku-status {
     border-color: var(--sku-item-status-border-color);
     border-style: solid;

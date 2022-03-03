@@ -190,6 +190,7 @@
   --market-border-hover-width: -2px; /*in negative*/
   --market-filter-option-hover-bg-color: var(--bg-color);
   --marketplace-search-input-bar-top: none;
+  --market-checkmark-hover-color: orangered;
 
   --filter-button-font-size: 10px;
 }
