@@ -52,7 +52,7 @@
     });
 
     currency = cost.currency;
-    sellerPrice = cost.finalPayout;
+    sellerPrice = cost.finalPayout + cost.initialSellersFee;
     buyerFee = cost.initialBuyersFee;
     marketplaceFee = cost.initialBuyersFeePercentage / 100;
     gasFee = +networkFee.gas;

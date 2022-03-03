@@ -7,8 +7,8 @@
   export let gasFee = 0;
   export let rate: number = undefined;
 
-  const priceWFee = (1 + marketplaceFee) * price + gasFee;
-  const absoluteFee = marketplaceFee * price;
+  $: priceWFee = (1 + marketplaceFee) * price + gasFee;
+  $: absoluteFee = marketplaceFee * price;
 
   const options = {
     currency,

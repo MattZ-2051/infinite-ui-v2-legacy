@@ -21,7 +21,7 @@
   import OrderStatus from './OrderStatus.svelte';
   import CompletePurchaseMM from './CompletePurchaseMM.svelte';
   import { handlePayment, handleExit, handleStateChange } from './checkout.service';
-  import { validETHdirectPurchase } from './checkout.api';
+  import { getCosts, validETHdirectPurchase } from './checkout.api';
   import { checkoutState } from './checkout.store';
   import StripeCheckout from '../stripe/StripeCheckout.svelte';
 
@@ -48,6 +48,9 @@
 
   $: isFullScreenComponent = orderSuccess || orderError;
 
+  let gasFee: number;
+  let rate: number;
+
   let validETHPurchase: ValidETHListingData;
   let ethAddress = undefined;
 
@@ -57,6 +60,11 @@
       handleStateChange((localStorage.getItem('checkout-state') as CheckoutState) || 'method-select');
     }
     try {
+      const costs = await getCosts(listing._id);
+
+      gasFee = +costs.networkFee.gas;
+      rate = +costs.rate.amount;
+
       validETHPurchase = await validETHdirectPurchase(listing._id);
     } catch {
       validETHPurchase = undefined;
@@ -107,7 +115,7 @@
     <div class={gridContainerClass}>
       <div class={orderSummaryContainerClass}>
         {#if ($media.xl || (!exitCheckout && !processingOrder)) && !isFullScreenComponent}
-          <OrderSummary {sku} {product} {listing} closeIcon={handleExit} />
+          <OrderSummary {sku} {product} {listing} {rate} {gasFee} closeIcon={handleExit} />
         {/if}
       </div>
       <div class={orderArticleContainerClass}>

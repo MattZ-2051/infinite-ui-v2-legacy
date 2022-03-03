@@ -1,5 +1,5 @@
 import type { SvelteComponent } from 'svelte';
-import type { Cost, Product, TransactionStatus, TransactionType } from '$lib/sku-item/types';
+import type { Cost, Product, TransactionStatus, TransactionType, Sku, Listing } from '$lib/sku-item/types';
 
 export type IconSource = (
   | { d: string; fill: string; 'fill-rule'?: undefined; 'clip-rule'?: undefined }
@@ -57,4 +57,28 @@ export type ETHListingCosts = {
   resaleBuyersFeePercentage: number;
   serviceEarnings: number;
   totalCost: number;
+};
+
+export type ListingCosts = {
+  sku: Sku;
+  listing: Listing;
+  cost: {
+    currency: 'USD' | 'ETH';
+    finalPayout: number;
+    initialBuyersFee: number;
+    initialBuyersFeePercentage: number;
+    initialSellersFee: number;
+    initialSellersFeePercentage: number;
+    resale: boolean;
+    resaleBuyersFeePercentage: number;
+    serviceEarnings: number;
+    totalCost: number;
+  };
+  networkFee: {
+    gas: string;
+  };
+  rate: {
+    amount: string;
+    date: string;
+  };
 };

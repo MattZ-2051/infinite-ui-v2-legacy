@@ -18,6 +18,7 @@
   export let product: Product = undefined;
   export let listing: Listing;
   export let rate: number = undefined;
+  export let gasFee = 0;
   export let closeIcon: () => void;
 
   const _sku = product ? product.sku : sku;
@@ -35,7 +36,7 @@
       <ProductModalInfo sku={_sku} />
     </section>
     <section class="mt-4 pt-6">
-      <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} />
+      <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} {gasFee} />
     </section>
   {:else}
     <span on:click={closeIcon} class="absolute close-icon"><Icon path={mdiClose} size={1.5} /></span>
@@ -50,7 +51,7 @@
       </Accordion>
     </AccordionGroup>
     <section class="mt-4 pt-6">
-      <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} />
+      <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} {gasFee} />
     </section>
   {/if}
 </article>
