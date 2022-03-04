@@ -25,6 +25,8 @@
     withdrawableBalanceEth,
     loadMyTransactionsFx,
     loadWalletFx,
+    kycFailure,
+    setKycFailure,
   } from './wallet.store';
   import { launchKYCPersona } from './kyc/personaClient.service';
   import { getKYCLevelDepositDisclaimer } from './kyc/kyc.service';
@@ -73,7 +75,9 @@
       $wallet.kycMaxLevel === 1 ? variables.persona.templateIdLevel2 : variables.persona.templateIdLevel1,
       ({ inquiryId }) => {
         kycIsPending(inquiryId);
-      }
+      },
+      $kycFailure.inquiryFailed,
+      () => setKycFailure(true)
     );
   }
 

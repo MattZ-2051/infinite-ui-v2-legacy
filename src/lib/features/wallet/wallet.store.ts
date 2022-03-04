@@ -62,7 +62,10 @@ export const kycIsPending = createEvent<string>();
 kycIsPending.watch(() => {
   walletPoller.start();
 });
-merge([loadKycInfoFx.doneData, loadWalletFx.doneData]).watch((response) => {
+
+const walletUpdate = merge([loadKycInfoFx.doneData, loadWalletFx.doneData]);
+
+walletUpdate.watch((response) => {
   if (response.kycPending && !walletPoller.$isActive.getState()) {
     walletPoller.start();
     return;
@@ -72,3 +75,32 @@ merge([loadKycInfoFx.doneData, loadWalletFx.doneData]).watch((response) => {
     return;
   }
 });
+
+export const setKycFailure = createEvent<boolean>();
+
+export const kycFailure = createStore<{ inquiryPending: boolean; inquiryFailed: boolean }>({
+  inquiryPending: false,
+  inquiryFailed: false,
+})
+  // On the event where kyc is pending set the status in state
+  .on(kycIsPending, () => ({ inquiryFailed: false, inquiryPending: true }))
+  // On the event where the inqury status is explicitly declared set it in state
+  .on(setKycFailure, (state, failed) => {
+    return { inquiryPending: false, inquiryFailed: failed };
+  })
+  // On the event where kycInfo or loadWallet request new data evaluate state
+  .on(walletUpdate, (state, response) => {
+    // While resolution is pending don't update failure state
+    if (response.kycPending) return state;
+
+    // When resolution is detected verify the last record status
+    if (state.inquiryPending === true && response.kycPending === false) {
+      // Check if there are failed records
+      const isFailure = Boolean(response?.kycRecords.find((record) => record.status === 'failed'));
+      // Set state with response
+      return {
+        inquiryPending: response.kycPending,
+        inquiryFailed: isFailure,
+      };
+    }
+  });
