@@ -19,13 +19,13 @@
   import routes from '$project/routes';
   import { skuBought } from '$lib/features/sku/sku.store';
   import { wallet } from '$lib/features/wallet/wallet.store';
-  import StripeCheckout from '$lib/features/stripe/StripeCheckout.svelte';
   import { goto } from '$app/navigation';
   import { variables } from '$lib/variables';
   import visa from '$lib/components/icons/visa';
   import mastercard from '$lib/components/icons/mastercard';
   import applepay from '$lib/components/icons/applepay';
   import googlepay from '$lib/components/icons/googlepay';
+  import StripeCheckoutModal from '../stripe/StripeCheckoutModal.svelte';
   import americanExpress from './assets/american-express.svg';
   import { purchaseSkuListing, claimGiveawaySkuListing } from './order.api';
   import { handleSkuClaimError } from './order.service';
@@ -368,7 +368,7 @@
         </div>
       {:else if paymentMethod === 'stripe'}
         <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} hideWalletBalance {product} />
-        <StripeCheckout {listing} mintToAddress={ethAddress} />
+        <StripeCheckoutModal {listing} mintToAddress={ethAddress} />
       {/if}
       {#if isStripeAllowed && !!paymentMethod}
         <span class="text-center hover:underline cursor-pointer" on:click={() => selectPaymentMethod(undefined)}
