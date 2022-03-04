@@ -1,10 +1,11 @@
 <script lang="ts">
-  import type { providers } from 'ethers';
-  import type { ValidETHListingData } from './types';
-  import type { Listing, Sku } from '$lib/sku-item/types';
   import { onMount } from 'svelte';
+  import type { providers } from 'ethers';
   import copy from 'clipboard-copy';
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
+  import type { ValidETHListingData } from './types';
+  import type { Listing, Sku } from '$lib/sku-item/types';
+  import { formatCurrency } from '$util/format';
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
   import { checkNetwork, getWalletInfo, sendTransaction, walletConnected } from '$lib/user';
@@ -28,6 +29,7 @@
 
   export let sku: Sku;
   export let listing: Listing;
+  export let gasFee = 0;
 
   $: validEthAddress = undefined;
   $: purchasing = false;
@@ -36,14 +38,15 @@
   $: marketplaceFee = getSkuBuyingFee(sku);
   $: total = listing.price * (1 + marketplaceFee);
   $: insufficientFunds = total > +userBalance;
+  $: priceWFee = total + gasFee;
 
   let balance;
   let purchaseResult: providers.TransactionResponse;
   let acceptedTerms = false;
   let purchaseInfo: ValidETHListingData;
-  let gasFee: number;
 
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
+  const options = { currency: 'ETH', maximumFractionDigits: 5 };
 
   onMount(async () => {
     const isWalletConnected = await connectWallet();
@@ -131,16 +134,7 @@
     </svelte:fragment>
   </Input>
   <div>
-    <OrderDetails
-      {sku}
-      {listingPrice}
-      {marketplaceFee}
-      {userBalance}
-      {insufficientFunds}
-      {gasFee}
-      hideWalletBalance
-      hideProductInfo
-    />
+    <OrderDetails {sku} {listingPrice} {marketplaceFee} {userBalance} {insufficientFunds} {gasFee} hideProductInfo />
   </div>
   <div class="mt-8">
     <p class="text-xs text-black-opacity-50 font-normal pb-4">
@@ -157,9 +151,9 @@
       <Button variant="outline-brand" class="border-none" on:click={() => handleStateChange('method-select')}
         >Back to Payment Method</Button
       >
-      <Button variant="brand" on:click={submitOrder} disabled={!acceptedTerms}
-        >Buy now for ETH {total.toFixed(3)}</Button
-      >
+      <Button variant="brand" on:click={submitOrder} disabled={!acceptedTerms || insufficientFunds}>
+        Buy now for ETH {formatCurrency(priceWFee, options)}
+      </Button>
     </div>
   </div>
 </div>

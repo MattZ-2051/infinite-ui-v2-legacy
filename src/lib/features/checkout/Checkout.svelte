@@ -143,7 +143,7 @@
             <OrderStatus orderState={orderError ? 'error' : 'success'} {sku} />
           {:else if isOrdering}
             {#if orderingMm}
-              <CompletePurchaseMM {sku} {listing} />
+              <CompletePurchaseMM {sku} {listing} {gasFee} />
             {:else if orderingStripe}
               <StripeCheckout mintToAddress={ethAddress} {listing} />
             {/if}

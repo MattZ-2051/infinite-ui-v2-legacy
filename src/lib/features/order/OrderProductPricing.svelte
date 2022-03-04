@@ -29,11 +29,13 @@
     </div>
   </div>
   {#if gasFee}
-    <div class="mb-2">Gas fee:</div>
+    <div class="mb-2">NFT minting fee:</div>
     <div class="flex justify-end">
-      <div class="text-right">
-        {`${formatCurrency(gasFee * rate, { currency: 'USD' })} ≈`}
-      </div>
+      {#if rate}
+        <div class="text-right">
+          {`${formatCurrency(gasFee * rate, { currency: 'USD' })} ≈`}
+        </div>
+      {/if}
       <div class="text-right ml-1">
         {formatCurrency(gasFee, options)}
       </div>
