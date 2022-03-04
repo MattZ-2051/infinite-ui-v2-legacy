@@ -1,8 +1,12 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
+  import { goto } from '$app/navigation';
+  import routes from '$project/routes';
   import heroImg from './images/bg-hero-img.svg';
   import mobileHeroImg from './images/bg-hero-img-mobile.svg';
   import bgGradient from './images/bg-gradient-bottom-img.svg';
+
+  const skuId = 'pendingdefinition';
 </script>
 
 <img src={heroImg} alt="" class="w-full z-0 absolute h-screen object-cover hidden md:inline" />
@@ -19,7 +23,8 @@
       </p>
       <Button
         class="text-xs w-60 h-14 sm:w-64 sm:h-16 mt-12 font-semibold tracking-widest uppercase second-font"
-        variant="brand">explore the drop</Button
+        variant="brand"
+        on:click={() => goto(routes.sku(skuId))}>explore the drop</Button
       >
     </div>
   </div>

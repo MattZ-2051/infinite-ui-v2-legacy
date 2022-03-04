@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
+  import routes from '$project/routes';
   import featuredImg from './images/featured-collection-img.svg';
   import featuredImgMobile from './images/featured-collection-img-mobile.svg';
 </script>
@@ -18,7 +20,11 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit urna nulla, in pretium orci
         sollicitudin sed. Nunc sed purus et nunc sollicitudin.
       </p>
-      <Button variant="brand" class="w-52 h-12 sm:w-64 sm:h-16 text-xs font-bold mt-10 uppercase ">explore now</Button>
+      <Button
+        variant="brand"
+        class="w-52 h-12 sm:w-64 sm:h-16 text-xs font-bold mt-10 uppercase"
+        on:click={() => goto(routes.skuCollections)}>explore now</Button
+      >
     </div>
   </div>
   <img

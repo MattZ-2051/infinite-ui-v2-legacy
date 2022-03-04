@@ -28,7 +28,7 @@
         </p>
         <Button
           variant="brand"
-          class="w-full h-12 mb-14 lg:mb-0 lg:h-16 lg:w-80 font-bold text-xs tracking-widest uppercase second-font"
+          class="hidden w-full h-12 mb-14 lg:mb-0 lg:h-16 lg:w-80 font-bold text-xs tracking-widest uppercase second-font"
           >see our journey</Button
         >
       </div>
