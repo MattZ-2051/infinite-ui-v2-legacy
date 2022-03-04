@@ -6,6 +6,7 @@
   export let label = '';
   export let variant: FormElementVariant;
   export let error: string | string[] = '';
+  export let success: string | string[] = '';
   let _class = '';
   export { _class as class };
 
@@ -21,6 +22,9 @@
   </div>
   {#if error}
     <div class="text-red-500 text-sm pt-1">{error}</div>
+  {/if}
+  {#if success}
+    <div class="text-green-500 text-sm pt-1">{success}</div>
   {/if}
 </div>
 
