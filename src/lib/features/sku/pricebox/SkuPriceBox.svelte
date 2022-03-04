@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import { onOrderIntent } from '$lib/features/order/order.service';
+  import { onSignIn, user } from '$lib/user';
   import routes from '$project/routes';
   import { goto } from '$app/navigation';
   import {
@@ -21,8 +22,11 @@
 
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
-
-    if (goToSkuAuctionPage) {
+    // TODO (matt): Update with correct type when defined
+    const redirectToLogin = !$user && sku.type === 'voucher-sku';
+    if (redirectToLogin) {
+      onSignIn();
+    } else if (goToSkuAuctionPage) {
       goto(routes.skuAuction(sku._id));
     } else if (activeListings[0].product) {
       const product = await loadProduct({ id: activeListings[0].product });
