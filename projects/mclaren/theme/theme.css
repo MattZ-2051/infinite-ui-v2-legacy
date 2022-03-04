@@ -190,9 +190,12 @@
   --market-border-hover-width: -2px; /*in negative*/
   --market-filter-option-hover-bg-color: var(--bg-color);
   --marketplace-search-input-bar-top: none;
-  --market-checkmark-hover-color: orangered;
-
+  --market-checkmark-hover-color: #ff5e17;
+  --search-bar-font-size: 0.75rem;
+  --search-bar-text-transform: uppercase;
+  --search-bar-height: 3rem;
   --filter-button-font-size: 10px;
+  --search-bar-min-size: 1rem;
 }
 
 .theme-search-bar {

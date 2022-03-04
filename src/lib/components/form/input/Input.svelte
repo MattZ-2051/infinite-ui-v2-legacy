@@ -56,6 +56,8 @@
     padding: 0;
     text-align: inherit;
     background-color: transparent;
-    min-height: 1.875rem;
+    min-height: var(--search-bar-min-size, 1.875rem);
+    font-size: var(--search-bar-font-size, 1rem);
+    text-transform: var(--search-bar-text-transform, none);
   }
 </style>

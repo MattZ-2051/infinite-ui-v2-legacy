@@ -106,7 +106,7 @@
       <NoResults class="mt-4 lg:mt-12 items-center">
         <div slot="search-input" class="flex mb-6">
           <ThemeContext id="search-bar">
-            <div class="flex-1 mr-10 marketplace-custom-search-input">
+            <div class="flex items-center flex-1 mr-10 marketplace-custom-search-input">
               <Search value={termInputSearch} on:input={handleOnInputSearch} />
             </div>
           </ThemeContext>
@@ -145,5 +145,6 @@
     border-radius: var(--border-radius-input-search, 0px);
     padding: var(--input-search-padding, 0px);
     border-color: var(--border-input-search-color, none);
+    height: var(--search-bar-height, 0.9rem);
   }
 </style>
