@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { openModal } from '$ui/modals';
+  import { closeAllModals, openModal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import CryptoCurrency from '$lib/payment/crypto/CryptoCurrency.svelte';
   import DepositHedera from '$lib/payment/hedera/DepositHedera.svelte';
@@ -96,6 +96,7 @@
       return;
     }
     if (id === 'moonpay') {
+      closeAllModals();
       goto(routes.depositMoonPay);
       return;
     }
