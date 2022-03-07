@@ -196,6 +196,18 @@
   --search-bar-height: 3rem;
   --filter-button-font-size: 10px;
   --search-bar-min-size: 1rem;
+
+  /*Sku page buttons from collector from creator*/
+  --padding-sku-buttons: 8px 16px 0 16px;
+  --margin-botton-sku-buttons: 32px;
+  --padding-sku-buttons-md: 8px 40px 0 40px;
+  --margin-botton-sku-buttons-md: 0;
+  --padding-sku-buttons-lg: 8px 48px 0 48px;
+  --margin-botton-sku-buttons-lg: 0;
+  --sku-price-box-button-border-radius: 60px;
+  --sku-price-box-button-margin: 0.625rem 0 0.625rem 0;
+  --sku-price-box-border-color: none;
+  --sku-price-box-border-top: 0;
 }
 
 .theme-search-bar {

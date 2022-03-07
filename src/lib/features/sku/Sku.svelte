@@ -39,7 +39,9 @@
       </div>
     </div>
   </div>
-  <SkuPriceBox slot="sticky-cta" sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
+  <div slot="sticky-cta" class="custom-content-buttons">
+    <SkuPriceBox sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
+  </div>
   <div slot="tabs" class="px-4 md:px-12 pt-12 pd:pt-16 pb-4" style="min-height: 300px">
     <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
       <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-2xl">
@@ -83,6 +85,11 @@
 {/if}
 
 <style lang="postcss">
+  .custom-content-buttons {
+    padding: var(--padding-sku-buttons, 0);
+    margin-bottom: var(--margin-botton-sku-buttons, 0);
+  }
+
   @media screen and (min-width: 768px) and (max-height: 920px) {
     .sku-name-block {
       padding-top: min(5vh, 4rem);
@@ -97,6 +104,20 @@
   @media screen and (min-width: 768px) and (max-height: 768px) {
     .name-info-wrapper > header {
       @apply text-3xl;
+    }
+  }
+
+  @screen md {
+    .custom-content-buttons {
+      padding: var(--padding-sku-buttons-md, 0);
+      margin-bottom: var(--margin-botton-sku-buttons-md, 0);
+    }
+  }
+
+  @screen lg {
+    .custom-content-buttons {
+      padding: var(--padding-sku-buttons-lg, 0);
+      margin-bottom: var(--margin-botton-sku-buttons-lg, 0);
     }
   }
 </style>

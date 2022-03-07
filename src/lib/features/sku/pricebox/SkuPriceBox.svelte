@@ -65,7 +65,7 @@
   });
 </script>
 
-<div class="flex flex-col divide-y divide-black">
+<div class="flex flex-col">
   {#if collector}
     <LimitedAuction {collector} />
   {:else if active}
@@ -83,19 +83,21 @@
   {/if}
 
   {#if totalCollectors > 0}
-    {#if hasActiveAuctionListing && hasActiveFixedListing}
-      <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuctionAndSale" />
-    {:else if isActiveSale}
-      <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeSale" />
-    {:else if isActiveAuction}
-      <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuction" />
-    {:else if isUpcomingAuction}
-      <FromCollectors {sku} collectorListing={lowestUpcomingPriceListing} status="upcomingAuction" />
-    {:else if ethSkuSale}
-      <FromCollectors {sku} collectorListing={lowestUpcomingPriceListing} status="ethSkuSale" />
-    {:else if noCollectorSales}
-      <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="noneForSale" />
-    {/if}
+    <div style="border-top:var(--sku-price-box-border-top, 1px solid black);">
+      {#if hasActiveAuctionListing && hasActiveFixedListing}
+        <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuctionAndSale" />
+      {:else if isActiveSale}
+        <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeSale" />
+      {:else if isActiveAuction}
+        <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuction" />
+      {:else if isUpcomingAuction}
+        <FromCollectors {sku} collectorListing={lowestUpcomingPriceListing} status="upcomingAuction" />
+      {:else if ethSkuSale}
+        <FromCollectors {sku} collectorListing={lowestUpcomingPriceListing} status="ethSkuSale" />
+      {:else if noCollectorSales}
+        <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="noneForSale" />
+      {/if}
+    </div>
   {/if}
 </div>
 

@@ -3,13 +3,15 @@ body {
 }
 
 .sticky-cta {
-  background-color: #ffffff;
+  background: linear-gradient(97.14deg, #e9e9e9 14.99%, #f4f4f4 93.37%);
   color: #000000;
   --gray-500: rgba(0, 0, 0, 0.5);
+  border-radius: 60px;
+  margin: 0.625rem 0 0.625rem 0;
 }
 a.sticky-cta:hover,
 button.sticky-cta:hover {
-  background-color: #ddf874;
+  background: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
 }
 
 .item-link {

@@ -3,7 +3,7 @@ export const paths = {
   '$project/collection/CollectionIndex.svelte': 'projects/aria/src/collection/CollectionIndex.svelte',
   '$lib/features/wallet/assets/arrow-right': 'projects/mclaren/src/assets/lib/arrow-right',
   '$lib/features/wallet/assets/info': 'projects/mclaren/src/assets/lib/info',
-  '$lib/features/sku/assets/arrow-right': 'projects/infinite/src/assets/lib/arrow-right',
+  '$lib/features/sku/assets/arrow-right': 'projects/mclaren/src/assets/lib/arrow-right',
   '$lib/features/sku/assets/share': 'projects/infinite/src/assets/lib/share',
   '$lib/components/icons/magnify': 'projects/infinite/src/assets/lib/magnify',
   '$lib/features/account/Account.svelte': 'projects/mclaren/src/account/Account.svelte',
