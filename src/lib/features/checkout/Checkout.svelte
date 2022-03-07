@@ -28,12 +28,15 @@
   export let sku: Sku = undefined;
   export let product: Product = undefined;
 
+  const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED === 'true';
+  const STRIPE_ENABLED = import.meta.env?.VITE_STRIPE_ENABLED === 'true';
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _sku = sku ? sku : product.sku;
   const [listing] = getActiveListings(sku);
   const paymentMethods = [
-    { id: 'cc', title: 'Credit Card', iconSource: creditCardIcon },
-    { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon },
+    { id: 'cc', title: 'Credit Card', iconSource: creditCardIcon, available: MM_WALLET_ENABLED },
+    { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon, available: STRIPE_ENABLED },
   ];
 
   $: exitCheckout = $checkoutState === 'exit';
@@ -150,13 +153,15 @@
           {:else if paymentSelection}
             <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center">
               {#each paymentMethods as paymentMethod, i}
-                <PaymentButton
-                  onClick={() => handlePaymentButton(paymentMethod.id)}
-                  classNames={i === 0 && 'mb-6 md:mb-0 md:mr-6 xl:mr-0 xl:mb-6 2xl:mr-6 2xl:mb-0'}
-                  title={paymentMethod.title}
-                  iconSource={paymentMethod.iconSource}
-                  id={paymentMethod.id}
-                />
+                {#if paymentMethod.available}
+                  <PaymentButton
+                    onClick={() => handlePaymentButton(paymentMethod.id)}
+                    classNames={i === 0 && 'mb-6 md:mb-0 md:mr-6 xl:mr-0 xl:mb-6 2xl:mr-6 2xl:mb-0'}
+                    title={paymentMethod.title}
+                    iconSource={paymentMethod.iconSource}
+                    id={paymentMethod.id}
+                  />
+                {/if}
               {/each}
             </div>
           {/if}

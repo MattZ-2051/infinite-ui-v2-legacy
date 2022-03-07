@@ -8,6 +8,7 @@ module.exports = async () => {
     transform: {
       '^.+\\.svelte$': ['svelte-jester', { preprocess: true }],
       '^.+\\.(ts|js)$': 'ts-jest',
+      '.+\\.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     },
     moduleFileExtensions: ['js', 'ts', 'svelte'],
     extensionsToTreatAsEsm: ['.ts'],

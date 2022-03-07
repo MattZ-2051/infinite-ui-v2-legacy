@@ -68,6 +68,7 @@ specifiers:
   husky: 7.0.4
   imagetools-core: 3.0.2
   jest: ~27.5.1
+  jest-transform-stub: ^2.0.0
   js-cookie: 3.0.1
   jsonwebtoken: 8.5.1
   just-debounce: 1.1.0
@@ -194,6 +195,7 @@ devDependencies:
   husky: 7.0.4
   imagetools-core: 3.0.2
   jest: 27.5.1
+  jest-transform-stub: 2.0.0
   mockdate: 3.0.5
   msw: 0.35.0
   npm-run-all: 4.1.5
@@ -12496,6 +12498,10 @@ packages:
       semver: 7.3.5
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /jest-transform-stub/2.0.0:
+    resolution: {integrity: sha512-lspHaCRx/mBbnm3h4uMMS3R5aZzMwyNpNIJLXj4cEsV0mIUtS4IjYJLSoyjRCtnxb6RIGJ4NL2quZzfIeNhbkg==}
     dev: true
 
   /jest-util/26.6.2:
