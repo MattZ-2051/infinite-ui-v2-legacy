@@ -216,7 +216,7 @@ export const MirrorNodeBalanceDataStore = createStore<MirrorNodeBalanceResponse>
 );
 
 export const SerialDataLoadFx = createEffect(async (): Promise<MirrorNodeNftResponse[]> => {
-  let balance = {};
+  let balance: TokenBalanceMap;
   let balanceData: MirrorNodeBalanceResponse;
   let accountId: string;
   let pending: boolean;
@@ -226,12 +226,12 @@ export const SerialDataLoadFx = createEffect(async (): Promise<MirrorNodeNftResp
   if (!pending) {
     MirrorNodeBalanceDataStore.watch((tokenData) => (balanceData = tokenData));
     QueryBalanceStore.watch((tokens) => {
-      if (tokens?.toString()) balance = JSON.parse(tokens.toString());
+      if (tokens?.size) balance = tokens;
     });
     InfiniteExtensionStore.watch((state) => (accountId = state?.current?.id));
 
     const nfts = balanceData?.tokens?.filter(
-      (token) => +balance[token.token_id] > 0 && token.type.includes('NON_FUNGIBLE')
+      (token) => balance.get(token.token_id).toNumber() > 0 && token.type.includes('NON_FUNGIBLE')
     );
     const serials = await getNftBalance({ nfts, walletId: accountId });
 
@@ -256,7 +256,7 @@ export const nftBalance = createStore<string[]>(null).on(SerialDataLoadFx.doneDa
 export const tokenBalance = createStore<string[]>(null).on(
   [MirrorNodeBalanceLoadFx.doneData, QueryBalanceLoadFx.doneData],
   (state) => {
-    let balance = {};
+    let balance: TokenBalanceMap;
     let balanceData: MirrorNodeBalanceResponse;
     let pending: boolean;
     MirrorNodeBalanceLoadFx.pending.watch((fxState) => (pending = fxState));
@@ -265,11 +265,11 @@ export const tokenBalance = createStore<string[]>(null).on(
     if (!pending) {
       MirrorNodeBalanceDataStore.watch((tokenData) => (balanceData = tokenData));
       QueryBalanceStore.watch((tokens) => {
-        if (tokens?.toString()) balance = JSON.parse(tokens.toString());
+        if (tokens?.size) balance = tokens;
       });
 
       const tokens = balanceData?.tokens?.filter(
-        (token) => +balance[token.token_id] > 0 && !token.type.includes('NON_FUNGIBLE')
+        (token) => balance.get(token.token_id).toNumber > 0 && !token.type.includes('NON_FUNGIBLE')
       );
       return tokens.map((token) => token.token_id);
     }
