@@ -6,7 +6,7 @@
   import mclarenHistoricalCarMobile from './images/mclaren-f1-historical-img-mobile.png';
 </script>
 
-<div class="lg:grid grid-cols-2 gap-x-12 md:container mb-20">
+<div class="lg:grid grid-cols-2 gap-x-12 sm:container mb-20">
   <div class="text-white z-0 relative img-container mb-11">
     <img
       src={mclarenDevelopmentCar}
@@ -23,7 +23,7 @@
         <p class="tracking-wider text-base sm:text-2xl font-normal pb-3 second-font uppercase">
           gt development <span class="lg:hidden inline-block">for</span>
         </p>
-        <p class="tracking-wider text-5xl sm:text-6xl font-normal pb-2 second-font block uppercase">
+        <p class="tracking-wider text-4xl sm:text-6xl font-light pb-2 second-font block uppercase">
           <span class="lg:inline-block hidden">for</span> excellence
         </p>
         <p class="text-base font-light w-9/12 sm:w-11/12 max-w-xl leading-7 sm:leading-10">
@@ -54,7 +54,7 @@
         <p class="tracking-wider text-base sm:text-2xl font-normal pb-3 second-font uppercase">
           F1 HISTORICAL <span class="lg:hidden inline-block">race</span>
         </p>
-        <p class="tracking-wider text-5xl sm:text-6xl font-normal pb-2 second-font block uppercase">
+        <p class="tracking-wider text-4xl sm:text-6xl font-light pb-2 second-font block uppercase">
           <span class="lg:inline-block hidden">race</span> challenges
         </p>
         <p class="text-base font-light w-9/12 sm:w-11/12 max-w-xl leading-7 sm:leading-10">
