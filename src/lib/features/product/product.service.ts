@@ -94,8 +94,7 @@ export function transferInUnresolved(product: Product, transactions: Transaction
 
 export function inExternalBalance(product: Product, balance: TokenBalanceMap, nfts?: string[]) {
   if (!balance?.size) return false;
-  const balanceData = JSON.parse(balance.toString());
-  const hasBalance = +balanceData[product.tokenId] > 0;
+  const hasBalance = balance.get(product.tokenId).toNumber() > 0;
 
   if (!hasBalance || !product.nftSerial) return hasBalance;
 

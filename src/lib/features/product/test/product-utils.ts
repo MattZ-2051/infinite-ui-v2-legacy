@@ -1,6 +1,6 @@
 import type { Product, Listing, Sku, Transaction } from '$lib/sku-item/types';
 import type TokenBalanceMap from '@hashgraph/sdk/lib/account/TokenBalanceMap';
-import { TokenId } from '@hashgraph/sdk';
+import type { TokenId } from '@hashgraph/sdk';
 import Long from 'long';
 
 export class TestProduct {
@@ -56,18 +56,18 @@ export class TestProduct {
     return { ...this, transactions: [{ type: 'transfer_out', status: 'pending' } as Transaction] };
   }
   inExternalWalletBalance() {
-    const id = '0.0.12345';
-    this.product = { ...this.product, tokenId: id };
+    const token = { id: '0.0.12345', balance: 1 };
+
+    this.product = { ...this.product, tokenId: token.id };
     const mockFunctions = {
-      toString: () => JSON.stringify({ [id]: '1' }),
       _map: undefined,
       __map: undefined,
       _fromString: undefined,
       _set: undefined,
     };
-    const mockBalance: TokenBalanceMap & Map<TokenId, Long> = Object.assign(new Map(), mockFunctions);
+    const mockBalance: TokenBalanceMap & Map<TokenId | string, Long> = Object.assign(new Map(), mockFunctions);
 
-    mockBalance.set(TokenId.fromString(id), Long.fromNumber(1));
+    mockBalance.set(token.id, Long.fromNumber(token.balance));
 
     return { ...this, balance: mockBalance as TokenBalanceMap };
   }
