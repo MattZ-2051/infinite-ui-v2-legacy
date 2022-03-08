@@ -1,4 +1,4 @@
-import { render, RenderResult, fireEvent } from '@testing-library/svelte';
+import { render, type RenderResult, fireEvent } from '@testing-library/svelte';
 import MenuTest from './test/MenuTest.svelte';
 
 describe('Menu', () => {

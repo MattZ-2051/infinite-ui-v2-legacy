@@ -1,4 +1,4 @@
-import { render, RenderResult, fireEvent } from '@testing-library/svelte';
+import { render, type RenderResult, fireEvent } from '@testing-library/svelte';
 import { readable } from 'svelte/store';
 import TabsTest from './test/TabsTest.svelte';
 

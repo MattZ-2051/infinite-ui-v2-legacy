@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
-  import type { LoadInput } from '@sveltejs/kit';
+  import type { Load } from '@sveltejs/kit';
   import type { Awaited } from 'ts-essentials';
   import { onDestroy } from 'svelte';
   import { clearCollection, loadCollectionFx, setCollection } from '$lib/features/collection/collection.store';
 
-  export async function load({ url, params, fetch }: LoadInput) {
+  export const load: Load = async ({ url, params, fetch }) => {
     const { username } = params;
     const _page = +url.searchParams.get(`page`) || 1;
     const sortBy: string = url.searchParams.get('sortBy');
@@ -20,7 +20,7 @@
     return {
       props: { data },
     };
-  }
+  };
 </script>
 
 <script lang="ts">

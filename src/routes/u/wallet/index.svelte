@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
-  import type { LoadInput } from '@sveltejs/kit';
+  import type { Load } from '@sveltejs/kit';
 
-  export async function load({ url }: LoadInput) {
+  export const load: Load = async ({ url }) => {
     return {
       props: {
         page: url.searchParams.get(`page`) || 1,
@@ -10,7 +10,7 @@
         type: url.searchParams.get('type') || '',
       },
     };
-  }
+  };
 </script>
 
 <script lang="ts">

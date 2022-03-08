@@ -1,4 +1,4 @@
-import type { RequestEvent } from '@sveltejs/kit';
+import type { GetSession } from '@sveltejs/kit';
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
@@ -142,11 +142,11 @@ export async function handleTokenRefresh(request) {
   };
 }
 
-export async function getSessionFromCookie({ request }: RequestEvent) {
+export const getSessionFromCookie: GetSession = async ({ request }) => {
   const cookies = parseCookies(request.headers.get('cookie'));
 
   return await getSessionFromAccessToken(cookies[accessTokenCookieName]);
-}
+};
 
 export function getOriginHostURL({ host }) {
   return host.includes('localhost') ? `http://${host}` : `https://${host}`;

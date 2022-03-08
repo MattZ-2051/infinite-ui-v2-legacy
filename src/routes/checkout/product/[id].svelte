@@ -1,9 +1,9 @@
 <script context="module" lang="ts">
-  import type { LoadInput } from '@sveltejs/kit';
+  import type { Load } from '@sveltejs/kit';
   import type { Awaited } from 'ts-essentials';
   import { product, fetchProductFx, setProduct } from '$lib/features/product/product.store';
 
-  export async function load({ url, params, fetch }: LoadInput) {
+  export const load: Load = async ({ url, params, fetch }) => {
     const { id } = params;
     const page = +url.searchParams.get(`page`) || 1;
     const tab = url.searchParams.get(`tab`) as 'auction' | 'history' | 'owner';
@@ -11,7 +11,7 @@
     return {
       props: { data: await fetchProductFx({ id, tab, page, fetch }) },
     };
-  }
+  };
 </script>
 
 <script lang="ts">

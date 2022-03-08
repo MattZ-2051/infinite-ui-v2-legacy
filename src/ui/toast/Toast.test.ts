@@ -1,4 +1,5 @@
-import { render, RenderResult, fireEvent } from '@testing-library/svelte';
+import type { RenderResult } from '@testing-library/svelte';
+import { render, fireEvent } from '@testing-library/svelte';
 // eslint-disable-next-line unicorn/prevent-abbreviations
 import type { ToastProps } from './types';
 import ToastTest from './test/ToastTest.svelte';

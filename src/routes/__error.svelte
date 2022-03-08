@@ -1,17 +1,17 @@
 <script context="module" lang="ts">
-  import type { ErrorLoadInput } from '@sveltejs/kit';
+  import type { ErrorLoad } from '@sveltejs/kit';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
 
-  export function load({ error, status }: ErrorLoadInput): { props: Partial<ErrorLoadInput> } {
+  export const load: ErrorLoad = ({ error, status }) => {
     return {
       props: {
         status,
         error,
       },
     };
-  }
+  };
 </script>
 
 <script lang="ts">

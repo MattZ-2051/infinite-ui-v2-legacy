@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import type { LoadInput } from '@sveltejs/kit';
+  import type { Load } from '@sveltejs/kit';
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import debounce from 'p-debounce';
   import { browser } from '$app/env';
@@ -7,12 +7,12 @@
   import { loadCollectorProducts } from '$lib/features/collectors/collectors.api';
 
   export const load = debounce(
-    async ({ url, params, fetch }: LoadInput) => {
+    <Load>(async ({ url, params, fetch }) => {
       const { id } = params;
       return {
         props: await loadCollectorProducts({ id, fetch, query: url.searchParams }),
       };
-    },
+    }),
     browser ? 300 : 0
   );
 </script>

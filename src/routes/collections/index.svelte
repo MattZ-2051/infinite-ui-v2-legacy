@@ -1,13 +1,13 @@
 <script context="module" lang="ts">
-  import type { LoadInput } from '@sveltejs/kit';
+  import type { Load } from '@sveltejs/kit';
   import type { Awaited } from 'ts-essentials';
   import { loadAllSkuCollectionsFx, setAllSkuCollections } from '$lib/features/collections/collections.store';
 
-  export async function load({ fetch }: LoadInput) {
+  export const load: Load = async ({ fetch }) => {
     return {
       props: { data: await loadAllSkuCollectionsFx({ fetch }) },
     };
-  }
+  };
 </script>
 
 <script lang="ts">

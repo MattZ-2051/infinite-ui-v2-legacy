@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
-  import type { LoadInput } from '@sveltejs/kit';
+  import type { Load } from '@sveltejs/kit';
 
-  export async function load({ url }: LoadInput) {
+  export const load: Load = async ({ url }) => {
     let urlString: string = undefined;
 
     if (url.searchParams.has('code') && url.searchParams.has('state')) {
@@ -19,7 +19,7 @@
         returnUrl: url.searchParams.get('returnUrl'),
       },
     };
-  }
+  };
 </script>
 
 <script lang="ts">
