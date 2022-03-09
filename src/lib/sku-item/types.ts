@@ -32,6 +32,7 @@ export type Sku = {
   maxBid: number; // The cheapest price a sku can be sold
   minPrice: number;
   minCurrentBid: number;
+  mintPolicy?: MintPolicy;
   circulatingSupply: number;
   products: CollectorProduct[];
   totalSupply: number;
@@ -88,6 +89,11 @@ export type Sku = {
   activeAuctionSkuListingsCounter?: number;
   activeBuyNowSkuListingsCounter?: number;
   skuCollection?: SkuCollection[];
+};
+
+export type MintPolicy = {
+  chain: 'ethereum' | 'hedera';
+  transaction: 'instant' | 'later';
 };
 
 export type SkuCollection = {

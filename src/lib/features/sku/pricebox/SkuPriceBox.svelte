@@ -22,8 +22,8 @@
 
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
-    // TODO (matt): Update with correct type when defined
-    const redirectToLogin = !$user && sku.type === 'voucher-sku';
+    const redirectToLogin = !$user && sku.mintPolicy.transaction === 'later';
+
     if (redirectToLogin) {
       onSignIn();
     } else if (goToSkuAuctionPage) {

@@ -1,5 +1,5 @@
 import type { CheckoutState, ValidETHListingData } from './types';
-import type { Listing } from '$lib/sku-item/types';
+import type { Listing, MintPolicy } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
 import { handleWalletConnection, onSignIn } from '$lib/user';
 import { openModal } from '$ui/modals';
@@ -57,10 +57,12 @@ export const handlePayment = async ({
   id,
   user,
   handleEthModalCallback,
+  skuMintPolicy,
 }: {
   id: string;
   user: User;
   handleEthModalCallback: ({ address, option }: { address: string; option: string }) => void;
+  skuMintPolicy: MintPolicy;
 }) => {
   if (id === 'mm') {
     const isWalletConnected = await connectWallet();
@@ -71,6 +73,8 @@ export const handlePayment = async ({
   } else if (id === 'cc') {
     if (!user) {
       showLoginToast();
+    } else if (skuMintPolicy.transaction === 'later') {
+      handleStateChange('ordering-stripe');
     } else {
       openModal(EthAddressModal, { handleEthModalCallback });
     }
