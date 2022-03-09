@@ -136,10 +136,7 @@
             {/if}
           </div>
           {#if exitCheckout}
-            <ExitCheckout
-              onReturn={() => handleStateChange('method-select')}
-              onExit={() => goto(routes.sku(_sku._id))}
-            />
+            <ExitCheckout onReturn={() => handleStateChange('method-select')} onExit={() => goto(routes.marketplace)} />
           {:else if processingOrder}
             <ProcessingOrder etherscanLink="https://etherscan.io/" />
           {:else if orderSuccess || orderError}
