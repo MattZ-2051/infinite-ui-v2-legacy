@@ -1,12 +1,14 @@
 import type { Awaited } from 'ts-essentials';
 import type { Transaction, Product, Bid, TransactionData } from '$lib/sku-item/types';
-import { createEffect, createStore, createEvent, forward } from 'effector';
+import { createEffect, createStore, createEvent, forward, Event, Store } from 'effector';
+import type { TxStatus } from '$lib/payment/crypto/etherscan/types';
 import { browser } from '$app/env';
 import { getQueryParameters } from '$util/queryParameter';
 import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
 import { createPolling } from '$util/effector';
 import routes from '$project/routes';
 import { toast } from '$ui/toast';
+import { getTxStatus } from '$lib/payment/crypto/etherscan';
 import { loadProduct, loadProductTransactions } from './product.api';
 import { hasActiveAuction, hasAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
@@ -299,4 +301,57 @@ const productBoughtSuccessFx = createEffect(() => {
 forward({
   from: [productBought],
   to: productBoughtSuccessFx,
+});
+
+export const pendingTxStatus = createEvent<string>();
+
+const pollTransactionStatusFx = createEffect(async () => {
+  const txHash = txState.getState().hash;
+  return await getTxStatus(txHash);
+});
+
+interface TxState {
+  status: TxStatus;
+  hash: string;
+  poll?: Poll;
+}
+
+interface Poll {
+  start: Event<void>;
+  stop: Event<void>;
+  $isActive: Store<boolean>;
+}
+
+export const updateTxState = createEvent<TxStatus>();
+export const updateTxHash = createEvent<string>();
+export const txState = createStore<TxState>({ status: 'pending', hash: '' }, { name: 'tx-state' }).on(
+  updateTxState,
+  (state, newStatus) => ({ ...state, status: newStatus })
+);
+
+txState.on(updateTxHash, (state, payload) => ({ ...state, hash: payload }));
+
+txState.on(pendingTxStatus, (_, payload) => {
+  updateTxHash(payload);
+  const poll = createPolling(pollTransactionStatusFx, 2000);
+  resetFails();
+  poll.start();
+  return { status: 'pending', hash: payload, poll };
+});
+
+pollTransactionStatusFx.fail.watch(() => {
+  //in case the call gets an error re try at least 5 times.
+  if (failAttempts.getState() < 5) {
+    const poll = txState.getState().poll;
+    poll.start();
+  }
+  failedTransaction();
+});
+
+pollTransactionStatusFx.doneData.watch(async (response) => {
+  if (response === 'confirmed' || response === 'error') {
+    updateTxState(response);
+    const poll = txState.getState().poll;
+    poll.stop();
+  }
 });

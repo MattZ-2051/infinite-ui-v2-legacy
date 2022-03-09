@@ -25,3 +25,9 @@ export interface TokenTxResponse {
   transactionIndex: string;
   value: string;
 }
+
+export interface TxReceiptStatusResponse {
+  status: '' | '0' | '1';
+}
+
+export type TxStatus = 'pending' | 'confirmed' | 'error';

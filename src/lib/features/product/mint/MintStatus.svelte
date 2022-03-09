@@ -1,25 +1,27 @@
 <script lang="ts">
-  import type { MintingStatus } from './types';
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import successMint from '../assets/success-mint';
   import errorMint from '../assets/error-mint';
+  import { txState } from '../product.store';
 
-  export let mintingStatus: MintingStatus;
-  export let trxHash: string;
   export let name: string;
+  export let tryAgain: () => void;
+
+  $: txStatus = $txState.status;
+  $: txHash = $txState.hash;
 
   let title = '';
   let buttonText = undefined;
   let icon = undefined;
 
-  $: switch (mintingStatus) {
-    case 'processing': {
+  $: switch (txStatus) {
+    case 'pending': {
       title = 'Processing...';
       break;
     }
-    case 'claimed': {
+    case 'confirmed': {
       title = 'Minting successul!';
       buttonText = 'Close';
       icon = successMint;
@@ -33,10 +35,18 @@
   }
 
   const openTrx = () => {
-    window.open(`https://etherscan.io/tx/${trxHash}`, '_blank').focus();
+    window.open(`https://etherscan.io/tx/${txHash}`, '_blank').focus();
   };
 
-  $: shortEthTrx = `${trxHash.slice(0, 22)}...${trxHash.slice(43, 64)}`;
+  const onClick = () => {
+    if (txStatus === 'error') {
+      tryAgain();
+    } else {
+      // TODO: Close modal
+    }
+  };
+
+  $: shortEthTx = `${txHash.slice(0, 22)}...${txHash.slice(43, 64)}`;
 </script>
 
 <div class="grid gap-8">
@@ -47,19 +57,19 @@
     <span class="font-medium text-2xl">{title}</span>
   </div>
   <span>
-    {#if mintingStatus === 'processing'}
+    {#if txStatus === 'pending'}
       You're minting <span class="font-bold">{name}</span>, it's now being confirmed on the blockchain.
-    {:else if mintingStatus === 'claimed'}
+    {:else if txStatus === 'confirmed'}
       You successfully minted <span class="font-bold">{name}</span>.
-    {:else if mintingStatus === 'error'}
+    {:else if txStatus === 'error'}
       There was an error in the minting process, please try again in a few minutes.
     {/if}
   </span>
   <div class="flex flex-col">
     <span>Transaction Hash</span>
-    <span class="mt-2 underline font-bold cursor-pointer" on:click={openTrx}>{shortEthTrx}</span>
+    <span class="mt-2 underline font-bold cursor-pointer" on:click={openTrx}>{shortEthTx}</span>
   </div>
-  <Button class="h-16 text-2xl" variant="brand" disabled={mintingStatus === 'processing'}>
+  <Button class="h-16 text-2xl" variant="brand" disabled={txStatus === 'pending'} on:click={onClick}>
     {#if buttonText}
       {buttonText}
     {:else}

@@ -1,32 +1,37 @@
 <script lang="ts">
-  import type { MintingStatus } from './types';
   import type { Product } from '$lib/sku-item/types';
   import { Modal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import { connectWallet, getWalletInfo, walletConnected } from '$lib/user';
   import MintStatus from './MintStatus.svelte';
   import MintEthAddress from './MintEthAddress.svelte';
+  import { pendingTxStatus, txState } from '../product.store';
 
   export let product: Product;
 
-  let mintingStatus: MintingStatus = 'unclaimed';
-  let trxHash = '';
+  let mintingStatus: 'unclaimed' | 'processing' = 'unclaimed';
   let isLoading = false;
+
+  $: txStatus = $txState.status;
 
   const mockMintNftAPI = (address: string): Promise<string> => {
     if (address) {
       return new Promise((resolve) => {
-        setTimeout(() => resolve('0x3c47ce1f1db2317dc82ab3a254b18a78c28a3a744afbe7d7b7569cd57132806e'), 1500);
+        setTimeout(() => resolve('0xda67e2b1d3995d483be2de5dfcf944a056d2d9f2c05a3ff59cae55da1eb2b58b'), 1500);
       });
     }
   };
 
   const mintNft = async (address: string) => {
     isLoading = true;
-    const trxHashResponse = await mockMintNftAPI(address);
+    const txHashResponse = await mockMintNftAPI(address);
+    mintingStatus = 'processing';
+    pendingTxStatus(txHashResponse);
     isLoading = false;
-    trxHash = trxHashResponse;
-    mintingStatus = 'error';
+  };
+
+  const tryAgain = () => {
+    mintingStatus = 'unclaimed';
   };
 
   const handleSubmit = async ({ radioValue, address }) => {
@@ -57,10 +62,10 @@
   };
 </script>
 
-<Modal class="max-w-lg px-10 py-8" closeButton={mintingStatus === 'unclaimed' || mintingStatus === 'error'}>
+<Modal class="max-w-lg px-10 py-8" closeButton={mintingStatus === 'unclaimed' || txStatus === 'error'}>
   {#if mintingStatus === 'unclaimed'}
     <MintEthAddress {handleSubmit} {isLoading} />
   {:else}
-    <MintStatus {mintingStatus} {trxHash} name={product.sku.name} />
+    <MintStatus name={product.sku.name} {tryAgain} />
   {/if}
 </Modal>
