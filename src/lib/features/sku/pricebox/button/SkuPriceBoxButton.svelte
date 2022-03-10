@@ -67,4 +67,9 @@
       --arrow-icon-size: 3rem;
     }
   }
+  @media (max-width: 768px) {
+    .from-creator-custom {
+      border-radius: var(--from-creator-button-border-radius, 0px);
+    }
+  }
 </style>

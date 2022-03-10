@@ -40,7 +40,12 @@
   };
 </script>
 
-<SkuPriceBoxButton action={state === 'active' || state === 'activeNftGiveAway'} polling={$isPolling} on:click={onBuy}>
+<SkuPriceBoxButton
+  action={state === 'active' || state === 'activeNftGiveAway'}
+  polling={$isPolling}
+  on:click={onBuy}
+  class="from-creator-custom"
+>
   {#if state === 'active' || state === 'noSale' || 'notMinted'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">

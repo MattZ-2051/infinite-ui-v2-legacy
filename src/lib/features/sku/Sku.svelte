@@ -87,7 +87,7 @@
 <style lang="postcss">
   .custom-content-buttons {
     padding: var(--padding-sku-buttons, 0);
-    margin-bottom: var(--margin-botton-sku-buttons, 0);
+    margin-bottom: var(--margin-bottom-sku-buttons, 0);
   }
 
   @media screen and (min-width: 768px) and (max-height: 920px) {
@@ -107,17 +107,24 @@
     }
   }
 
+  @media screen and (max-width: 768px) {
+    .custom-content-buttons {
+      padding: var(--padding-sku-buttons-sm, 0);
+      margin-bottom: var(--margin-bottom-sku-buttons-sm, 0);
+    }
+  }
+
   @screen md {
     .custom-content-buttons {
       padding: var(--padding-sku-buttons-md, 0);
-      margin-bottom: var(--margin-botton-sku-buttons-md, 0);
+      margin-bottom: var(--margin-bottom-sku-buttons-md, 0);
     }
   }
 
   @screen lg {
     .custom-content-buttons {
       padding: var(--padding-sku-buttons-lg, 0);
-      margin-bottom: var(--margin-botton-sku-buttons-lg, 0);
+      margin-bottom: var(--margin-bottom-sku-buttons-lg, 0);
     }
   }
 </style>

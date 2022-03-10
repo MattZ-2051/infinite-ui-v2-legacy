@@ -199,15 +199,22 @@
 
   /*Sku page buttons from collector from creator*/
   --padding-sku-buttons: 8px 16px 0 16px;
-  --margin-botton-sku-buttons: 32px;
+  --margin-bottom-sku-buttons: 32px;
+  --padding-sku-buttons-sm: 0;
+  --margin-bottom-sku-buttons-sm: 0;
   --padding-sku-buttons-md: 8px 40px 0 40px;
-  --margin-botton-sku-buttons-md: 0;
+  --margin-bottom-sku-buttons-md: 0;
   --padding-sku-buttons-lg: 8px 48px 0 48px;
-  --margin-botton-sku-buttons-lg: 0;
+  --margin-bottom-sku-buttons-lg: 0;
   --sku-price-box-button-border-radius: 60px;
   --sku-price-box-button-margin: 0.625rem 0 0.625rem 0;
   --sku-price-box-border-color: none;
   --sku-price-box-border-top: 0;
+  --from-creator-button-border-radius: 30px 30px 0px 0px;
+  --display-from-collector-line: visible;
+  --from-collector-border-line: 1px solid rgba(0, 0, 0, 0.1);
+  --from-collector-margin: 0px 24px;
+  --from-collector-bg: rgba(0, 0, 0, 0.1);
 }
 
 .theme-search-bar {

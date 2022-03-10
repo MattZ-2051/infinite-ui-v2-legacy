@@ -65,7 +65,7 @@
   });
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col sticky-content-button">
   {#if collector}
     <LimitedAuction {collector} />
   {:else if active}
@@ -83,6 +83,7 @@
   {/if}
 
   {#if totalCollectors > 0}
+    <div class="from-collectors-line z-∞" />
     <div style="border-top:var(--sku-price-box-border-top, 1px solid black);">
       {#if hasActiveAuctionListing && hasActiveFixedListing}
         <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuctionAndSale" />
@@ -101,8 +102,17 @@
   {/if}
 </div>
 
-<style>
+<style lang="postcss">
   div {
     background-color: var(--sku-price-box-bg-color);
+  }
+
+  @media (max-width: 768px) {
+    .from-collectors-line {
+      display: var(--display-from-collector-line, hidden);
+      border: var(--from-collector-border-line, 0);
+      margin: var(--from-collector-margin, 0);
+      background: var(--from-collector-bg, transparent);
+    }
   }
 </style>
