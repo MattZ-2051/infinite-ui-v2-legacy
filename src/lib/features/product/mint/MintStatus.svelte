@@ -1,16 +1,15 @@
 <script lang="ts">
+  import type { TxStatus } from '$lib/payment/crypto/etherscan/types';
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import successMint from '../assets/success-mint';
   import errorMint from '../assets/error-mint';
-  import { txState } from '../product.store';
 
   export let name: string;
+  export let txStatus: TxStatus;
+  export let txHash: string;
   export let tryAgain: () => void;
-
-  $: txStatus = $txState.status;
-  $: txHash = $txState.hash;
 
   let title = '';
   let buttonText = undefined;
@@ -46,7 +45,7 @@
     }
   };
 
-  $: shortEthTx = `${txHash.slice(0, 22)}...${txHash.slice(43, 64)}`;
+  $: shortEthTx = txHash ? `${txHash.slice(0, 22)}...${txHash.slice(43, 64)}` : '';
 </script>
 
 <div class="grid gap-8">

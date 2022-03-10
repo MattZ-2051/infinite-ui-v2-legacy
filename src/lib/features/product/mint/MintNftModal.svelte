@@ -13,6 +13,7 @@
   let isLoading = false;
 
   $: txStatus = $txState.status;
+  $: txHash = $txState.hash;
 
   const mockMintNftAPI = (address: string): Promise<string> => {
     if (address) {
@@ -66,6 +67,6 @@
   {#if mintingStatus === 'unclaimed'}
     <MintEthAddress {handleSubmit} {isLoading} />
   {:else}
-    <MintStatus name={product.sku.name} {tryAgain} />
+    <MintStatus name={product.sku.name} {tryAgain} {txStatus} {txHash} />
   {/if}
 </Modal>
