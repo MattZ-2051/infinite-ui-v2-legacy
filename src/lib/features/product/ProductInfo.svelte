@@ -7,7 +7,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import imageError from '$util/imageError';
-  import { userId } from '$lib/user';
+  import { onSignIn, user, userId } from '$lib/user';
   import UserLink from '$lib/components/UserLink.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import SkuStatus from '$project/sku-item/SkuStatus.svelte';
@@ -48,6 +48,9 @@
   };
 
   const handleChangeModalToMint = () => {
+    if (!$user && product.sku?.mintPolicy?.transaction === 'later') {
+      onSignIn();
+    }
     isShowMintModal = true;
   };
 </script>
