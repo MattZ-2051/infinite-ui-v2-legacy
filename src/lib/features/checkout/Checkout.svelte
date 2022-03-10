@@ -58,7 +58,7 @@
   let ethAddress = undefined;
 
   onMount(async () => {
-    if (!$user && sku.mintPolicy.transaction === 'later') {
+    if (!$user && sku?.mintPolicy?.transaction === 'later') {
       onSignIn();
       return;
     }

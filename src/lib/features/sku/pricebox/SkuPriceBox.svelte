@@ -22,7 +22,7 @@
 
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
-    const redirectToLogin = !$user && sku.mintPolicy.transaction === 'later';
+    const redirectToLogin = !$user && sku?.mintPolicy?.transaction === 'later';
 
     if (redirectToLogin) {
       onSignIn();
