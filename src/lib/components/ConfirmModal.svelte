@@ -10,7 +10,6 @@
   export let onConfirm: () => unknown;
   export let onCancel: () => unknown = undefined;
   export let labels = { cancel: 'Cancel', confirm: 'OK' };
-  export let persistent = true;
 
   let disabled = false;
 
@@ -42,7 +41,7 @@
 </script>
 
 {#if isOpen}
-  <Modal {persistent} class="max-w-md">
+  <Modal class="max-w-md">
     <svelte:fragment slot="title"><span class="text-2xl text-left w-full modal-title">{title}</span></svelte:fragment>
     <div class="px-10 py-4">
       <slot name="message">

@@ -5,6 +5,7 @@
   import shareIcon from '$lib/features/sku/assets/share';
   import ethereum from '$lib/components/icons/ethereum';
   import hedera from '$lib/components/icons/hedera';
+  import notRedeemable from '$lib/components/icons/not-redeemable';
   import Icon from '$ui/icon/Icon.svelte';
   import tooltip from '$ui/tooltip';
   import ButtonGroup from '$lib/components/ButtonGroup.svelte';
@@ -41,8 +42,14 @@
   $: endDate = activeSku?.endDate || '';
 </script>
 
-<div class="border border-white border-opacity-20 rounded-lg overflow-hidden sku-info">
-  <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between">
+<div
+  class="border rounded-lg overflow-hidden sku-info"
+  style="border-color: var(--sku-info-border-color, rgba(255,255,255,0.2));"
+>
+  <div
+    class="sku-info-row p-6 border-b flex justify-between"
+    style="border-color: var(--sku-info-border-color, rgba(255,255,255,0.2));"
+  >
     <div class="flex flex-col gap-2">
       <div class="text-gray-500 text-sm">Edition</div>
       <div><SkuEdition {sku} /></div>
@@ -65,7 +72,10 @@
     {/if}
   </div>
   {#if isActiveSkuAuction}
-    <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between space-x-8">
+    <div
+      class="sku-info-row p-6 border-b flex justify-between space-x-8"
+      style="border-color: var(--sku-info-border-color, rgba(255,255,255,0.2));"
+    >
       <div class="flex flex-col gap-2 text-left">
         <div class="text-gray-500 text-sm">Auction Starts</div>
         <div>{formatDate(startDate)}</div>
@@ -76,7 +86,10 @@
       </div>
     </div>
   {:else if isActiveSale}
-    <div class="sku-info-row p-6 border-b border-opacity-20 border-white flex justify-between">
+    <div
+      class="sku-info-row p-6 border-b flex justify-between"
+      style="border-color: var(--sku-info-border-color, rgba(255,255,255,0.2));"
+    >
       <div class="flex flex-col gap-2 text-left">
         <div class="text-gray-500 text-sm">Active Sale Starts</div>
         <div>{formatDate(startDate)}</div>
@@ -98,6 +111,13 @@
       {#if sku.redeemable}
         <div class="text-gray-500 text-sm">Redemption Status</div>
         <IconRedeem>Redeemable</IconRedeem>
+      {:else}
+        <div style="display:var(--redemption-status-display, none);">
+          <div class="text-gray-500 text-sm">Redemption Status</div>
+          <div class="flex">
+            <Icon path={notRedeemable} /><span>Not Redeemable</span>
+          </div>
+        </div>
       {/if}
     </div>
   </div>

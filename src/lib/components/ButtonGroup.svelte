@@ -14,6 +14,6 @@
   div :global(button):hover,
   div :global(a):hover {
     color: var(--button-group-color-hover);
-    background-color: var(--button-group-bg-color-hover);
+    background: var(--button-group-bg-color-hover);
   }
 </style>
