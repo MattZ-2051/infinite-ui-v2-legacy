@@ -25,6 +25,7 @@ interface CommonImportMetaEnvironment {
   VITE_AUTH0_CLIENT_ID: string;
   VITE_AUTH0_AUDIENCE: string;
   VITE_OPENSEA_URL: string;
+  VITE_OPENSEA_URL_NFT_MINTED: string;
   VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD: number;
   VITE_MM_WALLET_ENABLED: string;
   VITE_HIDE_STAY_IN_LOOP: string;

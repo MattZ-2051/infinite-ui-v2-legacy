@@ -207,7 +207,11 @@ export type Product = {
   nftSerial?: string;
   ownedByExternalWallet: boolean;
   externalWallet: string;
+  status: ProductStatus;
+  whitelistCode: string | null;
 };
+
+export type ProductStatus = 'purchased' | 'minted' | '';
 
 export type Cost = {
   finalPayout: number;

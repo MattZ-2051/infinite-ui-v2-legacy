@@ -1,5 +1,12 @@
-import type { Product, Transaction } from '$lib/sku-item/types';
+import type { Product, ProductStatus, Transaction } from '$lib/sku-item/types';
 import type TokenBalanceMap from '@hashgraph/sdk/lib/account/TokenBalanceMap';
+import type { StatusMintButton } from './mintButton/types';
+
+export function getMintStatus(productStatus: ProductStatus): StatusMintButton {
+  let status: StatusMintButton = productStatus === 'minted' ? 'processed' : 'processing';
+  status = productStatus === 'purchased' ? 'toMint' : status;
+  return status;
+}
 
 export function isOwner(product: Product, userId: string): boolean {
   return userId && userId === product?.owner?._id;

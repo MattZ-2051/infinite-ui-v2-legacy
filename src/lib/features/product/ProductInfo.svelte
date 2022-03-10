@@ -2,6 +2,7 @@
   import copy from 'clipboard-copy';
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { Product, Sku, Transaction } from '$lib/sku-item/types';
+  import type { StatusMintButton } from './mintButton/types';
   import information from '$lib/components/icons/information';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
@@ -11,16 +12,22 @@
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import SkuStatus from '$project/sku-item/SkuStatus.svelte';
   import ProductActions from './actions/ProductActions.svelte';
-  import { transferredOut, transferInUnresolved } from './product.service';
+  import { transferredOut, transferInUnresolved, isOwner, getMintStatus } from './product.service';
+  import MintButton from './mintButton/mintButton.svelte';
 
   export let product: Product;
   export let transactions: Transaction[];
 
+  let isShowMintModal = false;
   let sku: Sku;
+  let mintStatus: StatusMintButton = 'toMint';
   $: sku = product.sku;
 
   $: isTransferredOut = transactions.length > 0 ? transferredOut(product, transactions) : false;
   $: isTransferInUnresolved = transactions.length > 0 ? transferInUnresolved(product, transactions) : false;
+  $: isProductOwner = isOwner(product, $userId);
+  $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
+  $: mintStatus = getMintStatus(product.status);
 
   const cellClass = 'flex flex-col gap-1.5 py-4 px-3 overflow-hidden';
   const headerClass = 'text-gray-500 text-sm';
@@ -33,6 +40,15 @@
     setTimeout(() => {
       copiedLink = false;
     }, 5000);
+  };
+
+  const redirectToOpenSea = () => {
+    const OPENSEA_URL = import.meta.env.VITE_OPENSEA_URL_NFT_MINTED;
+    window.open(OPENSEA_URL, '_blank');
+  };
+
+  const handleChangeModalToMint = () => {
+    isShowMintModal = true;
   };
 </script>
 
@@ -131,7 +147,10 @@
       </div>
     {/if}
   </div>
-  {#if product.sku.currency !== 'ETH'}
+  {#if product.sku.currency !== 'ETH' && !isTransactionLater}
     <ProductActions {product} userId={$userId} />
+  {/if}
+  {#if isProductOwner && isTransactionLater}
+    <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
   {/if}
 </div>
