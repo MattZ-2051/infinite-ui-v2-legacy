@@ -4,9 +4,19 @@
   import debounce from 'p-debounce';
   import { browser } from '$app/env';
   import { loadMarketplaceFilters, loadMarketplaceItems } from '$lib/features/marketplace/marketplace.api';
+  import routes from '$project/routes';
+
+  const DISABLED_MARKETPLACE = import.meta.env?.VITE_DISABLE_MARKETPLACE;
 
   export const load = debounce(
     <Load>(async ({ fetch, url }) => {
+      if (DISABLED_MARKETPLACE === 'true') {
+        return {
+          status: 302,
+          redirect: routes.index,
+        };
+      }
+
       const [filters, items] = await Promise.all([
         loadMarketplaceFilters({ fetch, query: url.searchParams }),
         loadMarketplaceItems({ fetch, query: url.searchParams }),
