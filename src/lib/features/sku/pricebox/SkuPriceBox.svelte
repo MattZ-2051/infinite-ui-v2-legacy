@@ -2,8 +2,10 @@
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { onSignIn, user } from '$lib/user';
+  import { openModal } from '$ui/modals';
   import routes from '$project/routes';
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import {
     getActiveListings,
     getUpcomingListings,
@@ -15,17 +17,25 @@
   import FromCreator from './button/FromCreator.svelte';
   import FromCollectors from './button/FromCollectors.svelte';
   import LimitedAuction from './button/LimitedAuction.svelte';
+  import VoucherModal from '../voucher/VoucherModal.svelte';
 
   export let sku: Sku;
   export let totalCollectors: number;
   export let collectors: CollectorProduct[];
 
+  const voucherCode = $page.url.searchParams.get('voucherCode');
+
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
-    const redirectToLogin = !$user && sku?.mintPolicy?.transaction === 'later';
+    const mintLater = sku?.mintPolicy?.transaction === 'later';
+    const redirectToLogin = !$user && mintLater;
 
     if (redirectToLogin) {
       onSignIn();
+    } else if (mintLater) {
+      openModal(VoucherModal, {
+        voucherCode,
+      });
     } else if (goToSkuAuctionPage) {
       goto(routes.skuAuction(sku._id));
     } else if (activeListings[0].product) {

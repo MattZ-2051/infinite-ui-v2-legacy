@@ -3,11 +3,12 @@
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
 
-  export let isValidCode: boolean = undefined;
   export let voucherCode = '';
 
+  $: validCodeLength = voucherCode.length === 12;
+  $: voucherCodeError = undefined;
   // eslint-disable-next-line unicorn/no-nested-ternary
-  $: buttonTitle = isValidCode ? 'Proceed to checkout' : isValidCode !== undefined ? 'Try again' : 'Validate Code';
+  $: buttonTitle = voucherCodeError ? 'Try again' : 'Validate code';
 </script>
 
 <div>
@@ -24,8 +25,8 @@
         placeholder="Enter Voucher code"
         class="border pl-4 text-black rounded-lg pt-4"
         style="padding-bottom: 1rem;"
-        error={!isValidCode && isValidCode !== undefined && 'Voucher code not valid. Please check it and try again.'}
-        success={!!isValidCode && 'Voucher code valid.'}
+        error={voucherCodeError === false && 'Voucher code not valid. Please check it and try again.'}
+        success={voucherCodeError === true && 'Voucher code valid.'}
         bind:value={voucherCode}
       />
 
@@ -33,7 +34,7 @@
         data-testId="voucher-button"
         variant="brand"
         class="my-8 h-16 text-xl"
-        disabled={voucherCode === '' || !isValidCode}
+        disabled={!validCodeLength}
         role="button">{buttonTitle}</Button
       >
     </div>
