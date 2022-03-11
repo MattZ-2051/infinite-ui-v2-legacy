@@ -65,9 +65,9 @@
           <Icon path={ethereum} size="1em" tooltip="ERC721 NFT minted on Ethereum" class="inline align-baseline" />
         {/if}
         <SkuEdition {sku} {product} />
-        {#if sku.skuCollection.length > 0}
+        {#if sku?.skuCollection.length > 0}
           <img src={RectanguleBar} alt="rectangule-bar" />
-          <span> {sku.skuCollection[0].name}</span>
+          <span> {sku?.skuCollection[0]?.name}</span>
         {/if}
       </div>
     </div>
