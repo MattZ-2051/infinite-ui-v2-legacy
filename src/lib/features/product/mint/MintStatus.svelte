@@ -10,6 +10,7 @@
   export let txStatus: TxStatus;
   export let txHash: string;
   export let tryAgain: () => void;
+  export let onClose: () => void;
 
   let title = '';
   let buttonText = undefined;
@@ -41,7 +42,7 @@
     if (txStatus === 'error') {
       tryAgain();
     } else {
-      // TODO: Close modal
+      onClose();
     }
   };
 

@@ -14,6 +14,7 @@
   import ProductActions from './actions/ProductActions.svelte';
   import { transferredOut, transferInUnresolved, isOwner, getMintStatus } from './product.service';
   import MintButton from './mintButton/mintButton.svelte';
+  import MintNftModal from './mint/MintNftModal.svelte';
 
   export let product: Product;
   export let transactions: Transaction[];
@@ -155,5 +156,8 @@
   {/if}
   {#if isProductOwner && isTransactionLater}
     <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
+  {/if}
+  {#if isShowMintModal}
+    <MintNftModal {product} onClose={() => (isShowMintModal = false)} />
   {/if}
 </div>

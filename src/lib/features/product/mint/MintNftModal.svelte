@@ -8,6 +8,7 @@
   import { pendingTxStatus, txState } from '../product.store';
 
   export let product: Product;
+  export let onClose: () => void;
 
   let mintingStatus: 'unclaimed' | 'processing' = 'unclaimed';
   let isLoading = false;
@@ -63,10 +64,10 @@
   };
 </script>
 
-<Modal class="max-w-lg px-10 py-8" closeButton={mintingStatus === 'unclaimed' || txStatus === 'error'}>
+<Modal class="max-w-lg px-10 py-8" closeButton={mintingStatus === 'unclaimed' || txStatus === 'error'} {onClose}>
   {#if mintingStatus === 'unclaimed'}
     <MintEthAddress {handleSubmit} {isLoading} />
   {:else}
-    <MintStatus name={product.sku.name} {tryAgain} {txStatus} {txHash} />
+    <MintStatus name={product.sku.name} {tryAgain} {txStatus} {txHash} {onClose} />
   {/if}
 </Modal>
