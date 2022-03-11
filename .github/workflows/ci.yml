@@ -18,16 +18,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
+      - uses: ./.github/actions/node-pnpm
         with:
           node-version: ${{ env.node-version }}
-
-      - name: Install PNPM
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: latest
-          run_install: true
 
       - name: Check commit message
         run: pnpx commitlint --config commitlint.config.cjs --from HEAD~1
@@ -47,10 +40,27 @@ jobs:
       - name: Test
         run: pnpm test
 
+  cypress_test:
+    runs-on: 'ubuntu-latest'
+    strategy:
+      fail-fast: false
+      matrix:
+        run: ['aria', 'infinite', 'seva', 'mclaren']
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/node-pnpm
+        with:
+          node-version: ${{ env.node-version }}
+
       - name: Build
-        run: pnpm build aria
+        run: pnpm build ${{ matrix.run }}
         env:
           VITE_API_URL: https://api-dev.infiniteworld.com
+          SVELTEKIT_MODE: development
 
       - name: E2E
         uses: cypress-io/github-action@v2
@@ -58,6 +68,7 @@ jobs:
           browser: chrome
           install: false
           start: pnpm preview
+          config-file: projects/${{ matrix.run }}/cypress.config.json
 
       - name: E2E Artifacts
         uses: actions/upload-artifact@v2

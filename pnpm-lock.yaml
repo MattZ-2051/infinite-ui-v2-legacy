@@ -46,6 +46,8 @@ specifiers:
   cssnano: 5.1.0
   cypress: 8.7.0
   dayjs: 1.10.8
+  cypress-real-events: ^1.6.0
+  deepmerge: ^4.2.2
   effector: ~22.2.0
   enquirer: 2.3.6
   eslint: 8.10.0
@@ -125,6 +127,8 @@ dependencies:
   cropperjs: 1.5.12
   crypto-js: 4.1.1
   dayjs: 1.10.8
+  cypress-real-events: 1.6.0_cypress@8.7.0
+  deepmerge: 4.2.2
   effector: 22.2.0
   ethers: 5.5.4
   felte: 0.9.1_svelte@3.46.4
@@ -8514,6 +8518,14 @@ packages:
   /cyclist/1.0.1:
     resolution: {integrity: sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=}
     dev: true
+
+  /cypress-real-events/1.6.0_cypress@8.7.0:
+    resolution: {integrity: sha512-QxXm0JsQkCrb2uH+fMXNDQ5kNWTzX3OtndBafdsZmNV19j+6JuTK9n52B1YVxrDrr/qzPAojcHJc5PNoQvwp+w==}
+    peerDependencies:
+      cypress: ^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x
+    dependencies:
+      cypress: 8.7.0
+    dev: false
 
   /cypress/8.7.0:
     resolution: {integrity: sha512-b1bMC3VQydC6sXzBMFnSqcvwc9dTZMgcaOzT0vpSD+Gq1yFc+72JDWi55sfUK5eIeNLAtWOGy1NNb6UlhMvB+Q==}

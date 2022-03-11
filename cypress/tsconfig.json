@@ -4,7 +4,7 @@
     "isolatedModules": false,
     "sourceMap": false,
     "allowJs": true,
-    "types": ["cypress", "node"]
+    "types": ["cypress", "node", "cypress-real-events"]
   },
   "include": ["**/*.ts"],
   "exclude": []

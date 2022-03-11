@@ -1,0 +1,4 @@
+{
+  "extends": "cypress.json",
+  "testFiles": ["infinite/**/*.spec.ts"]
+}

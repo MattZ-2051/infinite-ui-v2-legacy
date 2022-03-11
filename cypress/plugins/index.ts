@@ -11,7 +11,22 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-export default (/*on, config*/) => {
+import deepmerge from 'deepmerge';
+// eslint-disable-next-line unicorn/prefer-node-protocol
+import path from 'path';
+
+export default async (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
+  const { default: configJson } = await import(config.configFile);
+
+  if (configJson.extends) {
+    const baseConfigFilename = path.join(config.projectRoot, configJson.extends);
+    const { default: baseConfig } = await import(baseConfigFilename);
+
+    return deepmerge(baseConfig, configJson);
+  }
+
+  return config;
 };

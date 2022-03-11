@@ -3,7 +3,7 @@ context('test', () => {
     cy.visit('/');
   });
 
-  it('title', () => {
-    cy.title().should('eq', 'ARIA Exchange');
+  it('Seva title', () => {
+    cy.title().should('eq', 'SEVA.LOVE');
   });
 });
