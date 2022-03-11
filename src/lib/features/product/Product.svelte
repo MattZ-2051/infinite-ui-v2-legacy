@@ -33,7 +33,7 @@
     <div class="mx-4 md:pl-4 mt-8 md:mt-10">
       <div class="flex md:flex-wrap items-center text-2xl sm:text-3xl md:text-4xl font-medium justify-between gap-6">
         {#if hasCloseButton}
-          <button type="button" on:click={onClose} class="close rounded-full bg-gray-100 text-white">
+          <button type="button" on:click={onClose} class="close rounded-full text-default">
             <Icon path={arrowLeft} size="1.75" class="transform scale-90 sm:scale-100 md:scale-110 p-1 rounded-full" />
             <span class="sr-only">Back</span>
           </button>
@@ -92,9 +92,20 @@
   .sku-title {
     font-family: var(--product-title-font);
   }
-  .share:hover,
-  .close:hover {
+  .close {
+    background-color: var(--button-back-bg-color, var(--gray-100));
+  }
+
+  .share:hover {
     color: var(--button-brand-color-hover);
+    background-image: var(--button-brand-bg-hover, none);
+    background-color: var(--button-brand-bg-color-hover);
+    border-color: var(--button-brand-border-color-hover);
+  }
+
+  .close:hover {
+    --icons-fill: var(--icons-fill-hover);
+    color: var(--button-back-color-hover, var(--button-brand-color-hover));
     background-color: var(--button-brand-bg-color-hover);
     border-color: var(--button-brand-border-color-hover);
   }

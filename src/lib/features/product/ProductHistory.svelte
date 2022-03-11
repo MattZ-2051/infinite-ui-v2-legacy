@@ -36,7 +36,7 @@
   {#if $totalTransactions > 0}
     <div class="text-default">
       {#each $transactions as transaction}
-        <div class="flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 py-4">
+        <div class="highlight flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 py-4">
           <div class="flex gap-3 mr-auto">
             <UserLink username={transaction.owner?.username} />
           </div>
@@ -56,7 +56,7 @@
                   {:else}
                     Bought for
                   {/if}
-                  <span class="text-white">
+                  <span class="text-default">
                     {formatCurrency(transaction.transactionData?.cost?.totalCost, { currency: $product.sku.currency })}
                   </span>
                 {:else if transaction.type === 'nft_mint'}
@@ -109,3 +109,9 @@
     <div class="no-results">No records found</div>
   {/if}
 </div>
+
+<style lang="postcss">
+  .highlight:hover {
+    border-image: var(--product-history-border-hover-bg, none) 1;
+  }
+</style>

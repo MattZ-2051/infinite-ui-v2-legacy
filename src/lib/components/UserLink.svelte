@@ -24,3 +24,11 @@
     >
   </span>
 {/if}
+
+<style lang="postcss">
+  a:hover {
+    @apply bg-clip-text;
+    color: var(--userlink-color, inherit);
+    background-image: var(--userlink-bg, none);
+  }
+</style>

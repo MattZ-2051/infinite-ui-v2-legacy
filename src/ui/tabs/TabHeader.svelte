@@ -8,6 +8,7 @@
   export let title = '';
   export let icon = undefined;
   export let tooltip = '';
+  export let activeBorderImage = false;
   let _class = '';
   export { _class as class };
 
@@ -26,6 +27,7 @@
 <li
   on:click
   class:active
+  class:border-image={activeBorderImage}
   title={tooltip ? '' : title}
   role="presentation"
   class="flex cursor-pointer whitespace-nowrap transition-all ease-out duration-300 {_class || ''}"
@@ -59,5 +61,16 @@
   .active {
     box-shadow: inset 0 -2px var(--tab-border-color-active, var(--default-color));
     color: var(--tab-color-active, var(--default-color));
+  }
+
+  .border-image {
+    --tab-border-color-active: transparent;
+    border-bottom: solid 2px transparent;
+  }
+
+  .border-image.active,
+  .border-image:hover,
+  .border-image:focus {
+    border-image: var(--tab-border-image-active, transparent) 2;
   }
 </style>

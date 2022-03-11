@@ -5,6 +5,7 @@
   import useTooltip from '$ui/tooltip';
   import useActions from '$util/useActions';
   import { styles } from '$util/styles';
+  import IconsDefs from '$ui/icon/IconsDefs.svelte';
 
   export let actions = [];
 
@@ -60,6 +61,7 @@
 
 <svg viewBox={viewBox ? viewBox : '0 0 24 24'} {style} {...$$restProps} on:click use:useActions={_actions}>
   {#if title}<title>{title}</title>{/if}
+  <IconsDefs />
   {#if spin !== false}
     {#if inverse}
       <style>

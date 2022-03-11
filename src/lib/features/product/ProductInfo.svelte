@@ -57,7 +57,7 @@
 </script>
 
 <div
-  class="rounded-lg border border-gray-200 text-white overflow-hidden grid grid-cols-2 2xl:grid-cols-none 2xl:grid-flow-col 2xl:divide-x 2xl:divide-gray-200 flex-grow"
+  class="rounded-lg border border-gray-200 text-default overflow-hidden grid grid-cols-2 2xl:grid-cols-none 2xl:grid-flow-col 2xl:divide-x 2xl:divide-gray-200 flex-grow"
 >
   {#if isTransferredOut || isTransferInUnresolved}
     <div class={cellClass}>

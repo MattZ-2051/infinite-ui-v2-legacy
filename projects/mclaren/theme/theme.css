@@ -81,6 +81,8 @@
   --button-outline-brand-color-hover: #000000;
   --button-outline-brand-bg-hover: linear-gradient(161.99deg, #ffffff -1.04%, #f8f8f8 111.86%);
   --button-outline-brand-border-color-hover: transparent;
+  --button-back-bg-color: transparent;
+  --button-back-color-hover: var(--gray-300);
   --button-padding: 14px 24px;
   --button-border-radius: 40px;
   --button-outline-brand-gradient-color-border-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
@@ -90,11 +92,11 @@
   --button-text-transform: uppercase;
   --button-font-weight: 700;
   --button-letter-spacing: 0.2em;
+  /* Gradient definition for svg icons (in $project/assets/IconDefs.svelte) */
+  --icons-fill: currentColor;
+  --icons-fill-hover: url(#mclarenOrangeVertical);
 
   /*Collectors*/
-  --button-back-bg-color: transparent;
-  --button-back-color: #000000;
-  --button-back-hover-color: var(--gray-300);
   --border-input-search: solid 1px;
   --border-input-search-color: var(--gray-300);
   --border-radius-input-search: 2rem;
@@ -221,6 +223,16 @@
   --button-group-color-hover: white;
   --button-group-bg-color-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
   --redemption-status-display: visible;
+
+  /*Product page*/
+  --product-tabs-bg: rgba(255, 255, 255, 0);
+  --tab-border-image-active: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
+  --product-status-bg-color: transparent;
+  --product-history-border-hover-bg: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
+
+  /*UserLink*/
+  --userlink-color: transparent;
+  --userlink-bg: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
 }
 
 .theme-payment-button {
@@ -329,6 +341,7 @@
   --error-branded-title-weight: 300;
   --error-text-weight: 300;
   --default-color: #ffffff;
+  --inverse-color: #000000;
   --button-brand-color: #000000;
   --button-brand-color-hover: #ffffff;
   --button-brand-border-color-hover: transparent;

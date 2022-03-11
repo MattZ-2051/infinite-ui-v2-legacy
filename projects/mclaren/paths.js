@@ -24,4 +24,5 @@ export const paths = {
   '$lib/components/icons/window-close': 'projects/mclaren/src/assets/lib/close-icon',
   '$lib/features/marketplace/NoResults.svelte': 'projects/mclaren/src/marketplace/NoResults.svelte',
   '$lib/social/*': 'projects/mclaren/src/social/*',
+  '$ui/icon/IconsDefs.svelte': 'projects/mclaren/src/assets/IconsDefs.svelte',
 };

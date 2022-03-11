@@ -29,6 +29,12 @@
    */
   export let itemClass = '';
 
+  /**
+   * Use border-image for active highlight instead of box-shadow.
+   * Allows using linear-gradient as the border background.
+   */
+  export let activeBorderImage = false;
+
   let _class = '';
   /**
    * Extra classes.
@@ -85,6 +91,7 @@
         <TabHeader
           {...item}
           active={$selectedTab.id === item.id}
+          {activeBorderImage}
           class={`pb-5 ${itemClass}`}
           on:click={() => activate(item)}
         />

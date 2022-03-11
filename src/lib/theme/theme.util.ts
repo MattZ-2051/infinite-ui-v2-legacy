@@ -67,7 +67,7 @@ export function getMatch(input: string, matchers: [string, string, string][] = _
   return bestValue;
 }
 
-export function parseMatchers(matchConfiguration: Record<string, string>): [string, string, string][] {
+export function parseMatchers(matchConfiguration: Record<string, string | string[]>): [string, string, string][] {
   const result = [];
 
   for (const [spec, value] of Object.entries(matchConfiguration)) {

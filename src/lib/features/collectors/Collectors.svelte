@@ -31,7 +31,7 @@
       <div class="px-4 md:px-8 md:pl-8 pt-8 md:pt-10">
         <div class="flex items-center">
           {#if hasCloseButton}
-            <button type="button" on:click={onClose} class="close rounded-full collectors-custom-button-back">
+            <button type="button" on:click={onClose} class="close rounded-full text-default">
               <Icon
                 path={arrowLeft}
                 size="1.75"
@@ -69,18 +69,16 @@
   .collectors-content {
     --sticky-scroll-bg: var(--collectors-content-bg);
   }
-  .close:hover {
-    color: var(--button-brand-color-hover);
-    background-color: var(--button-brand-bg-color-hover);
-    border-color: var(--button-brand-border-color-hover);
+
+  .close {
+    background-color: var(--button-back-bg-color, var(--gray-100));
   }
 
-  .collectors-custom-button-back {
-    background-color: var(--button-back-bg-color, rgba(255, 255, 255, 0.1));
-    color: var(--button-back-color, #ffffff);
-  }
-  .collectors-custom-button-back:hover {
-    color: var(--button-back-hover-color, #ffffff);
+  .close:hover {
+    --icons-fill: var(--icons-fill-hover);
+    color: var(--button-back-color-hover, var(--button-brand-color-hover));
+    background-color: var(--button-brand-bg-color-hover);
+    border-color: var(--button-brand-border-color-hover);
   }
 
   @screen md {
