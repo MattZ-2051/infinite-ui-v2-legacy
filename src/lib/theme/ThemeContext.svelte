@@ -31,6 +31,6 @@
   div {
     color: var(--default-color);
     background-color: var(--bg-color);
-    background: var(--bg-gradient, none var(--bg-color));
+    background-image: var(--bg-image, none);
   }
 </style>

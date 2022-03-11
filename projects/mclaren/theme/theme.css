@@ -15,6 +15,8 @@
   --edition-open-color: var(--default-color);
   --gradient-start-color: var(--default-color);
   --gradient-end-color: var(--default-color);
+
+  /* Header */
   --header-background-color: var(--inverse-color);
   --header-height: 4.5rem;
   --header-links-text-transform: uppercase;
@@ -335,13 +337,21 @@
 }
 
 .theme-dark {
-  --bg-gradient: linear-gradient(225deg, #181c20 0%, #363f45 100%);
+  /* Common */
+  --bg-color: #000;
   --gradient-end-color: #ff5e17;
   --gradient-start-color: #ff8d1c;
-  --error-branded-title-weight: 300;
-  --error-text-weight: 300;
   --default-color: #ffffff;
   --inverse-color: #000000;
+
+  /* Header */
+  --header-background-color: rgba(255, 255, 255, 0.05);
+  --header-height: 4.5rem;
+  --header-links-text-transform: uppercase;
+  --header-links-text-size: 0.75rem;
+  --header-backdrop-filter: blur(60px);
+
+  /* Button */
   --button-brand-color: #000000;
   --button-brand-color-hover: #ffffff;
   --button-brand-border-color-hover: transparent;
@@ -351,12 +361,42 @@
   --button-text-transform: uppercase;
   --button-font-size: 12px;
   --button-font-weight: 700;
+  --button-border-radius: 48px;
+
+  /* Error */
+  --error-branded-title-weight: 300;
+  --error-text-weight: 300;
   --error-description-weight: 300;
   --error-description-color: #bebebe;
-  --button-border-radius: 48px;
   --no-results-link-color: var(--default-color);
   --error-branded-title-font: var(--second-font);
   --error-branded-title-font-size-desktop: 4rem;
   --error-branded-title-font-size-mobile: 3.5rem;
   --error-min-height: calc(100vh - var(--header-height));
+
+  /* Grayscale */
+  --gray-50: rgba(255, 255, 255, 0.05);
+  --gray-100: rgba(255, 255, 255, 0.1);
+  --gray-200: rgba(255, 255, 255, 0.2);
+  --gray-300: rgba(255, 255, 255, 0.3);
+  --gray-400: rgba(255, 255, 255, 0.4);
+  --gray-500: rgba(255, 255, 255, 0.5);
+  --gray-600: rgba(255, 255, 255, 0.6);
+  --gray-700: rgba(255, 255, 255, 0.7);
+  --gray-800: rgba(255, 255, 255, 0.8);
+  --gray-900: rgba(255, 255, 255, 0.9);
+
+  /* SkuItem */
+  --sku-item-color: var(--default-color);
+  --sku-item-bg-color: #22262b;
+  --sku-item-image: linear-gradient(162.55deg, #22262b 2.5%, #202326 103.31%);
+  --sku-item-border-radius: 1.25rem;
+  --sku-item-border-width: 0px;
+  --sku-item-border-color: transparent;
+  --sku-item-status-border-color: var(--gray-50);
+  --sku-item-img-border-radius: 0.6rem;
+}
+
+.theme-dark-gradient-bg {
+  --bg-image: linear-gradient(225deg, #181c20 0%, #363f45 100%);
 }

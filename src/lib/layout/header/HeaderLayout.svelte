@@ -62,6 +62,7 @@
     @apply sticky top-0 z-40;
     background-color: var(--header-background-color, black);
     height: var(--header-height);
+    backdrop-filter: var(--header-backdrop-filter, none);
   }
 
   @screen md {

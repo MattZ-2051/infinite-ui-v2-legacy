@@ -12,7 +12,7 @@
 <section class="mx-auto container max-w-7xl">
   {#if $skuCollectionFeatured}
     <article
-      class="featured-block md:shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] rounded-2xl relative flex flex-col md:flex-row"
+      class="featured-block md:shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] rounded-2xl relative flex flex-col md:flex-row backdrop-opacity-100"
     >
       <div class="my-auto md:mx-12 xl:mx-24 relative space-y-10 md:text-white basis-3/4">
         <h3 class="second-font text-base md:text-lg uppercase tracking-widest">
@@ -37,7 +37,7 @@
 <style lang="postcss">
   @media screen(md) {
     .featured-block {
-      background: linear-gradient(225deg, #181c20 0%, #363f45 100%);
+      background: linear-gradient(253.57deg, rgba(0, 0, 0, 0.5) 6.96%, rgba(54, 63, 69, 0.5) 77.23%);
     }
   }
 </style>

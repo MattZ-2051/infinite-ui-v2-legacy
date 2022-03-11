@@ -26,7 +26,7 @@
       </div>
       <Button
         variant="brand"
-        class="h-12 sm:h-16 w-full sm:w-80 font-bold text-xs tracking-widest uppercase"
+        class="h-12 sm:h-16 w-full sm:w-fit font-bold text-xs tracking-widest uppercase"
         on:click={() => goto('https://cars.mclaren.com/us-en')}>discover our philosophy</Button
       >
     </div>

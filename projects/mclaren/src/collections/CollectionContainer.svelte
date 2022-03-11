@@ -6,7 +6,7 @@
   import Community from '../landing/Community.svelte';
 </script>
 
-<div class="space-y-40 md:space-y-60 lg:space-y-80 xl:space-y-96">
+<div class="space-y-40 md:space-y-60 lg:space-y-80 xl:space-y-96 bg-none">
   <CollectionBanner
     name={$skuCollection.name}
     title={$skuCollection.title}

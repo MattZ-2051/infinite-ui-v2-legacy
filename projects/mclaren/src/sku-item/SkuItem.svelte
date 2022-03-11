@@ -12,7 +12,6 @@
   import { formatDate } from '$util/format';
   import SkuEdition from './SkuEdition.svelte';
   import SkuStatus from './SkuStatus.svelte';
-  import RectanguleBar from './assets/rectangule-bar.svg';
 
   let _sku: Sku = undefined;
 
@@ -31,8 +30,7 @@
       <FilePreview item={sku.nftPublicAssets?.[0]} preview borderRadius={'0.65rem'} />
       {#if activeListing?.endDate}
         <figcaption
-          class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold bg-white bg-opacity-80"
-          style="color: var(--default-color)"
+          class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold text-default bg-black-opacity-50 backdrop-blur-[2px]"
         >
           <span class="opacity-50">Ends</span>
           <span>{formatDate(activeListing.endDate)}</span>
@@ -41,7 +39,7 @@
     </figure>
     <div class="info mx-6 space-y-4">
       <section class="text-gray-500 flex flex-row items-center flex-wrap justify-between">
-        <div class="issuer-link">
+        <div class="issuer-link text-default">
           <TalentLink profile={sku.issuer} hideImage />
         </div>
         {#if sku.redeemable}
@@ -66,8 +64,7 @@
         {/if}
         <SkuEdition {sku} {product} />
         {#if sku?.skuCollection?.length > 0}
-          <img src={RectanguleBar} alt="rectangule-bar" />
-          <span> {sku?.skuCollection[0]?.name}</span>
+          <span class="sku-collection-name pl-2">{sku?.skuCollection[0]?.name}</span>
         {/if}
       </div>
     </div>
@@ -91,6 +88,7 @@
   article {
     color: var(--sku-item-color, var(--default-color));
     background-color: var(--sku-item-bg-color);
+    background-image: var(--sku-item-image);
     border: var(--sku-item-border-width, 1px) solid var(--sku-item-border-color, var(--default-color));
     border-radius: var(--sku-item-border-radius, 0);
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
@@ -103,6 +101,10 @@
 
   article:hover .item-link {
     background: none black;
+  }
+
+  .sku-collection-name {
+    box-shadow: inset 1px 0 theme('colors.gray.700');
   }
 
   .sku-status {

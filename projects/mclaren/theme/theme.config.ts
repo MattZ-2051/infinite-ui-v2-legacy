@@ -8,19 +8,20 @@ const Theme = {
   SearchRoundedBar: 'theme-search-bar',
   Footer: 'theme-footer',
   PaymentButtons: 'theme-payment-button',
+  DarkGradientBackground: 'theme-dark-gradient-bg',
 };
 
 export const themeConfig = {
   '*.header': Theme.ButtonsVariantHeader,
-  '$index.root': Theme.ButtonsVariantPresentationPages,
+  '$index.root': [Theme.ButtonsVariantPresentationPages, Theme.Dark],
   '*.wallet-buttons': Theme.WalletButtons,
   '*.wallet-balance': Theme.WalletBalance,
   '$collections.root': Theme.ButtonsVariantPresentationPages,
-  '$collections.*': Theme.ButtonsVariantPresentationPages,
+  '$collections.*': [Theme.ButtonsVariantPresentationPages, Theme.Dark],
   '$product.*': [Theme.Light, Theme.ButtonsVariantPresentationPages],
   '*.wallet-list': Theme.Light,
   '*.search-bar': Theme.SearchRoundedBar,
-  '*.error': Theme.Dark,
+  '*.error': [Theme.Dark, Theme.DarkGradientBackground],
   '*.modal': Theme.Light,
   '*.footer': Theme.Footer,
   '*.payment-buttons': Theme.PaymentButtons,
