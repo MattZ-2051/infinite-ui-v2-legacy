@@ -204,7 +204,7 @@
 
   $: isHederaNFT = _sku?.currency === 'USD';
   $: isBuyNow = listing.saleType === 'fixed';
-  $: isPrimarySale = listing.issuer === _sku?.issuer?._id;
+  $: isPrimarySale = listing.type === 'sku';
 
   $: isStripeAllowed = STRIPE_ENABLED && isHederaNFT && isBuyNow && isPrimarySale;
 

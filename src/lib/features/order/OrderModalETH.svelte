@@ -234,7 +234,7 @@
   const STRIPE_ENABLED = variables.stripe.enabled;
 
   $: isBuyNow = listing.saleType === 'fixed';
-  $: isPrimarySale = listing.issuer === _sku?.issuer?._id;
+  $: isPrimarySale = listing.type === 'sku';
 
   $: isStripeAllowed = STRIPE_ENABLED && isBuyNow && isPrimarySale;
 
