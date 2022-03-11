@@ -49,7 +49,7 @@
   {#if state === 'active' || state === 'noSale' || 'notMinted'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
-        <div class="text-2xl">From Creator</div>
+        <div class="text-2xl">Buy From Creator</div>
         {#if state === 'active' && sku?.supplyType !== 'variable'}
           <div class="text-gray-500 text-base">
             {sku?.totalSupplyLeft}
