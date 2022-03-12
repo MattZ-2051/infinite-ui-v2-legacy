@@ -36,6 +36,7 @@
     } else if (isVoucherSku) {
       openModal(VoucherModal, {
         voucherCode,
+        skuId: sku._id,
       });
     } else if (goToSkuAuctionPage) {
       goto(routes.skuAuction(sku._id));

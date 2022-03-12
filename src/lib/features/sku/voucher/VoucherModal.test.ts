@@ -1,11 +1,20 @@
 import { render } from '@testing-library/svelte';
 import VoucherModal from './VoucherModal.svelte';
 
+jest.mock('$lib/variables', () => ({
+  variables: {
+    apiUrl: 'http://api',
+  },
+}));
+
+const skuId = '123';
+
 describe('VoucherModal', () => {
   it('renders modal with correct title', () => {
     const { getByRole } = render(VoucherModal, {
       props: {
         voucherCode: '',
+        skuId,
       },
     });
     const modal = getByRole('voucher-modal');
@@ -17,6 +26,7 @@ describe('VoucherModal', () => {
     const { getByTestId } = render(VoucherModal, {
       props: {
         voucherCode: '',
+        skuId,
       },
     });
 
@@ -31,6 +41,7 @@ describe('VoucherModal', () => {
     const { getByTestId } = render(VoucherModal, {
       props: {
         voucherCode: '123',
+        skuId,
       },
     });
 
@@ -45,6 +56,7 @@ describe('VoucherModal', () => {
     const { getByTestId } = render(VoucherModal, {
       props: {
         voucherCode: '123456789123',
+        skuId,
       },
     });
 

@@ -5,9 +5,13 @@
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
+  import { onSignIn } from '$lib/user';
+  import routes from '$project/routes';
+  import { validateVoucherCode } from './voucher.api';
   import successIcon from '../assets/success-mint';
 
   export let voucherCode = '';
+  export let skuId: string;
 
   let buttonTitle = 'Validate code';
   let title = 'Voucher code';
@@ -54,6 +58,32 @@
       break;
     }
   }
+
+  const handleCodeSubmition = async () => {
+    if (voucherCodeStatus === 'valid-length') {
+      try {
+        await validateVoucherCode({ voucherCode });
+        voucherCodeStatus = 'success';
+        // this setTimeout is here so the user can see the success modal quickly before being redirected
+        setTimeout(() => {
+          onSignIn(routes.checkoutSku(skuId));
+        }, 500);
+      } catch (apiError) {
+        if (apiError.status === 601) {
+          // 601 voucher code is invalid format
+          voucherCodeStatus = 'not-valid';
+          error = true;
+        } else if (apiError.status === 602) {
+          // 602 voucher code is already used
+          voucherCodeStatus = 'already-used';
+          error = true;
+        } else {
+          voucherCodeStatus = 'not-valid';
+          error = true;
+        }
+      }
+    }
+  };
 </script>
 
 <div>
@@ -92,6 +122,7 @@
         class="my-8 h-16 text-xl"
         role="button"
         disabled={voucherCodeStatus === 'button-disabled'}
+        on:click={handleCodeSubmition}
       >
         {#if voucherCodeStatus === 'success' || voucherCodeStatus === 'processing'}
           <DualRingLoader />
