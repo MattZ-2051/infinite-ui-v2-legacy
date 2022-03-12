@@ -27,12 +27,13 @@
 
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
-    const mintLater = sku?.mintPolicy?.transaction === 'later';
-    const redirectToLogin = !$user && mintLater;
+    const isVoucherSku = activeListings?.[0]?.saleType === 'whitelist';
+    const mintLaterSku = sku?.mintPolicy?.transaction === 'later';
+    const redirectToLogin = !$user && mintLaterSku;
 
     if (redirectToLogin) {
       onSignIn();
-    } else if (mintLater) {
+    } else if (isVoucherSku) {
       openModal(VoucherModal, {
         voucherCode,
       });

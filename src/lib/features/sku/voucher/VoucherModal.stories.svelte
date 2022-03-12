@@ -7,10 +7,6 @@
   title="Lib / features / sku / Voucher Modal"
   component={VoucherModal}
   argTypes={{
-    isValidCode: {
-      options: [undefined, true, false],
-      control: { type: 'select' },
-    },
     voucherCode: {
       control: { type: 'text' },
     },
@@ -18,9 +14,9 @@
 />
 
 <Template let:args>
-  <div class="max-w-5xl">
+  <div class="max-w-lg">
     <VoucherModal {...args} />
   </div>
 </Template>
 
-<Story name="Modal" args={{ isValidCode: undefined, voucherCode: '' }} />
+<Story name="Modal" args={{ voucherCode: '' }} />

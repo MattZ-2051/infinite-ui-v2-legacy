@@ -1,23 +1,80 @@
 <script lang="ts">
+  import type { VoucherModalStatus } from './types';
   import { Modal } from '$ui/modals';
+  import Icon from '$ui/icon/Icon.svelte';
+  import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
+  import successIcon from '../assets/success-mint';
 
   export let voucherCode = '';
 
-  $: validCodeLength = voucherCode.length === 12;
-  $: voucherCodeError = undefined;
-  // eslint-disable-next-line unicorn/no-nested-ternary
-  $: buttonTitle = voucherCodeError ? 'Try again' : 'Validate code';
+  let buttonTitle = 'Validate code';
+  let title = 'Voucher code';
+  let voucherCodeStatus: VoucherModalStatus;
+  let errorMessage = '';
+  let error = false;
+
+  $: voucherCodeStatus = voucherCode.length === 12 ? 'valid-length' : 'button-disabled';
+
+  $: switch (voucherCodeStatus) {
+    case 'valid-length': {
+      title = 'Voucher code';
+      buttonTitle = 'Validate code';
+      errorMessage = '';
+      error = false;
+      break;
+    }
+    case 'not-valid': {
+      title = 'Voucher code';
+      errorMessage = 'Voucher code not valid. Please check it and try again.';
+      buttonTitle = 'Try again';
+      error = true;
+      break;
+    }
+    case 'already-used': {
+      title = 'Voucher code';
+      errorMessage = 'This code has already been used and is no longer valid';
+      buttonTitle = 'Close';
+      error = true;
+      break;
+    }
+    case 'button-disabled': {
+      title = 'Voucher code';
+      buttonTitle = 'Validate code';
+      errorMessage = '';
+      error = false;
+      break;
+    }
+    case 'success': {
+      title = 'Voucher code valid';
+      errorMessage = '';
+      buttonTitle = '';
+      error = false;
+      break;
+    }
+  }
 </script>
 
 <div>
-  <Modal class="max-w-lg" title="Voucher code" role="voucher-modal">
+  <Modal class="max-w-lg" role="voucher-modal" closeButton={voucherCodeStatus === 'success' ? false : true}>
+    {#if voucherCodeStatus === 'success'}
+      <header class="flex items-center gap-2 pt-8 pb-4 px-10">
+        <Icon viewBox="0 0 56 56" size="46px" path={successIcon} slot="header" />
+        <div class="text-2xl font-normal pr-8 modal-title">{title}</div>
+      </header>
+    {:else}
+      <header class="flex items-center gap-2 pt-8 pb-4 px-10">
+        <div class="text-2xl font-normal pr-8 modal-title">{title}</div>
+      </header>
+    {/if}
     <div class="flex flex-col px-10">
-      <p class="text-base text-black-opacity-40 font-normal py-8">
-        Enter the voucher code you received on your email to proceed to checkout.
-        {voucherCode}
-      </p>
+      {#if voucherCodeStatus !== 'success'}
+        <p class="text-base text-black-opacity-40 font-normal py-8">
+          Enter the voucher code you received on your email to proceed to checkout.
+          {voucherCode}
+        </p>
+      {/if}
       <Input
         variant="base"
         type="text"
@@ -25,8 +82,7 @@
         placeholder="Enter Voucher code"
         class="border pl-4 text-black rounded-lg pt-4"
         style="padding-bottom: 1rem;"
-        error={voucherCodeError === false && 'Voucher code not valid. Please check it and try again.'}
-        success={voucherCodeError === true && 'Voucher code valid.'}
+        error={error && errorMessage}
         bind:value={voucherCode}
       />
 
@@ -34,9 +90,15 @@
         data-testId="voucher-button"
         variant="brand"
         class="my-8 h-16 text-xl"
-        disabled={!validCodeLength}
-        role="button">{buttonTitle}</Button
+        role="button"
+        disabled={voucherCodeStatus === 'button-disabled'}
       >
+        {#if voucherCodeStatus === 'success' || voucherCodeStatus === 'processing'}
+          <DualRingLoader />
+        {:else}
+          {buttonTitle}
+        {/if}
+      </Button>
     </div>
   </Modal>
 </div>
