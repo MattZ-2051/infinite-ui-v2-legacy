@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import type { Sku } from '$lib/sku-item/types';
   import { mdiInfinity } from '@mdi/js';
   import { readable } from 'svelte/store';
@@ -7,6 +8,7 @@
   import { polls } from '$lib/features/product/product.store';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
+  import { getNumberOfSkus } from '../../sku.api';
 
   type FromCreatorState =
     | 'upcoming'
@@ -15,6 +17,7 @@
     | 'upcomingNftGiveAway'
     | 'activeNftGiveAway'
     | 'notMinted'
+    | 'active-whitelist'
     | '';
   $: isPolling = $polls[sku._id]?.$isActive || readable(false);
 
@@ -23,6 +26,15 @@
   export let state: FromCreatorState = '';
   export let activeListings = [];
   export let upcomingSkuListings = [];
+
+  let numberOfVoucherSkusLeft = 0;
+
+  onMount(async () => {
+    if (state === 'active-whitelist') {
+      const data = await getNumberOfSkus({ id: sku._id });
+      numberOfVoucherSkusLeft = data;
+    }
+  });
 
   $: activeListing = activeListings?.[0];
   $: skuPrice =
@@ -46,14 +58,18 @@
   on:click={onBuy}
   class="from-creator-custom"
 >
-  {#if state === 'active' || state === 'noSale' || 'notMinted'}
+  {#if state === 'active' || state === 'noSale' || state === 'notMinted' || (state === 'active-whitelist' && numberOfVoucherSkusLeft > 0)}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
         <div class="text-2xl">Buy From Creator</div>
-        {#if state === 'active' && sku?.supplyType !== 'variable'}
+        {#if (state === 'active' && sku?.supplyType !== 'variable') || state === 'active-whitelist'}
           <div class="text-gray-500 text-base">
-            {sku?.totalSupplyLeft}
-            {sku?.totalSupplyLeft === 1 ? 'Item Left' : 'Items Left'}
+            {#if state === 'active-whitelist'}
+              {numberOfVoucherSkusLeft}
+            {:else if state === 'active'}
+              {sku?.totalSupplyLeft}
+            {/if}
+            {sku?.totalSupplyLeft === 1 || numberOfVoucherSkusLeft === 1 ? 'Item Left' : 'Items Left'}
           </div>
         {/if}
         {#if state === 'noSale'}

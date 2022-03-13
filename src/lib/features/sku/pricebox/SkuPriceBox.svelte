@@ -54,6 +54,7 @@
   $: upcoming =
     upcomingSkuListings.length > 0 && activeListings.length === 0 && upcomingSkuListings[0]?.saleType !== 'giveaway';
   $: active = activeListings.length > 0 && sku.totalSupplyLeft && activeListings?.[0]?.saleType !== 'giveaway';
+  $: activeWhiteList = activeListings.length > 0 && activeListings?.[0]?.saleType === 'whitelist';
   $: activeNftGiveAway = activeListings[0]?.saleType === 'giveaway';
   $: upcomingNftGiveAway = upcomingSkuListings[0]?.saleType === 'giveaway';
   $: noSale = sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
@@ -80,6 +81,8 @@
 <div class="flex flex-col sticky-content-button">
   {#if collector}
     <LimitedAuction {collector} />
+  {:else if activeWhiteList}
+    <FromCreator {sku} state="active-whitelist" {activeListings} {onBuy} />
   {:else if active}
     <FromCreator {sku} state="active" {activeListings} {onBuy} />
   {:else if upcoming}

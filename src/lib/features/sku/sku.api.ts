@@ -24,3 +24,10 @@ async function getSkuRelated({ sku, fetch }: { sku: Sku; fetch?: Fetch }): Promi
 
   return related.filter((item) => item._id !== sku._id).slice(0, 4);
 }
+
+export async function getNumberOfSkus({ id, fetch }: { id: string; fetch?: Fetch }): Promise<number> {
+  // according to docs sent by BE this is the endpoint to retrieve number of nfts not yet purchased
+  // the endpoint is the same as the isCodeValid endpoint so I suspect it will change but the functionality should
+  // stay the same
+  return await get(`isCodeValid/${id}`, { fetch });
+}
