@@ -1,5 +1,5 @@
 const ariaExternal =
-  process.env.NODE_ENV === 'production' ? 'https://www.ariaexchange.com' : 'https://uat.ariaexchange.com';
+  process.env.SVELTEKIT_MODE === 'production' ? 'https://www.ariaexchange.com' : 'https://uat.ariaexchange.com';
 
 const redirects: {
   route: string;
