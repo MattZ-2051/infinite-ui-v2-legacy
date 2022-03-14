@@ -134,16 +134,20 @@
   <div class={cellClass}>
     {#if sku.currency === 'ETH'}
       <div class={headerClass}>ERC721 Transaction</div>
-      <div class="flex flex-row items-center">
-        <div class="truncate flex-1">
-          <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
+      {#if isTransactionLater && mintStatus !== 'processed'}
+        <span>Not Minted</span>
+      {:else}
+        <div class="flex flex-row items-center">
+          <div class="truncate flex-1">
+            <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
+          </div>
+          {#if copiedLink}
+            <Icon path={mdiCheckCircle} color="green" size="1em" />
+          {:else}
+            <Icon path={mdiContentCopy} class="opacity-70 hover:opacity-100 ml-2" size="1em" on:click={onCopyLink} />
+          {/if}
         </div>
-        {#if copiedLink}
-          <Icon path={mdiCheckCircle} color="green" size="1em" />
-        {:else}
-          <Icon path={mdiContentCopy} class="opacity-70 hover:opacity-100 ml-2" size="1em" on:click={onCopyLink} />
-        {/if}
-      </div>
+      {/if}
     {:else}
       <div class={headerClass}>Hedera Token</div>
       <div class="truncate">
