@@ -8,10 +8,11 @@
   import {
     walletConnected,
     getWalletInfo,
-    sendTransaction,
     handleWalletConnection,
     isAuthenticated,
     onSignIn,
+    userId,
+    sendEthPurchasePaymentForImmediateMinting,
   } from '$lib/user';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
@@ -112,7 +113,11 @@
     if (checkTerms() && checkValidETHAddress()) {
       if ($walletConnected) {
         directPurchasing = true;
-        await sendTransaction(validETHPurchase.externalPurchaseAddressEth, validETHPurchase.cost.totalCost)
+        await sendEthPurchasePaymentForImmediateMinting(
+          validETHPurchase.externalPurchaseAddressEth,
+          validETHPurchase.cost.totalCost,
+          $userId
+        )
           .then((response) => {
             directPurchaseResult = response;
             toast.success('Your request is being processed. Minting of your NFT may take up to 30 minutes.', {

@@ -8,7 +8,13 @@
   import { formatCurrency } from '$util/format';
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { checkNetwork, getWalletInfo, sendTransaction, walletConnected } from '$lib/user';
+  import {
+    checkNetwork,
+    getWalletInfo,
+    sendEthPurchasePaymentForImmediateMinting,
+    userId,
+    walletConnected,
+  } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
   import routes from '$project/routes';
@@ -76,7 +82,11 @@
       purchasing = true;
       const network = await checkNetwork();
       if (network.name === 'homestead' || MM_TEST_NETWORK_ENABLED) {
-        await sendTransaction(purchaseInfo.externalPurchaseAddressEth, purchaseInfo.cost.totalCost)
+        await sendEthPurchasePaymentForImmediateMinting(
+          purchaseInfo.externalPurchaseAddressEth,
+          purchaseInfo.cost.totalCost,
+          $userId
+        )
           .then((response) => {
             purchaseResult = response;
             toast.success('Your request is being processed. Minting of your NFT may take up to 30 minutes.', {

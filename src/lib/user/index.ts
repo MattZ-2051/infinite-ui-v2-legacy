@@ -332,7 +332,23 @@ export async function getWalletInfo() {
   return { balance, address };
 }
 
-export async function sendTransaction(destinationAddress: string, totalCost: number) {
+export async function sendEthPurchasePaymentForLazyMinting(
+  destinationAddress: string,
+  totalCost: number,
+  fromUserId: string
+) {
+  return sendTransaction(destinationAddress, totalCost, ['0x01', `0x${fromUserId}`, '0x01']);
+}
+
+export async function sendEthPurchasePaymentForImmediateMinting(
+  destinationAddress: string,
+  totalCost: number,
+  fromUserId?: string
+) {
+  return sendTransaction(destinationAddress, totalCost, ['0x01', `0x${fromUserId || ''}`, '0x01']);
+}
+
+export async function sendTransaction(destinationAddress: string, totalCost: number, data?: string[]) {
   const address = await signer.getAddress();
   const rawTrx = {
     from: address,
@@ -340,6 +356,10 @@ export async function sendTransaction(destinationAddress: string, totalCost: num
     nonce: await provider.getTransactionCount(address, 'latest'),
     value: ethers.utils.parseEther(totalCost.toString()),
   };
+  if (data) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (rawTrx as any).data = ethers.utils.RLP.encode(data);
+  }
 
   return await signer.sendTransaction(rawTrx);
 }

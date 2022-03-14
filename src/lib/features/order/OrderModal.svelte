@@ -5,7 +5,7 @@
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
   import type { Listing, Sku, Product, PaymentMethod } from '$lib/sku-item/types';
-  import { walletConnected, getWalletInfo, sendTransaction } from '$lib/user';
+  import { walletConnected, getWalletInfo, sendEthPurchasePaymentForImmediateMinting, userId } from '$lib/user';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';
@@ -85,7 +85,11 @@
     if (checkTerms() && checkValidETHAddress()) {
       if ($walletConnected) {
         directPurchasing = true;
-        await sendTransaction(validETHPurchase.externalPurchaseAddressEth, validETHPurchase.cost.totalCost)
+        await sendEthPurchasePaymentForImmediateMinting(
+          validETHPurchase.externalPurchaseAddressEth,
+          validETHPurchase.cost.totalCost,
+          $userId
+        )
           .then((response) => {
             directPurchaseResult = response;
             toast.success('Your request is being processed. Minting of your NFT may take up to 30 minutes.', {
