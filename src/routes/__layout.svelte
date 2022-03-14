@@ -1,8 +1,10 @@
 <script context="module" lang="ts">
+  import type { LoadInput, LoadOutput } from '@sveltejs/kit/types/internal';
   import { derived } from 'svelte/store';
   import { browser, mode } from '$app/env';
   import { isLoading, initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { variables } from '$lib/variables';
+  import projectRedirects from '$project/redirects';
   import Maintenance from '$lib/components/Maintenance.svelte';
   import '@stripe/stripe-js';
 
@@ -16,6 +18,18 @@
         worker.start();
       }
     })();
+  }
+
+  export async function load(input: LoadInput): Promise<LoadOutput> {
+    const redirectMatch = projectRedirects.find((redirect) => redirect.route === input.url.pathname);
+
+    if (redirectMatch) {
+      return {
+        status: redirectMatch.status,
+        redirect: redirectMatch.redirect,
+      };
+    }
+    return input;
   }
 </script>
 
