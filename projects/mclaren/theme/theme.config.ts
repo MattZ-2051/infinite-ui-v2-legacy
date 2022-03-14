@@ -7,6 +7,7 @@ const Theme = {
   WalletBalance: 'theme-wallet-balance',
   SearchRoundedBar: 'theme-search-bar',
   Footer: 'theme-footer',
+  PaymentButtons: 'theme-payment-button',
 };
 
 export const themeConfig = {
@@ -21,4 +22,5 @@ export const themeConfig = {
   '*.error': Theme.Dark,
   '*.modal': Theme.Light,
   '*.footer': Theme.Footer,
+  '*.payment-buttons': Theme.PaymentButtons,
 };

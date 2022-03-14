@@ -223,6 +223,16 @@
   --redemption-status-display: visible;
 }
 
+.theme-payment-button {
+  --button-brand-color: #ffffff;
+  --button-brand-bg: linear-gradient(225deg, #181c20 0%, #363f45 100%);
+  --button-brand-border-color: transparent;
+  --button-brand-color-hover: #ffffff;
+  --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  --button-brand-border-color-hover: transparent;
+  --button-text-transform: none;
+}
+
 .theme-search-bar {
   --border-input-search: solid 1px;
   --border-input-search-color: var(--gray-300);

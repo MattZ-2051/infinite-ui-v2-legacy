@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { mdiClose } from '@mdi/js';
   import type { Sku, Product, Listing } from '$lib/sku-item/types';
   import type { ActiveType } from '$ui/accordion/AccordionGroup.svelte';
+  import closeIcon from '$ui/modals/assets/close';
   import Accordion from '$ui/accordion/Accordion.svelte';
   import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
   import { FilePreview } from '$ui/file';
@@ -19,7 +19,7 @@
   export let listing: Listing;
   export let rate: number = undefined;
   export let gasFee = 0;
-  export let closeIcon: () => void;
+  export let handleClose: () => void;
 
   const _sku = product ? product.sku : sku;
   const listingPrice = listing?.saleType === 'giveaway' ? 0 : listing?.price;
@@ -30,7 +30,7 @@
   {#if $media.xl}
     <header><h3 class="text-2xl">Order Summary</h3></header>
     <figure class="m-10">
-      <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
+      <FilePreview borderRadius={'var(--file-preview-border-radius, 0px)'} item={_sku.nftPublicAssets?.[0]} preview />
     </figure>
     <section>
       <ProductModalInfo sku={_sku} />
@@ -39,11 +39,15 @@
       <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} {gasFee} />
     </section>
   {:else}
-    <span on:click={closeIcon} class="absolute close-icon"><Icon path={mdiClose} size={1.5} /></span>
+    <span on:click={handleClose} class="absolute close-icon"><Icon path={closeIcon} size={1.2} /></span>
     <AccordionGroup multiple bind:active>
       <Accordion titleClass="align-center w-56 py-6 text-2xl header-title" title="Order Summary" id="summary">
         <figure class="m-10">
-          <FilePreview item={_sku.nftPublicAssets?.[0]} preview />
+          <FilePreview
+            item={_sku.nftPublicAssets?.[0]}
+            borderRadius={'var(--file-preview-border-radius, 0px)'}
+            preview
+          />
         </figure>
         <section>
           <ProductModalInfo sku={_sku} />

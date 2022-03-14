@@ -122,7 +122,7 @@
 <div class="w-full h-full flex flex-col">
   <Input
     name="eth-address"
-    class={`pb-10 px-6 bg-gray-50 mt-4 mb-24 border border-solid border-gray-50 rounded-xl ${
+    class={`pb-10 px-6 bg-gray-50 mt-4 mb-14 border border-solid border-gray-50 rounded-xl ${
       validEthAddress === false ? 'text-red-500' : ''
     }`}
     style="padding-bottom: 1rem; padding-top: 1rem"
@@ -157,11 +157,20 @@
         <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
       </label>
     </div>
-    <div class="grid grid-cols-2 mt-12">
-      <Button variant="outline-brand" class="border-none" on:click={() => handleStateChange('method-select')}
-        >Back to Payment Method</Button
+    <div class="grid mt-12 grid-flow-row sm:grid-flow-col">
+      <Button
+        variant="outline-brand"
+        class="border-none sm:order-1 order-2 mr-0 mt-2 sm:mt-0 sm:mr-3"
+        on:click={() => handleStateChange('method-select')}
       >
-      <Button variant="brand" on:click={submitOrder} disabled={!acceptedTerms || insufficientFunds}>
+        Back to Payment Method
+      </Button>
+      <Button
+        variant="brand"
+        class="sm:order-2 order-1"
+        on:click={submitOrder}
+        disabled={!acceptedTerms || insufficientFunds}
+      >
         Buy now for ETH {formatCurrency(priceWFee, options)}
       </Button>
     </div>

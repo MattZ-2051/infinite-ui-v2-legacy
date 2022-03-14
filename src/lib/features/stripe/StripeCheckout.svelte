@@ -42,46 +42,49 @@
     isLoading = true;
 
     const stripe = await stripePromise;
+    try {
+      const {
+        client_secret: clientSecret,
+        cost,
+        networkFee,
+        rate: rateUSD,
+      } = await stripeCreatePaymentIntentFx({
+        listingId: listing._id,
+        mintToAddress,
+        lazyMinting,
+      });
 
-    const {
-      client_secret: clientSecret,
-      cost,
-      networkFee,
-      rate: rateUSD,
-    } = await stripeCreatePaymentIntentFx({
-      listingId: listing._id,
-      mintToAddress,
-      lazyMinting,
-    });
+      currency = cost.currency;
+      sellerPrice = cost.finalPayout + cost.initialSellersFee;
+      buyerFee = cost.initialBuyersFee;
+      marketplaceFee = cost.initialBuyersFeePercentage / 100;
+      gasFee = +networkFee.gas;
+      rate = +rateUSD.amount;
 
-    currency = cost.currency;
-    sellerPrice = cost.finalPayout + cost.initialSellersFee;
-    buyerFee = cost.initialBuyersFee;
-    marketplaceFee = cost.initialBuyersFeePercentage / 100;
-    gasFee = +networkFee.gas;
-    rate = +rateUSD.amount;
+      const total = sellerPrice + buyerFee + gasFee;
+      totalCost = formatCurrency(total * rate, { currency: 'USD' });
 
-    const total = sellerPrice + buyerFee + gasFee;
-    totalCost = formatCurrency(total * rate, { currency: 'USD' });
+      const style = getComputedStyle(paymentElementNode);
+      const theme: 'flat' | 'stripe' | 'night' | 'none' = 'stripe';
+      const appearance = {
+        theme,
+        variables: {
+          colorBackground: style.backgroundColor,
+          colorText: 'black',
+          colorPrimary: style.getPropertyValue('--primary-color'),
+        },
+      };
 
-    const style = getComputedStyle(paymentElementNode);
-    const theme: 'flat' | 'stripe' | 'night' | 'none' = 'stripe';
-    const appearance = {
-      theme,
-      variables: {
-        colorBackground: style.backgroundColor,
-        colorText: 'black',
-        colorPrimary: style.getPropertyValue('--primary-color'),
-      },
-    };
+      elements = await stripe.elements({ appearance, clientSecret });
+      const paymentElement: StripePaymentElement = elements.create('payment');
 
-    elements = await stripe.elements({ appearance, clientSecret });
-    const paymentElement: StripePaymentElement = elements.create('payment');
+      // Inject stripe iframe in selected element node
+      paymentElement.mount(paymentElementNode);
 
-    // Inject stripe iframe in selected element node
-    paymentElement.mount(paymentElementNode);
-
-    paymentElement.on('ready', () => (isLoading = false));
+      paymentElement.on('ready', () => (isLoading = false));
+    } catch {
+      handleStateChange('method-select');
+    }
   }
 
   async function handleSubmit() {
@@ -140,13 +143,17 @@
         <a href={routes.terms} class="ml-1" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
       </label>
     </div>
-    <div class="grid grid-cols-2 mt-8">
-      <Button variant="outline-brand" class="border-none" on:click={() => handleStateChange('method-select')}
-        >Back to Payment Method</Button
+    <div class="grid mt-8 grid-flow-row sm:grid-flow-col">
+      <Button
+        variant="outline-brand"
+        class="border-none sm:order-1 order-2 mr-0 mt-2 sm:mt-0 sm:mr-3"
+        on:click={() => handleStateChange('method-select')}
       >
-      <Button variant="brand" class="" type="submit" disabled={isLoading || !acceptedTerms}
-        >Buy Now for {totalCost}</Button
-      >
+        Back to Payment Method
+      </Button>
+      <Button variant="brand" class="sm:order-2 order-1" type="submit" disabled={isLoading || !acceptedTerms}>
+        Buy Now for {totalCost}
+      </Button>
     </div>
   {/if}
 </form>
