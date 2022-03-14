@@ -34,6 +34,7 @@
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _sku = sku ? sku : product.sku;
   const [listing] = getActiveListings(sku);
+  const lazyMinting = sku?.mintPolicy?.transaction === 'later';
   const paymentMethods = [
     { id: 'cc', title: 'Credit Card', iconSource: creditCardIcon, available: MM_WALLET_ENABLED },
     { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon, available: STRIPE_ENABLED },
@@ -149,7 +150,7 @@
             {#if orderingMm}
               <CompletePurchaseMM {sku} {listing} {gasFee} />
             {:else if orderingStripe}
-              <StripeCheckout mintToAddress={ethAddress} {listing} />
+              <StripeCheckout mintToAddress={ethAddress} {listing} {lazyMinting} />
             {/if}
           {:else if paymentSelection}
             <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center">

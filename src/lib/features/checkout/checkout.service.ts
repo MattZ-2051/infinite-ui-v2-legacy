@@ -73,7 +73,7 @@ export const handlePayment = async ({
   } else if (id === 'cc') {
     if (!user) {
       showLoginToast();
-    } else if (skuMintPolicy.transaction === 'later') {
+    } else if (skuMintPolicy?.transaction === 'later') {
       handleStateChange('ordering-stripe');
     } else {
       openModal(EthAddressModal, { handleEthModalCallback });

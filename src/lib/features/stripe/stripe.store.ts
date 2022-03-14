@@ -20,8 +20,18 @@ export const connectStripeAccountFx = createEffect(
 );
 
 export const stripeCreatePaymentIntentFx = createEffect(
-  async ({ listingId, fetch, mintToAddress }: { listingId: string; fetch?: Fetch; mintToAddress: string }) => {
-    return stripeCreatePaymentIntent({ listingId, fetch, mintToAddress });
+  async ({
+    listingId,
+    fetch,
+    mintToAddress,
+    lazyMinting,
+  }: {
+    listingId: string;
+    fetch?: Fetch;
+    mintToAddress: string | undefined;
+    lazyMinting: boolean;
+  }) => {
+    return stripeCreatePaymentIntent({ listingId, fetch, mintToAddress, lazyMinting });
   }
 );
 

@@ -17,7 +17,9 @@
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
   export let listing: Listing;
-  export let mintToAddress: string;
+  export let mintToAddress: string | undefined;
+  export let lazyMinting: boolean;
+
   let acceptedTerms = false;
 
   $: isLoading = false;
@@ -49,6 +51,7 @@
     } = await stripeCreatePaymentIntentFx({
       listingId: listing._id,
       mintToAddress,
+      lazyMinting,
     });
 
     currency = cost.currency;

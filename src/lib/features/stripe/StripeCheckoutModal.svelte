@@ -50,6 +50,7 @@
     } = await stripeCreatePaymentIntentFx({
       listingId: listing._id,
       mintToAddress,
+      lazyMinting: false,
     });
 
     currency = cost.currency;
