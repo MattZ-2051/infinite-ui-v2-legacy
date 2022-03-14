@@ -1,4 +1,4 @@
-export interface NewCreditCard extends Record<string, unknown> {
+export type NewCreditCard = {
   cardNumber: string;
   cvv: number;
   expMonth: number;
@@ -16,7 +16,7 @@ export interface NewCreditCard extends Record<string, unknown> {
     district: string;
     postalCode: string;
   };
-}
+};
 
 export interface AddFundsRequest {
   email: string;

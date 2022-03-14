@@ -6,7 +6,7 @@ specifiers:
   '@babel/preset-env': 7.16.11
   '@commitlint/cli': 16.2.1
   '@commitlint/config-conventional': 16.2.1
-  '@felte/validator-yup': 0.2.13
+  '@felte/validator-yup': 1.0.1
   '@hashgraph/sdk': 2.10.1
   '@mdi/js': 6.5.95
   '@mdx-js/react': 1.6.22
@@ -61,7 +61,7 @@ specifiers:
   eslint-plugin-unicorn: 41.0.0
   ethers: 5.5.4
   expo: ^44.0.6
-  felte: 0.9.1
+  felte: 1.0.1
   file-loader: 6.2.0
   flatpickr: 4.6.10
   focus-trap: 6.7.3
@@ -112,7 +112,7 @@ specifiers:
 
 dependencies:
   '@auth0/auth0-spa-js': 1.20.1
-  '@felte/validator-yup': 0.2.13_yup@0.32.11
+  '@felte/validator-yup': 1.0.1_yup@0.32.11
   '@hashgraph/sdk': 2.10.1_expo@44.0.6
   '@mdi/js': 6.5.95
   '@popperjs/core': 2.11.2
@@ -131,7 +131,7 @@ dependencies:
   deepmerge: 4.2.2
   effector: 22.2.0
   ethers: 5.5.4
-  felte: 0.9.1_svelte@3.46.4
+  felte: 1.0.1_svelte@3.46.4
   flatpickr: 4.6.10
   focus-trap: 6.7.3
   js-cookie: 3.0.1
@@ -2561,22 +2561,25 @@ packages:
       lodash.template: 4.5.0
     dev: true
 
-  /@felte/common/0.6.0:
-    resolution: {integrity: sha512-dLh+heGTGKQzIeUbLcJMEvDks3YTy99FFdUHg8/fxeIFSprUM/b4olK+tIMBrTE30AV2BFYeQHxB8hFpzUafAQ==}
+  /@felte/common/1.0.1:
+    resolution: {integrity: sha512-P905IdJzdiawo+YsnM5Cg2ziou5VHBDCCiVHXqGFBrEmq/RyxSdOfuRbOBKAz3l5eigQl8QGK26b3rVLz7mxRQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: false
 
-  /@felte/core/0.3.0:
-    resolution: {integrity: sha512-v3rOg8wdchnQoMYJCPLelaJmgyG3doibYFqKmoOj7iQlnI738fczEEjDToJfa9UUbYBRDdgfYHXrEtEK7kYIGg==}
+  /@felte/core/1.0.1:
+    resolution: {integrity: sha512-wrdiiQIfw4fDTVN9THowqSQcckkwrW8EN92mIKqqa+wbcYz7cSBAi3GtgNWJcZuEV631ij2nnygQnxV/8hhdnA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
-      '@felte/common': 0.6.0
+      '@felte/common': 1.0.1
     dev: false
 
-  /@felte/validator-yup/0.2.13_yup@0.32.11:
-    resolution: {integrity: sha512-OgVMs0RVXszdx8j3SrIK/DDfAmYZ0Z75NVzxrMJNgiT+Z/43DurEsSUUFlva1gQA5MGWrHRbViNTMVIQA6zxYA==}
+  /@felte/validator-yup/1.0.1_yup@0.32.11:
+    resolution: {integrity: sha512-lylJ5FlzZeUh3/NJJyPPF0uBlj4Fi4YmCdt3M7saPOrGZJsr09AD8o+fXQr4aUllwbIFbjN3z6zkSpYE1wYAqA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
       yup: ^0.32.9
     dependencies:
-      '@felte/common': 0.6.0
+      '@felte/common': 1.0.1
       yup: 0.32.11
     dev: false
 
@@ -10245,12 +10248,13 @@ packages:
       pend: 1.2.0
     dev: true
 
-  /felte/0.9.1_svelte@3.46.4:
-    resolution: {integrity: sha512-Oe5iA0t6CsP9Hqg8nBhvoVsBD4TilPFh8JlnK3h0yED+1CDGxC34iVw9V1ewuWnQf3t6P+YINqawfKvU0ePCKg==}
+  /felte/1.0.1_svelte@3.46.4:
+    resolution: {integrity: sha512-fGz9KUBbBzv+QTgocHx2lGiRCNQXoXnBOfPvkVi4JWnofQCbKAYKQ80ytqAvqv+NphAZp6Zb/+luToIfqJ+Q2w==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
       svelte: ^3.31.0
     dependencies:
-      '@felte/core': 0.3.0
+      '@felte/core': 1.0.1
       svelte: 3.46.4
     dev: false
 

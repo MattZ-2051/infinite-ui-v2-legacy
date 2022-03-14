@@ -1,4 +1,4 @@
-export interface RedeemInfo extends Record<string, unknown> {
+export type RedeemInfo = {
   city: string;
   country: string;
   addressLine1: string;
@@ -7,4 +7,4 @@ export interface RedeemInfo extends Record<string, unknown> {
   postalCode: string;
   shippingNotes: string;
   name: string;
-}
+};

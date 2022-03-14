@@ -64,7 +64,7 @@
       }),
   });
 
-  const { form, data, errors, isSubmitting, setField } = createForm<NewAuction>({
+  const { form, data, errors, isSubmitting, setFields } = createForm<NewAuction>({
     initialValues: {
       startDate: roundToMinute(),
       endDate: roundToMinute(dayjs(roundToMinute()).add(7, 'day').toDate()),
@@ -89,11 +89,11 @@
   });
 
   function onStartDateChange([_startDate]) {
-    setField('startDate', _startDate);
+    setFields('startDate', _startDate, true);
   }
 
   function onEndDateChange([_endDate]) {
-    setField('endDate', _endDate);
+    setFields('endDate', _endDate, true);
   }
 
   $: royaltyFee = getRoyaltyFee(product);

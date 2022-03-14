@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "1.20.1",
-    "@felte/validator-yup": "0.2.13",
+    "@felte/validator-yup": "1.0.1",
     "@hashgraph/sdk": "2.10.1",
     "@mdi/js": "6.5.95",
     "@popperjs/core": "2.11.2",
@@ -46,7 +46,7 @@
     "deepmerge": "^4.2.2",
     "effector": "~22.2.0",
     "ethers": "5.5.4",
-    "felte": "0.9.1",
+    "felte": "1.0.1",
     "flatpickr": "4.6.10",
     "focus-trap": "6.7.3",
     "js-cookie": "3.0.1",

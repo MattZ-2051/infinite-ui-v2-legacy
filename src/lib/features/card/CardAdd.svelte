@@ -72,9 +72,9 @@
   const { form, data, errors, reset } = createForm<NewCreditCard>({
     initialValues: {
       cardNumber: '',
-      expMonth: '',
-      expYear: '',
-      cvv: '',
+      expMonth: undefined,
+      expYear: undefined,
+      cvv: undefined,
       metadata: {
         email: $user.email,
         phone: '',
