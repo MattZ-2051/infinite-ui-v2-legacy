@@ -255,6 +255,8 @@
   --button-brand-bg: none #ffffff;
   --button-brand-bg-hover: none #ffffff;
   --button-brand-border-color-hover: transparent;
+  --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  --button-brand-color-hover: #ffffff;
 
   /* WalletBalance */
   --wallet-balance-bg-color: #ffffff;
@@ -264,10 +266,6 @@
   --text-balance-gradient-to: #ff5e17;
   --wallet-icon-info-bg-color: transparent;
   --wallet-icon-info-padding: 0px;
-
-  /*Button*/
-  --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
-  --button-brand-color-hover: #ffffff;
 
   /*Loading */
   --lds-color: linear-gradient(90deg, #ff8d1c 0%, #b1afae 47.92%, #ff3414 100%);
