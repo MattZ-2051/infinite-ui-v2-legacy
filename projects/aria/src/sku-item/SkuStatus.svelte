@@ -25,7 +25,7 @@
     <span class:font-bold={!productStatus}>Dropping:</span>
     <TimeDifference date={tileInfo.minStartDate} />
   {:else if tileInfo.status === 'no-sale'}
-    <span class:font-bold={!productStatus}>{product ? 'Not for sale' : 'Sold'}</span>
+    <span class:font-bold={!productStatus}>{product ? 'Not for sale' : 'Sold Out'}</span>
   {:else if tileInfo.status === 'active'}
     <span class:font-bold={!productStatus}>{tileInfo.saleTypeTitle}</span>
     {#if !forProductStatus}
