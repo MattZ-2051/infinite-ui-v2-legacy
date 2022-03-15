@@ -16,6 +16,7 @@
   import { loadProduct } from '../../product/product.api';
   import FromCreator from './button/FromCreator.svelte';
   import FromCollectors from './button/FromCollectors.svelte';
+  import ViewCollectors from './button/ViewCollectors.svelte';
   import LimitedAuction from './button/LimitedAuction.svelte';
   import VoucherModal from '../voucher/VoucherModal.svelte';
 
@@ -100,7 +101,9 @@
   {#if totalCollectors > 0}
     <div class="from-collectors-line z-∞" />
     <div style="border-top:var(--sku-price-box-border-top, 1px solid black);">
-      {#if hasActiveAuctionListing && hasActiveFixedListing}
+      {#if activeWhiteList}
+        <ViewCollectors {sku} />
+      {:else if hasActiveAuctionListing && hasActiveFixedListing}
         <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuctionAndSale" />
       {:else if isActiveSale}
         <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeSale" />
