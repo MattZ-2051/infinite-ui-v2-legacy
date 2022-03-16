@@ -7,6 +7,7 @@
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
   import { polls } from '$lib/features/product/product.store';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
+  import { toast } from '$ui/toast';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
   import { getNumberOfSkus } from '../../sku.api';
 
@@ -31,8 +32,12 @@
 
   onMount(async () => {
     if (state === 'active-whitelist') {
-      const data = await getNumberOfSkus({ id: sku._id });
-      numberOfVoucherSkusLeft = data;
+      try {
+        const data = await getNumberOfSkus({ id: sku._id });
+        numberOfVoucherSkusLeft = data;
+      } catch {
+        toast.danger('An error ocurred calculating sku supply left');
+      }
     }
   });
 
@@ -53,7 +58,9 @@
 </script>
 
 <SkuPriceBoxButton
-  action={state === 'active' || state === 'activeNftGiveAway'}
+  action={state === 'active' ||
+    state === 'activeNftGiveAway' ||
+    (state === 'active-whitelist' && numberOfVoucherSkusLeft)}
   polling={$isPolling}
   on:click={onBuy}
   class="from-creator-custom"

@@ -12,6 +12,7 @@
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
+  import { browser } from '$app/env';
   import routes from '$project/routes';
   import { toast } from '$ui/toast';
   import Icon from '$ui/icon/Icon.svelte';
@@ -85,7 +86,9 @@
   });
 
   onDestroy(async () => {
-    localStorage.removeItem('checkout-state');
+    if (browser) {
+      localStorage.removeItem('checkout-state');
+    }
   });
 
   const handleEthModalCallback = async ({ address, option }: { address: string; option: string }): Promise<void> => {

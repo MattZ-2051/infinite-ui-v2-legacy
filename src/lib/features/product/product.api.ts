@@ -15,6 +15,10 @@ export async function cancelSale({ id }: { id: string }) {
   return await patch(`listings/${id}/cancel`, {});
 }
 
+export async function claimMint({ id, mintToAddress }: { id: string; mintToAddress: string }): Promise<string> {
+  return await post(`products/${id}/claim-mint`, { mintToAddress });
+}
+
 export async function loadProductTransactions({
   id,
   page,

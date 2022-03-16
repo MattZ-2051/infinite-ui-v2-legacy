@@ -6,6 +6,7 @@
   import MintStatus from './MintStatus.svelte';
   import MintEthAddress from './MintEthAddress.svelte';
   import { pendingTxStatus, txState } from '../product.store';
+  import { claimMint } from '../product.api';
 
   export let product: Product;
   export let onClose: () => void;
@@ -16,19 +17,15 @@
   $: txStatus = $txState.status;
   $: txHash = $txState.hash;
 
-  const mockMintNftAPI = (address: string): Promise<string> => {
-    if (address) {
-      return new Promise((resolve) => {
-        setTimeout(() => resolve('0xda67e2b1d3995d483be2de5dfcf944a056d2d9f2c05a3ff59cae55da1eb2b58b'), 1500);
-      });
-    }
-  };
-
-  const mintNft = async (address: string) => {
+  const mintNft = async (mintToAddress: string) => {
     isLoading = true;
-    const txHashResponse = await mockMintNftAPI(address);
-    mintingStatus = 'processing';
-    pendingTxStatus(txHashResponse);
+    try {
+      const txHashResponse = await claimMint({ id: product._id, mintToAddress });
+      mintingStatus = 'processing';
+      pendingTxStatus(txHashResponse);
+    } catch (error) {
+      toast.danger(error.data?.message || 'An error ocurred');
+    }
     isLoading = false;
   };
 

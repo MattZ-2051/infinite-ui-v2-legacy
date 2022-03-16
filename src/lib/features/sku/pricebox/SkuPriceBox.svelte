@@ -24,7 +24,7 @@
   export let totalCollectors: number;
   export let collectors: CollectorProduct[];
 
-  const voucherCode = $page.url.searchParams.get('voucherCode');
+  const voucherCode = $page.url.searchParams.get('voucherCode') || '';
 
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
