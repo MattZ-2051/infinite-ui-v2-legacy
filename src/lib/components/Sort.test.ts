@@ -70,7 +70,6 @@ describe('Sort', () => {
     await fireEvent.click(div);
     const menuItem = getByText('sort desc');
     await fireEvent.click(menuItem);
-    expect(selectedLabel).toHaveTextContent('sort desc');
     expect(selectedLabel).toBeInTheDocument();
     expect(select.mock.calls[0][0].detail).toEqual({ value: 'sortTest:desc', key: 'sortBy' });
   });
