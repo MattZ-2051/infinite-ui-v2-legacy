@@ -21,7 +21,10 @@
   }
 
   export async function load(input: LoadInput): Promise<LoadOutput> {
-    const redirectMatch = projectRedirects.find((redirect) => redirect.route === input.url.pathname);
+    const EXTERNAL_INDEX_URL = import.meta.env?.VITE_EXTERNAL_INDEX_URL as string;
+    const redirectMatch = projectRedirects({ externalUrlBase: EXTERNAL_INDEX_URL }).find(
+      (redirect) => redirect.route === input.url.pathname
+    );
 
     if (redirectMatch) {
       return {

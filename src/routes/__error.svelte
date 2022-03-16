@@ -4,6 +4,10 @@
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
 
+  const EXTERNAL_INDEX_URL = import.meta.env?.VITE_EXTERNAL_INDEX_URL as string;
+
+  const index = EXTERNAL_INDEX_URL ? EXTERNAL_INDEX_URL : routes.index;
+
   export const load: ErrorLoad = ({ error, status }) => {
     return {
       props: {
@@ -52,7 +56,7 @@
           </div>
         {/if}
       </div>
-      <Button variant="brand" href={routes.index} class="error-button">Go to homepage</Button>
+      <Button variant="brand" href={index} class="error-button">Go to homepage</Button>
       {#if dev}
         {#if error.frame}
           <pre class="m-4 p-4 border whitespace-pre-line">{error.frame}</pre>

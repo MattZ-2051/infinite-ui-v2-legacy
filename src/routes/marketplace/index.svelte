@@ -7,13 +7,16 @@
   import routes from '$project/routes';
 
   const DISABLED_MARKETPLACE = import.meta.env?.VITE_DISABLE_MARKETPLACE;
+  const EXTERNAL_INDEX_URL = import.meta.env?.VITE_EXTERNAL_INDEX_URL as string;
+
+  const index = EXTERNAL_INDEX_URL ? EXTERNAL_INDEX_URL : routes.index;
 
   export const load = debounce(
     <Load>(async ({ fetch, url }) => {
       if (DISABLED_MARKETPLACE === 'true') {
         return {
           status: 302,
-          redirect: routes.index,
+          redirect: index,
         };
       }
 
