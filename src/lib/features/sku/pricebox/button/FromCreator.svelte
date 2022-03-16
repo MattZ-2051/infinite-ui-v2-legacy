@@ -65,7 +65,7 @@
   on:click={onBuy}
   class="from-creator-custom"
 >
-  {#if state === 'active' || state === 'noSale' || state === 'notMinted' || (state === 'active-whitelist' && numberOfVoucherSkusLeft > 0)}
+  {#if state === 'active' || state === 'noSale' || state === 'notMinted' || state === 'active-whitelist'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
         <div class="text-2xl">Buy From Creator</div>
