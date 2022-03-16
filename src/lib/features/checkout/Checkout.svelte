@@ -131,19 +131,21 @@
         {/if}
       </div>
       <div class={orderArticleContainerClass}>
-        <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl h-full">
-          <div class="flex justify-between">
-            <h1 class={`text-2xl ${paymentSelection ? 'mb-14' : 'mb-10'} 2xl:text-3xl`}>
-              {#if paymentSelection}
-                Select your Payment Method
-              {:else if isOrdering}
-                Complete your Purchase
+        <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
+          {#if !isFullScreenComponent}
+            <div class="flex justify-between">
+              <h1 class={`text-2xl ${paymentSelection ? 'mb-14' : 'mb-10'} 2xl:text-3xl`}>
+                {#if paymentSelection}
+                  Select your Payment Method
+                {:else if isOrdering}
+                  Complete your Purchase
+                {/if}
+              </h1>
+              {#if $media.xl && !exitCheckout}
+                <span class="cursor-pointer mt-1" on:click={handleExit}><Icon path={closeIcon} size={1.5} /></span>
               {/if}
-            </h1>
-            {#if $media.xl && !exitCheckout}
-              <span class="cursor-pointer mt-1" on:click={handleExit}><Icon path={closeIcon} /></span>
-            {/if}
-          </div>
+            </div>
+          {/if}
           {#if exitCheckout}
             <ExitCheckout onReturn={() => handleStateChange('method-select')} onExit={() => goto(routes.marketplace)} />
           {:else if processingOrder}

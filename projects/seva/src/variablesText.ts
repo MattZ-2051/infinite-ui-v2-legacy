@@ -5,3 +5,7 @@ export const KYC_LEVEL_DISCLAIMERS = (formattedLowKYC: string) => ({
       Level 2 verification is required for cryptocurrency deposits equal to or over ${formattedLowKYC}.`,
   2: `You may now deposit any amount of cryptocurrency, perform withdrawals, and continue to deposit funds using credit card through our partner, MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://aria-network.force.com/support/s/article/How-much-money-can-I-deposit-through-MoonPay" class="font-bold">here</a>.`,
 });
+
+export const SUCCESS_PURCHASE_CONTENT = (skuName: string) =>
+  `Your purchase was successful and <span class="font-bold">${skuName}</span> has been added to your
+  collection.`;

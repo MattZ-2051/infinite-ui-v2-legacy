@@ -25,4 +25,5 @@ export const paths = {
   '$lib/features/marketplace/NoResults.svelte': 'projects/mclaren/src/marketplace/NoResults.svelte',
   '$lib/social/*': 'projects/mclaren/src/social/*',
   '$ui/icon/IconsDefs.svelte': 'projects/mclaren/src/assets/IconsDefs.svelte',
+  '$lib/features/checkout/assets/error-icon.svg': 'projects/mclaren/src/assets/lib/error-icon.svg',
 };
