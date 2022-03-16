@@ -16,22 +16,16 @@
   export let label = 'Sort by:';
   export let key = 'sortBy';
   export let iconType = 'sort';
-  export let defaultValue: SortOption | undefined = undefined;
 
-  const getSelected = () => {
+  $: selected = (() => {
     const value = $page.url.searchParams.get(key);
     if (!value) {
       return sortOptions[0];
     }
     return sortOptions.find((item) => item.value === value) || sortOptions[0];
-  };
-
-  $: defaultValue && select(defaultValue);
-
-  let selected = getSelected();
+  })();
 
   const select = (option: SortOption): void => {
-    selected = option;
     dispatch('select', { value: option.value, key });
   };
 </script>

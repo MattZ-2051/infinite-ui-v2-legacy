@@ -2,6 +2,7 @@
   import type { CollectorProduct, Sku, SortOption } from '$lib/sku-item/types';
   import { Pagination } from '$ui/pagination';
   import Sort from '$lib/components/Sort.svelte';
+  import { page as pageState } from '$app/stores';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Search from '$lib/components/Search.svelte';
   import { gotoQueryParameters } from '$util/queryParameter';
@@ -18,9 +19,9 @@
 
   const onFilter = (event: CustomEvent) => {
     const { key, value } = event.detail;
-    handleChangeSortLists(value);
+    const oldFilters = handleChangeSortLists(value, key);
     navigate({
-      [key]: `${value}`,
+      ...oldFilters,
       page: false,
     });
   };
@@ -28,15 +29,21 @@
 
   let statusOptions: SortOption[] = INITIAL_STATUS_OPTIONS;
 
-  let sortOptionsDefaultValue: SortOption | undefined;
-
-  let statusOptionsDefaultValue: SortOption | undefined;
-
-  const handleChangeSortLists = (value: string) => {
-    statusOptions = value.includes('price') ? statusOptions.filter((s) => s.value !== 'all') : INITIAL_STATUS_OPTIONS;
-    statusOptions = value !== '' ? INITIAL_STATUS_OPTIONS : statusOptions;
-    statusOptionsDefaultValue = value.includes('price') ? statusOptions.find((s) => s.value === '') : undefined;
-    sortOptionsDefaultValue = value === 'all' ? sortOptions.find((s) => s.value === 'serialNumber:asc') : undefined;
+  const handleChangeSortLists = (value: string, key: string) => {
+    let sortBy = $pageState.url.searchParams.get('sortBy') || '';
+    let saleType = $pageState.url.searchParams.get('saleType') || '';
+    if (key === 'sortBy') {
+      if (value.includes('price') && saleType.includes('all') && !sortBy.includes('price')) {
+        saleType = '';
+      }
+    } else if (key === 'saleType' && value.includes('all') && sortBy.includes('price') && !saleType.includes('all')) {
+      sortBy = 'serialNumber:asc';
+    }
+    return {
+      sortBy,
+      saleType,
+      [key]: value,
+    };
   };
 
   const gotoPage = (event: CustomEvent) => {
@@ -65,17 +72,10 @@
   </div>
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
-      <Sort
-        sortOptions={statusOptions}
-        on:select={onFilter}
-        key="saleType"
-        label="Sale Type:"
-        iconType="filter"
-        defaultValue={statusOptionsDefaultValue}
-      />
+      <Sort sortOptions={statusOptions} on:select={onFilter} key="saleType" label="Sale Type:" iconType="filter" />
     </div>
     <div class="flex cursor-pointer gap-2">
-      <Sort {sortOptions} on:select={onFilter} defaultValue={sortOptionsDefaultValue} />
+      <Sort {sortOptions} on:select={onFilter} key="sortBy" />
     </div>
   </div>
 </div>
