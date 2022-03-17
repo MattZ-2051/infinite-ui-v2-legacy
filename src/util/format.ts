@@ -6,11 +6,12 @@ const maxCompactNumber = 1 * 10 ** 18;
 
 dayjs.extend(advancedFormat);
 
-type FormatNumberOptions = Intl.NumberFormatOptions & { fallback?: string };
+type FormatNumberOptions = Intl.NumberFormatOptions & { fallback?: string } & { eth_currency_symbol?: string };
 
 export const cryptoCurrencySymbols = {
   USDC: '$',
   ETH: 'Ξ',
+  ETH_WORD: 'ETH ',
 };
 
 export function formatCurrency(value: number | string, options?: FormatNumberOptions) {
@@ -32,7 +33,11 @@ export function formatApiCurrency(value: number | string) {
 }
 
 function formatEthCurrency(value: number | string, options?: FormatNumberOptions) {
-  return `${cryptoCurrencySymbols.ETH}${formatDecimal(value, {
+  return `${
+    options?.eth_currency_symbol === cryptoCurrencySymbols.ETH_WORD
+      ? cryptoCurrencySymbols.ETH_WORD
+      : cryptoCurrencySymbols.ETH
+  }${formatDecimal(value, {
     minimumFractionDigits: 0,
     maximumFractionDigits: options?.maximumFractionDigits || 4,
   })}`;

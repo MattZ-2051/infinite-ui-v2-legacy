@@ -131,7 +131,7 @@
         {/if}
       </div>
       <div class={orderArticleContainerClass}>
-        <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
+        <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl h-full">
           <div class="flex justify-between">
             <h1 class={`text-2xl ${paymentSelection ? 'mb-14' : 'mb-10'} 2xl:text-3xl`}>
               {#if paymentSelection}
@@ -157,7 +157,7 @@
               <StripeCheckout mintToAddress={ethAddress} {listing} {lazyMinting} />
             {/if}
           {:else if paymentSelection}
-            <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center">
+            <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center h-full">
               {#each paymentMethods as paymentMethod, i}
                 {#if paymentMethod.available}
                   <ThemeContext id="payment-buttons">

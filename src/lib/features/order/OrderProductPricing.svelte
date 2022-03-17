@@ -13,6 +13,7 @@
   const options = {
     currency,
     maximumFractionDigits: currency === 'ETH' ? 5 : 4,
+    eth_currency_symbol: 'ETH',
   };
 </script>
 
@@ -24,7 +25,7 @@
         {`${formatCurrency(price * rate, { currency: 'USD' })} ≈`}
       </div>
     {/if}
-    <div class="text-right ml-1">
+    <div class="text-right ml-1 text-black">
       {formatCurrency(price, options)}
     </div>
   </div>
@@ -36,7 +37,7 @@
           {`${formatCurrency(gasFee * rate, { currency: 'USD' })} ≈`}
         </div>
       {/if}
-      <div class="text-right ml-1">
+      <div class="text-right ml-1 text-black">
         {formatCurrency(gasFee, options)}
       </div>
     </div>
@@ -48,7 +49,7 @@
         {`${formatCurrency(absoluteFee * rate, { currency: 'USD' })} ≈`}
       </div>
     {/if}
-    <div class="text-right ml-1">
+    <div class="text-right ml-1 text-black">
       {formatCurrency(absoluteFee, options)}
     </div>
   </div>
