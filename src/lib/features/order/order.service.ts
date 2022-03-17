@@ -69,6 +69,7 @@ export async function onOrderIntent({
     if (validETHPurchase) {
       if (ENABLE_CHECKOUT === 'true') {
         goto(`/checkout/sku/${sku._id}`);
+        return;
       } else {
         openModal(OrderModalETH, {
           sku,

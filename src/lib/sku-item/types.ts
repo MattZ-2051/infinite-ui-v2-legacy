@@ -138,7 +138,7 @@ export type Profile = {
   nftSocialAssets?: SocialFileAsset[];
   templateId?: string;
 };
-export type SaleType = 'giveaway' | 'fixed' | 'auction' | 'whitelist'; // whitelist is for McLaren voucher code sku's
+export type SaleType = 'giveaway' | 'fixed' | 'auction';
 export type PurchasePolicyMetaData = 'random' | 'user-chosen';
 export type Listing = {
   canceled?: boolean;
@@ -162,6 +162,7 @@ export type Listing = {
   auctionProcess?: 'unset' | 'processing' | 'closed';
   currency: 'ETH' | 'USD'; //todo create a type currency to be used everywhere.
   purchasePolicy?: PurchasePolicyMetaData;
+  enabledNftPurchase: boolean;
 };
 
 export type ListingSalePayload = {

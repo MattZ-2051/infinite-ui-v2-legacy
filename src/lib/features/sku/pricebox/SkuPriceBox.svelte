@@ -28,7 +28,7 @@
 
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
-    const isVoucherSku = activeListings?.[0]?.saleType === 'whitelist';
+    const isVoucherSku = activeListings?.[0]?.enabledNftPurchase;
     const mintLaterSku = sku?.mintPolicy?.transaction === 'later';
     const redirectToLogin = !$user && mintLaterSku;
 
@@ -55,7 +55,7 @@
   $: upcoming =
     upcomingSkuListings.length > 0 && activeListings.length === 0 && upcomingSkuListings[0]?.saleType !== 'giveaway';
   $: active = activeListings.length > 0 && sku.totalSupplyLeft && activeListings?.[0]?.saleType !== 'giveaway';
-  $: activeWhiteList = activeListings.length > 0 && activeListings?.[0]?.saleType === 'whitelist';
+  $: activeWhiteList = activeListings.length > 0 && activeListings?.[0]?.enabledNftPurchase;
   $: activeNftGiveAway = activeListings[0]?.saleType === 'giveaway';
   $: upcomingNftGiveAway = upcomingSkuListings[0]?.saleType === 'giveaway';
   $: noSale = sku.activeSkuListings?.length === 0 && sku.upcomingSkuListings?.length === 0;
