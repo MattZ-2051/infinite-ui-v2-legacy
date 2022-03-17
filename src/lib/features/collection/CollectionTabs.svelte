@@ -4,6 +4,7 @@
   import { Tabs, Tab } from '$ui/tabs';
   import { SkuItemGrid } from '$lib/sku-item';
   import routes from '$project/routes';
+  import { gotoQueryParameters } from '$util/queryParameter';
   import Sort from '$lib/components/Sort.svelte';
   import Button from '$lib/components/Button.svelte';
   import {
@@ -40,6 +41,11 @@
     },
   ];
 
+  const sortOptions = [
+    { name: 'Newest', value: 'createdAt:desc' },
+    { name: 'Oldest', value: 'createdAt:asc' },
+  ];
+
   $: externalTabs = [
     $nftBalance?.length && {
       id: 'ExternalNFTs',
@@ -73,20 +79,19 @@
     changePage(event.detail.value);
   }
 
+  function redirect(parameters) {
+    gotoQueryParameters(
+      {
+        params: parameters,
+      },
+      { keepfocus: true }
+    );
+  }
+
   const sort = (event: CustomEvent) => {
-    changeSort(`${event.detail.value}`);
+    changeSort(event.detail.value);
+    redirect({ [event.detail.key]: `${event.detail.value}`, page: false });
   };
-  const sortOptions = [
-    {
-      name: 'Newest',
-      value: 'createdAt:desc',
-    },
-    {
-      id: 2,
-      name: 'Oldest',
-      value: 'createdAt:asc',
-    },
-  ];
 </script>
 
 <div bind:this={tabContainer} style="scroll-margin-top: var(--header-height);">
