@@ -4,6 +4,7 @@
   import type { StripeElements, StripePaymentElement } from '@stripe/stripe-js';
   import { loadStripe } from '@stripe/stripe-js';
   import type { CurrencyType } from '../wallet/types';
+  import { user } from '$lib/user';
   import { formatCurrency } from '$util/format';
   import { page } from '$app/stores';
   import Button from '$lib/components/Button.svelte';
@@ -12,7 +13,7 @@
   import { variables } from '$lib/variables';
   import routes from '$project/routes';
   import { stripeCreatePaymentIntentFx } from './stripe.store';
-  import { handleStateChange } from '../checkout/checkout.service';
+  import { handleStateChange, showLoginToast } from '../checkout/checkout.service';
 
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
@@ -88,6 +89,9 @@
   }
 
   async function handleSubmit() {
+    if (!user && lazyMinting) {
+      showLoginToast();
+    }
     if (!acceptedTerms) {
       toast.danger('Please agree to the Terms and Conditions in order to move forward.');
       return;

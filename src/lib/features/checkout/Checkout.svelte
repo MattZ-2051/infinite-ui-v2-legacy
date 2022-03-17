@@ -3,7 +3,7 @@
   import type { CheckoutState, ValidETHListingData } from './types';
   import type { Product, Sku } from '$lib/sku-item/types';
   import { getActiveListings } from '$lib/features/sku/sku.service';
-  import { getWalletInfo, onSignIn, user } from '$lib/user';
+  import { getWalletInfo, user } from '$lib/user';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
@@ -61,10 +61,6 @@
   let ethAddress = undefined;
 
   onMount(async () => {
-    if (!$user && sku?.mintPolicy?.transaction === 'later') {
-      onSignIn();
-      return;
-    }
     const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
     if (!clientSecret) {
       handleStateChange((localStorage.getItem('checkout-state') as CheckoutState) || 'method-select');
@@ -154,7 +150,7 @@
             <OrderStatus orderState={orderError ? 'error' : 'success'} {sku} />
           {:else if isOrdering}
             {#if orderingMm}
-              <CompletePurchaseMM {sku} {listing} {gasFee} />
+              <CompletePurchaseMM {sku} {listing} {gasFee} {lazyMinting} />
             {:else if orderingStripe}
               <StripeCheckout mintToAddress={ethAddress} {listing} {lazyMinting} />
             {/if}

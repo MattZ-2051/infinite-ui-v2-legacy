@@ -64,7 +64,9 @@ export const handlePayment = async ({
   handleEthModalCallback: ({ address, option }: { address: string; option: string }) => void;
   skuMintPolicy: MintPolicy;
 }) => {
-  if (id === 'mm') {
+  if (!user && skuMintPolicy?.transaction === 'later') {
+    showLoginToast();
+  } else if (id === 'mm') {
     const isWalletConnected = await connectWallet();
     if (isWalletConnected && validETHPurchase) {
       handleStateChange('ordering-mm');

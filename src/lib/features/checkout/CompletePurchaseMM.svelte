@@ -12,6 +12,7 @@
     checkNetwork,
     getWalletInfo,
     sendEthPurchasePaymentForImmediateMinting,
+    user,
     userId,
     walletConnected,
   } from '$lib/user';
@@ -36,6 +37,7 @@
   export let sku: Sku;
   export let listing: Listing;
   export let gasFee = 0;
+  export let lazyMinting: boolean;
 
   $: validEthAddress = undefined;
   $: purchasing = false;
@@ -55,15 +57,19 @@
   const options = { currency: 'ETH', maximumFractionDigits: 5 };
 
   onMount(async () => {
-    const isWalletConnected = await connectWallet();
-    if (isWalletConnected) {
-      const data = await getWalletInfo();
-      purchaseInfo = await validETHPurchase(listing);
-      balance = data.balance;
-      ethAddress = data.address;
-      validEthAddress = isEthAddress(ethAddress);
+    if (!$user && lazyMinting) {
+      handleStateChange('method-select');
     } else {
-      balance = $wallet?.balanceInfo.find((x) => x.currency === sku.currency).totalBalance;
+      const isWalletConnected = await connectWallet();
+      if (isWalletConnected) {
+        const data = await getWalletInfo();
+        purchaseInfo = await validETHPurchase(listing);
+        balance = data.balance;
+        ethAddress = data.address;
+        validEthAddress = isEthAddress(ethAddress);
+      } else {
+        balance = $wallet?.balanceInfo.find((x) => x.currency === sku.currency).totalBalance;
+      }
     }
   });
 
