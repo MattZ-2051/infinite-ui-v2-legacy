@@ -4,9 +4,9 @@
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import { FilePreview } from '$ui/file';
-  import errorIcon from '$lib/features/checkout/assets/error-icon.svg';
   import { SUCCESS_PURCHASE_CONTENT } from '$project/variables';
-  import successIcon from './assets/success-icon.svg';
+  import errorIcon from '$lib/features/checkout/assets/error-icon.svg';
+  import successIcon from '$lib/features/checkout/assets/success-icon.svg';
   import { handleStateChange } from './checkout.service';
   import { productId } from './checkout.store';
 
