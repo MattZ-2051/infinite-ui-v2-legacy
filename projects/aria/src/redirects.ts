@@ -8,6 +8,11 @@ const redirects = ({
   redirect: string;
 }[] => [
   {
+    route: '/',
+    status: 301,
+    redirect: externalUrlBase,
+  },
+  {
     route: '/collection/ARIAExchange',
     status: 301,
     redirect: externalUrlBase,
