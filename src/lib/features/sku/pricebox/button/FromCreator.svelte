@@ -33,7 +33,7 @@
   onMount(async () => {
     if (state === 'active-whitelist') {
       try {
-        const data = await getNumberOfSkus({ id: sku._id });
+        const data = await getNumberOfSkus({ id: activeListing._id });
         numberOfVoucherSkusLeft = data;
       } catch {
         toast.danger('An error ocurred calculating sku supply left');

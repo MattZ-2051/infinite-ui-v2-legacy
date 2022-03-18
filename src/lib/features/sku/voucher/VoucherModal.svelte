@@ -19,7 +19,7 @@
   let errorMessage = '';
   let error = false;
 
-  $: voucherCodeStatus = voucherCode.length === 12 ? 'valid-length' : 'button-disabled';
+  $: voucherCodeStatus = voucherCode.length >= 12 ? 'valid-length' : 'button-disabled';
 
   $: switch (voucherCodeStatus) {
     case 'valid-length': {
@@ -62,7 +62,7 @@
   const handleCodeSubmition = async () => {
     if (voucherCodeStatus === 'valid-length') {
       try {
-        await validateVoucherCode({ voucherCode });
+        await validateVoucherCode({ voucherCode, skuId });
         voucherCodeStatus = 'success';
         // this setTimeout is here so the user can see the success modal quickly before being redirected
         setTimeout(() => {
