@@ -21,9 +21,9 @@
               <a href={routes.faq} target="_blank" rel="noreferrer" style="max-width:138px; width:100%">Partners</a>
               <a href={routes.faq} target="_blank" rel="noreferrer">Careers</a>
               <a href={routes.faq} target="_blank" rel="noreferrer">Media</a>
-              <a href={routes.faq} target="_blank" rel="noreferrer">Mclaren Group</a>
+              <a href={routes.faq} target="_blank" rel="noreferrer">McLaren Group</a>
               <a href={routes.faq} target="_blank" rel="noreferrer">McLaren Racing</a>
-              <a href={routes.faq} target="_blank" rel="noreferrer">Mclaren Applied</a>
+              <a href={routes.faq} target="_blank" rel="noreferrer">McLaren Applied</a>
               <a href={routes.faq} target="_blank" rel="noreferrer">Investors</a>
             </div>
           </div>
@@ -37,16 +37,16 @@
               <a href={routes.faq} target="_blank" rel="noreferrer">Privacy Policy</a>
               <a href={routes.faq} target="_blank" rel="noreferrer">Gender Gap Report</a>
               <a href={routes.faq} target="_blank" rel="noreferrer">Terms and Conditions</a>
-              <a href={routes.faq} target="_blank" rel="noreferrer">Anti-Slavery statement</a>
+              <a href={routes.faq} target="_blank" rel="noreferrer">Anti-Slavery Statement</a>
             </div>
           </div>
           <div class="grid grid-flow-col grid-cols-2 sm:col-span-2 gap-x-8 sm:gap-x-16 xl:gap-x-8">
             <div>
               <div class="text-xl footer-title">CONTACT</div>
               <div class="link-container" style="max-height:12rem">
-                <a href={routes.faq} target="_blank" rel="noreferrer">Contact US</a>
+                <a href={routes.faq} target="_blank" rel="noreferrer">Contact Us</a>
                 <a href={routes.faq} target="_blank" rel="noreferrer">Enquire</a>
-                <a href={routes.faq} target="_blank" rel="noreferrer">Find a retailer</a>
+                <a href={routes.faq} target="_blank" rel="noreferrer">Find a Retailer</a>
               </div>
             </div>
             <div>
@@ -68,7 +68,7 @@
           <a href={routes.terms}>Terms & Conditions</a>
           <a href="https://infiniteworld.com" class="sm:flex items-center hidden ">
             <Icon path={poweredByInfinite} class="-mr-1" />
-            <span class="block md:hidden lg:block"> Powered by infiniteworld </span>
+            <span class="block md:hidden lg:block"> Powered by InfiniteWorld </span>
           </a>
         </svelte:fragment>
 
@@ -79,7 +79,7 @@
       <div class="flex justify-center sm:hidden footer-links w-full mb-2">
         <a href="https://infiniteworld.com" class="flex items-center">
           <Icon path={poweredByInfinite} class="-mr-1" />
-          <span class="block md:hidden lg:block"> Powered by infiniteworld </span>
+          <span class="block md:hidden lg:block"> Powered by InfiniteWorld </span>
         </a>
       </div>
     </div>
