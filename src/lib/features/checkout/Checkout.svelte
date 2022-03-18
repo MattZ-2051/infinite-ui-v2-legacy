@@ -147,7 +147,7 @@
           {:else if processingOrder}
             <ProcessingOrder etherscanLink="https://etherscan.io/" />
           {:else if orderSuccess || orderError}
-            <OrderStatus orderState={orderError ? 'error' : 'success'} {sku} />
+            <OrderStatus orderState={orderError ? 'error' : 'success'} {sku} {lazyMinting} {ethAddress} />
           {:else if isOrdering}
             {#if orderingMm}
               <CompletePurchaseMM {sku} {listing} {gasFee} {lazyMinting} />

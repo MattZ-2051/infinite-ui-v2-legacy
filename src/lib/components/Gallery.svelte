@@ -22,7 +22,7 @@
   <div class="relative flex-1 w-full max-w-2xl">
     <FilePreview item={activeItem} {fileType} borderRadius="var(--file-preview-border-radius, undefined)" />
   </div>
-  <div class="flex flex-wrap w-full justify-left">
+  <div class="flex flex-wrap w-full justify-left thumnails">
     {#if items && items?.length > 1}
       {#each items as item}
         <div
@@ -45,3 +45,9 @@
     {/if}
   </div>
 </div>
+
+<style lang="postcss">
+  .thumnails {
+    row-gap: var(--gallery-thumnails-gap-y, 0);
+  }
+</style>

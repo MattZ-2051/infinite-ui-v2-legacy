@@ -6,6 +6,7 @@ export const KYC_LEVEL_DISCLAIMERS = (formattedLowKYC: string) => ({
   2: `You may now deposit any amount of cryptocurrency, perform withdrawals, and continue to deposit funds using credit card through our partner, MoonPay. You may check MoonPay limits <a target="_blank" rel="noopener noreferrer" class="underline" href="https://aria-network.force.com/support/s/article/How-much-money-can-I-deposit-through-MoonPay" class="font-bold">here</a>.`,
 });
 
-export const SUCCESS_PURCHASE_CONTENT = (skuName: string) =>
-  `Your purchase was successful and <span class="font-bold">${skuName}</span> has been added to your
-  collection.`;
+export const SUCCESS_PURCHASE_LAZY_MINT = (skuName: string) => `You can now mint your ${skuName} NFT.`;
+
+export const SUCCESS_PURCHASE_INSTANT_MINT = (skuName: string) =>
+  `Your purchase was successful and <span class="font-bold">${skuName}</span> has been added to your collection.`;
