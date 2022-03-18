@@ -8,7 +8,7 @@
   component={MintButton}
   argTypes={{
     status: {
-      options: ['processing', 'processed', 'toMint'],
+      options: ['processed', 'toMint'],
       control: { type: 'select' },
     },
   }}

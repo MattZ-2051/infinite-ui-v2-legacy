@@ -2,30 +2,29 @@
   import type { StatusMintButton } from './types';
   import ToMint from '../assets/toMint.svg';
   import Processed from '../assets/viewOpenSea.svg';
-  import { messages, PROCESSING_STATUS, MINT_STATUS } from './constants';
+  import { messages, MINT_STATUS, UN_SOLD_STATUS } from './constants';
 
   export let status: StatusMintButton = MINT_STATUS;
   export let toMint: () => void;
   export let processed: () => void;
   let title: string = messages.toMint;
 
-  $: title = messages[status];
+  $: title = status !== UN_SOLD_STATUS ? messages[status] : '';
 
   const handleClick = (): void => {
     status === MINT_STATUS ? toMint() : processed();
   };
 </script>
 
-<button
-  disabled={status === PROCESSING_STATUS}
-  class="flex items-center justify-center rounded-r-md custom-button-mint-element text-base "
-  on:click={() => handleClick()}
->
-  {#if status !== PROCESSING_STATUS}
+{#if status !== UN_SOLD_STATUS}
+  <button
+    class="flex items-center justify-center rounded-r-md custom-button-mint-element text-base "
+    on:click={() => handleClick()}
+  >
     <img src={status === MINT_STATUS ? ToMint : Processed} alt={status} />
-  {/if}
-  {title}
-</button>
+    {title}
+  </button>
+{/if}
 
 <style lang="postcss">
   .custom-button-mint-element {

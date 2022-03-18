@@ -214,7 +214,13 @@ export type Product = {
   whitelistCode: string | null;
 };
 
-export type ProductStatus = 'purchased' | 'minted' | '';
+export type ProductStatus =
+  // ”purchased” means the product is assigned to the user who purchased it, and the final NFT that will be minted is reserved for that person
+  | 'purchased'
+  // “minted” means the product was already minted from a smart contract on a blockchain
+  | 'minted'
+  // “unsold” its the original state of a product and means “not sold yet”
+  | 'unsold';
 
 export type Cost = {
   finalPayout: number;

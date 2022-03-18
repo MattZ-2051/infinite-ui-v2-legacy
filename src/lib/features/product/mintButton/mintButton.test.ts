@@ -1,6 +1,6 @@
 import { render, fireEvent, screen } from '@testing-library/svelte';
 import type { StatusMintButton } from './types';
-import { messages, MINT_STATUS, PROCESSED_STATUS, PROCESSING_STATUS } from './constants';
+import { messages, MINT_STATUS, PROCESSED_STATUS } from './constants';
 import MintButton from './mintButton.svelte';
 
 let isMint = false;
@@ -25,12 +25,6 @@ describe('Mint button', () => {
     const toMintAltImg = getByAltText(MINT_STATUS);
     expect(toMintText).toBeInTheDocument();
     expect(toMintAltImg).toBeInTheDocument();
-  });
-
-  it('should be render with processing status', () => {
-    const { getByText } = setup(PROCESSING_STATUS);
-    const toMintText = getByText(messages.processing);
-    expect(toMintText).toBeInTheDocument();
   });
 
   it('should be render with processed status', () => {
