@@ -20,8 +20,10 @@
   export let data: Awaited<ReturnType<typeof loadSkuFx>>;
 
   const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
+  const voucherCode = $page.url.searchParams.get('voucherCode');
+
   if (clientSecret && !!data.sku) {
-    verifyStripeStatusFx({ clientSecret, sku: data.sku });
+    verifyStripeStatusFx({ clientSecret, sku: data.sku, voucherCode });
   }
 
   $: setSku(data);

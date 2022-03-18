@@ -50,3 +50,7 @@ export async function loadProductTransactions({
       nftMintIndex > -1 ? [...data.slice(0, nftMintIndex), ...data.slice(nftMintIndex + 1), data[nftMintIndex]] : data,
   };
 }
+
+export async function getProductVoucherCode(skuId: string, voucherCode: string) {
+  return await get<Product>(`products/${skuId}/${voucherCode}/product-by-sku-and-whitelist-code`, {});
+}

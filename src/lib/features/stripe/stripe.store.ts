@@ -5,12 +5,14 @@ import { toast } from '$ui/toast';
 import { variables } from '$lib/variables';
 import { pendingBuyCreated } from '../product/product.store';
 import { connectStripeAccount, stripeCreatePaymentIntent } from './stripe.api';
+import { pendingProductCreated, updateCheckoutState } from '../checkout/checkout.store';
 
 const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
 interface VerifyStripeStatusFxProperties {
   clientSecret: string;
   sku: Sku;
+  voucherCode?: string;
 }
 
 export const connectStripeAccountFx = createEffect(
@@ -36,28 +38,35 @@ export const stripeCreatePaymentIntentFx = createEffect(
 );
 
 // Fetches the payment intent status after payment submission
-export const verifyStripeStatusFx = createEffect(async ({ clientSecret, sku }: VerifyStripeStatusFxProperties) => {
-  const stripe = await stripePromise;
+export const verifyStripeStatusFx = createEffect(
+  async ({ clientSecret, sku, voucherCode }: VerifyStripeStatusFxProperties) => {
+    const stripe = await stripePromise;
 
-  if (!clientSecret) {
-    return;
-  }
-
-  const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
-
-  switch (paymentIntent.status) {
-    case 'succeeded': {
-      pendingBuyCreated(sku._id);
-      break;
+    if (!clientSecret) {
+      return;
     }
-    case 'processing':
-      toast.info('Your payment is processing.');
-      break;
-    case 'requires_payment_method':
-      toast.danger('Your payment was not successful, please try again.');
-      break;
-    default:
-      toast.danger('Something went wrong.');
-      break;
+
+    const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
+
+    switch (paymentIntent.status) {
+      case 'succeeded': {
+        updateCheckoutState('processing');
+        if (voucherCode) {
+          pendingProductCreated({ skuId: sku._id, voucherCode });
+        } else {
+          pendingBuyCreated(sku._id);
+        }
+        break;
+      }
+      case 'processing':
+        toast.info('Your payment is processing.');
+        break;
+      case 'requires_payment_method':
+        toast.danger('Your payment was not successful, please try again.');
+        break;
+      default:
+        toast.danger('Something went wrong.');
+        break;
+    }
   }
-});
+);

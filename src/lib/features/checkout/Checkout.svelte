@@ -156,7 +156,7 @@
               onExit={handleExitCheckout}
             />
           {:else if processingOrder}
-            <ProcessingOrder etherscanLink="https://etherscan.io/" />
+            <ProcessingOrder />
           {:else if orderSuccess || orderError}
             <OrderStatus
               orderState={orderError ? 'error' : 'success'}

@@ -8,6 +8,7 @@
   import { formatCurrency } from '$util/format';
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
+  import { page } from '$app/stores';
   import {
     checkNetwork,
     getWalletInfo,
@@ -18,7 +19,6 @@
   } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
-  import { page } from '$app/stores';
   import routes from '$project/routes';
   import { isEthAddress } from '$util/validateEthAddress';
   import { SingleCheckbox } from '$ui/checkbox';
@@ -32,8 +32,8 @@
     handleStateChange,
     validETHPurchase,
   } from './checkout.service';
-  import { updateCheckoutState } from './checkout.store';
   import Information from './Information.svelte';
+  import { pendingProductCreated, updateCheckoutState } from './checkout.store';
 
   const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
   const voucherCode = $page.url.searchParams.get('voucherCode');
@@ -105,7 +105,14 @@
               toastId: 'TXR_SUCCESS',
             });
             purchasing = true;
-            updateCheckoutState('success');
+
+            if (lazyMinting) {
+              updateCheckoutState('processing');
+              pendingProductCreated({ skuId: sku._id, voucherCode });
+            } else {
+              updateCheckoutState('success');
+            }
+
             return;
           })
           .catch((error) => {
