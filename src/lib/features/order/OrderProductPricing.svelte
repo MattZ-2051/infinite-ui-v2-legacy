@@ -17,7 +17,7 @@
   };
 </script>
 
-<div class="grid grid-cols-2 text-gray-500 font-medium w-full">
+<div class="grid grid-cols-2 text-gray-500 font-medium text-lg w-full">
   <div class="mb-2">Seller price:</div>
   <div class="flex justify-end">
     {#if currency === 'ETH' && rate}
@@ -56,7 +56,7 @@
 </div>
 <hr class="h-px w-full my-4" />
 <div class="grid grid-cols-2 w-full">
-  <div class="font-medium">Total cost:</div>
+  <div class="font-medium text-lg">Total cost:</div>
   <div class="flex justify-end">
     {#if currency === 'ETH' && rate}
       <div class="text-right text-gray-500 flex items-center">

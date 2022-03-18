@@ -27,5 +27,6 @@
         {formatCurrency(userBalance, { currency: sku.currency })}
       </span>
     </div>
+    <hr class="h-px w-full my-4 md:hidden" />
   {/if}
 </div>

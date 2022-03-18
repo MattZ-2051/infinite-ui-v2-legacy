@@ -20,6 +20,7 @@
   import { toast } from '$ui/toast';
   import routes from '$project/routes';
   import { isEthAddress } from '$util/validateEthAddress';
+  import { SingleCheckbox } from '$ui/checkbox';
   import OrderDetails from '../order/OrderDetails.svelte';
   import { getSkuBuyingFee } from '../product/product.fee';
   import { wallet } from '../wallet/wallet.store';
@@ -123,6 +124,10 @@
       copiedLink = false;
     }, 5000);
   };
+
+  const onCheckedTerms = (event: Event) => {
+    acceptedTerms = (event.target as HTMLInputElement).checked;
+  };
 </script>
 
 <div class="w-full h-full flex flex-col">
@@ -152,31 +157,26 @@
   <div>
     <OrderDetails {sku} {listingPrice} {marketplaceFee} {userBalance} {insufficientFunds} {gasFee} hideProductInfo />
   </div>
-  <div class="mt-8">
+  <div class="mt-6 sm:mt-24">
     <p class="text-xs text-black-opacity-50 font-normal pb-4">
       All resales of this product are subject to a 5% royalty fee set by and to be paid to the original creator.
     </p>
     <div class="flex items-center justify-start mb-3">
-      <label class="inline-flex items-center text-sm">
-        <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
+      <SingleCheckbox class="mb-2" on:change={onCheckedTerms} checked={acceptedTerms}>
         <span class="text-gray-500">I agree to the</span>
         <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
-      </label>
+      </SingleCheckbox>
     </div>
     <div class="grid mt-12 grid-flow-row sm:grid-flow-col">
       <Button
         variant="outline-brand"
+        --button-padding="20px 48px"
         class="border-none sm:order-1 order-2 mr-0 mt-2 sm:mt-0 sm:mr-3"
         on:click={() => handleStateChange('method-select')}
       >
         Back to Payment Method
       </Button>
-      <Button
-        variant="brand"
-        class="sm:order-2 order-1"
-        on:click={submitOrder}
-        disabled={!acceptedTerms || insufficientFunds}
-      >
+      <Button variant="brand" class="sm:order-2 order-1" on:click={submitOrder} disabled={!acceptedTerms}>
         Buy now for ETH {formatCurrency(priceWFee, options)}
       </Button>
     </div>

@@ -35,10 +35,8 @@ export const validETHPurchase = async (listing: Listing): Promise<ValidETHListin
 export const checkTerms = (acceptedTC: boolean): boolean => {
   if (!acceptedTC) {
     toast.danger('Please agree to the Terms and Conditions in order to move forward.', { toastId: 'TERMS' });
-    return false;
   }
-
-  return true;
+  return acceptedTC;
 };
 
 export const showLoginToast = (): void => {
