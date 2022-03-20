@@ -10,6 +10,7 @@
   import routes from '$project/routes';
   import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
   import WalletConnectionModal from '$lib/features/connect-wallet-extensions/WalletConnectionModal.svelte';
+  import IssuerCreateButton from '$lib/layout/header/IssuerCreateButton.svelte';
 
   import Button from '$lib/components/Button.svelte';
   import account from './assets/account';
@@ -34,6 +35,7 @@
   };
 
   const dispatch = createEventDispatcher();
+  $: showIssuerCreateButton = isRoute(routes.marketplace) && import.meta.env?.VITE_TENANT_PERMISSION_ISSUER === 'true';
 </script>
 
 <!-- Header block -->
@@ -58,6 +60,9 @@
           handleWalletModal();
         }}>{label}</button
       >
+    {/if}
+    {#if showIssuerCreateButton}
+      <IssuerCreateButton loggedIn={!!user} />
     {/if}
     {#if user}
       {#if type === 'user-collection'}
