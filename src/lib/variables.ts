@@ -8,9 +8,11 @@ export const variables = {
     environment: import.meta.env.VITE_KYC_PERSONA_ENVIRONMENT,
   },
   ethNetwork: {
-    apiUrl: import.meta.env.VITE_ETHERSCAN_API_URL,
+    apiUrl: import.meta.env.VITE_ETHERSCAN_API_URL_GOERLI,
     apiKey: import.meta.env.VITE_ETHERSCAN_API_KEY,
-    explorerBaseUrl: import.meta.env.VITE_ETH_EXPLORER_BASE_URL,
+    apiUrlRinkeby: import.meta.env.VITE_ETHERSCAN_API_URL_RINKEBY,
+    explorerBaseUrl: import.meta.env.VITE_ETH_EXPLORER_BASE_URL_GOERLI,
+    explorerBaseUrlRinkeby: import.meta.env.VITE_ETH_EXPLORER_BASE_URL_RINKEBY,
     usdcContractAddress: import.meta.env.VITE_USDC_CONTRACT_ADDRESS,
   },
   bitcoinNetwork: {

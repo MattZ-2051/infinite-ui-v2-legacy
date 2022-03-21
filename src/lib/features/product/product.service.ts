@@ -3,9 +3,14 @@ import type TokenBalanceMap from '@hashgraph/sdk/lib/account/TokenBalanceMap';
 import type { StatusMintButton } from './mintButton/types';
 
 export function getMintStatus(productStatus: ProductStatus): StatusMintButton {
-  let status: StatusMintButton = productStatus === 'minted' ? 'processed' : 'unSold';
-  status = productStatus === 'purchased' ? 'toMint' : status;
-  return status;
+  switch (productStatus) {
+    case 'minted':
+      return 'processed';
+    case 'purchased':
+      return 'toMint';
+    case 'unsold':
+      return 'unSold';
+  }
 }
 
 export function isOwner(product: Product, userId: string): boolean {

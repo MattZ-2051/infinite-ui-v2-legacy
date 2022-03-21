@@ -20,9 +20,9 @@
   const mintNft = async (mintToAddress: string) => {
     isLoading = true;
     try {
-      const txHashResponse = await claimMint({ id: product._id, mintToAddress });
+      const txResponse = await claimMint({ id: product._id, mintToAddress });
       mintingStatus = 'processing';
-      pendingTxStatus(txHashResponse);
+      pendingTxStatus(txResponse.blockchainTransaction.transactionHash);
     } catch (error) {
       toast.danger(error.data?.message || 'An error ocurred');
     }

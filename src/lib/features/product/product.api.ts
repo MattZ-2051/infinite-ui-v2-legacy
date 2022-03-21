@@ -1,4 +1,5 @@
 import type { Product, Transaction, ListingSalePayload } from '$lib/sku-item/types';
+import type { EthMintTransaction } from './types';
 import { get, patch, post, getPage, fetchTracker } from '$lib/api';
 
 export const loadingTransactions = fetchTracker();
@@ -15,7 +16,13 @@ export async function cancelSale({ id }: { id: string }) {
   return await patch(`listings/${id}/cancel`, {});
 }
 
-export async function claimMint({ id, mintToAddress }: { id: string; mintToAddress: string }): Promise<string> {
+export async function claimMint({
+  id,
+  mintToAddress,
+}: {
+  id: string;
+  mintToAddress: string;
+}): Promise<EthMintTransaction> {
   return await post(`products/${id}/claim-mint`, { mintToAddress });
 }
 
