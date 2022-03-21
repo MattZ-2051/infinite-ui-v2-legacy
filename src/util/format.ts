@@ -11,7 +11,7 @@ type FormatNumberOptions = Intl.NumberFormatOptions & { fallback?: string } & { 
 export const cryptoCurrencySymbols = {
   USDC: '$',
   ETH: 'Ξ',
-  ETH_WORD: 'ETH ',
+  ETH_WORD: 'ETH',
 };
 
 export function formatCurrency(value: number | string, options?: FormatNumberOptions) {
@@ -35,7 +35,7 @@ export function formatApiCurrency(value: number | string) {
 function formatEthCurrency(value: number | string, options?: FormatNumberOptions) {
   return `${
     options?.eth_currency_symbol === cryptoCurrencySymbols.ETH_WORD
-      ? cryptoCurrencySymbols.ETH_WORD
+      ? cryptoCurrencySymbols.ETH_WORD + ' '
       : cryptoCurrencySymbols.ETH
   }${formatDecimal(value, {
     minimumFractionDigits: 0,
