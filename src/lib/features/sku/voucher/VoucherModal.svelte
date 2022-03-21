@@ -5,10 +5,11 @@
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
+  import { VOUCHER_CODE_MODAL_TITLE } from '$project/variables';
   import { onSignIn } from '$lib/user';
   import routes from '$project/routes';
+  import successIcon from '$lib/components/icons/success-mint';
   import { validateVoucherCode } from './voucher.api';
-  import successIcon from '../assets/success-mint';
 
   export let voucherCode = '';
   export let skuId: string;
@@ -23,35 +24,35 @@
 
   $: switch (voucherCodeStatus) {
     case 'valid-length': {
-      title = 'Voucher code';
+      title = VOUCHER_CODE_MODAL_TITLE;
       buttonTitle = 'Validate code';
       errorMessage = '';
       error = false;
       break;
     }
     case 'not-valid': {
-      title = 'Voucher code';
+      title = VOUCHER_CODE_MODAL_TITLE;
       errorMessage = 'Voucher code not valid. Please check it and try again.';
       buttonTitle = 'Try again';
       error = true;
       break;
     }
     case 'already-used': {
-      title = 'Voucher code';
+      title = VOUCHER_CODE_MODAL_TITLE;
       errorMessage = 'This code has already been used and is no longer valid';
       buttonTitle = 'Close';
       error = true;
       break;
     }
     case 'button-disabled': {
-      title = 'Voucher code';
+      title = VOUCHER_CODE_MODAL_TITLE;
       buttonTitle = 'Validate code';
       errorMessage = '';
       error = false;
       break;
     }
     case 'success': {
-      title = 'Voucher code valid';
+      title = `${VOUCHER_CODE_MODAL_TITLE} Valid`;
       errorMessage = '';
       buttonTitle = '';
       error = false;
@@ -91,14 +92,14 @@
     {#if voucherCodeStatus === 'success'}
       <header class="flex items-center gap-2 pt-8 pb-4 px-10">
         <Icon viewBox="0 0 56 56" size="46px" path={successIcon} slot="header" />
-        <div class="text-2xl font-normal pr-8 modal-title">{title}</div>
+        <div class="text-2xl font-normal pr-8 modal-title pl-4">{title}</div>
       </header>
     {:else}
       <header class="flex items-center gap-2 pt-8 pb-4 px-10">
         <div class="text-2xl font-normal pr-8 modal-title">{title}</div>
       </header>
     {/if}
-    <div class="flex flex-col px-10">
+    <div class="flex flex-col px-10 py-6">
       {#if voucherCodeStatus !== 'success'}
         <p class="text-base text-black-opacity-40 font-normal py-8">
           Enter the voucher code you received on your email to proceed to checkout.
@@ -119,7 +120,7 @@
       <Button
         data-testId="voucher-button"
         variant="brand"
-        class="my-8 h-16 text-xl"
+        class="my-8 h-16 text-xl mt-12"
         role="button"
         disabled={voucherCodeStatus === 'button-disabled'}
         on:click={handleCodeSubmition}

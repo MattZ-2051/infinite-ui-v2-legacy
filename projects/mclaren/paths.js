@@ -27,4 +27,5 @@ export const paths = {
   '$ui/icon/IconsDefs.svelte': 'projects/mclaren/src/assets/IconsDefs.svelte',
   '$lib/features/checkout/assets/error-icon.svg': 'projects/mclaren/src/assets/lib/error-icon.svg',
   '$lib/features/checkout/assets/success-icon.svg': 'projects/mclaren/src/assets/lib/success-icon.svg',
+  '$lib/components/icons/success-mint': 'projects/mclaren/src/assets/lib/success-icon',
 };

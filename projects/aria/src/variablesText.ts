@@ -11,3 +11,5 @@ export const SUCCESS_PURCHASE_LAZY_MINT = (skuName: string) =>
 
 export const SUCCESS_PURCHASE_INSTANT_MINT = (skuName: string) =>
   `Your purchase was successful and <span class="font-bold">${skuName}</span> has been added to your collection.`;
+
+export const VOUCHER_CODE_MODAL_TITLE = 'Exclusive Access Code';
