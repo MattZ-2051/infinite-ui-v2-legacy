@@ -3,6 +3,7 @@
 
   export let onReturn: () => void;
   export let onExit: () => void;
+  export let exitLabel: string;
 </script>
 
 <div class="flex flex-col text-center justify-center justify-self-center xl:max-w-sm xl:text-left">
@@ -12,6 +13,6 @@
   >
   <Button variant="brand" on:click={onReturn}>Return to checkout</Button>
   <span class="mt-6 text-center text-gray-500 hover:underline cursor-pointer hover:text-gray-800" on:click={onExit}
-    >Exit and back to Marketplace</span
+    >Exit and back to {exitLabel}</span
   >
 </div>

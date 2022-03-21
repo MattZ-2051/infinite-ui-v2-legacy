@@ -10,12 +10,12 @@
   import { handleStateChange } from './checkout.service';
   import { productId } from './checkout.store';
 
-  const DISABLED_MARKETPLACE = import.meta.env?.VITE_DISABLE_MARKETPLACE === 'true';
-
   export let sku: Sku = undefined;
   export let orderState: 'success' | 'error';
   export let lazyMinting: boolean;
   export let ethAddress: string;
+  export let onExit: () => void;
+  export let backButtonLabel: string;
 
   const orderSuccess = orderState === 'success';
   const orderFailed = orderState === 'error';
@@ -68,12 +68,8 @@
     {:else if orderSuccess}
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleViewNFT}>View NFT</Button>
     {/if}
-    <Button
-      variant="outline-brand"
-      class="border-none h-16 w-full text-xl mt-4"
-      on:click={() => (DISABLED_MARKETPLACE ? goto(routes.index) : goto(routes.marketplace))}
-    >
-      Back to {DISABLED_MARKETPLACE ? 'home' : 'marketplace'}
+    <Button variant="outline-brand" class="border-none h-16 w-full text-xl mt-4" on:click={onExit}>
+      Back to {backButtonLabel}
     </Button>
   </div>
 </div>

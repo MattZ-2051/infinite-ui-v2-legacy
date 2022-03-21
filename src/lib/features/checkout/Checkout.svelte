@@ -30,8 +30,11 @@
   export let sku: Sku = undefined;
   export let product: Product = undefined;
 
+  const DISABLED_MARKETPLACE = import.meta.env?.VITE_DISABLE_MARKETPLACE === 'true';
   const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED === 'true';
   const STRIPE_ENABLED = import.meta.env?.VITE_STRIPE_ENABLED === 'true';
+
+  const backButtonLabel = DISABLED_MARKETPLACE ? 'home' : 'marketplace';
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _sku = sku ? sku : product.sku;
@@ -101,6 +104,10 @@
     handlePayment({ id, user: $user, handleEthModalCallback, skuMintPolicy: sku?.mintPolicy });
   };
 
+  const handleExitCheckout = () => {
+    DISABLED_MARKETPLACE ? goto(routes.index) : goto(routes.marketplace);
+  };
+
   $: gridContainerClass =
     ($media.xl || (!exitCheckout && !processingOrder)) && !isFullScreenComponent
       ? 'grid grid-flow-row xl:divide-x xl:divide-gray-200'
@@ -143,11 +150,22 @@
             </div>
           {/if}
           {#if exitCheckout}
-            <ExitCheckout onReturn={() => handleStateChange('method-select')} onExit={() => goto(routes.marketplace)} />
+            <ExitCheckout
+              exitLabel={backButtonLabel}
+              onReturn={() => handleStateChange('method-select')}
+              onExit={handleExitCheckout}
+            />
           {:else if processingOrder}
             <ProcessingOrder etherscanLink="https://etherscan.io/" />
           {:else if orderSuccess || orderError}
-            <OrderStatus orderState={orderError ? 'error' : 'success'} {sku} {lazyMinting} {ethAddress} />
+            <OrderStatus
+              orderState={orderError ? 'error' : 'success'}
+              {sku}
+              {lazyMinting}
+              {ethAddress}
+              onExit={handleExitCheckout}
+              {backButtonLabel}
+            />
           {:else if isOrdering}
             {#if orderingMm}
               <CompletePurchaseMM {sku} {listing} {gasFee} {lazyMinting} />
