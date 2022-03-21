@@ -10,6 +10,7 @@
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import { toast } from '$ui/toast';
+  import { SingleCheckbox } from '$ui/checkbox';
   import { variables } from '$lib/variables';
   import routes from '$project/routes';
   import { stripeCreatePaymentIntentFx } from './stripe.store';
@@ -123,6 +124,10 @@
 
     isLoading = false;
   }
+
+  const onCheckedTerms = (event: Event) => {
+    acceptedTerms = (event.target as HTMLInputElement).checked;
+  };
 </script>
 
 <!-- Display a payment form -->
@@ -140,13 +145,10 @@
         >All resales of this product are subject to a 5% royalty fee set by and to be paid to the original creator.</span
       >
     </div>
-    <div class="flex items-center justify-start mt-2.5 mb-3">
-      <label class="inline-flex items-center text-sm">
-        <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
-        <span class="text-gray-500">I agree to the</span>
-        <a href={routes.terms} class="ml-1" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
-      </label>
-    </div>
+    <SingleCheckbox class="mb-2" on:change={onCheckedTerms} checked={acceptedTerms}>
+      <span class="text-gray-500">I agree to the</span>
+      <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+    </SingleCheckbox>
     <div class="grid mt-8 grid-flow-row sm:grid-flow-col">
       <Button
         variant="outline-brand"

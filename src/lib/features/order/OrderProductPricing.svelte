@@ -29,6 +29,17 @@
       {formatCurrency(price, options)}
     </div>
   </div>
+  <div class="mb-2">Marketplace fee ({marketplaceFee * 100}%):</div>
+  <div class="flex justify-end">
+    {#if currency === 'ETH' && rate}
+      <div class="text-right">
+        {`${formatCurrency(absoluteFee * rate, { currency: 'USD' })} ≈`}
+      </div>
+    {/if}
+    <div class="text-right ml-1 text-black">
+      {formatCurrency(absoluteFee, options)}
+    </div>
+  </div>
   {#if gasFee}
     <div class="mb-2">NFT minting fee:</div>
     <div class="flex justify-end">
@@ -42,17 +53,6 @@
       </div>
     </div>
   {/if}
-  <div>Marketplace fee ({marketplaceFee * 100}%):</div>
-  <div class="flex justify-end">
-    {#if currency === 'ETH' && rate}
-      <div class="text-right">
-        {`${formatCurrency(absoluteFee * rate, { currency: 'USD' })} ≈`}
-      </div>
-    {/if}
-    <div class="text-right ml-1 text-black">
-      {formatCurrency(absoluteFee, options)}
-    </div>
-  </div>
 </div>
 <hr class="h-px w-full my-4" />
 <div class="grid grid-cols-2 w-full">

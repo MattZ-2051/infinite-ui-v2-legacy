@@ -44,7 +44,7 @@
             <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
             <div class="flex items-center">
               <span class="mx-3 text-gray-300">/</span>
-              <span class="text-gradient-primary ">Collectors</span>
+              <span class="text-gradient-primary">Collectors</span>
             </div>
           </div>
         </div>

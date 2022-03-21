@@ -335,9 +335,15 @@ export async function getWalletInfo() {
 export async function sendEthPurchasePaymentForLazyMinting(
   destinationAddress: string,
   totalCost: number,
-  fromUserId: string
+  fromUserId: string,
+  whitelistCode: string
 ) {
-  return sendTransaction(destinationAddress, totalCost, ['0x01', `0x${fromUserId}`, '0x01']);
+  return sendTransaction(destinationAddress, totalCost, [
+    '0x01',
+    `0x${fromUserId}`,
+    '0x01',
+    ethers.utils.formatBytes32String(whitelistCode),
+  ]);
 }
 
 export async function sendEthPurchasePaymentForImmediateMinting(

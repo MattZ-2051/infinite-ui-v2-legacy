@@ -112,11 +112,9 @@
         <div class="text-gray-500 text-sm">Redemption Status</div>
         <IconRedeem>Redeemable</IconRedeem>
       {:else}
-        <div style="display:var(--redemption-status-display, none);">
-          <div class="text-gray-500 text-sm">Redemption Status</div>
-          <div class="flex">
-            <Icon path={notRedeemable} /><span>Not Redeemable</span>
-          </div>
+        <div class="text-gray-500 text-sm">Redemption Status</div>
+        <div class="flex">
+          <Icon path={notRedeemable} /><span>Not Redeemable</span>
         </div>
       {/if}
     </div>
