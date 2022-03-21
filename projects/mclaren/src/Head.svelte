@@ -1,6 +1,17 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import injectScript from '$util/injectScript';
   import { CLIENT_DOC_DESCRIPTION } from './variables';
   import { hubspot } from './hubspot.script';
+
+  const adobeAnalyticsUrl = import.meta.env?.VITE_ADOBE_ANALYTICS_URL as string;
+
+  onMount(async () => {
+    await injectScript({
+      url: adobeAnalyticsUrl,
+      id: 'adobe-analytics',
+    });
+  });
 </script>
 
 <svelte:head>
