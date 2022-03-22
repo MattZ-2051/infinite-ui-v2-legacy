@@ -47,7 +47,7 @@
   }
 </script>
 
-<span class="font-medium text-2xl">Mint NFT</span>
+<span class="font-medium text-3xl">Mint NFT</span>
 <div class="flex flex-col gap-6 mt-8">
   <span class="text-base" style="color: var(--gray-500)">
     To mint this NFT you need a wallet with an ETH address. You can enter one manually or connect your Metamask.

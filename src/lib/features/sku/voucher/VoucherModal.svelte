@@ -92,11 +92,11 @@
     {#if voucherCodeStatus === 'success'}
       <header class="flex items-center gap-2 pt-8 pb-4 px-10">
         <Icon viewBox="0 0 56 56" size="46px" path={successIcon} slot="header" />
-        <div class="text-2xl font-normal pr-8 modal-title pl-4">{title}</div>
+        <div class="text-3xl font-normal pr-8 modal-title pl-4">{title}</div>
       </header>
     {:else}
       <header class="flex items-center gap-2 pt-8 pb-4 px-10">
-        <div class="text-2xl font-normal pr-8 modal-title">{title}</div>
+        <div class="text-3xl font-normal pr-8 modal-title">{title}</div>
       </header>
     {/if}
     <div class="flex flex-col px-10 py-6">
