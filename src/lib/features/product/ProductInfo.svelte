@@ -134,7 +134,7 @@
   <div class={cellClass}>
     {#if sku.currency === 'ETH'}
       <div class={headerClass}>ERC721 Transaction</div>
-      {#if isTransactionLater && mintStatus !== 'processed'}
+      {#if mintStatus !== 'processed'}
         <span>Not Minted</span>
       {:else}
         <div class="flex flex-row items-center">
