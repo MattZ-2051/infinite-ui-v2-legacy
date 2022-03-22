@@ -1,18 +1,19 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  // Phase 1
+  // PHASE 1
   import Hero1 from './phase1/Hero.svelte';
   import McLarenCollectives1 from './phase1/McLarenCollectives.svelte';
   import FAQ1 from './phase1/faq/FAQ.svelte';
   import McLarenPhilosophy1 from './phase1/McLarenPhilosophy.svelte';
-  // Phase 3
-  import Hero from './Hero.svelte';
-  import FAQ from './faq/FAQ.svelte';
-  import FeaturedCollection from './FeaturedCollection.svelte';
-  import McLarenPhilosophy from './McLarenPhilosophy.svelte';
-  import Community from './Community.svelte';
-  import MultipleFeatured from './MultipleFeatured.svelte';
-  import McLarenCollectives from './McLarenCollectives.svelte';
+
+  // PHASE 3
+  import Hero from './phase3/Hero.svelte';
+  import McLarenCollectives from './phase3/McLarenCollectives.svelte';
+  import McLarenF1Classics from './phase3/McLarenF1Classics.svelte';
+  import McLarenPhilosophy from './phase3/McLarenPhilosophy.svelte';
+  import UpcomingCollection from './phase3/FeaturedCollection.svelte';
+  import FAQ from './phase3/faq/FAQ.svelte';
+  import Community from './phase3/Community.svelte';
 
   export const skus = [];
 
@@ -29,9 +30,9 @@
 {:else if phase === '3'}
   <div class="z-0">
     <Hero />
-    <FeaturedCollection />
     <McLarenCollectives />
-    <MultipleFeatured />
+    <McLarenF1Classics />
+    <UpcomingCollection />
     <McLarenPhilosophy />
     <FAQ />
     <Community />
