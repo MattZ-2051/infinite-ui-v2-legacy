@@ -33,6 +33,7 @@
     validETHPurchase,
   } from './checkout.service';
   import { updateCheckoutState } from './checkout.store';
+  import Information from './Information.svelte';
 
   const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
   const voucherCode = $page.url.searchParams.get('voucherCode');
@@ -41,6 +42,7 @@
   export let listing: Listing;
   export let gasFee = 0;
   export let lazyMinting: boolean;
+  export let conversionRate: number;
 
   $: validEthAddress = undefined;
   $: purchasing = false;
@@ -161,9 +163,7 @@
     <OrderDetails {sku} {listingPrice} {marketplaceFee} {userBalance} {insufficientFunds} {gasFee} hideProductInfo />
   </div>
   <div class="mt-6 sm:mt-24">
-    <p class="text-xs text-black-opacity-50 font-normal pb-4">
-      All resales of this product are subject to a 5% royalty fee set by and to be paid to the original creator.
-    </p>
+    <Information {conversionRate} />
     <div class="flex items-center justify-start mb-3">
       <SingleCheckbox class="mb-2" on:change={onCheckedTerms} checked={acceptedTerms}>
         <span class="text-gray-500">I agree to the</span>

@@ -15,12 +15,14 @@
   import routes from '$project/routes';
   import { stripeCreatePaymentIntentFx } from './stripe.store';
   import { handleStateChange, showLoginToast } from '../checkout/checkout.service';
+  import Information from '../checkout/Information.svelte';
 
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
   export let listing: Listing;
   export let mintToAddress: string | undefined;
   export let lazyMinting: boolean;
+  export let conversionRate: number | undefined = undefined;
 
   let acceptedTerms = false;
 
@@ -141,9 +143,7 @@
     </div>
   {:else}
     <div class="mt-10">
-      <span class="text-sm text-gray-500"
-        >All resales of this product are subject to a 5% royalty fee set by and to be paid to the original creator.</span
-      >
+      <Information {conversionRate} />
     </div>
     <SingleCheckbox class="mb-2" on:change={onCheckedTerms} checked={acceptedTerms}>
       <span class="text-gray-500">I agree to the</span>

@@ -168,9 +168,9 @@
             />
           {:else if isOrdering}
             {#if orderingMm}
-              <CompletePurchaseMM {sku} {listing} {gasFee} {lazyMinting} />
+              <CompletePurchaseMM {sku} {listing} {gasFee} {lazyMinting} conversionRate={rate} />
             {:else if orderingStripe}
-              <StripeCheckout mintToAddress={ethAddress} {listing} {lazyMinting} />
+              <StripeCheckout mintToAddress={ethAddress} {listing} {lazyMinting} conversionRate={rate} />
             {/if}
           {:else if paymentSelection}
             <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center h-full">
