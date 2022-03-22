@@ -45,8 +45,10 @@
             class="text-gradient-primary truncate md:overflow-visible md:whitespace-pre-wrap sku-title"
             >{$product.sku.name}</a
           >
-          <span class="mx-3 text-gray-300">/</span>
-          <span class="text-gradient-primary sku-title">#{$product.serialNumber}</span>
+          {#if $product.serialNumber}
+            <span class="mx-3 text-gray-300">/</span>
+            <span class="text-gradient-primary sku-title">#{$product.serialNumber}</span>
+          {/if}
         </div>
         <div class="flex flex-row items-center space-x-4 ml-auto">
           {#if isProductOwner}
