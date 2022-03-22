@@ -18,6 +18,7 @@
   } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
+  import { page } from '$app/stores';
   import routes from '$project/routes';
   import { isEthAddress } from '$util/validateEthAddress';
   import { SingleCheckbox } from '$ui/checkbox';
@@ -34,6 +35,7 @@
   import { updateCheckoutState } from './checkout.store';
 
   const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
+  const voucherCode = $page.url.searchParams.get('voucherCode');
 
   export let sku: Sku;
   export let listing: Listing;
@@ -92,7 +94,8 @@
         await sendEthPurchasePaymentForImmediateMinting(
           purchaseInfo.externalPurchaseAddressEth,
           purchaseInfo.cost.totalCost,
-          $userId
+          $userId,
+          voucherCode
         )
           .then((response) => {
             purchaseResult = response;

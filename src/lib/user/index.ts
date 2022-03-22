@@ -336,22 +336,29 @@ export async function sendEthPurchasePaymentForLazyMinting(
   destinationAddress: string,
   totalCost: number,
   fromUserId: string,
-  whitelistCode: string
+  voucherCode: string
 ) {
   return sendTransaction(destinationAddress, totalCost, [
     '0x01',
     `0x${fromUserId}`,
     '0x01',
-    ethers.utils.formatBytes32String(whitelistCode),
+    voucherCode,
+    ethers.utils.formatBytes32String(voucherCode),
   ]);
 }
 
 export async function sendEthPurchasePaymentForImmediateMinting(
   destinationAddress: string,
   totalCost: number,
-  fromUserId?: string
+  fromUserId?: string,
+  voucherCode?: string
 ) {
-  return sendTransaction(destinationAddress, totalCost, ['0x01', `0x${fromUserId || ''}`, '0x01']);
+  return sendTransaction(destinationAddress, totalCost, [
+    '0x01',
+    `0x${fromUserId || ''}`,
+    '0x01',
+    ethers.utils.formatBytes32String(voucherCode),
+  ]);
 }
 
 export async function sendTransaction(destinationAddress: string, totalCost: number, data?: string[]) {

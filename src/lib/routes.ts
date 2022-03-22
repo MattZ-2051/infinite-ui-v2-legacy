@@ -9,7 +9,7 @@ export default {
   skuCollection: (skuCollectionId) => `/collections/${skuCollectionId}`,
   collectors: (skuId, queryParameters = '') => `/collectors/${skuId}${queryParameters}`,
   checkoutProduct: (id, stateParamaters = '') => `/checkout/product/${id}${stateParamaters}`,
-  checkoutSku: (id) => `/checkout/sku/${id}`,
+  checkoutSku: (id, queryParameters) => `/checkout/sku/${id}${queryParameters}`,
   wallet: '/u/wallet',
   deposit: '/u/wallet/deposit',
   depositMoonPay: '/u/wallet/deposit-moonpay',

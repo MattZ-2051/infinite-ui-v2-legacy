@@ -67,7 +67,7 @@
         voucherCodeStatus = 'success';
         // this setTimeout is here so the user can see the success modal quickly before being redirected
         setTimeout(() => {
-          onSignIn(routes.checkoutSku(skuId));
+          onSignIn(routes.checkoutSku(skuId, `?voucherCode=${voucherCode}`));
         }, 500);
       } catch (apiError) {
         if (apiError.status === 601) {
