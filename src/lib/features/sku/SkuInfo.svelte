@@ -132,6 +132,7 @@
     </Notify>
     <button
       type="button"
+      style="text-transform: var(--sku-share-button-case, capitalize); font-size: var(--sku-share-button-font-size);"
       class="sku-info-row flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
       use:socialShareAction={{ sku }}><Icon path={shareIcon} />Share</button
     >

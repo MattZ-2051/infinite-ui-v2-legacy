@@ -226,6 +226,8 @@
   --button-group-color-hover: white;
   --button-group-bg-color-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
   --redemption-status-display: flex;
+  --sku-share-button-case: uppercase;
+  --sku-share-button-font-size: 11px;
 
   /*Product page*/
   --product-tabs-bg: rgba(255, 255, 255, 0);
