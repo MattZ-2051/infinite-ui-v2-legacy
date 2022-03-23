@@ -279,13 +279,21 @@ export async function checkWalletInstalled() {
   throw new Error('Metamask extension not found on browser');
 }
 
+// I am managing the error in this way as we don't know if the code -32002 are included in other errors.
+const handleMetamaskError = (errorMessage = '') => {
+  if (errorMessage.toLowerCase().includes('wallet_requestPermissions'.toLowerCase())) {
+    return 'Check Metamask extension and accept pending connection request.';
+  }
+  return errorMessage;
+};
+
 export async function handleWalletConnection() {
   try {
     await connectWallet();
     return true;
   } catch (error) {
     if (error?.code) {
-      toast.danger(error?.message, { toastId: error?.code });
+      toast.danger(handleMetamaskError(error?.message), { toastId: error?.code });
     } else if (error?.message === 'User is not logged in to MetaMask') {
       toast.danger(error?.message, { toastId: 'MM-NOT-LOGGED' });
     } else {
