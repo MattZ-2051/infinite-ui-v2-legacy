@@ -32,14 +32,12 @@
     }
     case 'not-valid': {
       title = VOUCHER_CODE_MODAL_TITLE;
-      errorMessage = 'Voucher code not valid. Please check it and try again.';
       buttonTitle = 'Try again';
       error = true;
       break;
     }
     case 'already-used': {
       title = VOUCHER_CODE_MODAL_TITLE;
-      errorMessage = 'This code has already been used and is no longer valid';
       buttonTitle = 'Close';
       error = true;
       break;
@@ -70,17 +68,16 @@
           onSignIn(routes.checkoutSku(skuId, `?voucherCode=${voucherCode}`));
         }, 500);
       } catch (apiError) {
-        if (apiError.status === 601) {
-          // 601 voucher code is invalid format
+        error = true;
+        if (apiError.data?.appCode === 'WHITELIST_CODE_INVALID') {
           voucherCodeStatus = 'not-valid';
-          error = true;
-        } else if (apiError.status === 602) {
-          // 602 voucher code is already used
+          errorMessage = apiError.data?.message;
+        } else if (apiError.data?.appCode === 'WHITELIST_CODE_ALREADY_USED') {
           voucherCodeStatus = 'already-used';
-          error = true;
+          errorMessage = apiError.data?.message;
         } else {
           voucherCodeStatus = 'not-valid';
-          error = true;
+          errorMessage = 'Something went wrong. Please try again or contact support.';
         }
       }
     }
