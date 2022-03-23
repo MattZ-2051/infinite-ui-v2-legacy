@@ -7,20 +7,27 @@
   export let transaction: Transaction;
 
   $: sku = transaction.transactionData?.sku;
-  $: name = sku?.name || '';
-  $: serialNumber = transaction.transactionData?.product?.serialNumber || '';
-  $: sellerUsername = transaction.transactionData.seller?.username || '';
-  $: deposit = transaction.transactionData.deposit;
+  $: name = sku?.name;
+  $: serialNumber = transaction.transactionData?.product?.serialNumber;
+  $: sellerUsername = transaction.transactionData.seller?.username;
 </script>
 
 {#if sku?.tenant !== CLIENT_API_HEADER}
   <span class="rounded bg-gray-100 text-gray-700 inline capitalize text-xs px-2">{sku?.tenant}</span>
-  <span>{name} #{serialNumber}</span>
+
+  <span
+    >{name}
+    {#if serialNumber}
+      #{serialNumber}
+    {/if}
+  </span>
   <span class="text-gray-400">from</span>
   <span>@{sellerUsername}</span>
 {:else}
   <a class="link" href={routes.sku(sku?._id)}>{name} </a>
-  <a class="link" href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a>
+  {#if serialNumber}
+    <a class="link" href={routes.product(transaction.transactionData.product?._id)}>#{serialNumber}</a>
+  {/if}
   <UserLink username={sellerUsername}>
     <span class="text-gray-400" slot="prefix">from</span>
   </UserLink>

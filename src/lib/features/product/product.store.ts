@@ -281,15 +281,17 @@ pollTransactionFx.doneData.watch(async (response) => {
 });
 
 const transactionSuccessMessage = (transactionData?: TransactionData) => {
+  const serialNumber = transactionData.product?.serialNumber;
+  const skuName = transactionData.sku?.name;
   toast.success(
     `Congrats! Your NFT purchase was processed successfully!` +
-      (!transactionData
-        ? ''
+      (!serialNumber
+        ? ` Click <a href=${routes.product(
+            transactionData.product._id
+          )} class="font-bold">here</a> to view your new collectible: ${skuName}`
         : ` Click <a href=${routes.product(
             transactionData.product._id
-          )} class="font-bold">here</a> to view your new collectible: ${transactionData.sku.name} #${
-            transactionData.product.serialNumber
-          }.`),
+          )} class="font-bold">here</a> to view your new collectible: ${skuName} #${serialNumber}.`),
     { toastId: 'sku-purchase-success' }
   );
 };
