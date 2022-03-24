@@ -45,6 +45,7 @@
     <a href={routes.careers} target="_blank" rel="noreferrer">Careers</a>
     <a href={routes.terms}>Terms & Conditions</a>
     <a href={routes.privacy}>Privacy Policy</a>
+    <a href={routes.cookies}>Cookie Policy</a>
   </svelte:fragment>
 </FooterLayout>
 

@@ -16,6 +16,7 @@ export default {
   account: '/u/account',
   help: '/help',
   privacy: '/privacy',
+  cookies: '/cookies',
   terms: '/terms',
   about: '/about',
   careers: '/careers',
