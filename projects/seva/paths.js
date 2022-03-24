@@ -11,4 +11,5 @@ export const paths = {
   '$lib/features/wallet/assets/arrow-right': 'projects/seva/src/assets/lib/arrow-right',
   '$lib/features/wallet/assets/chevron-right': 'projects/seva/src/assets/lib/arrow-right',
   '$lib/features/product/assets/*': 'projects/seva/src/assets/lib/*',
+  '$project/terms/*': 'projects/aria/src/terms/*',
 };

@@ -1,7 +1,6 @@
 <div class="container py-8">
   <h3>Privacy Notice</h3>
   <p>Effective date: May 19, 2021</p>
-  <p>Our privacy notice is available in PDF form here.</p>
   <p>At Infinite Assets, Inc. dba/ “INFINITE”, we respect your privacy and are committed to protecting it.</p>
   <p>
     This privacy notice has been drafted to explain how INFINITE collects, uses, discloses, and protects information
@@ -481,8 +480,11 @@
   </p>
   <h3 id="california">Your California privacy rights</h3>
   <p>
-    The California Consumer Privacy Act of 2018 (“CCPA”) requires us to provide the following notice to California
-    residents.
+    The <a
+      href="https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5"
+      target="_blank"
+      rel="noreferrer">California Consumer Privacy Act of 2018 (“CCPA”)</a
+    > requires us to provide the following notice to California residents.
   </p>
   <p>
     This notice does not apply to employment-related information of California-based employees, job applicants,
@@ -786,12 +788,16 @@
   <p>Contacting us at support@goinfinite.io.</p>
   <p>
     To exercise the right to opt-out of sale of your personal information, you can submit a request to us by visiting
-    the following link: Do Not Sell My Personal Information
+    the following link: <a href="mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information"
+      >Do Not Sell My Personal Information</a
+    >
   </p>
   <p>
     Once you make an opt-out request, we will wait at least twelve (12) months before asking you to reauthorize personal
     information sales. However, you may change your mind and opt back into personal information sales at any time by
-    visiting the following link: Opt-in to Sales of My Personal Information
+    visiting the following link: <a href="mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information"
+      >Opt-in to Sales of My Personal Information</a
+    >
   </p>
   <ul>
     <li>How we verify requests and respond to requests</li>
@@ -1044,7 +1050,6 @@
   <h3 id="contact">Contact Us</h3>
   <p>
     If you have any comments or questions about our privacy notice, please use our <em>Help</em> page to reach out to us.
-    You may also call us at 4815-2926-5383v3.
   </p>
   <p>0146682.0741567 4815-2926-5383v1</p>
 </div>

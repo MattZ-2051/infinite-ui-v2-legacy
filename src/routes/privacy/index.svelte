@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Privacy from '$lib/terms/Privacy.svelte';
+  import Privacy from '$project/terms/Privacy.svelte';
 </script>
 
 <Privacy />
