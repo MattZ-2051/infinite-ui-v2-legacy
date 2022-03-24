@@ -9,6 +9,8 @@ export type SocialFileAsset = FileAsset & {
   platform: 'all' | 'facebook' | 'instagram' | 'twitter' | 'discord' | 'reddit' | 'telegram' | 'tiktok';
 };
 
+export type SupplyType = 'variable' | 'fixed';
+
 export type Sku = {
   _id: string;
   rarity: Rarity;
@@ -17,7 +19,7 @@ export type Sku = {
   descriptionShort?: string;
   details?: string;
   display: boolean;
-  supplyType: 'variable' | 'fixed'; // TODO: add more supply types
+  supplyType: SupplyType;
   featured: boolean;
   redeemable: boolean;
   maxSupply?: number;
@@ -239,8 +241,6 @@ export type Cost = {
   royaltyFee?: number;
   currency?: CurrencyType;
 };
-
-export type SupplyType = 'unique' | 'limited' | 'released';
 
 type HederaTransaction = {
   transactionHash: string;

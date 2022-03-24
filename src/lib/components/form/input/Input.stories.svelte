@@ -15,3 +15,4 @@
 <Story name="Default" />
 <Story name="Prefix" args={{ before: '$' }} />
 <Story name="Error" args={{ error: 'field is required!' }} />
+<Story name="HelperText" args={{ helperText: 'some helper text' }} />

@@ -17,6 +17,7 @@
   export let value = undefined;
   export let error: string | string[] = '';
   export let success: string | string[] = '';
+  export let helperText: string = '';
   export let variant: FormElementVariant = 'base';
   export let isEthInput = false;
   export let withdrawableAmount = 0;
@@ -27,7 +28,7 @@
   const hasBalance = withdrawableAmount > 0;
 </script>
 
-<BaseElement {id} {label} {error} {success} {variant} class={_class} let:klass>
+<BaseElement {id} {label} {error} {success} {variant} class={_class} {helperText} let:klass>
   {#if $$slots.before || before}
     <div class="input-icon flex-none mr-4"><slot name="before" class="flex-none">{before}</slot></div>
   {/if}

@@ -13,6 +13,7 @@
   export let label = '';
   export let value = undefined;
   export let error: string | string[] = '';
+  export let helperText: string = '';
   export let variant: FormElementVariant = 'base';
   let _class = '';
   export { _class as class };
@@ -20,7 +21,7 @@
   const forwardEvents = forwardEventsBuilder(get_current_component());
 </script>
 
-<BaseElement {id} {label} {error} {variant} class={_class} let:klass>
+<BaseElement {id} {label} {error} {variant} class={_class} {helperText} let:klass>
   <textarea use:forwardEvents {id} {name} class={klass} bind:value {...$$restProps} />
 </BaseElement>
 

@@ -6,6 +6,7 @@
   export let label = '';
   export let variant: FormElementVariant;
   export let error: string | string[] = '';
+  export let helperText: string = '';
   export let success: string | string[] = '';
   let _class = '';
   export { _class as class };
@@ -21,10 +22,11 @@
     <slot {klass} />
   </div>
   {#if error}
-    <div class="text-red-500 text-sm pt-1">{error}</div>
-  {/if}
-  {#if success}
-    <div class="text-green-500 text-sm pt-1">{success}</div>
+    <div class="text-red-500 text-xs pt-1">{error}</div>
+  {:else if success}
+    <div class="text-green-500 text-xs pt-1">{success}</div>
+  {:else if helperText}
+    <div class="text-gray-500 text-xs pt-1">{helperText}</div>
   {/if}
 </div>
 

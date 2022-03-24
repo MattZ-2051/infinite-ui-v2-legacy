@@ -41,7 +41,7 @@
 </script>
 
 {#if isOpen}
-  <Modal class="max-w-md">
+  <Modal class="max-w-md" {...$$restProps}>
     <svelte:fragment slot="title"><span class="text-2xl text-left w-full modal-title">{title}</span></svelte:fragment>
     <div class="px-10 py-4">
       <slot name="message">
@@ -53,20 +53,24 @@
       </slot>
     </div>
     <div slot="footer" class="flex flex-col gap-8 text-2xl font-normal">
-      <Button
-        variant="brand"
-        style="height: 4rem; border-radius: var(--button-confirm-modal-radius)"
-        on:click={() => onSelect(true)}
-        {disabled}>{labels?.confirm}</Button
-      >
-      <Button
-        variant="outline-brand"
-        style="height: 4rem; border-radius: var(--button-confirm-modal-radius)"
-        on:click={() => onSelect(false)}
-        {disabled}
-      >
-        {labels?.cancel}
-      </Button>
+      {#if labels?.confirm}
+        <Button
+          variant="brand"
+          style="height: 4rem; border-radius: var(--button-confirm-modal-radius)"
+          on:click={() => onSelect(true)}
+          {disabled}>{labels.confirm}</Button
+        >
+      {/if}
+      {#if labels?.cancel}
+        <Button
+          variant="outline-brand"
+          style="height: 4rem; border-radius: var(--button-confirm-modal-radius)"
+          on:click={() => onSelect(false)}
+          {disabled}
+        >
+          {labels.cancel}
+        </Button>
+      {/if}
     </div>
   </Modal>
 {/if}

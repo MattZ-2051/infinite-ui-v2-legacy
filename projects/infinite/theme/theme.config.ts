@@ -7,6 +7,7 @@ const Theme = {
 export const themeConfig = {
   '*.header': Theme.Dark,
   '$marketplace.root': Theme.Light,
+  '$marketplace.$create.root': Theme.Light,
   '$marketplace.*.footer': Theme.BrandFooter,
   '$marketplace.root.footer': Theme.Light,
   '$u.$wallet.$deposit.root': Theme.Light,

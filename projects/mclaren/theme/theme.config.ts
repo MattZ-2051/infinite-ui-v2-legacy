@@ -14,6 +14,7 @@ const Theme = {
 export const themeConfig = {
   '*.header': Theme.ButtonsVariantHeader,
   '$index.root': [Theme.ButtonsVariantPresentationPages, Theme.Dark],
+  '$marketplace.$create.root': Theme.Light,
   '*.wallet-buttons': Theme.WalletButtons,
   '*.wallet-balance': Theme.WalletBalance,
   '$collections.root': Theme.ButtonsVariantPresentationPages,

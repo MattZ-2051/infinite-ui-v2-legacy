@@ -11,6 +11,7 @@ export const themeConfig = {
   '*.header': Theme.Dark,
   '$about.*.footer': Theme.Dark,
   '$marketplace.root': Theme.Light,
+  '$marketplace.$create.root': Theme.Light,
   '$help.*.root': Theme.Light,
   '*.sku-offsreen': Theme.Light,
   '*.wallet-list': Theme.Light,
