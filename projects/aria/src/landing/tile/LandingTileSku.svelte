@@ -22,9 +22,9 @@
     <div
       class="hidden md:block bg-white-opacity-75 absolute inset-0 p-3 opacity-0 hover:opacity-100 transition-opacity duration-300"
     >
-      <div class="card-description-inner p-4 text-white h-full flex">
+      <div class="card-description-inner p-4 text-white flex">
         <div class="scrollbox">
-          <div class="flex flex-col justify-between w-full h-full">
+          <div class="flex flex-col justify-between w-full">
             <div>
               <div class="flex gap-1 items-center justify-between mb-2.5">
                 <a {href} class="text-primary text-2xl font-medium truncate section-title">{sku.name}</a>
