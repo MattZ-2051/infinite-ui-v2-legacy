@@ -5,4 +5,5 @@ export default {
   ...routes,
   help: 'https://aria-network.force.com/support/s/',
   careers: 'https://jobs.wrkhq.com/the-aria-network',
+  cookies: '/cookies',
 };

@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { isCookiesAccepted } from '$project/gdpr/gdpr.store';
   import { CLIENT_DOC_DESCRIPTION } from './variables';
-  import { gtag } from './gtag';
+  import { init } from './gtag';
+
+  $: $isCookiesAccepted && init();
 </script>
 
 <svelte:head>
@@ -84,6 +87,7 @@
     crossorigin="anonymous"
   />
   <link rel="stylesheet" href="/fonts/stylesheet.css" />
-  <script type="text/javascript" src={import.meta.env.VITE_SALESFORCE_BEACON} async></script>
-  {@html gtag}
+  {#if $isCookiesAccepted}
+    <script type="text/javascript" src={import.meta.env.VITE_SALESFORCE_BEACON} async></script>
+  {/if}
 </svelte:head>
