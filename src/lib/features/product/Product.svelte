@@ -17,7 +17,7 @@
   export let tab: 'auction' | 'history' | 'owner';
 
   $: isProductOwner = isOwner($product, $userId);
-
+  $: isTransactionLater = $product.sku?.mintPolicy?.transaction === 'later';
   const hasCloseButton = browser && history.length > 1;
 
   function onClose() {
@@ -51,7 +51,7 @@
           {/if}
         </div>
         <div class="flex flex-row items-center space-x-4 ml-auto">
-          {#if isProductOwner}
+          {#if isProductOwner && !isTransactionLater}
             <button
               type="button"
               class="share flex items-center justify-center gap-2 text-center text-base p-2 md:px-5 rounded-full bg-gray-100"

@@ -18,23 +18,26 @@
     goto(`${routes.product(product._id)}?tab=${detail}`, { keepfocus: true });
   }
 
-  function getItems() {
-    let items: Tab[] = [
-      { id: 'description', title: 'Description' },
-      {
-        id: 'auction',
-        title: 'Auction',
-      },
-      {
-        id: 'history',
-        title: 'History',
-      },
-      { id: 'owner', title: 'Unlockable Content' },
-    ];
+  let initialItems: Tab[] = [
+    { id: 'description', title: 'Description' },
+    {
+      id: 'auction',
+      title: 'Auction',
+    },
+    {
+      id: 'history',
+      title: 'History',
+    },
+    { id: 'owner', title: 'Unlockable Content' },
+  ];
 
-    const visibleItems = items.filter((item) => PRODUCT_PAGE_TABS.includes(item.id));
+  function getItems() {
+    const visibleItems = initialItems.filter((item) => PRODUCT_PAGE_TABS.includes(item.id));
     return visibleItems;
   }
+
+  $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
+  $: initialItems = isTransactionLater ? initialItems.filter((item) => item.id !== 'auction') : initialItems;
 </script>
 
 <PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
@@ -54,7 +57,7 @@
         <SkuDescription content={product?.description || product.sku.description} />
       </div>
     {/if}
-    {#if tab === 'auction'}
+    {#if tab === 'auction' && !isTransactionLater}
       <ProductAuction {product} />
     {/if}
     {#if tab === 'history'}

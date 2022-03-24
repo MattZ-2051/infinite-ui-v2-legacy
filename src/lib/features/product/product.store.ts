@@ -57,7 +57,6 @@ export const fetchProductFx = createEffect(
       const { data, total, max } = await fetchProductBidsFx({ id: product_.activeProductListings[0]._id, page, fetch });
       response = { ...response, productBids: data, totalProductBids: total, maxProductBid: max };
     }
-
     return response;
   }
 );

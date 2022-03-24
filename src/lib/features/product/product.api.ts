@@ -33,6 +33,7 @@ export async function loadProductTransactions({
 }: {
   id: string;
   page: number;
+  createdAt?: string;
   fetch?: Fetch;
 }): Promise<{ total: number; data: Transaction[] }> {
   const { total, data } = await getPage<Transaction>(`products/${id}/transactions`, {

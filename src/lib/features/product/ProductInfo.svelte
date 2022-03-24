@@ -22,14 +22,16 @@
   let isShowMintModal = false;
   let sku: Sku;
   let mintStatus: StatusMintButton = 'toMint';
-  $: sku = product.sku;
 
+  $: sku = product.sku;
   $: isTransferredOut = transactions.length > 0 ? transferredOut(product, transactions) : false;
   $: isTransferInUnresolved = transactions.length > 0 ? transferInUnresolved(product, transactions) : false;
   $: isProductOwner = isOwner(product, $userId);
   $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
   $: mintStatus = getMintStatus(product.status);
 
+  const MINT_BY_LABEL = isTransactionLater ? 'Owned by' : 'Minted by';
+  const MINT_OWNER_LABEL = isTransactionLater ? 'Owned by' : 'Owner';
   const cellClass = 'flex flex-col gap-1.5 py-4 px-3 overflow-hidden';
   const headerClass = 'text-gray-500 text-sm';
 
@@ -59,22 +61,24 @@
 <div
   class="rounded-lg border border-gray-200 text-default overflow-hidden grid grid-cols-2 2xl:grid-cols-none 2xl:grid-flow-col 2xl:divide-x 2xl:divide-gray-200 flex-grow"
 >
-  {#if isTransferredOut || isTransferInUnresolved}
-    <div class={cellClass}>
-      <div class={headerClass}>Status</div>
-      <div class="flex gap-2 capitalize">
-        {#if isTransferredOut}
-          Transferred Out
-        {:else if isTransferInUnresolved}
-          Transfer In {transactions[0].status}
-        {/if}
+  {#if !isTransactionLater}
+    {#if (isTransferredOut || isTransferInUnresolved) && !isTransactionLater}
+      <div class={cellClass}>
+        <div class={headerClass}>Status</div>
+        <div class="flex gap-2 capitalize">
+          {#if isTransferredOut}
+            Transferred Out
+          {:else if isTransferInUnresolved}
+            Transfer In {transactions[0].status}
+          {/if}
+        </div>
       </div>
-    </div>
-  {:else}
-    <div class={cellClass}>
-      <div class={headerClass}>Status</div>
-      <SkuStatus {sku} {product} forProductStatus />
-    </div>
+    {:else}
+      <div class={cellClass}>
+        <div class={headerClass}>Status</div>
+        <SkuStatus {sku} {product} forProductStatus />
+      </div>
+    {/if}
   {/if}
   {#if sku.redeemable}
     <div class={cellClass}>
@@ -84,7 +88,7 @@
   {/if}
   <div class={cellClass}>
     {#if sku.currency === 'USD'}
-      <div class={headerClass}>Owner</div>
+      <div class={headerClass}>{MINT_OWNER_LABEL}</div>
       <div class="flex flex-row">
         {#if product?.owner?.profilePhotoUrl}
           <img
@@ -99,7 +103,7 @@
       </div>
     {:else if sku.currency === 'ETH'}
       <div class={`${headerClass} flex`}>
-        Minted by
+        {MINT_BY_LABEL}
         <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
           <Icon
             path={information}
