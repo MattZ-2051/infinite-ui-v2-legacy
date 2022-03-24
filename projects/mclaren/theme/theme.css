@@ -98,6 +98,15 @@
   --icons-fill: currentColor;
   --icons-fill-hover: url(#mclarenOrangeVertical);
 
+  /* Tabs */
+  --tab-border-image-active: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
+  --tab-border-image-width-active: 2px;
+  --tab-border-color-active: transparent;
+  --tab-title-transform: uppercase;
+  --tab-title-size: 16px;
+  --tab-title-font: var(--second-font);
+  --tab-title-text-spacing: 0.1em;
+
   /*Collectors*/
   --border-input-search: solid 1px;
   --border-input-search-color: var(--gray-300);
@@ -145,7 +154,6 @@
   --product-title-font: var(--second-font);
   --title-font-family: var(--second-font);
   --collectors-title-font: var(--second-font);
-  --tab-title-font: var(--second-font);
   --modal-title-font: var(--second-font);
   --account-initial-modal-title-font: var(--second-font);
 
@@ -231,7 +239,6 @@
 
   /*Product page*/
   --product-tabs-bg: rgba(255, 255, 255, 0);
-  --tab-border-image-active: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
   --product-status-bg-color: transparent;
   --product-history-border-hover-bg: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
   --product-mint-button-bg: linear-gradient(161.99deg, #ffffff -1.04%, #eeeeee 111.86%);

@@ -2,6 +2,11 @@ body {
   font-family: 'NotoSans';
 }
 
+body,
+button {
+  letter-spacing: normal;
+}
+
 .link {
   position: relative;
 }
@@ -77,6 +82,47 @@ button.sticky-cta:hover {
   font-size: 0.625rem;
 }
 
+.theme-light:not(.theme-buttons-variant-presentation-pages) .button.brand {
+  position: relative;
+  background: none;
+}
+
+.theme-light:not(.theme-buttons-variant-presentation-pages) .button.brand::before {
+  background: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
+  opacity: 1;
+  border-radius: 40px;
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.theme-light:not(.theme-buttons-variant-presentation-pages) .button.brand::after {
+  background: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
+  opacity: 0.4;
+  filter: blur(20px);
+  border-radius: 40px;
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 50%;
+  bottom: -5%;
+  z-index: -2;
+}
+
+.theme-light:not(.theme-buttons-variant-presentation-pages) .button.brand:hover {
+  border-color: transparent;
+}
+
+.theme-light:not(.theme-buttons-variant-presentation-pages) .button.brand:hover::before,
+.theme-light:not(.theme-buttons-variant-presentation-pages) .button.brand:hover::after {
+  background: linear-gradient(225deg, #181c20 0%, #363f45 100%);
+}
+
 @media (min-width: 640px) {
   .button {
     font-size: 0.75rem;
@@ -96,4 +142,15 @@ button.sticky-cta:hover {
     border-radius: var(--from-creator-button-border-radius, 0px);
     box-shadow: 0px -7px 30px rgba(0, 0, 0, 0.2) !important;
   }
+}
+
+.description h3 {
+  letter-spacing: -0.02em;
+  font-family: var(--second-font);
+  line-height: 160%;
+}
+
+.description p {
+  font-weight: 300;
+  line-height: 160%;
 }

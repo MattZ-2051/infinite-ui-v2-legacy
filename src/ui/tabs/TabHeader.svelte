@@ -8,7 +8,6 @@
   export let title = '';
   export let icon = undefined;
   export let tooltip = '';
-  export let activeBorderImage = false;
   let _class = '';
   export { _class as class };
 
@@ -27,7 +26,6 @@
 <li
   on:click
   class:active
-  class:border-image={activeBorderImage}
   title={tooltip ? '' : title}
   role="presentation"
   class="flex cursor-pointer whitespace-nowrap transition-all ease-out duration-300 {_class || ''}"
@@ -52,6 +50,7 @@
 <style lang="postcss">
   li {
     color: theme('colors.gray.500');
+    border-bottom: solid var(--tab-border-image-width-active, 0) transparent;
   }
 
   li:hover:not(.active) {
@@ -63,14 +62,15 @@
     color: var(--tab-color-active, var(--default-color));
   }
 
-  .border-image {
-    --tab-border-color-active: transparent;
-    border-bottom: solid 2px transparent;
+  .active,
+  li:hover,
+  li:focus {
+    border-image: var(--tab-border-image-active, none) 2;
   }
 
-  .border-image.active,
-  .border-image:hover,
-  .border-image:focus {
-    border-image: var(--tab-border-image-active, transparent) 2;
+  a {
+    font-size: var(--tab-title-size, inherit);
+    text-transform: var(--tab-title-transform, inherit);
+    letter-spacing: var(--tab-title-text-spacing, inherit);
   }
 </style>

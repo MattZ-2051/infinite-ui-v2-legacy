@@ -39,10 +39,9 @@
 
 <PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
   <Tabs
-    class="px-4 md:pl-8 lg:pl-12"
+    class="mx-4 md:ml-8 lg:ml-12"
     items={getItems()}
     itemClass="text-xl lg:text-2xl items-center"
-    activeBorderImage={true}
     menuBreakpoint="sm"
     defaultSelectedId={tab}
     on:select={redirect}
