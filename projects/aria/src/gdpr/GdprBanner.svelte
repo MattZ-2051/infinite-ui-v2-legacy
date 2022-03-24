@@ -1,14 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import routes from '$project/routes';
-  import { isBannerVisible, initializeBanner, hideBanner, isCookiesAccepted } from './gdpr.store';
+  import { isBannerVisible, initializeBanner, hideBanner } from './gdpr.store';
 
   onMount(() => {
     initializeBanner();
   });
 </script>
 
-<div>yo: {$isCookiesAccepted}</div>
 {#if $isBannerVisible}
   <article class="fixed bottom-12 z-50 w-full">
     <section
@@ -17,8 +16,8 @@
       <div class="flex-grow">
         <div class="font-extrabold mb-2">We value your privacy</div>
         <p>
-          We {$isBannerVisible} use cookies to enhance your browsing experience and to analyze our traffic. By clicking "Accept
-          All", you consent to our use of cookies as outlined in our
+          We use cookies to enhance your browsing experience and to analyze our traffic. By clicking "Accept All", you
+          consent to our use of cookies as outlined in our
           <a class="underline hover:no-underline font-medium" href={routes.privacy}>Privacy Policy.</a>
           <a class="underline hover:no-underline font-medium" href={routes.cookies}>Read More</a>
         </p>
