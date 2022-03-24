@@ -66,7 +66,7 @@
     <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
       {#if product.sku.currency === 'USD'}
         <div class="flex justify-center items-center bg-black h-72">
-          <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
+          <FilePreview item={product.nftPublicAssets?.[0] || product.sku.nftPublicAssets?.[0]} preview />
         </div>
       {:else if product.sku.currency === 'ETH'}
         <div class="border-solid border-b border-gray-200 py-8">

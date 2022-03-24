@@ -65,6 +65,6 @@
   {#if mintingStatus === 'unclaimed'}
     <MintEthAddress {handleSubmit} {isLoading} />
   {:else}
-    <MintStatus name={product.sku.name} {tryAgain} {txStatus} {txHash} {onClose} />
+    <MintStatus name={product.name || product.sku.name} {tryAgain} {txStatus} {txHash} {onClose} />
   {/if}
 </Modal>

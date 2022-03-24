@@ -49,7 +49,7 @@
       </div>
       <ProductModalInfo {product} sku={product.sku} />
       <div class="flex justify-center items-center bg-black h-72">
-        <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
+        <FilePreview item={product.nftPublicAssets?.[0] || product.sku.nftPublicAssets?.[0]} preview />
       </div>
       <div class="w-full">
         {#if bids.length > 0}

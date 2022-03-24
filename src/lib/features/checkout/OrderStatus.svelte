@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
+  import type { Sku, Product } from '$lib/sku-item/types';
   import Button from '$lib/components/Button.svelte';
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
@@ -10,6 +10,7 @@
   import { handleStateChange } from './checkout.service';
   import { productId } from './checkout.store';
 
+  export let product: Product = undefined;
   export let sku: Sku = undefined;
   export let orderState: 'success' | 'error';
   export let lazyMinting: boolean;
@@ -61,7 +62,11 @@
       </p>
     {/if}
     <figure class="px-10 pb-6 sm:px-20">
-      <FilePreview item={sku.nftPublicAssets?.[0]} preview borderRadius={'var(--file-preview-border-radius, 0px)'} />
+      <FilePreview
+        item={product?.nftPublicAssets?.[0] || sku.nftPublicAssets?.[0]}
+        preview
+        borderRadius={'var(--file-preview-border-radius, 0px)'}
+      />
     </figure>
     {#if orderFailed}
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleRetry}>Try again</Button>

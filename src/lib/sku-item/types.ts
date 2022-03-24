@@ -212,6 +212,9 @@ export type Product = {
   externalWallet: string;
   status: ProductStatus;
   whitelistCode: string | null;
+  nftPublicAssets?: FileAsset[];
+  name?: string;
+  description?: string;
 };
 
 export type ProductStatus =

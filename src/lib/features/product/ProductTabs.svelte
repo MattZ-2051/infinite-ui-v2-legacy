@@ -52,7 +52,7 @@
   <div class="flex-grow px-4 md:pl-8 lg:px-12 pb-4 lg:pb-12" style="background-color: var(--product-tabs-bg);">
     {#if tab === 'description'}
       <div class="py-10">
-        <SkuDescription content={product.sku.description} />
+        <SkuDescription content={product?.description || product.sku.description} />
       </div>
     {/if}
     {#if tab === 'auction'}

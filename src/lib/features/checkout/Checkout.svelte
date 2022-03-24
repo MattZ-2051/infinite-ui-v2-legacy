@@ -160,6 +160,7 @@
           {:else if orderSuccess || orderError}
             <OrderStatus
               orderState={orderError ? 'error' : 'success'}
+              {product}
               {sku}
               {lazyMinting}
               {ethAddress}

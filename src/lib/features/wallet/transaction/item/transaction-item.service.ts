@@ -25,15 +25,16 @@ const getCardLogo = (network: string | undefined): string => {
 
 export const selectLogo = (transaction: Transaction): [string, string] => {
   const type = transaction.type;
-  const { deposit, withdraw, sku } = transaction.transactionData;
+  const { deposit, withdraw, sku, product } = transaction.transactionData;
+  const nftPublicAsset = product?.nftPublicAssets?.[0] || sku?.nftPublicAssets?.[0];
 
   switch (type) {
     case 'royalty_fee':
     case 'sale':
-      return [sku?.nftPublicAssets?.[0]?.url || soldNormal, 'sold'];
+      return [nftPublicAsset?.url || soldNormal, 'sold'];
 
     case 'purchase':
-      return [sku?.nftPublicAssets?.[0]?.url || boughtNormal, 'bought'];
+      return [nftPublicAsset?.url || boughtNormal, 'bought'];
 
     case 'withdrawal':
       return [

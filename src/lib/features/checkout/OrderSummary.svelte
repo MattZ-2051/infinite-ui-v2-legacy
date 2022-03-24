@@ -24,13 +24,14 @@
   const _sku = product ? product.sku : sku;
   const listingPrice = listing?.saleType === 'giveaway' ? 0 : listing?.price;
   const marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
+  $: nftPublicAsset = product?.nftPublicAssets[0] || _sku?.nftPublicAssets[0];
 </script>
 
 <article class="py-6 mx-auto max-w-xl xl:max-w-sm">
   {#if $media.xl}
     <header><h3 class="text-2xl">Order Summary</h3></header>
     <figure class="m-10">
-      <FilePreview borderRadius={'var(--file-preview-border-radius, 0px)'} item={_sku.nftPublicAssets?.[0]} preview />
+      <FilePreview borderRadius={'var(--file-preview-border-radius, 0px)'} item={nftPublicAsset} preview />
     </figure>
     <section>
       <ProductModalInfo sku={_sku} />
@@ -43,11 +44,7 @@
     <AccordionGroup multiple bind:active>
       <Accordion titleClass="align-center w-56 py-6 text-2xl header-title" title="Order Summary" id="summary">
         <figure class="m-10">
-          <FilePreview
-            item={_sku.nftPublicAssets?.[0]}
-            borderRadius={'var(--file-preview-border-radius, 0px)'}
-            preview
-          />
+          <FilePreview item={nftPublicAsset} borderRadius={'var(--file-preview-border-radius, 0px)'} preview />
         </figure>
         <section>
           <ProductModalInfo sku={_sku} />

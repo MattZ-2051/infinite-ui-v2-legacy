@@ -117,7 +117,7 @@
       {/if}
       <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
         <div class="flex justify-center items-center bg-black h-72">
-          <FilePreview item={product.sku.nftPublicAssets?.[0]} preview />
+          <FilePreview item={product.nftPublicAssets?.[0] || product.sku.nftPublicAssets?.[0]} preview />
         </div>
         <ProductModalInfo sku={product.sku} {product} />
         <div class="max-w-sm text-gray-500">

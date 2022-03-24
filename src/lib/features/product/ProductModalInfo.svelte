@@ -15,7 +15,7 @@
     <div class="flex flex-col gap-2">
       <span class="text-sm text-gray-500">Item Name</span>
       <div class="flex items-center gap-2">
-        <div>{sku.name}</div>
+        <div>{product?.name || sku.name}</div>
       </div>
     </div>
     <div class="flex flex-col gap-2 items-end">
