@@ -125,7 +125,7 @@
             class="w-5 h-5 text-black bg-white"
           />
           <label for="privacyPolicyConsentGiven" class="text-gray-900 text-sm"
-            >I accept the <a
+            >Read and agree to <a
               href={routes.privacy}
               target="_blank"
               rel="noreferrer"

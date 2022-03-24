@@ -129,7 +129,12 @@
             bind:checked={acceptedTerms}
             class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
           />
-          I accept the <a href={routes.terms} class="ml-1 underline">Terms & Conditions</a>
+          <div>
+            <p class="text-gray-500 inline">Read and agree to</p>
+            <a href={routes.terms} class="text-black" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+            <p class="text-gray-500 inline">and</p>
+            <a href={routes.privacy} class="text-black" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          </div>
         </label>
       </div>
       <div class="max-w-md text-gray-600 text-sm">

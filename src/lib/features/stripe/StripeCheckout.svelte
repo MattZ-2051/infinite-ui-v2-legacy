@@ -146,8 +146,10 @@
       <Information {conversionRate} />
     </div>
     <SingleCheckbox class="mb-2" on:change={onCheckedTerms} checked={acceptedTerms}>
-      <span class="text-gray-500">I agree to the</span>
-      <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+      <span class="text-gray-500">Read and agree to</span>
+      <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+      <span class="text-gray-500">and</span>
+      <a href={routes.privacy} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
     </SingleCheckbox>
     <div class="grid mt-8 grid-flow-row sm:grid-flow-col">
       <Button
