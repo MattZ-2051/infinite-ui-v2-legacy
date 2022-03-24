@@ -2,9 +2,11 @@
   import routes from '$project/routes';
   import Icon from '$ui/icon/Icon.svelte';
   import { SocialLinks, FooterLayout } from '$lib/layout/footer';
-  import { CLIENT_COMPANY_NAME_LEGAL } from '$project/variables';
+  import { CLIENT_COMPANY_NAME_LEGAL, CLIENT_DOC_TITLE } from '$project/variables';
   import hedera from '$lib/components/icons/hedera';
   import { links } from './social-links';
+
+  const infoLink = `mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information ${CLIENT_DOC_TITLE}`;
 </script>
 
 <FooterLayout>
@@ -15,6 +17,7 @@
     <a href={routes.help}>Help</a>
     <a href={routes.privacy}>Privacy Policy</a>
     <a href={routes.terms}>Terms & Conditions</a>
+    <a href={infoLink} target="_blank" rel="noreferrer">Do Not Sell My Personal Information</a>
     <span class="flex flex-wrap items-center icon-hedera">
       <Icon path={hedera} size="" />
     </span>

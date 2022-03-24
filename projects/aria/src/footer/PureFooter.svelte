@@ -6,10 +6,12 @@
   import ariaLogo from '$project/assets/logo_purpleglow.png?w=560&format=avif;webp;png&metadata=src;format;width;height';
   import SubscribeForm from '$project/subscribe/SubscribeForm.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { CLIENT_COMPANY_NAME_LEGAL } from '$project/variables';
+  import { CLIENT_COMPANY_NAME_LEGAL, CLIENT_DOC_TITLE } from '$project/variables';
   import { links } from './social-links';
 
   export let user: User;
+
+  const infoLink = `mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information ${CLIENT_DOC_TITLE}`;
 </script>
 
 <div class="container">
@@ -46,6 +48,7 @@
     <a href={routes.terms}>Terms & Conditions</a>
     <a href={routes.privacy}>Privacy Policy</a>
     <a href={routes.cookies}>Cookie Policy</a>
+    <a href={infoLink} target="_blank" rel="noreferrer">Do Not Sell My Personal Information</a>
   </svelte:fragment>
 </FooterLayout>
 
