@@ -134,12 +134,12 @@
             bind:checked={acceptedTerms}
             class="border-gray-300 border-2 text-black focus:border-gray-300 focus:ring-black mr-2"
           />
-          <span class="text-gray-500">Read and agree to</span>
-          <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer"
-            >Terms and Conditions</a
-          >
-          <span class="text-gray-500">and</span>
-          <a href={routes.privacy} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          <div>
+            <p class="text-gray-500 inline">Read and agree to</p>
+            <a href={routes.terms} class="text-black" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+            <p class="text-gray-500 inline">and</p>
+            <a href={routes.privacy} class="text-black" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
+          </div>
         </label>
       </div>
       <div class="max-w-md text-gray-600 text-sm">

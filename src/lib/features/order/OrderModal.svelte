@@ -348,7 +348,7 @@
                   >
                   <p class="text-gray-500 inline">and</p>
                   <a href={routes.privacy} class="text-black" target="_blank" rel="noopener noreferrer"
-                    >Privacy Policy</a
+                    >Privacy Policy.</a
                   >
                 </div>
               </label>
