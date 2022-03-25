@@ -4,9 +4,9 @@
 </script>
 
 <div class="container py-8">
-  <div class="flex justify-center pb-20">
-    <a href="#InfiniteWorld">InfiniteWorld Privacy Policy</a>
-    <a class="pl-10" href="#Aria">ARIA Privacy Policy</a>
+  <div class="flex flex-col pb-20">
+    <a href="#InfiniteWorld">InfiniteWorld Privacy Notice</a>
+    <a href="#Aria">ARIA Privacy Notice</a>
   </div>
   <InfiniteWorldPrivacy />
   <AriaPrivacy />
@@ -14,7 +14,7 @@
 
 <style lang="postcss">
   a {
-    @apply font-medium underline text-5xl;
+    @apply font-medium underline text-2xl;
   }
 
   a:hover {

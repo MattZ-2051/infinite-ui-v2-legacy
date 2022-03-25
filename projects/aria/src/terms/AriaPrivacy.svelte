@@ -1,7 +1,22 @@
-<h3 id="Aria" class="text-center pt-40 pb-12">ARIA Privacy Policy</h3>
+<script lang="ts">
+  import { page } from '$app/stores';
+
+  let isAriaUrl = false;
+  let AriaClass = '';
+
+  $: AriaClass = isAriaUrl ? 'pt-40' : '';
+
+  page.subscribe((data) => {
+    const { url } = data;
+    isAriaUrl = url.hash.includes('Aria');
+  });
+</script>
+
+<div id="Aria" class={AriaClass} />
+<h3 class="text-center pb-12">ARIA Privacy Policy</h3>
 <p>Effective date: March 23, 2022</p>
 <p>
-  At Virtual Rights Management, LLC (“we,” “us” or “ARIA”), we respect your privacy and are committed to protecting it. 
+  At Virtual Rights Management, LLC (“we,” “us” or “ARIA”), we respect your privacy and are committed to protecting it.
   References herein to “we”, “us”, “our”, or “ARIA”, “The ARIA Network” and “ARIA Exchange” refer to a suite of
   websites, apps and software platforms operated under the brand name “ARIA” by Virtual Rights Management, LLC. This
   privacy notice has been drafted to explain how ARIA collects, uses, discloses, and protects personal information that
@@ -25,7 +40,7 @@
     </a>
   </li>
   <li>
-    <a href="#cookies-aria">
+    <a href="#cookies">
       <p>4. Cookies and Automatic Data Collection Technologies</p>
     </a>
   </li>
@@ -204,7 +219,7 @@
     >
   </li>
 </ul>
-<h3 id="cookies-aria">4. Cookies and Automatic Data Collection Technologies</h3>
+<h3 id="cookies">4. Cookies and Automatic Data Collection Technologies</h3>
 <p>
   The Platform uses automatic data collection technologies to distinguish you from other Platform users. This helps us
   deliver a better and more personalized service when you use the Platform. It also allows us to improve the Platform by
@@ -299,7 +314,7 @@
     >
   </li>
 </ul>
-<p>To learn more about our use of cookies, please see our <a href="cookies-aria" class="italic">Cookie Policy</a></p>
+<p>To learn more about our use of cookies, please see our <a href="cookies" class="italic">Cookie Policy</a></p>
 <h3 id="how-we-use-aria">5. How We Use Your Information</h3>
 <p>We may use your information to conduct our business operations including for the following purposes:</p>
 <ul class="bullet-list">
@@ -482,7 +497,7 @@
       class="italic">here.</a
     >
     In some cases, you may be able to set your browser or email program to not download web beacons. For more information,
-    please visit see our <a href="cookies-aria" class="italic">Cookie Policy.</a>
+    please visit see our <a href="cookies" class="italic">Cookie Policy.</a>
   </li>
 </ul>
 <h3 id="additional-disclosure-us">10. Additional Disclosures for California, Colorado, or Virginia Residents</h3>
@@ -500,8 +515,8 @@
 </p>
 <p>
   Certain state laws require that we detail the categories of personal information that we disclose for certain
-  “business purposes,” such as to service providers that assist us with securing our services or marketing our
-  products.  We disclose the following categories of personal information for our business purposes:
+  “business purposes,” such as to service providers that assist us with securing our services or marketing our products.
+  We disclose the following categories of personal information for our business purposes:
 </p>
 <table cellSpacing="0" cellPadding="0">
   <tbody>
@@ -936,6 +951,9 @@
 <a href="mailto:support@ariaexchange.com">support@ariaexchange.com</a>
 
 <style lang="postcss">
+  #Aria::before {
+    padding-top: 10rem;
+  }
   h3 {
     @apply text-3xl font-semibold pt-12;
   }

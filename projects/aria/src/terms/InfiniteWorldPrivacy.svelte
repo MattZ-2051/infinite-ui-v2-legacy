@@ -1,4 +1,22 @@
-<h3 id="InfiniteWorld" class="pb-12 text-center">InfiniteWorld Privacy Policy</h3>
+<script lang="ts">
+  import { CLIENT_DOC_TITLE } from '$project/variables';
+  import { page } from '$app/stores';
+
+  const infoLink = `mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information ${CLIENT_DOC_TITLE}`;
+
+  let isInfiniteWorldUrl = false;
+  let infiniteWorldClass = '';
+
+  $: infiniteWorldClass = isInfiniteWorldUrl ? 'pt-40' : '';
+
+  page.subscribe((data) => {
+    const { url } = data;
+    isInfiniteWorldUrl = url.hash.includes('InfiniteWorld');
+  });
+</script>
+
+<div id="InfiniteWorld" class={infiniteWorldClass} />
+<h3 class="pb-12 text-center">InfiniteWorld Privacy Policy</h3>
 <p>Effective date: May 19, 2021</p>
 <p>At Infinite Assets, Inc. dba/ “INFINITE”, we respect your privacy and are committed to protecting it.</p>
 <p>
@@ -785,16 +803,12 @@
 <p>Contacting us at support@goinfinite.io.</p>
 <p>
   To exercise the right to opt-out of sale of your personal information, you can submit a request to us by visiting the
-  following link: <a href="to:support@goinfinite.io?subject=Do Not Sell My Personal Information"
-    >Do Not Sell My Personal Information</a
-  >
+  following link: <a href={infoLink} target="_blank">Do Not Sell My Personal Information</a>
 </p>
 <p>
   Once you make an opt-out request, we will wait at least twelve (12) months before asking you to reauthorize personal
   information sales. However, you may change your mind and opt back into personal information sales at any time by
-  visiting the following link: <a href="mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information"
-    >Opt-in to Sales of My Personal Information</a
-  >
+  visiting the following link: <a href={infoLink} target="_blank">Opt-in to Sales of My Personal Information</a>
 </p>
 <ul>
   <li>How we verify requests and respond to requests</li>
