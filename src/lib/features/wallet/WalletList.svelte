@@ -41,14 +41,20 @@
   const onFilter = (event: CustomEvent) => {
     redirect({ [event.detail.key]: `${event.detail.value}`, page: false });
   };
+
+  const MY_WALLET_SECTION_DISABLED = import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED;
+
+  const items = [
+    { id: 'transactions', title: 'Transaction History' },
+    { id: 'bids', title: 'Active Bids', hidden: MY_WALLET_SECTION_DISABLED === 'true' },
+  ];
+
+  const itemsRender = items.filter((item) => !item?.hidden);
 </script>
 
 <Tabs
   class="items-end "
-  items={[
-    { id: 'transactions', title: 'Transaction History' },
-    { id: 'bids', title: 'Active Bids' },
-  ]}
+  items={itemsRender}
   menuBreakpoint="lg"
   defaultSelectedId={tab}
   itemClass="text-xl lg:text-2xl items-center"

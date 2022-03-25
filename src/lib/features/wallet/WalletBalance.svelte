@@ -7,6 +7,8 @@
   export let balance: number = undefined;
   export let withdrawableBalance: number = undefined;
   export let availableBalance: number = undefined;
+
+  const MY_WALLET_SECTION_DISABLED = import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED === 'true';
 </script>
 
 <div class="font-medium">
@@ -15,7 +17,7 @@
     {#if balance === undefined}
       <div class="animate-pulse bg-gray-300 rounded h-10 w-52" />
     {:else}
-      {formatCurrency(balance)}
+      {MY_WALLET_SECTION_DISABLED ? '0,00' : formatCurrency(balance)}
     {/if}
   </div>
 </div>
@@ -28,7 +30,7 @@
         {#if Number.isNaN(availableBalance) || availableBalance === undefined}
           <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
         {:else}
-          {formatCurrency(availableBalance)}
+          {MY_WALLET_SECTION_DISABLED ? '0,00' : formatCurrency(availableBalance)}
         {/if}
         <div
           tabindex="0"
@@ -48,7 +50,7 @@
         {#if Number.isNaN(withdrawableBalance) || withdrawableBalance === undefined}
           <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
         {:else}
-          {formatCurrency(withdrawableBalance)}
+          {MY_WALLET_SECTION_DISABLED ? '0,00' : formatCurrency(withdrawableBalance)}
         {/if}
         <div
           tabindex="0"

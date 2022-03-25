@@ -18,12 +18,14 @@
       },
     });
   }
+  const MY_WALLET_SECTION_DISABLED = import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED;
 </script>
 
 <div class="flex flex-col">
   <div class="flex justify-center w-full mb-4">
     <Button
       variant="brand"
+      disabled={MY_WALLET_SECTION_DISABLED === 'true'}
       class="text-xl font-medium w-full"
       on:click={() => showInfoModal('deposit')}
       --button-padding="22px 40px"
@@ -33,6 +35,7 @@
   <div class="flex justify-center">
     <Button
       variant="brand"
+      disabled={MY_WALLET_SECTION_DISABLED === 'true'}
       class="text-xl font-medium w-full"
       on:click={() => showInfoModal('withdraw')}
       --button-padding="22px 40px"
