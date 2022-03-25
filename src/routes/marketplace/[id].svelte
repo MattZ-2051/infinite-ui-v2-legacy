@@ -36,6 +36,6 @@
   $: setSku(data);
 </script>
 
-<Seo title={data.sku.name} image={chooseSkuSocialImage(data.sku)} />
+<Seo title={data.sku.name} image={chooseSkuSocialImage(data.sku)} ogDescription={data.sku?.descriptionShort} />
 
 <SkuContainer />

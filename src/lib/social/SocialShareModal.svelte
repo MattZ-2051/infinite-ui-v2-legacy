@@ -1,11 +1,10 @@
 <script lang="ts">
   import copy from 'clipboard-copy';
-  import { mdiLinkVariant, mdiTwitter, mdiFacebook, mdiLinkedin, mdiPinterest, mdiReddit } from '@mdi/js';
+  import { mdiLinkVariant, mdiTwitter, mdiFacebook, mdiPinterest, mdiReddit } from '@mdi/js';
   import { shareTwitter } from 'web-social-share/dist/collection/utils/twitter';
   import { shareFacebook } from 'web-social-share/dist/collection/utils/facebook';
   import { reddit } from 'web-social-share/dist/collection/utils/reddit';
   import { pinterest } from 'web-social-share/dist/collection/utils/pinterest';
-  import { linkedin } from 'web-social-share/dist/collection/utils/linkedin';
   import Icon from '$ui/icon/Icon.svelte';
   import { Modal, closeModal } from '$ui/modals';
 
@@ -20,7 +19,6 @@
   $: socialMedia = [
     { id: 'facebook', label: 'Facebook', path: mdiFacebook },
     { id: 'twitter', label: 'Twitter', path: mdiTwitter },
-    { id: 'linkedin', label: 'Linkedin', path: mdiLinkedin },
     { id: 'copy', label: copiedLink ? 'Copied!' : 'Copy Link', path: mdiLinkVariant },
     { id: 'reddit', label: 'Reddit', path: mdiReddit },
     { id: 'pinterest', label: 'Pinterest', path: mdiPinterest },
@@ -44,9 +42,6 @@
           socialSharePopupWidth: 700,
           socialSharePopupHeight: 800,
         });
-        return;
-      case 'linkedin':
-        linkedin({ socialShareText: text, socialShareUrl: url });
         return;
       case 'facebook':
         shareFacebook({ socialShareUrl: url, socialSharePopupWidth: 700, socialSharePopupHeight: 700 });

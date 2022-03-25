@@ -25,6 +25,10 @@
 </script>
 
 {#if $product}
-  <Seo title={`${$product.sku.name} / #${$product.serialNumber}`} image={chooseSkuSocialImage($product.sku)} />
+  <Seo
+    title={`${$product.sku.name} / #${$product.serialNumber}`}
+    image={chooseSkuSocialImage($product.sku)}
+    ogDescription={$product.sku?.descriptionShort}
+  />
   <ProductPage tab={data.tab} />
 {/if}
