@@ -9,6 +9,9 @@
 
   let _class = '';
   export { _class as class };
+
+  const ISSUER_PAGE_ENABLED = import.meta.env?.VITE_ISSUER_PAGE_ENABLED !== 'false';
+  const link = ISSUER_PAGE_ENABLED ? routes.collection(profile.username) : routes.index;
 </script>
 
 {#if profile}
@@ -22,9 +25,7 @@
         use:imageError={() => (hideImage = true)}
       />
     {/if}
-    <a href={routes.collection(profile.username)} sveltekit:prefetch class="truncate min-w-0"
-      ><slot>{profile.username}</slot></a
-    >
+    <a href={link} sveltekit:prefetch class="truncate min-w-0"><slot>{profile.username}</slot></a>
     {#if profile.verified}
       <IconVerified />
     {/if}
