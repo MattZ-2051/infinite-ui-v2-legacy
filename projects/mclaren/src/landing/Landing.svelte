@@ -2,9 +2,9 @@
   import { page } from '$app/stores';
   // PHASE 1
   import Hero1 from './phase1/Hero.svelte';
-  import McLarenCollectives1 from './phase1/McLarenCollectives.svelte';
   import FAQ1 from './phase1/faq/FAQ.svelte';
-  import McLarenPhilosophy1 from './phase1/McLarenPhilosophy.svelte';
+  import McLarenFuturePerformance1 from './phase1/McLarenFuturePerformance.svelte';
+  import McLarenSupercarCompany1 from './phase1/McLarenSupercarCompany.svelte';
 
   // PHASE 3
   import Hero from './phase3/Hero.svelte';
@@ -23,8 +23,8 @@
 {#if phase === '1'}
   <div class="z-0">
     <Hero1 />
-    <McLarenCollectives1 />
-    <McLarenPhilosophy1 />
+    <McLarenFuturePerformance1 />
+    <McLarenSupercarCompany1 />
     <FAQ1 />
   </div>
 {:else if phase === '3'}
