@@ -109,7 +109,7 @@
             class="w-5 h-5 text-black bg-white"
           />
           <label for="termsAndConditionsConsentGiven" class="text-gray-900 text-sm"
-            >I agree to the <a
+            >Read and agree to <a
               href={routes.terms}
               target="_blank"
               rel="noreferrer"

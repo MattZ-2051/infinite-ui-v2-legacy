@@ -135,8 +135,14 @@
     <div class="flex items-center justify-start mt-2.5 mb-3">
       <label class="inline-flex items-center text-sm">
         <input type="checkbox" bind:checked={acceptedTerms} class="border-gray-400 border-2 text-black mr-2" />
-        <span class="text-gray-500">I agree to the</span>
-        <a href={routes.terms} class="ml-1" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+        <div>
+          <p class="text-gray-500 inline">Read and agree to</p>
+          <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer"
+            >Terms and Conditions</a
+          >
+          <p class="text-gray-500 inline">and</p>
+          <a href={routes.privacy} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+        </div>
       </label>
     </div>
     <Button variant="brand" class="w-full mt-6" type="submit" disabled={isLoading || !acceptedTerms}

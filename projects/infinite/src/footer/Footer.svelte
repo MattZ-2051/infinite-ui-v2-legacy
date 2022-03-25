@@ -6,7 +6,7 @@
   import hedera from '$lib/components/icons/hedera';
   import { links } from './social-links';
 
-  const infoLink = `mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information ${CLIENT_DOC_TITLE}`;
+  const infoLink = `mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information (${CLIENT_DOC_TITLE})`;
 </script>
 
 <FooterLayout>
