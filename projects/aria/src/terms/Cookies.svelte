@@ -22,7 +22,7 @@
       cookies to understand how you are using certain site features.
     </p>
     <h4>Who Serves (for example)</h4>
-    <ul class=" list-inside list-disc p-8">
+    <ul class="list-inside list-disc p-8">
       <li>
         <a href="https://policies.google.com/technologies/cookies?hl=en-US" target="_blank" rel="noreferrer noopener"
           >Google</a
@@ -66,7 +66,7 @@
   }
   @screen md {
     .cookie-table {
-      grid-template-rows: 100% 1fr;
+      grid-template-rows: auto 1fr;
     }
   }
   .cookie-table h4,
