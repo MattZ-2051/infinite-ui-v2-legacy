@@ -1,0 +1,20 @@
+<script context="module" lang="ts">
+  declare const MktoForms2: {
+    loadForm: (arguments: string, caller: string, length: number, name?: string) => void;
+  };
+</script>
+
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import injectScript from '$util/injectScript';
+
+  onMount(async () => {
+    await injectScript({
+      url: 'https://pages.cars.mclaren.com/js/forms2/js/forms2.min.js',
+      id: 'marketo-form',
+    });
+    MktoForms2.loadForm('https://pages.cars.mclaren.com', '796-KWN-786', 1092);
+  });
+</script>
+
+<form id="mktoForm_1092" />

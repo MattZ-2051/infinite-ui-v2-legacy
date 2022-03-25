@@ -1,6 +1,6 @@
 <script lang="ts">
+  import MarketoEmbeddedForm from '$project/common/MarketoEmbeddedForm.svelte';
   import ourCommunityBg from './images/our-community-bg-img.svg';
-  import Subscribe from './common/Subscribe.svelte';
 </script>
 
 <div class="relative community-container w-full flex justify-center">
@@ -16,7 +16,7 @@
         adipiscing elit maecenas.
       </p>
       <div class="pt-14">
-        <Subscribe />
+        <MarketoEmbeddedForm />
       </div>
     </div>
   </div>
