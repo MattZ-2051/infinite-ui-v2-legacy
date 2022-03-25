@@ -1,7 +1,6 @@
-import type { Sku } from '$lib/sku-item/types';
-import { getPage } from '$lib/api';
+import { skuTiles } from '$lib/infinite-api-sdk';
 
 export async function loadData({ fetch }: { fetch: Fetch }) {
-  const { data: skus } = await getPage<Sku>(`skus/tiles/?page=1&per_page=8&sortBy=startDate:1`, { fetch });
+  const { docs: skus } = await skuTiles(fetch)(1, 8, 'startDate:1');
   return { skus };
 }

@@ -17,6 +17,7 @@
   import { handleStateChange, showLoginToast } from '../checkout/checkout.service';
   import Information from '../checkout/Information.svelte';
 
+  const voucherCode = $page.url.searchParams.get('voucherCode');
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
   export let listing: Listing;
@@ -56,6 +57,7 @@
         listingId: listing._id,
         mintToAddress,
         lazyMinting,
+        whitelistCode: voucherCode,
       });
 
       currency = cost.currency;

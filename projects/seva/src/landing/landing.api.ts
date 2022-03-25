@@ -1,11 +1,10 @@
-import type { Sku } from '$lib/sku-item/types';
-import { getPage } from '$lib/api';
+import { skuTiles } from '$lib/infinite-api-sdk';
 import { loadSingleSku } from '../about/about.api';
 
 export async function loadData({ fetch }: { fetch: Fetch }) {
-  const [{ data: skus }, { singleSkuData }] = await Promise.all([
-    await getPage<Sku>(`skus/tiles/?page=1&per_page=8&sortBy=startDate:1&featured=true`, { fetch }),
-    await loadSingleSku({ fetch }),
+  const [{ docs: skus }, { singleSkuData }] = await Promise.all([
+    skuTiles(fetch)(1, 8, 'startDate:1'),
+    loadSingleSku({ fetch }),
   ]);
 
   return { skus, singleSkuData };

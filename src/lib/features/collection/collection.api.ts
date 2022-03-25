@@ -1,9 +1,9 @@
 import type { Profile, Product, Sku } from '$lib/sku-item/types';
 import { get, getPage } from '$lib/api';
+import { skuTiles } from '$lib/infinite-api-sdk';
 
 export async function loadProfile({ username, fetch }: { username: string; fetch?: Fetch }): Promise<Profile> {
-  const profile = await get<Profile>(`users/issuers/${username}`, { fetch, skipTenant: true });
-  return profile;
+  return get<Profile>(`users/issuers/${username}`, { fetch, skipTenant: true });
 }
 
 export async function loadSkus({
@@ -21,17 +21,17 @@ export async function loadSkus({
   forSale?: string;
   fetch?: Fetch;
 }) {
-  const { data: skus, total: totalSkus } = await getPage<Sku>(`skus/tiles`, {
-    params: {
-      page: page.toString(10),
-      per_page: perPage.toString(10),
-      issuerId: profileId,
-      ...(sortBy && { sortBy }),
-      ...(forSale && { forSale }),
-    },
-    fetch,
-  });
-
+  const { docs: skus, count: totalSkus } = await skuTiles(fetch)(
+    page,
+    perPage,
+    sortBy,
+    forSale && forSale === 'true',
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    profileId
+  );
   return { skus, totalSkus };
 }
 

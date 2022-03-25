@@ -349,8 +349,7 @@ export async function sendEthPurchasePaymentForLazyMinting(
   return sendTransaction(destinationAddress, totalCost, [
     '0x01',
     `0x${fromUserId}`,
-    '0x01',
-    voucherCode,
+    '0x00',
     ethers.utils.formatBytes32String(voucherCode),
   ]);
 }
@@ -361,12 +360,11 @@ export async function sendEthPurchasePaymentForImmediateMinting(
   fromUserId?: string,
   voucherCode?: string
 ) {
-  return sendTransaction(destinationAddress, totalCost, [
-    '0x01',
-    `0x${fromUserId || ''}`,
-    '0x01',
-    ethers.utils.formatBytes32String(voucherCode),
-  ]);
+  const dd = ['0x01', `0x${fromUserId || ''}`, '0x01'];
+  if (voucherCode) {
+    dd.push(ethers.utils.formatBytes32String(voucherCode));
+  }
+  return sendTransaction(destinationAddress, totalCost, dd);
 }
 
 export async function sendTransaction(destinationAddress: string, totalCost: number, data?: string[]) {

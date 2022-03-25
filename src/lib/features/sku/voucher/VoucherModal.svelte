@@ -85,7 +85,7 @@
 </script>
 
 <div>
-  <Modal class="max-w-lg" role="voucher-modal" closeButton={voucherCodeStatus === 'success' ? false : true}>
+  <Modal class="max-w-lg" role="voucher-modal" closeButton={voucherCodeStatus !== 'success'}>
     {#if voucherCodeStatus === 'success'}
       <header class="flex items-center gap-2 pt-8 pb-4 px-10">
         <Icon viewBox="0 0 56 56" size="46px" path={successIcon} slot="header" />

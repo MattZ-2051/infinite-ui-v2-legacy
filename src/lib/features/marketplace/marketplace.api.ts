@@ -1,6 +1,7 @@
 import type { Sku, Profile, Series } from '$lib/sku-item/types';
 import type { ModeFilterStatus } from './types';
-import { getPage, fetchTracker } from '$lib/api';
+import { skuTiles } from '$lib/infinite-api-sdk';
+import { fetchTracker } from '$lib/api';
 import { modeFilters } from './marketplace.service';
 
 export const loading = fetchTracker();
@@ -20,20 +21,18 @@ export async function loadMarketplaceFilters({
   query: URLSearchParams;
 }): Promise<{ maxPrice: number; creators: Profile[]; series: Series[]; categories: Sku[] }> {
   const mode = getModeParameters(query.get('mode') as ModeFilterStatus);
-  const { headers } = await getPage<Sku>(`skus/tiles/`, {
-    fetch,
-    params: {
-      page: '1',
-      per_page: '1',
-      ...mode,
-    },
-  });
-
+  const { categories, creators, maxPrice, series } = await skuTiles(fetch)(
+    1,
+    1,
+    undefined,
+    mode.forSale && mode.forSale === 'true',
+    mode.status
+  );
   return {
-    creators: JSON.parse(headers.get('skus-creators')),
-    series: JSON.parse(headers.get('skus-editions')),
-    categories: JSON.parse(headers.get('skus-categories')),
-    maxPrice: +headers.get('max-skus-min-price'),
+    maxPrice: maxPrice as unknown as number,
+    categories: categories as unknown as Sku[],
+    creators: creators as unknown as Profile[],
+    series: series as unknown as Series[],
   };
 }
 
@@ -48,42 +47,40 @@ export async function loadMarketplaceItems({
 }): Promise<{ total: number; data: Sku[] }> {
   const page: number = +query.get('page') || 1;
   const mode = getModeParameters(query.get('mode') as ModeFilterStatus);
-  const category: string = query.get('category');
-  const typeEdition: string = query.get('typeEdition');
-  const series: string = query.get('series');
-  const issuerId: string = query.get('issuerId');
-  const minPrice: string = query.get('minPrice');
-  const maxPrice: string = query.get('maxPrice');
-  const startDate: string = query.get('startDate');
-  const endDate: string = query.get('endDate');
-  const search: string = query.get('search');
+  const category: string = query.get('category') || undefined;
+  const typeEdition: string = query.get('typeEdition') || undefined;
+  const series: string = query.get('series') || undefined;
+  const issuerId: string = query.get('issuerId') || undefined;
+  const minPrice: string = query.get('minPrice') || undefined;
+  const maxPrice: string = query.get('maxPrice') || undefined;
+  const startDate: string = query.get('startDate') || undefined;
+  const endDate: string = query.get('endDate') || undefined;
+  const search: string = query.get('search') || undefined;
+  const saleType: string = query.get('saleType') || undefined;
+  const currency: string = query.get('currency') || undefined;
   const sortBy: string = query.get('sortBy') || 'startDate:1';
-  const saleType: string = query.get('saleType');
-  const currency: string = query.get('currency');
-  const { data, total } = await getPage<Sku>(`skus/tiles/`, {
-    fetch,
-    tracker: loading,
-    params: {
-      page: `${page}`,
-      per_page: `${perPage}`,
-      sortBy,
-      ...mode,
-      ...(category && { category }),
-      ...(typeEdition && { typeEdition }),
-      ...(series && { series }),
-      ...(issuerId && { issuerId }),
-      ...(minPrice && { minPrice }),
-      ...(maxPrice && { maxPrice }),
-      ...(startDate && { startDate }),
-      ...(endDate && { endDate }),
-      ...(search && { search }),
-      ...(saleType && { saleType }),
-      ...(currency && { currency }),
-    },
-  });
+
+  const { docs, count } = await skuTiles(fetch, { tracker: loading })(
+    page,
+    perPage,
+    sortBy,
+    mode.forSale && mode.forSale === 'true',
+    mode.status || undefined,
+    category,
+    typeEdition,
+    series,
+    issuerId,
+    minPrice && Number.parseInt(minPrice, 10),
+    maxPrice && Number.parseInt(maxPrice, 10),
+    startDate,
+    endDate,
+    search,
+    saleType,
+    currency
+  );
 
   return {
-    data,
-    total,
+    data: docs,
+    total: count,
   };
 }
