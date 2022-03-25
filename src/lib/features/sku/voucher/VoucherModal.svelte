@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { VoucherModalStatus } from './types';
-  import { Modal } from '$ui/modals';
+  import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import Input from '$lib/components/form/input/Input.svelte';
@@ -80,6 +80,11 @@
           errorMessage = 'Something went wrong. Please try again or contact support.';
         }
       }
+    } else if (voucherCodeStatus === 'already-used') {
+      closeModal();
+    } else if (voucherCodeStatus === 'not-valid' && voucherCode.length >= 12) {
+      voucherCodeStatus = 'valid-length';
+      handleCodeSubmition();
     }
   };
 </script>
