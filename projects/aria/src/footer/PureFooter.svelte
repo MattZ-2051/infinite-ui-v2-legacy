@@ -11,7 +11,7 @@
 
   export let user: User;
 
-  const infoLink = `mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information (ARIA Exchange)`;
+  const infoLink = `mailto:support@ariaexchange.com?subject=Do Not Sell My Personal Information (ARIA Exchange)`;
 </script>
 
 <div class="container">
