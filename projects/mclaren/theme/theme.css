@@ -234,6 +234,8 @@
   --tab-border-image-active: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
   --product-status-bg-color: transparent;
   --product-history-border-hover-bg: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
+  --product-mint-button-bg: linear-gradient(161.99deg, #ffffff -1.04%, #eeeeee 111.86%);
+  --product-mint-button-bg-hover: linear-gradient(225deg, #181c20 0%, #363f45 100%);
 
   /*UserLink*/
   --userlink-color: transparent;

@@ -20,19 +20,15 @@ const setup = (status: StatusMintButton = MINT_STATUS) => {
 
 describe('Mint button', () => {
   it('should be render correctly', () => {
-    const { getByText, getByAltText } = setup();
+    const { getByText } = setup();
     const toMintText = getByText(messages.toMint);
-    const toMintAltImg = getByAltText(MINT_STATUS);
     expect(toMintText).toBeInTheDocument();
-    expect(toMintAltImg).toBeInTheDocument();
   });
 
   it('should be render with processed status', () => {
-    const { getByText, getByAltText } = setup(PROCESSED_STATUS);
+    const { getByText } = setup(PROCESSED_STATUS);
     const toMintText = getByText(messages.processed);
-    const toMintAltImg = getByAltText(PROCESSED_STATUS);
     expect(toMintText).toBeInTheDocument();
-    expect(toMintAltImg).toBeInTheDocument();
   });
 
   it('should be emit click event corrently', async () => {
