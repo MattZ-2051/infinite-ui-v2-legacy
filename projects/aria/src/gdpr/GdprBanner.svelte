@@ -16,10 +16,9 @@
       <div class="flex-grow">
         <div class="font-extrabold mb-2">We value your privacy</div>
         <p>
-          We use cookies to enhance your browsing experience and to analyze our traffic. By clicking "Accept All", you
-          consent to our use of cookies as outlined in our
-          <a class="underline hover:no-underline font-medium" href={routes.privacy}>Privacy Policy.</a>
-          <a class="underline hover:no-underline font-medium" href={routes.cookies}>Read More</a>
+          We use cookies to operate our services. We also share information about your use of our site with our
+          advertising and analytics partners in the United States. By clicking “Accept” you agree to our use of cookies.
+          <a class="underline hover:no-underline font-medium" href={routes.cookies}>Cookie Policy.</a>
         </p>
       </div>
       <div class="whitespace-nowrap">
@@ -29,7 +28,7 @@
           title="Close"
           class="bg-white hover:bg-white-opacity-20 text-black rounded-full border-2 border-black px-4 py-2 inline-flex items-center justify-center z-10"
         >
-          Reject All
+          Reject
         </button>
         <button
           type="button"
@@ -37,7 +36,7 @@
           title="Close"
           class="bg-black hover:bg-opacity-80 text-white rounded-full px-4 py-2 inline-flex items-center justify-center z-10"
         >
-          Accept All
+          Accept
         </button>
       </div>
     </section>
