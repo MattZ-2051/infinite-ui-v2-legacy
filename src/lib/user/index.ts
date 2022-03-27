@@ -19,7 +19,8 @@ const externalId = localStorageWritable<string>('user:externalId', undefined);
 export const isLoading = writable<boolean>(AUTH_PROVIDER_IS_AUTH0);
 export const authToken = writable<string>(<string>undefined);
 
-export const isAuthenticated = writable<boolean>(false);
+// `undefined` means not yet decided
+export const isAuthenticated = writable<boolean | undefined>(undefined);
 export const user = writable<User>(undefined);
 declare global {
   interface Window {
@@ -93,6 +94,10 @@ export function mustSetupAccount(me: User, path: string) {
 
     accountSetupTriggered = true;
   }
+}
+
+export function isIssuer(u: User): boolean {
+  return u.roles.includes('issuer');
 }
 
 let sessionUnsubscriber;

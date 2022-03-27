@@ -2,15 +2,16 @@
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
   import { createEventDispatcher } from 'svelte';
-  import { onSignOut, onSignIn, onSignUp, isLoading } from '$lib/user';
+  import { onSignOut, onSignIn, onSignUp, isLoading, isIssuer } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
   import { Menu, MenuList, MenuTrigger, MenuItem } from '$ui/menu';
   import { openModal } from '$ui/modals';
   import routes from '$project/routes';
   import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
   import WalletConnectionModal from '$lib/features/connect-wallet-extensions/WalletConnectionModal.svelte';
-  import IssuerCreateButton from '$lib/layout/header/IssuerCreateButton.svelte';
+  import { tenantSettings } from '$lib/tenant/settings.store';
 
   import Button from '$lib/components/Button.svelte';
   import account from './assets/account';
@@ -35,7 +36,10 @@
   };
 
   const dispatch = createEventDispatcher();
-  $: showIssuerCreateButton = isRoute(routes.marketplace) && import.meta.env?.VITE_TENANT_PERMISSION_ISSUER === 'true';
+  $: showIssuerCreateButton =
+    isRoute(routes.marketplace) &&
+    !isRoute(routes.createSku) &&
+    ($tenantSettings?.skuCreationEnabled || isIssuer(user));
 </script>
 
 <!-- Header block -->
@@ -62,7 +66,7 @@
       >
     {/if}
     {#if showIssuerCreateButton}
-      <IssuerCreateButton loggedIn={!!user} />
+      <button class="header-link" on:click|preventDefault={async () => await goto(routes.createSku)}>Create</button>
     {/if}
     {#if user}
       {#if type === 'user-collection'}

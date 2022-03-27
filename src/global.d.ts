@@ -34,7 +34,6 @@ interface CommonImportMetaEnvironment {
   VITE_MM_WALLET_ENABLED: string;
   VITE_HIDE_PHONE_CONSENT: string;
   VITE_ENABLE_CHECKOUT: string;
-  VITE_TENANT_PERMISSION_ISSUER: string;
 }
 
 declare module '*format=avif;webp;png&metadata=src;format;width;height';

@@ -2,6 +2,7 @@
   import type { LoadInput, LoadOutput } from '@sveltejs/kit/types/internal';
   import { derived } from 'svelte/store';
   import { browser, mode } from '$app/env';
+  import { loadTenantSettings } from '$lib/tenant/settings.service';
   import { isLoading, initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { variables } from '$lib/variables';
   import projectRedirects from '$project/redirects';
@@ -20,6 +21,8 @@
     const redirectMatch = projectRedirects({ externalUrlBase: EXTERNAL_INDEX_URL }).find(
       (redirect) => redirect.route === input.url.pathname
     );
+
+    await loadTenantSettings();
 
     if (redirectMatch) {
       return {
