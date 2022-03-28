@@ -19,7 +19,7 @@
 
 {#if status !== UN_SOLD_STATUS}
   <button
-    class="flex items-center justify-center rounded-r-md custom-button-mint-element text-base"
+    class="flex items-center justify-center rounded-r-md custom-button-mint-element text-sm uppercase"
     on:click={() => handleClick()}
   >
     <Icon path={status === MINT_STATUS ? ToMint : Processed} alt={status} class="mr-4" />
