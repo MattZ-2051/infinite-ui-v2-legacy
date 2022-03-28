@@ -175,6 +175,7 @@
         acceptedFileTypes={ACCEPTED_FILE_TYPES}
         maxFileSize="10MB"
         credits={false}
+        allowDrop={false}
       />
       {#if $errors.nftPublicAsset}
         <div class="text-red-500 text-xs pt-1">{$errors.nftPublicAsset}</div>
@@ -220,6 +221,7 @@
             acceptedFileTypes={ACCEPTED_FILE_TYPES}
             maxFileSize="10MB"
             credits={false}
+            allowDrop={false}
           />
           {#if $errors.nftPrivateAsset}
             <div class="text-red-500 text-xs pt-1">{$errors.nftPrivateAsset}</div>
