@@ -13,7 +13,124 @@
     of third-party cookie providers are intended merely as illustrative and should not be viewed as a comprehensive
     list.
   </p>
-  <table class="cookie-table">
+  <table class="block sm:hidden cookie-table">
+    <tr>
+      <th>Types of Cookie</th>
+    </tr>
+    <tr>
+      <td>Strictly Necessary</td>
+    </tr>
+    <tr>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td
+        >These cookies are essential to enable your use of the site or services, and are used to help make our website
+        work efficiently, provide security features on our website, and provide services you have asked for, like
+        shopping carts or billing.</td
+      >
+    </tr>
+    <tr><th>Who Serves (for example)</th></tr>
+    <tr
+      ><td>
+        <ul class="list-inside list-disc p-8">
+          <li>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener">Google</a>
+          </li>
+          <li>
+            <a href="https://www.dropbox.com/privacy" target="_blank" rel="noreferrer noopener">Dropbox</a>
+          </li>
+          <li>
+            <a href="https://stripe.com/privacy" target="_blank" rel="noreferrer noopener">Stripe</a>
+          </li>
+        </ul></td
+      ></tr
+    >
+    <tr>
+      <th>Types of Cookie</th>
+    </tr>
+    <tr>
+      <td>Performance/Analytics</td>
+    </tr>
+    <tr>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td
+        >These cookies are used to analyze the way our website works and how we can improve it. For example, we may use
+        cookies to understand how you are using certain site features.</td
+      >
+    </tr>
+    <tr><th>Who Serves (for example)</th></tr>
+    <tr
+      ><td>
+        <ul class="list-inside list-disc p-8">
+          <li>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener">Google</a>
+          </li>
+        </ul></td
+      ></tr
+    >
+    <tr>
+      <th>Types of Cookie</th>
+    </tr>
+    <tr>
+      <td>Functionality</td>
+    </tr>
+    <tr>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td
+        >These cookies help to enhance your experience by remembering choices you have made concerning the features of
+        the website (e.g., username, language, currency, region you are in).</td
+      >
+    </tr>
+    <tr><th>Who Serves (for example)</th></tr>
+    <tr
+      ><td>
+        <ul class="list-inside list-disc p-8">
+          <li>
+            <a href="https://www.dropbox.com/privacy" target="_blank" rel="noreferrer noopener">Dropbox</a>
+          </li>
+        </ul></td
+      ></tr
+    >
+    <tr>
+      <th>Types of Cookie</th>
+    </tr>
+    <tr>
+      <td>Advertising/Targeting</td>
+    </tr>
+    <tr>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td
+        >These cookies and pixels are used to deliver advertisements more relevant to you and your interests. They
+        remember that you have visited a website and this information is shared with other organizations such as
+        advertisers.</td
+      >
+    </tr>
+    <tr><th>Who Serves (for example)</th></tr>
+    <tr
+      ><td>
+        <ul class="list-inside list-disc p-8">
+          <li>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener">Google</a>
+          </li>
+          <li>
+            <a href="https://www.salesforce.com/company/privacy" target="_blank" rel="noreferrer noopener">Salesforce</a
+            >
+          </li>
+          <li>
+            <a href="https://www.dropbox.com/privacy" target="_blank" rel="noreferrer noopener">Dropbox</a>
+          </li>
+        </ul></td
+      ></tr
+    >
+  </table>
+  <table class="cookie-table hidden sm:block">
     <tr>
       <th>Types of Cookie</th>
       <th>Purpose</th>
