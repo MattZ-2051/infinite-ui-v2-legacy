@@ -41,16 +41,20 @@
       .string()
       .required('Full name is required.')
       .max(NAME_MAX_CHARS, `Full name must be shorter than ${NAME_MAX_CHARS} characters.`),
+    description: yup
+      .string()
+      .required('Description is required.')
+      .max(DESCRIPTION_MAX_CHARS, `Description must be shorter than ${DESCRIPTION_MAX_CHARS} characters.`),
     royaltyFeePercentage: yup
       .number()
       .min(0, 'Royalties must be greater than or equal to 0.')
       .max(100, 'Royalties must be less than or equal to 100.'),
-    nftPublicAsset: yup
+    nftPublicAssets: yup
       .mixed()
       .required('Public asset is required.')
       .test('is-big-file', ' ', checkIfFileIsTooBig)
       .test('is-correct-file', ' ', checkIfFileIsCorrectType),
-    nftPrivateAsset: yup.mixed().when('hasUnlockableContent', {
+    nftPrivateAssets: yup.mixed().when('hasUnlockableContent', {
       is: true,
       // eslint-disable-next-line unicorn/no-thenable
       then: yup
@@ -67,11 +71,13 @@
     supplyType: SupplyType;
     currency: CurrencyType;
     issuer: string;
+    issuerName: string;
     maxSupply: number;
+    featured: boolean;
     royaltyFeePercentage: number;
     hasUnlockableContent: boolean;
-    nftPublicAsset: File;
-    nftPrivateAsset?: File;
+    nftPublicAssets: File;
+    nftPrivateAssets?: File;
   }>({
     initialValues: {
       name: '',
@@ -79,17 +85,33 @@
       supplyType: 'fixed',
       currency: 'USD',
       issuer: $user._id,
+      issuerName: $user.username,
       maxSupply: 1,
+      featured: false,
       hasUnlockableContent: false,
       royaltyFeePercentage: 0,
       // eslint-disable-next-line unicorn/no-null
-      nftPublicAsset: null,
+      nftPublicAssets: null,
       // eslint-disable-next-line unicorn/no-null
-      nftPrivateAsset: null,
+      nftPrivateAssets: null,
     },
-    onSubmit: async ({ nftPublicAsset, ...rest }) => {
+    onSubmit: async ({ nftPublicAssets, nftPrivateAssets, hasUnlockableContent, ...rest }) => {
       try {
-        const { _id } = await createSku({ nftPublicAssets: [{ url: 'test' }], ...rest });
+        const { _id } = await createSku({
+          nftPublicAssets: [
+            {
+              url: 'https://infinite-digital-dev.s3.amazonaws.com/Untitled.mov',
+            },
+          ],
+          ...(hasUnlockableContent && {
+            nftPrivateAssets: [
+              {
+                url: 'https://infinite-digital-dev.s3.amazonaws.com/Untitled.mov',
+              },
+            ],
+          }),
+          ...rest,
+        });
         openModal(ConfirmModal, {
           title: 'NFT Succesfully Created!',
           message:
@@ -97,12 +119,16 @@
           labels: { confirm: 'Continue' },
           closeButton: false,
           persistent: true,
-          onConfirm: () => {
-            goto(routes.sku(_id));
+          onConfirm: async () => {
+            await goto(routes.sku(_id));
           },
         });
       } catch (error) {
-        toast.danger(error);
+        if (error?.data?.args && Object.keys(error.data.args).length === 0) {
+          toast.danger(error.data.message);
+        } else {
+          setErrors(error.data.args);
+        }
       }
     },
     validate: validateSchema(schema),
@@ -112,13 +138,13 @@
     history.back();
   }
 
-  function handleAddFile(property: 'nftPublicAsset' | 'nftPrivateAsset', error, fileItem) {
+  function handleAddFile(property: 'nftPublicAssets' | 'nftPrivateAssets', error, fileItem) {
     setTouched(property, true);
     setErrors(property, error);
     setData(property, fileItem.file);
   }
 
-  function handleRemoveFile(property: 'nftPublicAsset' | 'nftPrivateAsset') {
+  function handleRemoveFile(property: 'nftPublicAssets' | 'nftPrivateAssets') {
     setErrors(property, undefined);
   }
 
@@ -135,7 +161,7 @@
 
   // Don't show `required` error message when `hasUnlockableContent` becomes true after the form is submitted at least once.
   $: if ($data.hasUnlockableContent) {
-    setTouched('nftPrivateAsset', false);
+    setTouched('nftPrivateAssets', false);
   }
 </script>
 
@@ -172,22 +198,22 @@
     </div>
     <div class="flex flex-col">
       <FilePond
-        onaddfile={(error, fileItem) => handleAddFile('nftPublicAsset', error, fileItem)}
-        onremovefile={() => handleRemoveFile('nftPublicAsset')}
+        onaddfile={(error, fileItem) => handleAddFile('nftPublicAssets', error, fileItem)}
+        onremovefile={() => handleRemoveFile('nftPublicAssets')}
         acceptedFileTypes={ACCEPTED_FILE_TYPES}
         maxFileSize="10MB"
         credits={false}
         allowDrop={false}
       />
-      {#if $errors.nftPublicAsset}
-        <div class="text-red-500 text-xs pt-1">{$errors.nftPublicAsset}</div>
+      {#if $errors.nftPublicAssets}
+        <div class="text-red-500 text-xs pt-1">{$errors.nftPublicAssets}</div>
       {/if}
     </div>
 
     <div class="text-2xl">Item Details</div>
     <FormElement label="Full name*" name="name" helperText={`${$data.name.length} / ${NAME_MAX_CHARS}`} />
     <FormElement
-      label="Description"
+      label="Description*"
       name="description"
       component={Textarea}
       helperText={`${$data.description.length} / ${DESCRIPTION_MAX_CHARS}`}
@@ -218,15 +244,15 @@
         <div class="text-sm	text-gray-500 flex justify-between">Format: JPG, PNG, GIF or PDF. Max size: 10MB.</div>
         <div class="flex flex-col">
           <FilePond
-            onaddfile={(error, fileItem) => handleAddFile('nftPrivateAsset', error, fileItem)}
-            onremovefile={() => handleRemoveFile('nftPrivateAsset')}
+            onaddfile={(error, fileItem) => handleAddFile('nftPrivateAssets', error, fileItem)}
+            onremovefile={() => handleRemoveFile('nftPrivateAssets')}
             acceptedFileTypes={ACCEPTED_FILE_TYPES}
             maxFileSize="10MB"
             credits={false}
             allowDrop={false}
           />
-          {#if $errors.nftPrivateAsset}
-            <div class="text-red-500 text-xs pt-1">{$errors.nftPrivateAsset}</div>
+          {#if $errors.nftPrivateAssets}
+            <div class="text-red-500 text-xs pt-1">{$errors.nftPrivateAssets}</div>
           {/if}
         </div>
       </div>
