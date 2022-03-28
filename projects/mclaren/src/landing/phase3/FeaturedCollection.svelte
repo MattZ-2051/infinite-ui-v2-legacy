@@ -8,11 +8,7 @@
   <img src={curvedBorder} alt="curverd-border-img" class="absolute w-full -top-10" />
   <div class="h-full flex flex-col items-center justify-end container pb-14">
     <p class="font-normal second-font text-5xl text-white uppercase" style="letter-spacing: 0.07em; line-height: 4rem;">
-      upcoming collection
-    </p>
-    <p class="font-light text-base text-white opacity-80 max-w-xl text-left sm:text-center">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut la Lorem ipsum dolor
-      sit amet, consectetur adipiscing elit, sed do eiusmod.
+      upcoming drop
     </p>
   </div>
 </div>
@@ -25,16 +21,6 @@
         </p>
         <p class="text-5xl sm:text-6xl font-light pb-4 sm:pb-8 tracking-widest second-font" style="line-height: 4rem;">
           CLASSICS <br class="inline sm:hidden" /> COLLECTION
-        </p>
-        <p class="text-base font-light px-2 md:px-0 md:max-w-5xl leading-5 sm:leading-7 hidden sm:block">
-          Nam a tellus mollis nisi laoreet rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. In at
-          purus ut orci aliquam egestas at id arcu. Nam a tellus mollis nisi laoreet rutrum. Nam a tellus mollis nisi
-          laoreet rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam a tellus mollis nisi laoreet
-          rutrum.
-        </p>
-        <p class="text-base font-light px-2 md:px-0 md:max-w-5xl leading-7 sm:leading-7 block sm:hidden">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit urna nulla, in pretium orci
-          sollicitudin sed. Nunc sed purus et nunc sollicitudin.
         </p>
       </div>
     </div>
