@@ -13,23 +13,84 @@
     of third-party cookie providers are intended merely as illustrative and should not be viewed as a comprehensive
     list.
   </p>
-  <div class="cookie-table grid grid-flow-row md:grid-flow-col md:grid-cols-3 md:grid-rows-2">
-    <h4>Types of Cookie</h4>
-    <p>Performance / Analytics</p>
-    <h4>Purpose</h4>
-    <p>
-      These cookies are used to analyze the way our website works and how we can improve it. For example, we may use
-      cookies to understand how you are using certain site features.
-    </p>
-    <h4>Who Serves (for example)</h4>
-    <ul class="list-inside list-disc p-8">
-      <li>
-        <a href="https://policies.google.com/technologies/cookies?hl=en-US" target="_blank" rel="noreferrer noopener"
-          >Google</a
-        >
-      </li>
-    </ul>
-  </div>
+  <table class="cookie-table">
+    <tr>
+      <th>Types of Cookie</th>
+      <th>Purpose</th>
+      <th>Who Serves (for example)</th>
+    </tr>
+    <tr>
+      <td>Strictly Necessary</td>
+      <td
+        >These cookies are essential to enable your use of the site or services, and are used to help make our website
+        work efficiently, provide security features on our website, and provide services you have asked for, like
+        shopping carts or billing.</td
+      >
+      <td>
+        <ul class="list-inside list-disc p-8">
+          <li>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener">Google</a>
+          </li>
+          <li>
+            <a href="https://www.dropbox.com/privacy" target="_blank" rel="noreferrer noopener">Dropbox</a>
+          </li>
+          <li>
+            <a href="https://stripe.com/privacy" target="_blank" rel="noreferrer noopener">Stripe</a>
+          </li>
+        </ul></td
+      >
+    </tr>
+    <tr>
+      <td>Performance/Analytics</td>
+      <td
+        >These cookies are used to analyze the way our website works and how we can improve it. For example, we may use
+        cookies to understand how you are using certain site features.</td
+      >
+      <td>
+        <ul class="list-inside list-disc p-8">
+          <li>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener">Google</a>
+          </li>
+        </ul></td
+      >
+    </tr>
+    <tr>
+      <td>Functionality</td>
+      <td
+        >These cookies help to enhance your experience by remembering choices you have made concerning the features of
+        the website (e.g., username, language, currency, region you are in).</td
+      >
+      <td>
+        <ul class="list-inside list-disc p-8">
+          <li>
+            <a href="https://www.dropbox.com/privacy" target="_blank" rel="noreferrer noopener">Dropbox</a>
+          </li>
+        </ul></td
+      >
+    </tr>
+    <tr>
+      <td>Advertising/Targeting</td>
+      <td
+        >These cookies and pixels are used to deliver advertisements more relevant to you and your interests. They
+        remember that you have visited a website and this information is shared with other organizations such as
+        advertisers.</td
+      >
+      <td>
+        <ul class="list-inside list-disc p-8">
+          <li>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener">Google</a>
+          </li>
+          <li>
+            <a href="https://www.salesforce.com/company/privacy" target="_blank" rel="noreferrer noopener">Salesforce</a
+            >
+          </li>
+          <li>
+            <a href="https://stripe.com/privacy" target="_blank" rel="noreferrer noopener">Stripe</a>
+          </li>
+        </ul></td
+      >
+    </tr>
+  </table>
   <h3>Cookies and You</h3>
   <p>
     To sign up for an account or make a purchase online, you must have cookies enabled on your internet browser. If you
@@ -69,15 +130,18 @@
       grid-template-rows: auto 1fr;
     }
   }
-  .cookie-table h4,
-  .cookie-table p,
-  .cookie-table ul {
+  .cookie-table th,
+  .cookie-table tr,
+  .cookie-table td {
     @apply p-8 border-r border-b border-gray-900;
   }
-  .cookie-table h4 {
+  .cookie-table th {
     @apply text-center text-lg font-medium;
   }
 
+  td {
+    @apply text-base;
+  }
   a {
     @apply underline;
   }
