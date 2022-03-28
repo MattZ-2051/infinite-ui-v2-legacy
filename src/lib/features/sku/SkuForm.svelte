@@ -82,8 +82,10 @@
       maxSupply: 1,
       hasUnlockableContent: false,
       royaltyFeePercentage: 0,
-      nftPublicAsset: undefined,
-      nftPrivateAsset: undefined,
+      // eslint-disable-next-line unicorn/no-null
+      nftPublicAsset: null,
+      // eslint-disable-next-line unicorn/no-null
+      nftPrivateAsset: null,
     },
     onSubmit: async ({ nftPublicAsset, ...rest }) => {
       try {
