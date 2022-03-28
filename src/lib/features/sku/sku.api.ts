@@ -1,5 +1,5 @@
-import type { Sku } from '$lib/sku-item/types';
-import { get } from '$lib/api';
+import type { Sku, CreateSkusDto } from '$lib/sku-item/types';
+import { get, post } from '$lib/api';
 import { skuTiles } from '$lib/infinite-api-sdk';
 import { loading } from '$lib/features/marketplace/marketplace.api';
 
@@ -37,4 +37,8 @@ async function getSkuRelated({ sku, fetch }: { sku: Sku; fetch?: Fetch }): Promi
 
 export async function getNumberOfSkus({ id, fetch }: { id: string; fetch?: Fetch }): Promise<number> {
   return await get(`listings/${id}/supply-left`, { fetch });
+}
+
+export function createSku(sku: CreateSkusDto): Promise<Sku> {
+  return post('/skus', sku);
 }

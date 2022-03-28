@@ -27,7 +27,7 @@
   import routes from '$project/routes';
   import Switch from '$lib/components/Switch.svelte';
   import { media } from '$lib/media-query.store';
-  import { createSku } from './marketplace.api';
+  import { createSku } from './sku.api';
 
   registerPlugin(FilePondPluginFileValidateType, FilePondPluginFileValidateSize, FilePondPluginImagePreview);
 

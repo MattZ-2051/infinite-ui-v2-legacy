@@ -1,7 +1,7 @@
-import type { Sku, Profile, Series, CreateSkusDto } from '$lib/sku-item/types';
+import type { Sku, Profile, Series } from '$lib/sku-item/types';
 import type { ModeFilterStatus } from './types';
 import { skuTiles } from '$lib/infinite-api-sdk';
-import { fetchTracker, post } from '$lib/api';
+import { fetchTracker } from '$lib/api';
 import { modeFilters } from './marketplace.service';
 
 export const loading = fetchTracker();
@@ -83,8 +83,4 @@ export async function loadMarketplaceItems({
     data: docs,
     total: count,
   };
-}
-
-export function createSku(sku: CreateSkusDto): Promise<Sku> {
-  return post('/skus', sku);
 }
