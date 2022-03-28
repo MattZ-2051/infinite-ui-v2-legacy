@@ -7,7 +7,6 @@ const Theme = {
 export const themeConfig = {
   '*.issuer': Theme.BrandTabs,
   '$marketplace.*.root': Theme.BrandTabs,
-  '$marketplace.$create.root': Theme.Light,
   '$u.$wallet.*': Theme.BrandTabs,
   '$product.*': Theme.BrandTabs,
   '*.modal': Theme.Light,
