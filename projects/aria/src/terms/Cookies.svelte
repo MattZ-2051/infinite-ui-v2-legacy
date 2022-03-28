@@ -85,7 +85,7 @@
             >
           </li>
           <li>
-            <a href="https://stripe.com/privacy" target="_blank" rel="noreferrer noopener">Stripe</a>
+            <a href="https://www.dropbox.com/privacy" target="_blank" rel="noreferrer noopener">Dropbox</a>
           </li>
         </ul></td
       >
