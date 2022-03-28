@@ -9,7 +9,7 @@
   parameters={{ themes: ['light', 'dark'] }}
   argTypes={{
     checked: {
-      control: { type: 'bool' },
+      control: { type: 'boolean' },
     },
   }}
 />
