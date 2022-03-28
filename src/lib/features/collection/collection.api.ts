@@ -21,17 +21,14 @@ export async function loadSkus({
   forSale?: string;
   fetch?: Fetch;
 }) {
-  const { docs: skus, count: totalSkus } = await skuTiles(fetch)(
+  const { docs: skus, count: totalSkus } = await skuTiles(fetch)({
     page,
-    perPage,
+    per_page: perPage,
     sortBy,
-    forSale && forSale === 'true',
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    profileId
-  );
+    forSale: forSale && forSale === 'true',
+    issuerId: profileId,
+    skuStatus: '',
+  });
   return { skus, totalSkus };
 }
 

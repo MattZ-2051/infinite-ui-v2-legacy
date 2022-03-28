@@ -1,27 +1,50 @@
 import type { Sku, Profile, Series } from './sku-item/types';
 import { send } from './api';
 
+export type SkuTileRequestParameters = {
+  page?: number;
+  per_page?: number;
+  sortBy?: string; // ToDO: possible values are startDate:1 startDate:-1 startDate:-1
+  forSale?: boolean;
+  status?: string; // ToDo: possible values are upcoming
+  category?: string;
+  typeEdition?: string;
+  series?: string;
+  issuerId?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  startDate?: string;
+  endDate?: string;
+  search?: string;
+  saleType?: string;
+  currency?: string;
+  featured?: boolean;
+  includeFunctions?: boolean;
+  skuStatus?: 'pending' | 'approved' | 'rejected' | '';
+};
+
 export function skuTiles(fetch, options?) {
-  async function skuTilesCall(
-    page?: number,
-    per_page?: number,
-    sortBy?: string, // ToDO: possible values are startDate:1 startDate:-1 startDate:-1
-    forSale?: boolean,
-    status?: string, // ToDo: possible values are upcoming
-    category?: string,
-    typeEdition?: string,
-    series?: string,
-    issuerId?: string,
-    minPrice?: number,
-    maxPrice?: number,
-    startDate?: string,
-    endDate?: string,
-    search?: string,
-    saleType?: string,
-    currency?: string,
-    featured?: boolean,
-    includeFunctions?: boolean
-  ): Promise<{
+  async function skuTilesCall({
+    page,
+    per_page,
+    sortBy,
+    forSale,
+    status,
+    category,
+    typeEdition,
+    series,
+    issuerId,
+    minPrice,
+    maxPrice,
+    startDate,
+    endDate,
+    search,
+    saleType,
+    currency,
+    featured,
+    includeFunctions,
+    skuStatus = 'approved',
+  }: SkuTileRequestParameters): Promise<{
     docs: Sku[];
     count: number;
     creators: Profile[];
@@ -49,6 +72,7 @@ export function skuTiles(fetch, options?) {
         search,
         saleType,
         currency,
+        skuStatus: skuStatus || undefined,
         // eslint-disable-next-line unicorn/no-null
       }).filter(([, value]) => ![undefined, null].includes(value))
     );

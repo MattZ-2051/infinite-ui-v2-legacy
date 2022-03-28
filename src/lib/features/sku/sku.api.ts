@@ -20,17 +20,12 @@ async function getSkuRelated({ sku, fetch }: { sku: Sku; fetch?: Fetch }): Promi
     return [];
   }
 
-  const { docs: related } = await skuTiles(fetch, { tracker: loading })(
-    1,
-    8,
-    'startDate:1',
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    sku.issuer._id
-  );
+  const { docs: related } = await skuTiles(fetch, { tracker: loading })({
+    page: 1,
+    per_page: 8,
+    sortBy: 'startDate:1',
+    issuerId: sku.issuer._id,
+  });
 
   return related.filter((item) => item._id !== sku._id).slice(0, 4);
 }

@@ -21,13 +21,12 @@ export async function loadMarketplaceFilters({
   query: URLSearchParams;
 }): Promise<{ maxPrice: number; creators: Profile[]; series: Series[]; categories: Sku[] }> {
   const mode = getModeParameters(query.get('mode') as ModeFilterStatus);
-  const { categories, creators, maxPrice, series } = await skuTiles(fetch)(
-    1,
-    1,
-    undefined,
-    mode.forSale && mode.forSale === 'true',
-    mode.status
-  );
+  const { categories, creators, maxPrice, series } = await skuTiles(fetch)({
+    page: 1,
+    per_page: 1,
+    forSale: mode.forSale && mode.forSale === 'true',
+    status: mode.status,
+  });
   return {
     maxPrice: maxPrice as unknown as number,
     categories: categories as unknown as Sku[],
@@ -60,24 +59,24 @@ export async function loadMarketplaceItems({
   const currency: string = query.get('currency') || undefined;
   const sortBy: string = query.get('sortBy') || 'startDate:1';
 
-  const { docs, count } = await skuTiles(fetch, { tracker: loading })(
+  const { docs, count } = await skuTiles(fetch, { tracker: loading })({
     page,
-    perPage,
+    per_page: perPage,
     sortBy,
-    mode.forSale && mode.forSale === 'true',
-    mode.status || undefined,
+    forSale: mode.forSale && mode.forSale === 'true',
+    status: mode.status || undefined,
     category,
     typeEdition,
     series,
     issuerId,
-    minPrice && Number.parseInt(minPrice, 10),
-    maxPrice && Number.parseInt(maxPrice, 10),
+    minPrice: minPrice && Number.parseInt(minPrice, 10),
+    maxPrice: maxPrice && Number.parseInt(maxPrice, 10),
     startDate,
     endDate,
     search,
     saleType,
-    currency
-  );
+    currency,
+  });
 
   return {
     data: docs,
