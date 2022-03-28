@@ -52,6 +52,14 @@ const config = {
         fs: {
           allow: [path.resolve(`./projects/`)],
         },
+
+        proxy: {
+          '/api': {
+            target: 'https://api-dev.infiniteworld.com',
+            changeOrigin: true,
+            rewrite: (p) => p.replace(/^\/api/, ''),
+          },
+        },
       },
     },
   },
@@ -68,7 +76,7 @@ if (!VITE_API_URL) {
     process.env.VITE_API_URL = CONTEXT === 'deploy-preview' ? `${DEPLOY_PRIME_URL}/api` : `${URL}/api`;
   } else if (NODE_ENV === 'development' && !SVELTEKIT_MODE) {
     // For local development we use a proxy for API calls
-    process.env.VITE_API_URL = 'http://localhost:3001';
+    process.env.VITE_API_URL = 'http://localhost:3000/api';
   }
 }
 
