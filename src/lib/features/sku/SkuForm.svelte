@@ -146,6 +146,7 @@
 
   function handleRemoveFile(property: 'nftPublicAssets' | 'nftPrivateAssets') {
     setErrors(property, undefined);
+    setData(property, undefined);
   }
 
   function checkIfFileIsTooBig(file?: File): boolean {
@@ -203,7 +204,6 @@
         acceptedFileTypes={ACCEPTED_FILE_TYPES}
         maxFileSize="10MB"
         credits={false}
-        allowDrop={false}
       />
       {#if $errors.nftPublicAssets}
         <div class="text-red-500 text-xs pt-1">{$errors.nftPublicAssets}</div>
@@ -249,7 +249,6 @@
             acceptedFileTypes={ACCEPTED_FILE_TYPES}
             maxFileSize="10MB"
             credits={false}
-            allowDrop={false}
           />
           {#if $errors.nftPrivateAssets}
             <div class="text-red-500 text-xs pt-1">{$errors.nftPrivateAssets}</div>
