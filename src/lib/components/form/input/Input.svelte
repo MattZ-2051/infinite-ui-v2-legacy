@@ -17,7 +17,7 @@
   export let value = undefined;
   export let error: string | string[] = '';
   export let success: string | string[] = '';
-  export let helperText: string = '';
+  export let helperText = '';
   export let variant: FormElementVariant = 'base';
   export let isEthInput = false;
   export let withdrawableAmount = 0;

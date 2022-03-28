@@ -6,7 +6,7 @@
   export let label = '';
   export let variant: FormElementVariant;
   export let error: string | string[] = '';
-  export let helperText: string = '';
+  export let helperText = '';
   export let success: string | string[] = '';
   let _class = '';
   export { _class as class };

@@ -3,7 +3,7 @@
 </script>
 
 <label class="switch">
-  <input type="checkbox" bind:checked />
+  <input type="checkbox" bind:checked {...$$restProps} />
   <span class="slider" />
 </label>
 

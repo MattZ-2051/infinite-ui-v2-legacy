@@ -1,8 +1,11 @@
 <script lang="ts">
-  import CreateSkuForm from '$lib/features/marketplace/CreateSkuForm.svelte';
+  import SkuForm from '$lib/features/marketplace/SkuForm.svelte';
+  import { Seo } from '$lib/seo';
   import { user } from '$lib/user';
 </script>
 
+<Seo title="Create new item" />
+
 {#if $user}
-  <CreateSkuForm />
+  <SkuForm />
 {/if}

@@ -13,7 +13,7 @@
   export let label = '';
   export let value = undefined;
   export let error: string | string[] = '';
-  export let helperText: string = '';
+  export let helperText = '';
   export let variant: FormElementVariant = 'base';
   let _class = '';
   export { _class as class };

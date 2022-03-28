@@ -11,6 +11,8 @@ export type SocialFileAsset = FileAsset & {
 
 export type SupplyType = 'variable' | 'fixed';
 
+export type Currency = 'USD' | 'ETH';
+
 export type Sku = {
   _id: string;
   rarity: Rarity;
@@ -75,7 +77,7 @@ export type Sku = {
   customNftTerms?: string;
   initialBuyersFeePercentage: number;
   tenant?: string;
-  currency?: 'USD' | 'ETH';
+  currency?: Currency;
   activeGiveawayListingsCounter?: number;
   lowestSkuListingPrice?: number;
   lowestProductListingPrice?: number;
@@ -444,4 +446,16 @@ export interface Status {
 export type SortOption = {
   name: string;
   value: string;
+};
+
+export type CreateSkusDto = {
+  name: string;
+  description: string;
+  supplyType: SupplyType;
+  currency: Currency;
+  issuer: string;
+  maxSupply: number;
+  royaltyFeePercentage?: number;
+  nftPublicAssets: { url: string }[];
+  nftPrivateAssets?: { url: string }[];
 };
