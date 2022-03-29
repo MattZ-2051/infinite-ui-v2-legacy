@@ -1,5 +1,9 @@
+type Icon = string | string[] | { [key: string]: string } | { [key: string]: string }[]; // https://materialdesignicons.com
+
 export type Link = {
-  id: string;
+  type: 'route' | 'route-open-new' | 'user-collection' | 'wallet-extensions' | 'sign-up' | 'sign-in' | 'sign-out';
+  location: 'user-menu' | 'header';
   label: string;
-  externalUrl?: boolean;
+  id?: string;
+  icon?: Icon;
 };

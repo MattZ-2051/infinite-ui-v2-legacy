@@ -1,10 +1,7 @@
 <script lang="ts">
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
-  import { mdiLogout } from '@mdi/js';
   import { onSignOut, onSignIn, onSignUp, isLoading } from '$lib/user';
-  import mdiCogOutline from '$lib/layout/header/assets/gear';
-  import mdiCreditCardOutline from '$lib/layout/header/assets/wallet';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
   import { Menu, MenuList, MenuTrigger, MenuItem } from '$ui/menu';
@@ -31,69 +28,96 @@
   };
 </script>
 
-{#each links as { id, label, externalUrl = false }}
-  <a
-    sveltekit:prefetch
-    href={routes[id]}
-    target={externalUrl ? '_blank' : ''}
-    rel={externalUrl ? 'noopener noreferrer' : ''}
-    class="header-link"
-    class:active={isRoute(routes[id])}>{label}</a
-  >
+<!-- Header block -->
+{#each links as { type, location, id, label }}
+  <!-- Menu items will be flattened for mobile menu -->
+  {#if location === 'header' || (user && flatten && location === 'user-menu')}
+    {#if type === 'route' || type === 'route-open-new'}
+      <a
+        sveltekit:prefetch
+        href={routes[id]}
+        target={type === 'route-open-new' ? '_blank' : ''}
+        rel={type === 'route-open-new' ? 'noopener noreferrer' : ''}
+        class="header-link"
+        class:active={isRoute(routes[id])}>{label}</a
+      >
+    {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED)}
+      <button class="header-link" on:click|preventDefault={handleWalletModal}>{label}</button>
+    {/if}
+    {#if user}
+      {#if type === 'user-collection'}
+        <a
+          sveltekit:prefetch
+          href={routes.collection(user.username)}
+          class="header-link"
+          class:active={isRoute(routes.collection(user.username))}
+        >
+          {label}
+        </a>
+      {:else if type === 'sign-out'}
+        <button type="button" on:click={() => onSignOut()} class="header-link">Sign Out</button>
+      {/if}
+    {:else if type === 'sign-in'}
+      <button class="flex header-link" on:click={() => onSignIn()} disabled={$isLoading}>{label}</button>
+    {:else if type === 'sign-up'}
+      <Button variant="brand" on:click={onSignUp} class="whitespace-nowrap header-link">{label}</Button>
+    {/if}
+  {/if}
 {/each}
 
-{#if MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED}
-  <button class="header-link" on:click|preventDefault={handleWalletModal}>Wallet</button>
-{/if}
-
-{#if user}
-  <a
-    sveltekit:prefetch
-    href={routes.collection(user.username)}
-    class="header-link"
-    class:active={isRoute(routes.collection(user.username))}
-  >
-    My Collection
-  </a>
-
-  {#if flatten}
-    <a sveltekit:prefetch href={routes.account} class="header-link" class:hidden={isRoute(routes.account)}>
-      Account Settings
-    </a>
-    <a sveltekit:prefetch href={routes.wallet} class="header-link" class:hidden={isRoute(routes.wallet)}>My Wallet</a>
-    <button type="button" on:click={() => onSignOut()} class="header-link">Sign Out</button>
-  {:else}
-    <Menu placement="bottom-start" class="min-w-0">
-      <MenuTrigger slot="trigger" class="header-link w-full">
-        <div class="flex sm:gap-1 md:gap-1.5 w-full">
-          {#if user.profilePhotoUrl}
-            <img
-              class="w-6 object-cover rounded-full"
-              src={`${user.profilePhotoUrl}?t=${user.updatedAt}`}
-              alt="profilePhoto"
-            />
-          {:else}
-            <Icon path={account} />
-          {/if}
-          <span class="truncate flex items-center">{user.username}</span>
-        </div>
-      </MenuTrigger>
-      <MenuList slot="menu" class="sm:mt-4 font-medium text-sm">
-        <MenuItem href={routes.account} class={$page.url.pathname === routes.account ? 'hidden' : ''}>
-          <Icon path={mdiCogOutline} class="shrink-0 float-left mr-3" />Account Settings
-        </MenuItem>
-        <MenuItem href={routes.wallet} class={$page.url.pathname === routes.wallet ? 'hidden' : ''}>
-          <Icon path={mdiCreditCardOutline} class="shrink-0 float-left mr-3" /> My Wallet
-        </MenuItem>
-        <MenuItem on:select={() => onSignOut()}>
-          <Icon path={mdiLogout} class="shrink-0 float-left mr-3" /> Sign Out
-        </MenuItem>
-      </MenuList>
-    </Menu>
-  {/if}
-{:else}
-  <button class="flex header-link" on:click={() => onSignIn()} disabled={$isLoading}>Sign In</button>
-  <Button variant="brand" on:click={onSignUp} class="whitespace-nowrap header-link">Sign Up</Button>
+<!-- User menu block -->
+<!-- Menu items will be nested for desktop view -->
+{#if user && flatten === false}
+  <Menu placement="bottom-start" class="min-w-0">
+    <MenuTrigger slot="trigger" class="header-link w-full">
+      <div class="flex sm:gap-1 md:gap-1.5 w-full">
+        {#if user.profilePhotoUrl}
+          <img
+            class="w-6 object-cover rounded-full"
+            src={`${user.profilePhotoUrl}?t=${user.updatedAt}`}
+            alt="profilePhoto"
+          />
+        {:else}
+          <Icon path={account} />
+        {/if}
+        <span class="truncate flex items-center">{user.username}</span>
+      </div>
+    </MenuTrigger>
+    <MenuList slot="menu" class="sm:mt-4 font-medium text-sm">
+      {#each links.filter((link) => link.location === 'user-menu') as { type, id, label, icon }}
+        {#if type === 'route' || type === 'route-open-new'}
+          <MenuItem
+            href={routes[id]}
+            target={type === 'route-open-new' ? '_blank' : ''}
+            rel={type === 'route-open-new' ? 'noopener noreferrer' : ''}
+            class={$page.url.pathname === routes[id] ? 'hidden' : ''}
+          >
+            {#if icon}<Icon path={icon} class="shrink-0 float-left mr-3" />{/if}
+            {label}
+          </MenuItem>
+        {:else if type === 'user-collection'}
+          <MenuItem
+            sveltekit:prefetch
+            href={routes.collection(user.username)}
+            class={$page.url.pathname === routes.collection(user.username) ? 'hidden' : ''}
+          >
+            {#if icon}<Icon path={icon} class="shrink-0 float-left mr-3" />{/if}
+            {label}
+          </MenuItem>
+        {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED)}
+          <MenuItem on:select={handleWalletModal}>
+            {#if icon}<Icon path={icon} class="shrink-0 float-left mr-3" />{/if}
+            {label}
+          </MenuItem>
+        {:else if type === 'sign-out'}
+          <MenuItem on:select={() => onSignOut()}>
+            {#if icon}<Icon path={icon} class="shrink-0 float-left mr-3" />{/if}
+            {label}
+          </MenuItem>
+        {/if}
+      {/each}
+    </MenuList>
+  </Menu>
 {/if}
 
 <style lang="postcss">

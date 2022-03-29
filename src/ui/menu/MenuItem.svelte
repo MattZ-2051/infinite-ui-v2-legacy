@@ -60,7 +60,7 @@
 </li>
 
 <style lang="postcss">
-  .menu-item {
+  .menu-item:not(.hidden) {
     @apply flex items-center flex-grow font-medium py-3 px-4 outline-none cursor-pointer;
     color: var(--menu-item-color);
     font-size: var(--menu-item-font-size, inherit);
