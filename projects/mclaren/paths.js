@@ -23,7 +23,7 @@ export const paths = {
   '$lib/components/icons/close': 'projects/mclaren/src/assets/lib/close-icon',
   '$lib/components/icons/window-close': 'projects/mclaren/src/assets/lib/close-icon',
   '$lib/features/marketplace/NoResults.svelte': 'projects/mclaren/src/marketplace/NoResults.svelte',
-  '$lib/social/assets/social-icons': 'projects/mclaren/src/assets/lib/social/social-icons',
+  '$lib/components/icons/social/social-icons': 'projects/mclaren/src/assets/lib/social/social-icons',
   '$ui/icon/IconsDefs.svelte': 'projects/mclaren/src/assets/IconsDefs.svelte',
   '$lib/features/checkout/assets/error-icon.svg': 'projects/mclaren/src/assets/lib/error-icon.svg',
   '$lib/features/checkout/assets/success-icon.svg': 'projects/mclaren/src/assets/lib/success-icon.svg',

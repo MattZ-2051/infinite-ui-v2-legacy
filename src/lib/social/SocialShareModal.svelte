@@ -4,7 +4,13 @@
   import { shareFacebook } from 'web-social-share/dist/collection/utils/facebook';
   import { reddit } from 'web-social-share/dist/collection/utils/reddit';
   import { pinterest } from 'web-social-share/dist/collection/utils/pinterest';
-  import { linkIcon, twitterIcon, facebookIcon, pinterestIcon, redditIcon } from '$lib/social/assets/social-icons';
+  import {
+    linkIcon,
+    twitterIcon,
+    facebookIcon,
+    pinterestIcon,
+    redditIcon,
+  } from '$lib/components/icons/social/social-icons';
   import Icon from '$ui/icon/Icon.svelte';
   import { Modal, closeModal } from '$ui/modals';
 
