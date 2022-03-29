@@ -5,6 +5,7 @@
   import { FilePreview } from '$ui/file';
   import ethereum from '$lib/components/icons/ethereum';
   import hedera from '$lib/components/icons/hedera';
+  import information from '$lib/components/icons/information';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
@@ -22,19 +23,35 @@
   $: activeListing = product ? product.activeProductListings?.[0] : sku.activeSkuListings?.[0];
   $: href = product ? routes.product(product._id) : routes.sku(sku._id);
   $: currency = product ? product.sku.currency : sku.currency;
+  $: hasCaption = activeListing?.endDate || sku.status === 'pending' || sku.status === 'rejected';
 </script>
 
 <article id={sku._id} class="space-y-4 py-6" in:fade={{ duration: 300 }}>
   <a sveltekit:prefetch {href} class="space-y-4 py-6">
     <figure class="relative mx-6 mb-0">
       <FilePreview item={sku.nftPublicAssets?.[0]} preview />
-      {#if activeListing?.endDate}
+      {#if hasCaption}
         <figcaption
-          class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold bg-white bg-opacity-80"
-          style="color: var(--default-color)"
+          class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold bg-white bg-opacity-80 text-black"
         >
-          <span class="opacity-50">Ends</span>
-          <span>{formatDate(activeListing.endDate)}</span>
+          {#if activeListing?.endDate}
+            <span class="opacity-50">Ends</span>
+            <span>{formatDate(activeListing.endDate)}</span>
+          {:else if sku.status === 'pending'}
+            <div class="flex gap-2">
+              <div class="rounded-full text-white bg-warning w-min p-1">
+                <Icon path={information} size="0.9em" />
+              </div>
+              <span>Pending</span>
+            </div>
+          {:else if sku.status === 'rejected'}
+            <div class="flex gap-2">
+              <div class="rounded-full text-white bg-error w-min p-1">
+                <Icon path={information} size="0.9em" tooltip={sku.rejectReason} />
+              </div>
+              <span>Rejected</span>
+            </div>
+          {/if}
         </figcaption>
       {/if}
     </figure>

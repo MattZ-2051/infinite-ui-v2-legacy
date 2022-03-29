@@ -13,6 +13,8 @@ export type SupplyType = 'variable' | 'fixed';
 
 export type Currency = 'USD' | 'ETH';
 
+export type SkuStatus = 'pending' | 'approved' | 'rejected' | '';
+
 export type Sku = {
   _id: string;
   rarity: Rarity;
@@ -62,6 +64,8 @@ export type Sku = {
   sellerTransactionFeePercentage: number;
   sellerTransactionFeePercentageSecondary: number;
   type: string;
+  status: SkuStatus;
+  rejectReason?: string;
   productListings: Listing[];
   skuListings: Listing[];
   activeSkuListings: Listing[];

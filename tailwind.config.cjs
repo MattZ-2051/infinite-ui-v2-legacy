@@ -41,6 +41,8 @@ module.exports = {
         inverse: 'var(--inverse-color)',
         primary: 'var(--primary-color)',
         'primary-dark': 'var(--primary-dark-color)',
+        warning: '#FFB74A',
+        error: '#E83737',
       },
       zIndex: {
         '-1': '-1',

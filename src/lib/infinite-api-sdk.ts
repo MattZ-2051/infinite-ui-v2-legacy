@@ -1,4 +1,4 @@
-import type { Sku, Profile, Series } from './sku-item/types';
+import type { Sku, Profile, Series, SkuStatus } from './sku-item/types';
 import { send } from './api';
 
 export type SkuTileRequestParameters = {
@@ -20,7 +20,7 @@ export type SkuTileRequestParameters = {
   currency?: string;
   featured?: boolean;
   includeFunctions?: boolean;
-  skuStatus?: 'pending' | 'approved' | 'rejected' | '';
+  skuStatus?: SkuStatus;
 };
 
 export function skuTiles(fetch, options?) {

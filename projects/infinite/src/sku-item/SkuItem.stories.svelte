@@ -109,3 +109,24 @@
     },
   }}
 />
+<Story
+  name="Pending"
+  args={{
+    sku: {
+      ...item,
+      activeSkuListings: [],
+      status: 'pending',
+    },
+  }}
+/>
+<Story
+  name="Rejected"
+  args={{
+    sku: {
+      ...item,
+      activeSkuListings: [],
+      status: 'rejected',
+      rejectReason: 'Your NFT has been rejected.',
+    },
+  }}
+/>
