@@ -16,6 +16,18 @@
   --gradient-start-color: var(--default-color);
   --gradient-end-color: var(--default-color);
 
+  /* Share dialog */
+  --share-title-size: theme('fontSize.3xl');
+  --share-icons-bg: transparent;
+  --share-icons-border: thin;
+  --share-icons-border-color: var(--gray-100);
+  --share-icons-size: theme('width.16');
+  --share-icons-color: var(--default-color);
+  --share-icons-hover-bg: linear-gradient(225deg, #181c20 0%, #363f45 100%);
+  --share-icons-hover-icon-color: var(--inverse-color);
+  --share-icons-hover-icon-bg: var(--gray-300);
+  --share-icons-hover-label-color: var(--inverse-color);
+
   /* Header */
   --header-background-color: var(--inverse-color);
   --header-height: 4.5rem;
