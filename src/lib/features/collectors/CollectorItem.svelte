@@ -34,7 +34,7 @@
       {/if}
       <div class="flex flex-col">
         <div class="flex items-center gap-2 collection-big-text">
-          #{collector.serialNumber}
+          {collector?.status === 'purchased' ? 'Not Minted' : `#${collector.serialNumber}`}
           {#if redeemable}
             <IconRedeem disabled={collector.redeemedStatus === 'redeemed'} size={20} />
           {/if}

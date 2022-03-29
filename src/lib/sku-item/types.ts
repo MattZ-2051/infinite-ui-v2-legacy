@@ -375,6 +375,7 @@ export type CollectorProduct = {
   redeemedStatus?: 'NA' | 'pending' | 'redeemed';
   createdAt: Date;
   sku: string;
+  status?: ProductStatus;
   owner: Partial<Profile>;
   activeProductListing?: Listing;
   upcomingProductListing?: Listing;
