@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
+  import routes from '$project/routes';
   import SimpleAccordion from './SimpleAccordion.svelte';
   import { FaqInfo } from './FAQInfo';
 </script>
@@ -23,7 +24,7 @@
             variant="brand"
             class="whitespace-nowrap h-16 w-full md:w-80 sm:w-64 py-12 md:py-0 tracking-widest font-bold text-xs uppercase"
             type="submit"
-            on:click={() => window.open('https://www.mclaren.com/racing/inside-the-mtc/nft-guide/')}
+            on:click={() => window.open(routes.faq)}
           >
             see all</Button
           >

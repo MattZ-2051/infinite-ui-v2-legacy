@@ -18,14 +18,15 @@
               class="footer-links grid grid-rows-4 gap-y-4 gap-x-10 grid-flow-col sm:grid-rows-5 sm:max-w-fit"
               style="max-height:12rem"
             >
-              <a href={routes.partners} target="_blank" rel="noreferrer" style="max-width:138px; width:100%">Partners</a
+              <a href={routes.partners} target="_blank" rel="noopener noreferrer" style="max-width:138px; width:100%"
+                >Partners</a
               >
-              <a href={routes.careers} target="_blank" rel="noreferrer">Careers</a>
-              <a href={routes.media} target="_blank" rel="noreferrer">Media</a>
-              <a href={routes.mcLarenGroup} target="_blank" rel="noreferrer">McLaren Group</a>
-              <a href={routes.mcLarenRacing} target="_blank" rel="noreferrer">McLaren Racing</a>
-              <a href={routes.mcLarenApplied} target="_blank" rel="noreferrer">McLaren Applied</a>
-              <a href={routes.investors} target="_blank" rel="noreferrer">Investors</a>
+              <a href={routes.careers} target="_blank" rel="noopener noreferrer">Careers</a>
+              <a href={routes.media} target="_blank" rel="noopener noreferrer">Media</a>
+              <a href={routes.mcLarenGroup} target="_blank" rel="noopener noreferrer">McLaren Group</a>
+              <a href={routes.mcLarenRacing} target="_blank" rel="noopener noreferrer">McLaren Racing</a>
+              <a href={routes.mcLarenApplied} target="_blank" rel="noopener noreferrer">McLaren Applied</a>
+              <a href={routes.investors} target="_blank" rel="noopener noreferrer">Investors</a>
             </div>
           </div>
           <div class="">
@@ -34,20 +35,20 @@
               class=" footer-links grid grid-rows-3  gap-y-4 gap-x-12 grid-flow-col sm:grid-rows-5 "
               style="max-height:12rem"
             >
-              <a href={routes.cookiePolicy} target="_blank" rel="noreferrer">Cookie Policy</a>
-              <a href={routes.privacyPoliy} target="_blank" rel="noreferrer">Privacy Policy</a>
-              <a href={routes.genderGapReport} target="_blank" rel="noreferrer">Gender Gap Report</a>
-              <a href={routes.termsAndConditions} target="_blank" rel="noreferrer">Terms and Conditions</a>
-              <a href={routes.antiSlaveryStatement} target="_blank" rel="noreferrer">Anti-Slavery Statement</a>
+              <a href={routes.cookiePolicy} target="_blank" rel="noopener noreferrer">Cookie Policy</a>
+              <a href={routes.privacyPoliy} target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+              <a href={routes.genderGapReport} target="_blank" rel="noopener noreferrer">Gender Gap Report</a>
+              <a href={routes.termsAndConditions} target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+              <a href={routes.antiSlaveryStatement} target="_blank" rel="noopener noreferrer">Anti-Slavery Statement</a>
             </div>
           </div>
           <div class="grid grid-flow-col grid-cols-2 sm:col-span-2 gap-x-8 sm:gap-x-16 xl:gap-x-8">
             <div>
               <div class="text-xl footer-title">CONTACT</div>
               <div class="link-container" style="max-height:12rem">
-                <a href={routes.contactUs} target="_blank" rel="noreferrer">Contact Us</a>
-                <a href={routes.enquire} target="_blank" rel="noreferrer">Enquire</a>
-                <a href={routes.findRetailer} target="_blank" rel="noreferrer">Find a Retailer</a>
+                <a href={routes.contactUs} target="_blank" rel="noopener noreferrer">Contact Us</a>
+                <a href={routes.enquire} target="_blank" rel="noopener noreferrer">Enquire</a>
+                <a href={routes.findRetailer} target="_blank" rel="noopener noreferrer">Find a Retailer</a>
               </div>
             </div>
             <div>

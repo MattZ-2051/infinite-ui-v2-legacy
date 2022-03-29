@@ -31,8 +31,15 @@
   };
 </script>
 
-{#each links as { id, label }}
-  <a sveltekit:prefetch href={routes[id]} class="header-link" class:active={isRoute(routes[id])}>{label}</a>
+{#each links as { id, label, externalUrl = false }}
+  <a
+    sveltekit:prefetch
+    href={routes[id]}
+    target={externalUrl ? '_blank' : ''}
+    rel={externalUrl ? 'noopener noreferrer' : ''}
+    class="header-link"
+    class:active={isRoute(routes[id])}>{label}</a
+  >
 {/each}
 
 {#if MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED}
