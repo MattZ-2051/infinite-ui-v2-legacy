@@ -105,6 +105,23 @@
     activeProductListings: [],
     totalSupply: 1,
   };
+
+  const pendingSku = {
+    activeSkuListings: [],
+    upcomingSkuListings: [],
+    upcomingProductListings: [],
+    activeProductListings: [],
+    status: 'pending',
+  };
+
+  const rejectedSku = {
+    activeSkuListings: [],
+    upcomingSkuListings: [],
+    upcomingProductListings: [],
+    activeProductListings: [],
+    status: 'rejected',
+    rejectReason: 'Your NFT has been rejected.',
+  };
 </script>
 
 <Meta title="Lib / features / sku / SkuPriceBox" component={SkuPriceBox} />
@@ -141,3 +158,7 @@
 
 <!--  Unique Collector -->
 <Story name="From Creator - 1 of 1" args={{ sku: uniqueSku, totalCollectors: 0, collectors: uniqueCollector }} />
+
+<Story name="From Creator - Pending" args={{ sku: pendingSku }} />
+
+<Story name="From Creator - Rejected" args={{ sku: rejectedSku }} />

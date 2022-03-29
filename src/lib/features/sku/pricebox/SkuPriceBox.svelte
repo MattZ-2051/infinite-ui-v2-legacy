@@ -77,10 +77,16 @@
   $: hasActiveFixedListing = sku.activeProductListings?.some((listing) => {
     return listing?.saleType === 'fixed' && listing?.status === 'active';
   });
+  $: isPending = sku.status === 'pending';
+  $: isRejected = sku.status === 'rejected';
 </script>
 
 <div class="flex flex-col sticky-content-button">
-  {#if collector}
+  {#if isPending}
+    <FromCreator state="pending" {sku} {onBuy} />
+  {:else if isRejected}
+    <FromCreator state="rejected" {sku} {onBuy} />
+  {:else if collector}
     <LimitedAuction {collector} />
   {:else if activeWhiteList}
     <FromCreator {sku} state="active-whitelist" {activeListings} {onBuy} />

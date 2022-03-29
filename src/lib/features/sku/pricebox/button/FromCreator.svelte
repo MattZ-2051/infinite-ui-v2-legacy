@@ -4,6 +4,7 @@
   import { mdiInfinity } from '@mdi/js';
   import { readable } from 'svelte/store';
   import Icon from '$ui/icon/Icon.svelte';
+  import information from '$lib/components/icons/information';
   import { formatCurrencyWithOptionalFractionDigits, formatDate } from '$util/format';
   import { polls } from '$lib/features/product/product.store';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
@@ -12,6 +13,8 @@
   import { getNumberOfSkus } from '../../sku.api';
 
   type FromCreatorState =
+    | 'pending'
+    | 'rejected'
     | 'upcoming'
     | 'noSale'
     | 'active'
@@ -65,6 +68,30 @@
   on:click={onBuy}
   class="from-creator-custom"
 >
+  {#if state === 'pending'}
+    <div class="flex flex-col gap-2">
+      <div class="flex gap-4">
+        <div class="rounded-full text-white bg-warning w-min p-1">
+          <Icon path={information} size="0.9em" />
+        </div>
+        <span>Pending</span>
+      </div>
+      <div class="text-gray-500 text-sm">It may take up to 48hs for your item to be approved.</div>
+    </div>
+  {/if}
+
+  {#if state === 'rejected'}
+    <div class="flex flex-col gap-2">
+      <div class="flex gap-4">
+        <div class="rounded-full text-white bg-error w-min p-1">
+          <Icon path={information} size="0.9em" tooltip={sku.rejectReason} />
+        </div>
+        <span>Rejected</span>
+      </div>
+      <div class="text-gray-500 text-sm">{sku.rejectReason}</div>
+    </div>
+  {/if}
+
   {#if state === 'active' || state === 'noSale' || state === 'notMinted' || state === 'active-whitelist'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
