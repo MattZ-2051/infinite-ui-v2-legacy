@@ -1,4 +1,4 @@
-import type { Profile, Product, Sku } from '$lib/sku-item/types';
+import type { Profile, Product, Sku, SkuStatus } from '$lib/sku-item/types';
 import { get, getPage } from '$lib/api';
 import { skuTiles } from '$lib/infinite-api-sdk';
 
@@ -12,6 +12,7 @@ export async function loadSkus({
   sortBy,
   perPage,
   forSale,
+  skuStatus,
   fetch,
 }: {
   profileId: string;
@@ -19,6 +20,7 @@ export async function loadSkus({
   sortBy: string;
   perPage: number;
   forSale?: string;
+  skuStatus?: SkuStatus;
   fetch?: Fetch;
 }) {
   const { docs: skus, count: totalSkus } = await skuTiles(fetch)({
@@ -27,7 +29,7 @@ export async function loadSkus({
     sortBy,
     forSale: forSale && forSale === 'true',
     issuerId: profileId,
-    skuStatus: '',
+    skuStatus,
   });
   return { skus, totalSkus };
 }

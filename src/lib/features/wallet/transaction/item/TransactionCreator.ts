@@ -121,6 +121,7 @@ const getDummyTransaction = (): Transaction => {
       },
     ],
     tenant: CLIENT_API_HEADER,
+    status: '',
   };
 
   const transactionData: TransactionData = {

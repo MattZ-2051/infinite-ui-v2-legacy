@@ -1,9 +1,11 @@
 import type { Awaited } from 'ts-essentials';
-import type { Profile, Product, Sku } from '$lib/sku-item/types';
+import type { Profile, Product, Sku, SkuStatus } from '$lib/sku-item/types';
+import { get as getStoreValue } from 'svelte/store';
 import { createEffect, createStore, createEvent, forward } from 'effector';
 import { browser } from '$app/env';
-import { gotoQueryParameters } from '$util/queryParameter';
+import { user } from '$lib/user';
 import { tokenBalance, nftBalance } from '$lib/features/infinite-wallet/infinite-wallet.store';
+import { gotoQueryParameters } from '$util/queryParameter';
 import { loadProfile, loadSkus, loadProducts, loadFeaturedSku, loadExternalProducts } from './collection.api';
 
 export const changeTab = createEvent<'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens'>();
@@ -52,6 +54,7 @@ export const loadCollectionFx = createEffect(
       sortBy,
       perPage: _profile.role === 'issuer' ? perPageIssuer : perPageUser,
       forSale,
+      skuStatus: <SkuStatus>(getStoreValue(user)?._id === _profile._id ? '' : 'approved'),
       fetch,
     };
     // eslint-disable-next-line unicorn/prefer-switch
@@ -94,6 +97,7 @@ const loadSkusFx = createEffect(
     sortBy,
     perPage,
     forSale,
+    skuStatus,
     fetch,
   }: {
     page: number;
@@ -101,12 +105,13 @@ const loadSkusFx = createEffect(
     sortBy: string;
     perPage: number;
     forSale?: string;
+    skuStatus: SkuStatus;
     fetch: Fetch;
   }): Promise<{
     totalSkus: number;
     skus: Sku[];
   }> => {
-    return await loadSkus({ profileId, page, sortBy, perPage, fetch, forSale });
+    return await loadSkus({ profileId, page, sortBy, perPage, fetch, forSale, skuStatus });
   }
 );
 
