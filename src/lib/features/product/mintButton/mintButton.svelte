@@ -15,14 +15,23 @@
   const handleClick = (): void => {
     status === MINT_STATUS ? toMint() : processed();
   };
+
+  const buttonStatusClasses = status === MINT_STATUS ? 'text-sm' : 'text-xs font-semibold px-9';
+  const iconStatusProperties =
+    status === MINT_STATUS
+      ? {}
+      : {
+          style:
+            'height: var(--product-processed-mint-button-icon-height, 24px);margin-right: var(--product-processed-mint-button-icon-margin);',
+        };
 </script>
 
 {#if status !== UN_SOLD_STATUS}
   <button
-    class="flex items-center justify-center rounded-r-md custom-button-mint-element text-sm uppercase"
+    class={`flex items-center justify-center rounded-r-md custom-button-mint-element uppercase ${buttonStatusClasses}`}
     on:click={() => handleClick()}
   >
-    <Icon path={status === MINT_STATUS ? ToMint : Processed} alt={status} class="mr-4" />
+    <Icon path={status === MINT_STATUS ? ToMint : Processed} alt={status} class="mr-4" {...iconStatusProperties} />
     {title}
   </button>
 {/if}
@@ -33,8 +42,13 @@
     min-height: 5rem;
     color: var(--default-color);
   }
+
   .custom-button-mint-element:hover {
     color: var(--button-brand-color-hover);
     background: var(--product-mint-button-bg-hover, var(--button-brand-bg-color-hover));
+  }
+
+  .custom-button-mint-element.mint-btn-processed {
+    letter-spacing: var(--product-processed-mint-button-letter-spacing);
   }
 </style>
