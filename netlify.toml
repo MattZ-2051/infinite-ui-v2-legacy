@@ -2,10 +2,17 @@
   publish = "build/"
   functions = "functions/"
 
-  # The command creates a _redirects file that will be used when building the project.
+  # The statements: blocked="$PROJECT/_blocked-redirects"; [ -s $blocked ] && cat $blocked > _redirects;
+  # creates a _redirects file that will be used when building the project.
+  # It adds redirect rules for blocked countries per project's terms of service.
+  # If a non-empty file is found at $PROJECT/_blocked-redirects it will be added to _redirects
+
+  # The statement: echo -e "\n /api/* $API_URL/:splat  200" > _redirects;
+  # appends a new line and another redirect rule to the created _redirects file.
   # The added rule will redirect all requests to /api to the actual backend url.
-  # This redirect is needed for aws cognito to work
-  command = 'echo "/api/* $API_URL/:splat  200" > _redirects && npm run build $PROJECT'
+  # This redirect is needed for aws cognito to work.
+
+  command = 'blocked="projects/$PROJECT/_blocked-redirects"; [ -s $blocked ] && cat $blocked > _redirects; echo -e "\n /api/* $API_URL/:splat  200" >> _redirects; cat _redirects; npm run build $PROJECT'
 
 [build.environment]
   NODE_VERSION = "16.14.2"
