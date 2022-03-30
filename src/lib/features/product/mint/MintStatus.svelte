@@ -36,16 +36,7 @@
   }
 
   const openTrx = () => {
-    window
-      .open(
-        `${
-          process.env.NODE_ENV === 'development'
-            ? `${variables.ethNetwork.explorerBaseUrlRinkeby}`
-            : `${variables.ethNetwork.explorerBaseUrl}`
-        }${txHash}`,
-        '_blank'
-      )
-      .focus();
+    window.open(`${variables.ethNetwork.nftExplorerUrl}${txHash}`, '_blank').focus();
   };
 
   const onClick = () => {

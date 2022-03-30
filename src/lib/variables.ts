@@ -9,12 +9,10 @@ export const variables = {
   ethNetwork: {
     apiUrl: import.meta.env.VITE_ETHERSCAN_API_URL,
     explorerBaseUrl: import.meta.env.VITE_ETH_EXPLORER_BASE_URL,
-    apiUrlGoerli: import.meta.env.VITE_ETHERSCAN_API_URL_GOERLI,
     apiKey: import.meta.env.VITE_ETHERSCAN_API_KEY,
-    apiUrlRinkeby: import.meta.env.VITE_ETHERSCAN_API_URL_RINKEBY,
-    explorerBaseUrlGoerli: import.meta.env.VITE_ETH_EXPLORER_BASE_URL_GOERLI,
-    explorerBaseUrlRinkeby: import.meta.env.VITE_ETH_EXPLORER_BASE_URL_RINKEBY,
     usdcContractAddress: import.meta.env.VITE_USDC_CONTRACT_ADDRESS,
+    nftExplorerUrl: import.meta.env.VITE_ETH_EXPLORER_BASE_URL_NFT,
+    nftTransactionApiUrl: import.meta.env.VITE_ETHERSCAN_API_URL_NFT_TX,
   },
   bitcoinNetwork: {
     apiUrl: import.meta.env.VITE_BLOCKCYPHER_API_URL,
