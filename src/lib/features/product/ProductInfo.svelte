@@ -29,8 +29,9 @@
   $: isProductOwner = isOwner(product, $userId);
   $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
   $: mintStatus = getMintStatus(product.status);
+  $: mintLaterLabel = product.status === 'purchased' ? 'Owner' : 'Minted by';
+  $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
 
-  const MINT_BY_LABEL = isTransactionLater ? 'Owned by' : 'Minted by';
   const MINT_OWNER_LABEL = isTransactionLater ? 'Owned by' : 'Owner';
   const cellClass = 'flex flex-col gap-1.5 py-4 px-3 overflow-hidden';
   const headerClass = 'text-gray-500 text-sm';
@@ -103,7 +104,7 @@
       </div>
     {:else if sku.currency === 'ETH'}
       <div class={`${headerClass} flex`}>
-        {MINT_BY_LABEL}
+        {mintByLabel}
         <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
           <Icon
             path={information}
@@ -141,7 +142,7 @@
       {#if mintStatus !== 'processed' && sku?.mintPolicy?.transaction === 'later'}
         <span>Not Minted</span>
       {:else}
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row items-center max-w-xs">
           <div class="truncate flex-1">
             <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
           </div>
@@ -162,7 +163,7 @@
   {#if product.sku.currency !== 'ETH' && !isTransactionLater}
     <ProductActions {product} userId={$userId} />
   {/if}
-  {#if isProductOwner && isTransactionLater}
+  {#if (isProductOwner && isTransactionLater) || (isTransactionLater && product.status === 'minted')}
     <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
   {/if}
   {#if isShowMintModal}

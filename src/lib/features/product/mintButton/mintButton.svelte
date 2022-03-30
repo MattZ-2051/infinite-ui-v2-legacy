@@ -22,13 +22,13 @@
       ? {}
       : {
           style:
-            'height: var(--product-processed-mint-button-icon-height, 24px);margin-right: var(--product-processed-mint-button-icon-margin);',
+            'height: var(--product-processed-mint-button-icon-height, 24px); margin-right: var(--product-processed-mint-button-icon-margin);',
         };
 </script>
 
 {#if status !== UN_SOLD_STATUS}
   <button
-    class={`flex items-center justify-center rounded-r-md custom-button-mint-element uppercase ${buttonStatusClasses}`}
+    class={`flex items-center justify-center rounded-r-md custom-button-mint-element ${buttonStatusClasses}`}
     on:click={() => handleClick()}
   >
     <Icon path={status === MINT_STATUS ? ToMint : Processed} alt={status} class="mr-4" {...iconStatusProperties} />

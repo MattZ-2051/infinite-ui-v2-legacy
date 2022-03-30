@@ -14,7 +14,6 @@
   import { product, transactions, totalTransactions } from './product.store';
 
   $: p = +$page.url.searchParams.get(`page`) || 1;
-
   const gotoPage = (event: CustomEvent) => {
     gotoQueryParameters(
       {
@@ -35,7 +34,7 @@
 <div class:opacity-40={$loadingTransactions}>
   {#if $totalTransactions > 0}
     <div class="text-default">
-      {#each $transactions as transaction}
+      {#each $transactions.reverse() as transaction}
         <div class="highlight flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 py-4">
           <div class="flex gap-3 mr-auto">
             <UserLink username={transaction.owner?.username} />
@@ -52,9 +51,9 @@
                       tooltip="See bids"
                       on:click={() => showAuctionHistory(transaction.transactionData.listing)}
                     />
-                    Bought at auction for
+                    <span class="text-gray-400"> Bought at auction for </span>
                   {:else}
-                    Bought for
+                    <span class="text-gray-400"> Bought for </span>
                   {/if}
                   <span class="text-default">
                     {formatCurrency(transaction.transactionData?.cost?.totalCost, { currency: $product.sku.currency })}

@@ -10,7 +10,7 @@ type FormatNumberOptions = Intl.NumberFormatOptions & { fallback?: string } & { 
 
 export const cryptoCurrencySymbols = {
   USDC: '$',
-  ETH: 'Ξ',
+  ETH: 'ETH ',
   ETH_WORD: 'ETH',
 };
 
