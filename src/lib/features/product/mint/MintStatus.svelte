@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { TxStatus } from '$lib/payment/crypto/etherscan/types';
   import Button from '$lib/components/Button.svelte';
+  import { variables } from '$lib/variables';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import successMint from '../assets/success-mint';
@@ -35,7 +36,16 @@
   }
 
   const openTrx = () => {
-    window.open(`https://etherscan.io/tx/${txHash}`, '_blank').focus();
+    window
+      .open(
+        `${
+          process.env.NODE_ENV === 'development'
+            ? `${variables.ethNetwork.explorerBaseUrlRinkeby}`
+            : `${variables.ethNetwork.explorerBaseUrl}`
+        }${txHash}`,
+        '_blank'
+      )
+      .focus();
   };
 
   const onClick = () => {

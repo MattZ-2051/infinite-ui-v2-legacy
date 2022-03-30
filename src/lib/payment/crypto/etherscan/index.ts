@@ -10,7 +10,8 @@ export async function waitForTx(waiterOptions: CryptoAddressWaiterOptions) {
 
 const apiUrl = `${variables.ethNetwork.apiUrl}/`;
 const apiKey = variables.ethNetwork.apiKey;
-const rinkebyUrl = `${variables.ethNetwork.apiUrlRinkeby}/`;
+const transactionStatusUrl =
+  process.env.NODE_ENV === 'development' ? `${variables.ethNetwork.apiUrlRinkeby}` : `${variables.ethNetwork.apiUrl}`;
 
 async function getCurrentBlock() {
   const rr = await get<EtherscanResponse<string>>(apiUrl, {
@@ -32,7 +33,7 @@ async function getCurrentBlock() {
 }
 
 export async function getTxStatus(txhash: string): Promise<TxStatus> {
-  const rr = await get<EtherscanResponse<TxReceiptStatusResponse>>(rinkebyUrl, {
+  const rr = await get<EtherscanResponse<TxReceiptStatusResponse>>(transactionStatusUrl, {
     credentials: 'omit',
     params: {
       module: 'transaction',
