@@ -8,4 +8,4 @@
   command = 'echo "/api/* $API_URL/:splat  200" > _redirects && npm run build $PROJECT'
 
 [build.environment]
-  NODE_VERSION = "14.18.0"
+  NODE_VERSION = "16.14.2"
