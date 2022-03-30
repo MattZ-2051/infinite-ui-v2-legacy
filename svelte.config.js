@@ -50,7 +50,7 @@ const config = {
 
       server: {
         fs: {
-          allow: [path.resolve(`./projects/`)],
+          allow: [path.resolve(`./projects/`), path.resolve(`./mocks/`)],
         },
 
         proxy: {

@@ -1,6 +1,5 @@
 export const variables = {
   apiUrl: import.meta.env.VITE_API_URL,
-  apiMocking: import.meta.env.VITE_API_MOCKING === 'enabled',
   persona: {
     tenantName: import.meta.env.VITE_KYC_PERSONA_TENANT,
     templateIdLevel1: import.meta.env.VITE_KYC_PERSONA_TEMPLATE_LVL_1,

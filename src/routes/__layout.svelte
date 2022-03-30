@@ -8,15 +8,10 @@
   import Maintenance from '$lib/components/Maintenance.svelte';
   import '@stripe/stripe-js';
 
-  if (variables.apiMocking) {
+  if (import.meta.env.VITE_API_MOCKING === 'enabled') {
     (async () => {
-      if (!browser) {
-        const { default: server } = await import('../../mocks/server');
-        server.listen();
-      } else {
-        const { default: worker } = await import('../../mocks/browser');
-        worker.start();
-      }
+      const { default: initMock } = await import('../../mocks');
+      initMock(browser);
     })();
   }
 
