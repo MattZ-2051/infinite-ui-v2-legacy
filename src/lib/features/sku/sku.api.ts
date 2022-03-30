@@ -37,3 +37,11 @@ export async function getNumberOfSkus({ id, fetch }: { id: string; fetch?: Fetch
 export function createSku(sku: CreateSkusDto): Promise<Sku> {
   return post('/skus', sku);
 }
+
+export function uploadAsset(asset: {
+  fileName: string;
+  tenant: string;
+  assetType: 'public' | 'private';
+}): Promise<{ presignedUrl: string; attachmentUrl: string }> {
+  return post('/skus/assets', asset);
+}

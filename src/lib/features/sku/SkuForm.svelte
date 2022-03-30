@@ -26,8 +26,10 @@
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import Switch from '$lib/components/Switch.svelte';
+  import { put } from '$lib/api';
   import { media } from '$lib/media-query.store';
-  import { createSku } from './sku.api';
+  import { tenantSettings } from '$lib/tenant/settings.store';
+  import { createSku, uploadAsset } from './sku.api';
 
   registerPlugin(FilePondPluginFileValidateType, FilePondPluginFileValidateSize, FilePondPluginImagePreview);
 
@@ -65,7 +67,7 @@
     }),
   });
 
-  const { form, errors, data, isSubmitting, isValid, setData, setTouched, setErrors } = createForm<{
+  const { form, errors, data, isSubmitting, isValid, setTouched, setErrors } = createForm<{
     name: string;
     description: string;
     supplyType: SupplyType;
@@ -100,13 +102,13 @@
         const { _id } = await createSku({
           nftPublicAssets: [
             {
-              url: 'https://infinite-digital-dev.s3.amazonaws.com/Untitled.mov',
+              url: await getAssetUrl(nftPublicAssets, 'public'),
             },
           ],
           ...(hasUnlockableContent && {
             nftPrivateAssets: [
               {
-                url: 'https://infinite-digital-dev.s3.amazonaws.com/Untitled.mov',
+                url: await getAssetUrl(nftPrivateAssets, 'private'),
               },
             ],
           }),
@@ -134,19 +136,19 @@
     validate: validateSchema(schema),
   });
 
+  async function getAssetUrl(asset: File, assetType: 'public' | 'private'): Promise<string> {
+    const { presignedUrl, attachmentUrl } = await uploadAsset({
+      assetType,
+      fileName: asset.name,
+      tenant: $tenantSettings.tenant,
+    });
+
+    await put(presignedUrl, asset);
+    return attachmentUrl;
+  }
+
   function onClose() {
     history.back();
-  }
-
-  function handleAddFile(property: 'nftPublicAssets' | 'nftPrivateAssets', error, fileItem) {
-    setTouched(property, true);
-    setErrors(property, error);
-    setData(property, fileItem.file);
-  }
-
-  function handleRemoveFile(property: 'nftPublicAssets' | 'nftPrivateAssets') {
-    setErrors(property, undefined);
-    setData(property, undefined);
   }
 
   function checkIfFileIsTooBig(file?: File): boolean {
@@ -198,13 +200,7 @@
       </div>
     </div>
     <div class="flex flex-col">
-      <FilePond
-        onaddfile={(error, fileItem) => handleAddFile('nftPublicAssets', error, fileItem)}
-        onremovefile={() => handleRemoveFile('nftPublicAssets')}
-        acceptedFileTypes={ACCEPTED_FILE_TYPES}
-        maxFileSize="10MB"
-        credits={false}
-      />
+      <FilePond name="nftPublicAssets" acceptedFileTypes={ACCEPTED_FILE_TYPES} maxFileSize="10MB" credits={false} />
       {#if $errors.nftPublicAssets}
         <div class="text-red-500 text-xs pt-1">{$errors.nftPublicAssets}</div>
       {/if}
@@ -244,8 +240,7 @@
         <div class="text-sm	text-gray-500 flex justify-between">Format: JPG, PNG, GIF or PDF. Max size: 10MB.</div>
         <div class="flex flex-col">
           <FilePond
-            onaddfile={(error, fileItem) => handleAddFile('nftPrivateAssets', error, fileItem)}
-            onremovefile={() => handleRemoveFile('nftPrivateAssets')}
+            name="nftPrivateAssets"
             acceptedFileTypes={ACCEPTED_FILE_TYPES}
             maxFileSize="10MB"
             credits={false}
