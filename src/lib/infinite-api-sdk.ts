@@ -49,7 +49,8 @@ export function skuTiles(fetch, options?) {
         search,
         saleType,
         currency,
-      }).filter(([, value]) => value !== undefined)
+        // eslint-disable-next-line unicorn/no-null
+      }).filter(([, value]) => ![undefined, null].includes(value))
     );
     const {
       body: { docs, count, aggregations },
