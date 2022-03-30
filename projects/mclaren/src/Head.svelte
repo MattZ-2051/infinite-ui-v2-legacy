@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   import injectScript from '$util/injectScript';
   import { CLIENT_DOC_DESCRIPTION } from './variables';
-  import { hubspot } from './hubspot.script';
 
   const adobeAnalyticsUrl = import.meta.env?.VITE_ADOBE_ANALYTICS_URL as string;
 
@@ -32,5 +31,4 @@
     crossorigin="anonymous"
   />
   <link rel="stylesheet" href="/fonts/stylesheet.css" />
-  {@html hubspot}
 </svelte:head>
