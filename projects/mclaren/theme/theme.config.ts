@@ -27,4 +27,5 @@ export const themeConfig = {
   '*.payment-buttons': Theme.PaymentButtons,
   '$privacy.root': Theme.Dark,
   '$terms.root': Theme.Dark,
+  '$cookies.root': Theme.Dark,
 };
