@@ -13,8 +13,8 @@ export default {
   mcLarenRacing: 'https://www.mclaren.com/racing/?_ga=2.12111476.1509309442.1648474878-868223602.1644268772',
   mcLarenApplied: 'https://www.mclaren.com/applied/?_ga=2.45263844.1509309442.1648474878-868223602.1644268772',
   investors: 'https://investors.mclaren.com/?_ga=2.45263844.1509309442.1648474878-868223602.1644268772',
-  cookiePolicy: 'https://cars.mclaren.com/us-en/cookie-policy',
-  privacyPoliy: 'https://cars.mclaren.com/us-en/privacy-policy',
+  cookiePolicyExt: 'https://cars.mclaren.com/us-en/cookie-policy',
+  privacyPoliyExt: 'https://cars.mclaren.com/us-en/privacy-policy',
   genderGapReport:
     'https://cars.mclaren.com/content/dam/mclaren-automotive/pdf/MCL_20753%20Gender%20Pay%20Gap%20Report%202020.pdf',
   termsAndConditions: 'https://cars.mclaren.com/us-en/terms-and-conditions',

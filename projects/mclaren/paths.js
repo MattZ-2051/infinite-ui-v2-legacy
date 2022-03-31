@@ -28,6 +28,7 @@ export const paths = {
   '$lib/features/checkout/assets/error-icon.svg': 'projects/mclaren/src/assets/lib/error-icon.svg',
   '$lib/features/checkout/assets/success-icon.svg': 'projects/mclaren/src/assets/lib/success-icon.svg',
   '$lib/components/icons/success-mint': 'projects/mclaren/src/assets/lib/success-icon',
-  '$project/terms/Privacy.svelte': 'projects/aria/src/terms/Privacy.svelte',
   '$project/terms/Cookies.svelte': 'projects/aria/src/terms/Cookies.svelte',
+  '$project/terms/Privacy.svelte': 'projects/infinite/src/terms/Privacy.svelte',
+  '$project/TermsConditions.svelte': 'projects/infinite/src/TermsConditions.svelte',
 };

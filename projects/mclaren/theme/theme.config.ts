@@ -25,4 +25,6 @@ export const themeConfig = {
   '*.modal': Theme.Light,
   '*.footer': Theme.Footer,
   '*.payment-buttons': Theme.PaymentButtons,
+  '$privacy.root': Theme.Dark,
+  '$terms.root': Theme.Dark,
 };

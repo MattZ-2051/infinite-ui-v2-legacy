@@ -35,8 +35,8 @@
               class=" footer-links grid grid-rows-3  gap-y-4 gap-x-12 grid-flow-col sm:grid-rows-5 "
               style="max-height:12rem"
             >
-              <a href={routes.cookiePolicy} target="_blank" rel="noopener noreferrer">Cookie Policy</a>
-              <a href={routes.privacyPoliy} target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+              <a href={routes.cookiePolicyExt} target="_blank" rel="noopener noreferrer">Cookie Policy</a>
+              <a href={routes.privacyPoliyExt} target="_blank" rel="noopener noreferrer">Privacy Policy</a>
               <a href={routes.genderGapReport} target="_blank" rel="noopener noreferrer">Gender Gap Report</a>
               <a href={routes.termsAndConditions} target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
               <a href={routes.antiSlaveryStatement} target="_blank" rel="noopener noreferrer">Anti-Slavery Statement</a>
@@ -66,8 +66,8 @@
           <a href={routes.faq} target="_blank" rel="noreferrer">FAQ</a>
           <a href={routes.careers}>Careers</a>
           <a href={routes.help}>Help</a>
-          <a href={routes.privacyPoliy}>Privacy Policy</a>
-          <a href={routes.termsAndConditions}>Terms & Conditions</a>
+          <a href={routes.privacy}>Privacy Policy</a>
+          <a href={routes.terms}>Terms & Conditions</a>
           <a href="https://infiniteworld.com" class="sm:flex items-center hidden ">
             <Icon path={poweredByInfinite} class="-mr-1" />
             <span class="block md:hidden lg:block"> Powered by InfiniteWorld </span>
