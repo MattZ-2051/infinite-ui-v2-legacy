@@ -2,6 +2,7 @@
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import routes from '$project/routes';
   import arrowLeft from '$lib/features/product/assets/arrow-left';
+  import { goto } from '$app/navigation';
   import { browser } from '$app/env';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
@@ -18,7 +19,7 @@
   const hasCloseButton = browser && history.length > 1;
 
   function onClose() {
-    history.back();
+    goto(routes.sku(sku._id));
   }
 </script>
 

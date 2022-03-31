@@ -1,6 +1,7 @@
 <script lang="ts">
   import arrowLeft from '$lib/features/product/assets/arrow-left';
   import shareIcon from '$lib/features/sku/assets/share';
+  import { goto } from '$app/navigation';
   import { browser } from '$app/env';
   import { userId } from '$lib/user';
   import routes from '$project/routes';
@@ -21,7 +22,7 @@
   const hasCloseButton = browser && history.length > 1;
 
   function onClose() {
-    history.back();
+    goto(routes.collectors($product.sku?._id, '?saleType=all'));
   }
 </script>
 
