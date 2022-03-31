@@ -24,6 +24,11 @@
     openModal(WalletConnectionModal, { user });
   };
 
+  const isVisible = (excludeFor: string[]) => {
+    return excludeFor ? !excludeFor.includes($page.url.pathname) : true;
+  };
+  const USER_MENU_VISIBLE = import.meta.env?.VITE_HIDE_NAVBAR_LINKS === 'true' ? isVisible(['/']) : true;
+
   $: isRoute = function (route: string) {
     return new RegExp(`^${route}(?:/|$)`).test($page.url.pathname);
   };
@@ -32,7 +37,7 @@
 </script>
 
 <!-- Header block -->
-{#each links as { type, location, id, label }}
+{#each links as { type, location, id, label, excludeFor }}
   <!-- Menu items will be flattened for mobile menu -->
   {#if location === 'header' || (user && flatten && location === 'user-menu')}
     {#if type === 'route' || type === 'route-open-new'}
@@ -41,7 +46,7 @@
         href={routes[id]}
         target={type === 'route-open-new' ? '_blank' : ''}
         rel={type === 'route-open-new' ? 'noopener noreferrer' : ''}
-        class="header-link"
+        class={isVisible(excludeFor) ? 'header-link' : 'hidden'}
         class:active={isRoute(routes[id])}
         on:click={() => flatten && dispatch('select')}>{label}</a
       >
@@ -77,7 +82,7 @@
       {/if}
     {:else if type === 'sign-in'}
       <button
-        class="flex header-link"
+        class={isVisible(excludeFor) ? 'flex header-link' : 'hidden'}
         on:click={() => {
           flatten && dispatch('select');
           onSignIn();
@@ -91,7 +96,7 @@
           flatten && dispatch('select');
           onSignUp();
         }}
-        class="whitespace-nowrap header-link">{label}</Button
+        class={isVisible(excludeFor) ? 'whitespace-nowrap header-link' : 'hidden'}>{label}</Button
       >
     {/if}
   {/if}
@@ -99,7 +104,7 @@
 
 <!-- User menu block -->
 <!-- Menu items will be nested for desktop view -->
-{#if user && flatten === false}
+{#if user && flatten === false && USER_MENU_VISIBLE}
   <Menu placement="bottom-start" class="min-w-0">
     <MenuTrigger slot="trigger" class="header-link w-full">
       <div class="flex sm:gap-1 md:gap-1.5 w-full">

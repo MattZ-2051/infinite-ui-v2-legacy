@@ -7,13 +7,13 @@ import connectWallet from '$lib/layout/header/assets/connect-wallet';
 
 export const links: Link[] = [
   { type: 'route', location: 'header', id: 'index', label: 'Home' },
-  { type: 'route', location: 'header', id: 'skuCollections', label: 'Collections' },
+  { type: 'route', location: 'header', id: 'skuCollections', label: 'Collections', excludeFor: ['/'] },
   { type: 'route-open-new', location: 'header', id: 'faq', label: 'F.A.Q.' },
   { type: 'user-collection', location: 'user-menu', label: 'My Collection', icon: myCollection },
   { type: 'route', location: 'user-menu', id: 'wallet', label: 'My Wallet', icon: mdiCreditCardOutline },
   { type: 'wallet-extensions', location: 'user-menu', label: 'Connect external wallet', icon: connectWallet },
   { type: 'route', location: 'user-menu', id: 'account', label: 'Account Settings', icon: mdiCogOutline },
-  { type: 'sign-in', location: 'header', label: 'Sign in' },
-  { type: 'sign-up', location: 'header', label: 'Sign up' },
+  { type: 'sign-in', location: 'header', label: 'Sign in', excludeFor: ['/'] },
+  { type: 'sign-up', location: 'header', label: 'Sign up', excludeFor: ['/'] },
   { type: 'sign-out', location: 'user-menu', label: 'Sign Out', icon: mdiLogout },
 ];

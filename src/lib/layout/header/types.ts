@@ -6,4 +6,5 @@ export type Link = {
   label: string;
   id?: string;
   icon?: Icon;
+  excludeFor?: string[];
 };

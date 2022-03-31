@@ -15,7 +15,7 @@
         {#each FaqInfo as el}
           <SimpleAccordion title={el.title} textColor="rgba(255,255,255,0.7)" selectedColor="white">
             <div class="font-light text-sm sm:text-base">
-              <p>{el.text}</p>
+              {@html el.content}
             </div>
           </SimpleAccordion>
         {/each}

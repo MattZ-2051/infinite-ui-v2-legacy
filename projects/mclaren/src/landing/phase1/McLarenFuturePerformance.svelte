@@ -21,7 +21,7 @@
         </p>
         <p class="leading-7 md:pb-6 text-white opacity-80">
           The first chapter in McLaren Automotive’s ambitious metaverse roadmap, MSO LAB continues this mission into the
-          web3 era. A platform for innovation and collaboration, exploring the future of performance in automotive and
+          Web3 era. A platform for innovation and collaboration, exploring the future of performance in automotive and
           beyond.
         </p>
         <p class="leading-7 pb-10 text-white opacity-80 hidden sm:block">
