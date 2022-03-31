@@ -21,12 +21,12 @@
     style="background-color: var(--collector-item-bg)"
   >
     <div class="flex gap-3 md:gap-5 mr-auto items-center">
-      {#if collector?.nftAttributes?.thumbnails && collector?.nftAttributes?.thumbnails.length > 0}
+      {#if collector?.nftPublicAssets && collector?.nftPublicAssets.length > 0}
         <img
           class="w-12 h-12 object-cover rounded-md"
-          src={collector.nftAttributes.thumbnails[0]}
+          src={collector.nftPublicAssets[0].url}
           alt="collector img"
-          use:imageError={() => (collector.nftAttributes.thumbnails[0] = undefined)}
+          use:imageError={() => (collector.nftPublicAssets[0].url = undefined)}
           loading="lazy"
           style="box-shadow:0px 4px 8px 0px rgba(0, 0, 0, 0.25);"
         />
