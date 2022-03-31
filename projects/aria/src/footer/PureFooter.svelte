@@ -37,7 +37,9 @@
 </div>
 
 <FooterLayout>
-  <SocialLinks slot="start" {links} />
+  <div slot="start" class="flex flex-wrap min-w-max items-center justify-center gap-4">
+    <SocialLinks {links} />
+  </div>
   <svelte:fragment slot="copyright"
     >© {new Date().getFullYear()} {CLIENT_COMPANY_NAME_LEGAL} All Rights Reserved</svelte:fragment
   >
