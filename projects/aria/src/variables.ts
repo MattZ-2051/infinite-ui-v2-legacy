@@ -15,14 +15,15 @@ export const CLIENT_SOCIAL_IMAGE = {
   alt: 'ARIA Exchange',
 };
 export const CLIENT_SUPPORT_EMAIL = 'support@ARIAExchange.com';
-export const CLIENT_SUPPORT_URL = 'https://aria-network.force.com/support/s/';
-export const CLIENT_BIDDING_URL = 'https://aria-network.force.com/support/s/article/How-does-bidding-work';
-export const CLIENT_HEDERA_URL = 'https://aria-network.force.com/support/s/article/What-is-Hedera-Hashgraph';
-export const CLIENT_REDEEM_URL = 'https://aria-network.force.com/support/s/article/Can-I-redeem-an-NFT';
+export const CLIENT_SUPPORT_URL = 'https://help.ariaexchange.com/s/';
+export const CLIENT_BIDDING_URL = '';
+export const CLIENT_HEDERA_URL = 'https://help.ariaexchange.com/s/article/What-is-Hedera-Hashgraph';
+export const CLIENT_REDEEM_URL = 'https://help.ariaexchange.com/s/article/Can-I-redeem-an-NFT';
+export const CLIENT_AFTER_REDEEMED_URL = '';
 export const CLIENT_API_HEADER = 'aria';
 export const ENABLE_ETH_CURRENCY = false;
 export const AUTH_PROVIDER_IS_AUTH0 = true;
-export const KYC_INFO = 'https://aria-network.force.com/support/s/article/How-do-I-verify-my-account';
+export const KYC_INFO = 'https://help.ariaexchange.com/s/article/How-do-I-verify-my-account';
 export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'all';
 export const SENTRY_DNS = 'https://b93ec290c306467f812048e6bc22db15@o734225.ingest.sentry.io/6132955';
 export const AVAILABLE_DEPOSIT_TYPES = 'usdc,btc,hbar,suku';

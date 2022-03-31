@@ -3,7 +3,7 @@ import routes from '$lib/routes';
 
 export default {
   ...routes,
-  help: 'https://aria-network.force.com/support/s/',
+  help: 'https://help.ariaexchange.com/s/',
   careers: 'https://jobs.wrkhq.com/the-aria-network',
   cookies: '/cookies',
 };

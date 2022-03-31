@@ -8,6 +8,7 @@
   import Button from '$lib/components/Button.svelte';
   import { FormElement, FormCountriesSelect } from '$lib/components/form';
   import routes from '$project/routes';
+  import { CLIENT_AFTER_REDEEMED_URL } from '$project/variables';
   import { redeemItem } from './redeem.api';
   import { productRedeemed } from '../product.store';
 
@@ -31,9 +32,15 @@
     onSubmit: async (values) => {
       try {
         await redeemItem(values, id);
-        notifications.success(
-          `Congrats! You've successfully redeemed this item. Learn more about the redemption process <a href=${routes.help}>here</a>.`
-        );
+
+        const successMessage = [`Congrats! You've successfully redeemed this item.`];
+        if (CLIENT_AFTER_REDEEMED_URL) {
+          successMessage.push(
+            `Learn more about the redemption process <a target="_blank" href=${CLIENT_AFTER_REDEEMED_URL} rel="noreferrer" class="font-bold">here</a>.`
+          );
+        }
+        notifications.success(successMessage.join(' '));
+
         reset();
         productRedeemed();
         dispatch('close');

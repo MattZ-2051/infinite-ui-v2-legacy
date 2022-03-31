@@ -1,5 +1,6 @@
 import type { ModeFilterStatus } from '$lib/features/marketplace/types';
 import type { TabType } from '$lib/features/product/types';
+import routes from '$project/routes';
 
 export * from './variablesUI';
 export * from './variablesText';
@@ -20,6 +21,7 @@ export const CLIENT_SUPPORT_URL = 'https://support.suku.world/infinite-powered-b
 export const CLIENT_BIDDING_URL = 'https://support.suku.world/infinite-powered-by-suku';
 export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-hashgraph-hts';
 export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-redeem-an-item';
+export const CLIENT_AFTER_REDEEMED_URL = routes.help;
 export const CLIENT_API_HEADER = 'infinite';
 export const ENABLE_ETH_CURRENCY = false;
 export const AUTH_PROVIDER_IS_AUTH0 = true;

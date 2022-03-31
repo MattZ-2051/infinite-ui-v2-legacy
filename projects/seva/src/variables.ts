@@ -1,5 +1,6 @@
 import type { ModeFilterStatus } from '$lib/features/marketplace/types';
 import type { TabType } from '$lib/features/product/types';
+import routes from '$project/routes';
 
 export * from './variablesUI';
 export * from './variablesText';
@@ -20,6 +21,7 @@ export const CLIENT_SUPPORT_URL = 'https://info.seva.love';
 export const CLIENT_BIDDING_URL = 'https://info.seva.love';
 export const CLIENT_HEDERA_URL = 'https://info.seva.love/infinite/hedera-hashgraph-hts';
 export const CLIENT_REDEEM_URL = 'https://info.seva.love/infinite/can-i-redeem-an-item';
+export const CLIENT_AFTER_REDEEMED_URL = routes.help;
 export const CLIENT_API_HEADER = 'seva';
 export const ENABLE_ETH_CURRENCY = true;
 export const AUTH_PROVIDER_IS_AUTH0 = true;
