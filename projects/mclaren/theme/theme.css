@@ -262,6 +262,7 @@
   /*UserLink*/
   --userlink-color: transparent;
   --userlink-bg: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
+  --separator-bg-color: rgba(0, 0, 0, 0.05);
 }
 
 .theme-payment-button {

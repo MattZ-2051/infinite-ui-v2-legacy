@@ -13,7 +13,7 @@
 
 <div class="font-medium">
   <div class="text-xl md:text-2xl section-title font-normal">My Wallet</div>
-  <div class="text-3xl md:text-5xl tracking-tight mt-3 md:mt-5 gradient-balance-text">
+  <div class="text-4xl md:text-5xl tracking-tight mt-3 md:mt-5 gradient-balance-text">
     {#if balance === undefined}
       <div class="animate-pulse bg-gray-300 rounded h-10 w-52" />
     {:else}
