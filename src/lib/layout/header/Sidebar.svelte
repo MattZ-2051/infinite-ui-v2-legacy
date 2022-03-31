@@ -4,6 +4,7 @@
   import { onMount, onDestroy, createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
   import { browser } from '$app/env';
+  import { media } from '$lib/media-query.store';
   import Links from './Links.svelte';
 
   export let user: User;
@@ -13,6 +14,9 @@
   function onClose() {
     dispatch('close');
   }
+
+  $: if ($media.md) onClose();
+
   onMount(() => {
     document.body.classList.add('overflow-hidden');
   });
@@ -24,8 +28,6 @@
   });
 </script>
 
-<svelte:window on:sveltekit:navigation-start={onClose} />
-
 <div class="w-full h-full flex light justify-end" on:click|self={onClose}>
   <div
     class="w-72 h-full"
@@ -33,7 +35,7 @@
     style="background-color:var(--mobile-menu-background-color, black)"
   >
     <div class="mt-36 text-xl flex flex-col items-center gap-10">
-      <Links flatten {user} {links} />
+      <Links flatten {user} {links} on:select={onClose} />
     </div>
   </div>
 </div>

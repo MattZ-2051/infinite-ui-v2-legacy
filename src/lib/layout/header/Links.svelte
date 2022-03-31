@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
+  import { createEventDispatcher } from 'svelte';
   import { onSignOut, onSignIn, onSignUp, isLoading } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
@@ -26,6 +27,8 @@
   $: isRoute = function (route: string) {
     return new RegExp(`^${route}(?:/|$)`).test($page.url.pathname);
   };
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <!-- Header block -->
@@ -39,10 +42,17 @@
         target={type === 'route-open-new' ? '_blank' : ''}
         rel={type === 'route-open-new' ? 'noopener noreferrer' : ''}
         class="header-link"
-        class:active={isRoute(routes[id])}>{label}</a
+        class:active={isRoute(routes[id])}
+        on:click={() => flatten && dispatch('select')}>{label}</a
       >
     {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED)}
-      <button class="header-link" on:click|preventDefault={handleWalletModal}>{label}</button>
+      <button
+        class="header-link"
+        on:click={() => {
+          flatten && dispatch('select');
+          handleWalletModal();
+        }}>{label}</button
+      >
     {/if}
     {#if user}
       {#if type === 'user-collection'}
@@ -51,16 +61,38 @@
           href={routes.collection(user.username)}
           class="header-link"
           class:active={isRoute(routes.collection(user.username))}
+          on:click={() => flatten && dispatch('select')}
         >
           {label}
         </a>
       {:else if type === 'sign-out'}
-        <button type="button" on:click={() => onSignOut()} class="header-link">Sign Out</button>
+        <button
+          type="button"
+          on:click={() => {
+            flatten && dispatch('select');
+            onSignOut();
+          }}
+          class="header-link">Sign Out</button
+        >
       {/if}
     {:else if type === 'sign-in'}
-      <button class="flex header-link" on:click={() => onSignIn()} disabled={$isLoading}>{label}</button>
+      <button
+        class="flex header-link"
+        on:click={() => {
+          flatten && dispatch('select');
+          onSignIn();
+        }}
+        disabled={$isLoading}>{label}</button
+      >
     {:else if type === 'sign-up'}
-      <Button variant="brand" on:click={onSignUp} class="whitespace-nowrap header-link">{label}</Button>
+      <Button
+        variant="brand"
+        on:click={() => {
+          flatten && dispatch('select');
+          onSignUp();
+        }}
+        class="whitespace-nowrap header-link">{label}</Button
+      >
     {/if}
   {/if}
 {/each}
