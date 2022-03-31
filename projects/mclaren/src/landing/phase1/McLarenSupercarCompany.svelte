@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
   import supercarCompanyImg from './images/supercar-company-bg-img.svg';
   import supercarCompanyImgMobile from './images/supercar-company-bg-img-mobile.png';
@@ -23,11 +22,11 @@
           spirit to ensure that each one is more exhilarating, more refined, more remarkable than the last.
         </p>
       </div>
-      <Button
-        variant="brand"
-        class="h-12 sm:h-16 w-full sm:w-fit font-bold text-xs tracking-widest !normal-case"
-        on:click={() => goto('https://cars.mclaren.com/us-en')}>DISCOVER McLAREN</Button
-      >
+      <Button variant="brand" class="h-12 sm:h-16 w-full sm:w-fit font-bold text-xs tracking-widest !normal-case">
+        <a alt="discover mclaren" href="https://cars.mclaren.com/us-en" target="_blank" rel="noopener noreferrer">
+          DISCOVER McLAREN
+        </a>
+      </Button>
     </div>
   </div>
   <img
