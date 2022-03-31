@@ -4,9 +4,9 @@
 </script>
 
 <div class="container py-8 sm:pt-20" id="terms">
-  <div class="flex justify-center pb-20">
-    <a href="#InfiniteWorld" class="pr-4">InfiniteWorld Terms of Service</a>
-    <a href="#Aria" class="pl-4">ARIA Supplemental Terms of Service</a>
+  <div class="flex flex-col space-y-8 text-center justify-center sm:flex-row sm:space-y-0 sm:space-x-8 sm:pb-8">
+    <a href="#InfiniteWorld">InfiniteWorld Terms of Service</a>
+    <a href="#Aria">ARIA Supplemental Terms of Service</a>
   </div>
   <InfiniteTermsConditions />
   <AriaTermsConditions />

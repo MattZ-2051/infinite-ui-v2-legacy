@@ -2,11 +2,10 @@
   import { Seo } from '$lib/seo';
 </script>
 
-<Seo title="InfiniteWorld Terms and Conditions" />
+<Seo title="ARIA Supplemental Terms of Service" />
 
 <div class="container py-8 relative">
-  <div id="Aria" class="absolute -top-20" />
-  <h1 class="text-center text-3xl my-4 ">
+  <h1 id="Aria" class="text-center text-3xl my-4 ">
     <strong>ARIA Supplemental Terms of Service</strong><a href="#top" class="text-sm ml-4 underline">top</a>
   </h1>
   <p class="mb-3">Last Modified: March 25, 2022</p>
@@ -1753,10 +1752,6 @@
 </div>
 
 <style lang="postcss">
-  #Aria::before {
-    padding-top: 10rem;
-  }
-
   p {
     @apply py-2 mb-3;
   }
@@ -1779,5 +1774,12 @@
 
   .link {
     @apply absolute -top-24;
+  }
+
+  :target:before {
+    content: '';
+    height: calc(var(--header-height) + 1rem);
+    display: block;
+    margin-top: calc((var(--header-height) + 1rem) * -1);
   }
 </style>

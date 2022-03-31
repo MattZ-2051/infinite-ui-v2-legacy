@@ -4,17 +4,15 @@
 
 <Seo title="InfiniteWorld Terms and Conditions" />
 
-<div id="InfiniteWorld" class="absolute top-20" />
 <div class="container py-8">
-  <h1 class="text-center text-3xl my-4 ">
+  <h1 id="InfiniteWorld" class="text-center text-3xl mt-4 mb-16">
     <strong>InfiniteWorld Terms of Service</strong><a href="#top" class="text-sm ml-4 underline">top</a>
   </h1>
   <p class="mb-3">Last Modified: November 16, 2021</p>
 
   <div class="ml-6 mb-3 flex items-center text-lg relative">
-    <div class="link" id="infinite-section-1" />
     <span class="mr-3">1.</span>
-    <h2 class="underline uppercase">
+    <h2 id="infinite-section-1" class="underline uppercase">
       <strong>Acceptance of the Terms of Service</strong>
     </h2>
   </div>
@@ -1914,7 +1912,10 @@
 </div>
 
 <style lang="postcss">
-  .link {
-    @apply absolute -top-24;
+  :target:before {
+    content: '';
+    height: calc(var(--header-height) + 1rem);
+    display: block;
+    margin-top: calc((var(--header-height) + 1rem) * -1);
   }
 </style>
