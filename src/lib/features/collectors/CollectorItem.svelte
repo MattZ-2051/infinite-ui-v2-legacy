@@ -21,7 +21,16 @@
     style="background-color: var(--collector-item-bg)"
   >
     <div class="flex gap-3 md:gap-5 mr-auto items-center">
-      {#if collector?.owner?.profilePhotoUrl}
+      {#if collector?.nftAttributes?.thumbnails && collector?.nftAttributes?.thumbnails.length > 0}
+        <img
+          class="w-12 h-12 object-cover rounded-md"
+          src={collector.nftAttributes.thumbnails[0]}
+          alt="collector img"
+          use:imageError={() => (collector.nftAttributes.thumbnails[0] = undefined)}
+          loading="lazy"
+          style="box-shadow:0px 4px 8px 0px rgba(0, 0, 0, 0.25);"
+        />
+      {:else if collector?.owner?.profilePhotoUrl}
         <img
           class="w-12 h-12 rounded-full object-cover"
           src={collector.owner.profilePhotoUrl}

@@ -383,6 +383,20 @@ export type CollectorProduct = {
   tokenId?: string;
   explorerLink?: string;
   highestBid?: Bid;
+  nftAttributes?: NFTAttributes;
+};
+
+export type NFTAttributes = {
+  'Body Colour': string;
+  Fade: string;
+  Livery: string;
+  Model: string;
+  Paint: string;
+  'Pinstripe Colour': string;
+  'Wheel Colour': string;
+  description: string;
+  name: string;
+  thumbnails: string[];
 };
 
 export type Series = {
