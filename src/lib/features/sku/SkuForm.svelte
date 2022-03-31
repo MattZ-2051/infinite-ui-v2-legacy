@@ -126,10 +126,14 @@
           },
         });
       } catch (error) {
-        if (error?.data?.args && Object.keys(error.data.args).length === 0) {
-          toast.danger(error.data.message);
+        if (error.data) {
+          if (error.data.args && Object.keys(error.data.args).length > 0) {
+            setErrors(error.data.args);
+          } else {
+            toast.danger(error.data.message);
+          }
         } else {
-          setErrors(error.data.args);
+          toast.danger('Whoops, something went wrong - please try again.');
         }
       }
     },
