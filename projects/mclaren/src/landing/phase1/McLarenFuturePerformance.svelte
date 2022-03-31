@@ -14,10 +14,10 @@
       <p class="text-3xl sm:text-5xl font-light tracking-widest pb-10 second-font text-white opacity-80">
         FUTURE PERFORMANCE
       </p>
-      <div class="w-full xl:w-5/6 font-light text-sm sm:text-base leading-7">
+      <div class="w-full xl:w-5/6 font-light text-base sm:text-lg leading-7">
         <p class="leading-7 pb-6 text-white opacity-80">
           From its inception, McLaren Special Operations has existed to push boundaries combining bleeding edge design,
-          engineering and craftsmanship to deliver the ‘art of the possible’.
+          engineering and craftsmanship to deliver the <i>‘art of the possible’</i>.
         </p>
         <p class="leading-7 md:pb-6 text-white opacity-80">
           The first chapter in McLaren Automotive’s ambitious metaverse roadmap, MSO LAB continues this mission into the
