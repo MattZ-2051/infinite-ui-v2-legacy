@@ -22,10 +22,12 @@
           spirit to ensure that each one is more exhilarating, more refined, more remarkable than the last.
         </p>
       </div>
-      <Button variant="brand" class="h-12 sm:h-16 w-full sm:w-fit font-bold text-xs tracking-widest !normal-case">
-        <a alt="discover mclaren" href="https://cars.mclaren.com/us-en" target="_blank" rel="noopener noreferrer">
-          DISCOVER McLAREN
-        </a>
+      <Button
+        variant="brand"
+        class="h-12 sm:h-16 w-full sm:w-fit font-bold text-xs tracking-widest !normal-case"
+        on:click={() => window.open('https://cars.mclaren.com/us-en')}
+      >
+        DISCOVER McLAREN
       </Button>
     </div>
   </div>
