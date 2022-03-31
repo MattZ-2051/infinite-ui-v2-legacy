@@ -121,7 +121,8 @@ const getDummyTransaction = (): Transaction => {
       },
     ],
     tenant: CLIENT_API_HEADER,
-    status: '',
+    // eslint-disable-next-line unicorn/no-null
+    status: null,
   };
 
   const transactionData: TransactionData = {

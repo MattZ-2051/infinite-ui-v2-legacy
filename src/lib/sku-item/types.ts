@@ -13,7 +13,7 @@ export type SupplyType = 'variable' | 'fixed';
 
 export type Currency = 'USD' | 'ETH';
 
-export type SkuStatus = 'pending' | 'approved' | 'rejected' | '';
+export type SkuStatus = 'pending' | 'approved' | 'rejected' | null;
 
 export type Sku = {
   _id: string;

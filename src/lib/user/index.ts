@@ -97,7 +97,7 @@ export function mustSetupAccount(me: User, path: string) {
 }
 
 export function isIssuer(u: User): boolean {
-  return u.roles.includes('issuer');
+  return u?.roles && u.roles.includes('issuer');
 }
 
 let sessionUnsubscriber;

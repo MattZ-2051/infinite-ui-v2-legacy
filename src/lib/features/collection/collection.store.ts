@@ -54,7 +54,8 @@ export const loadCollectionFx = createEffect(
       sortBy,
       perPage: _profile.role === 'issuer' ? perPageIssuer : perPageUser,
       forSale,
-      skuStatus: <SkuStatus>(getStoreValue(user)?._id === _profile._id ? '' : 'approved'),
+      // eslint-disable-next-line unicorn/no-null
+      skuStatus: <SkuStatus>(getStoreValue(user)?._id === _profile._id ? null : 'approved'),
       fetch,
     };
     // eslint-disable-next-line unicorn/prefer-switch

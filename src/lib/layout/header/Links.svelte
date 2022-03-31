@@ -109,6 +109,10 @@
       >
     {/if}
   {/if}
+
+  {#if id === 'marketplace' && showIssuerCreateButton}
+    <button class="header-link" on:click|preventDefault={async () => await goto(routes.createSku)}>Create</button>
+  {/if}
 {/each}
 
 <!-- User menu block -->
