@@ -4,24 +4,22 @@
   import Intro from './Intro.svelte';
   import darren from './assets/darren.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
   import rebecca from './assets/rebecca.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
-  import nadine from './assets/nadine.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
   import evan from './assets/evan.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
   import jason from './assets/jason.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
   import jimmy from './assets/jimmy.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
   import ilona from './assets/ilona.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
   import travis from './assets/travis.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
-  import cathy from './assets/cathy.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
+  import charlie from './assets/charlie.jpg?w=192&format=avif;webp;jpg&metadata=src;format;width;height';
 
   const managementTeam = [
     { photo: darren, name: 'DARREN MANN', occupation: 'CO-CEO' },
     { photo: rebecca, name: 'REBECCA JONAH', occupation: 'CO-CEO' },
-    { photo: nadine, name: 'NADINE DIETZ', occupation: 'CMO / CSO' },
     { photo: evan, name: 'EVAN GREEN', occupation: 'CBO' },
     { photo: jason, name: 'JASON TURNER', occupation: 'COO' },
     { photo: jimmy, name: 'JIMMY NGUYEN', occupation: 'SVP, GROWTH' },
-    { photo: ilona, name: 'ILONA STEPANYANTS', occupation: 'SVP, BRAND AND PARTNERSHIPS' },
-    { photo: travis, name: 'TRAVIS McMICHAEL III', occupation: 'SVP, CREATIVE' },
-    { photo: cathy, name: 'CATHY HACKL', occupation: 'FUTURIST IN RESIDENCE' },
+    { photo: ilona, name: 'ILONA STEPANYANTS', occupation: 'CHIEF BRAND OFFICER' },
+    { photo: travis, name: 'TRAVIS McMICHAEL III', occupation: 'CHIEF CREATIVE OFFICER' },
+    { photo: charlie, name: 'CHARLIE ROSENZWEIG', occupation: 'NBA / ENTERTAINMENT STRATEGIST' },
   ];
 
   const advisoryTeam = [
@@ -74,7 +72,7 @@
 <div class="container flex flex-col gap-16 md:gap-24 py-20">
   <div class="flex flex-col gap-8 md:gap-20">
     <div class="flex justify-center"><h1 class="text-4xl font-bold section-title">LEADERSHIP</h1></div>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-12 max-w-6xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-12 max-w-6xl mx-auto">
       {#each managementTeam as person}
         <div class="flex flex-col gap-4 items-center text-center">
           <div class="gradient-border ">
