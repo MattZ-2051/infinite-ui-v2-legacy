@@ -5,8 +5,13 @@ const redirects = ({
   externalUrlBase: string;
 }): {
   route: string;
-  status: 301 | 302;
-  redirect: string;
-}[] => [];
+  status: 301 | 302 | 404;
+  redirect?: string;
+}[] => [
+  {
+    route: '/about',
+    status: 404,
+  },
+];
 
 export default redirects;

@@ -5,19 +5,17 @@ const redirects = ({
   externalUrlBase: string;
 }): {
   route: string;
-  status: 301 | 302;
-  redirect: string;
+  status: 301 | 302 | 404;
+  redirect?: string;
 }[] => [
   // Temporary redirect to disable /cookies and /about
   {
     route: '/cookies',
-    status: 301,
-    redirect: '/',
+    status: 404,
   },
   {
     route: '/about',
-    status: 301,
-    redirect: '/',
+    status: 404,
   },
 ];
 
