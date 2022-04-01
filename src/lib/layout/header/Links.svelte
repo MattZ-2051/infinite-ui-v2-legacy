@@ -65,9 +65,6 @@
         }}>{label}</button
       >
     {/if}
-    {#if showIssuerCreateButton}
-      <button class="header-link" on:click|preventDefault={async () => await goto(routes.createSku)}>Create</button>
-    {/if}
     {#if user}
       {#if type === 'user-collection'}
         <a
