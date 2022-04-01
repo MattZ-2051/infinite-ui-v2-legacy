@@ -1,6 +1,6 @@
 import type { Awaited } from 'ts-essentials';
-import type { Transaction, Product, Bid, TransactionData } from '$lib/sku-item/types';
-import { createEffect, createStore, createEvent, forward, Event, Store } from 'effector';
+import type { Transaction, Product, Bid, TransactionData, Sku } from '$lib/sku-item/types';
+import { createEffect, createStore, createEvent, forward, Event, Store, merge } from 'effector';
 import type { TxStatus } from '$lib/payment/crypto/etherscan/types';
 import { browser } from '$app/env';
 import { getQueryParameters } from '$util/queryParameter';
@@ -12,7 +12,7 @@ import { getTxStatus } from '$lib/payment/crypto/etherscan';
 import { loadProduct, loadProductTransactions } from './product.api';
 import { hasActiveAuction, hasAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
-import { skuBought, sku } from '../sku/sku.store';
+import { skuBought, sku, refetchSkuFx } from '../sku/sku.store';
 import { productBoughtCheckout, updateCheckoutState } from '../checkout/checkout.store';
 
 export const setProduct = createEvent<Awaited<ReturnType<typeof fetchProductFx>> & { oldProductId: string | null }>();
@@ -144,14 +144,13 @@ export const maxPlacedBid = createStore<number | null>(null)
   })
   .on(setProductBids, (state, payload) => payload.max);
 
-export const saleStarted = createEvent<{ product: Product }>();
-export const saleCancelled = createEvent<{ listingId: string }>();
+export const saleStarted = createEvent<{ product?: Product; sku?: Sku }>();
+export const saleCancelled = createEvent<{ product?: Product; sku?: Sku; listingId: string }>();
 export const productBought = createEvent<{ product: Product }>();
 export const productTransferred = createEvent<{ product: Product }>();
 
-forward({
-  from: [saleStarted, saleCancelled],
-  to: refetchProductFx,
+merge([saleStarted, saleCancelled]).watch(async (sale) => {
+  sale.product ? await refetchProductFx() : await refetchSkuFx();
 });
 
 const productBoughtFx = createEffect(async () => {
@@ -179,13 +178,12 @@ forward({
   to: refetchProductFx,
 });
 
-export const auctionStarted = createEvent<{ product: Product }>();
-export const auctionCancelled = createEvent<{ listingId: string }>();
-export const auctionEnded = createEvent();
+export const auctionStarted = createEvent<{ product?: Product; sku?: Sku }>();
+export const auctionCancelled = createEvent<{ product?: Product; sku?: Sku; listingId: string }>();
+export const auctionEnded = createEvent<{ product?: Product; sku?: Sku }>();
 
-forward({
-  from: [auctionStarted, auctionCancelled, auctionEnded],
-  to: refetchProductFx,
+merge([auctionStarted, auctionCancelled, auctionEnded]).watch(async (sale) => {
+  sale.product ? await refetchProductFx() : await refetchSkuFx();
 });
 
 const pollTransactionFx = createEffect(async () => {

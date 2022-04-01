@@ -149,7 +149,7 @@
         <div class="flex flex-row lg:flex-col gap-1 items-center lg:items-start">
           <div class="text-sm text-gray-500">Auction ends in:</div>
           <div class="flex gap-1">
-            <TimeDifference date={activeProductListing?.endDate} on:zero={() => auctionEnded()} />
+            <TimeDifference date={activeProductListing?.endDate} on:zero={() => auctionEnded({ product })} />
             <div class="text-gray-300">
               — {formatDate(activeProductListing?.endDate)}
             </div>

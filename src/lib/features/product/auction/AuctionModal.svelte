@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Product } from '$lib/sku-item/types';
+  import type { ListingAuctionPayload, Product, Sku } from '$lib/sku-item/types';
   import type { NewAuction } from './types';
   import { setContext } from 'svelte';
   import { mdiChevronDown } from '@mdi/js';
@@ -17,14 +17,20 @@
   import { FormElement } from '$lib/components/form';
   import Icon from '$ui/icon/Icon.svelte';
   import routes from '$project/routes';
-  import { startAuction } from './auction.api';
-  import { auctionStarted } from '../product.store';
-  import { getSellingFee, getRoyaltyFee } from '../product.fee';
+  import { startAuction } from '$lib/features/product/auction/auction.api';
+  import { auctionStarted } from '$lib/features/product/product.store';
+  import {
+    getSellingFee as getProductSellingFee,
+    getRoyaltyFee as getProductRoyaltyFee,
+  } from '$lib/features/product/product.fee';
+  import {
+    getSellingFee as getSkuSellingFee,
+    getRoyaltyFee as getSkuRoyaltyFee,
+  } from '$lib/features/sku-auction/sku-auction.fee';
 
   export let isOpen = false;
-  export let product: Product;
-
-  const marketplaceFee = getSellingFee(product);
+  export let product: Product = undefined;
+  export let sku: Sku = undefined;
 
   function roundToMinute(date = new Date()) {
     return dayjs(date).startOf('minute').toDate();
@@ -72,13 +78,24 @@
       startImmediately: false,
     },
     onSubmit: async ({ price, startDate, endDate, startImmediately }) => {
-      const _startDate = startImmediately ? roundToMinute() : startDate;
-
       try {
-        await startAuction(product, _startDate, endDate, price);
+        const _startDate = startImmediately ? roundToMinute() : startDate;
+        const listing: ListingAuctionPayload = {
+          endDate,
+          startDate: _startDate,
+          minBid: price,
+          type: product ? 'product' : 'sku',
+          sku: sku?._id,
+          product: product?._id,
+          saleType: 'auction',
+          issuer: product ? product.owner?._id : sku.issuer?._id,
+          supply: 1,
+        };
+
+        await startAuction(listing);
         closeModal();
         toast.success('Congrats! Your auction has launched!');
-        auctionStarted({ product });
+        auctionStarted({ product, sku });
       } catch {
         toast.danger(
           `An error occured when starting your auction. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`
@@ -96,10 +113,14 @@
     setFields('endDate', _endDate, true);
   }
 
-  $: royaltyFee = getRoyaltyFee(product);
-  $: marketplaceFeePrice = Math.max(marketplaceFee * $data.price || 0, 0);
-  $: royaltyFeePrice = Math.max(royaltyFee * $data.price || 0, 0);
+  $: marketplaceFee = product ? getProductSellingFee(product) : getSkuSellingFee(sku);
+  $: royaltyFee = product ? getProductRoyaltyFee(product) : getSkuRoyaltyFee(sku);
+  $: royaltyFeePrice = Math.max($data.price * royaltyFee || 0, 0);
+  $: marketplaceFeePrice = Math.max($data.price * marketplaceFee || 0, 0);
   $: total = Math.max($data.price * (1 - marketplaceFee - royaltyFee) || 0, 0);
+  $: nftPublicAssets = product
+    ? product?.nftPublicAssets?.[0] || product.sku.nftPublicAssets?.[0]
+    : sku?.nftPublicAssets?.[0];
 
   setContext('errors', errors);
 
@@ -117,9 +138,9 @@
       {/if}
       <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
         <div class="flex justify-center items-center bg-black h-72">
-          <FilePreview item={product.nftPublicAssets?.[0] || product.sku.nftPublicAssets?.[0]} preview />
+          <FilePreview item={nftPublicAssets} preview />
         </div>
-        <ProductModalInfo sku={product.sku} {product} />
+        <ProductModalInfo {product} sku={product ? product.sku : sku} />
         <div class="max-w-sm text-gray-500">
           You won’t be able to transfer or redeem this item while your auction is in progress.
         </div>
@@ -209,7 +230,7 @@
             creator.
           </div>
         {/if}
-        <Button variant="brand" class="w-full mt-6" type="submit">Start Auction</Button>
+        <Button variant="brand" class="w-full mt-6" type="submit" disabled={$isSubmitting}>Start Auction</Button>
       </div>
     </form>
   </Modal>

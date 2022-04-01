@@ -1,26 +1,15 @@
-import type { Bid, Product } from '$lib/sku-item/types';
+import type { Bid, ListingAuctionPayload, Product } from '$lib/sku-item/types';
 import type { NewListing } from './types';
 import { fetchTracker, getPage, patch, post } from '$lib/api';
 
 export const loadingBids = fetchTracker();
 
-export async function startAuction(
-  product: Product,
-  startDate: Date,
-  endDate: Date,
-  minBid: number
-): Promise<NewListing> {
-  const apiParameters = {
-    issuer: product.owner._id,
-    product: product._id,
-    type: 'product',
-    saleType: 'auction',
-    startDate: startDate.toISOString().replace(/\.0+Z$/, ''),
-    endDate: endDate.toISOString().replace(/\.0+Z$/, ''),
-    minBid: minBid,
-  };
+export async function startAuction(listing: ListingAuctionPayload): Promise<NewListing> {
+  return post<NewListing>('listings', listing);
+}
 
-  return await post<NewListing>('listings', apiParameters);
+export function mintProduct(skuId: string): Promise<Product> {
+  return post(`/products`, { sku: skuId });
 }
 
 export async function cancelAuction(listingId: string) {

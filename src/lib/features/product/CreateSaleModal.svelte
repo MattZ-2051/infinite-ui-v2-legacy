@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Product, ListingSalePayload } from '$lib/sku-item/types';
+  import type { Product, Sku, ListingSalePayload } from '$lib/sku-item/types';
   import { validateSchema } from '@felte/validator-yup';
   import { setContext } from 'svelte';
   import * as yup from 'yup';
@@ -12,11 +12,19 @@
   import { formatCurrency } from '$util/format';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import routes from '$project/routes';
-  import { saleStarted } from './product.store';
-  import { createSale } from './product.api';
-  import { getSellingFee, getRoyaltyFee } from './product.fee';
+  import {
+    getSellingFee as getProductSellingFee,
+    getRoyaltyFee as getProductRoyaltyFee,
+  } from '$lib/features/product/product.fee';
+  import {
+    getSellingFee as getSkuSellingFee,
+    getRoyaltyFee as getSkuRoyaltyFee,
+  } from '$lib/features/sku-auction/sku-auction.fee';
+  import { saleStarted } from '$lib/features/product/product.store';
+  import { createSale } from '$lib/features/product/product.api';
 
-  export let product: Product;
+  export let product: Product = undefined;
+  export let sku: Sku = undefined;
   export let isOpen: boolean;
 
   const schema = yup.object({
@@ -37,17 +45,17 @@
   async function startSale() {
     const listing: ListingSalePayload = {
       price: $data.price,
-      type: 'product',
+      type: product ? 'product' : 'sku',
       product: product?._id,
       saleType: 'fixed',
       startDate: new Date(),
-      issuer: product?.owner?._id,
-      sku: product.sku,
+      issuer: product ? product.owner?._id : sku.issuer?._id,
+      sku: product ? product.sku?._id : sku?._id,
       supply: 1,
     };
     try {
       await createSale({ listing });
-      saleStarted({ product });
+      saleStarted({ sku, product });
       closeModal();
       toast.success('Congrats! Your sale has kicked off!');
     } catch {
@@ -57,11 +65,14 @@
     }
   }
 
-  $: marketplaceFee = getSellingFee(product);
-  $: royaltyFee = getRoyaltyFee(product);
+  $: marketplaceFee = product ? getProductSellingFee(product) : getSkuSellingFee(sku);
+  $: royaltyFee = product ? getProductRoyaltyFee(product) : getSkuRoyaltyFee(sku);
   $: royaltyFeePrice = Math.max($data.price * royaltyFee || 0, 0);
   $: marketplaceFeePrice = Math.max($data.price * marketplaceFee || 0, 0);
   $: total = Math.max($data.price * (1 - marketplaceFee - royaltyFee) || 0, 0);
+  $: nftPublicAssets = product
+    ? product?.nftPublicAssets?.[0] || product.sku.nftPublicAssets?.[0]
+    : sku?.nftPublicAssets?.[0];
 
   setContext('errors', errors);
 </script>
@@ -71,9 +82,9 @@
     <form use:form>
       <div class="px-10 flex flex-col gap-4 pb-10 max-w-md">
         <div class="flex justify-center items-center bg-black h-72">
-          <FilePreview item={product.nftPublicAssets?.[0] || product.sku.nftPublicAssets?.[0]} preview />
+          <FilePreview item={nftPublicAssets} preview />
         </div>
-        <ProductModalInfo {product} sku={product.sku} />
+        <ProductModalInfo {product} sku={product ? product.sku : sku} />
         <div class="flex flex-col gap-2">
           <FormElement
             class="bg-gray-50 py-3 mt-4 mb-2"

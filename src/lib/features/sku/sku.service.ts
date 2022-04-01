@@ -3,6 +3,10 @@ import { formatInteger } from '$util/format';
 
 export type SupplyInfo = { type: 'unique' | 'limited' | 'released'; quantity: number } | undefined;
 
+export function isOwner(sku: Sku, userId: string): boolean {
+  return userId && userId === sku?.issuer?._id;
+}
+
 export const getActiveListings = (sku: Sku): Listing[] => {
   return sku.activeSkuListings.filter((skuListing) => !skuListing.canceled);
 };

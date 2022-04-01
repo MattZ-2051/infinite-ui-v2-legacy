@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
+  import type { ActionType } from '$lib/features/product/actions/types';
   import { onOrderIntent } from '$lib/features/order/order.service';
+  import { onAction } from '$lib/features/product/actions/product-actions.service';
   import { onSignIn, user } from '$lib/user';
   import { openModal } from '$ui/modals';
   import routes from '$project/routes';
@@ -12,6 +14,7 @@
     getLimitedAuctionCollector,
     getLowestProductListing,
     getLowestUpcomingProductListing,
+    isOwner,
   } from '../sku.service';
   import { loadProduct } from '../../product/product.api';
   import FromCreator from './button/FromCreator.svelte';
@@ -19,10 +22,12 @@
   import ViewCollectors from './button/ViewCollectors.svelte';
   import LimitedAuction from './button/LimitedAuction.svelte';
   import VoucherModal from '../voucher/VoucherModal.svelte';
+  import ToCreator from './button/ToCreator.svelte';
 
   export let sku: Sku;
   export let totalCollectors: number;
   export let collectors: CollectorProduct[];
+  export let userId: string;
 
   const voucherCode = $page.url.searchParams.get('voucherCode') || '';
 
@@ -47,6 +52,10 @@
     } else {
       return onOrderIntent({ sku, listing: activeListings[0] });
     }
+  }
+
+  async function onSell(actionType: ActionType) {
+    onAction(actionType, undefined, sku);
   }
 
   $: activeListings = getActiveListings(sku);
@@ -81,7 +90,7 @@
   $: isRejected = sku.status === 'rejected';
 </script>
 
-<div class="flex flex-col sticky-content-button">
+<div class="sku-price-box flex flex-col sticky-content-button">
   {#if isPending}
     <FromCreator state="pending" {sku} {onBuy} />
   {:else if isRejected}
@@ -99,7 +108,11 @@
   {:else if activeNftGiveAway}
     <FromCreator {sku} state="activeNftGiveAway" {activeListings} {onBuy} />
   {:else if noSale}
-    <FromCreator state="noSale" {sku} {onBuy} />
+    {#if isOwner(sku, userId)}
+      <ToCreator {onSell} />
+    {:else}
+      <FromCreator state="noSale" {sku} {onBuy} />
+    {/if}
   {:else if notMinted}
     <FromCreator state="notMinted" {sku} {onBuy} />
   {/if}
@@ -132,7 +145,7 @@
   }
 
   @media (max-width: 768px) {
-    .from-collectors-line {
+    .sku-price-box :global(.from-collectors-line) {
       display: var(--display-from-collector-line, hidden);
       border: var(--from-collector-border-line, 0);
       margin: var(--from-collector-margin, 0);

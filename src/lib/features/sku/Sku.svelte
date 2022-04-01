@@ -5,6 +5,7 @@
   import Gallery from '$lib/components/Gallery.svelte';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
+  import { userId } from '$lib/user';
   import HederaDisclaimer from './HederaDisclaimer.svelte';
   import EthDisclaimer from './EthDisclaimer.svelte';
   import SkuPriceBox from './pricebox/SkuPriceBox.svelte';
@@ -45,7 +46,7 @@
     </div>
   </div>
   <div slot="sticky-cta" class="custom-content-buttons">
-    <SkuPriceBox sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} />
+    <SkuPriceBox sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} userId={$userId} />
   </div>
   <div slot="tabs" class="px-4 md:px-12 pt-12 pd:pt-16 pb-4" style="min-height: 300px">
     <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>

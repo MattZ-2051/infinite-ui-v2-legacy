@@ -177,11 +177,23 @@ export type ListingSalePayload = {
   price: number;
   product: string;
   startDate: Date;
-  type: string;
+  type: 'product' | 'sku';
   saleType: 'fixed';
   supply: number;
-  sku: Sku;
+  sku: string;
   issuer: string;
+};
+
+export type ListingAuctionPayload = {
+  issuer: string;
+  product: string;
+  type: 'product' | 'sku';
+  saleType: 'auction';
+  startDate: Date;
+  endDate: Date;
+  sku: string;
+  minBid: number;
+  supply: 1;
 };
 
 export type Product = {

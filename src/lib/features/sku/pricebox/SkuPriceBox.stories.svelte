@@ -128,7 +128,7 @@
 
 <Template let:args>
   <div class="max-w-md">
-    <SkuPriceBox {...args} />
+    <SkuPriceBox userId="" {...args} />
   </div>
 </Template>
 
@@ -155,6 +155,10 @@
 
 <!--  No Sku listing and no collectors -->
 <Story name="From Creator - No Sale" args={{ sku: noSaleSku, totalCollectors: 0 }} />
+<Story
+  name="To Creator - No Sale"
+  args={{ sku: { ...noSaleSku, issuer: { _id: '123' } }, totalCollectors: 0, userId: '123' }}
+/>
 
 <!--  Unique Collector -->
 <Story name="From Creator - 1 of 1" args={{ sku: uniqueSku, totalCollectors: 0, collectors: uniqueCollector }} />

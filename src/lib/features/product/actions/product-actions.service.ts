@@ -1,4 +1,4 @@
-import type { Product } from '$lib/sku-item/types';
+import type { Product, Sku } from '$lib/sku-item/types';
 import type { ActionType } from './types';
 import { openModal } from '$ui/modals';
 import ConfirmModal from '$lib/components/ConfirmModal.svelte';
@@ -15,14 +15,14 @@ import BidModal from '../auction/BidModal.svelte';
 import ProductTransferModal from '../transfer/ProductTransferModal.svelte';
 import ProductTransferInModal from '../transfer/ProductTransferInModal.svelte';
 
-export function onAction(type: ActionType, product: Product) {
+export function onAction(type: ActionType, product?: Product, sku?: Sku) {
   switch (type) {
     case 'redeem': {
       openModal(RedeemModal, { product });
       break;
     }
     case 'auction': {
-      openModal(AuctionModal, { product });
+      openModal(AuctionModal, { product, sku });
       break;
     }
     case 'cancel-auction': {
@@ -35,7 +35,7 @@ export function onAction(type: ActionType, product: Product) {
           try {
             await cancelAuction(listingId);
             toast.success('Your listing has successfully been canceled.');
-            auctionCancelled({ listingId });
+            auctionCancelled({ listingId, product, sku });
           } catch (error) {
             switch (error?.data?.appCode) {
               case 'CANCEL_AUCTION_WITH_PLACED_BIDS':
@@ -52,7 +52,7 @@ export function onAction(type: ActionType, product: Product) {
       break;
     }
     case 'create-sale': {
-      openModal(CreateSaleModal, { product });
+      openModal(CreateSaleModal, { product, sku });
       break;
     }
     case 'cancel-sale': {
@@ -66,7 +66,7 @@ export function onAction(type: ActionType, product: Product) {
           try {
             await cancelSale({ id: listingId });
             toast.success('Your listing has successfully been canceled.');
-            saleCancelled({ listingId });
+            saleCancelled({ product, listingId });
           } catch (error) {
             switch (error?.data?.appCode) {
               case 'LISTING_NOT_ACTIVE':
