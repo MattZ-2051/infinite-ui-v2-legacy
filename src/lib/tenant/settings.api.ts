@@ -1,5 +1,4 @@
 import type { TenantSettings } from './settings.types';
-
 import { get } from '$lib/api';
 
 export async function fetchTenantSettings({

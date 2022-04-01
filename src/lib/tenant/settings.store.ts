@@ -1,6 +1,5 @@
 import type { Awaited } from 'ts-essentials';
 import type { TenantSettings } from './settings.types';
-
 import { createEffect, createStore, createEvent } from 'effector';
 import { fetchTenantSettings } from './settings.api';
 

@@ -14,6 +14,7 @@
   import { createForm } from 'felte';
   import * as yup from 'yup';
   import { validateSchema } from '@felte/validator-yup';
+  import { CLIENT_API_HEADER } from '$project/variables';
   import { toast } from '$ui/toast';
   import { openModal } from '$ui/modals';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
@@ -28,7 +29,6 @@
   import Switch from '$lib/components/Switch.svelte';
   import { put } from '$lib/api';
   import { media } from '$lib/media-query.store';
-  import { tenantSettings } from '$lib/tenant/settings.store';
   import { createSku, uploadAsset } from './sku.api';
 
   registerPlugin(FilePondPluginFileValidateType, FilePondPluginFileValidateSize, FilePondPluginImagePreview);
@@ -144,7 +144,7 @@
     const { presignedUrl, attachmentUrl } = await uploadAsset({
       assetType,
       fileName: asset.name,
-      tenant: $tenantSettings.tenant,
+      tenant: CLIENT_API_HEADER,
     });
 
     await put(presignedUrl, asset);
