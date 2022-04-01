@@ -17,7 +17,8 @@ export const CLIENT_SOCIAL_IMAGE = {
 export const CLIENT_SUPPORT_EMAIL = 'support@ARIAExchange.com';
 export const CLIENT_SUPPORT_URL = 'https://help.ariaexchange.com/s/';
 export const CLIENT_BIDDING_URL = '';
-export const CLIENT_HEDERA_URL = 'https://help.ariaexchange.com/s/article/What-is-Hedera-Hashgraph';
+export const CLIENT_HEDERA_URL =
+  'https://help.ariaexchange.com/s/article/What-blockchain-technology-is-used-to-mint-digital-collectibles';
 export const CLIENT_REDEEM_URL = 'https://help.ariaexchange.com/s/article/Can-I-redeem-an-NFT';
 export const CLIENT_AFTER_REDEEMED_URL = '';
 export const CLIENT_API_HEADER = 'aria';
