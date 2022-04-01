@@ -1,5 +1,6 @@
 export const paths = {
   '$project/about/*': 'projects/aria/src/about/*',
+  '$project/terms/TermsConditions.svelte': 'projects/infinite/src/terms/TermsConditions.svelte',
   '$project/collection/CollectionIndex.svelte': 'projects/aria/src/collection/CollectionIndex.svelte',
   '$lib/features/wallet/assets/arrow-right': 'projects/mclaren/src/assets/lib/arrow-right',
   '$lib/features/wallet/assets/info': 'projects/mclaren/src/assets/lib/info',
@@ -30,5 +31,4 @@ export const paths = {
   '$lib/components/icons/success-mint': 'projects/mclaren/src/assets/lib/success-icon',
   '$project/terms/Cookies.svelte': 'projects/mclaren/src/terms/Cookies.svelte',
   '$project/terms/Privacy.svelte': 'projects/infinite/src/terms/Privacy.svelte',
-  '$project/TermsConditions.svelte': 'projects/infinite/src/TermsConditions.svelte',
 };
