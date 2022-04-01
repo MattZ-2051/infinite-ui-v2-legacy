@@ -12,6 +12,7 @@
   import {
     checkNetwork,
     getWalletInfo,
+    sendEthPurchasePaymentForImmediateMinting,
     sendEthPurchasePaymentForLazyMinting,
     user,
     userId,
@@ -93,7 +94,7 @@
       purchasing = true;
       const network = await checkNetwork();
       if (network.name === 'homestead' || MM_TEST_NETWORK_ENABLED) {
-        await sendEthPurchasePaymentForLazyMinting(
+        await (lazyMinting ? sendEthPurchasePaymentForLazyMinting : sendEthPurchasePaymentForImmediateMinting)(
           purchaseInfo.externalPurchaseAddressEth,
           purchaseInfo.cost.totalCost,
           $userId,
