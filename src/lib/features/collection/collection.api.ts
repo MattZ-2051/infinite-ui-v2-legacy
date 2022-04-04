@@ -19,7 +19,7 @@ export async function loadSkus({
   page: number;
   sortBy: string;
   perPage: number;
-  forSale?: string;
+  forSale?: boolean;
   skuStatus?: SkuStatus;
   fetch?: Fetch;
 }) {
@@ -27,7 +27,7 @@ export async function loadSkus({
     page,
     per_page: perPage,
     sortBy,
-    forSale: forSale && forSale === 'true',
+    forSale,
     issuerId: profileId,
     skuStatus,
   });

@@ -30,7 +30,7 @@ export const loadCollectionFx = createEffect(
     tab: 'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens';
     page: number;
     sortBy: string;
-    forSale?: string;
+    forSale?: boolean;
     fetch: Fetch;
   }): Promise<{
     profile: Profile;
@@ -48,7 +48,7 @@ export const loadCollectionFx = createEffect(
       : Promise.resolve(undefined);
 
     tab = tab || (_profile.role === 'issuer' ? 'Releases' : 'NFTs');
-    const parameters = {
+    let parameters = {
       page,
       profileId: _profile._id,
       sortBy,
@@ -60,6 +60,10 @@ export const loadCollectionFx = createEffect(
     };
     // eslint-disable-next-line unicorn/prefer-switch
     if (tab === 'Releases') {
+      parameters = {
+        ...parameters,
+        forSale: true,
+      };
       const [{ skus, totalSkus }, featuredSku] = await Promise.all([loadSkusFx(parameters), featuredSkuPromise]);
       return { profile: _profile, skus, totalSkus, featuredSku };
     } else if (tab === 'NFTs') {
@@ -105,7 +109,7 @@ const loadSkusFx = createEffect(
     profileId: string;
     sortBy: string;
     perPage: number;
-    forSale?: string;
+    forSale?: boolean;
     skuStatus: SkuStatus;
     fetch: Fetch;
   }): Promise<{
