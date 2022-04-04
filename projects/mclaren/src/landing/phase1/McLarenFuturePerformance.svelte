@@ -1,5 +1,5 @@
 <script lang="ts">
-  import futurePerformanceSvg from './images/future-performance-img.svg';
+  import bucketAssets from '$project/assets/aws-bucket-assets';
 </script>
 
 <div class="w-full py-20 sm:py-48 flex justify-center align-center">
@@ -33,7 +33,7 @@
     </div>
     <div class="justify-self-end img-card rounded-3xl z-1">
       <img
-        src={futurePerformanceSvg}
+        src={bucketAssets.landing.futurePerformance}
         width="100%"
         alt="future performance"
         class="img-card sm:object-cover rounded-3xl"

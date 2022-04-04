@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
-  import supercarCompanyImg from './images/supercar-company-bg-img.svg';
+  import bucketAssets from '$project/assets/aws-bucket-assets';
   import supercarCompanyImgMobile from './images/supercar-company-bg-img-mobile.png';
 </script>
 
@@ -33,7 +33,7 @@
   </div>
   <img
     alt="mclaren card supercar company"
-    src={supercarCompanyImg}
+    src={bucketAssets.landing.supercarCompany}
     class="w-full absolute object-cover top-0 -z-1 h-full hidden md:block"
   />
   <img

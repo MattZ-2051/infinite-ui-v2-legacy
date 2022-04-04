@@ -1,11 +1,17 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
+  import curvedBorder from '../images/curved-border.svg';
   import SimpleAccordion from './SimpleAccordion.svelte';
   import { FaqInfo } from './FAQInfo';
+
+  export let curvedImg: boolean;
 </script>
 
 <div class="py-44 sm:py-72">
+  {#if curvedImg}
+    <img src={curvedBorder} alt="curverd-border-img" class="w-full" />
+  {/if}
   <div class="flex flex-col items-center">
     <div class="max-w-5xl relative z-10 w-full container">
       <div class="font-normal text-3xl mb-20 sm:text-5xl text-center tracking-widest uppercase second-font text-white">

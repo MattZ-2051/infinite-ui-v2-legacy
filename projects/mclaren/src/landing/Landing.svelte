@@ -6,11 +6,14 @@
   import McLarenFuturePerformance1 from './phase1/McLarenFuturePerformance.svelte';
   import McLarenSupercarCompany1 from './phase1/McLarenSupercarCompany.svelte';
 
-  // PHASE 3
+  // PHASE 2 ONLY
+  import McLarenSupercarCompany2 from './phase2/McLarenSupercarCompany.svelte';
+
+  // PHASE 2 & 3
   import Hero from './phase3/Hero.svelte';
-  import McLarenCollectives from './phase3/McLarenCollectives.svelte';
-  import McLarenF1Classics from './phase3/McLarenF1Classics.svelte';
-  import McLarenPhilosophy from './phase3/McLarenPhilosophy.svelte';
+  import McLarenFuturePerformance from './phase3/McLarenFuturePerformance.svelte';
+  import GenesisCollection from './phase3/McLarenF1Genesis.svelte';
+  import McLarenSupercarCompany from './phase3/McLarenSupercarCompany.svelte';
   import UpcomingCollection from './phase3/FeaturedCollection.svelte';
   import FAQ from './phase3/faq/FAQ.svelte';
   import Community from './phase3/Community.svelte';
@@ -27,14 +30,19 @@
     <McLarenSupercarCompany1 />
     <FAQ1 />
   </div>
-{:else if phase === '3'}
+{:else if phase === '2' || phase === '3'}
   <div class="z-0">
     <Hero />
-    <McLarenCollectives />
-    <McLarenF1Classics />
-    <UpcomingCollection />
-    <McLarenPhilosophy />
-    <FAQ />
+    <McLarenFuturePerformance />
+    <GenesisCollection />
+    {#if phase === '2'}
+      <McLarenSupercarCompany2 />
+    {/if}
+    {#if phase === '3'}
+      <UpcomingCollection />
+      <McLarenSupercarCompany />
+    {/if}
+    <FAQ curvedImg={phase === '2'} />
     <Community />
   </div>
 {/if}
