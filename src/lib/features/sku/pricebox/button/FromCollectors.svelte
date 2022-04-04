@@ -22,9 +22,9 @@
   export let collectorListing: Listing;
 
   const isOnlyAuction = sku?.activeAuctionProductListingsCounter === 1;
-  const isNoAuctions = sku?.activeAuctionProductListingsCounter !== 0;
+  const isNoAuctions = sku?.activeAuctionProductListingsCounter === 0;
   const isOnlyBuyNow = sku?.activeBuyNowProductListingsCounter === 1;
-  const isNoBuyNows = sku?.activeBuyNowProductListingsCounter !== 0;
+  const isNoBuyNows = sku?.activeBuyNowProductListingsCounter === 0;
 
   const isUniqueAuction = isOnlyAuction && isNoBuyNows;
   const isUniqueBuyNow = isOnlyBuyNow && isNoAuctions;
