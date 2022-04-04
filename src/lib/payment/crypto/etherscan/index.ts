@@ -1,6 +1,7 @@
-import type { TokenTxResponse, EtherscanResponse, TxReceiptStatusResponse, TxStatus } from './types';
+import type { TokenTxResponse, EtherscanResponse, TxReceiptStatusResponse, TxStatus, TxReceipt } from './types';
 import type { CryptoAddressWaiterOptions } from '../types';
 
+import { ethers } from 'ethers';
 import { variables } from '$lib/variables';
 import { get } from '$lib/api';
 
@@ -97,5 +98,22 @@ async function _waitForTx(waiterOptions: CryptoAddressWaiterOptions, startBlock:
     const timeout = setTimeout(async () => await _waitForTx(waiterOptions, startBlock), 5000);
 
     waiterOptions.timeoutStore.set(timeout);
+  }
+}
+
+export async function getNftTokenId(txHash: string): Promise<{ tokenId: string; address: string } | undefined> {
+  const receipt = await get<TxReceipt>(apiUrl, {
+    params: {
+      module: 'proxy',
+      action: 'eth_getTransactionReceipt',
+      txHash,
+      apiKey,
+    },
+  });
+  if (receipt?.result?.logs) {
+    const nftTokenId = ethers.utils.defaultAbiCoder.decode(['uint256'], receipt?.result?.logs?.[0]?.topics?.[3]);
+    return nftTokenId ? { tokenId: nftTokenId.toString(), address: receipt?.result?.to } : undefined;
+  } else {
+    return undefined;
   }
 }

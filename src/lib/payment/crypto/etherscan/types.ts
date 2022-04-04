@@ -4,6 +4,18 @@ export type EtherscanResponse<ResultType> = {
   result: ResultType;
 };
 
+type TxLog = {
+  address: string;
+  topics: string[];
+  data: string;
+  blockNumber: string;
+  transactionHash: string;
+  transactionIndex: string;
+  blockHash: string;
+  logIndex: string;
+  removed: boolean;
+};
+
 export interface TokenTxResponse {
   blockHash: string;
   blockNumber: string;
@@ -15,6 +27,7 @@ export interface TokenTxResponse {
   gasPrice: string;
   gasUsed: string;
   hash: string;
+  logs: TxLog[];
   input: string;
   nonce: string;
   timeStamp: string;
@@ -31,3 +44,9 @@ export interface TxReceiptStatusResponse {
 }
 
 export type TxStatus = 'pending' | 'confirmed' | 'error';
+
+export interface TxReceipt {
+  jsonrpc: string;
+  id: string;
+  result: TokenTxResponse;
+}

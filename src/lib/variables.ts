@@ -14,6 +14,9 @@ export const variables = {
     nftExplorerUrl: import.meta.env.VITE_ETH_EXPLORER_BASE_URL_NFT,
     nftTransactionApiUrl: import.meta.env.VITE_ETHERSCAN_API_URL_NFT_TX,
   },
+  openSea: {
+    nftAssetUrl: import.meta.env.VITE_OPENSEA_ASSETS_URL,
+  },
   bitcoinNetwork: {
     apiUrl: import.meta.env.VITE_BLOCKCYPHER_API_URL,
     explorerBaseUrl: import.meta.env.VITE_BTC_EXPLORER_BASE_URL,

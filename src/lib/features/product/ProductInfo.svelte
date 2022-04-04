@@ -3,7 +3,10 @@
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { Product, Sku, Transaction } from '$lib/sku-item/types';
   import type { StatusMintButton } from './mintButton/types';
+  import { onMount } from 'svelte';
   import information from '$lib/components/icons/information';
+  import { getNftTokenId } from '$lib/payment/crypto/etherscan';
+  import { variables } from '$lib/variables';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import imageError from '$util/imageError';
@@ -22,6 +25,8 @@
   let isShowMintModal = false;
   let sku: Sku;
   let mintStatus: StatusMintButton = 'toMint';
+  let mintedNftTokenId: string;
+  let nftEthAddress: string;
 
   $: sku = product.sku;
   $: isTransferredOut = transactions.length > 0 ? transferredOut(product, transactions) : false;
@@ -47,7 +52,10 @@
   };
 
   const redirectToOpenSea = () => {
-    const OPENSEA_URL = import.meta.env.VITE_OPENSEA_URL_NFT_MINTED;
+    const OPENSEA_URL =
+      mintedNftTokenId && nftEthAddress
+        ? `${variables.openSea.nftAssetUrl}${nftEthAddress}/${mintedNftTokenId}`
+        : import.meta.env.VITE_OPENSEA_URL_NFT_MINTED;
     window.open(OPENSEA_URL, '_blank');
   };
 
@@ -57,6 +65,14 @@
     }
     isShowMintModal = true;
   };
+
+  onMount(async () => {
+    const response = await getNftTokenId(product.tokenId);
+    if (response) {
+      mintedNftTokenId = response.tokenId;
+      nftEthAddress = response.address;
+    }
+  });
 </script>
 
 <div
