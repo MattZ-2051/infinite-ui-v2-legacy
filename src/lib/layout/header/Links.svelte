@@ -52,13 +52,17 @@
         href={routes[id]}
         target={type === 'route-open-new' ? '_blank' : ''}
         rel={type === 'route-open-new' ? 'noopener noreferrer' : ''}
-        class={isVisible(excludeFor) ? 'header-link' : 'hidden'}
+        class="header-link"
+        class:sidebar-link={flatten}
         class:active={isRoute(routes[id])}
+        class:hidden={!isVisible(excludeFor)}
         on:click={() => flatten && dispatch('select')}>{label}</a
       >
     {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED)}
       <button
         class="header-link"
+        class:sidebar-link={flatten}
+        class:hidden={!isVisible(excludeFor)}
         on:click={() => {
           flatten && dispatch('select');
           handleWalletModal();
@@ -71,6 +75,7 @@
           sveltekit:prefetch
           href={routes.collection(user.username)}
           class="header-link"
+          class:sidebar-link={flatten}
           class:active={isRoute(routes.collection(user.username))}
           on:click={() => flatten && dispatch('select')}
         >
@@ -83,12 +88,15 @@
             flatten && dispatch('select');
             onSignOut();
           }}
-          class="header-link">Sign Out</button
+          class="header-link"
+          class:sidebar-link={flatten}>Sign Out</button
         >
       {/if}
     {:else if type === 'sign-in'}
       <button
-        class={isVisible(excludeFor) ? 'flex header-link' : 'hidden'}
+        class="flex header-link"
+        class:hidden={!isVisible(excludeFor)}
+        class:sidebar-link={flatten}
         on:click={() => {
           flatten && dispatch('select');
           onSignIn();
@@ -96,13 +104,19 @@
         disabled={$isLoading}>{label}</button
       >
     {:else if type === 'sign-up'}
+      {#if flatten}<hr
+          class="border-t-[thin] w-full"
+          style="border-color: var(--mobile-menu-separator-color, transparent);"
+          class:hidden={!isVisible(excludeFor)}
+        />{/if}
       <Button
         variant="brand"
         on:click={() => {
           flatten && dispatch('select');
           onSignUp();
         }}
-        class={isVisible(excludeFor) ? 'whitespace-nowrap header-link' : 'hidden'}>{label}</Button
+        class={isVisible(excludeFor) ? `whitespace-nowrap header-link ${flatten ? 'sidebar-link' : ''}` : 'hidden'}
+        >{label}</Button
       >
     {/if}
   {/if}
@@ -174,6 +188,17 @@
     text-transform: var(--header-links-text-transform, none);
     font-size: var(--header-links-text-size, 0.875rem);
     font-family: var(--header-links-font);
+  }
+
+  :global(.sidebar-link) {
+    font-size: var(--mobile-menu-links-size, 0.875rem);
+    width: var(--mobile-menu-sign-up-width, initial);
+    text-align: var(--mobile-menu-links-align, revert);
+    white-space: break-spaces;
+  }
+
+  :global(.sidebar-link.brand) {
+    font-size: var(--mobile-menu-signup-size, 0.875rem);
   }
 
   .active,

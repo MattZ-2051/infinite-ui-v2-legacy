@@ -263,6 +263,17 @@
   --userlink-color: transparent;
   --userlink-bg: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
   --separator-bg-color: rgba(0, 0, 0, 0.05);
+
+  /* Mobile sidebar */
+  --mobile-menu-overlay-color: transparent;
+  --mobile-menu-background-color: transparent;
+  --mobile-menu-width: theme('width.full');
+  --mobile-menu-content-background-color: var(--primary-color);
+  --mobile-menu-separator-color: rgba(255, 255, 255, 0.1);
+  --mobile-menu-links-size: theme('fontSize.3xl');
+  --mobile-menu-signup-size: theme('fontSize.xs');
+  --mobile-menu-links-align: start;
+  --mobile-menu-sign-up-width: 100%;
 }
 
 .theme-payment-button {
@@ -373,7 +384,7 @@
   --inverse-color: #000000;
 
   /* Header */
-  --header-background-color: rgba(255, 255, 255, 0.05);
+  --header-background-color: transparent;
   --header-height: 4.5rem;
   --header-links-text-transform: uppercase;
   --header-links-text-size: 0.75rem;
@@ -427,4 +438,11 @@
 
 .theme-dark-gradient-bg {
   --bg-image: linear-gradient(225deg, #181c20 0%, #363f45 100%);
+}
+
+.theme-dark .theme-buttons-variant-header {
+  --button-brand-bg: none;
+  --button-brand-color: var(--default-color);
+  --button-brand-border-color: var(--default-color);
+  --button-brand-border-color-hover: transparent;
 }

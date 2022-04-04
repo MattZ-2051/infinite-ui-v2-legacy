@@ -19,7 +19,7 @@
 
 <ThemeContext id="header">
   <header>
-    <div class="w-full h-full flex">
+    <div class="relative w-full h-full flex">
       {#if showSidebar}
         <div class="fixed top-0 right-0 left-0 bottom-0 z-40 md:hidden">
           <Sidebar {user} {links} on:close={() => (showSidebar = false)} />
@@ -62,7 +62,6 @@
     @apply sticky top-0 z-40;
     background-color: var(--header-background-color, black);
     height: var(--header-height);
-    backdrop-filter: var(--header-backdrop-filter, none);
   }
 
   @screen md {

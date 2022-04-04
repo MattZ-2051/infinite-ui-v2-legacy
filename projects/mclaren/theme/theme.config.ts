@@ -29,4 +29,5 @@ export const themeConfig = {
   '$privacy.root': Theme.Dark,
   '$terms.root': Theme.Dark,
   '$cookies.root': Theme.Dark,
+  '*.sidebar-menu': [Theme.Dark, Theme.ButtonsVariantHeader],
 };
