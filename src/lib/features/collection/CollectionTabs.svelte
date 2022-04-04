@@ -147,7 +147,7 @@
       {/if}
     </Tab>
     <div slot="extra" class="justify-self-end self-center text-lg mb-4">
-      <Sort on:select={sort} {sortOptions} key="createdAt" />
+      <Sort on:select={sort} {sortOptions} key="sortBy" />
     </div>
   </Tabs>
 </div>
