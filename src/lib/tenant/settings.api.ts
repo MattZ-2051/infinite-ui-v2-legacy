@@ -6,7 +6,7 @@ export async function fetchTenantSettings({
   fetch,
 }: {
   tenant: string;
-  fetch?: Fetch;
+  fetch: Fetch;
 }): Promise<TenantSettings> {
   return await get<TenantSettings>(`settings/${tenant}`, { fetch });
 }

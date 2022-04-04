@@ -22,7 +22,7 @@
       (redirect) => redirect.route === input.url.pathname
     );
 
-    await loadTenantSettings();
+    await loadTenantSettings({ fetch: input.fetch });
 
     if (redirectMatch) {
       return {

@@ -6,7 +6,7 @@ import { fetchTenantSettings } from './settings.api';
 export const setTenantSettings = createEvent<Awaited<ReturnType<typeof loadTenantSettingsFx>>>();
 
 export const loadTenantSettingsFx = createEffect(
-  async (tenant: string) => await fetchTenantSettings({ tenant, fetch })
+  async ({ tenant, fetch }) => await fetchTenantSettings({ tenant, fetch })
 );
 
 // eslint-disable-next-line unicorn/no-null
