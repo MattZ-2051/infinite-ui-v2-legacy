@@ -42,9 +42,14 @@ button {
   font-weight: 400;
   font-style: normal;
 }
+
 a.sticky-cta:hover,
 button.sticky-cta:hover {
   background: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+}
+
+a.sticky-cta:hover div,
+button.sticky-cta:hover div {
   color: white;
 }
 
