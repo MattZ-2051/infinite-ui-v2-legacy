@@ -36,7 +36,7 @@ export function hasActiveAuction(product: CollectorProduct): boolean {
 
 export function getActiveAuctionMinAllowedBid(product: CollectorProduct): number {
   const listing = product.activeProductListing;
-  return product.highestBid?.bidAmt ? product.highestBid?.bidAmt + listing.auctionBidIncrement : listing.minBid;
+  return listing.highestBid?.bidAmt ? listing.highestBid?.bidAmt + listing.auctionBidIncrement : listing.minBid;
 }
 
 export function hasUpcomingAuction(product: CollectorProduct): boolean {
