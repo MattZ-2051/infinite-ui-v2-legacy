@@ -3,6 +3,9 @@
   import { user, userWithProfilePhoto } from '$mocks/resolvers/user/data';
   import { links } from '$project/header/main-links';
   import PureHeader from './PureHeader.svelte';
+
+  const phase1 = '1';
+  const phase3 = '3';
 </script>
 
 <Meta
@@ -14,10 +17,13 @@
 />
 
 <Story name="Logged out">
-  <PureHeader {links} user={undefined} />
+  <PureHeader links={links(phase1)} user={undefined} />
+  <PureHeader links={links(phase3)} user={undefined} />
 </Story>
 
 <Story name="Logged in">
-  <PureHeader {links} {user} />
-  <PureHeader {links} user={userWithProfilePhoto} />
+  <PureHeader links={links(phase1)} {user} />
+  <PureHeader links={links(phase1)} user={userWithProfilePhoto} />
+  <PureHeader links={links(phase3)} {user} />
+  <PureHeader links={links(phase3)} user={userWithProfilePhoto} />
 </Story>
