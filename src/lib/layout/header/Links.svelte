@@ -5,7 +5,6 @@
   import { onSignOut, onSignIn, onSignUp, isLoading, isIssuer } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
-  import { goto } from '$app/navigation';
   import { Menu, MenuList, MenuTrigger, MenuItem } from '$ui/menu';
   import { openModal } from '$ui/modals';
   import routes from '$project/routes';
@@ -32,14 +31,10 @@
   const USER_MENU_VISIBLE = import.meta.env?.VITE_HIDE_NAVBAR_LINKS === 'true' ? isVisible(['/']) : true;
 
   $: isRoute = function (route: string) {
-    return new RegExp(`^${route}(?:/|$)`).test($page.url.pathname);
+    return new RegExp(`^${$page.url.pathname}(/?$)`).test(route);
   };
 
   const dispatch = createEventDispatcher();
-  $: showIssuerCreateButton =
-    isRoute(routes.marketplace) &&
-    !isRoute(routes.createSku) &&
-    ($tenantSettings?.skuCreationEnabled || isIssuer(user));
 </script>
 
 <!-- Header block -->
@@ -121,8 +116,9 @@
     {/if}
   {/if}
 
-  {#if id === 'marketplace' && showIssuerCreateButton}
-    <button class="header-link" on:click|preventDefault={async () => await goto(routes.createSku)}>Create</button>
+  {#if id === 'marketplace' && ($tenantSettings?.skuCreationEnabled || isIssuer(user))}
+    <a sveltekit:prefetch class="header-link" href={routes.createSku} class:active={isRoute(routes.createSku)}>Create</a
+    >
   {/if}
 {/each}
 
