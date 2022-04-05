@@ -19,7 +19,37 @@ export const INITIAL_SORT_OPTIONS: SortOption[] = [
   },
 ];
 
-export const INITIAL_STATUS_OPTIONS: SortOption[] = [
+export const INITIAL_SORT_OPTIONS_MINT_LATER: SortOption[] = [
+  {
+    name: 'Serial Z to A',
+    value: 'serialNumber:desc',
+  },
+  {
+    name: 'Serial A to Z',
+    value: 'serialNumber:asc',
+  },
+  {
+    name: 'Newest',
+    value: 'updatedAt:desc',
+  },
+  {
+    name: 'Oldest',
+    value: 'updatedAt:asc',
+  },
+];
+
+export const INITIAL_MINT_STATUS_OPTIONS: SortOption[] = [
+  {
+    name: 'All',
+    value: 'all',
+  },
+  {
+    name: 'Minted',
+    value: 'minted',
+  },
+];
+
+export const INITIAL_SALE_TYPE_OPTIONS: SortOption[] = [
   {
     name: 'All for sale',
     value: '',

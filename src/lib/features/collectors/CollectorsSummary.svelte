@@ -8,7 +8,12 @@
   import { gotoQueryParameters } from '$util/queryParameter';
   import CollectorItem from './CollectorItem.svelte';
   import { loading } from './collectors.api';
-  import { INITIAL_SORT_OPTIONS, INITIAL_STATUS_OPTIONS } from './constants';
+  import {
+    INITIAL_SORT_OPTIONS,
+    INITIAL_SORT_OPTIONS_MINT_LATER,
+    INITIAL_SALE_TYPE_OPTIONS,
+    INITIAL_MINT_STATUS_OPTIONS,
+  } from './constants';
 
   export let sku: Sku;
   export let collectors: CollectorProduct[];
@@ -17,6 +22,7 @@
   export let total: number;
   export let perPage: number;
 
+  const isMintLaterSku = sku?.mintPolicy?.transaction === 'later';
   const onFilter = (event: CustomEvent) => {
     const { key, value } = event.detail;
     const oldFilters = handleChangeSortLists(value, key);
@@ -25,33 +31,33 @@
       page: false,
     });
   };
-  let sortOptions: SortOption[] = INITIAL_SORT_OPTIONS;
-
-  let statusOptions: SortOption[] = INITIAL_STATUS_OPTIONS;
-
+  let sortOptions: SortOption[] = isMintLaterSku ? INITIAL_SORT_OPTIONS_MINT_LATER : INITIAL_SORT_OPTIONS;
+  let saleTypeOptions: SortOption[] = INITIAL_SALE_TYPE_OPTIONS;
+  let statusOptions: SortOption[] = INITIAL_MINT_STATUS_OPTIONS;
   const handleChangeSortLists = (value: string, key: string) => {
     let sortBy = $pageState.url.searchParams.get('sortBy') || '';
     let saleType = $pageState.url.searchParams.get('saleType') || '';
+    let mintStatus = $pageState.url.searchParams.get('mintStatus') || '';
     if (key === 'sortBy') {
       if (value.includes('price') && saleType.includes('all') && !sortBy.includes('price')) {
         saleType = '';
       }
     } else if (key === 'saleType' && value.includes('all') && sortBy.includes('price') && !saleType.includes('all')) {
       sortBy = 'serialNumber:asc';
+    } else if (key === 'mintStatus' && value.includes('all')) {
+      mintStatus = '';
     }
     return {
       sortBy,
       saleType,
+      mintStatus,
       [key]: value,
     };
   };
-
   const gotoPage = (event: CustomEvent) => {
     navigate({ page: +event.detail.value });
   };
-
   const handleInput = (event: Event) => navigate({ search: (event.target as HTMLInputElement).value });
-
   function navigate(parameters): void {
     gotoQueryParameters(
       {
@@ -66,13 +72,21 @@
   <div class="flex w-full">
     <ThemeContext id="search-bar">
       <div class="flex-1 collector-custom-search-input">
-        <Search placeholder="Search an owner" value={search} on:input={handleInput} />
+        {#if isMintLaterSku}
+          <Search placeholder="Search an item" value={search} on:input={handleInput} />
+        {:else}
+          <Search placeholder="Search an owner" value={search} on:input={handleInput} />
+        {/if}
       </div>
     </ThemeContext>
   </div>
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
-      <Sort sortOptions={statusOptions} on:select={onFilter} key="saleType" label="Sale Type:" iconType="filter" />
+      {#if isMintLaterSku}
+        <Sort sortOptions={statusOptions} on:select={onFilter} key="mintStatus" label="Status:" iconType="filter" />
+      {:else}
+        <Sort sortOptions={saleTypeOptions} on:select={onFilter} key="saleType" label="Sale Type:" iconType="filter" />
+      {/if}
     </div>
     <div class="flex cursor-pointer gap-2">
       <Sort {sortOptions} on:select={onFilter} key="sortBy" />

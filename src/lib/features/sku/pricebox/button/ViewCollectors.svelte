@@ -10,7 +10,9 @@
 
   export let sku: Sku;
 
-  const href = routes.collectors(sku._id, '?saleType=all');
+  const parameters =
+    sku.mintPolicy.transaction === 'later' ? '?mintStatus=all&sortBy=serialNumber:desc' : '?saleType=all';
+  const href = routes.collectors(sku._id, parameters);
 </script>
 
 <SkuPriceBoxButton action={href !== undefined} polling={$isPolling} on:click={() => goto(href)}>

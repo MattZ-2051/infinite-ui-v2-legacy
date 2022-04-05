@@ -3,12 +3,17 @@ import { get, getPage, fetchTracker } from '$lib/api';
 
 export const loading = fetchTracker();
 
-const getSaleType = (saleType) => {
+const getSaleType = (saleType, mintStatus) => {
+  if (mintStatus) return '';
   if (saleType === '') return { forSale: 'true' };
   if (saleType === 'all') return '';
   return { saleType };
 };
 
+const getMintStatus = (mintStatus) => {
+  if (mintStatus === 'all') return '';
+  if (mintStatus === 'minted') return { mintStatus: 'minted' };
+};
 export async function loadCollectorProducts({
   id,
   fetch,
@@ -23,6 +28,7 @@ export async function loadCollectorProducts({
   const sortBy: string = query.get('sortBy') || 'serialNumber:asc';
   const search: string = query.get('search') || '';
   const saleType: string = query.get('saleType') || '';
+  const mintStatus: string = query.get('mintStatus') || '';
 
   const [sku, { data: collectors, total }] = await Promise.all([
     get<Sku>(`skus/${id}?includeFunctions=true`, { fetch }),
@@ -32,8 +38,9 @@ export async function loadCollectorProducts({
       params: {
         page: `${page}`,
         per_page: `${perPage}`,
-        sortBy: sortBy,
-        ...getSaleType(saleType),
+        sortBy,
+        ...getMintStatus(mintStatus),
+        ...getSaleType(saleType, mintStatus),
         ...(search && { search }),
       },
     }),
