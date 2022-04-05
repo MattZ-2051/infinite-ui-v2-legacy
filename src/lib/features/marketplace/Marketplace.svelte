@@ -114,7 +114,7 @@
         </div>
       </NoResults>
     {:else}
-      <SkuItemGrid {skus} maxCols={$media.lg ? 3 : 4} />
+      <SkuItemGrid {skus} maxCols={3} />
       <Pagination page={p} {total} {perPage} class="my-8 flex justify-center md:justify-end" on:change={gotoPage} />
     {/if}
   </div>
