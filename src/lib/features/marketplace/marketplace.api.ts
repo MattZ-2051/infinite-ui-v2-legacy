@@ -27,10 +27,19 @@ export async function loadMarketplaceFilters({
     forSale: mode.forSale && mode.forSale === 'true',
     status: mode.status,
   });
+
+  // Need to sort alphabetically since creators and categories change the order in each response
+  const sortCreators = creators.sort((a, b) =>
+    a?.username?.toLowerCase().localeCompare(b?.username?.toLowerCase(), 'en', { ignorePunctuation: true })
+  );
+  const sortCategories = categories.sort((a, b) =>
+    a?.name?.toLowerCase().localeCompare(b?.name?.toLowerCase(), 'en', { ignorePunctuation: true })
+  );
+
   return {
     maxPrice: maxPrice as unknown as number,
-    categories: categories as unknown as Sku[],
-    creators: creators as unknown as Profile[],
+    categories: sortCategories as unknown as Sku[],
+    creators: sortCreators as unknown as Profile[],
     series: series as unknown as Series[],
   };
 }
