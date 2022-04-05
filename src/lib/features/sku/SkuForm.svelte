@@ -51,6 +51,7 @@
       .number()
       .min(0, 'Royalties must be greater than or equal to 0.')
       .max(100, 'Royalties must be less than or equal to 100.'),
+    maxSupply: yup.number().oneOf([1], 'Supply must be 1.'),
     nftPublicAssets: yup
       .mixed()
       .required('Public asset is required.')
@@ -226,7 +227,13 @@
       helperText="Suggested: 0%, 2%, 5%, 10%, 15%. Max: 100%."
       after="%"
     />
-    <FormElement label="Supply" name="maxSupply" disabled helperText="Amount of copies that can be minted." />
+    <FormElement
+      type="number"
+      label="Supply"
+      name="maxSupply"
+      helperText="Amount of copies that can be minted."
+      disabled
+    />
 
     <div class="flex flex-col gap-4">
       <div class="flex justify-between items-center">
