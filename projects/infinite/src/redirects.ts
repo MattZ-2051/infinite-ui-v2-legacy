@@ -8,11 +8,7 @@ const redirects = ({
   status: 301 | 302 | 404;
   redirect?: string;
 }[] => [
-  // Temporary redirect to disable /cookies and /about
-  {
-    route: '/cookies',
-    status: 404,
-  },
+  // Temporary redirect to disable /about
   {
     route: '/about',
     status: 404,

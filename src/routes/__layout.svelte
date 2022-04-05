@@ -46,7 +46,7 @@
   import { CLIENT_API_HEADER, INFINITE_EXTENSION_ENABLED } from '$project/variables';
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
-  import GdprBanner from '$lib/components/GdprBanner.svelte';
+  import GdprBanner from '$lib/components/gdpr/GdprBanner.svelte';
   import Head from '$project/Head.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import { InfiniteExtensionLoadFx } from '$lib/features/infinite-wallet/infinite-wallet.store';

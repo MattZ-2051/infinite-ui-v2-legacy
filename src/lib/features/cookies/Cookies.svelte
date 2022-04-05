@@ -1,5 +1,17 @@
+<script lang="ts">
+  /**
+   * The app name.
+   */
+  export let name: string;
+
+  /**
+   * The project URL.
+   */
+  export let url: string;
+</script>
+
 <div class="container py-8 space-y-6">
-  <h2 class="text-3xl font-normal">McLAREN COOKIE POLICY</h2>
+  <h2 class="text-3xl uppercase">{name} COOKIE POLICY</h2>
   <p>
     To make this site work properly, we sometimes place small data files called cookies on your device. A cookie is a
     small text file that a website saves on your computer or mobile device when you visit the site. It enables the
@@ -7,7 +19,7 @@
     of time, so you do not have to keep re-entering them whenever you come back to the site or browse from one page to
     another.
   </p>
-  <h3>Cookies on www.nft.mclaren.com</h3>
+  <h3>Cookies on {url}</h3>
   <p>
     The following table sets out the different categories of cookies that our site uses, and why we use them. The lists
     of third-party cookie providers are intended merely as illustrative and should not be viewed as a comprehensive

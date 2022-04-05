@@ -18,4 +18,5 @@ export const themeConfig = {
   '*.wallet-list': Theme.Light,
   '*.modal': Theme.Light,
   '*.error': Theme.Light,
+  '$cookies.root': Theme.Light,
 };

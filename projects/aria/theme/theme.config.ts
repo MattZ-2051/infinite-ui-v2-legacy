@@ -11,4 +11,5 @@ export const themeConfig = {
   '$product.*': Theme.BrandTabs,
   '*.modal': Theme.Light,
   '*.wallet-buttons': Theme.WalletButtons,
+  '$cookies.root': Theme.Light,
 };

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isCookiesAccepted } from '$project/gdpr/gdpr.store';
+  import { isCookiesAccepted } from '$lib/components/gdpr/gdpr.store';
   import { CLIENT_DOC_DESCRIPTION } from './variables';
   import { init } from './gtag';
 
