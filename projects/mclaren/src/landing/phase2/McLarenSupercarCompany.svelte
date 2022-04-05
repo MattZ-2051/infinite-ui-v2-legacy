@@ -1,11 +1,16 @@
 <script lang="ts">
+  import { media } from '$lib/media-query.store';
   import Button from '$lib/components/Button.svelte';
   import bucketAssets from '$project/assets/aws-bucket-assets';
 </script>
 
 <div class="w-full py-20 sm:py-48 flex justify-center align-center">
-  <div class="flex flex-col lg:grid grid-cols-2 h-full text-black items-center container px-6 md:px-16 xl:px-44">
-    <div class="justify-self-center rounded-3xl z-1 flex align-center items-center max-w-xl">
+  <div
+    class="flex flex-col lg:grid grid-cols-2 gap-x-16 h-full text-black items-center container px-6 md:px-16 xl:px-44"
+  >
+    <div
+      class={`justify-self-center rounded-3xl z-1 flex align-center items-center max-w-${$media['2xl'] ? 'xl' : 'md'}`}
+    >
       <img
         src={bucketAssets.landing.supercarCompany}
         alt="super car company"
@@ -19,7 +24,7 @@
       <p class="text-3xl sm:text-5xl font-light tracking-widest pb-10 second-font text-white opacity-80">
         THE PIONEERING SUPERCAR COMPANY
       </p>
-      <div class="w-full xl:w-5/6 font-light text-sm sm:text-base leading-7">
+      <div class="w-full xl:w-5/6 font-light text-sm sm:text-lg leading-7">
         <p class="leading-7 pb-6 text-white opacity-80">
           Our cars continually define and redefine the benchmarks against which all others are measured.
         </p>
