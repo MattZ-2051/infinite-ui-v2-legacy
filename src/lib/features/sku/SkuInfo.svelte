@@ -122,6 +122,7 @@
   <ButtonGroup class="grid grid-cols-2 divide-x divide-gray-200">
     <Notify profile={sku.issuer} let:loading let:subscription let:notifyHandler>
       <button
+        style="text-transform: var(--sku-info-button-case, capitalize); font-size: var(--sku-info-button-font-size);"
         type="button"
         class="sku-info-row flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
         disabled={loading}
@@ -132,7 +133,7 @@
     </Notify>
     <button
       type="button"
-      style="text-transform: var(--sku-share-button-case, capitalize); font-size: var(--sku-share-button-font-size);"
+      style="text-transform: var(--sku-info-button-case, capitalize); font-size: var(--sku-info-button-font-size);"
       class="sku-info-row flex items-center justify-center gap-2 text-center px-2 py-5 w-full h-full"
       use:socialShareAction={{ sku }}><Icon path={shareIcon} />Share</button
     >
