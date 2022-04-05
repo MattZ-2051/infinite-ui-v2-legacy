@@ -50,6 +50,7 @@ export async function loadProducts({
   const { data: products, total: totalProducts } = await getPage<Product>(
     `products?owner=${profileId}&includeFunctions=true&page=${page}&per_page=${perPage}`,
     {
+      cache: 'no-store',
       params: {
         ...(sortBy && { sortBy }),
       },
