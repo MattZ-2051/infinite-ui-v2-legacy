@@ -45,7 +45,7 @@
   >
 
   {#if active}
-    <div class="pb-5 pt-2 px-6">
+    <div class="pb-5 pt-2">
       <slot />
     </div>
   {/if}
