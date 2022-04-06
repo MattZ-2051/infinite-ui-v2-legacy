@@ -20,8 +20,10 @@
       sveltekit:prefetch
       class:link={hasLinkClass}
       class="whitespace-nowrap {_class || ''}"
-      {...$$restProps}><slot>@{username}</slot></a
+      {...$$restProps}
     >
+      <slot>@{username}</slot>
+    </a>
   </span>
 {/if}
 
