@@ -31,7 +31,7 @@
   <div class={cellClass}>
     <div class={`${headerClass} flex justify-between`}>
       Created by
-      <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer">
+      <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
         <Icon path={information} size="0.9em" tooltip="User who issued the NFT and created the assets for this NFT." />
       </div>
     </div>

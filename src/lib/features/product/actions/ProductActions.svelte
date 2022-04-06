@@ -45,16 +45,25 @@
 </script>
 
 {#if visibleActions.length > 0 && !externalWalletOwnsProduct}
-  <ButtonGroup class="flex col-span-2 lg:col-span-1">
-    {#each visibleActions as { type, label, icon } (type)}
-      <button
-        type="button"
-        on:click={() => onAction(type, product)}
-        class="flex flex-grow flex-col items-center justify-center text-sm gap-2 p-4 w-20 bg-gray-50 hover:bg-primary"
-      >
-        <Icon class="inline" path={icon} />
-        <span>{label}</span>
-      </button>
-    {/each}
-  </ButtonGroup>
+  <div class="col-span-2 2xl:col-span-1">
+    <ButtonGroup class="flex col-span-2 lg:col-span-1 h-full">
+      {#each visibleActions as { type, label, icon } (type)}
+        <button
+          type="button"
+          on:click={() => onAction(type, product)}
+          class="flex flex-grow flex-col items-center justify-center text-sm gap-2 p-4 w-20 custom-button-group-style hover:bg-primary"
+        >
+          <Icon class="inline" path={icon} />
+          <span>{label}</span>
+        </button>
+      {/each}
+    </ButtonGroup>
+  </div>
 {/if}
+
+<style lang="postcss">
+  .custom-button-group-style {
+    background: var(--product-mint-button-bg);
+    height: 100%;
+  }
+</style>

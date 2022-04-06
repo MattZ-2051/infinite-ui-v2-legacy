@@ -31,7 +31,7 @@
     class={`flex items-center justify-center rounded-r-md custom-button-mint-element ${buttonStatusClasses}`}
     on:click={() => handleClick()}
   >
-    <Icon path={status === MINT_STATUS ? ToMint : Processed} alt={status} class="mr-4" {...iconStatusProperties} />
+    <Icon path={status === MINT_STATUS ? ToMint : Processed} alt={status} class="mr-2" {...iconStatusProperties} />
     {title}
   </button>
 {/if}
@@ -40,6 +40,8 @@
   .custom-button-mint-element {
     background: var(--product-mint-button-bg, transparent);
     min-height: 5rem;
+    width: 100%;
+    height: 100%;
     color: var(--default-color);
   }
 

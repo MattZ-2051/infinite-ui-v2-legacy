@@ -27,6 +27,8 @@
   let mintStatus: StatusMintButton = 'toMint';
   let mintedNftTokenId: string;
   let nftEthAddress: string;
+  let tokenCellClass = '';
+  let headerTokenClass = 'pb-1';
 
   $: sku = product.sku;
   $: isTransferredOut = transactions.length > 0 ? transferredOut(product, transactions) : false;
@@ -36,10 +38,14 @@
   $: mintStatus = getMintStatus(product.status);
   $: mintLaterLabel = product.status === 'purchased' ? 'Owner' : 'Minted by';
   $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
+  $: tokenCellClass =
+    !isTransactionLater && sku?.redeemable ? 'flex flex-row  2xl:flex-col flex-row-reverse justify-end' : '';
+  $: headerTokenClass = !isTransactionLater && sku?.redeemable ? 'ml-1 mt-0.5 pb-1' : 'pb-1';
 
   const MINT_OWNER_LABEL = isTransactionLater ? 'Owned by' : 'Owner';
-  const cellClass = 'flex flex-col gap-1.5 py-4 px-3 overflow-hidden';
+  const cellClass = 'flex flex-col gap-1.5 py-6 px-6 overflow-hidden';
   const headerClass = 'text-gray-500 text-sm';
+  const actionCellClass = 'col-span-2 2xl:col-span-1';
 
   let copiedLink = false;
 
@@ -100,7 +106,9 @@
   {#if sku.redeemable}
     <div class={cellClass}>
       <div class={headerClass}>Redemption Status</div>
-      <IconRedeem><span>{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span></IconRedeem>
+      <IconRedeem>
+        <span class="pl-2">{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span>
+      </IconRedeem>
     </div>
   {/if}
   <div class={cellClass}>
@@ -119,7 +127,7 @@
         <div class="truncate inline"><UserLink username={product.owner.username} /></div>
       </div>
     {:else if sku.currency === 'ETH'}
-      <div class={`${headerClass} flex`}>
+      <div class={`${headerClass} flex justify-between`}>
         {mintByLabel}
         <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
           <Icon
@@ -144,7 +152,7 @@
     {/if}
   </div>
   <div class={cellClass}>
-    <div class={`${headerClass} flex`}>
+    <div class={`${headerClass} flex justify-between`}>
       Created by
       <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
         <Icon path={information} size="0.9em" tooltip="User who issued the NFT and created the assets for this NFT." />
@@ -153,36 +161,41 @@
     <div><TalentLink profile={sku.issuer} /></div>
   </div>
   <div class={cellClass}>
-    {#if sku.currency === 'ETH'}
-      <div class={headerClass}>ERC721 Transaction</div>
-      {#if mintStatus !== 'processed' && sku?.mintPolicy?.transaction === 'later'}
-        <span>Not Minted</span>
-      {:else}
-        <div class="flex flex-row items-center max-w-xs">
-          <div class="truncate flex-1">
-            <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
+    <div class={tokenCellClass}>
+      {#if sku.currency === 'ETH'}
+        <div class={`${headerClass} ${headerTokenClass}`}>ERC721 Transaction</div>
+        {#if mintStatus !== 'processed' && sku?.mintPolicy?.transaction === 'later'}
+          <span>Not Minted</span>
+        {:else}
+          <div class="flex flex-row items-center max-w-xs">
+            <div class="truncate flex-1">
+              <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a
+              >
+            </div>
+            {#if copiedLink}
+              <Icon path={mdiCheckCircle} color="green" size="1em" />
+            {:else}
+              <Icon path={mdiContentCopy} class="opacity-70 hover:opacity-100 ml-2" size="1em" on:click={onCopyLink} />
+            {/if}
           </div>
-          {#if copiedLink}
-            <Icon path={mdiCheckCircle} color="green" size="1em" />
-          {:else}
-            <Icon path={mdiContentCopy} class="opacity-70 hover:opacity-100 ml-2" size="1em" on:click={onCopyLink} />
-          {/if}
+        {/if}
+      {:else}
+        <div class={`${headerClass} ${headerTokenClass}`}>Hedera Token</div>
+        <div class="truncate">
+          <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
         </div>
       {/if}
-    {:else}
-      <div class={headerClass}>Hedera Token</div>
-      <div class="truncate">
-        <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
-      </div>
-    {/if}
+    </div>
   </div>
   {#if product.sku.currency !== 'ETH' && !isTransactionLater}
     <ProductActions {product} userId={$userId} />
   {/if}
   {#if (isProductOwner && isTransactionLater) || (isTransactionLater && product.status === 'minted')}
-    <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
-  {/if}
-  {#if isShowMintModal}
-    <MintNftModal {product} onClose={() => (isShowMintModal = false)} />
+    <div class={actionCellClass}>
+      <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
+    </div>
   {/if}
 </div>
+{#if isShowMintModal}
+  <MintNftModal {product} onClose={() => (isShowMintModal = false)} />
+{/if}
