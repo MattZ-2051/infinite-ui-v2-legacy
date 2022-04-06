@@ -6,7 +6,7 @@
   import { isLoading, initUserAuth, mustSetupAccount, user } from '$lib/user';
   import { variables } from '$lib/variables';
   import projectRedirects from '$project/redirects';
-  import Maintenance from '$lib/components/Maintenance.svelte';
+  import Maintenance from '$lib/components/maintenance/Maintenance.svelte';
   import '@stripe/stripe-js';
 
   if (import.meta.env.VITE_API_MOCKING === 'enabled') {
