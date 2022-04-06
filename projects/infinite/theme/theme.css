@@ -90,9 +90,14 @@
 
   /* AccountInfo */
   --account-info-bg-color: rgba(255, 255, 255, 0.05);
+
   /* Product Page*/
   --product-mint-button-bg: #1a1a1a;
   --product-processed-mint-button-icon-margin: 10px;
+
+  /* Tabs */
+  --tab-border-color-product: transparent;
+  --tab-border-color-collection: theme('colors.gray.200');
 }
 
 .theme-light {

@@ -129,6 +129,7 @@
   /* Tabs */
   --tab-border-color-active: var(--primary-color);
   --tab-color-active: var(--primary-color);
+  --tab-border-color-product: transparent;
 }
 
 .theme-light {

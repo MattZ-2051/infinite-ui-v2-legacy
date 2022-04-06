@@ -49,6 +49,7 @@
     defaultSelectedId={tab}
     on:select={redirect}
     --tab-border-color-active="transparent"
+    --tab-border-color="var(--tab-border-color-product)"
   />
 
   <div class="flex-grow px-4 md:pl-8 lg:px-12 pb-4 lg:pb-12" style="background-color: var(--product-tabs-bg);">

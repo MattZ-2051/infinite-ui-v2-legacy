@@ -118,6 +118,7 @@
   --tab-title-size: 16px;
   --tab-title-font: var(--second-font);
   --tab-title-text-spacing: 0.1em;
+  --tab-box-shadow: inset 0 -2px var(--tab-border-color, theme('colors.gray.200'));
 
   /*Collectors*/
   --border-input-search: solid 1px;
