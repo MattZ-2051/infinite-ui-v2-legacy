@@ -1,19 +1,22 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
   import type { Awaited } from 'ts-essentials';
+  import type { SkuStatus } from '$lib/sku-item/types';
   import { onDestroy } from 'svelte';
   import { clearCollection, loadCollectionFx, setCollection } from '$lib/features/collection/collection.store';
 
   export const load: Load = async ({ url, params, fetch }) => {
     const { username } = params;
     const _page = +url.searchParams.get(`page`) || 1;
-    const sortBy: string = url.searchParams.get('sortBy');
+    const sortBy = url.searchParams.get('sortBy');
+    const skuStatus: SkuStatus = (url.searchParams.get('status') as SkuStatus) || 'approved';
 
     const data = await loadCollectionFx({
       username,
       tab: url.searchParams.get(`tab`) as 'Releases' | 'NFTs',
       page: _page,
       sortBy,
+      skuStatus,
       fetch,
     });
 

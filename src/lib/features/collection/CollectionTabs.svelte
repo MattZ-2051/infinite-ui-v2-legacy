@@ -4,7 +4,6 @@
   import { Tabs, Tab } from '$ui/tabs';
   import { SkuItemGrid } from '$lib/sku-item';
   import routes from '$project/routes';
-  import { gotoQueryParameters } from '$util/queryParameter';
   import Sort from '$lib/components/Sort.svelte';
   import Button from '$lib/components/Button.svelte';
   import {
@@ -20,11 +19,13 @@
     changeTab,
     changePage,
     changeSort,
+    changeStatus,
     perPageIssuer,
     perPageUser,
   } from './collection.store';
 
   export let isIssuer = false;
+  export let own = false;
 
   export let items = [
     ...(isIssuer
@@ -44,6 +45,12 @@
   const sortOptions = [
     { name: 'Newest', value: 'createdAt:desc' },
     { name: 'Oldest', value: 'createdAt:asc' },
+  ];
+
+  const statusOptions = [
+    { name: 'Approved', value: 'approved' },
+    { name: 'Pending', value: 'pending' },
+    { name: 'Rejected', value: 'rejected' },
   ];
 
   $: externalTabs = [
@@ -79,18 +86,12 @@
     changePage(event.detail.value);
   }
 
-  function redirect(parameters) {
-    gotoQueryParameters(
-      {
-        params: parameters,
-      },
-      { keepfocus: true }
-    );
-  }
-
-  const sort = (event: CustomEvent) => {
+  const onSort = (event: CustomEvent) => {
     changeSort(event.detail.value);
-    redirect({ [event.detail.key]: `${event.detail.value}`, page: false });
+  };
+
+  const onChangeStatus = (event: CustomEvent) => {
+    changeStatus(event.detail.value);
   };
 </script>
 
@@ -146,8 +147,11 @@
         <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
       {/if}
     </Tab>
-    <div slot="extra" class="justify-self-end self-center text-lg mb-4">
-      <Sort on:select={sort} {sortOptions} key="sortBy" />
+    <div slot="extra" class="justify-self-end self-center text-lg mb-4 flex gap-4">
+      {#if own && tab === 'Releases'}
+        <Sort on:select={onChangeStatus} sortOptions={statusOptions} key="status" label="Status:" iconType="filter" />
+      {/if}
+      <Sort on:select={onSort} {sortOptions} key="sortBy" />
     </div>
   </Tabs>
 </div>

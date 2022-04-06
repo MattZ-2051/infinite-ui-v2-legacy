@@ -1,16 +1,17 @@
 import type { Awaited } from 'ts-essentials';
 import type { Profile, Product, Sku, SkuStatus } from '$lib/sku-item/types';
-import { get as getStoreValue } from 'svelte/store';
 import { createEffect, createStore, createEvent, forward } from 'effector';
+import { get as getStoreValue } from 'svelte/store';
 import { browser } from '$app/env';
-import { user } from '$lib/user';
 import { tokenBalance, nftBalance } from '$lib/features/infinite-wallet/infinite-wallet.store';
+import { tenantSettings } from '$lib/tenant/settings.store';
 import { gotoQueryParameters } from '$util/queryParameter';
 import { loadProfile, loadSkus, loadProducts, loadFeaturedSku, loadExternalProducts } from './collection.api';
 
 export const changeTab = createEvent<'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens'>();
 export const changePage = createEvent<number>();
 export const changeSort = createEvent<string>();
+export const changeStatus = createEvent<SkuStatus>();
 export const setCollection = createEvent<Awaited<ReturnType<typeof loadCollectionFx>>>();
 export const clearCollection = createEvent();
 
@@ -24,6 +25,7 @@ export const loadCollectionFx = createEffect(
     page,
     sortBy,
     forSale,
+    skuStatus,
     fetch,
   }: {
     username: string;
@@ -31,6 +33,7 @@ export const loadCollectionFx = createEffect(
     page: number;
     sortBy: string;
     forSale?: boolean;
+    skuStatus?: SkuStatus;
     fetch: Fetch;
   }): Promise<{
     profile: Profile;
@@ -47,23 +50,18 @@ export const loadCollectionFx = createEffect(
       ? loadFeaturedSku({ id: _profile.featuredSku, fetch })
       : Promise.resolve(undefined);
 
-    tab = tab || (_profile.role === 'issuer' ? 'Releases' : 'NFTs');
-    let parameters = {
+    tab = tab || (_profile.role === 'issuer' || getStoreValue(tenantSettings).skuCreationEnabled ? 'Releases' : 'NFTs');
+    const parameters = {
       page,
       profileId: _profile._id,
       sortBy,
       perPage: _profile.role === 'issuer' ? perPageIssuer : perPageUser,
-      forSale,
-      // eslint-disable-next-line unicorn/no-null
-      skuStatus: <SkuStatus>(getStoreValue(user)?._id === _profile._id ? null : 'approved'),
+      forSale: forSale || (tab === 'Releases' && skuStatus === 'approved'),
+      skuStatus,
       fetch,
     };
     // eslint-disable-next-line unicorn/prefer-switch
     if (tab === 'Releases') {
-      parameters = {
-        ...parameters,
-        forSale: true,
-      };
       const [{ skus, totalSkus }, featuredSku] = await Promise.all([loadSkusFx(parameters), featuredSkuPromise]);
       return { profile: _profile, skus, totalSkus, featuredSku };
     } else if (tab === 'NFTs') {
@@ -203,7 +201,8 @@ const changeTabfx = createEffect((parameters) => {
 forward({
   from: changeTab.map((tab) => ({
     tab,
-    page: 1,
+    page: false,
+    status: '',
   })),
   to: changeTabfx,
 });
@@ -218,6 +217,15 @@ forward({
 forward({
   from: changeSort.map((sortBy) => ({
     sortBy,
+    page: false,
+  })),
+  to: changeTabfx,
+});
+
+forward({
+  from: changeStatus.map((status) => ({
+    status,
+    page: false,
   })),
   to: changeTabfx,
 });
