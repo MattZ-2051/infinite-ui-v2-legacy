@@ -6,9 +6,9 @@
 <div class="w-full h-full relative">
   <div class="h-72 relative w-full mt-32 sm:mt-72">
     <img src={curvedBorder} alt="curverd-border-img" class="absolute w-full -top-10" />
-    <div class="h-full flex flex-col items-center justify-end container pb-14">
+    <div class="h-full flex flex-col items-center justify-end container pb-24 sm:pb-14">
       <p
-        class="font-normal second-font text-5xl text-white text-center uppercase"
+        class="font-normal second-font text-2xl sm:text-5xl text-white text-center uppercase"
         style="letter-spacing: 0.07em; line-height: 4rem;"
       >
         upcoming drop

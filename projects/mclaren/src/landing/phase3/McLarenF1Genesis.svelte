@@ -13,10 +13,12 @@
         <p class="text-base sm:text-lg font-normal pb-2 uppercase second-font" style="letter-spacing:0.2em;">
           featured drop
         </p>
-        <p class="tracking-widest sm:text-5xl text-3xl font-light pb-3 second-font leading-10 sm:leading-normal">
+        <p
+          class="tracking-widest sm:text-5xl text-3xl font-light pb-5 sm:pb-3 second-font leading-10 sm:leading-normal"
+        >
           MSO LAB <span class="block sm:inline">GENESIS COLLECTION</span>
         </p>
-        <div class="text-lg text-center font-light max-w-8xl leading-9 hidden sm:block pb-6">
+        <div class="text-lg text-center font-light max-w-8xl leading-9 pb-6">
           <p class="text-center">
             An exclusive invitation-only Tier One membership mint marking McLaren Automotive's move into the metaverse.
           </p>
