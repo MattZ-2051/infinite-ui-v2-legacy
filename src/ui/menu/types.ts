@@ -5,6 +5,6 @@ export type MenuItems = {
 
 export type VisibleStore = {
   visible: boolean;
-  event?: Event;
+  event?: Event | { from: URL; to: URL };
   reason?: 'select' | 'click' | 'clickoutside' | 'keydown' | 'navigation';
 };

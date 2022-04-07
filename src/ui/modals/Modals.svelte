@@ -1,11 +1,12 @@
 <script lang="ts">
   import { browser } from '$app/env';
+  import { beforeNavigate } from '$app/navigation';
   import { modals, exitBeforeEnter, transitioning, closeAllModals } from './store';
 
   $: browser && document.body.classList.toggle('overflow-hidden', $modals.length > 0);
-</script>
 
-<svelte:window on:sveltekit:navigation-start={closeAllModals} />
+  beforeNavigate(closeAllModals);
+</script>
 
 {#if $modals.length > 0}
   <slot name="backdrop" />

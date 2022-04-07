@@ -6,6 +6,7 @@
   import type { Placement, StrictModifiers } from '@popperjs/core';
   import type { VisibleStore } from './types';
   import clickOutside from '$util/clickOutside';
+  import { navigating } from '$app/stores';
 
   /**
    * Whether or not the Menu is visible.
@@ -61,15 +62,15 @@
     $visibleStore = { visible: false, event, reason: 'clickoutside' };
   }
 
-  function handleNavigation(event: CustomEvent) {
+  function handleNavigation(event: { from: URL; to: URL }) {
     $visibleStore = { visible: false, event, reason: 'navigation' };
   }
 
   setContext('visibleStore', visibleStore);
   setContext('popperRef', popperRef);
-</script>
 
-<svelte:window on:sveltekit:navigation-start={handleNavigation} />
+  $: if ($navigating) handleNavigation($navigating);
+</script>
 
 <div
   use:clickOutside={{
