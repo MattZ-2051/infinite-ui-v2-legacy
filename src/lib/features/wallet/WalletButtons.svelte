@@ -21,7 +21,7 @@
   const MY_WALLET_SECTION_DISABLED = import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED;
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col custom-wallet-button">
   <div class="flex justify-center w-full mb-4">
     <Button
       variant="brand"
@@ -43,3 +43,11 @@
     >
   </div>
 </div>
+
+<style lang="postcss">
+  @media screen and (max-width: 768px) {
+    .custom-wallet-button {
+      display: var(--display-wallet-buttons-mobile, flex);
+    }
+  }
+</style>

@@ -374,6 +374,7 @@
   --button-brand-border-color-hover: transparent;
   --button-brand-bg: linear-gradient(#ffffff 0%, #f8f8f8 100%);
   --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  --display-wallet-buttons-mobile: none;
 }
 
 .theme-dark {
