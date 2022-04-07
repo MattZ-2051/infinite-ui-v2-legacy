@@ -72,11 +72,7 @@
   <div class="flex w-full">
     <ThemeContext id="search-bar">
       <div class="flex-1 collector-custom-search-input">
-        {#if isMintLaterSku}
-          <Search placeholder="Search an item" value={search} on:input={handleInput} />
-        {:else}
-          <Search placeholder="Search an owner" value={search} on:input={handleInput} />
-        {/if}
+        <Search placeholder="Search an item" value={search} on:input={handleInput} />
       </div>
     </ThemeContext>
   </div>
