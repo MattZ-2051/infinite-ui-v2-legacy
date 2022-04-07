@@ -58,6 +58,10 @@
     onAction(actionType, undefined, sku);
   }
 
+  async function onCancel(actionType: ActionType) {
+    onAction(actionType, undefined, sku);
+  }
+
   $: activeListings = getActiveListings(sku);
   $: upcomingSkuListings = getUpcomingListings(sku);
   $: collector = getLimitedAuctionCollector(sku, collectors);
@@ -82,10 +86,17 @@
   $: hasActiveAuctionListing = sku.activeProductListings?.some((listing) => {
     return listing?.saleType === 'auction' && listing?.status === 'active';
   });
-
   $: hasActiveFixedListing = sku.activeProductListings?.some((listing) => {
     return listing?.saleType === 'fixed' && listing?.status === 'active';
   });
+  $: hasUpcomingAuctionListing = sku.upcomingProductListings?.some((listing) => {
+    return listing?.saleType === 'auction' && listing?.status === 'upcoming';
+  });
+  $: hasUpcomingFixedListing = sku.upcomingProductListings?.some((listing) => {
+    return listing?.saleType === 'fixed' && listing?.status === 'upcoming';
+  });
+  $: hasProductListings =
+    hasActiveAuctionListing || hasActiveFixedListing || hasUpcomingAuctionListing || hasUpcomingFixedListing;
   $: isPending = sku.status === 'pending';
   $: isRejected = sku.status === 'rejected';
 </script>
@@ -101,22 +112,27 @@
     <FromCreator {sku} state="active-whitelist" {activeListings} {onBuy} />
   {:else if active}
     <FromCreator {sku} state="active" {activeListings} {onBuy} />
+    {#if isOwner(sku, userId)}
+      <ToCreator state="active" {activeListings} {onSell} {onCancel} />
+    {/if}
   {:else if upcoming}
     <FromCreator {sku} state="upcoming" {upcomingSkuListings} {onBuy} />
+    {#if isOwner(sku, userId)}
+      <ToCreator state="upcoming" {upcomingSkuListings} {onSell} {onCancel} />
+    {/if}
   {:else if upcomingNftGiveAway}
     <FromCreator {sku} state="upcomingNftGiveAway" {upcomingSkuListings} {onBuy} />
   {:else if activeNftGiveAway}
     <FromCreator {sku} state="activeNftGiveAway" {activeListings} {onBuy} />
   {:else if noSale}
-    {#if isOwner(sku, userId)}
-      <ToCreator {onSell} />
+    {#if isOwner(sku, userId) && !hasProductListings}
+      <ToCreator state="noSale" {onSell} {onCancel} />
     {:else}
       <FromCreator state="noSale" {sku} {onBuy} />
     {/if}
   {:else if notMinted}
     <FromCreator state="notMinted" {sku} {onBuy} />
   {/if}
-
   {#if totalCollectors > 0}
     <div class="from-collectors-line z-∞" />
     <div style="border-top:var(--sku-price-box-border-top, 1px solid black);">

@@ -22,6 +22,10 @@
 
   const upcomingFixedSkuListings = [{ saleType: 'fixed', canceled: false, totalUpcomingSupply: 11, price: 22 }];
 
+  const upcomingAuctionSkuListings = [
+    { saleType: 'auction', minBid: 24, status: 'active', startDate: dummyDate, sku: { currency: 'USD' } },
+  ];
+
   const upcomingNftGiveaway = [{ saleType: 'giveaway', canceled: false, startDate: dummyDate }];
 
   const activeNftGiveaway = [{ saleType: 'giveaway', canceled: false, startDate: dummyDate }];
@@ -49,6 +53,7 @@
     { saleType: 'auction', minBid: 30, status: 'upcoming', startDate: dummyDate },
     { saleType: 'auction', minHighestBid: 40, minBid: 20, status: 'upcoming', startDate: dummyDate },
   ];
+
   const activeFixedSku = {
     currency: 'USD',
     upcomingProductListings: [],
@@ -58,11 +63,21 @@
     totalSupplyLeft: 11,
   };
 
-  const upcomingAuctionSku = {
+  const upcomingFixedSku = {
     currency: 'USD',
     upcomingProductListings: [],
     activeProductListings: activeAuctionProductListings,
     upcomingSkuListings: upcomingFixedSkuListings,
+    activeSkuListings: [],
+    totalUpcomingSupply: 20,
+    minStartDate: dummyDate,
+  };
+
+  const upcomingAuctionSku = {
+    currency: 'USD',
+    upcomingProductListings: [],
+    activeProductListings: activeAuctionProductListings,
+    upcomingSkuListings: upcomingAuctionSkuListings,
     activeSkuListings: [],
     totalUpcomingSupply: 20,
     minStartDate: dummyDate,
@@ -135,10 +150,16 @@
 <!-- Active Sku Listings with Active Sale from Collector -->
 <Story name="From Creator - Active, From Collectors - Active sale" args={{ sku: activeFixedSku, totalCollectors: 4 }} />
 
-<!-- Upcoming Sku Listings with Active Auction from Collector -->
+<!-- Upcoming Auction Sku Listings with Active Auction from Collector -->
 <Story
-  name="From Creator - Upcoming, From Collectors - Auction"
+  name="From Creator - Upcoming Auction, From Collectors - Auction"
   args={{ sku: upcomingAuctionSku, totalCollectors: 3 }}
+/>
+
+<!-- Upcoming Fixed Sku Listings with Active Auction from Collector -->
+<Story
+  name="From Creator - Upcoming Fixed, From Collectors - Auction"
+  args={{ sku: upcomingFixedSku, totalCollectors: 3 }}
 />
 
 <!-- Upcoming NFT Giveaway with Upcoming Auction from Collector -->
@@ -158,6 +179,14 @@
 <Story
   name="To Creator - No Sale"
   args={{ sku: { ...noSaleSku, issuer: { _id: '123' } }, totalCollectors: 0, userId: '123' }}
+/>
+<Story
+  name="To Creator - Active/Upcoming Sale"
+  args={{ sku: { ...activeFixedSku, issuer: { _id: '123' } }, totalCollectors: 0, userId: '123' }}
+/>
+<Story
+  name="To Creator - Active/Upcoming Auction"
+  args={{ sku: { ...upcomingAuctionSku, issuer: { _id: '123' } }, totalCollectors: 0, userId: '123' }}
 />
 
 <!--  Unique Collector -->

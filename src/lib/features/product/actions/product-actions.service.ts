@@ -26,7 +26,9 @@ export function onAction(type: ActionType, product?: Product, sku?: Sku) {
       break;
     }
     case 'cancel-auction': {
-      const listingId = (product.upcomingProductListings[0] || product.activeProductListings[0])._id;
+      const listingId = product
+        ? (product.upcomingProductListings[0] || product.activeProductListings[0])._id
+        : (sku.upcomingSkuListings[0] || sku.activeSkuListings[0])._id;
       openModal(ConfirmModal, {
         title: 'Cancel Auction!',
         message: 'This action will cancel your for sale listing for this NFT.',
@@ -56,7 +58,7 @@ export function onAction(type: ActionType, product?: Product, sku?: Sku) {
       break;
     }
     case 'cancel-sale': {
-      const listingId = product?.activeProductListings[0]?._id;
+      const listingId = product ? product.activeProductListings[0]?._id : sku.activeSkuListings[0]?._id;
       openModal(ConfirmModal, {
         title: 'Cancel Sale!',
         message:
@@ -66,7 +68,7 @@ export function onAction(type: ActionType, product?: Product, sku?: Sku) {
           try {
             await cancelSale({ id: listingId });
             toast.success('Your listing has successfully been canceled.');
-            saleCancelled({ product, listingId });
+            saleCancelled({ product, sku, listingId });
           } catch (error) {
             switch (error?.data?.appCode) {
               case 'LISTING_NOT_ACTIVE':
