@@ -77,7 +77,7 @@
     issuerName: string;
     maxSupply: number;
     featured: boolean;
-    royaltyFeePercentage: number;
+    royaltyFeePercentage?: number;
     hasUnlockableContent: boolean;
     nftPublicAssets: File;
     nftPrivateAssets?: File;
@@ -92,15 +92,15 @@
       maxSupply: 1,
       featured: false,
       hasUnlockableContent: false,
-      royaltyFeePercentage: 0,
       // eslint-disable-next-line unicorn/no-null
       nftPublicAssets: null,
       // eslint-disable-next-line unicorn/no-null
       nftPrivateAssets: null,
     },
-    onSubmit: async ({ nftPublicAssets, nftPrivateAssets, hasUnlockableContent, ...rest }) => {
+    onSubmit: async ({ nftPublicAssets, nftPrivateAssets, hasUnlockableContent, royaltyFeePercentage, ...rest }) => {
       try {
         const { _id } = await createSku({
+          royaltyFeePercentage: royaltyFeePercentage || 0,
           nftPublicAssets: [
             {
               url: await getAssetUrl(nftPublicAssets, 'public'),
