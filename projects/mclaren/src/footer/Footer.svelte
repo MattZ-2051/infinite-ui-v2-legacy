@@ -64,7 +64,6 @@
       <FooterLayout useContainer={false}>
         <svelte:fragment slot="start">
           <a href={routes.faq} target="_blank" rel="noreferrer">FAQ</a>
-          <a href={routes.careers}>Careers</a>
           <a href={routes.help}>Help</a>
           <a href={routes.privacy}>Privacy Policy</a>
           <a href={routes.terms}>Terms & Conditions</a>
