@@ -11,6 +11,7 @@
   import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
   import WalletConnectionModal from '$lib/features/connect-wallet-extensions/WalletConnectionModal.svelte';
   import { tenantSettings } from '$lib/tenant/settings.store';
+  import { isVisible } from '$lib/layout/header/links.utils';
 
   import Button from '$lib/components/Button.svelte';
   import account from './assets/account';
@@ -20,15 +21,11 @@
   export let flatten = false;
   export let user: User;
   export let links: Link[];
+  export let hideUserMenu = false;
 
   const handleWalletModal = () => {
     openModal(WalletConnectionModal, { user });
   };
-
-  const isVisible = (excludeFor: string[]) => {
-    return excludeFor ? !excludeFor.includes($page.url.pathname) : true;
-  };
-  const USER_MENU_VISIBLE = import.meta.env?.VITE_HIDE_NAVBAR_LINKS === 'true' ? isVisible(['/']) : true;
 
   $: isRoute = function (route: string) {
     return new RegExp(`^${$page.url.pathname}(/?$)`).test(route);
@@ -50,14 +47,14 @@
         class="header-link"
         class:sidebar-link={flatten}
         class:active={isRoute(routes[id])}
-        class:hidden={!isVisible(excludeFor)}
+        class:hidden={!isVisible(excludeFor, $page.url.pathname)}
         on:click={() => flatten && dispatch('select')}>{label}</a
       >
     {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED)}
       <button
         class="header-link"
         class:sidebar-link={flatten}
-        class:hidden={!isVisible(excludeFor)}
+        class:hidden={!isVisible(excludeFor, $page.url.pathname)}
         on:click={() => {
           flatten && dispatch('select');
           handleWalletModal();
@@ -90,7 +87,7 @@
     {:else if type === 'sign-in'}
       <button
         class="flex header-link"
-        class:hidden={!isVisible(excludeFor)}
+        class:hidden={!isVisible(excludeFor, $page.url.pathname)}
         class:sidebar-link={flatten}
         on:click={() => {
           flatten && dispatch('select');
@@ -102,7 +99,7 @@
       {#if flatten}<hr
           class="border-t-[thin] w-full"
           style="border-color: var(--mobile-menu-separator-color, transparent);"
-          class:hidden={!isVisible(excludeFor)}
+          class:hidden={!isVisible(excludeFor, $page.url.pathname)}
         />{/if}
       <Button
         variant="brand"
@@ -110,8 +107,9 @@
           flatten && dispatch('select');
           onSignUp();
         }}
-        class={isVisible(excludeFor) ? `whitespace-nowrap header-link ${flatten ? 'sidebar-link' : ''}` : 'hidden'}
-        >{label}</Button
+        class={isVisible(excludeFor, $page.url.pathname)
+          ? `whitespace-nowrap header-link ${flatten ? 'sidebar-link' : ''}`
+          : 'hidden'}>{label}</Button
       >
     {/if}
   {/if}
@@ -124,7 +122,7 @@
 
 <!-- User menu block -->
 <!-- Menu items will be nested for desktop view -->
-{#if user && flatten === false && USER_MENU_VISIBLE}
+{#if user && flatten === false && !hideUserMenu}
   <Menu placement="bottom-start" class="min-w-0">
     <MenuTrigger slot="trigger" class="header-link w-full">
       <div class="flex sm:gap-1 md:gap-1.5 w-full">
