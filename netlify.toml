@@ -1,6 +1,6 @@
 [build]
-  publish = "build/"
-  functions = "functions/"
+  publish = "build"
+  functions = "functions"
 
   # The statements: blocked="$PROJECT/_blocked-redirects"; [ -s $blocked ] && cat $blocked > _redirects;
   # creates a _redirects file that will be used when building the project.
@@ -12,7 +12,11 @@
   # The added rule will redirect all requests to /api to the actual backend url.
   # This redirect is needed for aws cognito to work.
 
-  command = 'blocked="projects/$PROJECT/_blocked-redirects"; [ -s $blocked ] && cat $blocked > _redirects; echo -e "\n /api/* $API_URL/:splat  200" >> _redirects; cat _redirects; npm run build $PROJECT'
+  command = 'blocked="projects/$PROJECT/_blocked-redirects"; [ -s $blocked ] && cat $blocked > _redirects; echo -e "\n /api/* $API_URL/:splat  200" >> _redirects; cat _redirects; npx pnpm install --store=node_modules/.pnpm-store && npx pnpm build $PROJECT'
 
 [build.environment]
+  NPM_FLAGS = "--version" # this prevents npm install from happening
   NODE_VERSION = "16.14.2"
+
+[functions]
+  node_bundler = "esbuild"
