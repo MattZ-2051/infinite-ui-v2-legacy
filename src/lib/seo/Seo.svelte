@@ -13,10 +13,19 @@
   export let ogDescription: string = CLIENT_DOC_DESCRIPTION;
 
   let ogImage: OpenGraphImage;
-  $: ogImage =
-    typeof image === 'string'
-      ? { url: image }
-      : (({ url, width, height, alt }) => ({ url, width, height, alt }))(image || DEFAULT_IMAGE);
+  $: {
+    if (typeof image === 'string') {
+      ogImage = { url: image };
+    } else {
+      const getImage = ({ url, width, height, alt }: OpenGraphImage | (FileAsset & { alt?: string })) => ({
+        url,
+        width,
+        height,
+        alt,
+      });
+      ogImage = getImage(image || DEFAULT_IMAGE);
+    }
+  }
   $: title = [CLIENT_DOC_TITLE, _title].filter(Boolean).join(' - ');
 </script>
 

@@ -13,7 +13,6 @@
       case 3:
         return 'grid-max-cols-3';
 
-      case 4:
       default:
         return 'grid-max-cols-4';
     }
