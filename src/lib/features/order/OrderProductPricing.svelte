@@ -17,9 +17,9 @@
   };
 </script>
 
-<div class="grid grid-cols-2 text-gray-500 font-medium text-lg w-full">
+<div class="grid grid-cols-2 text-gray-500 font-medium text-sm sm:text-lg w-full">
   <div class="mb-2">Seller price:</div>
-  <div class="flex justify-end">
+  <div class="flex justify-end items-center">
     {#if currency === 'ETH' && rate}
       <div class="text-right">
         {`${formatCurrency(price * rate, { currency: 'USD' })} ≈`}
@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="mb-2">Marketplace fee ({marketplaceFee * 100}%):</div>
-  <div class="flex justify-end">
+  <div class="flex justify-end items-center">
     {#if currency === 'ETH' && rate}
       <div class="text-right">
         {`${formatCurrency(absoluteFee * rate, { currency: 'USD' })} ≈`}
@@ -42,7 +42,7 @@
   </div>
   {#if gasFee}
     <div class="mb-2">NFT minting fee:</div>
-    <div class="flex justify-end">
+    <div class="flex justify-end items-center">
       {#if rate}
         <div class="text-right">
           {`${formatCurrency(gasFee * rate, { currency: 'USD' })} ≈`}
@@ -55,15 +55,15 @@
   {/if}
 </div>
 <hr class="h-px w-full my-4" />
-<div class="grid grid-cols-2 w-full">
-  <div class="font-medium text-lg">Total cost:</div>
-  <div class="flex justify-end">
+<div class="flex justify-between w-full">
+  <div class="font-medium text-sm sm:text-lg">Total cost:</div>
+  <div class="flex justify-end items-center">
     {#if currency === 'ETH' && rate}
       <div class="text-right text-gray-500 flex items-center">
         {`${formatCurrency(priceWFee * rate, { currency: 'USD' })} ≈`}
       </div>
     {/if}
-    <div class="text-right text-lg ml-1">
+    <div class="text-right text-sm sm:text-lg ml-1">
       {formatCurrency(priceWFee, options)}
     </div>
   </div>
