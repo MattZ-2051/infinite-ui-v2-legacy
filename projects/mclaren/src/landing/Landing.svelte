@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import Community from '../common/Community/Community.svelte';
   // PHASE 1
   import Hero1 from './phase1/Hero.svelte';
   import FAQ1 from './phase1/faq/FAQ.svelte';
@@ -16,7 +17,6 @@
   import McLarenSupercarCompany from './phase3/McLarenSupercarCompany.svelte';
   import UpcomingCollection from './phase3/FeaturedCollection.svelte';
   import FAQ from './phase3/faq/FAQ.svelte';
-  import Community from './phase3/Community.svelte';
 
   export const skus = [];
 

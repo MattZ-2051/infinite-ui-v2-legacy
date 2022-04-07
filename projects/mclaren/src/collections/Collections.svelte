@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
   import { allSkuCollections } from '$lib/features/collections/collections.store';
+  import Community from '../common/Community/Community.svelte';
   import NewCollectionsInfo from './NewCollectionsInfo.svelte';
   import McLarenCollectionMain from './McLarenCollectionMain.svelte';
   import MultipleDevelopmentHistorical from './MultipleDevelopmentHistorical.svelte';
@@ -27,4 +28,5 @@
       {/if}
     {/each}
   {/if}
+  <Community />
 </div>
