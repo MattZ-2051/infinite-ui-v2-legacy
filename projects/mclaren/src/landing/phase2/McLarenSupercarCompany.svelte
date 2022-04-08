@@ -35,7 +35,7 @@
         <Button
           variant="brand"
           class="h-12 sm:h-16 w-full sm:w-fit font-bold text-xs tracking-widest !normal-case"
-          on:click={() => window.open('https://cars.mclaren.com/us-en')}>DISCOVER McLAREN</Button
+          on:click={() => window.open('https://cars.mclaren.com/gb-en/about')}>DISCOVER McLAREN</Button
         >
       </div>
     </div>

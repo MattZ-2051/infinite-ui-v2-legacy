@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import routes from '$project/routes';
   import Button from '$lib/components/Button.svelte';
   import genesisVideo from './images/PLACEHOLDER_MCL_GENESIS COLLECTION.mp4';
 </script>
@@ -26,7 +27,7 @@
         <Button
           variant="brand"
           class="h-12 sm:h-16 w-full sm:w-fit font-bold text-xs tracking-widest uppercase"
-          on:click={() => goto('https://cars.mclaren.com/us-en')}>discover the collection</Button
+          on:click={() => goto(routes.skuCollections)}>discover the collection</Button
         >
       </div>
     </div>
