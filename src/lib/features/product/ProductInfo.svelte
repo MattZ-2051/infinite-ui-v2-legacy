@@ -41,6 +41,7 @@
   $: tokenCellClass =
     !isTransactionLater && sku?.redeemable ? 'flex flex-row  2xl:flex-col flex-row-reverse justify-end' : '';
   $: headerTokenClass = !isTransactionLater && sku?.redeemable ? 'ml-1 mt-0.5 pb-1' : 'pb-1';
+  $: product.status === 'minted' && getNftId(product.tokenId);
 
   const MINT_OWNER_LABEL = isTransactionLater ? 'Owned by' : 'Owner';
   const cellClass = 'flex flex-col gap-1.5 py-6 px-6 overflow-hidden';
@@ -72,11 +73,17 @@
     isShowMintModal = true;
   };
 
-  onMount(async () => {
-    const response = await getNftTokenId(product.tokenId);
+  const getNftId = async (txHash: string) => {
+    const response = await getNftTokenId(txHash);
     if (response) {
       mintedNftTokenId = response.tokenId;
       nftEthAddress = response.address;
+    }
+  };
+
+  onMount(async () => {
+    if (product.tokenId === 'minted') {
+      getNftId(product.tokenId);
     }
   });
 </script>
