@@ -150,7 +150,7 @@ button.sticky-cta:hover div {
   line-height: 160%;
 }
 
-.theme-dark header::before {
+.theme-dark [data-theme-context='root.header'] > header::before {
   content: '';
   background-color: theme('backgroundColor.gray.50');
   backdrop-filter: var(--header-backdrop-filter);
