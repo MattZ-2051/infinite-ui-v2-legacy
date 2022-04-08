@@ -17,10 +17,11 @@
 
   export { _sku as sku };
   export let product: Product = undefined;
+  export let isPhase3 = false;
 
   $: sku = product ? product.sku : _sku;
   $: activeListing = product ? product.activeProductListings?.[0] : sku.activeSkuListings?.[0];
-  $: href = product ? routes.product(product._id) : routes.sku(sku._id);
+  $: href = isPhase3 ? (product ? routes.product(product._id) : routes.sku(sku._id)) : '';
   $: currency = product ? product.sku.currency : sku.currency;
 </script>
 
@@ -40,7 +41,7 @@
     <div class="info mx-6 space-y-4">
       <section class="text-gray-500 flex flex-row items-center flex-wrap justify-between">
         <div class="issuer-link text-default">
-          <TalentLink profile={sku.issuer} hideImage />
+          <TalentLink profile={sku.issuer} hideImage class="normal-case" />
         </div>
         {#if sku.redeemable}
           <div class="flex flex-row items-center space-x-2 text-gray-700 font-normal text-base">
@@ -71,7 +72,7 @@
     <div class="sku-status mr-6">
       <div class="mt-5 mx-6 flex flex-row items-center text-lg" aria-label="Product details">
         <SkuStatus {sku} {product} />
-        <span class="item-link ml-auto -mr-6">
+        <span class={`${isPhase3 ? 'item-link ml-auto -mr-6' : 'hidden'}`}>
           <Icon
             path={arrowRightCircle}
             size={1.7}

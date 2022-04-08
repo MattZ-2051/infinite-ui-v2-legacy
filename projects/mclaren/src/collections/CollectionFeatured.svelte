@@ -5,6 +5,8 @@
   import Button from '$lib/components/Button.svelte';
 
   export let featuredSkuId: SkuCollection['featuredSkuId'];
+  export let collectionName = '';
+  export let isPhase3 = false;
 
   loadSkuCollectionFeaturedFx({ id: featuredSkuId });
 </script>
@@ -16,19 +18,20 @@
     >
       <div class="my-auto md:mx-12 xl:mx-24 relative space-y-10 md:text-white basis-3/4">
         <h3 class="second-font text-base md:text-lg uppercase tracking-widest">
-          Featured Nft<span class="block text-4xl md:text-5xl uppercase font-light mt-2"
-            >{$skuCollectionFeatured.name}</span
+          {collectionName}
+          {collectionName.toLowerCase().includes('collection') ? '' : 'collection'}<span
+            class="block text-4xl md:text-5xl uppercase font-light mt-2">{$skuCollectionFeatured.name}</span
           >
         </h3>
-        <p class="md:max-w-xl leading-7 text-gray-700 md:text-white">
+        <p class="md:max-w-xl leading-7 text-gray-700 font-light md:text-white">
           {@html $skuCollectionFeatured.description}
         </p>
-        <Button variant="outline-brand" class="h-14 w-64 hidden md:block">Explore</Button>
+        <Button variant="outline-brand" class={isPhase3 ? 'h-14 w-64 hidden md:block' : 'hidden'}>Explore</Button>
       </div>
       <div
         class="wrapper shadow-[0_4px_30px_rgba(0, 0, 0, 0.1)] relative max-w-md mx-auto md:max-w-sm md:mr-12 xl:mr-24 mt-10 md:-mt-24 mb-24 rounded-2xl"
       >
-        <SkuItem sku={$skuCollectionFeatured} />
+        <SkuItem sku={$skuCollectionFeatured} {isPhase3} />
       </div>
     </article>
   {/if}

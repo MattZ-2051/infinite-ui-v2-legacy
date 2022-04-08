@@ -3,17 +3,11 @@
   import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
   import { allSkuCollections } from '$lib/features/collections/collections.store';
-  import Community from '../common/Community/Community.svelte';
-  import NewCollectionsInfo from './NewCollectionsInfo.svelte';
-  import McLarenCollectionMain from './McLarenCollectionMain.svelte';
-  import MultipleDevelopmentHistorical from './MultipleDevelopmentHistorical.svelte';
+  import CollectionContainer from '../collections/CollectionContainer.svelte';
 </script>
 
 <div class="z-0">
-  <NewCollectionsInfo />
-  <McLarenCollectionMain />
-  <MultipleDevelopmentHistorical />
-
+  <CollectionContainer />
   {#if $allSkuCollections?.length !== undefined}
     {#each $allSkuCollections as collection}
       {#if collection.descriptionShort !== 'some short description'}
@@ -28,5 +22,4 @@
       {/if}
     {/each}
   {/if}
-  <Community />
 </div>
