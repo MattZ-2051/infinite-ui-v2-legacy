@@ -23,6 +23,8 @@
   export let perPage: number;
 
   const isMintLaterSku = sku?.mintPolicy?.transaction === 'later';
+  const isEthCurrency = sku.currency === 'ETH';
+
   const onFilter = (event: CustomEvent) => {
     const { key, value } = event.detail;
     const oldFilters = handleChangeSortLists(value, key);
@@ -78,8 +80,10 @@
   </div>
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
-      {#if isMintLaterSku}
-        <Sort sortOptions={statusOptions} on:select={onFilter} key="mintStatus" label="Status:" iconType="filter" />
+      {#if isEthCurrency}
+        {#if isMintLaterSku}
+          <Sort sortOptions={statusOptions} on:select={onFilter} key="mintStatus" label="Status:" iconType="filter" />
+        {/if}
       {:else}
         <Sort sortOptions={saleTypeOptions} on:select={onFilter} key="saleType" label="Sale Type:" iconType="filter" />
       {/if}
