@@ -39,7 +39,7 @@
   $: titleMap = {
     'select-transfer-type': 'Transfer NFT',
     'select-recipient': transferType === 'user' ? 'Transfer to a user' : 'Transfer NFT',
-    'confirm-recipient': 'You are about to transfer...',
+    'confirm-recipient': 'You are about to transfer:',
     'transfer-success': 'NFT transfered!',
     'transfer-pending': 'Transferring...',
     'transfer-error': 'Whoops, something went wrong!',
@@ -142,7 +142,7 @@
             <Button
               type="button"
               variant="brand"
-              class="inline-flex items-center gap-2 text-xl md:gap-4 md:text-2xl"
+              class="inline-flex items-center gap-2 md:gap-4"
               on:click={() => ((transferType = 'user'), (status = 'select-recipient'))}
               >To a User <Icon path={mdiAccountOutline} /></Button
             >
