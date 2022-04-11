@@ -41,9 +41,9 @@
               <span class="sr-only">Back</span>
             </button>
           {/if}
-          <div class="flex flex-wrap text-3xl md:text-4xl gap-2 md:gap-0 font-medium collectors-title">
+          <div class="block text-3xl md:text-4xl font-medium collectors-title">
             <a sveltekit:prefetch href={routes.sku(sku._id)} class="text-gradient-primary">{sku.name}</a>
-            <div class="flex items-center">
+            <div class="inline-flex items-center">
               <span class="mx-3 text-gray-300">/</span>
               <span class="text-gradient-primary">Collectors</span>
             </div>
