@@ -1,7 +1,7 @@
 <script lang="ts">
   import imageError from '$util/imageError';
   import routes from '$project/routes';
-  import IconVerified from './IconVerified.svelte';
+  import IconVerified from '$lib/components/talent/IconVerified.svelte';
 
   export let profile: { username: string; profilePhotoUrl: string; verified?: boolean };
   export let hideImage = false;

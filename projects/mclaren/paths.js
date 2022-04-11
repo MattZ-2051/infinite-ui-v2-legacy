@@ -30,4 +30,5 @@ export const paths = {
   '$lib/features/checkout/assets/success-icon.svg': 'projects/mclaren/src/assets/lib/success-icon.svg',
   '$lib/components/icons/success-mint': 'projects/mclaren/src/assets/lib/success-icon',
   '$project/terms/Privacy.svelte': 'projects/infinite/src/terms/Privacy.svelte',
+  '$lib/components/talent/IconVerified.svelte': 'projects/mclaren/src/assets/lib/IconVerified.svelte',
 };

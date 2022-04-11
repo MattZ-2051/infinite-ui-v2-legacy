@@ -41,7 +41,7 @@
     <div class="info mx-6 space-y-4">
       <section class="text-gray-500 flex flex-row items-center flex-wrap justify-between">
         <div class="issuer-link text-default">
-          <TalentLink profile={sku.issuer} hideImage class="normal-case" />
+          <TalentLink profile={sku.issuer} hideImage class="normal-case font-light" />
         </div>
         {#if sku.redeemable}
           <div class="flex flex-row items-center space-x-2 text-gray-700 font-normal text-base">
@@ -50,14 +50,14 @@
         {/if}
       </section>
       <header>
-        <div class="mb-4 flex text-2xl items-center gap-2 justify-between">
+        <div class="mb-4 flex text-2xl md:text-3xl items-center gap-2 justify-between font-light">
           <h2 class="line-clamp-2">{sku.name}</h2>
           {#if product?.serialNumber}
-            <div class="font-light">#{product.serialNumber}</div>
+            <div>#{product.serialNumber}</div>
           {/if}
         </div>
       </header>
-      <div class="flex flex-row items-center space-x-2 font-normal text-base">
+      <div class="flex flex-row items-center space-x-2 font-light text-base">
         {#if currency === 'USD'}
           <Icon path={hedera} size="1em" tooltip="HTS NFT minted on Hedera" class="inline align-baseline" />
         {:else if currency === 'ETH'}
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div class="sku-status mr-6">
-      <div class="mt-5 mx-6 flex flex-row items-center text-lg" aria-label="Product details">
+      <div class="mt-5 mx-6 flex flex-row items-center text-lg font-light" aria-label="Product details">
         <SkuStatus {sku} {product} />
         <span class={`${isPhase3 ? 'item-link ml-auto -mr-6' : 'hidden'}`}>
           <Icon

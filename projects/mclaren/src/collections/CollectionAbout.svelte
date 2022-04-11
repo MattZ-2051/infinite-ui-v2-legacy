@@ -14,7 +14,7 @@
   </div>
   <div class="space-y-3 lg:space-y-10 md:my-auto font-light text-base">
     <h3 class="second-font md:text-lg md:ml-10 xl:ml-20 tracking-widest">
-      MSO LAB<span class="block text-4xl md:text-5xl font-light mt-2 uppercase"
+      MSO LAB<span class="block text-[32px] text-4xl md:text-5xl font-light mt-2 uppercase"
         >{name} {name.toLowerCase().includes('collection') ? '' : 'collection'}</span
       >
     </h3>

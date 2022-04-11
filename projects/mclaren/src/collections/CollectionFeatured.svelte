@@ -11,16 +11,16 @@
   loadSkuCollectionFeaturedFx({ id: featuredSkuId });
 </script>
 
-<section class="mx-auto container max-w-7xl">
+<section class="mx-auto md:px-6 max-w-7xl">
   {#if $skuCollectionFeatured}
     <article
       class="featured-block md:shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] rounded-2xl relative flex flex-col md:flex-row backdrop-opacity-100"
     >
-      <div class="my-auto md:mx-12 xl:mx-24 relative space-y-10 md:text-white basis-3/4">
+      <div class="my-auto mt-20 mx-6 md:mx-12 xl:mx-24 relative space-y-10 md:text-white basis-3/4">
         <h3 class="second-font text-base md:text-lg uppercase tracking-widest">
           {collectionName}
           {collectionName.toLowerCase().includes('collection') ? '' : 'collection'}<span
-            class="block text-4xl md:text-5xl uppercase font-light mt-2">{$skuCollectionFeatured.name}</span
+            class="block text-[32px] text-4xl md:text-5xl uppercase font-light mt-2">The NFT's</span
           >
         </h3>
         <p class="md:max-w-xl leading-7 text-gray-700 font-light md:text-white">
@@ -29,7 +29,7 @@
         <Button variant="outline-brand" class={isPhase3 ? 'h-14 w-64 hidden md:block' : 'hidden'}>Explore</Button>
       </div>
       <div
-        class="wrapper shadow-[0_4px_30px_rgba(0, 0, 0, 0.1)] relative max-w-md mx-auto md:max-w-sm md:mr-12 xl:mr-24 mt-10 md:-mt-24 mb-24 rounded-2xl"
+        class="wrapper shadow-[0_4px_30px_rgba(0, 0, 0, 0.1)] relative max-w-md px-6 md:px-0 mx-auto md:max-w-sm md:mr-8 lg:mr-12 xl:mr-24 mt-10 md:-mt-24 mb-24 rounded-2xl"
       >
         <SkuItem sku={$skuCollectionFeatured} {isPhase3} />
       </div>
@@ -38,6 +38,10 @@
 </section>
 
 <style lang="postcss">
+  .featured-block {
+    background: linear-gradient(184.75deg, rgba(54, 63, 69, 0.5) 41.25%, rgba(0, 0, 0, 0.5) 85.36%);
+  }
+
   @media screen(md) {
     .featured-block {
       background: linear-gradient(253.57deg, rgba(0, 0, 0, 0.5) 6.96%, rgba(54, 63, 69, 0.5) 77.23%);

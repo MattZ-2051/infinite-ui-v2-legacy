@@ -9,7 +9,7 @@
   $: phase = $page.url.searchParams.get('phase') ?? '1';
 </script>
 
-<div class="space-y-40 md:space-y-60 lg:space-y-80 xl:space-y-96 bg-none">
+<div class="space-y-40 md:space-y-60 lg:space-y-80 bg-none">
   <CollectionBanner name={$skuCollection.name} mainFileAsset={$skuCollection.mainFileAsset} />
   <CollectionAbout
     name={$skuCollection.name}
