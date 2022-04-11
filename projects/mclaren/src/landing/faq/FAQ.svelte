@@ -1,21 +1,27 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
-  import SimpleAccordion from './SimpleAccordion.svelte';
+  import SimpleAccordion from '$project/landing/faq/SimpleAccordion.svelte';
+  import curvedBorder from '../phase3/images/curved-border.svg';
   import { FaqInfo } from './FAQInfo';
+
+  export let curvedImg: boolean;
 </script>
 
-<div class="bg-white py-44 sm:py-48">
+<div class="py-44 sm:py-72">
+  {#if curvedImg}
+    <img src={curvedBorder} alt="curverd-border-img" class="w-full" />
+  {/if}
   <div class="flex flex-col items-center">
     <div class="max-w-5xl relative z-10 w-full container">
-      <div class="font-normal text-3xl mb-20 sm:text-5xl text-center tracking-widest uppercase second-font">
+      <div class="font-normal text-3xl mb-20 sm:text-5xl text-center tracking-widest uppercase second-font text-white">
         frequently asked questions
       </div>
-      <div class="w-full">
+      <div class="w-full text-white-opacity-70 ">
         {#each FaqInfo as el}
-          <SimpleAccordion title={el.title}>
-            <div class="text-black-opacity-70 font-light text-sm sm:text-base">
-              <p>{el.text}</p>
+          <SimpleAccordion title={el.title} textColor="rgba(255,255,255,0.7)" selectedColor="white">
+            <div class="font-light text-sm sm:text-base">
+              {@html el.content}
             </div>
           </SimpleAccordion>
         {/each}

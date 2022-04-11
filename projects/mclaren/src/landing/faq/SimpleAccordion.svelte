@@ -1,8 +1,7 @@
 <script>
-  import { fade } from 'svelte/transition';
+  import { blur, slide } from 'svelte/transition';
   import Icon from '$ui/icon/Icon.svelte';
   import arrowDown from '$project/assets/lib/chevron-down';
-  import arrowUp from '$project/assets/lib/arrow-up';
 
   export let title;
   export let textColor = 'black';
@@ -28,18 +27,30 @@
   <div style="color:{textColor};">
     <div class="flex justify-between items-center" style="color:{active ? selectedColor : textColor}">
       <div class="text-2xl lg:text-4xl font-light pr-1 second-font text-white">{title}</div>
-      {#if !active}
+      <div class={`${active ? 'arrow-down' : 'arrow-base'}`}>
         <Icon path={arrowDown} size={1} class="sm:hidden" />
         <Icon path={arrowDown} size={1.3} class="sm:block hidden" />
-      {:else}
-        <Icon path={arrowUp} size={1} class="sm:hidden" />
-        <Icon path={arrowUp} size={1.3} class="sm:block hidden" />
-      {/if}
+      </div>
     </div>
     {#if active}
-      <div class="mt-6" transition:fade={{ duration: 700 }}>
-        <slot />
+      <div class="mt-6" transition:slide={{ duration: 300 }}>
+        <div class="pt-2" transition:blur={{ amount: 10, duration: 200 }}>
+          <slot />
+        </div>
       </div>
     {/if}
   </div>
 </div>
+
+<style lang="postcss">
+  .arrow-base {
+    transition-duration: 400ms;
+    transform: rotate(0deg);
+    transition: ease-out 300ms;
+  }
+
+  .arrow-down {
+    transform: rotate(180deg);
+    transition-duration: 400ms;
+  }
+</style>

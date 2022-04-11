@@ -3,7 +3,7 @@
   import Community from '../common/Community/Community.svelte';
   // PHASE 1
   import Hero1 from './phase1/Hero.svelte';
-  import FAQ1 from './phase1/faq/FAQ.svelte';
+  import FAQ from './faq/FAQ.svelte';
   import McLarenFuturePerformance1 from './phase1/McLarenFuturePerformance.svelte';
   import McLarenSupercarCompany1 from './phase1/McLarenSupercarCompany.svelte';
 
@@ -16,7 +16,6 @@
   import GenesisCollection from './phase3/McLarenF1Genesis.svelte';
   import McLarenSupercarCompany from './phase3/McLarenSupercarCompany.svelte';
   import UpcomingCollection from './phase3/FeaturedCollection.svelte';
-  import FAQ from './phase3/faq/FAQ.svelte';
 
   export const skus = [];
 
@@ -28,7 +27,7 @@
     <Hero1 />
     <McLarenFuturePerformance1 />
     <McLarenSupercarCompany1 />
-    <FAQ1 />
+    <FAQ curvedImg={false} />
   </div>
 {:else if phase === '2' || phase === '3'}
   <div class="z-0">
