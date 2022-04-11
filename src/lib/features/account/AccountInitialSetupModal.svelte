@@ -26,7 +26,7 @@
     tagline: yup.string().max(150, 'About me must be at most 150 characters.'),
   });
 
-  const { form, errors, isSubmitting, data } = createForm<{
+  const { form, errors, isSubmitting, data, setFields } = createForm<{
     firstName: string;
     lastName: string;
     tagline: string;
@@ -68,6 +68,8 @@
     ($data.phoneNumber === '' || hidePhoneConsent ? true : $data.phoneNumberConsentGiven);
 
   const hidePhoneConsent = variables.hidePhoneConsent || false;
+
+  $: if (hidePhoneConsent === false && $data.phoneNumber === '') setFields('phoneNumberConsentGiven', false);
 
   setContext('errors', errors);
 </script>

@@ -36,6 +36,8 @@
     validate: validateSchema(schema),
   });
 
+  $: if ($data.phoneNumber === '') setFields('phoneNumberConsentGiven', false);
+
   setContext('errors', errors);
 
   $: variant = disabled ? 'base' : 'rounded';
