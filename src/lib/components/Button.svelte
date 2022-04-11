@@ -110,6 +110,7 @@
     border-radius: var(--button-border-radius);
   }
   .invert-brand {
+    background: var(--button-brand-bg, none var(--button-brand-bg-color));
     color: var(--button-brand-color-hover);
     background-color: var(--button-brand-bg-color-hover);
     border-color: var(--button-brand-border-color-hover);
@@ -118,6 +119,7 @@
     color: var(--button-brand-color);
     background-color: var(--button-brand-bg-color);
     border-color: var(--button-brand-border-color);
+    background: var(--button-brand-bg, none var(--button-brand-bg-color));
   }
 
   .brand:hover::after {

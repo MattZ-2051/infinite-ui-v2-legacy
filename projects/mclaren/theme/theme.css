@@ -87,6 +87,7 @@
   --button-brand-bg: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
   --button-brand-border-color: transparent;
   --button-brand-color-hover: #ffffff;
+  --button-brand-bg-color-hover: linear-gradient(225deg, #181c20 0%, #363f45 100%);
   --button-brand-bg-hover: linear-gradient(225deg, #181c20 0%, #363f45 100%);
   --button-brand-border-color-hover: transparent;
   --button-outline-brand-color: #000000;
@@ -368,7 +369,6 @@
 .theme-brand-wallet-buttons {
   --button-brand-color: #000000;
   --button-brand-color-hover: #ffffff;
-  /* --button-brand-bg-color-hover: #ffffff; */
   --button-brand-border-color-hover: transparent;
   --button-brand-bg: linear-gradient(#ffffff 0%, #f8f8f8 100%);
   --button-brand-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);

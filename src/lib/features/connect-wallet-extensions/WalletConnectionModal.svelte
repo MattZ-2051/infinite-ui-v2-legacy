@@ -62,11 +62,17 @@
           on:click={wallet.connected ? () => wallet.logout() : () => wallet.login()}
           class="relative mt-8"
           disabled={wallet.disabled}
-          ><span>{wallet.name}</span>{#if wallet.connected}<span
-              class="uppercase font-bold text-xs absolute w-full px-6 text-right self-center"
-              style="font-size: 0.625rem; letter-spacing:0.03em;">connected</span
-            >{/if}</Button
         >
+          <span>{wallet.name}</span>
+          {#if wallet.connected}
+            <span
+              class="uppercase font-bold text-xs absolute w-full px-6 text-right self-center"
+              style="font-size: 0.625rem; letter-spacing:0.03em;"
+            >
+              connected
+            </span>
+          {/if}
+        </Button>
         {#if wallet.needsLogin && user === undefined}
           <p class="text-lg mt-3 text-center">
             To use {wallet.name} you need to

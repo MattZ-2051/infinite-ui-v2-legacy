@@ -2,7 +2,7 @@
   import tooltipAction from '$ui/tooltip';
 
   export let size = 24;
-  export let tooltip = 'Verified Talent';
+  export let tooltip = 'Verified';
 </script>
 
 <svg
