@@ -1,8 +1,8 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
+  import SimpleAccordion from '$project/landing/faq/SimpleAccordion.svelte';
   import curvedBorder from '../images/curved-border.svg';
-  import SimpleAccordion from './SimpleAccordion.svelte';
   import { FaqInfo } from './FAQInfo';
 
   export let curvedImg: boolean;

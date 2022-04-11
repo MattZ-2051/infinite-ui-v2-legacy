@@ -1,7 +1,7 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
-  import SimpleAccordion from './SimpleAccordion.svelte';
+  import SimpleAccordion from '$project/landing/faq/SimpleAccordion.svelte';
   import { FaqInfo } from './FAQInfo';
 </script>
 
@@ -26,8 +26,8 @@
             type="submit"
             on:click={() => window.open(routes.faq)}
           >
-            see all</Button
-          >
+            see all
+          </Button>
         </div>
       </div>
     </div>

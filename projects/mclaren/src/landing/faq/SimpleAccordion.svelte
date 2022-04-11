@@ -1,4 +1,5 @@
 <script>
+  import { fade } from 'svelte/transition';
   import Icon from '$ui/icon/Icon.svelte';
   import arrowDown from '$project/assets/lib/chevron-down';
   import arrowUp from '$project/assets/lib/arrow-up';
@@ -25,8 +26,8 @@
   on:click={handleOpen}
 >
   <div style="color:{textColor};">
-    <div class=" flex justify-between items-center" style="color:{active ? selectedColor : textColor}">
-      <div class="text-2xl lg:text-4xl font-light pr-1 second-font">{title}</div>
+    <div class="flex justify-between items-center" style="color:{active ? selectedColor : textColor}">
+      <div class="text-2xl lg:text-4xl font-light pr-1 second-font text-white">{title}</div>
       {#if !active}
         <Icon path={arrowDown} size={1} class="sm:hidden" />
         <Icon path={arrowDown} size={1.3} class="sm:block hidden" />
@@ -36,7 +37,7 @@
       {/if}
     </div>
     {#if active}
-      <div class="mt-6">
+      <div class="mt-6" transition:fade={{ duration: 700 }}>
         <slot />
       </div>
     {/if}
