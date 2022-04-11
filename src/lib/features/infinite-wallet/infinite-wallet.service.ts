@@ -114,7 +114,7 @@ export async function transferToken(
 
   const id = TokenId.fromString(tokenId);
 
-  if (type.includes('NON_FUNGIBLE') && nftSerial) {
+  if (type.includes('NON_FUNGIBLE_UNIQUE') && nftSerial) {
     const serial = Long.fromString(nftSerial);
     const nftId = new NftId(id, serial);
 

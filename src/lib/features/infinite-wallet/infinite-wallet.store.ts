@@ -231,8 +231,9 @@ export const SerialDataLoadFx = createEffect(async (): Promise<MirrorNodeNftResp
     InfiniteExtensionStore.watch((state) => (accountId = state?.current?.id));
 
     const nfts = balanceData?.tokens?.filter(
-      (token) => balance.get(token.token_id).toNumber() > 0 && token.type.includes('NON_FUNGIBLE')
+      (token) => balance.get(token.token_id).toNumber() > 0 && token.type.includes('NON_FUNGIBLE_UNIQUE')
     );
+
     const serials = await getNftBalance({ nfts, walletId: accountId });
 
     return serials;
@@ -269,7 +270,7 @@ export const tokenBalance = createStore<string[]>(null).on(
       });
 
       const tokens = balanceData?.tokens?.filter(
-        (token) => balance.get(token.token_id).toNumber > 0 && !token.type.includes('NON_FUNGIBLE')
+        (token) => balance.get(token.token_id).toNumber > 0 && !token.type.includes('NON_FUNGIBLE_UNIQUE')
       );
       return tokens.map((token) => token.token_id);
     }
