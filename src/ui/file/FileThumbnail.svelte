@@ -27,17 +27,32 @@
     muted
     src={item.previewUrl || item.url}
     class="object-cover custom-border-element"
+    data-testid="filethumbnail-video"
     {style}
   />
 {:else if fileType === 'image'}
-  <img src={item.previewUrl || item.url} {alt} loading="lazy" class="object-cover custom-border-element" {style} />
+  <img
+    src={item.previewUrl || item.url}
+    {alt}
+    loading="lazy"
+    class="object-cover custom-border-element"
+    data-testid="filethumbnail-img"
+    {style}
+  />
 {:else if fileType === 'audio'}
   <div class="bg-black flex items-center justify-center custom-border-element" {style}>
-    <Icon path={mdiVolumeHigh} />
+    <Icon path={mdiVolumeHigh} data-testid="filethumbnail-audio" />
   </div>
 {:else if fileType === 'vector'}
   <div class="relative flex items-center gap-4 text-lg md:px-2 custom-vector-element min-w-max">
-    <img src={getVectorThumbImage()} {alt} loading="lazy" class="object-cover md:object-contain" {style} />
+    <img
+      src={getVectorThumbImage()}
+      {alt}
+      loading="lazy"
+      class="object-cover md:object-contain"
+      {style}
+      data-testid="filethumbnail-vector"
+    />
     <div class="hidden md:flex items-center gap-2">
       Experience AR
       <Icon path={mdiArrowRight} size="1.2" />

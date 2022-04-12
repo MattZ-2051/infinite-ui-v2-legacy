@@ -1,6 +1,6 @@
 import type { FileAsset, FileType } from './types';
 
-const mediaMapper: { [key: string]: FileType } = {
+export const mediaMapper: { [key: string]: FileType } = {
   jpg: 'image',
   jpeg: 'image',
   png: 'image',
@@ -32,5 +32,5 @@ export function getAspectRatioStyle(item: FileAsset, preview = false) {
   if (preview) {
     return { 'aspect-ratio': '1 / 1' };
   }
-  return item?.width && item?.height ? { 'aspect-ratio': item.width / item.height } : undefined;
+  return item?.width && item.height ? { 'aspect-ratio': item.width / item.height } : undefined;
 }

@@ -56,6 +56,7 @@
       <video
         bind:this={videoElement}
         class="w-full h-full object-cover"
+        data-testid="filepreview-video"
         playsinline
         autoplay
         controls={false}
@@ -69,6 +70,7 @@
       <video
         use:videoDisableOptions
         class="absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-full object-contain"
+        data-testid="filepreview-video"
         playsinline
         autoplay
         controls
@@ -94,15 +96,22 @@
   </div>
 {:else if fileType === 'audio'}
   {#if preview}
-    <Icon path={mdiVolumeSource} size="3" />
+    <Icon path={mdiVolumeSource} size="3" data-testid="filepreview-audio-withpreview" />
   {:else}
     <audio controls autoplay muted>
-      <source src={item.url} type="audio/mpeg" />
+      <source src={item.url} type="audio/mpeg" data-testid="filepreview-audio-src" />
       Your browser does not support audio elements.
     </audio>
   {/if}
 {:else if fileType === 'vector'}
-  <iframe id={'3d-ar'} src={item.url} frameBorder="0" title="Product preview" class="w-full h-full" />
+  <iframe
+    id={'3d-ar'}
+    src={item.url}
+    frameBorder="0"
+    title="Product preview"
+    class="w-full h-full"
+    data-testid="filepreview-vector"
+  />
 {:else}
   Unrecognized type
 {/if}
