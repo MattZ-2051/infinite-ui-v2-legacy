@@ -28,6 +28,7 @@
     "@felte/validator-yup": "1.0.3",
     "@hashgraph/sdk": "2.11.3",
     "@mdi/js": "6.6.96",
+    "@metamask/detect-provider": "^1.2.0",
     "@popperjs/core": "2.11.5",
     "@sentry/browser": "6.19.6",
     "@sentry/tracing": "6.19.6",

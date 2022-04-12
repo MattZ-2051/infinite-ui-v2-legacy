@@ -10,6 +10,7 @@ specifiers:
   '@hashgraph/sdk': 2.11.3
   '@mdi/js': 6.6.96
   '@mdx-js/react': 1.6.22
+  '@metamask/detect-provider': ^1.2.0
   '@popperjs/core': 2.11.5
   '@sentry/browser': 6.19.6
   '@sentry/tracing': 6.19.6
@@ -119,6 +120,7 @@ dependencies:
   '@felte/validator-yup': 1.0.3_yup@0.32.11
   '@hashgraph/sdk': 2.11.3_expo@44.0.6
   '@mdi/js': 6.6.96
+  '@metamask/detect-provider': 1.2.0
   '@popperjs/core': 2.11.5
   '@sentry/browser': 6.19.6
   '@sentry/tracing': 6.19.6
@@ -2989,6 +2991,11 @@ packages:
   /@mdx-js/util/1.6.22:
     resolution: {integrity: sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==}
     dev: true
+
+  /@metamask/detect-provider/1.2.0:
+    resolution: {integrity: sha512-ocA76vt+8D0thgXZ7LxFPyqw3H7988qblgzddTDA6B8a/yU0uKV42QR/DhA+Jh11rJjxW0jKvwb5htA6krNZDQ==}
+    engines: {node: '>= 10'}
+    dev: false
 
   /@mrmlnc/readdir-enhanced/2.2.1:
     resolution: {integrity: sha512-bPHp6Ji8b41szTOcaP63VlnbbO5Ny6dwAATtY6JTjh5N2OLrb5Qk/Th5cRkRQhkWCt+EJsYrNB0MiL+Gpn6e3g==}

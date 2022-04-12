@@ -3,6 +3,7 @@ import type { Readable } from 'svelte/store';
 import type { InfiniteExtension } from '$lib/features/infinite-wallet/types';
 import { ethers } from 'ethers';
 import { derived, get as getStoreValue, writable } from 'svelte/store';
+import detectEthereumProvider from '@metamask/detect-provider';
 import { session } from '$app/stores';
 import { patch, post, get } from '$lib/api';
 import routes from '$project/routes';
@@ -24,7 +25,6 @@ export const isAuthenticated = writable<boolean | undefined>(undefined);
 export const user = writable<User>(undefined);
 declare global {
   interface Window {
-    ethereum: ethers.providers.ExternalProvider | ethers.providers.JsonRpcFetchFunc;
     wallet: InfiniteExtension | undefined;
   }
 }
@@ -261,6 +261,9 @@ export async function handleRedirectCallback(callbackUrl: string) {
 export async function checkWalletInstalled() {
   if (typeof window?.ethereum !== 'undefined') {
     provider = new ethers.providers.Web3Provider(window?.ethereum, 'any');
+
+    const metamaskProvider = (await detectEthereumProvider({ mustBeMetaMask: true })) as ethers.providers.Web3Provider;
+
     provider.on('network', (newNetwork, oldNetwork) => {
       // When a Provider makes its initial connection, it emits a "network"
       // event with a null oldNetwork along with the newNetwork. So, if the
@@ -269,6 +272,14 @@ export async function checkWalletInstalled() {
         window.location.reload();
       }
     });
+
+    if (metamaskProvider) {
+      metamaskProvider.on('accountsChanged', (accounts) => {
+        if (accounts.length === 0) {
+          walletConnected.set(false);
+        }
+      });
+    }
 
     // Check if user is already connected
     const addresses = await provider.listAccounts();
