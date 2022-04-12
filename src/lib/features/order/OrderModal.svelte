@@ -380,7 +380,7 @@
         <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} hideWalletBalance {product} />
         <StripeCheckoutModal {listing} mintToAddress={ethAddress} />
       {/if}
-      {#if isStripeAllowed && !!paymentMethod}
+      {#if isStripeAllowed && !!paymentMethod && result?.status !== 'pending' && result?.status !== 'success' && !purchasing && !stripeSucceded}
         <span class="text-center hover:underline cursor-pointer" on:click={() => selectPaymentMethod(undefined)}
           >Back to Payment Method</span
         >
