@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/svelte';
+import { render, screen, fireEvent } from '@testing-library/svelte';
 import Icon from './Icon.svelte';
 
 describe('Icon', () => {
@@ -27,5 +27,31 @@ describe('Icon', () => {
 
     await component.$set({ flip: 'v' });
     expect(svg).toHaveStyle({ transform: 'scaleY(-1)' });
+  });
+
+  it('icon works with tooltip', async () => {
+    const tooltipText = 'this is a tooltip text';
+
+    const { container } = render(Icon, {
+      props: { path: 'my-path', flip: true, tooltip: tooltipText },
+    });
+
+    const svg = container.querySelector('svg');
+
+    const spyInstanceEnable = jest.fn();
+    const spyInstanceSetProperties = jest.fn();
+    const spy = jest.fn(() => {
+      return {
+        enable: spyInstanceEnable,
+        setProps: spyInstanceSetProperties,
+      };
+    });
+    jest.mock('tippy.js', () => spy);
+
+    await fireEvent.mouseOver(svg);
+
+    expect(spy).toHaveBeenCalledWith(svg, {});
+    expect(spyInstanceEnable).toHaveBeenCalled();
+    expect(spyInstanceSetProperties).toHaveBeenCalled();
   });
 });
