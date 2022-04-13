@@ -32,3 +32,4 @@ export const AVAILABLE_DEPOSIT_TYPES = 'eth,usdc,btc,hbar,suku';
 export const INFINITE_EXTENSION_ENABLED = false;
 export const PRODUCT_PAGE_TABS: TabType[] = ['description', 'history', 'owner'];
 export const COOKIE_URL = 'www.nft.mclaren.com';
+export const ENABLE_RELATED_SKUS = false;

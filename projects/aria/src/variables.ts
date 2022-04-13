@@ -31,3 +31,4 @@ export const AVAILABLE_DEPOSIT_TYPES = 'usdc,btc,hbar,suku';
 export const INFINITE_EXTENSION_ENABLED = false;
 export const PRODUCT_PAGE_TABS: TabType[] = ['auction', 'history', 'owner'];
 export const COOKIE_URL = 'www.ariaexchange.com';
+export const ENABLE_RELATED_SKUS = true;

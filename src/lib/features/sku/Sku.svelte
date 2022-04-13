@@ -88,6 +88,8 @@
       </div>
     </div></ThemeContext
   >
+{:else}
+  <div class="h-32" />
 {/if}
 
 <style lang="postcss">

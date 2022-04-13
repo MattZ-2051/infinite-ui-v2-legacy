@@ -2,11 +2,12 @@ import type { Sku, CreateSkusDto } from '$lib/sku-item/types';
 import { get, post } from '$lib/api';
 import { skuTiles } from '$lib/infinite-api-sdk';
 import { loading } from '$lib/features/marketplace/marketplace.api';
+import { ENABLE_RELATED_SKUS } from '$project/variables';
 
 export async function loadSku({ id, fetch }: { id: string; fetch?: Fetch }) {
   const sku = await getSkuOnly({ id, fetch });
 
-  const related = await getSkuRelated({ sku, fetch });
+  const related = ENABLE_RELATED_SKUS ? await getSkuRelated({ sku, fetch }) : [];
 
   return { sku, related };
 }
