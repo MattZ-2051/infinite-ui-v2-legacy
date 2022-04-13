@@ -15,7 +15,7 @@ const redirects = ({
   {
     route: '/collections',
     status: 301,
-    redirect: '/collections/625044289e87004f54213957', //temporarily only one collection
+    redirect: `/collections/${import.meta.env.VITE_DEFAULT_COLLECTION_ID}`, //temporarily only one collection
   },
 ];
 
