@@ -13,7 +13,6 @@ export async function loadSkus({
   perPage,
   forSale,
   skuStatus,
-  fetch,
 }: {
   profileId: string;
   page: number;
@@ -21,7 +20,6 @@ export async function loadSkus({
   perPage: number;
   forSale?: boolean;
   skuStatus?: SkuStatus;
-  fetch?: Fetch;
 }) {
   const { docs: skus, count: totalSkus } = await skuTiles(fetch)({
     page,
@@ -39,13 +37,11 @@ export async function loadProducts({
   page,
   sortBy,
   perPage,
-  fetch,
 }: {
   profileId: string;
   page: number;
   sortBy: string;
   perPage: number;
-  fetch?: Fetch;
 }) {
   const { data: products, total: totalProducts } = await getPage<Product>(
     `products?owner=${profileId}&includeFunctions=true&page=${page}&per_page=${perPage}`,
@@ -54,14 +50,13 @@ export async function loadProducts({
       params: {
         ...(sortBy && { sortBy }),
       },
-      fetch,
     }
   );
 
   return { products, totalProducts };
 }
 
-export async function loadFeaturedSku({ id, fetch }: { id: string; fetch: Fetch }) {
+export async function loadFeaturedSku({ id }: { id: string }) {
   return await get<Sku>(`skus/${id}/?includeFunctions=true`, {
     fetch,
   });
@@ -72,13 +67,11 @@ export async function loadExternalProducts({
   page,
   sortBy,
   perPage,
-  fetch,
 }: {
   ids: string[];
   page: number;
   sortBy: string;
   perPage: number;
-  fetch?: Fetch;
 }) {
   const { data: products, total: totalProducts } = await getPage<Product>(
     `products?tokenId=${ids}&includeFunctions=true&page=${page}&per_page=${perPage}`,
@@ -86,7 +79,6 @@ export async function loadExternalProducts({
       params: {
         ...(sortBy && { sortBy }),
       },
-      fetch,
     }
   );
 

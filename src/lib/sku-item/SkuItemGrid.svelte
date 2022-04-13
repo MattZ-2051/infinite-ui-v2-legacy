@@ -19,14 +19,17 @@
   }
 
   export let products: Product[] = [];
-
   export let skus: Sku[] = [];
+  export let loading = false;
 
   $: productList = max > 0 ? (products || []).slice(0, max) : products || [];
   $: skuList = max > 0 ? skus.slice(0, max) : skus;
 </script>
 
-<ThemeContext id="sku-grid">
+<ThemeContext id="sku-grid" display class="relative">
+  {#if loading}
+    <div class="fade" />
+  {/if}
   <div class="sku-grid grid grid-cols-1 max-w-sm mx-auto {gridResponsiveClass} {$$props.class || ''}">
     {#if productList.length}
       {#each productList as item (item._id)}
@@ -74,5 +77,17 @@
     .grid-max-cols-3 {
       @apply grid-cols-3;
     }
+  }
+
+  .fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.15);
+    pointer-events: none;
+    z-index: 998;
+    animation: fade 0.4s;
   }
 </style>

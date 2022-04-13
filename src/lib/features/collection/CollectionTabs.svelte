@@ -22,6 +22,7 @@
     changeStatus,
     perPageIssuer,
     perPageUser,
+    loadCollectionFx,
   } from './collection.store';
 
   export let isIssuer = false;
@@ -41,6 +42,8 @@
       title: 'Collectibles',
     },
   ];
+
+  const pending = loadCollectionFx.pending;
 
   const sortOptions = [
     { name: 'Newest', value: 'createdAt:desc' },
@@ -108,7 +111,7 @@
       {:else if $skusTotal === null}
         <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
       {:else}
-        <SkuItemGrid skus={$skus} />
+        <SkuItemGrid skus={$skus} loading={$pending} />
         <Pagination {perPage} total={$skusTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
       {/if}
     </Tab>
@@ -123,7 +126,7 @@
       {:else if $productsTotal === null}
         <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
       {:else}
-        <SkuItemGrid products={$products} />
+        <SkuItemGrid products={$products} loading={$pending} />
         <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
       {/if}
     </Tab>
@@ -133,7 +136,7 @@
       {:else if $productsTotal === null}
         <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
       {:else}
-        <SkuItemGrid products={$products} />
+        <SkuItemGrid products={$products} loading={$pending} />
         <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
       {/if}
     </Tab>
@@ -143,7 +146,7 @@
       {:else if $productsTotal === null}
         <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
       {:else}
-        <SkuItemGrid products={$products} />
+        <SkuItemGrid products={$products} loading={$pending} />
         <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
       {/if}
     </Tab>
