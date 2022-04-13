@@ -1,6 +1,6 @@
 <script lang="ts"></script>
 
-<div {...$$restProps} />
+<div {...$$restProps} data-testid="dual-ring-loader" />
 
 <style>
   div {
