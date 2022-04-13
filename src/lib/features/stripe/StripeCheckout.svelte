@@ -16,6 +16,7 @@
   import { stripeCreatePaymentIntentFx } from './stripe.store';
   import { handleStateChange, showLoginToast } from '../checkout/checkout.service';
   import Information from '../checkout/Information.svelte';
+  import { errorTypes } from './stripe.utils';
 
   const voucherCode = $page.url.searchParams.get('voucherCode');
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
@@ -119,8 +120,6 @@
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
-
-    const errorTypes = ['card_error', 'validation_error', 'invalid_request_error'];
 
     if (errorTypes.includes(error.type)) {
       toast.danger(error.message);
