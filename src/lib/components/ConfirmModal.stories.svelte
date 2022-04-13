@@ -17,7 +17,7 @@
 <Meta title="Lib / components / ConfirmModal" component={ConfirmModal} />
 
 <Template let:args>
-  <ConfirmModal {...args} />
+  <ConfirmModal {...args} onConfirm={() => alert('onConfirm executed')} onCancel={() => alert('onCancel executed')} />
 </Template>
 
 <Story

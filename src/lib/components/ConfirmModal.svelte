@@ -58,8 +58,10 @@
           variant="brand"
           style="height: 4rem; border-radius: var(--button-confirm-modal-radius)"
           on:click={() => onSelect(true)}
-          {disabled}>{labels.confirm}</Button
+          {disabled}
         >
+          {labels.confirm}
+        </Button>
       {/if}
       {#if labels?.cancel}
         <Button
