@@ -5,7 +5,8 @@
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
   import type { Listing, Sku, Product, PaymentMethod } from '$lib/sku-item/types';
-  import { walletConnected, getWalletInfo, sendEthPurchasePaymentForImmediateMinting, userId } from '$lib/user';
+  import { userId } from '$lib/user';
+  import { walletConnected, getWalletInfo, sendEthPurchasePaymentForImmediateMinting } from '$lib/metamask';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';

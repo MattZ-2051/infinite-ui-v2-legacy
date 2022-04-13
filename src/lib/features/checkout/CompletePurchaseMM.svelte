@@ -9,15 +9,14 @@
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
   import { page } from '$app/stores';
+  import { user, userId } from '$lib/user';
   import {
     checkNetwork,
     getWalletInfo,
     sendEthPurchasePaymentForImmediateMinting,
-    sendEthPurchasePaymentForLazyMinting,
-    user,
-    userId,
     walletConnected,
-  } from '$lib/user';
+    sendEthPurchasePaymentForLazyMinting,
+  } from '$lib/metamask';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
   import routes from '$project/routes';

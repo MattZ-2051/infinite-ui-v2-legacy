@@ -5,15 +5,13 @@
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
   import type { Listing, Sku, Product, PaymentMethod } from '$lib/sku-item/types';
+  import { isAuthenticated, onSignIn, userId } from '$lib/user';
   import {
-    walletConnected,
     getWalletInfo,
+    walletConnected,
     handleWalletConnection,
-    isAuthenticated,
-    onSignIn,
-    userId,
     sendEthPurchasePaymentForImmediateMinting,
-  } from '$lib/user';
+  } from '$lib/metamask';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';

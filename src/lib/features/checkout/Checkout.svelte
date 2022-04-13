@@ -3,7 +3,8 @@
   import type { CheckoutState, ValidETHListingData } from './types';
   import type { Product, Sku } from '$lib/sku-item/types';
   import { getActiveListings } from '$lib/features/sku/sku.service';
-  import { getWalletInfo, user } from '$lib/user';
+  import { user } from '$lib/user';
+  import { getWalletInfo } from '$lib/metamask';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';

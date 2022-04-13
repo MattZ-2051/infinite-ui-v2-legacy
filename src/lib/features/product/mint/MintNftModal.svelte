@@ -2,7 +2,7 @@
   import type { Product } from '$lib/sku-item/types';
   import { Modal } from '$ui/modals';
   import { toast } from '$ui/toast';
-  import { connectWallet, getWalletInfo, walletConnected } from '$lib/user';
+  import { connectWallet, getWalletInfo, walletConnected } from '$lib/metamask';
   import MintStatus from './MintStatus.svelte';
   import MintEthAddress from './MintEthAddress.svelte';
   import { pendingTxStatus, txState } from '../product.store';

@@ -4,7 +4,8 @@
   import { Modal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
-  import { onSignIn, onSignUp, isLoading, connectWallet, walletConnected, disconnectWallet } from '$lib/user';
+  import { onSignIn, onSignUp, isLoading } from '$lib/user';
+  import { connectWallet, walletConnected, disconnectWallet } from '$lib/metamask';
   import {
     InfiniteExtensionLoginFx,
     InfiniteExtensionLogoutFx,

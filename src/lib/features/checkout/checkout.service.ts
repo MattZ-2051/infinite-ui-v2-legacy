@@ -1,7 +1,8 @@
 import type { CheckoutState, ValidETHListingData } from './types';
 import type { Listing, MintPolicy } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
-import { handleWalletConnection, onSignIn } from '$lib/user';
+import { handleWalletConnection } from '$lib/metamask';
+import { onSignIn } from '$lib/user';
 import { openModal } from '$ui/modals';
 import { toast } from '$ui/toast';
 import { validETHdirectPurchase } from './checkout.api';

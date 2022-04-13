@@ -4,14 +4,8 @@ import type { User } from '$lib/user/types';
 import type { ApiError } from '$lib/api';
 import { get as getStoreValue } from 'svelte/store';
 import { toast } from '$ui/toast';
-import {
-  user,
-  onSignIn,
-  isLoading,
-  handleWalletConnection,
-  checkWalletInstalled,
-  walletConnected as metamaskConnected,
-} from '$lib/user';
+import { user, onSignIn, isLoading } from '$lib/user';
+import { checkWalletInstalled, handleWalletConnection, walletConnected as metamaskConnected } from '$lib/metamask';
 import { openModal } from '$ui/modals';
 import routes from '$project/routes';
 import { goto } from '$app/navigation';

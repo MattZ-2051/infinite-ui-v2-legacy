@@ -8,7 +8,7 @@
   import Button from '$lib/components/Button.svelte';
   import { Input } from '$lib/components/form';
   import Icon from '$ui/icon/Icon.svelte';
-  import { walletConnected } from '$lib/user';
+  import { walletConnected } from '$lib/metamask';
   import { connectWallet } from './checkout.service';
 
   export let handleEthModalCallback: ({ address, option }) => void;
