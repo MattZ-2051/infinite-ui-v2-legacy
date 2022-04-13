@@ -1,11 +1,15 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
+  import { isCookiesAccepted } from '$lib/components/gdpr/gdpr.store';
+  import { init } from '$lib/gtag';
   import injectScript from '$util/injectScript';
   import bucketAssets from '$project/assets/aws-bucket-assets';
   import { CLIENT_DOC_DESCRIPTION } from './variables';
 
   const adobeAnalyticsUrl = import.meta.env?.VITE_ADOBE_ANALYTICS_URL as string;
+
+  $: $isCookiesAccepted && init();
 
   onMount(async () => {
     await injectScript({
