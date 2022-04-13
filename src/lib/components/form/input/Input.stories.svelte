@@ -14,5 +14,7 @@
 
 <Story name="Default" />
 <Story name="Prefix" args={{ before: '$' }} />
+<Story name="Sufix" args={{ after: '%' }} />
 <Story name="Error" args={{ error: 'field is required!' }} />
 <Story name="HelperText" args={{ helperText: 'some helper text' }} />
+<Story name="Success" args={{ success: 'success!' }} />
