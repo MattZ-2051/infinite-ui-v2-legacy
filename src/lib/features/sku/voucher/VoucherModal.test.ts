@@ -37,7 +37,7 @@ describe('VoucherModal', () => {
     expect(button).toBeDisabled();
   });
 
-  it('button and input render correctly with invalid voucher', () => {
+  it('button and input render correctly with invalid <12 length voucher', () => {
     const { getByTestId } = render(VoucherModal, {
       props: {
         voucherCode: '123',
@@ -49,6 +49,21 @@ describe('VoucherModal', () => {
     const button = getByTestId('voucher-button');
 
     expect(input).toHaveValue('123');
+    expect(button).toBeDisabled();
+  });
+
+  it('button and input render correctly with invalid  >20 length voucher', () => {
+    const { getByTestId } = render(VoucherModal, {
+      props: {
+        voucherCode: '0123456789012345678901',
+        skuId,
+      },
+    });
+
+    const input = getByTestId('voucher-input');
+    const button = getByTestId('voucher-button');
+
+    expect(input).toHaveValue('0123456789012345678901');
     expect(button).toBeDisabled();
   });
 

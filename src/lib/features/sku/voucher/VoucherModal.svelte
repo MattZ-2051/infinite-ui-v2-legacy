@@ -20,7 +20,7 @@
   let errorMessage = '';
   let error = false;
 
-  $: voucherCodeStatus = voucherCode.length >= 12 ? 'valid-length' : 'button-disabled';
+  $: voucherCodeStatus = voucherCode.length >= 12 && voucherCode.length <= 20 ? 'valid-length' : 'button-disabled';
 
   $: switch (voucherCodeStatus) {
     case 'valid-length': {
