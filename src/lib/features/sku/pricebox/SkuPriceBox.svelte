@@ -3,6 +3,7 @@
   import type { ActionType } from '$lib/features/product/actions/types';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { onAction } from '$lib/features/product/actions/product-actions.service';
+  import { gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
   import { onSignIn, user } from '$lib/user';
   import { openModal } from '$ui/modals';
   import routes from '$project/routes';
@@ -37,6 +38,9 @@
     const mintLaterSku = sku?.mintPolicy?.transaction === 'later';
     const redirectToLogin = !$user && mintLaterSku;
 
+    if ($gateKeepSkus.length > 0) {
+      return;
+    }
     if (redirectToLogin) {
       onSignIn();
     } else if (isVoucherSku) {

@@ -1,8 +1,11 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { Tabs, Tab } from '$ui/tabs';
   import { SkuItemGrid } from '$lib/sku-item';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
+  import NftGateKeepList from '$lib/features/gateKeeping/NftGateKeepList.svelte';
+  import { fetchRequiredSkus, gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import { userId } from '$lib/user';
@@ -12,6 +15,10 @@
   import SkuInfo from './SkuInfo.svelte';
   import SkuDescription from './SkuDescription.svelte';
   import { sku, collectors, totalCollectors, related } from './sku.store';
+
+  onMount(async () => {
+    await fetchRequiredSkus({ skuId: $sku._id, ownerId: '' });
+  });
 
   function getItems(totalPrivateAssets: number) {
     let items = [{ id: 'description', title: 'Description' }];
@@ -41,7 +48,11 @@
             {$sku?.skuCollection[0]?.name}</span
           >
         {/if}
-        <SkuInfo sku={$sku} />
+        {#if $gateKeepSkus.length > 0}
+          <NftGateKeepList />
+        {:else}
+          <SkuInfo sku={$sku} />
+        {/if}
       </div>
     </div>
   </div>
