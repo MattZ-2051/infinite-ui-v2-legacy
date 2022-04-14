@@ -1,4 +1,6 @@
 import type { StatusGateKeeping } from './types';
+import { goto } from '$app/navigation';
+import routes from '$project/routes';
 
 export const getStatusLabelAndColor = (
   status: StatusGateKeeping,
@@ -22,4 +24,8 @@ export const getStatusLabelAndColor = (
   hasButton = status === 'buyNow';
 
   return { statusLabel, statusLabelColor, hasButton };
+};
+
+export const redirectToMarketplace = (skuId: string) => {
+  goto(routes.sku(skuId));
 };

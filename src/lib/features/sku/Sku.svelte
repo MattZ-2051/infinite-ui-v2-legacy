@@ -5,7 +5,7 @@
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
   import NftGateKeepList from '$lib/features/gateKeeping/NftGateKeepList.svelte';
-  import { fetchRequiredSkus, gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
+  import { clearRequiredSkus, gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import { userId } from '$lib/user';
@@ -15,10 +15,6 @@
   import SkuInfo from './SkuInfo.svelte';
   import SkuDescription from './SkuDescription.svelte';
   import { sku, collectors, totalCollectors, related } from './sku.store';
-
-  onMount(async () => {
-    await fetchRequiredSkus({ skuId: $sku._id, ownerId: '' });
-  });
 
   function getItems(totalPrivateAssets: number) {
     let items = [{ id: 'description', title: 'Description' }];
@@ -33,6 +29,12 @@
 
     return items;
   }
+
+  onMount(async () => {
+    clearRequiredSkus();
+  });
+
+  $: activeGateKeepSkus = $gateKeepSkus?.length > 0;
 </script>
 
 <StickyColumn fitOnScreenContent --xl-split="0.55" --lg-split="0.51">
@@ -40,24 +42,26 @@
     <Gallery items={$sku.nftPublicAssets} />
   </div>
   <div slot="sticky-content" class="h-full sku-sticky-content">
-    <div class="sku-name-block flex flex-col px-4 md:px-10 lg:px-12 gap-4 md:gap-8 pt-8 mb-8 md:mb-0">
-      <div class="name-info-wrapper flex flex-col gap-8">
-        <header class="text-gradient-primary text-3xl md:text-4.5xl font-medium section-title">{$sku.name}</header>
-        {#if $sku?.skuCollection?.length > 0}
-          <span class="text-gray-500 font-light text-base not-italic inline-block">
-            {$sku?.skuCollection[0]?.name}</span
-          >
-        {/if}
-        {#if $gateKeepSkus.length > 0}
-          <NftGateKeepList />
-        {:else}
+    {#if activeGateKeepSkus}
+      <NftGateKeepList />
+    {:else}
+      <div class="sku-name-block flex flex-col px-4 md:px-10 lg:px-12 gap-4 md:gap-8 pt-8 mb-8 md:mb-0">
+        <div class="name-info-wrapper flex flex-col gap-8">
+          <header class="text-gradient-primary text-3xl md:text-4.5xl font-medium section-title">{$sku.name}</header>
+          {#if $sku?.skuCollection?.length > 0}
+            <span class="text-gray-500 font-light text-base not-italic inline-block">
+              {$sku?.skuCollection[0]?.name}</span
+            >
+          {/if}
           <SkuInfo sku={$sku} />
-        {/if}
+        </div>
       </div>
-    </div>
+    {/if}
   </div>
   <div slot="sticky-cta" class="custom-content-buttons">
-    <SkuPriceBox sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} userId={$userId} />
+    {#if !activeGateKeepSkus}
+      <SkuPriceBox sku={$sku} totalCollectors={$totalCollectors} collectors={$collectors} userId={$userId} />
+    {/if}
   </div>
   <div slot="tabs" class="px-4 md:px-12 pt-12 pd:pt-16 pb-4" style="min-height: 300px">
     <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>

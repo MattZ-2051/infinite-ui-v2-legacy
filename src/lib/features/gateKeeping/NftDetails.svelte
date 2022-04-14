@@ -1,19 +1,22 @@
 <script lang="ts">
+  import type { FileAsset } from '$ui/file';
   import type { StatusGateKeeping } from './types';
+  import FilePreview from '$ui/file/FilePreview.svelte';
   import Button from '$lib/components/Button.svelte';
   import { getStatusLabelAndColor } from './gateKeeping.service';
 
-  export let sourceImg = '';
+  export let sourceImg: FileAsset;
   export let name = '';
   export let status: StatusGateKeeping = 'nowViewing';
   export let handleClick: () => void;
+  export let showToolTip = true;
 
   $: ({ statusLabel, hasButton, statusLabelColor } = getStatusLabelAndColor(status, '', '', false));
 </script>
 
 <div class="flex justify-between p-4 rounded-lg border border-gray-200">
   <div class="flex content-center items-center">
-    <img src={sourceImg} class="w-16 h-16 rounded-lg" alt={name} />
+    <FilePreview item={sourceImg} />
     <div class="flex flex-col pl-4 items-start">
       <span class="text-sm text-gray-500">Name</span>
       <p class="text-base">
@@ -32,3 +35,6 @@
     {/if}
   </div>
 </div>
+{#if showToolTip}
+  <p class="text-sm font-light text-gray-500 pl-10 py-8">Then you'll be able to buy this:</p>
+{/if}
