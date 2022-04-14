@@ -33,3 +33,4 @@ export const INFINITE_EXTENSION_ENABLED = true;
 export const PRODUCT_PAGE_TABS: TabType[] = ['auction', 'history', 'owner'];
 export const COOKIE_URL = 'www.goinfinite.io';
 export const ENABLE_RELATED_SKUS = true;
+export const ENABLE_GDPR_BANNER = true;

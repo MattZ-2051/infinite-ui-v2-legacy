@@ -43,7 +43,7 @@
   import Footer from '$project/footer/Footer.svelte';
   import Toast from '$project/toast/Toast.svelte';
   import { onAfterNavigate } from '$project/navigation';
-  import { CLIENT_API_HEADER, INFINITE_EXTENSION_ENABLED } from '$project/variables';
+  import { CLIENT_API_HEADER, INFINITE_EXTENSION_ENABLED, ENABLE_GDPR_BANNER } from '$project/variables';
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
   import GdprBanner from '$lib/components/gdpr/GdprBanner.svelte';
@@ -87,7 +87,7 @@
       <PreloadIndicator />
     {/if}
 
-    <GdprBanner />
+    {#if ENABLE_GDPR_BANNER}<GdprBanner />{/if}
 
     <div class="flex flex-col min-h-screen">
       <Header />

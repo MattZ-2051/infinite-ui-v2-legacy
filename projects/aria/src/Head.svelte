@@ -1,9 +1,28 @@
+<script context="module" lang="ts">
+  declare global {
+    interface Window {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      Cookiebot: any;
+    }
+  }
+</script>
+
 <script lang="ts">
-  import { isCookiesAccepted } from '$lib/components/gdpr/gdpr.store';
+  import { onMount } from 'svelte';
   import { init } from '$lib/gtag';
+  import injectScript from '$util/injectScript';
   import { CLIENT_DOC_DESCRIPTION } from './variables';
 
-  $: $isCookiesAccepted && init();
+  onMount(async () => {
+    await injectScript({
+      id: 'Cookiebot',
+      url: `https://consent.cookiebot.com/uc.js?cbid=${import.meta.env.VITE_COOKIEBOT_DOMAIN_ID}`,
+    });
+
+    window.addEventListener('CookiebotOnAccept', () => {
+      if (window.Cookiebot.consented) init();
+    });
+  });
 </script>
 
 <svelte:head>
@@ -87,7 +106,4 @@
     crossorigin="anonymous"
   />
   <link rel="stylesheet" href="/fonts/stylesheet.css" />
-  {#if $isCookiesAccepted}
-    <script type="text/javascript" src={import.meta.env.VITE_SALESFORCE_BEACON} async></script>
-  {/if}
 </svelte:head>
