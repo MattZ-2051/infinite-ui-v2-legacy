@@ -24,11 +24,13 @@
   function onClose() {
     goto(routes.collectors($product.sku?._id, '?saleType=all'));
   }
+
+  $: nftPublicAssets = $product.nftPublicAssets?.length > 0 ? $product.nftPublicAssets : $product.sku.nftPublicAssets;
 </script>
 
 <StickyColumn reverse>
   <div slot="sticky-content" class="sticky-content">
-    <Gallery items={$product?.nftPublicAssets || $product.sku.nftPublicAssets} />
+    <Gallery items={nftPublicAssets} />
   </div>
   <div class="flex flex-col md:px-0" slot="onscreen-content" style="min-height: calc(100vh - var(--header-height));">
     <div class="mx-4 md:pl-4 mt-8 md:mt-10">
