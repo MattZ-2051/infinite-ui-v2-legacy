@@ -40,7 +40,7 @@
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _sku = sku ? sku : product.sku;
   const [listing] = getActiveListings(sku);
-  const lazyMinting = sku?.mintPolicy?.transaction === 'later';
+  let lazyMinting = sku?.mintPolicy?.transaction === 'later';
   const paymentMethods = [
     { id: 'cc', title: 'Credit Card', iconSource: creditCardIcon, available: MM_WALLET_ENABLED },
     { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon, available: STRIPE_ENABLED },
@@ -92,12 +92,22 @@
   });
 
   const handleEthModalCallback = async ({ address, option }: { address: string; option: string }): Promise<void> => {
-    if (option === 'metamask') {
-      const data = await getWalletInfo();
-      ethAddress = data.address;
-    } else if (option === 'manual') {
-      ethAddress = address;
+    switch (option) {
+      case 'metamask': {
+        const data = await getWalletInfo();
+        ethAddress = data.address;
+        break;
+      }
+      case 'manual': {
+        ethAddress = address;
+        break;
+      }
+      case 'later': {
+        lazyMinting = true;
+        break;
+      }
     }
+
     handleStateChange('ordering-stripe');
   };
 

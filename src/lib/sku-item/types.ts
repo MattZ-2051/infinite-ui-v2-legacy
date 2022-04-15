@@ -101,7 +101,7 @@ export type Sku = {
 
 export type MintPolicy = {
   chain: 'ethereum' | 'hedera';
-  transaction: 'instant' | 'later';
+  transaction: 'instant' | 'later' | 'user-option';
 };
 
 export type SkuCollection = {

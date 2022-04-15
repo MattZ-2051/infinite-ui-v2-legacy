@@ -12,12 +12,21 @@
   import { connectWallet } from './checkout.service';
 
   export let handleEthModalCallback: ({ address, option }) => void;
+  export let mintPolicy: 'user-option' | 'instant';
 
   const title = 'NFT destination';
   const options = [
     { id: 1, value: 'manual', label: 'Enter ETH address' },
     { id: 2, value: 'metamask', label: $walletConnected ? 'Continue with Metamask' : 'Connect Metamask' },
   ];
+
+  if (mintPolicy === 'user-option') {
+    options.push({
+      id: 3,
+      value: 'later',
+      label: `I don't have an ETH address`,
+    });
+  }
 
   let radioValue;
   let address;
@@ -54,10 +63,7 @@
           window.open('https://metamask.io/download/', '_blank').focus();
         }
       }
-    } else if (radioValue === 'metamask') {
-      handleEthModalCallback({ address, option: radioValue });
-      closeModal();
-    } else if (radioValue === 'manual') {
+    } else {
       handleEthModalCallback({ address, option: radioValue });
       closeModal();
     }

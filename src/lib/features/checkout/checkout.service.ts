@@ -63,7 +63,8 @@ export const handlePayment = async ({
   handleEthModalCallback: ({ address, option }: { address: string; option: string }) => void;
   skuMintPolicy: MintPolicy;
 }) => {
-  if (!user && skuMintPolicy?.transaction === 'later') {
+  const mintPolicy = skuMintPolicy?.transaction;
+  if (!user && mintPolicy === 'later') {
     showLoginToast();
   } else if (id === 'mm') {
     const isWalletConnected = await connectWallet();
@@ -74,10 +75,10 @@ export const handlePayment = async ({
   } else if (id === 'cc') {
     if (!user) {
       showLoginToast();
-    } else if (skuMintPolicy?.transaction === 'later') {
+    } else if (mintPolicy === 'later') {
       handleStateChange('ordering-stripe');
     } else {
-      openModal(EthAddressModal, { handleEthModalCallback });
+      openModal(EthAddressModal, { handleEthModalCallback, mintPolicy });
     }
   }
   return id;
