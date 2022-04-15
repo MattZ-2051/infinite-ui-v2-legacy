@@ -101,6 +101,7 @@
   });
   $: hasProductListings =
     hasActiveAuctionListing || hasActiveFixedListing || hasUpcomingAuctionListing || hasUpcomingFixedListing;
+  $: hasSoldSkuListings = sku.soldSkuListings?.length > 0;
   $: isPending = sku.status === 'pending';
   $: isRejected = sku.status === 'rejected';
 </script>
@@ -129,7 +130,7 @@
   {:else if activeNftGiveAway}
     <FromCreator {sku} state="activeNftGiveAway" {activeListings} {onBuy} />
   {:else if noSale}
-    {#if isOwner(sku, userId) && !hasProductListings}
+    {#if isOwner(sku, userId) && !hasProductListings && !hasSoldSkuListings}
       <ToCreator state="noSale" {onSell} {onCancel} />
     {:else}
       <FromCreator state="noSale" {sku} {onBuy} />
