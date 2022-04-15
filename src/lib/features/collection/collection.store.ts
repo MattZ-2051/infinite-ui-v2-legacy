@@ -44,14 +44,15 @@ export const loadCollectionFx = createEffect(
       : Promise.resolve(undefined);
 
     tab = tab || (profile.role === 'issuer' || getStoreValue(tenantSettings).skuCreationEnabled ? 'Releases' : 'NFTs');
+    const forSale = tab === 'Releases' && skuStatus === 'approved' && getStoreValue(user)?._id !== profile._id;
 
     const parameters = {
       page,
       profileId: profile._id,
       sortBy,
       perPage: profile.role === 'issuer' ? perPageIssuer : perPageUser,
-      forSale: tab === 'Releases' && skuStatus === 'approved' && getStoreValue(user)?._id !== profile._id,
       skuStatus,
+      ...(forSale && { forSale }),
     };
 
     // eslint-disable-next-line unicorn/prefer-switch
