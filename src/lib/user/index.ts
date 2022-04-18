@@ -19,6 +19,7 @@ export const authToken = writable<string>(<string>undefined);
 
 // `undefined` means not yet decided
 export const isAuthenticated = writable<boolean | undefined>(undefined);
+export const isBanned = writable<boolean | undefined>(undefined);
 export const user = writable<User>(undefined);
 declare global {
   interface Window {
@@ -36,11 +37,20 @@ export const userId: Readable<string> = derived(
 );
 
 export async function updateUser(): Promise<User> {
-  const me = await get<User>('users/me');
-  externalId.set(me.externalId);
-  userIdExternalIdMap.set({ _id: me._id, externalId: AUTH_PROVIDER_IS_AUTH0 ? me.externalId : me.cognitoId });
-  user.set(me);
-  return me;
+  let me: User;
+  try {
+    me = await get<User>('users/me');
+    externalId.set(me.externalId);
+    userIdExternalIdMap.set({ _id: me._id, externalId: AUTH_PROVIDER_IS_AUTH0 ? me.externalId : me.cognitoId });
+    isBanned.set(false);
+    user.set(me);
+    return me;
+  } catch (error) {
+    // Users with 'disabled: true' will receive error from users/me endpoint
+    if (error?.status === 403 && error?.data?.message === 'Banned user') {
+      isBanned.set(true);
+    }
+  }
 }
 
 export async function patchUser(data: Partial<User>) {
@@ -222,6 +232,7 @@ export function onSignOut(avoidRedirect?: boolean) {
 
   if (AUTH_PROVIDER_IS_AUTH0) {
     clearUser();
+    isBanned.set(undefined);
     logout(avoidRedirect ? `` : `${window.location.origin}`, avoidRedirect);
   } else {
     document.location.href = '/auth/signout';

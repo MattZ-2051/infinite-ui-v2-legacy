@@ -1,9 +1,10 @@
 <script context="module" lang="ts">
   import type { LoadInput, LoadOutput } from '@sveltejs/kit/types/internal';
   import { derived } from 'svelte/store';
+  import { onMount } from 'svelte';
   import { browser, mode } from '$app/env';
   import { loadTenantSettings } from '$lib/tenant/settings.service';
-  import { isLoading, initUserAuth, mustSetupAccount, user } from '$lib/user';
+  import { isLoading, initUserAuth, mustSetupAccount, user, isBanned, onSignOut } from '$lib/user';
   import { variables } from '$lib/variables';
   import projectRedirects from '$project/redirects';
   import Maintenance from '$lib/components/maintenance/Maintenance.svelte';
@@ -54,10 +55,29 @@
   import '$theme/theme.css';
   import '../app.css';
   import '$theme/app.css';
+  import { toast } from '$ui/toast';
 
   if (browser) {
     initUserAuth();
   }
+  // Will be true if toast with toastId: BANNED_USER was found in toast store
+  let bannedToastShown: boolean;
+
+  $: if ($isBanned) {
+    const bannedToastOpen = $toast.some(({ toastId }) => toastId === 'BANNED_USER');
+    // If toast was displayed and closed, sign the banned user out to clear authentication tokens
+    if (!bannedToastOpen && bannedToastShown) {
+      onSignOut();
+    }
+    // Record toast store change
+    bannedToastShown = bannedToastOpen;
+  }
+
+  onMount(() => {
+    if ($isBanned) {
+      toast.danger('Your account has been disabled by the administrator.', { toastId: 'BANNED_USER' });
+    }
+  });
 
   $: if (browser && INFINITE_EXTENSION_ENABLED && $user) {
     InfiniteExtensionLoadFx();
