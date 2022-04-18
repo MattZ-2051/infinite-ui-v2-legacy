@@ -23,6 +23,8 @@
     );
   };
 
+  let transactionShow = $product.sku?.mintPolicy?.transaction === 'later' ? $transactions.reverse() : $transactions;
+
   async function showAuctionHistory(listingId: string) {
     openModal(AuctionHistoryModal, {
       product: $product,
@@ -34,7 +36,7 @@
 <div class:opacity-40={$loadingTransactions}>
   {#if $totalTransactions > 0}
     <div class="text-default">
-      {#each $transactions.reverse() as transaction}
+      {#each transactionShow as transaction}
         <div class="highlight flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 py-4">
           <div class="flex gap-3 mr-auto">
             <UserLink username={transaction.owner?.username} />
