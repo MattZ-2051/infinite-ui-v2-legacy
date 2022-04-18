@@ -7,7 +7,7 @@
   import Sort from '$lib/components/Sort.svelte';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Button from '$lib/components/Button.svelte';
-  import Search from '$lib/components/Search.svelte';
+  import Search from '$lib/components/search/Search.svelte';
   import { media } from '$lib/media-query.store';
   import { Pagination } from '$ui/pagination';
   import NoResults from '$lib/features/marketplace/NoResults.svelte';

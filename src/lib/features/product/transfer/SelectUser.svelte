@@ -5,7 +5,7 @@
   import { browser } from '$app/env';
   import { user } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
-  import Search from '$lib/components/Search.svelte';
+  import Search from '$lib/components/search/Search.svelte';
   import { searchUsersFx } from './product-transfer.store';
 
   export let selectedUser: Profile = undefined;

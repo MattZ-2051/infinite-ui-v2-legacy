@@ -4,7 +4,7 @@
   import Sort from '$lib/components/Sort.svelte';
   import { page as pageState } from '$app/stores';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
-  import Search from '$lib/components/Search.svelte';
+  import Search from '$lib/components/search/Search.svelte';
   import { gotoQueryParameters } from '$util/queryParameter';
   import CollectorItem from './CollectorItem.svelte';
   import { loading } from './collectors.api';
