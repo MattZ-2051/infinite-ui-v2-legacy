@@ -23,4 +23,7 @@
   </div>
 </Template>
 
-<Story name="Gate Keeping Item" />
+<Story name="Now Viewing" args={{ status: 'nowViewing', showToolTip: false }} />
+<Story name="Not Owned" args={{ status: 'notOwnedYet', showToolTip: false }} />
+<Story name="Owned" args={{ status: 'owned', showToolTip: false }} />
+<Story name="Buy Now" args={{ status: 'buyNow', showToolTip: true }} />

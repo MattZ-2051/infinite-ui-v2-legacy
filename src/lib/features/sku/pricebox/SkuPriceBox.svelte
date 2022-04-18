@@ -32,6 +32,12 @@
 
   const voucherCode = $page.url.searchParams.get('voucherCode') || '';
 
+  // TODO (matt): comment back in when BE is finished
+
+  // onMount(async () => {
+  //   await fetchRequiredSkus({skuId: sku._id, ownerId: $user._id})
+  // })
+
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
     const isVoucherSku = activeListings?.[0]?.enabledNftPurchase;

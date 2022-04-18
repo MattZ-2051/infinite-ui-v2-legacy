@@ -11,7 +11,7 @@ describe('gateKeeping service', () => {
     });
 
     it('returns not owned yet status correctly', () => {
-      const ownedStatusLabels = { statusLabel: 'Not Owned Yet', statusLabelColor: '#E83737', hasButton: false };
+      const ownedStatusLabels = { statusLabel: 'Not Owned', statusLabelColor: '#E83737', hasButton: false };
       const result = getStatusLabelAndColor('notOwnedYet', '', '', false);
       expect(result).toStrictEqual(ownedStatusLabels);
     });

@@ -13,7 +13,7 @@ export const getStatusLabelAndColor = (
     statusLabelColor = '#ddf874';
   }
   if (status === 'notOwnedYet') {
-    statusLabel = 'Not Owned Yet';
+    statusLabel = 'Not Owned';
     statusLabelColor = '#E83737';
   }
   if (status === 'nowViewing') {
