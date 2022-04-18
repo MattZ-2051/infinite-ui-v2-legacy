@@ -16,7 +16,7 @@ export function getFileType(item: FileAsset): FileType {
   }
   const { url } = item;
 
-  const extension = url.trim().split('.').pop();
+  const extension = url.trim().split('.').pop().toLowerCase();
   if (extension in mediaMapper) {
     return mediaMapper[extension];
   }
