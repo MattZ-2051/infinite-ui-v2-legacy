@@ -54,5 +54,6 @@
   }
   .sidebar-content {
     background: var(--mobile-menu-content-background-color, none);
+    padding-top: var(--mobile-menu-padding-top, theme('padding.20'));
   }
 </style>

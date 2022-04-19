@@ -13,9 +13,10 @@
 <style lang="postcss">
   button {
     border: none;
-    width: 30px;
+    width: var(--mobile-sidebar-toggle-icon-width, 30px);
     height: 24px;
     padding: 0;
+    margin-top: var(--mobile-sidebar-toggle-icon-margin-top, 0);
     outline: none;
     position: relative;
     @apply z-menu;
@@ -24,7 +25,7 @@
   button::before,
   button::after,
   button span {
-    background: var(--sidebar-toggle-color, currentColor);
+    background: var(--mobile-sidebar-toggle-color, currentColor);
   }
 
   button::before,
@@ -50,11 +51,11 @@
   }
 
   button::before {
-    transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, var(--mobile-sidebar-toggle-burger-icon-before, -10px), 0);
   }
 
   button::after {
-    transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, var(--mobile-sidebar-toggle-burger-icon-after, 10px), 0);
   }
   .open span {
     opacity: 0;

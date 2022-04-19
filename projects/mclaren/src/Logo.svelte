@@ -1,4 +1,19 @@
-<svg width="175" height="55" viewBox="0 0 175 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+<script lang="ts">
+  import { media } from '$lib/media-query.store';
+
+  const svgSize = {
+    width: $media.md ? 170 : 150,
+    height: $media.md ? 55 : 40,
+  };
+</script>
+
+<svg
+  width={svgSize.width}
+  height={svgSize.height}
+  viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
   <path d="M138.901 26.1374L138.865 26.1526H138.879L138.901 26.1374Z" fill="var(--default-color)" />
   <path
     d="M138.901 26.1374L139.377 25.9375C147.078 22.8164 168.968 19.3103 158.229 34.9613C158.037 35.2405 157.838 35.5236 157.626 35.8142C195.561 9.07193 163.057 9.63703 138.901 26.1374Z"

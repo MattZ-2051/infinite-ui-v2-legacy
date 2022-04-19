@@ -271,12 +271,17 @@
   --mobile-menu-overlay-color: transparent;
   --mobile-menu-background-color: transparent;
   --mobile-menu-width: theme('width.full');
+  --mobile-menu-padding-top: theme('padding.10');
   --mobile-menu-content-background-color: var(--primary-color);
   --mobile-menu-separator-color: rgba(255, 255, 255, 0.1);
-  --mobile-menu-links-size: theme('fontSize.3xl');
+  --mobile-menu-links-size: theme('fontSize.xl');
   --mobile-menu-signup-size: theme('fontSize.xs');
   --mobile-menu-links-align: start;
   --mobile-menu-sign-up-width: 100%;
+  --mobile-sidebar-toggle-icon-width: theme('width.5');
+  --mobile-sidebar-toggle-icon-margin-top: theme('margin.1');
+  --mobile-sidebar-toggle-burger-icon-before: -5px;
+  --mobile-sidebar-toggle-burger-icon-after: 5px;
 }
 
 .theme-payment-button {
