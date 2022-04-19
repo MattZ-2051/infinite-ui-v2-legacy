@@ -155,12 +155,15 @@
   --wallet-balance-text-color: transparent;
 
   /* Menu */
-  --menu-item-background-selected: #282c2f;
-  --menu-item-color: rgba(40, 44, 47, 0.5);
+  --menu-item-background-selected: rgba(255, 255, 255, 0.1);
+  --menu-item-color: #ffffff;
   --menu-item-color-selected: #ffffff;
   --menu-item-border: none;
-  --menu-list-border-radius: 0.625rem;
-  --menu-list-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.15);
+  --menu-item-margin: 0.875rem;
+  --menu-item-border-radius: 0.5rem;
+  --menu-list-border-radius: 1rem;
+  --menu-list-background-color: rgba(255, 255, 255, 0.08);
+  --menu-list-border: 1px solid rgba(255, 255, 255, 0.1);
 
   /* Fonts */
   --market-no-result-title-font: var(--second-font);

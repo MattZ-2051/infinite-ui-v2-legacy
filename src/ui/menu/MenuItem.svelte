@@ -64,6 +64,9 @@
     @apply flex items-center flex-grow font-medium py-3 px-4 outline-none cursor-pointer;
     color: var(--menu-item-color);
     font-size: var(--menu-item-font-size, inherit);
+    margin-right: var(--menu-item-margin, 0);
+    margin-left: var(--menu-item-margin, 0);
+    border-radius: var(--menu-item-border-radius, 0);
   }
 
   .menu-item.disabled {
@@ -76,13 +79,11 @@
     background: var(--menu-item-background-selected);
     color: var(--menu-item-color-selected);
   }
-  li:first-child > a:hover {
-    border-top-right-radius: var(--menu-list-border-radius);
-    border-top-left-radius: var(--menu-list-border-radius);
+  li:first-child > a {
+    margin-top: var(--menu-item-margin, 0);
   }
-  li:last-child > a:hover {
-    border-bottom-right-radius: var(--menu-list-border-radius);
-    border-bottom-left-radius: var(--menu-list-border-radius);
+  li:last-child > a {
+    margin-bottom: var(--menu-item-margin, 0);
   }
 
   li {
