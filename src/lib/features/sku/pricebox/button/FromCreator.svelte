@@ -110,7 +110,7 @@
           <div class="text-gray-500 text-sm">Initial Listing Price</div>
         {/if}
       </div>
-      {#if state === 'active'}
+      {#if state === 'active' || state === 'active-whitelist'}
         <div class="flex justify-end">
           <div>
             <div class="text-2xl text-right">
