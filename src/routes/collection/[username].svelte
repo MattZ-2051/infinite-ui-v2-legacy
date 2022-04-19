@@ -28,13 +28,15 @@
   export let profile: Profile;
   const _profile = profile;
 
+  // auth is finished (either $isAuthenticated is true the $user is set, or $isAuthenticated is false)
+  $: authFinished = ($isAuthenticated && $user) || $isAuthenticated === false;
+  $: own = $user?._id === profile._id;
   $: tab = $page.url.searchParams.get('tab') as 'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens';
   $: _page = +$page.url.searchParams.get('page') || 1;
   $: sortBy = $page.url.searchParams.get('sortBy');
-  $: skuStatus = ($page.url.searchParams.get('status') as SkuStatus) || 'approved';
+  $: skuStatus = authFinished && (((own ? $page.url.searchParams.get('status') : 'approved') || '') as SkuStatus);
 
-  // wait until auth is done (either $isAuthenticated is true the $user is set, or $isAuthenticated is false)
-  $: (($isAuthenticated && $user) || $isAuthenticated === false) &&
+  $: authFinished &&
     loadCollectionFx({
       // If profile is passed directly, loadCollectionFx is getting called twice every time any other param changes. Weird.
       profile: _profile,
@@ -61,4 +63,4 @@
 
 <Seo title={profile.username} image={chooseProfileSocialImage(profile)} />
 
-<Collection {profile} />
+<Collection {profile} {own} />

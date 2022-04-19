@@ -51,6 +51,7 @@
   ];
 
   const statusOptions = [
+    { name: 'All', value: '' },
     { name: 'Approved', value: 'approved' },
     { name: 'Pending', value: 'pending' },
     { name: 'Rejected', value: 'rejected' },

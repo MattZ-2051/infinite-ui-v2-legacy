@@ -44,7 +44,7 @@ export const loadCollectionFx = createEffect(
       : Promise.resolve(undefined);
 
     tab = tab || (profile.role === 'issuer' || getStoreValue(tenantSettings).skuCreationEnabled ? 'Releases' : 'NFTs');
-    const forSale = tab === 'Releases' && skuStatus === 'approved' && getStoreValue(user)?._id !== profile._id;
+    const forSale = tab === 'Releases' && getStoreValue(user)?._id !== profile._id;
 
     const parameters = {
       page,

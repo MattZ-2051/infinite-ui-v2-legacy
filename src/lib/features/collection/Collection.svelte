@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Profile } from '$lib/sku-item/types';
-  import { user } from '$lib/user';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import { tenantSettings } from '$lib/tenant/settings.store';
   import CollectionIndex from '$project/collection/CollectionIndex.svelte';
@@ -9,10 +8,10 @@
   import CollectionTabs from './CollectionTabs.svelte';
 
   export let profile: Profile;
+  export let own: boolean;
 
   $: isIssuer = profile.role === 'issuer';
   $: skuCreationEnabled = $tenantSettings.skuCreationEnabled;
-  $: own = $user?._id === profile._id;
 </script>
 
 <ThemeContext id="collection">
