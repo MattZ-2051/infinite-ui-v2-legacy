@@ -9,15 +9,15 @@
     <div class="text-white w-full z-10 px-6 md:px-16 xl:px-44 flex-col items-center justify-center container">
       <p class="text-base sm:text-xl font-normal pb-2 second-font" style="letter-spacing:0.2em;">McLAREN</p>
       <p
-        class="tracking-widest sm:text-5xl text-3xl font-light pb-8 second-font w-full md:w-2/3 xl:w-1/2 leading-10 sm:leading-normal"
+        class="tracking-widest text-3xl sm:text-5xl font-light pb-8 second-font w-full md:w-5/6 xl:w-2/3 leading-10 md:leading-normal"
       >
         THE PIONEERING SUPERCAR COMPANY
       </p>
-      <div class="text-base sm:text-lg font-light max-w-lg leading-9">
-        <p class="pb-6">
+      <div class="text-sm sm:text-base font-light max-w-lg">
+        <p class="pb-6 leading-7">
           Our cars continually define and redefine the benchmarks against which all others are measured.
         </p>
-        <p class="pb-12">
+        <p class="pb-12 leading-7">
           We embrace pioneering technology, fearless engineering, beautiful yet purposeful design and a relentless
           spirit to ensure that each one is more exhilarating, more refined, more remarkable than the last.
         </p>

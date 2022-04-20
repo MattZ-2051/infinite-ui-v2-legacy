@@ -1,5 +1,6 @@
 <script>
   import { blur, slide } from 'svelte/transition';
+  import { media } from '$lib/media-query.store';
   import Icon from '$ui/icon/Icon.svelte';
   import arrowDown from '$project/assets/lib/chevron-down';
 
@@ -26,10 +27,9 @@
 >
   <div style="color:{textColor};">
     <div class="flex justify-between items-center" style="color:{active ? selectedColor : textColor}">
-      <div class="text-2xl lg:text-4xl font-light pr-1 second-font text-white">{title}</div>
+      <div class="text-2xl lg:text-[38px] font-light pr-2 second-font text-white">{title}</div>
       <div class={`${active ? 'arrow-down' : 'arrow-base'}`}>
-        <Icon path={arrowDown} size={1} class="sm:hidden" />
-        <Icon path={arrowDown} size={1.3} class="sm:block hidden" />
+        <Icon path={arrowDown} size={$media.md ? 1.3 : 1} class="text-white" />
       </div>
     </div>
     {#if active}

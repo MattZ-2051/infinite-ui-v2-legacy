@@ -14,17 +14,17 @@
       <p class="text-3xl sm:text-5xl font-light tracking-widest pb-10 second-font text-white opacity-80">
         FUTURE PERFORMANCE
       </p>
-      <div class="w-full xl:w-5/6 font-light text-sm sm:text-base leading-7">
+      <div class="w-full md:w-5/6 font-light text-sm sm:text-base leading-7">
         <p class="leading-7 pb-6 text-white opacity-80">
           From its inception, McLaren Special Operations has existed to push boundaries combining bleeding edge design,
           engineering and craftsmanship to deliver the <i>‘art of the possible’</i>.
         </p>
-        <p class="leading-7 md:pb-6 text-white opacity-80">
+        <p class="leading-7 pb-6 text-white opacity-80">
           The first chapter in McLaren Automotive’s ambitious metaverse roadmap, MSO LAB continues this mission into the
           web3 era. A platform for innovation and collaboration, exploring the future of performance in automotive and
           beyond.
         </p>
-        <p class="leading-7 pb-10 text-white opacity-80 hidden sm:block">
+        <p class="leading-7 pb-10 text-white opacity-80">
           Accessed through a series of ultra-exclusive NFT collections, MSO LAB membership will provide holders with an
           evolving range of benefits - harnessing new and innovative ways to push the boundaries of access and
           experience.
@@ -36,7 +36,7 @@
         src={bucketAssets.landing.futurePerformance}
         width="100%"
         alt="future performance"
-        class="img-card sm:object-cover rounded-3xl"
+        class="img-card sm:object-cover rounded-3xl max-w-lg"
       />
     </div>
   </div>
