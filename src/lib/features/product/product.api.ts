@@ -52,6 +52,10 @@ export async function loadProductTransactions({
   };
 }
 
-export async function getProductVoucherCode(skuId: string, voucherCode: string) {
-  return await get<Product>(`products/${skuId}/${voucherCode}/product-by-sku-and-whitelist-code`, {});
+export async function getProductPaymentIntent(paymentIntent: string) {
+  return await get<Product>(`products/${paymentIntent}/by-payment-intent_id`, {});
+}
+
+export async function getProductTxHash(txHash: string) {
+  return await get<Product>(`products/${txHash}/by-transaction-hash`, {});
 }

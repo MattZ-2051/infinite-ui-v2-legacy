@@ -2,7 +2,7 @@ import type { Product } from '$lib/sku-item/types';
 import { createStore, createEvent, createEffect, Event, Store } from 'effector';
 import type { CheckoutState } from './types';
 import { createPolling } from '$util/effector';
-import { getProductVoucherCode } from '../product/product.api';
+import { getProductPaymentIntent, getProductTxHash } from '../product/product.api';
 
 export const updateCheckoutState = createEvent<CheckoutState>();
 export const checkoutState = createStore<CheckoutState>('loading', { name: 'checkout-state' }).on(
@@ -23,8 +23,8 @@ interface Poll {
 }
 
 interface Data {
-  skuId: string;
-  voucherCode: string;
+  txHash?: string;
+  paymentIntent?: string;
 }
 interface ProductState {
   product: Product;
@@ -35,9 +35,13 @@ interface ProductState {
 export const pendingProductCreated = createEvent<Data>();
 
 const pollProductStateFx = createEffect(async () => {
-  const { skuId, voucherCode } = productState.getState().data;
+  const { txHash, paymentIntent } = productState.getState().data;
   try {
-    return await getProductVoucherCode(skuId, voucherCode);
+    if (txHash) {
+      return await getProductTxHash(txHash);
+    } else if (paymentIntent) {
+      return await getProductPaymentIntent(paymentIntent);
+    }
   } catch (error) {
     if (error.status === 404) {
       return;
@@ -51,7 +55,7 @@ export const updateProductState = createEvent<ProductState>();
 const updateData = createEvent<Data>();
 
 export const productState = createStore<ProductState>(
-  { product: undefined, data: { skuId: '', voucherCode: '' } },
+  { product: undefined, data: { txHash: '', paymentIntent: '' } },
   { name: 'product-state' }
 ).on(updateProductState, (state, newStatus) => ({ ...state, status: newStatus }));
 
@@ -66,7 +70,7 @@ productState.on(pendingProductCreated, (_, payload) => {
 
 pollProductStateFx.doneData.watch(async (response) => {
   if (response) {
-    updateProductState({ product: response, data: { voucherCode: '', skuId: '' } });
+    updateProductState({ product: response, data: { txHash: '', paymentIntent: '' } });
     productBoughtCheckout({ id: response._id });
     updateCheckoutState('success');
     const poll = productState.getState().poll;

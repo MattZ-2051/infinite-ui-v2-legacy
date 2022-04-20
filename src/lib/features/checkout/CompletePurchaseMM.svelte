@@ -106,12 +106,8 @@
             });
             purchasing = true;
 
-            if (lazyMinting) {
-              updateCheckoutState('processing');
-              pendingProductCreated({ skuId: sku._id, voucherCode });
-            } else {
-              updateCheckoutState('success');
-            }
+            updateCheckoutState('processing');
+            pendingProductCreated({ txHash: purchaseResult.hash });
 
             return;
           })
