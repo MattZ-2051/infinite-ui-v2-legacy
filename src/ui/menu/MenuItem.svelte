@@ -67,6 +67,7 @@
     margin-right: var(--menu-item-margin, 0);
     margin-left: var(--menu-item-margin, 0);
     border-radius: var(--menu-item-border-radius, 0);
+    font-family: var(--menu-item-font-family);
   }
 
   .menu-item.disabled {

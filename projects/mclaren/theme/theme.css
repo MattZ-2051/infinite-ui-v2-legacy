@@ -360,6 +360,7 @@
   --button-brand-border-color-hover: #ff5e17;
   --header-links-font: var(--second-font);
   --separator-bg-color: rgba(0, 0, 0, 0.05);
+  --menu-item-font-family: var(--second-font);
 }
 
 .theme-buttons-variant-presentation-pages {
@@ -372,6 +373,7 @@
   --button-brand-border-color-hover: #ff5e17;
   --header-links-font: var(--second-font);
   --separator-bg-color: rgba(0, 0, 0, 0.05);
+  --menu-item-font-family: var(--second-font);
 }
 
 .theme-brand-wallet-buttons {
