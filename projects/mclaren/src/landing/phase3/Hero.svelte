@@ -1,7 +1,7 @@
 <script lang="ts">
-  import bucketAssets from '$project/assets/aws-bucket-assets';
+  export let urlAsset;
 </script>
 
 <video class="w-full object-cover h-auto" autoplay loop muted>
-  <source src={bucketAssets.landing.hero} type="video/mp4" />
+  <source src={urlAsset} type="video/mp4" />
 </video>
