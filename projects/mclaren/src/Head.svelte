@@ -38,7 +38,13 @@
     crossorigin="anonymous"
   />
   {#if $page.url.pathname === '/'}
-    <link rel="preload" href={bucketAssets.landing.hero} as="video" />
+    <link
+      rel="preload"
+      href={$page.url.searchParams.get('phase') === '1' || $page.url.searchParams.get('phase') === '2'
+        ? bucketAssets.landing.hero
+        : bucketAssets.landing.hero3}
+      as="video"
+    />
   {/if}
   <link rel="stylesheet" href="/fonts/stylesheet.css" />
 </svelte:head>
