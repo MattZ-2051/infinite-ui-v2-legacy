@@ -37,6 +37,7 @@
   const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
   const NAME_MAX_CHARS = 45;
   const DESCRIPTION_MAX_CHARS = 2100;
+  const ROYALTY_FEE_PERCENTAGE_MAX_VAL = 20;
 
   const schema = yup.object({
     name: yup
@@ -50,7 +51,10 @@
     royaltyFeePercentage: yup
       .number()
       .min(0, 'Royalties must be greater than or equal to 0.')
-      .max(100, 'Royalties must be less than or equal to 100.'),
+      .max(
+        ROYALTY_FEE_PERCENTAGE_MAX_VAL,
+        `Royalties must be less than or equal to ${ROYALTY_FEE_PERCENTAGE_MAX_VAL}.`
+      ),
     maxSupply: yup.number().oneOf([1], 'Supply must be 1.'),
     nftPublicAssets: yup
       .mixed()
@@ -224,7 +228,7 @@
       type="number"
       label="Royalties"
       name="royaltyFeePercentage"
-      helperText="Suggested: 0%, 2%, 5%, 10%, 15%. Max: 100%."
+      helperText="Suggested: 0%, 2%, 5%, 10%, 15%. Max: {ROYALTY_FEE_PERCENTAGE_MAX_VAL}%."
       after="%"
     />
     <FormElement
