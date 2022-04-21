@@ -1,5 +1,4 @@
 <script lang="ts">
-  // TODO(vasilis): lazy load pond
   import 'filepond/dist/filepond.css';
   import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
   import FilePond, { registerPlugin } from 'svelte-filepond';
@@ -34,10 +33,22 @@
   registerPlugin(FilePondPluginFileValidateType, FilePondPluginFileValidateSize, FilePondPluginImagePreview);
 
   const hasCloseButton = browser && history.length > 1;
-  const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
+  const ACCEPTED_FILE_TYPES = [
+    'image/jpeg',
+    'image/png',
+    'image/gif',
+    'video/quicktime',
+    'video/mov',
+    'video/mp4',
+    'audio/mpeg',
+  ];
   const NAME_MAX_CHARS = 45;
   const DESCRIPTION_MAX_CHARS = 2100;
   const ROYALTY_FEE_PERCENTAGE_MAX_VAL = 20;
+  const FILe_MAX_SIZE = 10;
+  const formatLabel = 'JPEG, PNG, GIF, MOV, MP4 or MP3';
+  const fileValidateTypeLabelExpectedTypes = `Expects ${formatLabel}`;
+  const labelIdle = 'Drag & Drop your file or <span class="filepond--label-action"> Browse </span>';
 
   const schema = yup.object({
     name: yup
@@ -72,7 +83,7 @@
     }),
   });
 
-  const { form, errors, data, isSubmitting, isValid, setTouched, setErrors } = createForm<{
+  const { form, errors, data, isSubmitting, isValid, setTouched, setData, setErrors } = createForm<{
     name: string;
     description: string;
     supplyType: SupplyType;
@@ -162,11 +173,18 @@
 
   function checkIfFileIsTooBig(file?: File): boolean {
     const size = file ? file.size / 1024 / 1024 : 0;
-    return size <= 10;
+    return size <= FILe_MAX_SIZE;
   }
 
   function checkIfFileIsCorrectType(file?: File): boolean {
-    return !file || ['image/gif', 'image/jpeg', 'image/png'].includes(file.type);
+    return !file || ACCEPTED_FILE_TYPES.includes(file.type);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function handleAddFile(asset: 'nftPublicAssets' | 'nftPrivateAssets', error: any, fileItem: any): void {
+    if (!error) {
+      setData(asset, fileItem.file);
+    }
   }
 
   setContext('errors', errors);
@@ -188,9 +206,7 @@
       {/if}
       <h2 class="text-center text-4xl">Create new item</h2>
     </div>
-    <div class="text-center text-sm text-gray-500 my-6">
-      Create a new Item that will appear on your collection. You can edit the Item later on the collection page.
-    </div>
+    <div class="text-center text-sm text-gray-500 my-6">Create a new Item that will appear on your collection.</div>
   </div>
   <form
     use:form
@@ -202,14 +218,25 @@
     {/if}
 
     <div class="flex flex-col gap-3">
-      <div class="text-2xl">Upload an image</div>
+      <div class="text-2xl">Upload a file</div>
       <div class="text-sm	text-gray-500 flex justify-between">
-        <div>Format: JPG, PNG or GIF. Max size: 10MB.</div>
+        <div>
+          Format: {formatLabel}
+          <div>Max size: {FILe_MAX_SIZE}MB.</div>
+        </div>
         <div>*Mandatory</div>
       </div>
     </div>
     <div class="flex flex-col">
-      <FilePond name="nftPublicAssets" acceptedFileTypes={ACCEPTED_FILE_TYPES} maxFileSize="10MB" credits={false} />
+      <FilePond
+        {labelIdle}
+        {fileValidateTypeLabelExpectedTypes}
+        name="nftPublicAssets"
+        acceptedFileTypes={ACCEPTED_FILE_TYPES}
+        maxFileSize="{FILe_MAX_SIZE}MB"
+        credits={false}
+        onaddfile={handleAddFile.bind(undefined, 'nftPublicAssets')}
+      />
       {#if $errors.nftPublicAssets}
         <div class="text-red-500 text-xs pt-1">{$errors.nftPublicAssets}</div>
       {/if}
@@ -252,13 +279,21 @@
     {#if $data.hasUnlockableContent}
       <div class="flex flex-col gap-3" transition:slide>
         <div class="text-xl">Add File</div>
-        <div class="text-sm	text-gray-500 flex justify-between">Format: JPG, PNG, GIF or PDF. Max size: 10MB.</div>
+        <div class="text-sm	text-gray-500 flex justify-between">
+          <div>
+            Format: {formatLabel}.
+            <div>Max size: {FILe_MAX_SIZE}MB.</div>
+          </div>
+        </div>
         <div class="flex flex-col">
           <FilePond
+            {labelIdle}
+            {fileValidateTypeLabelExpectedTypes}
             name="nftPrivateAssets"
             acceptedFileTypes={ACCEPTED_FILE_TYPES}
-            maxFileSize="10MB"
+            maxFileSize="{FILe_MAX_SIZE}MB"
             credits={false}
+            onaddfile={handleAddFile.bind(undefined, 'nftPrivateAssets')}
           />
           {#if $errors.nftPrivateAssets}
             <div class="text-red-500 text-xs pt-1">{$errors.nftPrivateAssets}</div>
