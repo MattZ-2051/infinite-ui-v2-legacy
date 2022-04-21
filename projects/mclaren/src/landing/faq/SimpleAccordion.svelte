@@ -27,7 +27,7 @@
 >
   <div style="color:{textColor};">
     <div class="flex justify-between items-center" style="color:{active ? selectedColor : textColor}">
-      <div class="text-2xl lg:text-[38px] font-light pr-2 second-font text-white">{title}</div>
+      <div class="text-2xl lg:text-[38px] font-light pr-1 second-font text-white">{title}</div>
       <div class={`${active ? 'arrow-down' : 'arrow-base'}`}>
         <Icon path={arrowDown} size={$media.md ? 1.3 : 1} class="text-white" />
       </div>

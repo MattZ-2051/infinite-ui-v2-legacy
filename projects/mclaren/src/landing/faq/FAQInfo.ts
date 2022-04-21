@@ -13,24 +13,34 @@ const htmlifyContent = (text) => {
 export const FaqInfo: FaqLine[] = [
   {
     title: 'What is an NFT?',
-    text: `An NFT (Non-Fungible Token) is a non-interchangeable unit of data stored on a blockchain, a form of digital ledger, that can be sold and traded to represent ownership of unique items. 
+    text: `An NFT (Non-Fungible Token) is a one-of-a-kind unit of data that can be sold or traded to represent ownership of unique items. NFTs can be attached to any digital file, including photos, videos, audio, or even virtual real estate. These assets are the building blocks of a connected virtual world called the ‘metaverse’, and are bought and sold with cryptocurrency on an infrastructure known as the blockchain. 
     \n
-    Types of NFT data units may be associated with digital files such as photos, videos, audio & even real estate. Because each token is uniquely identifiable, NFTs differ from blockchain cryptocurrencies, such as Ethereum. `,
+    All NFTs are stored on the blockchain, which records ownership of digital assets through records that are near-impossible to hack. Every time an NFT is traded or sold, that transaction is stored for all to see - adding another 'block' of data to the 'chain'. NFTs are bought and sold with cryptocurrency, such as Ethereum. `,
   },
   {
-    title: 'What is a (crypto) wallet? & Why do I need one?',
-    text: `A crypto wallet is similar to your physical wallet, containing money (in the form of cryptocurrency) & form of ID. Your crypto wallet does the same thing as a physical wallet but on the blockchain. 
+    title: 'What is a crypto wallet and how do I set one up?',
+    text: `There are two ways of buying a  McLaren NFT: via card payment, or by using cryptocurrency with a MetaMask wallet. If you choose to purchase the NFT with a card payment, you will still need to create a MetaMask wallet to generate (or 'mint') your NFT once your purchase has been completed. A crypto wallet is similar to your physical wallet, containing money (in the form of cryptocurrency) and a form of ID. Your crypto wallet does the same thing as a physical wallet, but on the blockchain. 
     \n
-    Your wallet will have an "ID" (a long sequence of numbers & letters), your cryptocurrency balance & any NFTs you have bought with those cryptocurrencies. There are a number of crypto wallet providers, including Metamask which is the most popular and user-friendly. 
+    Your wallet will have  its own 'ID' and contains both your cryptocurrency balance and any NFTs you have bought with those cryptocurrencies. There are a number of crypto wallet providers, including MetaMask, which is widely-used, secure, and user-friendly. 
     \n
-    When you create a crypto wallet, you'll get what is called a “seed phrase”, this is made up of a series of words which will let you recover your cryptocurrency or NFTs if you lose access. It is important that you NEVER give this phrase to anyone.
+    When you create a crypto wallet, you’ll get what is called a 'seed phrase'. This  phrase is made up of a series of words which will let you recover your cryptocurrency or NFTs if you lose access. It is important that you never give this phrase to anyone.
     \n
-    Anyone who knows your “seed phrase” can gain full access to your wallet and could buy, sell or transfer any funds or assets so it's important to keep this safe. `,
+    Anyone who knows your 'seed phrase' can gain full access to your wallet and could buy, sell or transfer any funds or assets so it’s important to keep this safe. It’s important to remember that McLaren will never ask for your seed phrase.
+    \n
+    To create your MetaMask wallet, <a class="font-bold" href="https://metamask.io/" target="_blank">click here</a>.`,
   },
   {
-    title: 'What is a marketplace?',
-    text: `The marketplace is where you can buy McLaren NFTs.
+    title: 'How can I buy a McLaren NFT?',
+    text: `Our first NFT Collection will be available via an invite-only model. Those who own a physical McLaren car and are signed up to the McLaren mailing list will gain immediate access to Phase 1, with Phase 2 access opening to specially invited individuals 48  hours later. McLaren NFTs follow the ERC-721 standard and will be minted on the Ethereum blockchain.  At the time of minting, the user will be able to select what wallet address the NFTs will be minted to.
     \n
-    Please note, the marketplace may be affected by maintenance as well as cooldown periods during times of high traffic (such as Genesis Drop).`,
+    Once those who have been invited are registered for the allowlist, you’ll be sent a unique code along with instructions on how to access the marketplace. This is where you can buy McLaren NFTs once the Collection goes live.
+    \n
+    It’s also where you can stay up-to-date on the latest news from MSO LAB and see the development of our Roadmap. Please note, the marketplace may be affected by maintenance as well as cooldown periods during times of high traffic (such as the launch of the Collection). 
+    \n
+    For those who do not receive an invite to the Genesis Collection mint, there will be future public McLaren Automotive drops that you can be a part of.
+    \n
+    For more information on purchasing your NFT and creating a crypto wallet, see <a class="font-bold" href="https://cars.mclaren.com/gb-en/nft-faqs" target="_blank">What is a crypto wallet and how do I set one up?</a>
+    \n
+    If you’d like to review the McLaren Privacy Policy, please follow this link <a class="font-bold" href="https://cars.mclaren.com/gb-en/privacy-policy" target="_blank">here</a>.`,
   },
 ].map((article) => ({ ...article, content: htmlifyContent(article.text) }));
