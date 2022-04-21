@@ -3,14 +3,16 @@
 
   const svgSize = {
     width: $media.md ? 170 : 150,
-    height: $media.md ? 55 : 40,
+    height: 55,
+    viewBoxWidth: $media.md ? 175 : 190,
+    viewBoxHeight: $media.md ? 55 : 60,
   };
 </script>
 
 <svg
   width={svgSize.width}
   height={svgSize.height}
-  viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
+  viewBox={`0 0 ${svgSize.viewBoxWidth} ${svgSize.viewBoxHeight}`}
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
 >
