@@ -5,29 +5,28 @@
 <div class="w-full py-20 sm:py-48 flex justify-center align-center">
   <div class="flex flex-col lg:grid grid-cols-2 h-full text-black items-center container px-6 md:px-16 xl:px-44">
     <div class="text-left lg:text-left sm:text-left md:text-center">
-      <p
-        class="text-base sm:text-lg font-normal pb-2 uppercase second-font text-white opacity-80"
-        style="letter-spacing: 0.2em;"
-      >
-        mso lab
+      <p class="text-base sm:text-lg font-normal pb-2 second-font text-white opacity-80 tracking-[.2em]">
+        McLAREN AUTOMOTIVE
       </p>
       <p class="text-3xl sm:text-5xl font-light tracking-widest pb-10 second-font text-white opacity-80">
-        FUTURE PERFORMANCE
+        ENTERS THE METAVERSE
       </p>
       <div class="w-full md:w-5/6 font-light text-sm sm:text-base leading-7">
         <p class="leading-7 pb-6 text-white opacity-80">
-          From its inception, McLaren Special Operations has existed to push boundaries combining bleeding edge design,
-          engineering and craftsmanship to deliver the <i>‘art of the possible’</i>.
+          From its inception, McLaren has existed to push boundaries, bringing together the pinnacle of engineering and
+          design to drive progress through performance. It is this pioneering spirit that propels McLaren forward into
+          the Web3 era.
         </p>
         <p class="leading-7 pb-6 text-white opacity-80">
-          The first chapter in McLaren Automotive’s ambitious metaverse roadmap, MSO LAB continues this mission into the
-          web3 era. A platform for innovation and collaboration, exploring the future of performance in automotive and
-          beyond.
+          MSO LAB marks the first chapter in McLaren's ambitious metaverse roadmap. McLaren Special Operations,
+          McLaren’s bespoke division, has always sat at the bleeding-edge, combining performance, innovation and
+          craftsmanship to deliver ‘the art of the possible’. MSO LAB will continue this mission, exploring the future
+          of performance in a digital realm.
         </p>
         <p class="leading-7 pb-10 text-white opacity-80">
-          Accessed through a series of ultra-exclusive NFT collections, MSO LAB membership will provide holders with an
-          evolving range of benefits - harnessing new and innovative ways to push the boundaries of access and
-          experience.
+          The first in a series of ultra-exclusive NFT drops, launching 11.05.22, will extend this vision to more people
+          than ever before. Ownership will grant membership to the MSO LAB community and an evolving array of benefits
+          that will unlock new frontiers of access and experience.
         </p>
       </div>
     </div>
