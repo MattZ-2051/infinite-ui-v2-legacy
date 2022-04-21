@@ -186,7 +186,7 @@
         Back to Payment Method
       </Button>
       <Button variant="brand" class="sm:order-2 order-1" on:click={submitOrder} disabled={!acceptedTerms}>
-        Buy now for ETH {formatCurrency(priceWFee, options)}
+        Buy now for {formatCurrency(priceWFee, options)}
       </Button>
     </div>
   </div>
