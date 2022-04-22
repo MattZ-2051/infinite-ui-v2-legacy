@@ -18,8 +18,6 @@
   import McLarenSupercarCompany from './phase3/McLarenSupercarCompany.svelte';
   import UpcomingCollection from './phase3/FeaturedCollection.svelte';
 
-  export const skus = [];
-
   $: phase = $page.url.searchParams.get('phase') ?? '1';
 </script>
 
@@ -39,7 +37,7 @@
       <Hero urlAsset={bucketAssets.landing.hero3} />
     {/if}
     <McLarenFuturePerformance />
-    <GenesisCollection />
+    <GenesisCollection {phase} />
     {#if phase === '2'}
       <McLarenSupercarCompany2 />
     {/if}

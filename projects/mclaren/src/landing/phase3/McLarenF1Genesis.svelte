@@ -1,8 +1,25 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import Button from '$lib/components/Button.svelte';
+  import { loadAllSkuCollectionsFx, setAllSkuCollections } from '$lib/features/collections/collections.store';
   import genesisVideo from './images/PLACEHOLDER_MCL_GENESIS COLLECTION.mp4';
+
+  export let phase: string;
+  let skuId = undefined;
+  const isPhase3 = phase === '3';
+  let route = routes.skuCollections;
+
+  onMount(async () => {
+    if (isPhase3) {
+      const { collections } = await loadAllSkuCollectionsFx({ fetch });
+      setAllSkuCollections({ collections });
+      // asumming that ML has only 1 collection
+      skuId = collections[0].featuredSkuId;
+      route = routes.sku(skuId);
+    }
+  });
 </script>
 
 <div class="bg-black">
@@ -24,15 +41,17 @@
             An exclusive invitation-only Tier One membership mint marking McLaren Automotive's move into the metaverse.
           </p>
           <p class="pt-10 text-center text-base">
-            Unlock membership to MSO LAB through a pioneering collection of NFTs centred around one of the most desirable,
-            most storied cars McLaren has ever produced – the McLaren P1™.
+            Unlock membership to MSO LAB through a pioneering collection of NFTs centred around one of the most
+            desirable, most storied cars McLaren has ever produced – the McLaren P1™.
           </p>
         </div>
         <Button
           variant="brand"
           class="h-12 sm:h-16 w-full sm:w-fit font-bold text-xs tracking-widest uppercase"
-          on:click={() => goto(routes.skuCollections)}>discover the collection</Button
+          on:click={() => goto(route)}
         >
+          {isPhase3 ? 'buy now' : 'discover the collection'}
+        </Button>
       </div>
     </div>
     <video class="absolute top-0 -z-1 h-full object-cover hidden md:block w-full" autoplay loop muted>
