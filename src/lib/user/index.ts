@@ -193,14 +193,14 @@ async function initAuth(): Promise<void> {
   }
 }
 
-async function login(returnUrl = window.location.pathname, options = {}) {
+async function login(returnUrl = window.location.pathname + window.location.search, options = {}) {
   isLoading.set(true);
   await logout('', true); // clean up previous session.
 
   const client = await getClient();
   let redirectUri = `${window.location.origin}/authorize`;
   if (returnUrl !== '/' && returnUrl !== '/authorize') {
-    redirectUri += `?returnUrl=${returnUrl}`;
+    redirectUri += `?returnUrl=${returnUrl}${window.location.search.replace('?', '&')}`;
   }
   await client.loginWithRedirect({
     redirect_uri: redirectUri,
@@ -233,7 +233,7 @@ export function onSignOut(avoidRedirect?: boolean) {
   if (AUTH_PROVIDER_IS_AUTH0) {
     clearUser();
     isBanned.set(undefined);
-    logout(avoidRedirect ? `` : `${window.location.origin}`, avoidRedirect);
+    logout(avoidRedirect ? `` : `${window.location.origin}${window.location.search}`, avoidRedirect);
   } else {
     document.location.href = '/auth/signout';
   }
@@ -247,7 +247,7 @@ export function onSignUp() {
   }
 }
 
-export function onSignIn(returnUrl = window.location.pathname) {
+export function onSignIn(returnUrl = window.location.pathname + window.location.search) {
   if (AUTH_PROVIDER_IS_AUTH0) {
     return login(returnUrl);
   } else {

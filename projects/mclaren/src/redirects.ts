@@ -1,3 +1,9 @@
+const collectionsRedirect = () => {
+  const collectionId = import.meta.env.VITE_DEFAULT_COLLECTION_ID; //temporarily only one collection
+  const queryString = typeof window !== 'undefined' ? window.location.search : '';
+  return `/collections/${collectionId}${queryString}`;
+};
+
 const redirects = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   externalUrlBase,
@@ -15,7 +21,7 @@ const redirects = ({
   {
     route: '/collections',
     status: 301,
-    redirect: `/collections/${import.meta.env.VITE_DEFAULT_COLLECTION_ID}`, //temporarily only one collection
+    redirect: collectionsRedirect(),
   },
 ];
 

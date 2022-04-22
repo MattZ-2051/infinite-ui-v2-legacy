@@ -37,7 +37,7 @@
         await handleRedirectCallback(url);
       }
       await initUserAuth();
-      await goto(returnUrl || '/', { replaceState: true });
+      await goto(returnUrl || `/${window.location.search}`, { replaceState: true });
     })();
   }
 </script>
