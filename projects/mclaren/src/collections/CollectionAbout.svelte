@@ -14,9 +14,8 @@
   </div>
   <div class="space-y-3 lg:space-y-10 md:my-auto font-light text-base">
     <h3 class="second-font md:text-lg md:ml-10 xl:ml-20 tracking-widest">
-      MSO LAB<span class="block text-[32px] text-4xl md:text-5xl font-light mt-2 uppercase"
-        >{name} {name.toLowerCase().includes('collection') ? '' : 'collection'}</span
-      >
+      MSO LAB
+      <span class="block text-[32px] md:text-5xl font-light mt-2 uppercase"> The story of an icon </span>
     </h3>
     {#if typeof description === 'string'}
       <p class="md:ml-10 xl:ml-20 lg:mr-6 xl:mr-12 leading-7 text-white opacity-80">{description}</p>
