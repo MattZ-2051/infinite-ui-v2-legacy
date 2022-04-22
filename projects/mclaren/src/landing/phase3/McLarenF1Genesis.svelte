@@ -19,9 +19,13 @@
         >
           MSO LAB <span class="block sm:inline">GENESIS COLLECTION</span>
         </p>
-        <div class="text-lg text-center font-light max-w-8xl leading-9 pb-6">
-          <p class="text-center">
+        <div class="text-lg text-center font-light max-w-8xl leading-9 pb-10">
+          <p class="text-center text-base">
             An exclusive invitation-only Tier One membership mint marking McLaren Automotive's move into the metaverse.
+          </p>
+          <p class="pt-10 text-center text-base">
+            Unlock membership to MSO LAB through a pioneering collection of NFTs centred around one of the most
+            desirable, most storied cars McLaren has ever produced – the McLaren P1™.
           </p>
         </div>
         <Button
