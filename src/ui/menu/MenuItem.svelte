@@ -61,13 +61,15 @@
 
 <style lang="postcss">
   .menu-item:not(.hidden) {
-    @apply flex items-center flex-grow font-medium py-3 px-4 outline-none cursor-pointer;
+    @apply flex items-center flex-grow py-3 px-4 outline-none cursor-pointer;
     color: var(--menu-item-color);
     font-size: var(--menu-item-font-size, inherit);
     margin-right: var(--menu-item-margin, 0);
     margin-left: var(--menu-item-margin, 0);
     border-radius: var(--menu-item-border-radius, 0);
     font-family: var(--menu-item-font-family);
+    font-weight: var(--menu-item-font-weight, 500);
+    letter-spacing: var(--menu-item-letter-spacing, 0);
   }
 
   .menu-item.disabled {

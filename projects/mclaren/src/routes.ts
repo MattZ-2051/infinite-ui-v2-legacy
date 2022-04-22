@@ -29,5 +29,4 @@ export default {
   twitter: 'https://twitter.com/mclarenauto',
   instagram: 'https://www.instagram.com/mclarenauto/',
   youtube: 'https://www.youtube.com/channel/UCiWQ5eQPkw2BX2L4jeHKEVQ',
-  discord: 'https://discord.com/invite/SX8gqKXyt9',
 };
