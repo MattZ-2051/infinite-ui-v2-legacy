@@ -7,6 +7,7 @@ const bucketAssets = {
     futurePerformance: baseBucketUrl + '/assets-web/MSO_LAB%20Asset_1400x1120.png',
     supercarCompany: baseBucketUrl + '/assets-web/MCL014_MSO_Philosophy_Static_no_text_1800x3360.jpg',
     community: baseBucketUrl + '/assets-web/MCL014_McLaren%20Family_Static_no%20text_1800x3360.jpg',
+    comingSoon: baseBucketUrl + '/assets-web/FINAL_001-Coming-Soon.mp4',
   },
 };
 
