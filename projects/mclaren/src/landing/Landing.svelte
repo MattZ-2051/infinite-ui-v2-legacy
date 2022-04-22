@@ -6,6 +6,7 @@
   import Hero1 from './phase1/Hero.svelte';
   import FAQ from './faq/FAQ.svelte';
   import McLarenFuturePerformance1 from './phase1/McLarenFuturePerformance.svelte';
+  import McLarenRoadMap from './phase1/McLarenRoadMap.svelte';
   import McLarenSupercarCompany1 from './phase1/McLarenSupercarCompany.svelte';
 
   // PHASE 2 ONLY
@@ -25,6 +26,7 @@
   <div class="z-0">
     <Hero1 />
     <McLarenFuturePerformance1 />
+    <McLarenRoadMap />
     <McLarenSupercarCompany1 />
     <FAQ curvedImg={false} />
   </div>
@@ -37,6 +39,7 @@
       <Hero urlAsset={bucketAssets.landing.hero3} />
     {/if}
     <McLarenFuturePerformance />
+    <McLarenRoadMap />
     <GenesisCollection {phase} />
     {#if phase === '2'}
       <McLarenSupercarCompany2 />
