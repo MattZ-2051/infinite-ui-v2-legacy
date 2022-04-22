@@ -150,6 +150,7 @@
   /* SkuItem */
   --sku-item-color: var(--default-color);
   --sku-item-bg-color: var(--bg-color);
+  --redemption-status-display: flex;
 
   /* Button */
   --button-brand-color: #ffffff;

@@ -66,6 +66,7 @@
 
   /* Sku */
   --sku-offscreen-bg-color: transparent;
+  --redemption-status-display: flex;
 
   /* Header */
   --header-color: #ffffff;
