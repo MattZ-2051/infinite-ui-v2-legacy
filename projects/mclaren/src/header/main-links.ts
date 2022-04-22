@@ -1,13 +1,25 @@
 import type { Link } from '$lib/layout/header/types';
 
 export const links = (phase: string): Link[] => {
-  const excludeByPhase = phase === '1' || phase === '2';
-  const excludeFor = excludeByPhase && ['/'];
+  const initialPhase = phase === '1' || phase === '2';
+  const excludeFor = initialPhase && [
+    '/',
+    '/collections',
+    `/collections/${import.meta.env.VITE_DEFAULT_COLLECTION_ID}`,
+  ];
 
   return [
     { type: 'route', location: 'header', id: 'index', label: 'Home' },
-    { type: 'route', location: 'header', id: 'skuCollections', label: 'Collections', excludeFor },
+    {
+      type: 'route',
+      location: 'header',
+      id: 'skuCollections',
+      label: 'Collections',
+      excludeFor: phase === '1' && ['/'],
+    },
     { type: 'route-open-new', location: 'header', id: 'faq', label: 'F.A.Q.' },
+    { type: 'route-open-new', location: 'header', id: 'discord', label: 'Discord' },
+    { type: 'route-open-new', location: 'header', id: 'opensea', label: 'OpenSea', excludeFor },
     { type: 'user-collection', location: 'user-menu', label: 'My Collection' },
     { type: 'route', location: 'user-menu', id: 'wallet', label: 'My Wallet' },
     { type: 'wallet-extensions', location: 'user-menu', label: 'Connect external wallet' },

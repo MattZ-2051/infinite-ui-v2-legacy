@@ -4,6 +4,8 @@ import routes from '$lib/routes';
 export default {
   ...routes,
   faq: 'https://cars.mclaren.com/gb-en/nft-faqs',
+  discord: 'https://discord.com/invite/mclarenracingcollective',
+  opensea: 'https://opensea.io/',
   suku: 'https://www.suku.world',
   careers: 'https://mclarencareers.mclaren.com/?_ga=2.243386309.1509309442.1648474878-868223602.1644268772',
   partners: 'https://cars.mclaren.com/us-en/about/partners',
