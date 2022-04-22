@@ -279,9 +279,10 @@
   --mobile-menu-links-align: start;
   --mobile-menu-sign-up-width: 100%;
   --mobile-sidebar-toggle-icon-width: theme('width.5');
-  --mobile-sidebar-toggle-icon-margin-top: theme('margin.1');
-  --mobile-sidebar-toggle-burger-icon-before: -5px;
-  --mobile-sidebar-toggle-burger-icon-after: 5px;
+  --mobile-sidebar-toggle-icons-width: 20px;
+  --mobile-sidebar-close-icon-height: 20px;
+  --mobile-sidebar-close-icon-margin-top: 5px;
+  --mobile-sidebar-burger-svg-line-margin-top: 4px;
 }
 
 .theme-payment-button {
