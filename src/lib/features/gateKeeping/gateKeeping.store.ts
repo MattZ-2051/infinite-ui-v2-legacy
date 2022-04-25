@@ -1,16 +1,22 @@
 import { createEffect, createStore, createEvent } from 'effector';
-import type { Sku } from '$lib/sku-item/types';
+import type { GateKeepingSku, GateKeepingType } from './types';
 import { checkRequiredSkus } from './gateKeeping.api';
 
-export const setRequiredSkus = createEvent<Sku[]>();
+export const setRequiredSkus = createEvent<GateKeepingSku[]>();
+export const setGateKeepType = createEvent<GateKeepingType>();
 
 export const clearRequiredSkus = createEvent();
 
-export const gateKeepSkus = createStore<Sku[]>([])
+export const gateKeepSkus = createStore<GateKeepingSku[]>([])
   .on(setRequiredSkus, (state, payload) => payload)
   .reset(clearRequiredSkus);
 
-export const fetchRequiredSkus = createEffect(async ({ skuId, ownerId }: { skuId: string; ownerId: string }) => {
-  const { skus } = await checkRequiredSkus({ skuId, ownerId });
+export const gateKeepType = createStore<GateKeepingType>('empty')
+  .on(setGateKeepType, (state, payload) => payload)
+  .reset(clearRequiredSkus);
+
+export const fetchRequiredSkus = createEffect(async ({ skuId }: { skuId: string }) => {
+  const { skus, type } = await checkRequiredSkus({ skuId });
   setRequiredSkus(skus);
+  setGateKeepType(type);
 });

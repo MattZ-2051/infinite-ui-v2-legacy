@@ -34,7 +34,7 @@
     clearRequiredSkus();
   });
 
-  $: activeGateKeepSkus = $gateKeepSkus?.length > 0;
+  $: activeGateKeepSkus = $gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned');
 </script>
 
 <StickyColumn fitOnScreenContent --xl-split="0.55" --lg-split="0.51" class="sku">

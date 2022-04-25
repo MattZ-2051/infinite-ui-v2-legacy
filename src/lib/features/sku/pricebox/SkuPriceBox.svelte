@@ -3,12 +3,13 @@
   import type { ActionType } from '$lib/features/product/actions/types';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { onAction } from '$lib/features/product/actions/product-actions.service';
-  import { gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
+  import { fetchRequiredSkus, gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
   import { onSignIn, user } from '$lib/user';
   import { openModal } from '$ui/modals';
   import routes from '$project/routes';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
+  import { toast } from '$ui/toast';
   import {
     getActiveListings,
     getUpcomingListings,
@@ -32,35 +33,37 @@
 
   const voucherCode = $page.url.searchParams.get('voucherCode') || '';
 
-  // TODO (matt): comment back in when BE is finished
-
-  // onMount(async () => {
-  //   await fetchRequiredSkus({skuId: sku._id, ownerId: $user._id})
-  // })
-
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
     const isVoucherSku = activeListings?.[0]?.enabledNftPurchase;
     const mintLaterSku = sku?.mintPolicy?.transaction === 'later';
-    const redirectToLogin = !$user && mintLaterSku;
+    const hasGateKeepingRules = !!sku?.gateKeepingRules;
+    const redirectToLogin = !$user && (mintLaterSku || hasGateKeepingRules);
 
-    if ($gateKeepSkus.length > 0) {
-      return;
-    }
-    if (redirectToLogin) {
-      onSignIn();
-    } else if (isVoucherSku) {
-      openModal(VoucherModal, {
-        voucherCode,
-        skuId: sku._id,
-      });
-    } else if (goToSkuAuctionPage) {
-      goto(routes.skuAuction(sku._id));
-    } else if (activeListings[0].product) {
-      const product = await loadProduct({ id: activeListings[0].product });
-      return onOrderIntent({ sku, listing: activeListings[0], product });
-    } else {
-      return onOrderIntent({ sku, listing: activeListings[0] });
+    try {
+      if (redirectToLogin) {
+        onSignIn();
+      } else {
+        await fetchRequiredSkus({ skuId: sku._id });
+        if ($gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned')) {
+          return;
+        }
+        if (isVoucherSku) {
+          openModal(VoucherModal, {
+            voucherCode,
+            skuId: sku._id,
+          });
+        } else if (goToSkuAuctionPage) {
+          goto(routes.skuAuction(sku._id));
+        } else if (activeListings[0].product) {
+          const product = await loadProduct({ id: activeListings[0].product });
+          return onOrderIntent({ sku, listing: activeListings[0], product });
+        } else {
+          return onOrderIntent({ sku, listing: activeListings[0] });
+        }
+      }
+    } catch {
+      toast.danger('Error completing purchase');
     }
   }
 

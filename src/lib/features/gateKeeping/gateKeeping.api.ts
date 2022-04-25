@@ -1,19 +1,30 @@
-import type { Sku } from '$lib/sku-item/types';
+import type { GateKeepingResponse, RequiredSkusResponse, StatusGateKeeping } from './types';
+import { get } from '$lib/api';
+import { getSkuOnly } from '../sku/sku.api';
 
-export const checkRequiredSkus = async ({
-  skuId,
-  ownerId,
-}: {
-  skuId: string;
-  ownerId: string;
-}): Promise<{ skus: Sku[] }> => {
-  // TODO (matt): Update with api call to new endpoint once BE finishes
-  if (skuId && ownerId) {
-    // NOTE (matt): This is just here for testing purposes, you can uncomment and pass these values in the array to test gatekeep
+export const checkRequiredSkus = async ({ skuId }: { skuId: string }): Promise<RequiredSkusResponse> => {
+  if (skuId) {
+    const { type, data } = await get<GateKeepingResponse>(`/skus/${skuId}/gate-keeping`, { fetch });
+    if (type === 'empty' || data.length === 0) {
+      return { type, skus: [] };
+    }
 
-    // const sku = await getSkuOnly({ id: '6195d1ce74f27d2e0452b2f6' });
-    // const secondSku = await getSkuOnly({ id: '6195d1ce74f27d2e0452b2f6' });
-    // return { skus: [sku, secondSku] };
-    return { skus: [] };
+    // Flag to check what's first sku to buy on lineal dependecy.
+    let buyNow = false;
+    const skus = await Promise.all(
+      data.reverse().map(async ({ skuRequiredId: id, hasProduct }) => {
+        let status: StatusGateKeeping;
+        if (hasProduct) {
+          status = 'owned';
+        } else {
+          status = (type === 'and' || !buyNow) && data.length > 1 ? 'buyNow' : 'notOwnedYet';
+          buyNow = true;
+        }
+        const sku = await getSkuOnly({ id });
+        return { sku, status };
+      })
+    );
+
+    return { type, skus };
   }
 };

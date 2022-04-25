@@ -15,6 +15,11 @@ export type Currency = 'USD' | 'ETH';
 
 export type SkuStatus = 'pending' | 'approved' | 'rejected' | '';
 
+export interface GateKeepingRule {
+  skuRequired: string;
+  startAt: string;
+}
+
 export type Sku = {
   _id: string;
   rarity: Rarity;
@@ -101,6 +106,7 @@ export type Sku = {
     title: string;
     description: string;
   };
+  gateKeepingRules?: GateKeepingRule[];
 };
 
 export type MintPolicy = {
