@@ -1,6 +1,5 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import bucketAssets from '$project/assets/aws-bucket-assets';
   import Community from '../common/Community/Community.svelte';
   // PHASE 1
   import Hero1 from './phase1/Hero.svelte';
@@ -32,12 +31,7 @@
   </div>
 {:else if phase === '2' || phase === '3'}
   <div class="z-0">
-    {#if phase === '2'}
-      <Hero urlAsset={bucketAssets.landing.hero} />
-    {/if}
-    {#if phase === '3'}
-      <Hero urlAsset={bucketAssets.landing.hero3} />
-    {/if}
+    <Hero />
     <McLarenFuturePerformance />
     <McLarenRoadMap />
     <GenesisCollection {phase} />
