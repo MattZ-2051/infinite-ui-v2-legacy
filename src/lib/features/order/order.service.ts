@@ -5,7 +5,7 @@ import type { ApiError } from '$lib/api';
 import { get as getStoreValue } from 'svelte/store';
 import { toast } from '$ui/toast';
 import { user, onSignIn, isLoading } from '$lib/user';
-import { checkWalletInstalled, handleWalletConnection, walletConnected as metamaskConnected } from '$lib/metamask';
+import { handleWalletConnection } from '$lib/metamask';
 import { openModal } from '$ui/modals';
 import routes from '$project/routes';
 import { goto } from '$app/navigation';
@@ -19,24 +19,13 @@ let canOpenModal = false;
 
 const ENABLE_CHECKOUT = import.meta.env?.VITE_ENABLE_CHECKOUT;
 
-const connectWallet = async () => {
-  try {
-    await checkWalletInstalled();
-    await handleWalletConnection();
-    if (metamaskConnected) {
-      toast.clear();
-      toast.success('You are now connected to Metamask', { toastId: 'MM_SUCCESS' });
-    }
-  } catch {}
-};
-
 export const showLoginToast = (content = 'sign in', data = 'signIn') => {
   toast.danger(
     `Please <a data-toast="${data}" class="cursor-pointer font-bold">${content}</a> to complete your purchase.`,
     {
       onClick: {
         signIn: onSignIn,
-        externalWallet: connectWallet,
+        externalWallet: handleWalletConnection,
       },
       toastId: 'ORDER_ERROR_LOGIN',
     }

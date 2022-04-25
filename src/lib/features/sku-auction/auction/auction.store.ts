@@ -1,11 +1,11 @@
 import type { Bid, Listing } from '$lib/sku-item/types';
 import { createEffect } from 'effector';
+import { placeBidFxErrorHandler } from '$lib/features/product/auction/auction.service';
 import { toast } from '$ui/toast';
 import { getQueryParameters } from '$util/queryParameter';
 import { CLIENT_BIDDING_URL } from '$project/variables';
 import { placeBid, loadProductBids } from './auction.api';
 import { fetchSkuBidsFx, setSkuBids } from '../sku-auction.store';
-import { placeBidFxErrorHandler } from './auctionErrorHandler';
 
 export const placeBidFx = createEffect(
   async ({ listing, amount, mintToAddress }: { listing: Listing; amount: number; mintToAddress?: string }) => {

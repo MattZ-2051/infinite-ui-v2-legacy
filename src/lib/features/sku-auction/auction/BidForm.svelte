@@ -11,6 +11,7 @@
   import { formatDate, formatCurrency } from '$util/format';
   import routes from '$project/routes';
   import { loadWalletFx, wallet } from '$lib/features/wallet/wallet.store';
+  import { showBidLoginToast } from '$lib/features/product/auction/auction.service';
   import arrowRight from '../assets/arrow-right';
   import { auctionEnded } from '../sku-auction.store';
 
@@ -28,7 +29,8 @@
   const { form, reset } = createForm({
     onSubmit: async ({ placeBid }: { placeBid: string }) => {
       if (!$user) {
-        return toast.danger('Please, login to place a bid.');
+        showBidLoginToast();
+        return;
       }
       if (!placeBid) {
         return toast.danger(`Whoops! Please let us know how much you'd like to bid for this collectible.`);

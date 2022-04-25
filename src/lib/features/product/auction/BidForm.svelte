@@ -13,6 +13,7 @@
   import { loadWalletFx, wallet } from '$lib/features/wallet/wallet.store';
   import { auctionEnded } from '../product.store';
   import ProductStatusLayout from '../status/ProductStatusLayout.svelte';
+  import { showBidLoginToast } from './auction.service';
 
   export let product: Product;
   export let listing: Listing;
@@ -28,7 +29,7 @@
   const { form, reset } = createForm({
     onSubmit: async ({ placeBid }: { placeBid: string }) => {
       if (!$user) {
-        return toast.danger('Please, login to place a bid.');
+        showBidLoginToast();
       }
       if (!placeBid) {
         return toast.danger(`Whoops! Please let us know how much you'd like to bid for this collectible.`);

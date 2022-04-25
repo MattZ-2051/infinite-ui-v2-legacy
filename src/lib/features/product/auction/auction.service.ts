@@ -1,4 +1,6 @@
 import type { Listing } from '$lib/sku-item/types';
+import { handleWalletConnection } from '$lib/metamask';
+import { onSignIn } from '$lib/user';
 import routes from '$project/routes';
 import { toast } from '$ui/toast';
 
@@ -20,4 +22,14 @@ export const placeBidFxErrorHandler = (error, listing: Listing) => {
       );
       break;
   }
+};
+
+export const showBidLoginToast = (content = 'sign in', data = 'signIn') => {
+  toast.danger(`Please <a data-toast="${data}" class="cursor-pointer font-bold">${content}</a> to place a bid.`, {
+    onClick: {
+      signIn: onSignIn,
+      externalWallet: handleWalletConnection,
+    },
+    toastId: 'ORDER_ERROR_LOGIN',
+  });
 };

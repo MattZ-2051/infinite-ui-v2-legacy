@@ -9,7 +9,7 @@
   export let forProductStatus = false;
 
   let tileInfo: Status;
-  $: tileInfo = product ? productStatus(product, forProductStatus) : skuStatus(sku);
+  $: tileInfo = product ? productStatus(product, forProductStatus) : skuStatus(sku, forProductStatus);
 </script>
 
 <div

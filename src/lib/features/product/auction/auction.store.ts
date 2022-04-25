@@ -5,7 +5,7 @@ import { getQueryParameters } from '$util/queryParameter';
 import { CLIENT_BIDDING_URL } from '$project/variables';
 import { placeBid, loadProductBids } from './auction.api';
 import { fetchProductBidsFx, setProductBids } from '../product.store';
-import { placeBidFxErrorHandler } from './auctionErrorHandler';
+import { placeBidFxErrorHandler } from './auction.service';
 
 export const placeBidFx = createEffect(
   async ({ listing, amount, mintToAddress }: { listing: Listing; amount: number; mintToAddress?: string }) => {
