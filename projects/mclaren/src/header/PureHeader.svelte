@@ -9,7 +9,12 @@
   export let links: Link[];
 
   $: phase = $page.url.searchParams.get('phase') ?? '1';
-  $: hideUserMenu = phase === '1' || phase === '2' ? true : isVisible(['/'], $page.url.pathname);
+  const isVisiblePathRegExp = /^\/((collections)|(collection))\/.*$/;
+  $: hideUserMenu =
+    phase === '1' || phase === '2'
+      ? true
+      : isVisible(['/', '/u/account', '/u/wallet'], $page.url.pathname) &&
+        !isVisiblePathRegExp.test($page.url.pathname);
 </script>
 
 <HeaderLayout {links} {user} {hideUserMenu} />
