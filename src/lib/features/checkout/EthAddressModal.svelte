@@ -12,7 +12,7 @@
   import { connectWallet } from './checkout.service';
 
   export let handleEthModalCallback: ({ address, option }) => void;
-  export let mintPolicy: 'user-option' | 'instant';
+  export let mintPolicy: 'user-selected' | 'instant';
 
   const title = 'NFT destination';
   const options = [
@@ -20,14 +20,13 @@
     { id: 2, value: 'metamask', label: $walletConnected ? 'Continue with Metamask' : 'Connect Metamask' },
   ];
 
-  if (mintPolicy === 'user-option') {
+  if (mintPolicy === 'user-selected') {
     options.push({
       id: 3,
       value: 'later',
       label: `I don't have an ETH address`,
     });
   }
-
   let radioValue;
   let address;
   let buttonText = 'Continue';
