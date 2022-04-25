@@ -39,7 +39,6 @@
   />
   {#if $page.url.pathname === '/'}
     <link rel="preload" href={bucketAssets.landing.hero} as="video" />
-    />
   {/if}
   <link rel="stylesheet" href="/fonts/stylesheet.css" />
 </svelte:head>
