@@ -21,10 +21,11 @@
       autoplay
       loop
       muted
+      playsinline
     >
       <source src={bucketAssets.landing.comingSoon} type="video/mp4" class="h-full w-full" />
     </video>
-    <video class="w-full absolute top-12 -z-1 object-cover h-full md:hidden" autoplay loop muted>
+    <video class="w-full absolute top-12 -z-1 object-cover h-full md:hidden" autoplay loop muted playsinline>
       <source src={bucketAssets.landing.comingSoon} type="video/mp4" />
     </video>
   </div>

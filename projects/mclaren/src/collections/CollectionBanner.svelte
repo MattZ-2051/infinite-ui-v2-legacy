@@ -11,7 +11,7 @@
 <section class="w-full">
   <figure class="aspect-[4/7] sm:aspect-square lg:aspect-[16/8] relative h-full w-full overflow-hidden">
     {#if fileType === 'video'}
-      <video class="w-full object-cover h-screen" alt={name} autoplay loop muted>
+      <video class="w-full object-cover h-screen" alt={name} autoplay loop muted playsinline>
         <source src={mainFileAsset.url} type="video/mp4" />
       </video>
     {:else}
