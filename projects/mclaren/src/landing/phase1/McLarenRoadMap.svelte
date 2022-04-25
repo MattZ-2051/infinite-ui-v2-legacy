@@ -123,28 +123,33 @@
   </p>
   <article
     bind:this={phaseBlock}
-    class="phase-block rounded-3xl shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] flex flex-row flex-wrap lg:flex-nowrap items-center mt-8 mb-16 p-8 sm:p-20 gap-12 mx-6 lg:mx-auto max-w-screen-lg"
+    class="phase-block rounded-3xl shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] flex flex-col lg:flex-row lg:flex-nowrap items-center mt-8 mb-16 mx-6 lg:mx-auto max-w-screen-lg min-h-fit"
   >
     <h3
-      class="text-[10rem] sm:text-[13.75rem] leading-none h-36 sm:h-44 flex-[1_1_fit-content] lg:flex-grow-0 text-center second-font m-0 font-light tracking-widest"
+      class="text-[10rem] sm:text-[13.75rem] leading-none flex-[1_1_fit-content] lg:flex-grow-0 text-center second-font font-light tracking-widest m-8 sm:my-20 sm:mx-8"
     >
       {selectedPhaseIndex}
     </h3>
-    <div class="flex flex-col items-center md:items-start min-h-[11rem] py-2 space-y-3 mx-auto md:mx-0">
+    <div
+      class="flex flex-col items-center md:items-start min-h-[11rem] py-2 space-y-6 sm:space-y-3 mx-8 sm:mx-12 lg:mx-0 mb-20 lg:mb-0 px-8 lg:px-0 w-full"
+    >
       <h4 class="tracking-[0.2em] text-lg uppercase second-font text-center">
         {selectedStep.title || selectedPhase.title}
       </h4>
 
       <p class="flex-grow text-gray-800">{selectedStep.description || selectedPhase.description}</p>
-      <ol class="justify-self-end flex flex-row flex-wrap gap-6 md:gap-4 steps-list">
+      <ol class="steps-list list-inside flex space-x-6 lg:space-x-3">
         {#each selectedPhase.steps as step}
           <li
-            class="second-font text-xl md:text-sm uppercase tracking-[0.2em] opacity-30 hover:opacity-100 min-w-max flex cursor-pointer"
+            class="second-font text-xl md:text-[0.8125rem] uppercase tracking-widest opacity-30 hover:opacity-100 min-w-max block cursor-pointer leading-none"
             class:highlighted={selectedStep.title === step.title}
             on:click={() => (selectedStep = step)}
           >
-            <span class="mr-4 hidden md:inline">{step.title}</span>
-            <Icon path={caretRight} size="1em" class="ml-6 md:ml-0 mt-[2px] md:mt-[1px]" />
+            <span class="mr-3 hidden md:inline max-w-fit whitespace-nowrap">{step.title}</span><Icon
+              path={caretRight}
+              size="1em"
+              class="ml-6 md:ml-0 pb-[2px] inline-block max-w-fit"
+            />
           </li>
         {/each}
       </ol>
@@ -177,11 +182,17 @@
   .steps-list {
     counter-reset: steps;
   }
+  .steps-list li {
+    display: inline-block;
+  }
+
   .steps-list li::before {
     counter-increment: steps;
     content: counter(steps, upper-roman);
-    display: block;
+    display: inline;
+    max-width: fit-content;
   }
+
   @screen md {
     .steps-list li::before {
       content: counter(steps, upper-roman) '.';
@@ -232,5 +243,6 @@
     @apply text-transparent bg-clip-text;
     background-image: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
     opacity: 1;
+    display: inline-block;
   }
 </style>
