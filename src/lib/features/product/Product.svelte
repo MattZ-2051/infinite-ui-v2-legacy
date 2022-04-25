@@ -5,6 +5,7 @@
   import { browser } from '$app/env';
   import { userId } from '$lib/user';
   import routes from '$project/routes';
+  import { PRODUCT_GALLERY_LIMIT } from '$project/variables';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
   import { socialShareAction } from '$lib/social';
@@ -30,7 +31,7 @@
 
 <StickyColumn reverse>
   <div slot="sticky-content" class="sticky-content">
-    <Gallery items={nftPublicAssets} />
+    <Gallery items={PRODUCT_GALLERY_LIMIT ? nftPublicAssets.slice(0, PRODUCT_GALLERY_LIMIT) : nftPublicAssets} />
   </div>
   <div class="flex flex-col md:px-0" slot="onscreen-content" style="min-height: calc(100vh - var(--header-height));">
     <div class="mx-4 md:pl-4 mt-8 md:mt-10">

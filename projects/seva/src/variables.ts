@@ -34,3 +34,4 @@ export const PRODUCT_PAGE_TABS: TabType[] = ['auction', 'history', 'owner'];
 export const COOKIE_URL = 'nft.seva.love';
 export const ENABLE_RELATED_SKUS = true;
 export const ENABLE_GDPR_BANNER = true;
+export const PRODUCT_GALLERY_LIMIT = false;

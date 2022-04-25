@@ -34,3 +34,4 @@ export const PRODUCT_PAGE_TABS: TabType[] = ['description', 'history', 'owner'];
 export const COOKIE_URL = 'www.nft.mclaren.com';
 export const ENABLE_RELATED_SKUS = false;
 export const ENABLE_GDPR_BANNER = true;
+export const PRODUCT_GALLERY_LIMIT = 2;
