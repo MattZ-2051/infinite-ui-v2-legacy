@@ -248,6 +248,8 @@
   --from-collector-border-line: 1px solid rgba(0, 0, 0, 0.1);
   --from-collector-margin: 0px 24px;
   --from-collector-bg: rgba(0, 0, 0, 0.1);
+  --font-weight-from-collector: 300;
+  --font-weight-from-creator: 300;
 
   /*Sku info*/
   --sku-info-border-color: rgba(0, 0, 0, 0.1);

@@ -24,6 +24,7 @@ export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-rede
 export const CLIENT_AFTER_REDEEMED_URL = routes.help;
 export const CLIENT_API_HEADER = 'infinite';
 export const ENABLE_ETH_CURRENCY = false;
+export const ENABLE_SINGLE_CURRENCY_WALLET = true;
 export const AUTH_PROVIDER_IS_AUTH0 = true;
 export const KYC_INFO = 'https://support.suku.world/infinite/id-verification-troubleshooting';
 export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'available';

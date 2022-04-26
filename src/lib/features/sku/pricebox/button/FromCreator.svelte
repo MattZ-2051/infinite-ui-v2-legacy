@@ -95,7 +95,7 @@
   {#if state === 'active' || state === 'noSale' || state === 'notMinted' || state === 'active-whitelist'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
-        <div class="text-2xl">Buy From Creator</div>
+        <div class="text-2xl from-creator-text-custom">Buy From Creator</div>
         {#if (state === 'active' && sku?.supplyType !== 'variable') || state === 'active-whitelist'}
           <div class="text-gray-500 text-base">
             {#if state === 'active-whitelist'}
@@ -113,7 +113,7 @@
       {#if state === 'active' || state === 'active-whitelist'}
         <div class="flex justify-end">
           <div>
-            <div class="text-2xl text-right">
+            <div class="text-2xl from-creator-text-custom text-right">
               {formatCurrencyWithOptionalFractionDigits(skuPrice, { currency: sku.currency })}
             </div>
             <div class="text-base text-right text-gray-500 ">
@@ -134,7 +134,7 @@
   {#if state === 'upcoming'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
-        <div class="text-2xl">Upcoming</div>
+        <div class="text-2xl from-creator-text-custom">Upcoming</div>
         {#if sku?.supplyType !== 'variable'}<div class="text-gray-500 text-base">
             {sku?.totalUpcomingSupply} NFT
           </div>{/if}
@@ -143,7 +143,7 @@
         <TimeDifference date={sku?.minStartDate} />
         <div class="text-gray-500 text-base">{formatDate(sku.minStartDate)}</div>
       </div>
-      <div class="pl-4 text-2xl text-center">
+      <div class="pl-4 text-2xl from-creator-text-custom text-center">
         {formatCurrencyWithOptionalFractionDigits(upcomingSkuListings[0]?.price, { currency: sku.currency })}
       </div>
     </div>
@@ -152,7 +152,7 @@
   {#if state === 'upcomingNftGiveAway'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
-        <div class="text-2xl">Upcoming NFT Giveaway</div>
+        <div class="text-2xl from-creator-text-custom">Upcoming NFT Giveaway</div>
         <div class="text-gray-500 text-base">Starts {formatDate(upcomingSkuListings[0]?.startDate)}</div>
       </div>
       <div class="flex justify-end">
@@ -165,7 +165,7 @@
           </div>
         {:else}
           <div>
-            <div class="text-2xl text-right">{sku?.maxSupply}</div>
+            <div class="text-2xl from-creator-text-custom text-right">{sku?.maxSupply}</div>
             <div class="text-base text-right text-gray-500">To be released</div>
           </div>
         {/if}
@@ -176,7 +176,7 @@
   {#if state === 'activeNftGiveAway'}
     <div class="flex justify-between items-center gap-x-2">
       <div class="flex-grow">
-        <div class="text-2xl">NFT Giveaway</div>
+        <div class="text-2xl from-creator-text-custom">NFT Giveaway</div>
         <div class="text-gray-500 text-base">Started {formatDate(activeListing.startDate)}</div>
       </div>
       <div class="flex justify-end">
@@ -189,7 +189,7 @@
           </div>
         {:else}
           <div>
-            <div class="text-2xl text-right">{sku?.totalSkuListingSupplyLeft}</div>
+            <div class="text-2xl from-creator-text-custom text-right">{sku?.totalSkuListingSupplyLeft}</div>
             <div class="text-base text-right text-gray-500">Remaining</div>
           </div>
         {/if}
@@ -197,3 +197,9 @@
     </div>
   {/if}
 </SkuPriceBoxButton>
+
+<style lang="postcss">
+  .from-creator-text-custom {
+    font-weight: var(--font-weight-from-creator, 400);
+  }
+</style>

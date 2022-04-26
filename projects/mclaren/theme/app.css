@@ -67,6 +67,7 @@ button.sticky-cta:hover div {
 
 .section-title {
   font-family: var(--title-font-family);
+  font-weight: 300;
 }
 
 .second-font {

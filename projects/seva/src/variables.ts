@@ -24,6 +24,7 @@ export const CLIENT_REDEEM_URL = 'https://info.seva.love/infinite/can-i-redeem-a
 export const CLIENT_AFTER_REDEEMED_URL = routes.help;
 export const CLIENT_API_HEADER = 'seva';
 export const ENABLE_ETH_CURRENCY = true;
+export const ENABLE_SINGLE_CURRENCY_WALLET = false;
 export const AUTH_PROVIDER_IS_AUTH0 = true;
 export const KYC_INFO = 'https://info.seva.love/infinite/how-does-kyc-work';
 export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'all';

@@ -9,7 +9,7 @@
   import { variables } from '$lib/variables';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
-  import { ENABLE_ETH_CURRENCY, KYC_INFO } from '$project/variables';
+  import { ENABLE_ETH_CURRENCY, KYC_INFO, ENABLE_SINGLE_CURRENCY_WALLET } from '$project/variables';
   import WalletBalance from './WalletBalance.svelte';
   import WalletDepositModal from './deposit/WalletDepositModal.svelte';
   import CurrencySelectModal from './deposit/CurrencySelectModal.svelte';
@@ -158,7 +158,7 @@
             margin: var(--wallet-balance-content-margin);
             max-width: var(--wallet-balance-content-max-width);"
     >
-      {#if ENABLE_ETH_CURRENCY}
+      {#if ENABLE_ETH_CURRENCY && !ENABLE_SINGLE_CURRENCY_WALLET}
         <div class="font-medium">
           <div class="text-xl md:text-2xl">My Balance</div>
         </div>

@@ -23,6 +23,7 @@ export const CLIENT_REDEEM_URL = 'https://help.ariaexchange.com/s/article/Can-I-
 export const CLIENT_AFTER_REDEEMED_URL = '';
 export const CLIENT_API_HEADER = 'aria';
 export const ENABLE_ETH_CURRENCY = false;
+export const ENABLE_SINGLE_CURRENCY_WALLET = true;
 export const AUTH_PROVIDER_IS_AUTH0 = true;
 export const KYC_INFO = 'https://help.ariaexchange.com/s/article/How-do-I-verify-my-account';
 export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'all';
