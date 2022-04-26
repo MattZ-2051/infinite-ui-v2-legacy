@@ -5,6 +5,10 @@ export const links = (phase: string): Link[] => {
   const excludeFor = initialPhase && [
     '/',
     '/collections',
+    '/privacy',
+    '/help',
+    '/cookies',
+    '/terms',
     `/collections/${import.meta.env.VITE_DEFAULT_COLLECTION_ID}`,
   ];
 
@@ -15,7 +19,7 @@ export const links = (phase: string): Link[] => {
       location: 'header',
       id: 'skuCollections',
       label: 'COLLECTIONS',
-      excludeFor: phase === '1' && ['/'],
+      excludeFor: phase === '1' && ['/', '/privacy', '/help', '/cookies', '/terms'],
     },
     { type: 'route-open-new', location: 'header', id: 'faq', label: 'F.A.Q.' },
     { type: 'route-open-new', location: 'header', id: 'discord', label: 'DISCORD' },
