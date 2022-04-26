@@ -8,6 +8,7 @@
     description: string;
   };
   type Phase = {
+    addPrefix?: boolean;
     title: string;
     description?: string;
     steps: Step[];
@@ -81,7 +82,8 @@
       ],
     },
     {
-      title: 'Mclaren Roadmap 2.0',
+      addPrefix: true,
+      title: 'Roadmap 2.0',
       description: 'A fully defined calendar of digital and physical events and experiences.',
       steps: [],
     },
@@ -133,8 +135,11 @@
     <div
       class="flex flex-col items-center md:items-start min-h-[11rem] py-2 space-y-6 sm:space-y-3 mx-8 sm:mx-12 lg:mx-0 mb-20 lg:mb-0 px-8 lg:px-0 w-full"
     >
-      <h4 class="tracking-[0.2em] text-lg uppercase second-font text-center">
-        {selectedStep.title || selectedPhase.title}
+      <h4 class="tracking-[0.2em] text-lg second-font text-center">
+        {#if selectedPhase.addPrefix}
+          <span>McLAREN</span>
+        {/if}
+        <span class="uppercase">{selectedStep.title || selectedPhase.title}</span>
       </h4>
 
       <p class="flex-grow text-gray-800">{selectedStep.description || selectedPhase.description}</p>
@@ -160,7 +165,7 @@
   >
     <div bind:this={navWrapper} class="nav-wrapper overflow-scroll">
       <nav
-        class="second-font tracking-[0.2em] uppercase text-default text-xl overflow-visible ml-6 lg:mx-auto max-w-full lg:max-w-screen-lg"
+        class="second-font tracking-[0.2em] text-default text-xl overflow-visible ml-6 lg:mx-auto max-w-full lg:max-w-screen-lg"
       >
         <ol class="flex flex-row space-x-16 relative left-0" style="width: calc(100vw + 1024px)">
           {#each phases as phase}
@@ -169,7 +174,10 @@
               class:active-phase={selectedPhase.title === phase.title}
               on:click={({ currentTarget }) => onSelectPhase(phase, currentTarget)}
             >
-              {phase.title}
+              {#if phase.addPrefix}
+                <span>McLAREN</span>
+              {/if}
+              <span class="uppercase">{phase.title}</span>
             </li>
           {/each}
         </ol>
