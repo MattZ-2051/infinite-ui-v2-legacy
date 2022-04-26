@@ -32,6 +32,10 @@
   };
 
   const dispatch = createEventDispatcher();
+  const checkCurrentRoute = (route: string) => {
+    const splitRoute = route.split('?');
+    return $page.url.pathname === splitRoute[0];
+  };
 </script>
 
 <!-- Header block -->
@@ -145,7 +149,7 @@
             href={routes[id]}
             target={type === 'route-open-new' ? '_blank' : ''}
             rel={type === 'route-open-new' ? 'noopener noreferrer' : ''}
-            class={$page.url.pathname === routes[id] ? 'hidden' : ''}
+            class={checkCurrentRoute(routes[id]) ? 'route-selected-custom' : ''}
           >
             {#if icon}<Icon path={icon} class="shrink-0 float-left mr-3" />{/if}
             {label}
@@ -154,7 +158,7 @@
           <MenuItem
             sveltekit:prefetch
             href={routes.collection(user.username)}
-            class={$page.url.pathname === routes.collection(user.username) ? 'hidden' : ''}
+            class={checkCurrentRoute(routes.collection(user.username)) ? 'route-selected-custom' : ''}
           >
             {#if icon}<Icon path={icon} class="shrink-0 float-left mr-3" />{/if}
             {label}
@@ -198,5 +202,11 @@
   .active,
   :global(.header-link):hover {
     color: var(--default-color);
+  }
+  :global(.route-selected-custom) {
+    @apply bg-clip-text bg-gradient-to-r;
+    --tw-gradient-from: var(--text-route-selected-gradient-from);
+    --tw-gradient-to: var(--text-route-selected-gradient-to);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
 </style>

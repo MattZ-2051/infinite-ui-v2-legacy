@@ -73,6 +73,8 @@
   --menu-item-color: rgba(0, 0, 0, 0.5);
   --menu-item-color-selected: #000000;
   --menu-list-border-radius: 0px;
+  --text-route-selected-gradient-from: var(--gradient-start-color);
+  --text-route-selected-gradient-to: var(--gradient-end-color);
 
   /* ButtonGroup */
   --button-group-color-hover: #000000;

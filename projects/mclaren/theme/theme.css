@@ -165,8 +165,11 @@
   --menu-item-font-weight: 300;
   --menu-item-letter-spacing: 0.2rem;
   --menu-list-border-radius: 1rem;
+  --menu-item-font-size: 0.75rem;
   --menu-list-background-color: #141414;
   --menu-list-border: 1px solid rgba(255, 255, 255, 0.1);
+  --text-route-selected-gradient-from: #ff8d1c;
+  --text-route-selected-gradient-to: #ff5e17;
 
   /* Fonts */
   --market-no-result-title-font: var(--second-font);
