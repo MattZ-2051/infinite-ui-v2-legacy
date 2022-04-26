@@ -38,7 +38,7 @@
         </p>
         <div class="text-lg text-left md:text-center font-light max-w-8xl leading-9 pb-10">
           <p class="text-base">
-            An exclusive invitation-only Tier One membership mint marking McLaren Automotive's move into the metaverse.
+            An exclusive, invitation-only mint that marks McLaren Automotive’s move into the metaverse.
           </p>
           <p class="pt-10 text-base">
             Unlock membership to MSO LAB through a pioneering collection of NFTs centred around one of the most

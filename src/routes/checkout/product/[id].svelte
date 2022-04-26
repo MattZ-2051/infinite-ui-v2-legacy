@@ -2,8 +2,19 @@
   import type { Load } from '@sveltejs/kit';
   import type { Awaited } from 'ts-essentials';
   import { product, fetchProductFx, setProduct } from '$lib/features/product/product.store';
+  import routes from '$project/routes';
+
+  const CHECKOUT_PHASE_ENABLED = import.meta.env?.VITE_CHECKOUT_ENABLED_PHASE;
 
   export const load: Load = async ({ url, params, fetch }) => {
+    // TODO: Refactor to use phase as an env var and not as query param.
+    if (CHECKOUT_PHASE_ENABLED && CHECKOUT_PHASE_ENABLED !== url.searchParams.get('phase')) {
+      return {
+        status: 302,
+        redirect: routes.index,
+      };
+    }
+
     const { id } = params;
     const page = +url.searchParams.get(`page`) || 1;
     const tab = url.searchParams.get(`tab`) as 'auction' | 'history' | 'owner';

@@ -9,7 +9,7 @@
   export let links: Link[];
 
   $: phase = $page.url.searchParams.get('phase') ?? '1';
-  const isVisiblePathRegExp = /^\/((collections)|(collection))\/.*$/;
+  const isVisiblePathRegExp = /^\/((collections)|(collection)|(marketplace))\/.*$/;
   $: hideUserMenu =
     phase === '1' || phase === '2'
       ? true

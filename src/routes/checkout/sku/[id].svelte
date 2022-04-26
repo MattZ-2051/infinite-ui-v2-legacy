@@ -2,8 +2,19 @@
   import type { Load } from '@sveltejs/kit';
   import type { Awaited } from 'ts-essentials';
   import { loadSkuFx, setSku, sku } from '$lib/features/sku/sku.store';
+  import routes from '$project/routes';
 
-  export const load: Load = async ({ params, fetch }) => {
+  const CHECKOUT_PHASE_ENABLED = import.meta.env?.VITE_CHECKOUT_ENABLED_PHASE;
+
+  export const load: Load = async ({ url, params, fetch }) => {
+    // TODO: Refactor to use phase as an env var and not as query param.
+    if (CHECKOUT_PHASE_ENABLED && CHECKOUT_PHASE_ENABLED !== url.searchParams.get('phase')) {
+      return {
+        status: 302,
+        redirect: routes.index,
+      };
+    }
+
     const { id } = params;
     return {
       props: { data: await loadSkuFx({ id, fetch }) },
