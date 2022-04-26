@@ -95,8 +95,33 @@
 
   let navWrapper: HTMLElement;
   let phaseBlock: HTMLElement;
+  let isAutoScrolling = false;
+
+  function onScrollPhases(target: EventTarget & HTMLElement) {
+    const listElements = target.querySelectorAll('li');
+    const phaseBlockStart = phaseBlock.getBoundingClientRect().left;
+
+    // eslint-disable-next-line unicorn/no-array-for-each
+    listElements.forEach((element, index) => {
+      const { left, width, right } = element.getBoundingClientRect();
+      if (left - phaseBlockStart <= width * 0.5 && right - phaseBlockStart > width * 0.5 && !isAutoScrolling) {
+        selectedPhase = phases[index];
+        selectedStep =
+          selectedPhase.steps?.length > 0
+            ? (selectedStep = selectedPhase.steps[0])
+            : (selectedStep = { title: '', description: '' });
+      }
+    });
+  }
 
   function onSelectPhase(phase: Phase, target: EventTarget & HTMLElement) {
+    const autoScrollHandler = () => {
+      if (Math.round(target.getBoundingClientRect().left) === phaseBlock.getBoundingClientRect().left) {
+        target.removeEventListener('scroll', autoScrollHandler);
+        isAutoScrolling = false;
+      }
+    };
+
     navWrapper.scrollBy({
       left: target.getBoundingClientRect().left - phaseBlock.getBoundingClientRect().left,
       behavior: 'smooth',
@@ -106,6 +131,9 @@
       selectedPhase.steps?.length > 0
         ? (selectedStep = selectedPhase.steps[0])
         : (selectedStep = { title: '', description: '' });
+
+    isAutoScrolling = true;
+    navWrapper.addEventListener('scroll', autoScrollHandler);
   }
 </script>
 
@@ -163,11 +191,15 @@
   <div
     class="nav-overlay relative after:pointer-events-none after:absolute after:h-full after:top-0 after:left-0 after:right-0 after:bottom-0"
   >
-    <div bind:this={navWrapper} class="nav-wrapper overflow-scroll">
+    <div
+      bind:this={navWrapper}
+      on:scroll={({ currentTarget }) => onScrollPhases(currentTarget)}
+      class="nav-wrapper overflow-scroll"
+    >
       <nav
-        class="second-font tracking-[0.2em] text-default text-xl overflow-visible ml-6 lg:mx-auto max-w-full lg:max-w-screen-lg"
+        class="second-font tracking-widest sm:tracking-[0.2em] text-default text-lg sm:text-xl overflow-visible ml-6 lg:mx-auto max-w-full lg:max-w-screen-lg"
       >
-        <ol class="flex flex-row space-x-16 relative left-0" style="width: calc(100vw + 1024px)">
+        <ol class="flex flex-row space-x-8 sm:space-x-16 relative left-0" style="width: calc(100vw + 1024px)">
           {#each phases as phase}
             <li
               class="relative min-w-max cursor-pointer opacity-30 hover:opacity-100 transition-opacity duration-500 before:block before:border-b before:pb-3 before:mb-3 before:w-full"
