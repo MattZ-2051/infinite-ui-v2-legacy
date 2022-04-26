@@ -34,7 +34,7 @@
         <p
           class="tracking-widest sm:text-5xl text-3xl font-light pb-5 sm:pb-3 second-font leading-10 sm:leading-normal"
         >
-          MSO LAB <span class="block sm:inline">GENESIS COLLECTION</span>
+          MSO LAB GENESIS COLLECTION
         </p>
         <div class="text-lg text-left md:text-center font-light max-w-8xl leading-9 pb-10">
           <p class="text-base">
