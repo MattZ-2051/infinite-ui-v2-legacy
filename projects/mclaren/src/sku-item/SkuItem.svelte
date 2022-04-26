@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
   import type { Sku, Product } from '$lib/sku-item/types';
+  import { fade } from 'svelte/transition';
   import arrowRightCircle from '$project/assets/lib/arrow-right-circle';
   import { FilePreview } from '$ui/file';
   import ethereum from '$lib/components/icons/ethereum';
@@ -17,9 +17,10 @@
 
   export { _sku as sku };
   export let product: Product = undefined;
-  export let isPhase3 = false;
+  export let isPhase3 = import.meta.env.VITE_CURRENT_PHASE === '3';
 
   $: sku = product ? product.sku : _sku;
+  $: skuCollection = sku?.skuCollection;
   $: activeListing = product ? product.activeProductListings?.[0] : sku.activeSkuListings?.[0];
   $: href = isPhase3 ? (product ? routes.product(product._id) : routes.sku(sku._id)) : '';
   $: currency = product ? product.sku.currency : sku.currency;
@@ -64,8 +65,8 @@
           <Icon path={ethereum} size="1em" tooltip="ERC721 NFT minted on Ethereum" class="inline align-baseline" />
         {/if}
         <SkuEdition {sku} {product} />
-        {#if sku?.skuCollection}
-          <span class="sku-collection-name pl-2">{sku?.skuCollection?.name}</span>
+        {#if skuCollection}
+          <span class="sku-collection-name pl-2 basis-1/2 text-default">{skuCollection?.name}</span>
         {/if}
       </div>
     </div>
