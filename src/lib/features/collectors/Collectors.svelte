@@ -28,9 +28,9 @@
     <div slot="sticky-content" class="sticky-content">
       <Gallery items={sku.nftPublicAssets} />
     </div>
-    <div slot="onscreen-content">
-      <div class="px-4 md:px-8 md:pl-8 pt-8 md:pt-10">
-        <div class="flex items-center">
+    <div class="flex flex-col md:px-0" slot="onscreen-content" style="min-height: calc(100vh - var(--header-height));">
+      <div class="mx-4 md:pl-4 mt-8 md:mt-10">
+        <div class="flex md:flex-wrap items-center text-xl sm:text-3xl md:text-4xl font-medium gap-6">
           {#if hasCloseButton}
             <button type="button" on:click={onClose} class="close rounded-full text-default">
               <Icon
@@ -64,7 +64,7 @@
   }
   .collectors-title {
     font-family: var(--collectors-title-font);
-    font-size: var(--collector-title-font-size-mobile, 1.875rem);
+    font-size: var(--collector-title-font-size-mobile, 1.5rem);
   }
 
   .collectors-content {
