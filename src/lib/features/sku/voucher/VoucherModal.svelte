@@ -105,7 +105,6 @@
       {#if voucherCodeStatus !== 'success'}
         <p class="text-base text-black-opacity-40 font-normal py-8">
           Enter the voucher code you received on your email to proceed to checkout.
-          {voucherCode}
         </p>
       {/if}
       <Input
