@@ -60,7 +60,7 @@
       on:mousedown|self={() => requestClose('backdrop')}
     >
       <div
-        class="flex flex-col relative rounded-lg bg-white shadow text-black mx-2 {_class}"
+        class="flex flex-col relative rounded-lg bg-white shadow text-black mx-2 overflow-y-auto {_class}"
         style="min-width: 24rem; max-height: 90vh;"
         {...$$restProps}
       >
@@ -84,7 +84,7 @@
             </header>
           </slot>
         {/if}
-        <div class="overflow-y-auto"><slot /></div>
+        <div><slot /></div>
         {#if $$slots.footer || footer}
           <footer class="py-5 px-10">
             <slot name="footer">{footer}</slot>

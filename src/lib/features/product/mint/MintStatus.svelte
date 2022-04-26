@@ -23,7 +23,7 @@
       break;
     }
     case 'confirmed': {
-      title = 'Minting successul!';
+      title = 'Minting successful!';
       buttonText = 'Close';
       icon = successMint;
       break;
@@ -47,7 +47,7 @@
     }
   };
 
-  $: shortEthTx = txHash ? `${txHash.slice(0, 22)}...${txHash.slice(43, 64)}` : '';
+  $: shortEthTx = txHash ? `${txHash.slice(0, 16)}...${txHash.slice(48, 64)}` : '';
 </script>
 
 <div class="grid gap-8">
