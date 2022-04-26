@@ -4,11 +4,11 @@
   import { loadSkuFx, setSku } from '$lib/features/sku/sku.store';
   import routes from '$project/routes';
 
-  const MARKETPLACE_PHASE_ENABLED = import.meta.env?.VITE_CHECKOUT_ENABLED_PHASE;
+  const MARKETPLACE_PHASE_ENABLED = import.meta.env?.VITE_CURRENT_PHASE;
 
-  export const load: Load = async ({ params, fetch, url }) => {
+  export const load: Load = async ({ params, fetch }) => {
     // TODO: Refactor to use phase as an env var and not as query param.
-    if (MARKETPLACE_PHASE_ENABLED && MARKETPLACE_PHASE_ENABLED !== url.searchParams.get('phase')) {
+    if (MARKETPLACE_PHASE_ENABLED && MARKETPLACE_PHASE_ENABLED !== '3') {
       return {
         status: 302,
         redirect: routes.index,

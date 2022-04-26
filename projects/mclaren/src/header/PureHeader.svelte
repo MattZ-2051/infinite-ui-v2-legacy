@@ -8,7 +8,9 @@
   export let user: User;
   export let links: Link[];
 
-  $: phase = $page.url.searchParams.get('phase') ?? '1';
+  const CURRENT_PHASE = import.meta.env.VITE_CURRENT_PHASE;
+
+  $: phase = CURRENT_PHASE ?? '1';
   const isVisiblePathRegExp = /^\/((collections)|(collection)|(marketplace))\/.*$/;
   $: hideUserMenu =
     phase === '1' || phase === '2'

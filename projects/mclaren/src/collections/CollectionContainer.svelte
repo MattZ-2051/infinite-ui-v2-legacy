@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { page } from '$app/stores';
   import { skuCollection } from '$lib/features/collections/collections.store';
   import Community from '../common/Community/Community.svelte';
   import CollectionBanner from './CollectionBanner.svelte';
   import CollectionAbout from './CollectionAbout.svelte';
   import CollectionFeatured from './CollectionFeatured.svelte';
 
-  $: phase = $page.url.searchParams.get('phase') ?? '1';
+  const CURRENT_PHASE = import.meta.env.VITE_CURRENT_PHASE;
+
+  $: phase = CURRENT_PHASE ?? '1';
 </script>
 
 <div class="space-y-40 md:space-y-60 lg:space-y-80 bg-none">

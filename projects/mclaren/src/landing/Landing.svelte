@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { page } from '$app/stores';
   import Community from '../common/Community/Community.svelte';
   // PHASE 1
   import Hero1 from './phase1/Hero.svelte';
@@ -18,7 +17,9 @@
   import McLarenSupercarCompany from './phase3/McLarenSupercarCompany.svelte';
   import UpcomingCollection from './phase3/FeaturedCollection.svelte';
 
-  $: phase = $page.url.searchParams.get('phase') ?? '1';
+  const CURRENT_PHASE = import.meta.env.VITE_CURRENT_PHASE;
+
+  $: phase = CURRENT_PHASE ?? '1';
 </script>
 
 {#if phase === '1'}

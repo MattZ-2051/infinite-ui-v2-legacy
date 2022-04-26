@@ -4,11 +4,11 @@
   import { loadSkuFx, setSku, sku } from '$lib/features/sku/sku.store';
   import routes from '$project/routes';
 
-  const CHECKOUT_PHASE_ENABLED = import.meta.env?.VITE_CHECKOUT_ENABLED_PHASE;
+  const CHECKOUT_PHASE_ENABLED = import.meta.env?.VITE_CURRENT_PHASE;
 
-  export const load: Load = async ({ url, params, fetch }) => {
+  export const load: Load = async ({ params, fetch }) => {
     // TODO: Refactor to use phase as an env var and not as query param.
-    if (CHECKOUT_PHASE_ENABLED && CHECKOUT_PHASE_ENABLED !== url.searchParams.get('phase')) {
+    if (CHECKOUT_PHASE_ENABLED && CHECKOUT_PHASE_ENABLED !== '3') {
       return {
         status: 302,
         redirect: routes.index,

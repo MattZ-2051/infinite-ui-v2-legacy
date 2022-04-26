@@ -2,8 +2,18 @@
   import type { Load } from '@sveltejs/kit';
   import type { Awaited } from 'ts-essentials';
   import { loadSkuCollectionFx, setSkuCollection, skuCollection } from '$lib/features/collections/collections.store';
+  import routes from '$project/routes';
+
+  const COLLECTIONS_PHASE_ENABLED = import.meta.env?.VITE_CURRENT_PHASE;
 
   export const load: Load = async ({ params, fetch }) => {
+    if (COLLECTIONS_PHASE_ENABLED && COLLECTIONS_PHASE_ENABLED === '1') {
+      return {
+        status: 302,
+        redirect: routes.index,
+      };
+    }
+
     const { id } = params;
 
     return {
