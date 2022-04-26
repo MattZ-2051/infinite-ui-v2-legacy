@@ -405,7 +405,7 @@
   --header-height: 4.5rem;
   --header-links-text-transform: uppercase;
   --header-links-text-size: 0.75rem;
-  --header-backdrop-filter: blur(60px);
+  --header-backdrop-filter: blur(100px);
 
   /* Button */
   --button-brand-color: #000000;
