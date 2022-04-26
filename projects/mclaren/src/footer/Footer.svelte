@@ -53,7 +53,7 @@
             </div>
             <div>
               <div class="footer-title pl-2">FOLLOW US</div>
-              <div class="flex relative -top-2"><SocialLinks {links} /></div>
+              <div class="flex relative -top-2 flex-wrap"><SocialLinks {links} /></div>
             </div>
           </div>
         </div>
