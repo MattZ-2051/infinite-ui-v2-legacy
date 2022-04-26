@@ -41,9 +41,9 @@ To run tests in watch mode, run `pnpm tdd`.
 
 ### E2E
 
-We use [Cypress](https://www.cypress.io) to create the e2e tests. You can leverage all available commands through `pnpm cypress`.
+We use [Playwright](https://playwright.dev) to create the e2e tests.
 
-To run E2E tests from the CLI without the GUI, run `pnpm e2e`.
+To run E2E tests from the CLI without the GUI, run `pnpm e2e <project>`.
 
 ### Production build
 

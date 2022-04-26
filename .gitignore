@@ -11,9 +11,6 @@ node_modules
 
 .eslintcache
 
-/cypress/screenshots
-/cypress/videos
-
 .env*.local
 
 # Auto-generated

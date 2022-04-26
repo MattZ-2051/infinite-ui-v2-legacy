@@ -7,7 +7,7 @@ on:
   pull_request: {}
 
 env:
-  node-version: 14.x
+  node-version: 16.x
 
 jobs:
   lint_test_build:
@@ -40,7 +40,7 @@ jobs:
       - name: Test
         run: pnpm test
 
-  cypress_test:
+  e2e:
     runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
@@ -56,24 +56,24 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
 
-      - name: Build
-        run: pnpm build ${{ matrix.run }}
+      - name: Install dependencies
+        run: pnpx playwright install
+
+      - name: Run
+        run: |
+          pnpm build ${{ matrix.run }}
+          pnpm preview &
         env:
           VITE_API_URL: https://api-dev.infiniteworld.com
           SVELTEKIT_MODE: development
 
       - name: E2E
-        uses: cypress-io/github-action@v2
-        with:
-          browser: chrome
-          install: false
-          start: pnpm preview
-          config-file: projects/${{ matrix.run }}/cypress.config.json
+        run: pnpm e2e ${{ matrix.run }}
 
-      - name: E2E Artifacts
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
-          retention-days: 30
+      # - name: E2E Artifacts
+      #   uses: actions/upload-artifact@v2
+      #   if: always()
+      #   with:
+      #     name: cypress-videos
+      #     path: cypress/videos
+      #     retention-days: 30

@@ -16,7 +16,7 @@ runs:
         node-version: ${{ inputs.node-version }}
 
     - name: Install PNPM
-      uses: pnpm/action-setup@v2.0.1
+      uses: pnpm/action-setup@v2.2.1
       with:
         version: 6
         run_install: true

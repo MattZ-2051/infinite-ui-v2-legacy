@@ -1,4 +1,0 @@
-{
-  "extends": "cypress.json",
-  "testFiles": ["mclaren/**/*.spec.ts"]
-}

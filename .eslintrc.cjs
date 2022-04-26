@@ -64,12 +64,8 @@ module.exports = {
       extends: ['plugin:jest/recommended', 'plugin:jest/style', 'plugin:jest-dom/recommended'],
     },
     {
-      files: ['cypress/**/*.ts'],
-      extends: ['plugin:cypress/recommended'],
-      parserOptions: {
-        project: 'cypress/tsconfig.json',
-      },
-      rules: {},
+      files: ['e2e/**/*.spec.ts'],
+      extends: ['plugin:playwright/playwright-test'],
     },
   ],
   settings: {
