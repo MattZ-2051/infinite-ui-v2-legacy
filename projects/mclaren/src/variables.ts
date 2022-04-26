@@ -17,7 +17,7 @@ export const CLIENT_SOCIAL_IMAGE = {
 };
 export const HUBSPOT_FORM_URL = '//js.hsforms.net/forms/v2.js';
 export const CLIENT_SUPPORT_EMAIL = 'support-mclaren@goinfinite.io';
-export const CLIENT_SUPPORT_URL = 'https://support.suku.world/infinite-powered-by-suku';
+export const CLIENT_SUPPORT_URL = 'https://cars.mclaren.com/gb-en/nft-faqs';
 export const CLIENT_BIDDING_URL = 'https://support.suku.world/infinite-powered-by-suku';
 export const CLIENT_HEDERA_URL = 'https://support.suku.world/infinite/hedera-hashgraph-hts';
 export const CLIENT_REDEEM_URL = 'https://support.suku.world/infinite/can-i-redeem-an-item';
