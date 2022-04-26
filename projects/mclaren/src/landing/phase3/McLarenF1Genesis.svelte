@@ -36,7 +36,7 @@
         >
           MSO LAB GENESIS COLLECTION
         </p>
-        <div class="text-lg text-left md:text-center font-light max-w-8xl leading-9 pb-10">
+        <div class="text-lg text-left lg:text-center font-light max-w-8xl leading-9 pb-10">
           <p class="text-base">
             An exclusive, invitation-only mint that marks McLaren Automotive’s move into the metaverse.
           </p>
