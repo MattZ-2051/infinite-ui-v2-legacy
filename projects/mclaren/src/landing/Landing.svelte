@@ -28,6 +28,7 @@
     <McLarenRoadMap />
     <McLarenSupercarCompany1 />
     <FAQ curvedImg={false} />
+    <Community />
   </div>
 {:else if phase === '2' || phase === '3'}
   <div class="z-0">
