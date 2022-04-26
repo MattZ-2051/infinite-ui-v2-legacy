@@ -30,7 +30,7 @@
 </script>
 
 {#if supply}
-  <div class="inline-flex items-center whitespace-nowrap truncate" use:tooltip={createTooltipMessage(supply.type)}>
+  <div class="inline-flex items-center whitespace-nowrap" use:tooltip={createTooltipMessage(supply.type)}>
     {#if product}
       <span>{createProductMessage(supply.type, supply.quantity, product)}</span>
     {:else}

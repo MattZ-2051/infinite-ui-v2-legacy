@@ -96,7 +96,7 @@ export type Sku = {
   activeBuyNowProductListingsCounter?: number;
   activeAuctionSkuListingsCounter?: number;
   activeBuyNowSkuListingsCounter?: number;
-  skuCollection?: SkuCollection[];
+  skuCollection?: SkuCollection;
 };
 
 export type MintPolicy = {
