@@ -20,7 +20,7 @@
         <h3 class="second-font text-base md:text-lg uppercase tracking-widest">
           {collectionName}
           {collectionName.toLowerCase().includes('collection') ? '' : 'collection'}<span
-            class="block text-[32px] text-4xl md:text-5xl uppercase font-light mt-2">The NFT's</span
+            class="block text-[32px] text-4xl md:text-5xl uppercase font-light mt-2">The NFTs</span
           >
         </h3>
         <p class="md:max-w-xl leading-7 text-gray-700 font-light md:text-white">
