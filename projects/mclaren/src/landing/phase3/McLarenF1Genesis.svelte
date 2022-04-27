@@ -26,7 +26,7 @@
   <div class="relative z-0 img-container">
     <div class="flex justify-center items-center h-full">
       <div
-        class="text-white w-full z-10 flex flex-col max-w-6xl items-start sm:items-center justify-center container h-full"
+        class="text-white w-full z-10 flex flex-col max-w-6xl items-start xl:items-center justify-center container h-full"
       >
         <p class="text-base sm:text-lg font-normal pb-2 uppercase second-font" style="letter-spacing:0.2em;">
           featured drop
@@ -36,7 +36,7 @@
         >
           MSO LAB GENESIS COLLECTION
         </p>
-        <div class="text-lg text-left lg:text-center font-light max-w-8xl leading-9 pb-10">
+        <div class="text-lg text-left xl:text-center font-light max-w-8xl leading-9 pb-10">
           <p class="text-base">
             An exclusive, invitation-only mint that marks McLaren Automotive’s move into the metaverse.
           </p>
