@@ -21,7 +21,7 @@
         </p>
         <p class="leading-7 pb-6 text-white opacity-80">
           MSO LAB marks the first chapter in McLaren's ambitious metaverse roadmap. McLaren Special Operations,
-          McLaren’s bespoke division, has always sat at the bleeding-edge, combining performance, innovation and
+          McLaren’s bespoke division, has always sat at the extreme edge; combining performance, innovation and
           craftsmanship to deliver ‘the art of the possible’. MSO LAB will continue this mission, exploring the future
           of performance in a digital realm.
         </p>
