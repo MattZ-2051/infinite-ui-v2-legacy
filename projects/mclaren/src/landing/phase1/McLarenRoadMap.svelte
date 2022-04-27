@@ -25,12 +25,12 @@
         {
           title: 'Launch',
           description:
-            'MSO LAB’s first NFT collection is launched through an invite-only mint on McLaren Automotive marketplace. NFT holders are granted Category One membership to the MSO LAB platform.',
+            'McLaren Automotive’s first NFT collection is launched through an invite-only mint. NFT holders are granted Category One membership to the MSO LAB community.',
         },
         {
           title: 'Members room',
           description:
-            'MSO LAB members-only room launched on the McLaren Automotive discord channel providing access to the MSO LAB design and innovation team.',
+            'MSO LAB members-only room launched on the McLaren Automotive Discord channel, providing unique access to McLaren Automotive teams and discussions.',
         },
       ],
     },
