@@ -23,7 +23,7 @@ const routesWithPhase = () => {
 export default {
   ...routesWithPhase(),
   faq: 'https://cars.mclaren.com/gb-en/nft-faqs',
-  discord: 'https://discord.com/invite/mclarenracingcollective',
+  discord: 'https://discord.com/invite/mclaren',
   opensea: 'https://opensea.io/',
   suku: 'https://www.suku.world',
   careers: 'https://mclarencareers.mclaren.com/?_ga=2.243386309.1509309442.1648474878-868223602.1644268772',
