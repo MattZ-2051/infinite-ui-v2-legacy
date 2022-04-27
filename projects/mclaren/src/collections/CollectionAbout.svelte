@@ -14,7 +14,7 @@
   </div>
   <div class="space-y-3 lg:space-y-10 md:my-auto font-light text-base">
     <h3 class="second-font md:text-lg tracking-widest">
-      MSO LAB
+      GENESIS COLLECTION
       <span class="block text-[32px] text-3xl md:text-5xl font-light mt-2 uppercase">The story of an icon</span>
     </h3>
     {#if typeof description === 'string'}
