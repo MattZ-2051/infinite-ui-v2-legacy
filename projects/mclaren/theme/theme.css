@@ -253,6 +253,7 @@
   --from-collector-bg: rgba(0, 0, 0, 0.1);
   --font-weight-from-collector: 300;
   --font-weight-from-creator: 300;
+  --font-weight-view-collector: 300;
 
   /*Sku info*/
   --sku-info-border-color: rgba(0, 0, 0, 0.1);

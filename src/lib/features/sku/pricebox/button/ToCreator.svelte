@@ -16,23 +16,29 @@
 <div style="border-top:var(--sku-price-box-border-top, 1px solid black);">
   {#if state === 'noSale'}
     <SkuPriceBoxButton action on:click={() => onSell('create-sale')}
-      ><div class="text-2xl">Sell Item</div></SkuPriceBoxButton
+      ><div class="text-2xl from-collector-text-custom">Sell Item</div></SkuPriceBoxButton
     >
     <div class="from-collectors-line z-∞" />
     <div style="border-top:var(--sku-price-box-border-top, 1px solid black);">
       <SkuPriceBoxButton action on:click={() => onSell('auction')}
-        ><div class="text-2xl">Start Auction</div></SkuPriceBoxButton
+        ><div class="text-2xl from-collector-text-custom">Start Auction</div></SkuPriceBoxButton
       >
     </div>
   {:else if state === 'upcoming' || state === 'active'}
     {#if saleType === 'auction'}
       <SkuPriceBoxButton action on:click={() => onCancel('cancel-auction')}>
-        <div class="text-2xl">Cancel Auction</div>
+        <div class="text-2xl from-collector-text-custom">Cancel Auction</div>
       </SkuPriceBoxButton>
     {:else if saleType === 'fixed'}
       <SkuPriceBoxButton action on:click={() => onCancel('cancel-sale')}>
-        <div class="text-2xl">Cancel Sale</div>
+        <div class="text-2xl from-collector-text-custom">Cancel Sale</div>
       </SkuPriceBoxButton>
     {/if}
   {/if}
 </div>
+
+<style lang="postcss">
+  .from-collector-text-custom {
+    font-weight: var(--font-weight-from-collector, 400);
+  }
+</style>
