@@ -4,6 +4,8 @@
 
   export let reverse = false;
   export let fitOnScreenContent = false;
+  let _class = '';
+  export { _class as class };
 
   let ctaHeight: number;
   $: ctaOffset = !$media.md && ctaHeight ? ctaHeight : 0;
@@ -16,7 +18,7 @@
   }
 </script>
 
-<div class="grid" class:reverse>
+<div class="grid {_class}" class:reverse>
   <div class="w-big" style="background: var(--sticky-scroll-bg)">
     <div style={fitOnScreenContent ? `height: calc(100vh - ${ctaOffset}px - var(--header-height))` : ''}>
       <slot name="onscreen-content" />
@@ -116,6 +118,19 @@
     }
     .sticky-content {
       flex: 1;
+    }
+  }
+
+  @screen 2xl {
+    .sku .sticky-content-wrapper {
+      min-height: var(--sku-grid-2xl-sticky-content-wrapper-min-height, calc(100vh - var(--header-height)));
+      top: var(--sku-grid-2xl-sticky-content-wrapper-top, var(--header-height));
+    }
+  }
+
+  @media (min-width: 2000px) {
+    .sku .sticky-content-wrapper {
+      top: var(--sku-grid-2k-sticky-content-wrapper-top, var(--header-height));
     }
   }
 </style>

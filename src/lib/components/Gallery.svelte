@@ -19,7 +19,7 @@
   {...$$restProps}
 >
   <div><!-- empty --></div>
-  <div class="relative flex-1 w-full max-w-2xl">
+  <div class="relative flex-1 w-full max-w-2xl filepreview-container">
     <FilePreview item={activeItem} {fileType} borderRadius="var(--file-preview-border-radius, undefined)" />
   </div>
   <div class="flex flex-wrap w-full justify-left thumnails">
@@ -49,5 +49,25 @@
 <style lang="postcss">
   .thumnails {
     row-gap: var(--gallery-thumnails-gap-y, 0);
+  }
+
+  @media (min-width: 950px) {
+    .sku-gallery .thumnails {
+      padding-left: var(--sku-gallery-thumbnail-desktop-pl, 0);
+    }
+  }
+  @media (min-width: 1450px) {
+    .sku-gallery .thumnails {
+      padding-left: var(--sku-gallery-thumbnail-large-desktop-pl, 0);
+    }
+  }
+  @screen 2xl {
+    .sku-gallery {
+      justify-content: var(--sku-gallery-2xl-justify, space-between);
+    }
+
+    .sku-gallery .filepreview-container {
+      max-height: var(--sku-gallery-2xl-filepreview-container-max-height, none);
+    }
   }
 </style>

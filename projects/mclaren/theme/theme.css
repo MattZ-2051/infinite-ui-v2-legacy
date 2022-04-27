@@ -73,6 +73,14 @@
   --range-slider-thumb-bg-color: #ffffff;
   --range-slider-thumb-active-color: #000000;
 
+  /* Sku */
+  --sku-grid-2xl-sticky-content-wrapper-min-height: calc(81vh - var(--header-height));
+  --sku-grid-2xl-sticky-content-wrapper-top: 5vh;
+  --sku-grid-2k-sticky-content-wrapper-top: 12vh;
+  --sku-name-block-2xl-pt: min(5vh, 4rem);
+  --sku-name-wrapper-lg-gap: theme('gap.1');
+  --sku-collection-name-xl-mb: theme('margin.6');
+
   /* SkuItem */
   --sku-item-color: var(--default-color);
   --sku-item-bg-color: var(--bg-color);
@@ -137,6 +145,10 @@
   /* File Preview - Gallery */
   --gallery-display-file-preview: none;
   --gallery-thumnails-gap-y: 0.5rem;
+  --sku-gallery-thumbnail-desktop-pl: 9vw;
+  --sku-gallery-thumbnail-large-desktop-pl: max(260px, 12vw);
+  --sku-gallery-2xl-justify: center;
+  --sku-gallery-2xl-filepreview-container-max-height: 670px;
 
   /* Edit Profile */
   --edit-picture-button-width: 2rem;

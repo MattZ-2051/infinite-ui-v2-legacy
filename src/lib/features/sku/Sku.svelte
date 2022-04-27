@@ -37,9 +37,9 @@
   $: activeGateKeepSkus = $gateKeepSkus?.length > 0;
 </script>
 
-<StickyColumn fitOnScreenContent --xl-split="0.55" --lg-split="0.51">
+<StickyColumn fitOnScreenContent --xl-split="0.55" --lg-split="0.51" class="sku">
   <div slot="onscreen-content" class="flex flex-col justify-between h-full">
-    <Gallery items={$sku.nftPublicAssets} />
+    <Gallery items={$sku.nftPublicAssets} class="sku-gallery" />
   </div>
   <div slot="sticky-content" class="h-full sku-sticky-content">
     {#if activeGateKeepSkus}
@@ -47,9 +47,16 @@
     {:else}
       <div class="sku-name-block flex flex-col px-4 md:px-10 lg:px-12 gap-4 md:gap-8 pt-8 mb-8 md:mb-0">
         <div class="name-info-wrapper flex flex-col gap-8">
-          <header class="text-gradient-primary text-3xl md:text-4.5xl font-medium section-title">{$sku.name}</header>
+          <header
+            class="text-gradient-primary text-3xl md:text-4.5xl font-medium section-title {!$sku?.skuCollection &&
+              'name-mb'}"
+          >
+            {$sku.name}
+          </header>
           {#if $sku?.skuCollection}
-            <span class="text-gray-500 font-light text-base not-italic inline-block"> {$sku?.skuCollection?.name}</span>
+            <span class="text-gray-500 font-light text-base not-italic inline-block name-mb">
+              {$sku?.skuCollection.name}</span
+            >
           {/if}
           <SkuInfo sku={$sku} />
         </div>
@@ -118,7 +125,23 @@
     }
 
     .name-info-wrapper {
-      gap: min(2.5vh, 2rem);
+      gap: var(--sku-name-wrapper-lg-gap, min(2.5vh, 2rem));
+    }
+  }
+
+  @screen xl {
+    .name-mb {
+      margin-bottom: var(--sku-collection-name-xl-mb, 0);
+    }
+  }
+
+  @screen 2xl {
+    .sku-name-block {
+      padding-top: var(--sku-name-block-2xl-pt, theme('padding.8'));
+    }
+
+    .name-info-wrapper {
+      gap: var(--sku-name-wrapper-lg-gap, theme('gap.8'));
     }
   }
 
