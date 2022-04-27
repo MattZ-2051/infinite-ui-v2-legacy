@@ -14,13 +14,15 @@
   {/if}
   <div class="flex flex-col items-center">
     <div class="max-w-5xl relative z-10 w-full container">
-      <div class="font-light text-3xl mb-20 sm:text-5xl text-center tracking-widest uppercase second-font text-white">
+      <div
+        class="font-light text-[32px] mb-20 sm:text-5xl text-center tracking-widest uppercase second-font text-white"
+      >
         frequently asked questions
       </div>
-      <div class="w-full text-white-opacity-70 ">
+      <div class="w-full text-white-opacity-80">
         {#each FaqInfo as el}
-          <SimpleAccordion title={el.title} textColor="rgba(255,255,255,0.7)" selectedColor="white">
-            <div class="font-light text-sm sm:text-base">
+          <SimpleAccordion title={el.title} textColor="rgba(255,255,255,0.8)" selectedColor="white">
+            <div class="font-light text-sm sm:text-base leading-7">
               {@html el.content}
             </div>
           </SimpleAccordion>

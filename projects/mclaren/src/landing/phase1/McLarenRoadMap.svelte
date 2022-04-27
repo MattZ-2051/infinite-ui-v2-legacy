@@ -139,13 +139,13 @@
 
 <section class="my-72">
   <h2
-    class="uppercase text-center text-3xl md:text-5xl font-light second-font flex flex-col justify-center tracking-widest mb-8 relative"
+    class="uppercase text-center text-[32px] md:text-5xl font-light second-font flex flex-col justify-center tracking-widest mb-8 relative"
   >
-    <span class="text-base md:text-lg tracking-[0.2em] mb-2 md:mb-1">The Mso Lab </span>
+    <span class="text-base md:text-lg tracking-[0.2em] mb-2 md:mb-1 font-normal">The Mso Lab </span>
     <span class="px-6">Community Roadmap 1.0 </span>
     <Divider class="max-w-full absolute bottom-0" />
   </h2>
-  <p class="text-left sm:text-center font-light text-gray-800 container mx-auto max-w-5xl">
+  <p class="text-left sm:text-center font-light text-gray-800 container mx-auto max-w-5xl leading-7">
     McLaren Automotive has always been a family, providing unparalleled access to the pinnacle of independent British
     design, engineering and experience. Our community will build on these foundations, beginning with MSO LAB. The
     utility we create will evolve and grow as we explore the possibilities of the Web3 era, harnessing new and
@@ -170,11 +170,11 @@
         <span class="uppercase">{selectedStep.title || selectedPhase.title}</span>
       </h4>
 
-      <p class="flex-grow text-gray-800">{selectedStep.description || selectedPhase.description}</p>
+      <p class="flex-grow text-gray-800 leading-7">{selectedStep.description || selectedPhase.description}</p>
       <ol class="steps-list list-inside flex space-x-6 lg:space-x-3">
         {#each selectedPhase.steps as step}
           <li
-            class="second-font text-xl md:text-[0.8125rem] uppercase tracking-widest opacity-30 hover:opacity-100 min-w-max block cursor-pointer leading-none"
+            class="second-font text-xl md:text-[0.8125rem] uppercase tracking-[.2em] opacity-30 hover:opacity-100 min-w-max block cursor-pointer leading-none"
             class:highlighted={selectedStep.title === step.title}
             on:click={() => (selectedStep = step)}
           >
@@ -209,7 +209,7 @@
               {#if phase.addPrefix}
                 <span>McLAREN</span>
               {/if}
-              <span class="uppercase">{phase.title}</span>
+              <span class="uppercase text-base">{phase.title}</span>
             </li>
           {/each}
         </ol>

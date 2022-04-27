@@ -7,13 +7,13 @@
 <div class="relative bg-black z-0">
   <div class="flex justify-center items-center h-screen">
     <div class="text-white w-full z-10 px-6 md:px-16 xl:px-44 flex-col items-center justify-center container">
-      <p class="text-base sm:text-xl font-normal pb-2 second-font" style="letter-spacing:0.2em;">McLAREN</p>
+      <p class="text-base sm:text-[19px] font-normal pb-2 second-font" style="letter-spacing:0.2em;">McLAREN</p>
       <p
         class="tracking-widest sm:text-5xl text-3xl font-light pb-8 second-font w-full md:w-2/3 xl:w-1/2 leading-10 sm:leading-normal"
       >
         THE PIONEERING SUPERCAR COMPANY
       </p>
-      <div class="text-base sm:text-lg font-light max-w-lg leading-9">
+      <div class="text-base sm:text-lg font-light max-w-lg leading-8">
         <p class="pb-6">
           Our cars continually define and redefine the benchmarks against which all others are measured.
         </p>

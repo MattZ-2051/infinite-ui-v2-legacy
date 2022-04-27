@@ -7,13 +7,11 @@
     class="flex flex-col lg:grid grid-cols-[1fr_auto] gap-x-2 h-full text-black items-center container px-6 md:px-16 xl:px-44"
   >
     <div class="text-left lg:text-left sm:text-left md:text-center">
-      <p class="text-base sm:text-lg font-normal pb-2 second-font text-white opacity-80 tracking-[.2em]">
-        McLAREN AUTOMOTIVE
-      </p>
-      <p class="text-3xl sm:text-5xl font-light tracking-widest pb-10 second-font text-white opacity-80">
+      <p class="text-base sm:text-lg font-normal pb-2 second-font text-white tracking-[.2em]">McLAREN AUTOMOTIVE</p>
+      <p class="text-[32px] sm:text-5xl font-light tracking-widest pb-10 second-font text-white">
         ENTERS THE METAVERSE
       </p>
-      <div class="w-full lg:w-5/6 lg:max-w-[580px] font-light text-sm sm:text-base leading-7">
+      <div class="w-full lg:w-5/6 lg:max-w-[580px] font-light text-base sm:text-base leading-7">
         <p class="leading-7 pb-6 text-white opacity-80">
           From its inception, McLaren has existed to push boundaries, bringing together the pinnacle of engineering and
           design to drive progress through performance. It is this pioneering spirit that propels McLaren forward into
