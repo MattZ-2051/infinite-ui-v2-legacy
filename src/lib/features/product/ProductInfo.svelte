@@ -171,7 +171,7 @@
     <div class={tokenCellClass}>
       {#if sku.currency === 'ETH'}
         <div class={`${headerClass} ${headerTokenClass}`}>ERC721 Transaction</div>
-        {#if mintStatus !== 'processed' && sku?.mintPolicy?.transaction === 'later'}
+        {#if mintStatus !== 'processed' && (sku?.mintPolicy?.transaction === 'later' || sku?.mintPolicy?.transaction === 'user-selected')}
           <span>Not Minted</span>
         {:else}
           <div class="flex flex-row items-center max-w-xs">
