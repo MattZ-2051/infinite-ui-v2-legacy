@@ -11,7 +11,7 @@
   const CURRENT_PHASE = import.meta.env.VITE_CURRENT_PHASE;
 
   $: phase = CURRENT_PHASE ?? '1';
-  const isVisiblePathRegExp = /^\/((collections)|(collection)|(marketplace))\/.*$/;
+  const isVisiblePathRegExp = /^\/((collections)|(collection)|(marketplace)|(checkout)|(collectors)|(product))\/.*$/;
   $: hideUserMenu =
     phase === '1' || phase === '2'
       ? true
