@@ -145,7 +145,7 @@
   />
 </div>
 
-<div class="grid grid-cols-2 gap-6 mt-10">
+<div class="grid grid-cols-2 gap-4 mt-10">
   <div class="flex flex-col">
     <Input
       type="number"

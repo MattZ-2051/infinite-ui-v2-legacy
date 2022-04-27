@@ -34,7 +34,7 @@
   </div>
   {#each options as option}
     <Checkbox
-      class="mb-2"
+      class="mb-2 px-6"
       value={option[valueAtrName]}
       group={selectedGroup}
       on:change={(event) => toggle(toggleId, option[valueAtrName], event)}

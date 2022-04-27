@@ -240,8 +240,8 @@
     {#if maxPrice > 0}
       <Accordion
         id="price"
-        titleClass="py-4 px-6"
-        class="c-filter-accordion accordion-option border border-gray-200 -mb-px {active.includes('price')
+        titleClass="py-4"
+        class="c-filter-accordion accordion-option border border-gray-200 px-6 -mb-px {active.includes('price')
           ? 'expanded'
           : ''}"
       >
