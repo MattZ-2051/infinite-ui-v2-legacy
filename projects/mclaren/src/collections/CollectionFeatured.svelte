@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { SkuCollection } from '$lib/features/collections/types';
   import SkuItem from '$project/sku-item/SkuItem.svelte';
+  import routes from '$project/routes';
+  import { goto } from '$app/navigation';
   import { loadSkuCollectionFeaturedFx, skuCollectionFeatured } from '$lib/features/collections/collections.store';
   import Button from '$lib/components/Button.svelte';
 
@@ -26,7 +28,11 @@
         <p class="md:max-w-xl leading-7 text-gray-700 font-light md:text-white">
           {@html $skuCollectionFeatured.description}
         </p>
-        <Button variant="outline-brand" class={isPhase3 ? 'h-14 w-64 hidden md:block' : 'hidden'}>Explore</Button>
+        <Button
+          variant="outline-brand"
+          class={isPhase3 ? 'h-16 w-64 hidden md:block' : 'hidden'}
+          on:click={() => goto(routes.sku($skuCollectionFeatured._id))}>Buy Now</Button
+        >
       </div>
       <div
         class="wrapper shadow-[0_4px_30px_rgba(0, 0, 0, 0.1)] relative max-w-md px-6 md:px-0 mx-auto md:max-w-sm md:mr-8 lg:mr-12 xl:mr-24 mt-10 md:-mt-24 mb-24 rounded-2xl"
