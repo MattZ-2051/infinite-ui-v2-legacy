@@ -239,7 +239,7 @@ pollTransactionFx.doneData.watch(async (response) => {
           $polls[$product._id].stop();
           productBoughtCheckout({ id: pendingTx.transactionData.product._id });
           updateCheckoutState('success');
-          transactionSuccessMessage();
+          transactionSuccessMessage(pendingTx.transactionData);
           await productBoughtFx();
           await refetchProductFx();
         }
