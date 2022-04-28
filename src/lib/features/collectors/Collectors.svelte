@@ -28,7 +28,7 @@
   <StickyColumn reverse>
     <div slot="sticky-content" class="sticky-content">
       <Gallery
-        items={PRODUCT_GALLERY_LIMIT ? sku.nftPublicAssets.slice(0, PRODUCT_GALLERY_LIMIT) : sku.nftPublicAssets}
+        items={PRODUCT_GALLERY_LIMIT ? sku.nftPublicAssets?.slice(0, PRODUCT_GALLERY_LIMIT) : sku.nftPublicAssets}
       />
     </div>
     <div class="flex flex-col md:px-0" slot="onscreen-content" style="min-height: calc(100vh - var(--header-height));">
