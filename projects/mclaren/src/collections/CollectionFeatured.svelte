@@ -19,10 +19,10 @@
       class="featured-block md:shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] rounded-2xl relative flex flex-col md:flex-row backdrop-opacity-100"
     >
       <div class="my-auto mt-20 mx-6 md:mx-12 xl:mx-24 relative space-y-10 md:text-white basis-3/4">
-        <h3 class="second-font text-base md:text-lg uppercase tracking-widest">
-          {collectionName}
+        <h3 class="second-font text-base md:text-lg tracking-widest">
+          <span class="uppercase">{collectionName}</span>
           {collectionName.toLowerCase().includes('collection') ? '' : 'collection'}<span
-            class="block text-[32px] text-4xl md:text-5xl uppercase font-light mt-2">The NFTs</span
+            class="block text-[32px] text-4xl md:text-5xl font-light mt-2">The NFTs</span
           >
         </h3>
         <p class="md:max-w-xl leading-7 text-gray-700 font-light md:text-white">
