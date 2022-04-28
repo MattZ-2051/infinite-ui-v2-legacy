@@ -6,7 +6,7 @@ export * from './variablesUI';
 export * from './variablesText';
 
 export const CLIENT_DOC_TITLE = 'McLaren';
-export const CLIENT_DOC_DESCRIPTION = 'Start your McLaren NFT collection today!';
+export const CLIENT_DOC_DESCRIPTION = 'Discover McLaren Automotive NFTs';
 export const CLIENT_COMPANY_NAME = 'McLaren';
 export const CLIENT_COMPANY_NAME_LEGAL = 'McLaren Assets, Inc.';
 export const CLIENT_SOCIAL_IMAGE = {
