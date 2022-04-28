@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import routes from '$project/routes';
+  import { PRODUCT_GALLERY_LIMIT } from '$project/variables';
   import arrowLeft from '$lib/features/product/assets/arrow-left';
   import { goto } from '$app/navigation';
   import { browser } from '$app/env';
@@ -26,7 +27,9 @@
 <div class="collectors-content">
   <StickyColumn reverse>
     <div slot="sticky-content" class="sticky-content">
-      <Gallery items={sku.nftPublicAssets} />
+      <Gallery
+        items={PRODUCT_GALLERY_LIMIT ? sku.nftPublicAssets.slice(0, PRODUCT_GALLERY_LIMIT) : sku.nftPublicAssets}
+      />
     </div>
     <div class="flex flex-col md:px-0" slot="onscreen-content" style="min-height: calc(100vh - var(--header-height));">
       <div class="mx-4 md:pl-4 mt-8 md:mt-10">
