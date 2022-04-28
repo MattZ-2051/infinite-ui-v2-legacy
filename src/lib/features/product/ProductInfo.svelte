@@ -9,6 +9,7 @@
   import { variables } from '$lib/variables';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
+  import notRedeemable from '$lib/components/icons/not-redeemable';
   import imageError from '$util/imageError';
   import { onSignIn, user, userId } from '$lib/user';
   import UserLink from '$lib/components/UserLink.svelte';
@@ -111,14 +112,18 @@
       </div>
     {/if}
   {/if}
-  {#if sku.redeemable}
-    <div class={cellClass}>
-      <div class={headerClass}>Redemption Status</div>
+  <div class={cellClass}>
+    <div class={headerClass}>Redemption Status</div>
+    {#if sku.redeemable}
       <IconRedeem>
         <span class="pl-2">{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span>
       </IconRedeem>
-    </div>
-  {/if}
+    {:else}
+      <div class="flex">
+        <Icon path={notRedeemable} /><span>Not Redeemable</span>
+      </div>
+    {/if}
+  </div>
   <div class={cellClass}>
     {#if sku.currency === 'USD'}
       <div class={headerClass}>{MINT_OWNER_LABEL}</div>
