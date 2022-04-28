@@ -2,7 +2,9 @@
   import { createEventDispatcher } from 'svelte';
   import Button from '$lib/components/Button.svelte';
   import { openModal } from '$ui/modals';
+  import tooltip from '$ui/tooltip';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
+  import { MY_WALLET_BUTTONS_DISABLED_MESSAGE } from '$project/variables';
   import WithdrawNoticeModalBody from './WithdrawNoticeModalBody.svelte';
   import DepositNoticeModalBody from './DepositNoticeModalBody.svelte';
 
@@ -18,14 +20,17 @@
       },
     });
   }
-  const MY_WALLET_SECTION_DISABLED = import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED;
+  const MY_WALLET_SECTION_DISABLED = import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED === 'true';
 </script>
 
-<div class="flex flex-col custom-wallet-button">
+<div
+  class="flex flex-col custom-wallet-button"
+  use:tooltip={MY_WALLET_SECTION_DISABLED ? MY_WALLET_BUTTONS_DISABLED_MESSAGE : ''}
+>
   <div class="flex justify-center w-full mb-4">
     <Button
       variant="brand"
-      disabled={MY_WALLET_SECTION_DISABLED === 'true'}
+      disabled={MY_WALLET_SECTION_DISABLED}
       class="text-xl font-medium w-full"
       on:click={() => showInfoModal('deposit')}
       --button-padding="22px 40px"
@@ -35,7 +40,7 @@
   <div class="flex justify-center">
     <Button
       variant="brand"
-      disabled={MY_WALLET_SECTION_DISABLED === 'true'}
+      disabled={MY_WALLET_SECTION_DISABLED}
       class="text-xl font-medium w-full"
       on:click={() => showInfoModal('withdraw')}
       --button-padding="22px 40px"
