@@ -36,9 +36,7 @@
       transition:fly={{ x: 200, duration: 700 }}
       style="background-color:var(--mobile-menu-background-color, black)"
     >
-      <div
-        class="sidebar-content mt-[var(--header-height)] pt-20 px-6 h-full text-xl flex flex-col items-center gap-10"
-      >
+      <div class="sidebar-content mt-[var(--header-height)] pt-20 px-6 text-xl flex flex-col items-center gap-10">
         <Links flatten {user} {links} on:select={onClose} />
       </div>
     </div>
@@ -55,5 +53,6 @@
   .sidebar-content {
     background: var(--mobile-menu-content-background-color, none);
     padding-top: var(--mobile-menu-padding-top, theme('padding.20'));
+    height: calc(100vh - var(--header-height));
   }
 </style>
