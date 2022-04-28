@@ -5,7 +5,7 @@
   import { init } from '$lib/gtag';
   import injectScript from '$util/injectScript';
   import bucketAssets from '$project/assets/aws-bucket-assets';
-  import { CLIENT_DOC_DESCRIPTION } from './variables';
+  import { CLIENT_DOC_DESCRIPTION, G_SITE_VERIFICATION } from './variables';
 
   const adobeAnalyticsUrl = import.meta.env?.VITE_ADOBE_ANALYTICS_URL as string;
 
@@ -23,6 +23,7 @@
   <link rel="preconnect" href={bucketAssets.baseBucketUrl} />
   <link rel="icon" href="/favicon.ico" />
   <meta name="description" content={CLIENT_DOC_DESCRIPTION} />
+  <meta name="google-site-verification" content={G_SITE_VERIFICATION} />
   <link
     rel="preload"
     as="font"
