@@ -1006,8 +1006,9 @@
     </li>
     <li class="mb-3 text-md">
       You represent, covenant, and warrant that the offer or sale or use of your NFT and related Content does not
-      constitute a violation of applicable law such as a security or an illegal lottery or a deceptive, unfair, or
-      illegal business practice.
+      constitute a violation of applicable law such as security laws, and that such offer, sale, or use does not
+      constitute an offer, sale or use of securities, a lottery, gambling enterprise, or a deceptive, unfair, or illegal
+      business practice.
     </li>
     <li class="mb-3 text-md">
       Your listing may not be immediately searchable by keyword or category for several hours (or days in some
