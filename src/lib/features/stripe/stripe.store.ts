@@ -9,6 +9,7 @@ const stripePromise = loadStripe(variables.stripe.pubKey as string);
 
 interface VerifyStripeStatusFxProperties {
   clientSecret: string;
+  oldCheckout?: boolean;
 }
 
 export const connectStripeAccountFx = createEffect(
@@ -36,29 +37,34 @@ export const stripeCreatePaymentIntentFx = createEffect(
 );
 
 // Fetches the payment intent status after payment submission
-export const verifyStripeStatusFx = createEffect(async ({ clientSecret }: VerifyStripeStatusFxProperties) => {
-  const stripe = await stripePromise;
+export const verifyStripeStatusFx = createEffect(
+  async ({ clientSecret, oldCheckout }: VerifyStripeStatusFxProperties) => {
+    const stripe = await stripePromise;
 
-  if (!clientSecret) {
-    return;
-  }
-
-  const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
-
-  switch (paymentIntent.status) {
-    case 'succeeded': {
-      updateCheckoutState('processing');
-      pendingProductCreated({ paymentIntent: paymentIntent.id });
-      break;
+    if (!clientSecret) {
+      return;
     }
-    case 'processing':
-      toast.info('Your payment is processing.');
-      break;
-    case 'requires_payment_method':
-      toast.danger('Your payment was not successful, please try again.');
-      break;
-    default:
-      toast.danger('Something went wrong.');
-      break;
+
+    const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
+
+    switch (paymentIntent.status) {
+      case 'succeeded': {
+        updateCheckoutState('processing');
+        pendingProductCreated({ paymentIntent: paymentIntent.id });
+        if (oldCheckout) {
+          toast.success('Yeah! Payment successful.');
+        }
+        break;
+      }
+      case 'processing':
+        toast.info('Your payment is processing.');
+        break;
+      case 'requires_payment_method':
+        toast.danger('Your payment was not successful, please try again.');
+        break;
+      default:
+        toast.danger('Something went wrong.');
+        break;
+    }
   }
-});
+);
