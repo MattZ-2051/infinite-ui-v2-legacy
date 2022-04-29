@@ -23,7 +23,7 @@
   <Modal title="Select a deposit method">
     <div class="flex flex-col gap-2 mt-4 mb-8 text-base px-10">
       <h3 class="text-gray-500">
-        Choose to deposit from credit card, BTC, ETH, USDC, or HBAR. Note,
+        Choose to deposit from credit card, BTC, ETH, or USDC. Note,
         <br />
         ALL deposits will get converted into USD Coin (USDC).
       </h3>
