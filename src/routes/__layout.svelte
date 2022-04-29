@@ -1,7 +1,6 @@
 <script context="module" lang="ts">
   import type { LoadInput, LoadOutput } from '@sveltejs/kit/types/internal';
   import { derived } from 'svelte/store';
-  import { onMount } from 'svelte';
   import { browser, mode } from '$app/env';
   import { loadTenantSettings } from '$lib/tenant/settings.service';
   import { isLoading, initUserAuth, mustSetupAccount, user, isBanned, onSignOut } from '$lib/user';
@@ -73,11 +72,9 @@
     bannedToastShown = bannedToastOpen;
   }
 
-  onMount(() => {
-    if ($isBanned) {
-      toast.danger('Your account has been disabled by the administrator.', { toastId: 'BANNED_USER' });
-    }
-  });
+  $: if ($isBanned && !bannedToastShown) {
+    toast.danger('Your account has been disabled by the administrator.', { toastId: 'BANNED_USER' });
+  }
 
   $: if (browser && INFINITE_EXTENSION_ENABLED && $user) {
     InfiniteExtensionLoadFx();
