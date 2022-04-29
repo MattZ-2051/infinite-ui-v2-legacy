@@ -5,15 +5,16 @@ import routes from '$project/routes';
 export * from './variablesUI';
 export * from './variablesText';
 
-export const CLIENT_DOC_TITLE = 'McLaren';
-export const CLIENT_DOC_DESCRIPTION = 'Discover McLaren Automotive NFTs';
+export const CLIENT_DOC_TITLE = 'McLaren MSO LAB - Exclusive NFT Drops & Metaverse Roadmap';
+export const CLIENT_DOC_DESCRIPTION =
+  'McLaren Automotive enters the metaverse with the first in a series of exclusive NFT drops on 11/05/22. Owners will get access to the MSO LAB community.';
 export const CLIENT_COMPANY_NAME = 'McLaren';
 export const CLIENT_COMPANY_NAME_LEGAL = 'McLaren Assets, Inc.';
 export const CLIENT_SOCIAL_IMAGE = {
-  url: 'https://infinite-digital-dev.s3.amazonaws.com/infinite-meta-social.png',
-  width: 1200,
-  height: 630,
-  alt: 'McLaren by INFINTEWORLD | NFT Marketplace',
+  url: 'https://mclaren-assets.s3.amazonaws.com/assets-web/MCL014_MSO_header_1400x400.png',
+  width: 1400,
+  height: 400,
+  alt: 'McLaren MSO LAB - Exclusive NFT Drops & Metaverse Roadmap',
 };
 export const HUBSPOT_FORM_URL = '//js.hsforms.net/forms/v2.js';
 export const CLIENT_SUPPORT_EMAIL = 'support-mclaren@goinfinite.io';

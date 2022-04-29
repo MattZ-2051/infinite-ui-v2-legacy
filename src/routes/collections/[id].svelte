@@ -31,6 +31,6 @@
   $: setSkuCollection(data);
 </script>
 
-<Seo title={$skuCollection.name} />
+<Seo title={$skuCollection.name} ogDescription={$skuCollection.descriptionShort} />
 
 <CollectionContainer />
