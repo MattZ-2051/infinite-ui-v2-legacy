@@ -41,7 +41,7 @@
     </div>
   </div>
   {#if gasFee}
-    <div class="mb-2">NFT minting fee:</div>
+    <div class="mb-2">Prepaid NFT gas fee:</div>
     <div class="flex justify-end items-center">
       {#if rate}
         <div class="text-right">

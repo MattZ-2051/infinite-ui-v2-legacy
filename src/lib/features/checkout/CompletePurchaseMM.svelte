@@ -95,7 +95,7 @@
       if (network.name === 'homestead' || MM_TEST_NETWORK_ENABLED) {
         await (lazyMinting ? sendEthPurchasePaymentForLazyMinting : sendEthPurchasePaymentForImmediateMinting)(
           purchaseInfo.externalPurchaseAddressEth,
-          purchaseInfo.cost.totalCost,
+          priceWFee,
           $userId,
           voucherCode
         )
