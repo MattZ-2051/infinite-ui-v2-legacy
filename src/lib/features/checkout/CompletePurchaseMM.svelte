@@ -112,7 +112,10 @@
             return;
           })
           .catch((error) => {
-            toast.danger(error?.message, { toastId: 'TRX_ERROR' });
+            const errorMessage = error?.message?.includes('code=INSUFFICIENT_FUNDS')
+              ? 'Metamask insufficient funds'
+              : error?.message;
+            toast.danger(errorMessage, { toastId: 'TRX_ERROR' });
           })
           .finally(() => {
             purchasing = false;
