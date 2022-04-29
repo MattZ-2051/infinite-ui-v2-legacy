@@ -2,6 +2,8 @@ import type { Product } from '$lib/sku-item/types';
 import { createStore, createEvent, createEffect, Event, Store } from 'effector';
 import type { CheckoutState } from './types';
 import { createPolling } from '$util/effector';
+import { toast } from '$ui/toast';
+import routes from '$project/routes';
 import { getProductPaymentIntent, getProductTxHash } from '../product/product.api';
 
 export const updateCheckoutState = createEvent<CheckoutState>();
@@ -25,6 +27,7 @@ interface Poll {
 interface Data {
   txHash?: string;
   paymentIntent?: string;
+  oldCheckout?: boolean;
 }
 interface ProductState {
   product: Product;
@@ -55,7 +58,7 @@ export const updateProductState = createEvent<ProductState>();
 const updateData = createEvent<Data>();
 
 export const productState = createStore<ProductState>(
-  { product: undefined, data: { txHash: '', paymentIntent: '' } },
+  { product: undefined, data: { txHash: '', paymentIntent: '', oldCheckout: false } },
   { name: 'product-state' }
 ).on(updateProductState, (state, newStatus) => ({ ...state, status: newStatus }));
 
@@ -69,11 +72,33 @@ productState.on(pendingProductCreated, (_, payload) => {
 });
 
 pollProductStateFx.doneData.watch(async (response) => {
+  const oldCheckout = productState.getState().data?.oldCheckout;
   if (response) {
-    updateProductState({ product: response, data: { txHash: '', paymentIntent: '' } });
+    updateProductState({ product: response, data: { txHash: '', paymentIntent: '', oldCheckout: false } });
     productBoughtCheckout({ id: response._id });
     updateCheckoutState('success');
+
+    if (oldCheckout) {
+      transactionSuccessMessage(response);
+    }
     const poll = productState.getState().poll;
     poll.stop();
   }
 });
+
+const transactionSuccessMessage = (transactionData?: any) => {
+  const serialNumber = transactionData?.serialNumber;
+  const skuName = transactionData?.name;
+  const product = transactionData._id;
+  toast.success(
+    `Congrats! Your NFT purchase was processed successfully!` +
+      (!serialNumber
+        ? ` Click <a href=${routes.product(
+            product
+          )} class="font-bold">here</a> to view your new collectible: ${skuName}`
+        : ` Click <a href=${routes.product(
+            product
+          )} class="font-bold">here</a> to view your new collectible: ${skuName} #${serialNumber}.`),
+    { toastId: 'sku-purchase-success' }
+  );
+};

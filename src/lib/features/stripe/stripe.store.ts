@@ -50,10 +50,7 @@ export const verifyStripeStatusFx = createEffect(
     switch (paymentIntent.status) {
       case 'succeeded': {
         updateCheckoutState('processing');
-        pendingProductCreated({ paymentIntent: paymentIntent.id });
-        if (oldCheckout) {
-          toast.success('Yeah! Payment successful.');
-        }
+        pendingProductCreated({ paymentIntent: paymentIntent.id, oldCheckout });
         break;
       }
       case 'processing':
