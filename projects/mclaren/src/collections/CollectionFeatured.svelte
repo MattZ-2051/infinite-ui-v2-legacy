@@ -1,7 +1,9 @@
 <script lang="ts">
   import type { SkuCollection } from '$lib/features/collections/types';
+  import type { FileAsset } from '$ui/file/types';
   import SkuItem from '$project/sku-item/SkuItem.svelte';
   import routes from '$project/routes';
+  import bucketAssets from '$project/assets/aws-bucket-assets';
   import { goto } from '$app/navigation';
   import { loadSkuCollectionFeaturedFx, skuCollectionFeatured } from '$lib/features/collections/collections.store';
   import Button from '$lib/components/Button.svelte';
@@ -11,6 +13,8 @@
   export let isPhase3 = false;
 
   loadSkuCollectionFeaturedFx({ id: featuredSkuId });
+
+  const skuItemFilePreview = { url: bucketAssets.collection.featured } as FileAsset;
 </script>
 
 <section class="mx-auto md:px-6 max-w-7xl">
@@ -37,7 +41,7 @@
       <div
         class="wrapper shadow-[0_4px_30px_rgba(0, 0, 0, 0.1)] relative max-w-md px-6 md:px-0 mx-auto md:max-w-sm md:mr-8 lg:mr-12 xl:mr-24 mt-10 md:-mt-24 mb-24 rounded-2xl"
       >
-        <SkuItem sku={$skuCollectionFeatured} {isPhase3} />
+        <SkuItem sku={{ ...$skuCollectionFeatured, nftPublicAssets: [skuItemFilePreview] }} {isPhase3} />
       </div>
     </article>
   {/if}

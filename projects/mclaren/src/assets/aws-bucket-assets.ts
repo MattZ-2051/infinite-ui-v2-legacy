@@ -8,6 +8,9 @@ const bucketAssets = {
     community: baseBucketUrl + '/assets-web/MCL014_McLaren%20Family_Static_no%20text_1800x3360.jpg',
     comingSoon: baseBucketUrl + '/assets-web/FINAL_001-Coming-Soon.mp4',
   },
+  collection: {
+    featured: 'https://mclaren-assets.s3.amazonaws.com/assets-web/MCL_GTR_ICON_PaypayaLegend_3Q_v001_comp_v03+(1).png',
+  },
 };
 
 export default { baseBucketUrl, ...bucketAssets };
