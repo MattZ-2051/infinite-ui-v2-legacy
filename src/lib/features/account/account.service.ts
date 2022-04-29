@@ -49,6 +49,7 @@ export const accountDetailsValidation = {
     }),
   phoneNumber: yup
     .string()
+    .nullable()
     .matches(/^\+?[1-9]\d{1,14}$/, { message: 'Please enter a valid phone number.', excludeEmptyString: true })
     .optional(),
 };

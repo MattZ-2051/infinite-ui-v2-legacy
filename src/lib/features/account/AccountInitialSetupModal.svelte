@@ -31,7 +31,7 @@
     lastName: string;
     tagline: string;
     username?: string;
-    phoneNumber: string;
+    phoneNumber?: string;
     phoneNumberConsentGiven: boolean;
     termsAndConditionsConsentGiven: boolean;
     privacyPolicyConsentGiven: boolean;
@@ -52,6 +52,7 @@
         let { username, ...rest } = values;
         values = rest;
       }
+      if (!values.phoneNumber) delete values.phoneNumber;
       try {
         await patchUser(values);
         closeModal();
@@ -65,7 +66,7 @@
   $: canSave =
     $data.termsAndConditionsConsentGiven &&
     $data.privacyPolicyConsentGiven &&
-    ($data.phoneNumber === '' || hidePhoneConsent ? true : $data.phoneNumberConsentGiven);
+    (!$data.phoneNumber || hidePhoneConsent ? true : $data.phoneNumberConsentGiven);
 
   const hidePhoneConsent = variables.hidePhoneConsent || false;
 

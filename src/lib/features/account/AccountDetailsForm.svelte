@@ -19,13 +19,14 @@
   const initialValues = {
     firstName: user.firstName || '',
     lastName: user.lastName || '',
-    phoneNumber: user.phoneNumber || '',
+    phoneNumber: user.phoneNumber,
     phoneNumberConsentGiven: user.phoneNumberConsentGiven || false,
   };
 
   const { form, errors, setFields, data, isSubmitting } = createForm({
     initialValues,
     onSubmit: async (values) => {
+      if (!values.phoneNumber) delete values.phoneNumber;
       try {
         await patchUser(values);
         dispatch('closeForm');
@@ -36,7 +37,7 @@
     validate: validateSchema(schema),
   });
 
-  $: if ($data.phoneNumber === '') setFields('phoneNumberConsentGiven', false);
+  $: if (!$data.phoneNumber) setFields('phoneNumberConsentGiven', false);
 
   setContext('errors', errors);
 
