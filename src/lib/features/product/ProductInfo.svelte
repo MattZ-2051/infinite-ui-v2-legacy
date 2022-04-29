@@ -35,6 +35,7 @@
   $: isTransferInUnresolved = transactions.length > 0 ? transferInUnresolved(product, transactions) : false;
   $: isProductOwner = isOwner(product, $userId);
   $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
+  $: isTransactionUserSelect = product.sku?.mintPolicy?.transaction === 'user-selected';
   $: mintStatus = getMintStatus(product.status);
   $: mintLaterLabel = product.status === 'purchased' ? 'Owner' : 'Minted by';
   $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
@@ -197,7 +198,7 @@
   {#if product.sku.currency !== 'ETH' && !isTransactionLater}
     <ProductActions {product} userId={$userId} />
   {/if}
-  {#if (isProductOwner && isTransactionLater) || (isTransactionLater && product.status === 'minted')}
+  {#if (isProductOwner && isTransactionLater) || (isTransactionLater && product.status === 'minted') || (isTransactionUserSelect && (product.status === 'purchased' || product.status === 'minted'))}
     <div class={actionCellClass}>
       <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
     </div>
