@@ -8,21 +8,7 @@
 </script>
 
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { init } from '$lib/gtag';
-  import injectScript from '$util/injectScript';
   import { CLIENT_DOC_DESCRIPTION } from './variables';
-
-  onMount(async () => {
-    await injectScript({
-      id: 'Cookiebot',
-      url: `https://consent.cookiebot.com/uc.js?cbid=${import.meta.env.VITE_COOKIEBOT_DOMAIN_ID}`,
-    });
-
-    window.addEventListener('CookiebotOnAccept', () => {
-      if (window.Cookiebot.consented) init();
-    });
-  });
 </script>
 
 <svelte:head>
@@ -106,4 +92,45 @@
     crossorigin="anonymous"
   />
   <link rel="stylesheet" href="/fonts/stylesheet.css" />
+
+  <!--Google Consent Mode-->
+  <script data-cookieconsent="ignore">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'denied',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 500,
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <!-- End Google Consent Mode-->
+  <!-- Google Tag Manager -->
+  <script data-cookieconsent="ignore">
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MKKZHWC');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!--Cookiebot-->
+  <script
+    data-cookieconsent="ignore"
+    id="Cookiebot"
+    type="text/javascript"
+    src="https://consent.cookiebot.com/uc.js"
+    data-cbid={import.meta.env.VITE_COOKIEBOT_DOMAIN_ID}
+    data-blockingmode="auto"></script>
+  <!-- End Cookiebot-->
 </svelte:head>
