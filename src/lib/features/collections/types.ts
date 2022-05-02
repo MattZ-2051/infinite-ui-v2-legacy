@@ -18,4 +18,8 @@ export type SkuCollection = {
   id: string;
   mainFileAsset: FileAsset;
   fileAssets: FileAsset[];
+  seoMetadata?: {
+    title: string;
+    description: string;
+  };
 };

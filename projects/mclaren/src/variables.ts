@@ -5,9 +5,16 @@ import routes from '$project/routes';
 export * from './variablesUI';
 export * from './variablesText';
 
-export const CLIENT_DOC_TITLE = 'McLaren MSO LAB - Exclusive NFT Drops & Metaverse Roadmap';
-export const CLIENT_DOC_DESCRIPTION =
-  'McLaren Automotive enters the metaverse with the first in a series of exclusive NFT drops on 11/05/22. Owners will get access to the MSO LAB community.';
+export const CLIENT_DOC_TITLE = {
+  '1': 'McLaren MSO LAB - Exclusive NFT Drops & Metaverse Roadmap',
+  '2': 'McLaren NFT Drop - MSO LAB Genesis Collection Launched',
+  '3': 'McLaren NFT Collection - Buy Rare & Exclusive Supercar NFTs',
+};
+export const CLIENT_DOC_DESCRIPTION = {
+  '1': 'McLaren Automotive enters the metaverse with the first in a series of exclusive NFT drops on 11/05/22. Owners will get access to the MSO LAB community.',
+  '2': 'McLaren Genesis NFT collection. Unlock MSO LAB member benefits through an exclusive, invitation-only NFT mint centred around McLaren P1™.',
+  '3': 'McLaren Genesis NFT collection. Unlock MSO LAB member benefits through an exclusive, invitation-only NFT mint centred around McLaren P1™.',
+};
 export const CLIENT_COMPANY_NAME = 'McLaren';
 export const CLIENT_COMPANY_NAME_LEGAL = 'McLaren Assets, Inc.';
 export const CLIENT_SOCIAL_IMAGE = {

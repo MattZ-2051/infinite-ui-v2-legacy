@@ -4,6 +4,6 @@ context('test', () => {
   });
 
   it('McLaren title', () => {
-    cy.title().should('eq', 'McLaren MSO LAB - Exclusive NFT Drops & Metaverse Roadmap');
+    cy.title().should('eq', 'McLaren NFT Collection - Buy Rare & Exclusive Supercar NFTs');
   });
 });

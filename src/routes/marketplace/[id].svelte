@@ -45,8 +45,18 @@
   }
 
   $: setSku(data);
+  $: seoTitle = data.sku?.seoMetadata?.title ? data.sku?.seoMetadata?.title : data.sku?.name;
+  $: seoDescription = data.sku?.seoMetadata?.description
+    ? data.sku?.seoMetadata?.description
+    : data.sku?.descriptionShort;
 </script>
 
-<Seo title={data.sku.name} image={chooseSkuSocialImage(data.sku)} ogDescription={data.sku?.descriptionShort} />
+<Seo
+  title={seoTitle}
+  image={chooseSkuSocialImage(data.sku)}
+  ogDescription={seoDescription}
+  description={seoDescription}
+  useGivenTitle={Boolean(data.sku?.seoMetadata?.title)}
+/>
 
 <SkuContainer />

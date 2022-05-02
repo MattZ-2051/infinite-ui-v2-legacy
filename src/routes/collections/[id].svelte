@@ -29,8 +29,17 @@
   export let data: Awaited<ReturnType<typeof loadSkuCollectionFx>>;
 
   $: setSkuCollection(data);
+  $: seoTitle = $skuCollection?.seoMetadata?.title ? $skuCollection?.seoMetadata?.title : $skuCollection?.name;
+  $: seoDescription = $skuCollection?.seoMetadata?.description
+    ? $skuCollection?.seoMetadata?.description
+    : $skuCollection?.descriptionShort;
 </script>
 
-<Seo title={$skuCollection.name} ogDescription={$skuCollection.descriptionShort} />
+<Seo
+  title={seoTitle}
+  ogDescription={seoDescription}
+  description={seoDescription}
+  useGivenTitle={Boolean($skuCollection?.seoMetadata?.title)}
+/>
 
 <CollectionContainer />

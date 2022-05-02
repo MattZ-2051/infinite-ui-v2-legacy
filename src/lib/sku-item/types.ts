@@ -97,6 +97,10 @@ export type Sku = {
   activeAuctionSkuListingsCounter?: number;
   activeBuyNowSkuListingsCounter?: number;
   skuCollection?: SkuCollection;
+  seoMetadata?: {
+    title: string;
+    description: string;
+  };
 };
 
 export type MintPolicy = {
@@ -113,6 +117,10 @@ export type SkuCollection = {
   descriptionShort: string;
   featuredSkuId: string;
   tenant: string;
+  seoMetadata?: {
+    title: string;
+    description: string;
+  };
 };
 
 export type SkuCollectionTitle = {

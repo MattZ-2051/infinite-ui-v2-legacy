@@ -5,12 +5,18 @@
   import { CLIENT_SOCIAL_IMAGE, CLIENT_DOC_TITLE, CLIENT_DOC_DESCRIPTION } from '$project/variables';
 
   const DEFAULT_IMAGE = CLIENT_SOCIAL_IMAGE;
+  const PHASE_ENABLED = import.meta.env?.VITE_CURRENT_PHASE as string;
 
   let _title = '';
   export { _title as title };
 
   export let image: OpenGraphImage | (FileAsset & { alt?: string }) | string = DEFAULT_IMAGE;
-  export let ogDescription: string = CLIENT_DOC_DESCRIPTION;
+  export let ogDescription: string = PHASE_ENABLED ? CLIENT_DOC_DESCRIPTION[PHASE_ENABLED] : CLIENT_DOC_DESCRIPTION;
+  export let description: string = PHASE_ENABLED ? CLIENT_DOC_DESCRIPTION[PHASE_ENABLED] : CLIENT_DOC_DESCRIPTION;
+  /**
+   * Use title passed as prop exclusively and don't join with CLIENT_DOC_TITLE
+   */
+  export let useGivenTitle = false;
 
   let ogImage: OpenGraphImage;
   $: {
@@ -26,11 +32,16 @@
       ogImage = getImage(image || DEFAULT_IMAGE);
     }
   }
-  $: title = [CLIENT_DOC_TITLE, _title].filter(Boolean).join(' - ');
+  $: title = useGivenTitle
+    ? _title
+    : [!PHASE_ENABLED && CLIENT_DOC_TITLE, PHASE_ENABLED && CLIENT_DOC_TITLE[PHASE_ENABLED], _title]
+        .filter(Boolean)
+        .join(' - ');
 </script>
 
 <SvelteSeo
   {title}
+  {description}
   openGraph={{
     title,
     description: ogDescription,
