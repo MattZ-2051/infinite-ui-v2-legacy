@@ -11,7 +11,7 @@ export const SUCCESS_PURCHASE_LAZY_MINT = (skuName: string) =>
   `Congratulations on buying your <span class="font-bold">${skuName}</span> NFT. You can view your new NFT and mint it.`;
 
 export const SUCCESS_PURCHASE_INSTANT_MINT = (skuName: string) =>
-  `Your order was successful and <span class="font-bold">${skuName}</span> will be sent to the following wallet within the next 30 minutes: `;
+  `Your order was successful and <span class="font-bold">${skuName}</span> will be sent to the following wallet within the next 10 minutes: `;
 
 export const VOUCHER_CODE_MODAL_TITLE = 'Exclusive Access Code';
 

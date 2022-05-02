@@ -11,7 +11,7 @@
 <div class="flex flex-col xl:max-w-sm justify-center justify-self-center">
   <span class="text-2xl xl:text-3xl mb-10">We're processing your order...</span>
   <span class="mb-4 text-gray-700 "
-    >It can take up to 30 minutes for the order to process and the NFT to appear on your wallet.</span
+    >It can take up to 10 minutes for the order to process and the NFT to appear on your wallet.</span
   >
   <div class="mb-4 text-gray-700">
     {#if DISABLED_MARKETPLACE}
