@@ -71,7 +71,7 @@ productState.on(pendingProductCreated, (_, payload) => {
   return { product: undefined, data: payload, poll };
 });
 
-pollProductStateFx.doneData.watch(async (response) => {
+pollProductStateFx.doneData.watch(async (response: Product) => {
   const oldCheckout = productState.getState().data?.oldCheckout;
   if (response) {
     updateProductState({ product: response, data: { txHash: '', paymentIntent: '', oldCheckout: false } });
@@ -86,7 +86,7 @@ pollProductStateFx.doneData.watch(async (response) => {
   }
 });
 
-const transactionSuccessMessage = (transactionData?: any) => {
+const transactionSuccessMessage = (transactionData?: Product) => {
   const serialNumber = transactionData?.serialNumber;
   const skuName = transactionData?.name;
   const product = transactionData._id;
