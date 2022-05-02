@@ -10,7 +10,7 @@ jobs:
       - name: Install dependencies
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: latest
+          version: 6
           run_install: true
 
       - name: Setup project
