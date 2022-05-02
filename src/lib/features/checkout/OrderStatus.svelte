@@ -71,7 +71,7 @@
     {#if orderFailed}
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleRetry}>Try again</Button>
     {:else if orderSuccess}
-      <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleViewNFT}>View NFT</Button>
+      <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleViewNFT}>View & Mint NFT</Button>
     {/if}
     <Button variant="outline-brand" class="border-none h-16 w-full text-xl mt-4" on:click={onExit}>
       Back to {backButtonLabel}
