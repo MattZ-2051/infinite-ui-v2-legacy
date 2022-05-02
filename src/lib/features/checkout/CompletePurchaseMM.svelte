@@ -51,7 +51,7 @@
   $: marketplaceFee = getSkuBuyingFee(sku);
   $: total = listing.price * (1 + marketplaceFee);
   $: insufficientFunds = total > +userBalance;
-  $: priceWFee = total + gasFee;
+  $: priceWFee = Number.parseFloat((total + gasFee).toFixed(5));
 
   let balance;
   let purchaseResult: providers.TransactionResponse;
@@ -102,7 +102,7 @@
           .then((response) => {
             purchaseResult = response;
             toast.success('Your request is being processed. Minting of your NFT may take up to 10 minutes.', {
-              toastId: 'TXR_SUCCESS',
+              toastId: 'TRX_SUCCESS',
             });
             purchasing = true;
 
