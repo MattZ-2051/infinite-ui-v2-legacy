@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fly } from 'svelte/transition';
   import Icon from '$ui/icon/Icon.svelte';
   import caretRight from '$project/assets/lib/caret-right';
   import Divider from '../common/Divider.svelte';
@@ -135,6 +136,11 @@
     isAutoScrolling = true;
     navWrapper.addEventListener('scroll', autoScrollHandler);
   }
+
+  let innerStepTransition = false;
+  const changedStep = () => {
+    innerStepTransition = !innerStepTransition;
+  };
 </script>
 
 <section class="my-72">
@@ -163,20 +169,27 @@
     <div
       class="flex flex-col items-center md:items-start min-h-[11rem] py-2 space-y-6 sm:space-y-3 mx-8 sm:mx-12 lg:mx-0 mb-20 lg:mb-0 px-8 lg:px-0 w-full"
     >
-      <h4 class="tracking-[0.2em] text-lg second-font text-center">
-        {#if selectedPhase.addPrefix}
-          <span>McLAREN</span>
-        {/if}
-        <span class="uppercase">{selectedStep.title || selectedPhase.title}</span>
-      </h4>
+      {#key innerStepTransition}
+        <h4 class="tracking-[0.2em] text-lg second-font text-center" in:fly={{ y: -50, duration: 1000 }}>
+          {#if selectedPhase.addPrefix}
+            <span>McLAREN</span>
+          {/if}
+          <span class="uppercase">{selectedStep.title || selectedPhase.title}</span>
+        </h4>
+        <p class="flex-grow text-gray-800 leading-7" in:fly={{ y: -50, duration: 1000 }}>
+          {selectedStep.description || selectedPhase.description}
+        </p>
+      {/key}
 
-      <p class="flex-grow text-gray-800 leading-7">{selectedStep.description || selectedPhase.description}</p>
       <ol class="steps-list list-inside flex space-x-6 lg:space-x-3">
         {#each selectedPhase.steps as step, index}
           <li
             class="second-font text-xl md:text-[0.875rem] uppercase tracking-[.2em] opacity-30 hover:opacity-100 min-w-max block cursor-pointer leading-none"
             class:highlighted={selectedStep.title === step.title}
-            on:click={() => (selectedStep = step)}
+            on:click={() => {
+              selectedStep = step;
+              changedStep();
+            }}
           >
             <span class="mr-3 hidden md:inline max-w-fit whitespace-nowrap">{step.title}</span>
             {#if index !== selectedPhase.steps.length - 1}
