@@ -104,14 +104,14 @@
     <div class="flex flex-col px-10 py-6">
       {#if voucherCodeStatus !== 'success'}
         <p class="text-base text-black-opacity-40 font-normal py-8">
-          Enter the voucher code you received on your email to proceed to checkout.
+          Enter the access code you received on your email to proceed to checkout.
         </p>
       {/if}
       <Input
         variant="base"
         type="text"
         data-testId="voucher-input"
-        placeholder="Enter Voucher code"
+        placeholder="Enter Access code"
         class="border pl-4 text-black rounded-lg pt-4"
         style="padding-bottom: 1rem;"
         error={error && errorMessage}
