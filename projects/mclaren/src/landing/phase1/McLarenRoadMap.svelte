@@ -174,12 +174,12 @@
       <ol class="steps-list list-inside flex space-x-6 lg:space-x-3">
         {#each selectedPhase.steps as step, index}
           <li
-            class="second-font text-xl md:text-[0.8125rem] uppercase tracking-[.2em] opacity-30 hover:opacity-100 min-w-max block cursor-pointer leading-none"
+            class="second-font text-xl md:text-[0.875rem] uppercase tracking-[.2em] opacity-30 hover:opacity-100 min-w-max block cursor-pointer leading-none"
             class:highlighted={selectedStep.title === step.title}
             on:click={() => (selectedStep = step)}
           >
             <span class="mr-3 hidden md:inline max-w-fit whitespace-nowrap">{step.title}</span>
-            {#if index !== 2}
+            {#if index !== selectedPhase.steps.length - 1}
               <Icon path={caretRight} size="1em" class="ml-6 md:ml-0 pb-[2px] inline-block max-w-fit" />
             {/if}
           </li>
