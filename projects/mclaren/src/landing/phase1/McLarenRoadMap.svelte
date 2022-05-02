@@ -26,7 +26,7 @@
         {
           title: 'Launch',
           description:
-            'McLaren Automotive’s first NFT collection is launched through an invite-only mint. NFT holders are granted Category One membership to the MSO LAB community.',
+            'McLaren Automotive’s first NFT collection is launched through an invite-only mint. <span class="font-bold"> McLaren </span> NFT holders are granted Category One membership to the MSO LAB community.',
         },
         {
           title: 'Members room',
@@ -41,7 +41,7 @@
         {
           title: 'Digital Sketch Drop',
           description:
-            'Digital sketches illustrating the design process will be dropped to all first-generation owners of the NFT Collection.',
+            'Digital sketches illustrating the design process will be dropped to all first-generation owners of the <span class="font-bold"> McLaren </span> NFT Collection.',
         },
         {
           title: 'Members-only Airdrop',
@@ -64,7 +64,8 @@
         },
         {
           title: 'Allowlist',
-          description: 'Allowlist for early access to all future McLaren Automotive collections and collaborations.',
+          description:
+            'Allowlist for early access to all future McLaren Automotive <span class="font-bold"> NFT </span> collections and collaborations.',
         },
       ],
     },
@@ -177,7 +178,7 @@
           <span class="uppercase">{selectedStep.title || selectedPhase.title}</span>
         </h4>
         <p class="flex-grow text-gray-800 leading-7" in:fly={{ y: -50, duration: 1000 }}>
-          {selectedStep.description || selectedPhase.description}
+          {@html selectedStep.description || selectedPhase.description}
         </p>
       {/key}
 
