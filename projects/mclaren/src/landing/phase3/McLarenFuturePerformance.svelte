@@ -26,9 +26,9 @@
           of performance in a digital realm.
         </p>
         <p class="leading-7 pb-10 text-white opacity-80">
-          The first in a series of ultra-exclusive NFT drops, launching 11.05.22, will extend this vision to more people
-          than ever before. Ownership will grant membership to the MSO LAB community and an evolving array of benefits
-          that will unlock new frontiers of access and experience.
+          The first in a series of rare and ultra-exclusive NFT drops, launching 11.05.22, will extend this vision to
+          more people than ever before. McLaren NFT ownership will grant membership to the MSO LAB community and an
+          evolving array of benefits that will unlock new frontiers of access and experience.
         </p>
       </div>
     </div>
