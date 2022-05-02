@@ -89,6 +89,7 @@
   --menu-list-border-radius: 0px;
   --text-route-selected-gradient-from: var(--gradient-start-color);
   --text-route-selected-gradient-to: var(--gradient-end-color);
+  --text-route-selected-color: var(--inverse-color);
 
   /* Pagination */
   --pagination-color: #9e9e9e;

@@ -182,6 +182,7 @@
   --menu-list-border: 1px solid rgba(255, 255, 255, 0.1);
   --text-route-selected-gradient-from: #ff8d1c;
   --text-route-selected-gradient-to: #ff5e17;
+  --text-route-selected-color: transparent;
 
   /* Fonts */
   --market-no-result-title-font: var(--second-font);

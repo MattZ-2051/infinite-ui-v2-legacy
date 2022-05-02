@@ -203,10 +203,4 @@
   :global(.header-link):hover {
     color: var(--default-color);
   }
-  :global(.route-selected-custom) {
-    @apply bg-clip-text bg-gradient-to-r;
-    --tw-gradient-from: var(--text-route-selected-gradient-from);
-    --tw-gradient-to: var(--text-route-selected-gradient-to);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  }
 </style>

@@ -79,8 +79,8 @@
   .menu-item.selected,
   .menu-item:focus:not(.disabled),
   .menu-item:hover {
-    background: var(--menu-item-background-selected);
-    color: var(--menu-item-color-selected);
+    background: var(--menu-item-background-selected) !important;
+    color: var(--menu-item-color-selected) !important;
   }
   li:first-child > a {
     margin-top: var(--menu-item-margin, 0);
@@ -94,5 +94,12 @@
   }
   li:not(:nth-of-type(1)) {
     border-top: none;
+  }
+  .route-selected-custom.route-selected-custom {
+    @apply bg-clip-text bg-gradient-to-r;
+    color: var(--text-route-selected-color);
+    --tw-gradient-from: var(--text-route-selected-gradient-from);
+    --tw-gradient-to: var(--text-route-selected-gradient-to);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
 </style>
