@@ -18,3 +18,10 @@
 </script>
 
 <form id="mktoForm_1092" />
+
+<style lang="postcss">
+  form:global(.mktoForm button:hover) {
+    color: #ffffff !important;
+    background: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  }
+</style>
