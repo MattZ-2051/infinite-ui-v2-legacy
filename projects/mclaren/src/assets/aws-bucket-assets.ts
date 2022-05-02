@@ -9,7 +9,7 @@ const bucketAssets = {
     comingSoon: baseBucketUrl + '/assets-web/FINAL_001-Coming-Soon.mp4',
   },
   collection: {
-    featured: baseBucketUrl + '/assets-web/MCL_GTR_ICON_PaypayaLegend_3Q_v001_comp_v03+(1).png',
+    featured: baseBucketUrl + '/assets-web/MCL_GTR_ICON_PaypayaLegend_3Q_v001_comp_v05.png',
     aboutSection:
       baseBucketUrl + '/assets-web/FINAL_MCL_P1_Honorary_A_3Q_V001_NapierGreen_comp_v04_no_graphic_1400x1120.png',
   },
