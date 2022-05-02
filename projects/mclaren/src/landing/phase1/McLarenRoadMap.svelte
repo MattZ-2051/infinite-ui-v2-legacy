@@ -125,7 +125,7 @@
     };
 
     navWrapper.scrollBy({
-      left: target.getBoundingClientRect().left - phaseBlock.getBoundingClientRect().left,
+      left: Math.round(target.getBoundingClientRect().left) - phaseBlock.getBoundingClientRect().left,
       behavior: 'smooth',
     });
     selectedPhase = phase;
