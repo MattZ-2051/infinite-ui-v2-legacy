@@ -28,8 +28,6 @@
   let mintStatus: StatusMintButton = 'toMint';
   let mintedNftTokenId: string;
   let nftEthAddress: string;
-  let tokenCellClass = '';
-  let headerTokenClass = 'pb-1';
 
   $: sku = product.sku;
   $: isTransferredOut = transactions.length > 0 ? transferredOut(product, transactions) : false;
@@ -40,15 +38,12 @@
   $: mintStatus = getMintStatus(product.status);
   $: mintLaterLabel = product.status === 'purchased' ? 'Owner' : 'Minted by';
   $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
-  $: tokenCellClass =
-    !isTransactionLater && sku?.redeemable ? 'flex flex-row  2xl:flex-col flex-row-reverse justify-end' : '';
-  $: headerTokenClass = !isTransactionLater && sku?.redeemable ? 'ml-1 mt-0.5 pb-1' : 'pb-1';
   $: product.status === 'minted' && getNftId(product.tokenId);
 
   const MINT_OWNER_LABEL = isTransactionLater ? 'Owned by' : 'Owner';
-  const cellClass = 'flex flex-col gap-1.5 py-6 px-6 overflow-hidden';
+  const cellClass =
+    'flex flex-col gap-1.5 text-sm sm:text-base py-4 px-3 sm:px-6 overflow-hidden flex-1 basis-[178px] lg:basis-[max-content] min-w-min whitespace-nowrap';
   const headerClass = 'text-gray-500 text-sm';
-  const actionCellClass = 'col-span-2 2xl:col-span-1';
 
   let copiedLink = false;
 
@@ -90,56 +85,82 @@
   });
 </script>
 
-<div
-  class="rounded-lg border border-gray-200 text-default overflow-hidden grid grid-cols-2 2xl:grid-cols-none 2xl:grid-flow-col 2xl:divide-x 2xl:divide-gray-200 flex-grow"
->
-  {#if !isTransactionLater}
-    {#if (isTransferredOut || isTransferInUnresolved) && !isTransactionLater}
-      <div class={cellClass}>
-        <div class={headerClass}>Status</div>
-        <div class="flex gap-2 capitalize">
-          {#if isTransferredOut}
-            Transferred Out
-          {:else if isTransferInUnresolved}
-            Transfer In {transactions[0].status}
-          {/if}
+<div class="rounded-lg border border-gray-200 text-default overflow-hidden">
+  <div
+    class="cell-block basis-0 grow-[999] min-w-min flex flex-wrap overflow-hidden divide-gray-200 divide-x divide-y -mt-1 -ml-1"
+  >
+    {#if !isTransactionLater}
+      {#if (isTransferredOut || isTransferInUnresolved) && !isTransactionLater}
+        <div class={cellClass}>
+          <div class={headerClass}>Status</div>
+          <div class="flex gap-2 capitalize">
+            {#if isTransferredOut}
+              Transferred Out
+            {:else if isTransferInUnresolved}
+              Transfer In {transactions[0].status}
+            {/if}
+          </div>
         </div>
-      </div>
-    {:else}
-      <div class={cellClass}>
-        <div class={headerClass}>Status</div>
-        <SkuStatus {sku} {product} forProductStatus />
-      </div>
+      {:else}
+        <div class={cellClass}>
+          <div class={headerClass}>Status</div>
+          <SkuStatus {sku} {product} forProductStatus />
+        </div>
+      {/if}
     {/if}
-  {/if}
-  <div class={cellClass}>
-    <div class={headerClass}>Redemption Status</div>
-    {#if sku.redeemable}
-      <IconRedeem>
-        <span class="pl-2">{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span>
-      </IconRedeem>
-    {:else}
-      <div class="flex">
-        <Icon path={notRedeemable} /><span>Not Redeemable</span>
-      </div>
-    {/if}
-  </div>
-  <div class={cellClass}>
-    {#if sku.currency === 'USD'}
-      <div class={headerClass}>{MINT_OWNER_LABEL}</div>
-      <div class="flex flex-row">
-        {#if product?.owner?.profilePhotoUrl}
-          <img
-            class="w-6 h-6 rounded-full object-cover inline mr-2"
-            src={product.owner.profilePhotoUrl}
-            alt="profilePhoto"
-            use:imageError={() => (product.owner.profilePhotoUrl = undefined)}
-            loading="lazy"
-          />
-        {/if}
-        <div class="truncate inline"><UserLink username={product.owner.username} /></div>
-      </div>
-    {:else if sku.currency === 'ETH'}
+    <div class={cellClass}>
+      <div class={headerClass}>Redemption Status</div>
+      {#if sku.redeemable}
+        <IconRedeem>
+          <span class="pl-2 block truncate">{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span>
+        </IconRedeem>
+      {:else}
+        <div class="truncate">
+          <Icon path={notRedeemable} class="float-left" /><span>Not Redeemable</span>
+        </div>
+      {/if}
+    </div>
+    <div class={cellClass}>
+      {#if sku.currency === 'USD'}
+        <div class={headerClass}>{MINT_OWNER_LABEL}</div>
+        <div class="flex flex-row">
+          {#if product?.owner?.profilePhotoUrl}
+            <img
+              class="w-6 h-6 rounded-full object-cover inline mr-2"
+              src={product.owner.profilePhotoUrl}
+              alt="profilePhoto"
+              use:imageError={() => (product.owner.profilePhotoUrl = undefined)}
+              loading="lazy"
+            />
+          {/if}
+          <div class="truncate inline"><UserLink username={product.owner.username} /></div>
+        </div>
+      {:else if sku.currency === 'ETH'}
+        <div class={`${headerClass} flex justify-between`}>
+          {mintByLabel}
+          <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
+            <Icon
+              path={information}
+              size="0.9em"
+              tooltip="User who purchased and minted the NFT. Go to the blockchain explorer to view the NFT and the latest wallet that owns the NFT."
+            />
+          </div>
+        </div>
+        <div class="flex flex-row">
+          {#if product?.owner?.profilePhotoUrl}
+            <img
+              class="w-6 h-6 rounded-full object-cover inline mr-2"
+              src={product.owner.profilePhotoUrl}
+              alt="profilePhoto"
+              use:imageError={() => (product.owner.profilePhotoUrl = undefined)}
+              loading="lazy"
+            />
+          {/if}
+          <div class="truncate inline"><UserLink username={product.owner.username} /></div>
+        </div>
+      {/if}
+    </div>
+    <div class={cellClass}>
       <div class={`${headerClass} flex justify-between`}>
         {mintByLabel}
         <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
@@ -150,65 +171,69 @@
           />
         </div>
       </div>
-      <div class="flex flex-row">
-        {#if product?.owner?.profilePhotoUrl}
-          <img
-            class="w-6 h-6 rounded-full object-cover inline mr-2"
-            src={product.owner.profilePhotoUrl}
-            alt="profilePhoto"
-            use:imageError={() => (product.owner.profilePhotoUrl = undefined)}
-            loading="lazy"
-          />
-        {/if}
-        <div class="truncate inline"><UserLink username={product.owner.username} /></div>
-      </div>
-    {/if}
-  </div>
-  <div class={cellClass}>
-    <div class={`${headerClass} flex justify-between`}>
-      Created by
-      <div class="rounded-full text-white bg-gray-100 w-min p-1 hover:bg-gray-300 cursor-pointer ml-2">
-        <Icon path={information} size="0.9em" tooltip="User who issued the NFT and created the assets for this NFT." />
-      </div>
+      <TalentLink profile={sku.issuer} />
     </div>
-    <div><TalentLink profile={sku.issuer} /></div>
-  </div>
-  <div class={cellClass}>
-    <div class={tokenCellClass}>
+    <div class={`${cellClass} token-cell`} style="">
       {#if sku.currency === 'ETH'}
-        <div class={`${headerClass} ${headerTokenClass}`}>ERC721 Transaction</div>
+        <div class={`${headerClass}`}>ERC721 Transaction</div>
         {#if mintStatus !== 'processed' && (sku?.mintPolicy?.transaction === 'later' || sku?.mintPolicy?.transaction === 'user-selected')}
           <span>Not Minted</span>
         {:else}
-          <div class="flex flex-row items-center max-w-xs">
-            <div class="truncate flex-1">
-              <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a
-              >
-            </div>
+          <div class="flex items-center gap-2 whitespace-nowrap">
+            <a
+              class="truncate min-w-0 max-w-[6rem] lg:max-w-[8rem]"
+              href={product.explorerLink}
+              target="_blank"
+              rel="noopener noreferrer">{product.tokenId}</a
+            >
+
             {#if copiedLink}
-              <Icon path={mdiCheckCircle} color="green" size="1em" />
+              <Icon path={mdiCheckCircle} color="green" size="1em" class="shrink-0" />
             {:else}
-              <Icon path={mdiContentCopy} class="opacity-70 hover:opacity-100 ml-2" size="1em" on:click={onCopyLink} />
+              <Icon
+                path={mdiContentCopy}
+                class="opacity-70 hover:opacity-100 shrink-0"
+                size="1em"
+                on:click={onCopyLink}
+              />
             {/if}
           </div>
         {/if}
       {:else}
-        <div class={`${headerClass} ${headerTokenClass}`}>Hedera Token</div>
+        <div class={`${headerClass}`}>Hedera Token</div>
         <div class="truncate">
           <a class="link" href={product.explorerLink} target="_blank" rel="noopener noreferrer">{product.tokenId}</a>
         </div>
       {/if}
     </div>
+    {#if product.sku.currency !== 'ETH' && !isTransactionLater}
+      <div class="action-cell">
+        <ProductActions {product} userId={$userId} />
+      </div>
+    {/if}
+    {#if (isProductOwner && isTransactionLater) || (isTransactionLater && product.status === 'minted') || (isTransactionUserSelect && (product.status === 'purchased' || product.status === 'minted'))}
+      <div class="action-cell">
+        <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
+      </div>
+    {/if}
   </div>
-  {#if product.sku.currency !== 'ETH' && !isTransactionLater}
-    <ProductActions {product} userId={$userId} />
-  {/if}
-  {#if (isProductOwner && isTransactionLater) || (isTransactionLater && product.status === 'minted') || (isTransactionUserSelect && (product.status === 'purchased' || product.status === 'minted'))}
-    <div class={actionCellClass}>
-      <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
-    </div>
-  {/if}
 </div>
 {#if isShowMintModal}
   <MintNftModal {product} onClose={() => (isShowMintModal = false)} />
 {/if}
+
+<style lang="postcss">
+  .token-cell:nth-of-type(odd) {
+    @apply flex flex-wrap flex-grow flex-shrink flex-row-reverse xl:flex-col justify-end xl:justify-start;
+    flex-basis: calc((850px - 100%) * 999);
+  }
+
+  .action-cell {
+    flex-grow: 1;
+    min-width: fit-content;
+  }
+
+  .action-cell:nth-of-type(odd) {
+    flex-basis: calc((850px - 100%) * 999);
+  }
+</style>

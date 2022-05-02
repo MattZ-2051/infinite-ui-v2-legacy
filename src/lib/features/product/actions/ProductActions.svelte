@@ -45,8 +45,8 @@
 </script>
 
 {#if visibleActions.length > 0 && !externalWalletOwnsProduct}
-  <div class="col-span-2 2xl:col-span-1">
-    <ButtonGroup class="flex col-span-2 lg:col-span-1 h-full">
+  <div class="flex-auto">
+    <ButtonGroup class="flex flex-wrap sm:flex-nowrap">
       {#each visibleActions as { type, label, icon } (type)}
         <button
           type="button"
