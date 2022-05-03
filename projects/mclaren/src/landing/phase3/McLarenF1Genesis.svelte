@@ -38,11 +38,20 @@
         </p>
         <div class="text-lg text-left xl:text-center font-light max-w-8xl leading-9 pb-10">
           <p class="text-base">
-            An exclusive, invitation-only mint that marks McLaren Automotive’s move into the metaverse.
+            {#if phase === '1'}
+              An exclusive, invitation-only mint that marks McLaren Automotive’s move into the metaverse.
+            {:else if phase === '2' || phase === '3'}
+              An exclusive, invitation-only NFT mint that marks McLaren Automotive’s move into the metaverse.
+            {/if}
           </p>
           <p class="pt-10 text-base">
-            Unlock membership to MSO LAB through a pioneering collection of NFTs centred around one of the most
-            desirable, most storied cars McLaren has ever produced – the McLaren P1™.
+            {#if phase === '1'}
+              Unlock membership to MSO LAB through a pioneering collection of NFTs centred around one of the most
+              desirable, most storied cars McLaren has ever produced – the McLaren P1™.
+            {:else if phase === '2' || phase === '3'}
+              Unlock membership to MSO LAB through a pioneering collection of rare supercar NFTs centred around one of
+              the most desirable, most storied cars McLaren has ever produced – the McLaren P1™.
+            {/if}
           </p>
         </div>
         <Button
