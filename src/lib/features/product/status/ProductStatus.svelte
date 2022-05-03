@@ -6,9 +6,11 @@
   import arrowRight from '$lib/features/product/assets/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
+  import { onSignIn, user } from '$lib/user';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
   import { formatCurrency, formatDate } from '$util/format';
   import { auctionStarted, polls, saleStarted, totalBids } from '$lib/features/product/product.store';
+  import { fetchRequiredSkus, gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
   import Button from '$lib/components/Button.svelte';
   import {
     InfiniteExtensionStore,
@@ -51,8 +53,19 @@
     }
   }
 
-  function onBuy() {
-    onOrderIntent({ product: product, listing: product.activeProductListings[0] });
+  async function onBuy() {
+    const { sku, activeProductListings } = product;
+    const hasGateKeepingRules = !!sku.gateKeepingRules;
+    const redirectToLogin = !$user && hasGateKeepingRules;
+    if (redirectToLogin) {
+      onSignIn();
+    } else {
+      await fetchRequiredSkus({ skuId: sku._id });
+      if ($gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned')) {
+        return;
+      }
+      onOrderIntent({ product: product, listing: activeProductListings[0] });
+    }
   }
 
   function onTransferIn() {

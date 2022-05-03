@@ -6,8 +6,10 @@
   import { userId } from '$lib/user';
   import routes from '$project/routes';
   import { PRODUCT_GALLERY_LIMIT } from '$project/variables';
+  import NftGateKeepList from '$lib/features/gateKeeping/NftGateKeepList.svelte';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
+  import { gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
   import { socialShareAction } from '$lib/social';
   import Icon from '$ui/icon/Icon.svelte';
   import ProductTabs from './ProductTabs.svelte';
@@ -27,6 +29,7 @@
   }
 
   $: nftPublicAssets = $product.nftPublicAssets?.length > 0 ? $product.nftPublicAssets : $product.sku.nftPublicAssets;
+  $: activeGateKeepSkus = $gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned');
 </script>
 
 <StickyColumn reverse>
@@ -34,43 +37,51 @@
     <Gallery items={PRODUCT_GALLERY_LIMIT ? nftPublicAssets?.slice(0, PRODUCT_GALLERY_LIMIT) : nftPublicAssets} />
   </div>
   <div class="flex flex-col md:px-0" slot="onscreen-content" style="min-height: calc(100vh - var(--header-height));">
-    <div class="mx-4 md:pl-4 mt-8 md:mt-10">
-      <div class="flex md:flex-wrap items-center text-2xl sm:text-3xl md:text-4xl font-medium justify-between gap-6">
-        {#if hasCloseButton}
-          <button type="button" on:click={onClose} class="close rounded-full text-default">
-            <Icon path={arrowLeft} size="1.75" class="transform scale-90 sm:scale-100 md:scale-110 p-1 rounded-full" />
-            <span class="sr-only">Back</span>
-          </button>
-        {/if}
-        <div class="flex items-center overflow-hidden">
-          <a
-            sveltekit:prefetch
-            href={routes.sku($product.sku._id)}
-            class="text-gradient-primary truncate md:overflow-visible md:whitespace-pre-wrap sku-title"
-            >{$product.sku.name}</a
-          >
-          {#if $product.serialNumber}
-            <span class="mx-3 text-gray-300">/</span>
-            <span class="text-gradient-primary sku-title">#{$product.serialNumber}</span>
+    {#if activeGateKeepSkus}
+      <NftGateKeepList />
+    {:else}
+      <div class="mx-4 md:pl-4 mt-8 md:mt-10">
+        <div class="flex md:flex-wrap items-center text-2xl sm:text-3xl md:text-4xl font-medium justify-between gap-6">
+          {#if hasCloseButton}
+            <button type="button" on:click={onClose} class="close rounded-full text-default">
+              <Icon
+                path={arrowLeft}
+                size="1.75"
+                class="transform scale-90 sm:scale-100 md:scale-110 p-1 rounded-full"
+              />
+              <span class="sr-only">Back</span>
+            </button>
           {/if}
-        </div>
-        <div class="flex flex-row items-center space-x-4 ml-auto">
-          {#if isProductOwner && !isTransactionLater}
-            <button
-              type="button"
-              class="share flex items-center justify-center gap-2 text-center text-base p-2 md:px-5 rounded-full bg-gray-100"
-              use:socialShareAction={{ product: $product }}
-              ><Icon path={shareIcon} size="1" class="transform scale-90 sm:scale-100 md:scale-110" /><span
-                class="hidden md:inline">Share</span
-              ></button
+          <div class="flex items-center overflow-hidden">
+            <a
+              sveltekit:prefetch
+              href={routes.sku($product.sku._id)}
+              class="text-gradient-primary truncate md:overflow-visible md:whitespace-pre-wrap sku-title"
+              >{$product.sku.name}</a
             >
-          {/if}
+            {#if $product.serialNumber}
+              <span class="mx-3 text-gray-300">/</span>
+              <span class="text-gradient-primary sku-title">#{$product.serialNumber}</span>
+            {/if}
+          </div>
+          <div class="flex flex-row items-center space-x-4 ml-auto">
+            {#if isProductOwner && !isTransactionLater}
+              <button
+                type="button"
+                class="share flex items-center justify-center gap-2 text-center text-base p-2 md:px-5 rounded-full bg-gray-100"
+                use:socialShareAction={{ product: $product }}
+                ><Icon path={shareIcon} size="1" class="transform scale-90 sm:scale-100 md:scale-110" /><span
+                  class="hidden md:inline">Share</span
+                ></button
+              >
+            {/if}
+          </div>
+        </div>
+        <div class="mt-6">
+          <ProductInfo product={$product} transactions={$transactions} />
         </div>
       </div>
-      <div class="mt-6">
-        <ProductInfo product={$product} transactions={$transactions} />
-      </div>
-    </div>
+    {/if}
 
     <div class="mt-12 md:mx-0 flex flex-col flex-grow">
       <ProductTabs product={$product} {tab} {isProductOwner} />
