@@ -6,6 +6,7 @@
   import routes from '$project/routes';
   import Sort from '$lib/components/Sort.svelte';
   import Button from '$lib/components/Button.svelte';
+  import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
   import {
     InfiniteExtensionStore,
     nftBalance,
@@ -110,7 +111,7 @@
       {#if $skusTotal === 0}
         <div class="text-gray-500  text-center mt-12 text-2xl ">No releases found.</div>
       {:else if $skusTotal === null}
-        <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+        <FullScreenLoader class="text-gray-500 italic text-center my-12 text-2xl font-light" />
       {:else}
         <SkuItemGrid skus={$skus} loading={$pending} />
         <Pagination {perPage} total={$skusTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
@@ -125,7 +126,7 @@
           <Button variant="brand" style="padding: 13px 3rem" href={routes.marketplace}>Explore the Marketplace</Button>
         </div>
       {:else if $productsTotal === null}
-        <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+        <FullScreenLoader class="text-gray-500 italic text-center my-12 text-2xl font-light" />
       {:else}
         <SkuItemGrid products={$products} loading={$pending} />
         <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
@@ -135,7 +136,7 @@
       {#if $productsTotal === 0}
         <div class="text-gray-500  text-center mt-12 text-2xl ">No NFTs found.</div>
       {:else if $productsTotal === null}
-        <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+        <FullScreenLoader class="text-gray-500 italic text-center my-12 text-2xl font-light" />
       {:else}
         <SkuItemGrid products={$products} loading={$pending} />
         <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
@@ -145,7 +146,7 @@
       {#if $productsTotal === 0}
         <div class="text-gray-500  text-center mt-12 text-2xl ">No Tokens found.</div>
       {:else if $productsTotal === null}
-        <div class="text-gray-500 italic text-center mt-12 text-2xl font-light">Loading . . .</div>
+        <FullScreenLoader class="text-gray-500 italic text-center my-12 text-2xl font-light" />
       {:else}
         <SkuItemGrid products={$products} loading={$pending} />
         <Pagination {perPage} total={$productsTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
