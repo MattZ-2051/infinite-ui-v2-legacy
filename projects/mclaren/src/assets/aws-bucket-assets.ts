@@ -7,6 +7,7 @@ const bucketAssets = {
     supercarCompany: baseBucketUrl + '/assets-web/MCL014_MSO_Philosophy_Static_no_text_1800x3360.jpg',
     community: baseBucketUrl + '/assets-web/MCL014_McLaren%20Family_Static_no%20text_1800x3360.jpg',
     comingSoon: baseBucketUrl + '/assets-web/FINAL_001-Coming-Soon.mp4',
+    genesisVideo: baseBucketUrl + '/assets-web/mclarenTeaser_treatment01_v020.mp4',
   },
   collection: {
     featured: baseBucketUrl + '/assets-web/MCL_GTR_ICON_PaypayaLegend_3Q_v001_comp_v05.png',

@@ -4,7 +4,7 @@
   import routes from '$project/routes';
   import Button from '$lib/components/Button.svelte';
   import { loadAllSkuCollectionsFx, setAllSkuCollections } from '$lib/features/collections/collections.store';
-  import genesisVideo from './images/PLACEHOLDER_MCL_GENESIS COLLECTION.mp4';
+  import bucketAssets from '$project/assets/aws-bucket-assets';
 
   export let phase: string;
   let skuId = undefined;
@@ -55,10 +55,10 @@
       </div>
     </div>
     <video class="absolute top-0 -z-1 h-full object-cover hidden md:block w-full" autoplay loop muted playsinline>
-      <source src={genesisVideo} type="video/mp4" />
+      <source src={bucketAssets.landing.genesisVideo} type="video/mp4" />
     </video>
     <video class="w-full absolute top-0 -z-1 object-cover h-full md:hidden" autoplay loop muted playsinline>
-      <source src={genesisVideo} type="video/mp4" />
+      <source src={bucketAssets.landing.genesisVideo} type="video/mp4" />
     </video>
   </div>
 </div>
