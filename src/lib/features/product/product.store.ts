@@ -125,7 +125,9 @@ export const product = createStore<Product>(null).on(setProduct, (state, payload
 
 export const transactions = createStore<Transaction[]>([])
   .on(setProduct, (state, payload) => ('productTransactions' in payload ? payload.productTransactions : state))
-  .on(refetchProductTransactionsFx.doneData, (state, payload) => payload.data);
+  .on(refetchProductTransactionsFx.doneData, (state, payload) => {
+    return payload.data;
+  });
 
 export const totalTransactions = createStore<number>(0)
   .on(setProduct, (state, payload) =>
@@ -241,7 +243,6 @@ pollTransactionFx.doneData.watch(async (response) => {
           updateCheckoutState('success');
           transactionSuccessMessage(pendingTx.transactionData);
           await productBoughtFx();
-          await refetchProductFx();
         }
       }
       if (pendingTx?.status === 'error') {
@@ -318,7 +319,7 @@ const pollTransactionStatusFx = createEffect(async () => {
 });
 
 interface TxState {
-  status: TxStatus;
+  status: TxStatus | '';
   hash: string;
   poll?: Poll;
 }
@@ -331,7 +332,7 @@ interface Poll {
 
 export const updateTxState = createEvent<TxStatus>();
 export const updateTxHash = createEvent<string>();
-export const txState = createStore<TxState>({ status: 'pending', hash: '' }, { name: 'tx-state' }).on(
+export const txState = createStore<TxState>({ status: '', hash: '' }, { name: 'tx-state' }).on(
   updateTxState,
   (state, newStatus) => ({ ...state, status: newStatus })
 );
@@ -356,8 +357,8 @@ pollTransactionStatusFx.fail.watch(() => {
 });
 
 pollTransactionStatusFx.doneData.watch(async (response) => {
+  updateTxState(response);
   if (response === 'confirmed' || response === 'error') {
-    updateTxState(response);
     const poll = txState.getState().poll;
     await productBoughtFx();
     poll.stop();

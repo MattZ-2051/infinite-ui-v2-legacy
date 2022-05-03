@@ -1,12 +1,14 @@
+import type { TxStatus } from '$lib/payment/crypto/etherscan/types';
 import type { Product, ProductStatus, Transaction } from '$lib/sku-item/types';
 import type TokenBalanceMap from '@hashgraph/sdk/lib/account/TokenBalanceMap';
 import type { StatusMintButton } from './mintButton/types';
 
-export function getMintStatus(productStatus: ProductStatus): StatusMintButton {
+export function getMintStatus(productStatus: ProductStatus, txStatus: TxStatus | ''): StatusMintButton {
   switch (productStatus) {
     case 'minted':
-      return 'processed';
+      return txStatus === 'pending' ? 'processing' : 'processed';
     case 'purchased':
+      if (txStatus === 'pending') return 'processing';
       return 'toMint';
     case 'unsold':
       return 'unSold';

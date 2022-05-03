@@ -8,7 +8,7 @@
   import errorMint from '../assets/error-mint';
 
   export let name: string;
-  export let txStatus: TxStatus;
+  export let txStatus: TxStatus | '';
   export let txHash: string;
   export let tryAgain: () => void;
   export let onClose: () => void;

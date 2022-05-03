@@ -1,1 +1,1 @@
-export type StatusMintButton = 'processed' | 'toMint' | 'unSold';
+export type StatusMintButton = 'processed' | 'toMint' | 'unSold' | 'processing';

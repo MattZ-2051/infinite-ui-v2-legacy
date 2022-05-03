@@ -23,7 +23,7 @@
     );
   };
 
-  let transactionShow = $product.sku?.mintPolicy?.transaction === 'later' ? $transactions.reverse() : $transactions;
+  $: transactionShow = $product.sku?.mintPolicy?.transaction === 'later' ? $transactions.reverse() : $transactions;
 
   async function showAuctionHistory(listingId: string) {
     openModal(AuctionHistoryModal, {

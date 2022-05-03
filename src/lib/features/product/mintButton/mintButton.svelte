@@ -22,7 +22,9 @@
     class="flex items-center justify-center rounded-r-md custom-button-mint-element text-xs uppercase font-bold px-6 py-8 whitespace-nowrap flex-grow flex-shrink basis-[max-content]"
     on:click={() => handleClick()}
   >
-    <Icon path={status === MINT_STATUS ? ToMint : Processed} alt={status} class="mr-2" />
+    {#if status !== 'processing'}
+      <Icon path={status === MINT_STATUS ? ToMint : Processed} alt={status} class="mr-2" />
+    {/if}
     {title}
   </button>
 {/if}

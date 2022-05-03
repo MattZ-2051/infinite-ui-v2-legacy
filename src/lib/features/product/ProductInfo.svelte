@@ -19,6 +19,7 @@
   import { transferredOut, transferInUnresolved, isOwner, getMintStatus } from './product.service';
   import MintButton from './mintButton/mintButton.svelte';
   import MintNftModal from './mint/MintNftModal.svelte';
+  import { txState } from './product.store';
 
   export let product: Product;
   export let transactions: Transaction[];
@@ -35,7 +36,7 @@
   $: isProductOwner = isOwner(product, $userId);
   $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
   $: isTransactionUserSelect = product.sku?.mintPolicy?.transaction === 'user-selected';
-  $: mintStatus = getMintStatus(product.status);
+  $: (mintStatus = getMintStatus(product.status, $txState.status)), $txState.status;
   $: mintLaterLabel = product.status === 'purchased' ? 'Owner' : 'Minted by';
   $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
   $: product.status === 'minted' && getNftId(product.tokenId);
@@ -60,7 +61,7 @@
       mintedNftTokenId && nftEthAddress
         ? `${variables.openSea.nftAssetUrl}${nftEthAddress}/${mintedNftTokenId}`
         : import.meta.env.VITE_OPENSEA_URL_NFT_MINTED;
-    window.open(OPENSEA_URL, '_blank');
+    window.open(OPENSEA_URL as string, '_blank');
   };
 
   const handleChangeModalToMint = () => {
@@ -79,7 +80,7 @@
   };
 
   onMount(async () => {
-    if (product.tokenId === 'minted') {
+    if (product.status) {
       getNftId(product.tokenId);
     }
   });
@@ -211,7 +212,7 @@
         <ProductActions {product} userId={$userId} />
       </div>
     {/if}
-    {#if (isProductOwner && isTransactionLater) || (isTransactionLater && product.status === 'minted') || (isTransactionUserSelect && (product.status === 'purchased' || product.status === 'minted'))}
+    {#if (isProductOwner && isTransactionLater) || (isTransactionLater && product.status === 'minted') || (isTransactionUserSelect && (product.status === 'purchased' || product.status === 'minted' || $txState.status === 'pending'))}
       <div class="action-cell">
         <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
       </div>
