@@ -22,7 +22,7 @@
     <article
       class="featured-block md:shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] rounded-2xl relative flex flex-col md:flex-row backdrop-opacity-100"
     >
-      <div class="my-auto mt-20 mx-6 md:mx-12 xl:mx-24 relative space-y-10 md:text-white basis-3/4">
+      <div class="mt-20 md:mb-20 mx-6 md:mx-12 xl:mx-24 relative space-y-10 md:text-white basis-3/4">
         <h3 class="second-font text-base md:text-lg tracking-widest">
           <span class="uppercase">{collectionName}</span>
           {collectionName.toLowerCase().includes('collection') ? '' : 'collection'}<span
