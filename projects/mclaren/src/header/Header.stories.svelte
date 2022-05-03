@@ -6,6 +6,7 @@
 
   const phase1 = '1';
   const phase3 = '3';
+  const connectWallet = true;
 </script>
 
 <Meta
@@ -17,13 +18,13 @@
 />
 
 <Story name="Logged out">
-  <PureHeader links={links(phase1)} user={undefined} />
-  <PureHeader links={links(phase3)} user={undefined} />
+  <PureHeader links={links(phase1, connectWallet)} user={undefined} />
+  <PureHeader links={links(phase3, connectWallet)} user={undefined} />
 </Story>
 
 <Story name="Logged in">
-  <PureHeader links={links(phase1)} {user} />
-  <PureHeader links={links(phase1)} user={userWithProfilePhoto} />
-  <PureHeader links={links(phase3)} {user} />
-  <PureHeader links={links(phase3)} user={userWithProfilePhoto} />
+  <PureHeader links={links(phase1, connectWallet)} {user} />
+  <PureHeader links={links(phase1, connectWallet)} user={userWithProfilePhoto} />
+  <PureHeader links={links(phase3, connectWallet)} {user} />
+  <PureHeader links={links(phase3, !connectWallet)} user={userWithProfilePhoto} />
 </Story>
