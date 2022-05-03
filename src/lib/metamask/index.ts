@@ -15,7 +15,7 @@ export const isLoading = writable<boolean>(AUTH_PROVIDER_IS_AUTH0);
 // I am managing the error in this way as we don't know if the code -32002 are included in other errors.
 const handleMetamaskError = (errorMessage = '') => {
   if (errorMessage.toLowerCase().includes('wallet_requestPermissions'.toLowerCase())) {
-    return 'Check Metamask extension and accept pending connection request.';
+    return 'Check MetaMask extension and accept pending connection request.';
   }
   return errorMessage;
 };
@@ -52,7 +52,7 @@ export async function checkWalletInstalled() {
     }
     return;
   }
-  throw new Error('Metamask extension not found on browser');
+  throw new Error('MetaMask extension not found on browser');
 }
 
 export async function connectWallet() {

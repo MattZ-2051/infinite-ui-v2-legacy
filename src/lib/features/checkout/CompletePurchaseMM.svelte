@@ -113,7 +113,7 @@
           })
           .catch((error) => {
             const errorMessage = error?.message?.includes('code=INSUFFICIENT_FUNDS')
-              ? 'Metamask insufficient funds'
+              ? 'MetaMask insufficient funds'
               : error?.message;
             toast.danger(errorMessage, { toastId: 'TRX_ERROR' });
           })

@@ -33,7 +33,7 @@
 
   $: wallets = [
     MM_WALLET_ENABLED === 'true' && {
-      name: 'Metamask',
+      name: 'MetaMask',
       connected: $walletConnected,
       login: handleWalletConnection,
       logout: disconnectWallet,

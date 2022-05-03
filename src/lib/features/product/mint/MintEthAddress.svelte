@@ -14,7 +14,7 @@
 
   const options = [
     { id: 1, value: 'manual', label: 'Enter ETH address' },
-    { id: 2, value: 'metamask', label: $walletConnected ? 'Continue with Metamask' : 'Connect Metamask' },
+    { id: 2, value: 'metamask', label: $walletConnected ? 'Continue with MetaMask' : 'Connect MetaMask' },
   ];
 
   let radioValue;
@@ -41,16 +41,16 @@
   $: if (radioValue === 'manual') {
     buttonText = 'Mint NFT to ETH address';
   } else if (radioValue === 'metamask' && !$walletConnected) {
-    buttonText = 'Mint NFT to Metamask';
+    buttonText = 'Mint NFT to MetaMask';
   } else if (radioValue === 'metamask' && $walletConnected) {
-    buttonText = 'Mint NFT to Metamask';
+    buttonText = 'Mint NFT to MetaMask';
   }
 </script>
 
 <span class="font-medium text-3xl">Mint NFT</span>
 <div class="flex flex-col gap-6 mt-8">
   <span class="text-base" style="color: var(--gray-500)">
-    To mint this NFT you need a wallet with an ETH address. You can enter one manually or connect your Metamask.
+    To mint this NFT you need a wallet with an ETH address. You can enter one manually or connect your MetaMask.
   </span>
   <div class="pl-2">
     <Radiobutton {options} bind:userSelected={radioValue} showInput={radioValue === 'manual'}>

@@ -16,7 +16,7 @@ export const connectWallet = async (): Promise<boolean> => {
   const response = await handleWalletConnection();
   if (response) {
     toast.clear();
-    toast.success('You are now connected to Metamask', { toastId: 'MM_SUCCESS' });
+    toast.success('You are now connected to MetaMask', { toastId: 'MM_SUCCESS' });
   }
   return response;
 };

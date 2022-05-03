@@ -285,9 +285,9 @@
         </div>
       {:else if !$walletConnected}
         <span class="text-gray-400"
-          >In order to purchase this NFT you need to be connected with Metamask and an ERC20 address.</span
+          >In order to purchase this NFT you need to be connected with MetaMask and an ERC20 address.</span
         >
-        <Button variant="brand" on:click={connectWallet}>Connect Metamask</Button>
+        <Button variant="brand" on:click={connectWallet}>Connect MetaMask</Button>
       {:else if isStripeAllowed && !paymentMethod}
         <ProductModalInfo sku={_sku} />
         <Button variant="brand" disabled={purchasing} on:click={() => selectPaymentMethod('stripe')}>Buy Now</Button>
@@ -300,7 +300,7 @@
         </div>
         <div class="border-solid border-b border-gray-200" />
         <Button variant="outline-brand" disabled={purchasing} on:click={() => selectPaymentMethod('balance')}
-          >Pay with Metamask</Button
+          >Pay with MetaMask</Button
         >
       {:else if paymentMethod === 'balance'}
         {#if _sku.currency === 'ETH'}
@@ -415,7 +415,7 @@
             style="padding-bottom: 0.5rem; padding-top: 0.5rem; font-weight: 200;"
             variant="base"
             error={validEthAddress === false ? 'This does not appear to be a valid ERC20 address' : ''}
-            label="We'll send the NFT to your Metamask wallet address:"
+            label="We'll send the NFT to your MetaMask wallet address:"
             value={shortenEthAddress}
             placeholder="ERC20 Wallet address"
             disabled
