@@ -29,7 +29,11 @@
 <article id={sku._id} class="space-y-4 py-6" in:fade={{ duration: 300 }}>
   <a sveltekit:prefetch {href} class="space-y-4 py-6">
     <figure class="relative mx-6 mb-0">
-      <FilePreview item={sku.nftPublicAssets?.[0]} preview borderRadius={'0.65rem'} />
+      <FilePreview
+        item={product ? product.nftPublicAssets[0] || sku.nftPublicAssets?.[0] : sku.nftPublicAssets?.[0]}
+        preview
+        borderRadius={'0.65rem'}
+      />
       {#if activeListing?.endDate}
         <figcaption
           class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold text-default bg-black-opacity-50 backdrop-blur-[2px]"
