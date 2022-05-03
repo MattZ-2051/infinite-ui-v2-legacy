@@ -58,7 +58,7 @@
         <div class="pb-5">
           <Input
             name="eth-address"
-            class={`mb-2 border border-solid border-gray-100 rounded-md ${
+            class={`mb-2 pl-2 border border-solid border-gray-100 rounded-md ${
               validEthAddress === false ? 'text-red-500' : ''
             }`}
             style="padding-bottom: 1rem; padding-top: 1rem"
