@@ -6,7 +6,7 @@
 
 <div class="container py-8">
   <h1 class="text-center text-3xl my-4 "><strong>InfiniteWorld Terms of Service</strong></h1>
-  <p class="mb-3">Last Modified: November 16, 2021</p>
+  <p class="mb-3">Last Modified: April 26, 2022</p>
 
   <div class="ml-6 mb-3 flex items-center text-lg">
     <span class="mr-3">1.</span>

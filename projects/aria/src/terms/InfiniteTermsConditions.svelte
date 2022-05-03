@@ -8,7 +8,7 @@
   <h1 id="InfiniteWorld" class="text-center text-3xl mt-4 mb-16">
     <strong>InfiniteWorld Terms of Service</strong><a href="#top" class="text-sm ml-4 underline">top</a>
   </h1>
-  <p class="mb-3">Last Modified: November 16, 2021</p>
+  <p class="mb-3">Last Modified: April 26, 2022</p>
 
   <div class="ml-6 mb-3 flex items-center text-lg relative">
     <span class="mr-3">1.</span>
