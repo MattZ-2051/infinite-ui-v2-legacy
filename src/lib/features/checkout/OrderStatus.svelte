@@ -8,7 +8,7 @@
   import errorIcon from '$lib/features/checkout/assets/error-icon.svg';
   import successIcon from '$lib/features/checkout/assets/success-icon.svg';
   import { handleStateChange } from './checkout.service';
-  import { productId } from './checkout.store';
+  import { productId, productState } from './checkout.store';
 
   export let product: Product = undefined;
   export let sku: Sku = undefined;
@@ -63,7 +63,9 @@
     {/if}
     <figure class="px-10 pb-6 sm:px-20">
       <FilePreview
-        item={product?.nftPublicAssets?.[0] || sku.nftPublicAssets?.[0]}
+        item={$productState?.status?.product?.nftPublicAssets[0] ||
+          product?.nftPublicAssets?.[0] ||
+          sku?.nftPublicAssets?.[0]}
         preview
         borderRadius={'var(--file-preview-border-radius, 0px)'}
       />

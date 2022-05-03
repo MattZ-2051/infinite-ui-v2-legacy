@@ -155,7 +155,7 @@
                   Complete your Purchase
                 {/if}
               </h1>
-              {#if $media.xl && !exitCheckout}
+              {#if $media.xl && !exitCheckout && !processingOrder}
                 <span class="cursor-pointer mt-1" on:click={handleExit}><Icon path={closeIcon} size={1.5} /></span>
               {/if}
             </div>

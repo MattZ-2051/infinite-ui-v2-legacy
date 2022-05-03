@@ -29,10 +29,17 @@ interface Data {
   paymentIntent?: string;
   oldCheckout?: boolean;
 }
+
+interface Status {
+  data: Data;
+  product: Product;
+}
+
 interface ProductState {
   product: Product;
   data: Data;
   poll?: Poll;
+  status?: Status;
 }
 
 export const pendingProductCreated = createEvent<Data>();
