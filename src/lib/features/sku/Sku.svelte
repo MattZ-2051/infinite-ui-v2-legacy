@@ -69,7 +69,7 @@
     {/if}
   </div>
   <div slot="tabs" class="px-4 md:px-12 pt-12 pd:pt-16 pb-4" style="min-height: 300px">
-    <PrivateAsset skuId={$sku._id} let:total={totalPrivateAssets}>
+    <PrivateAsset productId={undefined} skuId={$sku._id} let:total={totalPrivateAssets}>
       <Tabs items={getItems(totalPrivateAssets)} menuBreakpoint="sm" itemClass="text-2xl">
         <Tab id="description">
           <SkuDescription content={$sku.description} />

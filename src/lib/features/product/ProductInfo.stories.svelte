@@ -171,7 +171,6 @@
     ownedByExternalWallet: false,
     initialBuyersFeePercentage: 5,
     resaleBuyersFeePercentage: 5,
-    thumbnails: [],
     nftPublicAssets: [
       {
         url: 'https://infinite-digital-aria.s3.amazonaws.com/TESTING/RobertoClemente-Images/UAT/ROBERTO_CLEMENTE_FINAL_NFTS_210922-20210922T162330Z-001/ROBERTO_CLEMENTE_FINAL_NFTS_210922/RC_ENGLISH_ALL/rclemente_signedflag_nft_v004_1K_MIX_RC_ENG_MIX-compressed.mp4',

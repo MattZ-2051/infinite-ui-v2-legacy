@@ -40,7 +40,7 @@
   $: initialItems = isTransactionLater ? initialItems.filter((item) => item.id !== 'auction') : initialItems;
 </script>
 
-<PrivateAsset skuId={product.sku._id} let:total={totalPrivateAssets}>
+<PrivateAsset skuId={undefined} productId={product._id} let:total={totalPrivateAssets}>
   <Tabs
     class="mx-4 md:ml-8 lg:ml-12"
     items={getItems()}

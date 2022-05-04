@@ -1,6 +1,6 @@
 import type { FileAsset } from '$ui/file';
-import type { CollectorProduct } from '$lib/sku-item/types';
-import { getPage, post } from '$lib/api';
+import type { CollectorProduct, Product } from '$lib/sku-item/types';
+import { get, getPage, post } from '$lib/api';
 
 export async function getPrivateAssets({
   skuId,
@@ -29,6 +29,33 @@ export async function getPrivateAssets({
     // eslint-disable-next-line no-console
     console.error(error);
 
+    return;
+  }
+}
+
+export async function getProductPrivateAssets({
+  productId,
+  ownerId,
+  page,
+}: {
+  productId: string;
+  ownerId: string;
+  page?: number;
+}): Promise<{ total: number; assets: FileAsset[]; isOwner?: boolean }> {
+  try {
+    const [responseFileAssets, responseProduct] = await Promise.all([
+      getPage<FileAsset>(`products/${productId}/private-assets`, { params: page ? { page: `${page}` } : {} }),
+      ownerId && get<Product>(`products/${productId}`),
+    ]);
+
+    return {
+      total: responseFileAssets?.total,
+      assets: responseFileAssets?.data,
+      isOwner: ownerId ? responseProduct?.owner._id === ownerId : true,
+    };
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
     return;
   }
 }
