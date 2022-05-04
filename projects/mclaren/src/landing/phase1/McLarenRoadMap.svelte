@@ -26,7 +26,7 @@
         {
           title: 'Launch',
           description:
-            'McLaren Automotive’s first NFT collection is launched through an invite-only mint. <span class="font-bold"> McLaren </span> NFT holders are granted Category One membership to the MSO LAB community.',
+            'McLaren Automotive’s first NFT collection is launched through an invite-only mint. McLaren NFT holders are granted Category One membership to the MSO LAB community.',
         },
         {
           title: 'Members room',
@@ -41,7 +41,7 @@
         {
           title: 'Digital Sketch Drop',
           description:
-            'Digital sketches illustrating the design process will be dropped to all first-generation owners of the <span class="font-bold"> McLaren </span> NFT Collection.',
+            'Digital sketches illustrating the design process will be dropped to all first-generation owners of the McLaren NFT Collection.',
         },
         {
           title: 'Members-only Airdrop',
@@ -65,7 +65,7 @@
         {
           title: 'Allowlist',
           description:
-            'Allowlist for early access to all future McLaren Automotive <span class="font-bold"> NFT </span> collections and collaborations.',
+            'Allowlist for early access to all future McLaren Automotive NFT collections and collaborations.',
         },
       ],
     },
