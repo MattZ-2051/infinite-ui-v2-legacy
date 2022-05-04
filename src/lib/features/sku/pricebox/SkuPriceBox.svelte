@@ -44,9 +44,11 @@
       if (redirectToLogin) {
         onSignIn();
       } else {
-        await fetchRequiredSkus({ skuId: sku._id });
-        if ($gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned')) {
-          return;
+        if (hasGateKeepingRules) {
+          await fetchRequiredSkus({ skuId: sku._id });
+          if ($gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned')) {
+            return;
+          }
         }
         if (isVoucherSku) {
           openModal(VoucherModal, {
