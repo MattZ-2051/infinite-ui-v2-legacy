@@ -17,17 +17,18 @@
   import { handleStateChange, showLoginToast } from '../checkout/checkout.service';
   import Information from '../checkout/Information.svelte';
   import { errorTypes } from './stripe.utils';
+  import PendingCheckoutPage from '../checkout/PendingCheckoutPage.svelte';
 
   const voucherCode = $page.url.searchParams.get('voucherCode');
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
-
+  const STRIPE_PENDING_TIMEOUT = 300_000;
   export let listing: Listing;
   export let mintToAddress: string | undefined;
   export let lazyMinting: boolean;
   export let conversionRate: number | undefined = undefined;
 
   let acceptedTerms = false;
-
+  let showPendingPage = false;
   $: isLoading = false;
 
   let elements: StripeElements;
@@ -42,6 +43,13 @@
   let rate: number;
 
   onMount(initialize);
+
+  const intervalToShowPendingPage = () =>
+    setTimeout(() => {
+      showPendingPage = true;
+    }, STRIPE_PENDING_TIMEOUT);
+
+  const stopIntervalToShowPendingPage = () => clearTimeout(intervalToShowPendingPage());
 
   // Fetches a payment intent and captures the client secret
   async function initialize() {
@@ -94,6 +102,11 @@
     }
   }
 
+  const handleRedirect = (): string => {
+    intervalToShowPendingPage();
+    return $page.url.toString();
+  };
+
   async function handleSubmit() {
     if (!user && lazyMinting) {
       showLoginToast();
@@ -111,10 +124,10 @@
       elements,
       confirmParams: {
         // Redirect to our payment completion page
-        return_url: $page.url.toString(),
+        return_url: handleRedirect(),
       },
     });
-
+    !error && stopIntervalToShowPendingPage();
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will
@@ -142,7 +155,11 @@
   </div>
   {#if isLoading}
     <div class="flex justify-center">
-      <DualRingLoader />
+      {#if showPendingPage}
+        <PendingCheckoutPage />
+      {:else}
+        <DualRingLoader />
+      {/if}
     </div>
   {:else}
     <div class="mt-10">

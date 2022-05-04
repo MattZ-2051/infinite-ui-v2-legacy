@@ -27,6 +27,7 @@
   import { getCosts, validETHdirectPurchase } from './checkout.api';
   import { checkoutState } from './checkout.store';
   import StripeCheckout from '../stripe/StripeCheckout.svelte';
+  import PendingCheckoutPage from './PendingCheckoutPage.svelte';
 
   export let sku: Sku = undefined;
   export let product: Product = undefined;
@@ -34,13 +35,14 @@
   const DISABLED_MARKETPLACE = import.meta.env?.VITE_DISABLE_MARKETPLACE === 'true';
   const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED === 'true';
   const STRIPE_ENABLED = import.meta.env?.VITE_STRIPE_ENABLED === 'true';
-
+  const MM_PENDING_TIMEOUT = 600_000;
   const backButtonLabel = DISABLED_MARKETPLACE ? 'home' : 'marketplace';
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _sku = sku ? sku : product.sku;
   const [listing] = getActiveListings(sku);
   let lazyMinting = sku?.mintPolicy?.transaction === 'later';
+  let showPendingPage = false;
   const paymentMethods = [
     { id: 'cc', title: 'Credit Card', iconSource: creditCardIcon, available: MM_WALLET_ENABLED },
     { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon, available: STRIPE_ENABLED },
@@ -57,12 +59,17 @@
   $: isOrdering = $checkoutState.startsWith('ordering');
 
   $: isFullScreenComponent = orderSuccess || orderError;
-
+  $: processingOrder && intervalToShowPendingPage();
   let gasFee: number;
   let rate: number;
 
   let validETHPurchase: ValidETHListingData;
   let ethAddress = undefined;
+
+  const intervalToShowPendingPage = () =>
+    setTimeout(() => {
+      showPendingPage = true;
+    }, MM_PENDING_TIMEOUT);
 
   onMount(async () => {
     const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
@@ -155,7 +162,7 @@
                   Complete your Purchase
                 {/if}
               </h1>
-              {#if $media.xl && !exitCheckout && !processingOrder}
+              {#if $media.xl && !exitCheckout && !processingOrder && !showPendingPage}
                 <span class="cursor-pointer mt-1" on:click={handleExit}><Icon path={closeIcon} size={1.5} /></span>
               {/if}
             </div>
@@ -167,7 +174,11 @@
               onExit={handleExitCheckout}
             />
           {:else if processingOrder}
-            <ProcessingOrder />
+            {#if showPendingPage}
+              <PendingCheckoutPage />
+            {:else}
+              <ProcessingOrder />
+            {/if}
           {:else if orderSuccess || orderError}
             <OrderStatus
               orderState={orderError ? 'error' : 'success'}

@@ -14,7 +14,8 @@ export type CheckoutState =
   | 'ordering-stripe'
   | 'method-select'
   | 'exit'
-  | 'loading';
+  | 'loading'
+  | 'pending';
 
 export type TransactionData = {
   sku: string;
