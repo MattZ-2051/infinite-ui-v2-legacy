@@ -93,7 +93,7 @@
         )
           .then((response) => {
             directPurchaseResult = response;
-            toast.success('Your request is being processed. Minting of your NFT may take up to 10 minutes.', {
+            toast.success('Your request is being processed. Please note this may take up to 10 minutes.', {
               toastId: 'TXR_SUCCESS',
             });
             purchasing = true;
