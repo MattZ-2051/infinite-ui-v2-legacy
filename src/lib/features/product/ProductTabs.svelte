@@ -42,7 +42,7 @@
 
 <PrivateAsset skuId={undefined} productId={product._id} let:total={totalPrivateAssets}>
   <Tabs
-    class="mx-4 md:ml-8 lg:ml-12"
+    class="mx-4 md:ml-8 lg:ml-12 product-tabs"
     items={getItems()}
     itemClass="text-xl lg:text-2xl items-center"
     menuBreakpoint="sm"

@@ -307,6 +307,22 @@
   --mobile-sidebar-burger-svg-line-margin-top: 4px;
 }
 
+@media (min-width: 768px) {
+  .product-tabs {
+    --tab-title-size: 12px;
+    --tab-title-font: var(--second-font);
+    --tab-title-text-spacing: 0.05em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-tabs {
+    --tab-title-size: 16px;
+    --tab-title-font: var(--second-font);
+    --tab-title-text-spacing: 0.1em;
+  }
+}
+
 .theme-payment-button {
   --button-brand-color: #ffffff;
   --button-brand-bg: linear-gradient(225deg, #181c20 0%, #363f45 100%);

@@ -38,7 +38,7 @@
 
   const MINT_OWNER_LABEL = isTransactionLater ? 'Owned by' : 'Owner';
   const cellClass =
-    'flex flex-col gap-1.5 text-sm sm:text-base py-4 px-3 sm:px-6 overflow-hidden flex-1 basis-[178px] lg:basis-[max-content] min-w-min whitespace-nowrap';
+    'flex flex-col gap-1.5 text-sm sm:text-base py-4 px-3 sm:px-6 overflow-hidden flex-1 basis-[178px] lg:basis-[max-content] xl:basis-auto min-w-min whitespace-nowrap';
   const headerClass = 'text-gray-500 text-sm';
 
   let copiedLink = false;
@@ -215,5 +215,12 @@
   }
   .action-cell:nth-of-type(odd) {
     flex-basis: calc((850px - 100%) * 999);
+  }
+
+  @screen 2xl {
+    .token-cell:nth-of-type(odd),
+    .action-cell:nth-of-type(odd) {
+      flex-basis: auto;
+    }
   }
 </style>
