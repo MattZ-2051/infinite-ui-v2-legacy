@@ -249,6 +249,7 @@ export type Product = {
   nftPublicAssets?: FileAsset[];
   name?: string;
   description?: string;
+  mintingContractAddress?: string;
 };
 
 export type ProductStatus =

@@ -52,8 +52,11 @@
   };
 
   const redirectToOpenSea = () => {
+    const contractAddress = product?.mintingContractAddress
+      ? product.mintingContractAddress
+      : variables.ethNetwork.nftContractAddress;
     const OPEN_SEA_URL = product.serialNumber
-      ? `${variables.openSea.nftAssetUrl}${variables.ethNetwork.nftContractAddress}/${product.serialNumber}`
+      ? `${variables.openSea.nftAssetUrl}${contractAddress}/${product.serialNumber}`
       : (import.meta.env.VITE_OPENSEA_URL_NFT_MINTED as string);
     window.open(OPEN_SEA_URL as string, '_blank');
   };
