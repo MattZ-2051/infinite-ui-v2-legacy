@@ -152,7 +152,7 @@
   {#if totalCollectors > 0}
     <div class="from-collectors-line z-∞" />
     <div style="border-top:var(--sku-price-box-border-top, 1px solid black);">
-      {#if activeWhiteList}
+      {#if activeWhiteList || ethSkuSale || noCollectorSales}
         <ViewCollectors {sku} />
       {:else if hasActiveAuctionListing && hasActiveFixedListing}
         <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuctionAndSale" />
@@ -162,10 +162,6 @@
         <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="activeAuction" />
       {:else if isUpcomingAuction}
         <FromCollectors {sku} collectorListing={lowestUpcomingPriceListing} status="upcomingAuction" />
-      {:else if ethSkuSale}
-        <FromCollectors {sku} collectorListing={lowestUpcomingPriceListing} status="ethSkuSale" />
-      {:else if noCollectorSales}
-        <FromCollectors {sku} collectorListing={lowestActivePriceListing} status="noneForSale" />
       {/if}
     </div>
   {/if}

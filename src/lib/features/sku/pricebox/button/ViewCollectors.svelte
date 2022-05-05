@@ -11,7 +11,7 @@
   export let sku: Sku;
 
   const parameters =
-    sku.mintPolicy.transaction === 'later' ? '?mintStatus=all&sortBy=serialNumber:desc' : '?saleType=all';
+    sku?.mintPolicy?.transaction === 'later' ? '?mintStatus=all&sortBy=serialNumber:desc' : '?saleType=all';
   const href = routes.collectors(sku._id, parameters);
 </script>
 

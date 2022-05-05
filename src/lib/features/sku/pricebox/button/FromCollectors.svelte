@@ -129,10 +129,6 @@
         </div>
       </div>
     {/if}
-    {#if status === 'ethSkuSale'}
-      <div class="text-2xl from-collector-text-custom">From Collector</div>
-      <div class="flex justify-end items-center" />
-    {/if}
   </div>
 </SkuPriceBoxButton>
 
