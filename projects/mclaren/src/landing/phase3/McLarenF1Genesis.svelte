@@ -6,6 +6,8 @@
   import { loadAllSkuCollectionsFx, setAllSkuCollections } from '$lib/features/collections/collections.store';
   import bucketAssets from '$project/assets/aws-bucket-assets';
 
+  const collectionId = import.meta.env.VITE_DEFAULT_COLLECTION_ID;
+
   export let phase: string;
   let skuId = undefined;
   const isPhase3 = phase === '3';
@@ -15,8 +17,8 @@
     if (isPhase3) {
       const { collections } = await loadAllSkuCollectionsFx({ fetch });
       setAllSkuCollections({ collections });
-      // asumming that ML has only 1 collection
-      skuId = collections[0].featuredSkuId;
+
+      skuId = collections.find((collection) => collection.id === collectionId)?.featuredSkuId;
       route = routes.sku(skuId);
     }
   });
