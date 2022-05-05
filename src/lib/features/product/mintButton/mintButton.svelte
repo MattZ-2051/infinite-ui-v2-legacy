@@ -3,7 +3,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import ToMint from '../assets/toMint';
   import Processed from '../assets/viewOpenSea';
-  import { messages, MINT_STATUS, UN_SOLD_STATUS } from './constants';
+  import { messages, MINT_STATUS, PROCESSING_STATUS, UN_SOLD_STATUS } from './constants';
 
   export let status: StatusMintButton = MINT_STATUS;
   export let toMint: () => void;
@@ -13,7 +13,7 @@
   $: title = status !== UN_SOLD_STATUS ? messages[status] : '';
 
   const handleClick = (): void => {
-    status === MINT_STATUS ? toMint() : processed();
+    status === MINT_STATUS || status === PROCESSING_STATUS ? toMint() : processed();
   };
 </script>
 

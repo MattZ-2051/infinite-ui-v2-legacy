@@ -3,9 +3,7 @@
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { Product, Sku, Transaction } from '$lib/sku-item/types';
   import type { StatusMintButton } from './mintButton/types';
-  import { onMount } from 'svelte';
   import information from '$lib/components/icons/information';
-  import { getNftTokenId } from '$lib/payment/crypto/etherscan';
   import { variables } from '$lib/variables';
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
@@ -27,8 +25,6 @@
   let isShowMintModal = false;
   let sku: Sku;
   let mintStatus: StatusMintButton = 'toMint';
-  let mintedNftTokenId: string;
-  let nftEthAddress: string;
 
   $: sku = product.sku;
   $: isTransferredOut = transactions.length > 0 ? transferredOut(product, transactions) : false;
@@ -39,7 +35,6 @@
   $: (mintStatus = getMintStatus(product.status, $txState.status)), $txState.status;
   $: mintLaterLabel = product.status === 'purchased' ? 'Owner' : 'Minted by';
   $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
-  $: product.status === 'minted' && getNftId(product.tokenId);
 
   const MINT_OWNER_LABEL = isTransactionLater ? 'Owned by' : 'Owner';
   const cellClass =
@@ -57,33 +52,20 @@
   };
 
   const redirectToOpenSea = () => {
-    const OPENSEA_URL =
-      mintedNftTokenId && nftEthAddress
-        ? `${variables.openSea.nftAssetUrl}${nftEthAddress}/${mintedNftTokenId}`
-        : import.meta.env.VITE_OPENSEA_URL_NFT_MINTED;
-    window.open(OPENSEA_URL as string, '_blank');
+    const OPEN_SEA_URL = product.serialNumber
+      ? `${variables.openSea.nftAssetUrl}${variables.ethNetwork.nftContractAddress}/${product.serialNumber}`
+      : (import.meta.env.VITE_OPENSEA_URL_NFT_MINTED as string);
+    window.open(OPEN_SEA_URL as string, '_blank');
   };
 
   const handleChangeModalToMint = () => {
     if (!$user && product.sku?.mintPolicy?.transaction === 'later') {
       onSignIn();
     }
-    isShowMintModal = true;
-  };
-
-  const getNftId = async (txHash: string) => {
-    const response = await getNftTokenId(txHash);
-    if (response) {
-      mintedNftTokenId = response.tokenId;
-      nftEthAddress = response.address;
+    if (product.status !== 'minted') {
+      isShowMintModal = true;
     }
   };
-
-  onMount(async () => {
-    if (product.status) {
-      getNftId(product.tokenId);
-    }
-  });
 </script>
 
 <div class="rounded-lg border border-gray-200 text-default overflow-hidden">
@@ -187,7 +169,6 @@
               target="_blank"
               rel="noopener noreferrer">{product.tokenId}</a
             >
-
             {#if copiedLink}
               <Icon path={mdiCheckCircle} color="green" size="1em" class="shrink-0" />
             {:else}
@@ -228,12 +209,10 @@
     @apply flex flex-wrap flex-grow flex-shrink flex-row-reverse xl:flex-col justify-end xl:justify-start;
     flex-basis: calc((850px - 100%) * 999);
   }
-
   .action-cell {
     flex-grow: 1;
     min-width: fit-content;
   }
-
   .action-cell:nth-of-type(odd) {
     flex-basis: calc((850px - 100%) * 999);
   }

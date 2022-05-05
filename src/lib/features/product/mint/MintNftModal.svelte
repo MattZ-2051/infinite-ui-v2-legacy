@@ -11,7 +11,7 @@
   export let product: Product;
   export let onClose: () => void;
 
-  let mintingStatus: 'unclaimed' | 'processing' = 'unclaimed';
+  $: mintingStatus = $txState.status === 'pending' ? 'processing' : 'unclaimed';
   let isLoading = false;
 
   $: txStatus = $txState.status;

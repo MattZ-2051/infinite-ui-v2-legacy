@@ -1,7 +1,7 @@
 export const messages = {
   processed: 'View on OpenSea',
   toMint: 'Mint NFT',
-  processing: 'Minting in progress...',
+  processing: 'Minting in progress',
 };
 
 export const PROCESSED_STATUS = 'processed';

@@ -19,7 +19,7 @@
 
   $: switch (txStatus) {
     case 'pending': {
-      title = 'Processing...';
+      title = 'Minting in progress';
       break;
     }
     case 'confirmed': {

@@ -13,6 +13,7 @@ export const variables = {
     usdcContractAddress: import.meta.env.VITE_USDC_CONTRACT_ADDRESS,
     nftExplorerUrl: import.meta.env.VITE_ETH_EXPLORER_BASE_URL_NFT,
     nftTransactionApiUrl: import.meta.env.VITE_ETHERSCAN_API_URL_NFT_TX,
+    nftContractAddress: import.meta.env.VITE_NFT_CONTRACT_ADDRESS,
   },
   openSea: {
     nftAssetUrl: import.meta.env.VITE_OPENSEA_ASSETS_URL,

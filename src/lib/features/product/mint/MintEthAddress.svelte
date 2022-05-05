@@ -19,7 +19,7 @@
 
   let radioValue;
   let address;
-  let buttonText = 'Mint';
+  let buttonText = 'Mint NFT';
   let copiedLink = false;
 
   $: validEthAddress = undefined;
