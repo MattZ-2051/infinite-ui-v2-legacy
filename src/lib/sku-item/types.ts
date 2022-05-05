@@ -250,6 +250,7 @@ export type Product = {
   name?: string;
   description?: string;
   mintingContractAddress?: string;
+  mintingTrxHash: string;
 };
 
 export type ProductStatus =

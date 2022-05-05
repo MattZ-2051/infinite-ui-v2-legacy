@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { StatusMintButton } from './types';
+  import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import Icon from '$ui/icon/Icon.svelte';
   import ToMint from '../assets/toMint';
   import Processed from '../assets/viewOpenSea';
@@ -26,6 +27,11 @@
       <Icon path={status === MINT_STATUS ? ToMint : Processed} alt={status} class="mr-2" />
     {/if}
     {title}
+    {#if status === 'processing'}
+      <div class="ml-2">
+        <DualRingLoader --lds-size="1.8rem" />
+      </div>
+    {/if}
   </button>
 {/if}
 

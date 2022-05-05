@@ -1,11 +1,13 @@
 import type { TxStatus } from '$lib/payment/crypto/etherscan/types';
-import type { Product, ProductStatus, Transaction } from '$lib/sku-item/types';
+import type { Product, Transaction } from '$lib/sku-item/types';
 import type TokenBalanceMap from '@hashgraph/sdk/lib/account/TokenBalanceMap';
 import type { StatusMintButton } from './mintButton/types';
 
-export function getMintStatus(productStatus: ProductStatus, txStatus: TxStatus | ''): StatusMintButton {
-  switch (productStatus) {
+export function getMintStatus(product: Product, txStatus: TxStatus | ''): StatusMintButton {
+  const serialNumber = product.serialNumber;
+  switch (product.status) {
     case 'minted':
+      if (!serialNumber) return 'processing';
       return txStatus === 'pending' ? 'processing' : 'processed';
     case 'purchased':
       if (txStatus === 'pending') return 'processing';

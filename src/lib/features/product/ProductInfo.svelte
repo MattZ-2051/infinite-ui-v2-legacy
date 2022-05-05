@@ -17,7 +17,7 @@
   import { transferredOut, transferInUnresolved, isOwner, getMintStatus } from './product.service';
   import MintButton from './mintButton/mintButton.svelte';
   import MintNftModal from './mint/MintNftModal.svelte';
-  import { txState } from './product.store';
+  import { pendingTxStatus, txState } from './product.store';
 
   export let product: Product;
   export let transactions: Transaction[];
@@ -32,9 +32,10 @@
   $: isProductOwner = isOwner(product, $userId);
   $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
   $: isTransactionUserSelect = product.sku?.mintPolicy?.transaction === 'user-selected';
-  $: (mintStatus = getMintStatus(product.status, $txState.status)), $txState.status;
+  $: (mintStatus = getMintStatus(product, $txState.status)), $txState.status;
   $: mintLaterLabel = product.status === 'purchased' ? 'Owner' : 'Minted by';
   $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
+  $: !product.serialNumber && product.mintingTrxHash && pendingTxStatus(product.mintingTrxHash);
 
   const MINT_OWNER_LABEL = isTransactionLater ? 'Owned by' : 'Owner';
   const cellClass =
