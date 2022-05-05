@@ -2,17 +2,13 @@
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
   import SimpleAccordion from '$project/landing/faq/SimpleAccordion.svelte';
-  import curvedBorder from '../phase3/images/curved-border.svg';
+  import Divider from '../common/Divider.svelte';
   import { FaqInfo } from './FAQInfo';
-
-  export let curvedImg: boolean;
 </script>
 
-<div class="py-44 sm:py-72">
-  {#if curvedImg}
-    <img src={curvedBorder} alt="curverd-border-img" class="w-full" />
-  {/if}
+<div class="py-44 sm:py-72 relative">
   <div class="flex flex-col items-center">
+    <Divider class="max-w-full absolute top-10 md:top-32" />
     <div class="max-w-5xl relative z-10 w-full container">
       <div
         class="font-light text-[32px] mb-20 sm:text-5xl text-center tracking-widest uppercase second-font text-white"

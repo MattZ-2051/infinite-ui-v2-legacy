@@ -28,7 +28,7 @@
     <McLarenFuturePerformance1 />
     <McLarenRoadMap />
     <McLarenSupercarCompany1 />
-    <FAQ curvedImg={false} />
+    <FAQ />
     <Community />
   </div>
 {:else if phase === '2' || phase === '3'}
@@ -44,7 +44,7 @@
       <UpcomingCollection />
       <McLarenSupercarCompany />
     {/if}
-    <FAQ curvedImg={phase === '2'} />
+    <FAQ />
     <Community />
   </div>
 {/if}

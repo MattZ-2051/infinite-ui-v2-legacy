@@ -9,7 +9,9 @@
     class="flex flex-col lg:grid grid-cols-2 gap-x-16 h-full text-black items-center container px-6 md:px-16 xl:px-44"
   >
     <div
-      class={`justify-self-center rounded-3xl z-1 flex align-center items-center max-w-${$media['2xl'] ? 'xl' : 'md'}`}
+      class={`justify-self-center rounded-3xl z-1 mb-20 lg:mb-0 flex align-center items-center max-w-${
+        $media['2xl'] ? 'xl' : 'md'
+      }`}
     >
       <img
         src={bucketAssets.landing.supercarCompany}
@@ -28,7 +30,7 @@
         <p class="leading-7 pb-6 text-white opacity-80">
           Our cars continually define and redefine the benchmarks against which all others are measured.
         </p>
-        <p class="leading-7 md:pb-6 text-white opacity-80">
+        <p class="leading-7 md:pb-6 pb-10 text-white opacity-80">
           We embrace pioneering technology, fearless engineering, beautiful yet purposeful design and a relentless
           spirit to ensure that each one is more exhilarating, more refined, more remarkable than the last.
         </p>
