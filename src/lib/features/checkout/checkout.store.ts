@@ -1,6 +1,7 @@
 import type { Product } from '$lib/sku-item/types';
 import { createStore, createEvent, createEffect, Event, Store } from 'effector';
 import type { CheckoutState } from './types';
+import type { ApiError } from '$lib/api';
 import { createPolling } from '$util/effector';
 import { toast } from '$ui/toast';
 import routes from '$project/routes';
@@ -53,9 +54,7 @@ const pollProductStateFx = createEffect(async () => {
       return await getProductPaymentIntent(paymentIntent);
     }
   } catch (error) {
-    if (error.status === 404) {
-      return;
-    } else {
+    if (error.status !== 404) {
       throw error;
     }
   }
@@ -90,6 +89,17 @@ pollProductStateFx.doneData.watch(async (response: Product) => {
     }
     const poll = productState.getState().poll;
     poll.stop();
+  }
+});
+
+pollProductStateFx.failData.watch((error) => {
+  const apiError = error as unknown as ApiError;
+  if (
+    apiError.status >= 400 &&
+    apiError.status < 500 &&
+    apiError.data?.appCode === 'PRODUCT_NOT_FOUND_CAUSE_TRANSACTION_ERROR'
+  ) {
+    updateCheckoutState('error');
   }
 });
 

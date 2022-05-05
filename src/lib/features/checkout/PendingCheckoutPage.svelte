@@ -38,7 +38,4 @@
     text-decoration: none;
     opacity: 0.5;
   }
-  .paragraph {
-    line-height: 1.6;
-  }
 </style>

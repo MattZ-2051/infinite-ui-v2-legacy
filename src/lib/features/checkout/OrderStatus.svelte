@@ -39,15 +39,19 @@
     <div class="flex items-center">
       {#if orderFailed}
         <img src={errorIcon} alt="error icon" class="w-12 sm:w-auto" />
-        <p class="title text-3xl sm:text-4xl font-normal pl-6">Payment failed</p>
+        <p class="title text-3xl sm:text-4xl font-normal pl-6">Order failed</p>
       {:else if orderSuccess}
         <img src={successIcon} alt="success icon" />
         <p class="title text-4xl font-normal pl-6">Order successful!</p>
       {/if}
     </div>
     {#if orderFailed}
-      <p class="text-base pt-8 mb-10">
-        We weren't able to process your payment. Please check your information and try again.
+      <p class="text-base pt-8 mb-2">
+        Something went wrong while processing your order, check your email inbox for details.
+      </p>
+      <p class="text-base mb-10">
+        <span>If you haven't received an email, please</span>
+        <span on:click={() => goto(routes.help)} class="underline font-bold cursor-pointer">contact us</span>.
       </p>
     {:else if orderSuccess}
       <p class="text-base px-6 pt-8 mb-10 gap-y-2">
