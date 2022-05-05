@@ -30,7 +30,7 @@
   <a sveltekit:prefetch {href} class={`space-y-4 py-6 ${isPhase3 ? 'cursor-pointer' : 'cursor-default'}`}>
     <figure class="relative mx-6 mb-0">
       <FilePreview
-        item={product ? product.nftPublicAssets[0] || sku.nftPublicAssets?.[0] : sku.nftPublicAssets?.[0]}
+        item={product ? product.nftPublicAssets?.[0] || sku.nftPublicAssets?.[0] : sku.nftPublicAssets?.[0]}
         preview
         borderRadius={'0.65rem'}
       />
