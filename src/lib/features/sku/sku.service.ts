@@ -31,13 +31,21 @@ export const getLimitedAuctionCollector = (sku: Sku, collectors: CollectorProduc
 };
 
 export const getLowestProductListing = (sku: Sku): Listing | undefined => {
+  // lowestProductListingPrice is lowest between:
+  // minHighestBidProductListing, minBidAuctionsNoBidsProductListings and minPriceBuyNowProductListings
+
   if (sku?.lowestProductListingPrice === sku?.minHighestBidProductListing) {
+    // Find listing where the highest bid is the same as lowestProductListingPrice
     return sku?.activeProductListings.find((listing) => listing?.highestBid?.bidAmt === sku?.lowestProductListingPrice);
   }
   if (sku?.lowestProductListingPrice === sku?.minBidAuctionsNoBidsProductListings) {
-    return sku?.activeProductListings.find((listing) => listing?.minBid === sku?.lowestProductListingPrice);
+    // Find listing where the starting bid is the same as lowestProductListingPrice and has no other bids
+    return sku?.activeProductListings.find(
+      (listing) => listing?.minBid === sku?.lowestProductListingPrice && !listing?.highestBid
+    );
   }
   if (sku?.lowestProductListingPrice === sku?.minPriceBuyNowProductListings) {
+    // Find listing where the product price is the same as lowestProductListingPrice
     return sku?.activeProductListings.find((listing) => listing?.price === sku?.lowestProductListingPrice);
   }
 };
