@@ -24,6 +24,7 @@
 
   const isMintLaterSku = sku?.mintPolicy?.transaction === 'later';
   const isEthCurrency = sku.currency === 'ETH';
+  const hasMintLater = collectors.some((c) => c.status === 'purchased' || c.status === 'unsold');
 
   const onFilter = (event: CustomEvent) => {
     const { key, value } = event.detail;
@@ -36,6 +37,7 @@
   let sortOptions: SortOption[] = isMintLaterSku ? INITIAL_SORT_OPTIONS_MINT_LATER : INITIAL_SORT_OPTIONS;
   let saleTypeOptions: SortOption[] = INITIAL_SALE_TYPE_OPTIONS;
   let statusOptions: SortOption[] = INITIAL_MINT_STATUS_OPTIONS;
+
   const handleChangeSortLists = (value: string, key: string) => {
     let sortBy = $pageState.url.searchParams.get('sortBy') || '';
     let saleType = $pageState.url.searchParams.get('saleType') || '';
@@ -81,7 +83,7 @@
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
       {#if isEthCurrency}
-        {#if isMintLaterSku}
+        {#if isMintLaterSku || hasMintLater}
           <Sort sortOptions={statusOptions} on:select={onFilter} key="mintStatus" label="Status:" iconType="filter" />
         {/if}
       {:else}
