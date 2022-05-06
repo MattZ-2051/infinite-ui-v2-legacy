@@ -35,3 +35,4 @@ export const COOKIE_URL = 'www.ariaexchange.com';
 export const ENABLE_RELATED_SKUS = true;
 export const ENABLE_GDPR_BANNER = false;
 export const PRODUCT_GALLERY_LIMIT = false;
+export const ENABLE_ASSET_FILE_SIZE = true;

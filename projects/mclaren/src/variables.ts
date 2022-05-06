@@ -45,3 +45,4 @@ export const ENABLE_RELATED_SKUS = false;
 export const ENABLE_GDPR_BANNER = true;
 export const PRODUCT_GALLERY_LIMIT = 2;
 export const G_SITE_VERIFICATION = 'L28RuqCJ5xG7gRgUcvPDQ-o7MsAb93oeOzkkdW1j1ok';
+export const ENABLE_ASSET_FILE_SIZE = false;

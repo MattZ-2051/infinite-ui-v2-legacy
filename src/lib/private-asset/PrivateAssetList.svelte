@@ -5,6 +5,7 @@
   import { mdiDownloadCircleOutline } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatBytes } from '$util/format';
+  import { ENABLE_ASSET_FILE_SIZE } from '$project/variables';
   import { getPreSignedUrl } from './private-asset.api';
 
   const privateAssets: Writable<PrivateAssets> = getContext('PrivateAssets');
@@ -37,7 +38,10 @@
         <div class="min-w-0 flex-grow flex flex-col gap-4">
           <div class="break-words">{asset.filename}</div>
           <div class="flex justify-between w-full max-w-sm">
-            <span>Type: {asset.type?.split('/')[0]}</span><span>Size: {formatBytes(asset.size)}</span>
+            <span>Type: {asset.type?.split('/')[0]}</span>
+            {#if ENABLE_ASSET_FILE_SIZE}
+              <span>Size: {formatBytes(asset.size)}</span>
+            {/if}
           </div>
         </div>
         {#if isOwner}
