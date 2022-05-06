@@ -11,11 +11,12 @@
   export let product: Product;
   export let onClose: () => void;
 
-  $: mintingStatus = $txState.status === 'pending' ? 'processing' : 'unclaimed';
   let isLoading = false;
 
+  $: mintingStatus = $txState.status === 'pending' ? 'processing' : 'unclaimed';
   $: txStatus = $txState.status;
   $: txHash = $txState.hash;
+  $: $txState.status === 'confirmed' && onClose();
 
   const mintNft = async (mintToAddress: string) => {
     isLoading = true;

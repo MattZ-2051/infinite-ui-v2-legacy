@@ -341,7 +341,7 @@ txState.on(updateTxHash, (state, payload) => ({ ...state, hash: payload }));
 
 txState.on(pendingTxStatus, (_, payload) => {
   updateTxHash(payload);
-  const poll = createPolling(pollTransactionStatusFx, 2000);
+  const poll = createPolling(pollTransactionStatusFx, 5000);
   resetFails();
   poll.start();
   return { status: 'pending', hash: payload, poll };
