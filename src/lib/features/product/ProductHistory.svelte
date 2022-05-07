@@ -34,10 +34,10 @@
   $: transactionShow =
     $product.sku?.mintPolicy?.transaction === 'later'
       ? $transactions.reverse().filter((transaction) => {
-          filterTransaction(transaction);
+          return filterTransaction(transaction);
         })
       : $transactions.filter((transaction) => {
-          filterTransaction(transaction);
+          return filterTransaction(transaction);
         });
   async function showAuctionHistory(listingId: string) {
     openModal(AuctionHistoryModal, {
