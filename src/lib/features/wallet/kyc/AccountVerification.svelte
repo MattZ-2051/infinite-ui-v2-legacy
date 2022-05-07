@@ -9,6 +9,7 @@
   export let pending: boolean;
   export let level: number;
 
+  const disableKYC = import.meta.env?.VITE_DISABLED_KYC === 'true';
   const dispatch = createEventDispatcher();
 
   const LEVEL_ICONS = [mdiShieldOffOutline, mdiShieldCheckOutline, shieldPlus];
@@ -43,7 +44,7 @@
     {/if}
   </div>
   {#if !pending && level < 2}
-    <Button variant="brand" style="--button-padding:0.3em" on:click={() => dispatch('upgrade')}>
+    <Button variant="brand" style="--button-padding:0.3em" on:click={() => dispatch('upgrade')} disabled={disableKYC}>
       <ArrowRight />
       <span class="sr-only">Verify account</span>
     </Button>
