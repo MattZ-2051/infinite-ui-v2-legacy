@@ -357,10 +357,10 @@ pollTransactionStatusFx.fail.watch(() => {
 });
 
 pollTransactionStatusFx.doneData.watch(async (response) => {
-  updateTxState(response);
   if (response === 'confirmed' || response === 'error') {
     const poll = txState.getState().poll;
     await productBoughtFx();
     poll.stop();
   }
+  updateTxState(response);
 });

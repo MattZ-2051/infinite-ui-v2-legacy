@@ -6,10 +6,10 @@
   import Processed from '../assets/viewOpenSea';
   import { messages, MINT_STATUS, PROCESSING_STATUS, UN_SOLD_STATUS } from './constants';
 
-  export let status: StatusMintButton = MINT_STATUS;
+  export let status: StatusMintButton | 'loading' = 'loading';
   export let toMint: () => void;
   export let processed: () => void;
-  let title: string = messages.toMint;
+  let title: string = messages.loading;
 
   $: title = status !== UN_SOLD_STATUS ? messages[status] : '';
 
@@ -18,6 +18,11 @@
   };
 </script>
 
+{#if status === 'loading'}
+  <div class="ml-2">
+    <DualRingLoader --lds-size="1.8rem" />
+  </div>
+{/if}
 {#if status !== UN_SOLD_STATUS}
   <button
     class="flex items-center justify-center rounded-r-md custom-button-mint-element text-xs uppercase font-bold px-6 py-8 whitespace-nowrap flex-grow flex-shrink basis-[max-content]"

@@ -14,6 +14,8 @@ export function getMintStatus(product: Product, txStatus: TxStatus | ''): Status
       return 'toMint';
     case 'unsold':
       return 'unSold';
+    default:
+      return 'loading';
   }
 }
 

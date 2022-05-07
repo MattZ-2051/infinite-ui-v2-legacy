@@ -2,7 +2,6 @@
   import copy from 'clipboard-copy';
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { Product, Sku, Transaction } from '$lib/sku-item/types';
-  import type { StatusMintButton } from './mintButton/types';
   import information from '$lib/components/icons/information';
   import { variables } from '$lib/variables';
   import Icon from '$ui/icon/Icon.svelte';
@@ -24,7 +23,6 @@
 
   $: isShowMintModal = false;
   let sku: Sku;
-  let mintStatus: StatusMintButton = 'toMint';
 
   $: sku = product.sku;
   $: isTransferredOut = transactions.length > 0 ? transferredOut(product, transactions) : false;
@@ -32,7 +30,7 @@
   $: isProductOwner = isOwner(product, $userId);
   $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
   $: isTransactionUserSelect = product.sku?.mintPolicy?.transaction === 'user-selected';
-  $: (mintStatus = getMintStatus(product, $txState.status)), $txState.status;
+  $: mintStatus = getMintStatus(product, $txState.status);
   $: mintLaterLabel = product.status === 'purchased' ? 'Owner' : 'Minted by';
   $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
   $: !product.serialNumber && product.mintingTrxHash && refetchProduct();
