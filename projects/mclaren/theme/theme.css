@@ -296,9 +296,10 @@
   --mobile-menu-padding-top: theme('padding.10');
   --mobile-menu-content-background-color: var(--primary-color);
   --mobile-menu-separator-color: rgba(255, 255, 255, 0.1);
-  --mobile-menu-links-size: theme('fontSize.xl');
+  --mobile-menu-links-size: 1.2rem;
   --mobile-menu-signup-size: theme('fontSize.xs');
   --mobile-menu-links-align: start;
+  --mobile-menu-links-gap: 1.5rem;
   --mobile-menu-sign-up-width: 100%;
   --mobile-sidebar-toggle-icon-width: theme('width.5');
   --mobile-sidebar-toggle-icons-width: 20px;
