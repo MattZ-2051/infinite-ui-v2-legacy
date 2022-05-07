@@ -160,7 +160,7 @@
   </p>
   <article
     bind:this={phaseBlock}
-    class="phase-block rounded-3xl shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] flex flex-col lg:flex-row lg:flex-nowrap items-center mt-8 mb-16 mx-6 lg:mx-auto max-w-screen-lg min-h-fit"
+    class="phase-block rounded-3xl shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] flex flex-col lg:flex-row lg:flex-nowrap items-center mt-8 mb-16 mx-6 lg:mx-auto max-w-screen-xl min-h-fit"
   >
     <h3
       class="text-[10rem] sm:text-[13.75rem] leading-none flex-[1_1_fit-content] lg:flex-grow-0 text-center second-font font-light tracking-widest m-8 sm:my-20 sm:mx-8"
@@ -182,7 +182,7 @@
         </p>
       {/key}
 
-      <ol class="steps-list list-inside flex space-x-6 lg:space-x-3">
+      <ol class="steps-list list-inside flex flex-wrap gap-x-6 lg:gap-x-3 gap-y-6">
         {#each selectedPhase.steps as step, index}
           <li
             class="second-font text-xl md:text-[0.875rem] uppercase tracking-[.2em] opacity-30 hover:opacity-100 min-w-max block cursor-pointer leading-none"
