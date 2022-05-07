@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { onMount } from 'svelte';
   import { media } from '$lib/media-query.store';
 
   export let reverse = false;
@@ -10,12 +10,17 @@
   let ctaHeight: number;
   $: ctaOffset = !$media.md && ctaHeight ? ctaHeight : 0;
 
-  $: if (browser && $$slots['sticky-cta']) {
-    const root = document.querySelector<HTMLElement>(`[data-theme-context="root"]`);
-    if (root) {
-      root.style.paddingBottom = `${ctaOffset}px`;
-    }
-  }
+  let root: HTMLElement;
+
+  onMount(() => {
+    root = document.querySelector<HTMLElement>(`[data-theme-context="root"]`);
+
+    return () => {
+      root.style.paddingBottom = '0px';
+    };
+  });
+
+  $: root && (root.style.paddingBottom = `${ctaHeight}px`);
 </script>
 
 <div class="grid {_class}" class:reverse>
