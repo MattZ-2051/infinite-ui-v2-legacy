@@ -44,6 +44,9 @@ module.exports = {
         warning: '#FFB74A',
         error: '#E83737',
       },
+      width: {
+        128: '35rem',
+      },
       zIndex: {
         '-1': '-1',
         '∞': 999_999_999,

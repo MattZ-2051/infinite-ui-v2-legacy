@@ -4,7 +4,6 @@
   import FilePreview from '$ui/file/FilePreview.svelte';
   import Button from '$lib/components/Button.svelte';
   import { getStatusLabelAndColor } from './gateKeeping.service';
-  import chevronIcon from './assets/chevron.svg';
 
   export let sourceImg: FileAsset;
   export let name = '';
@@ -21,20 +20,22 @@
       <FilePreview item={sourceImg} preview />
     </div>
     <div class="flex flex-col pl-4 items-start">
-      <span class="text-sm text-gray-500">Name</span>
-      <p class="text-base">
+      <span class="text-xs text-gray-500 md:text-sm">Name</span>
+      <p class="text-sm whitespace-nowrap overflow-hidden text-ellipsis nft-name md:text-base pr-4">
         {name}
       </p>
     </div>
   </div>
   {#if hasButton}
     <div class="flex items-center justify-center">
-      <Button variant="brand" class="rounded-lg w-40 h-12" on:click={handleClick}>Buy now</Button>
+      <Button variant="brand" class="rounded-lg w-24 h-12 md:w-32" on:click={handleClick} --button-padding="12px 12px"
+        >Buy now</Button
+      >
     </div>
   {:else}
     <div class="border-l border-gray-900 px-4 w-1/3 flex flex-col justify-center">
-      <span class="text-sm text-gray-500">Status</span>
-      <p class={`text-base ${statusLabelColor} whitespace-nowrap`} style={`color: ${statusLabelColor};`}>
+      <span class="text-xs text-gray-500 md:text-sm">Status</span>
+      <p class={`text-sm ${statusLabelColor} whitespace-nowrap md:text-base`} style={`color: ${statusLabelColor};`}>
         {statusLabel}
       </p>
     </div>
@@ -42,7 +43,17 @@
 </div>
 {#if showToolTip && status === 'buyNow'}
   <div class="flex items-center">
-    <img src={chevronIcon} alt="chevron icon" />
     <p class="text-sm font-light text-gray-500 pl-2">Then you'll be able to buy this:</p>
   </div>
 {/if}
+
+<style>
+  .nft-name {
+    max-width: 200px;
+  }
+  @media only screen and (max-width: 768px) {
+    .nft-name {
+      max-width: 130px;
+    }
+  }
+</style>

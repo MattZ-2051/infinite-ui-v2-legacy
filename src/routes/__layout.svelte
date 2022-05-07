@@ -44,6 +44,7 @@
   import Toast from '$project/toast/Toast.svelte';
   import { onAfterNavigate } from '$project/navigation';
   import { CLIENT_API_HEADER, INFINITE_EXTENSION_ENABLED, ENABLE_GDPR_BANNER } from '$project/variables';
+  import GateKeepOverlay from '$lib/features/gateKeeping/sidebar/GateKeepOverlay.svelte';
   import { Modals, modals } from '$ui/modals';
   import Scrim from '$ui/scrim/Scrim.svelte';
   import GdprBanner from '$lib/components/gdpr/GdprBanner.svelte';
@@ -107,6 +108,8 @@
     {#if ENABLE_GDPR_BANNER}<GdprBanner />{/if}
 
     <div class="flex flex-col min-h-screen">
+      <GateKeepOverlay />
+
       <Header />
 
       <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-toast">

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { slide } from 'svelte/transition';
   import closeIcon from '$lib/components/icons/close';
   import Icon from '$ui/icon/Icon.svelte';
   import { clearRequiredSkus, gateKeepSkus, gateKeepType } from './gateKeeping.store';
@@ -31,19 +30,19 @@
   };
 </script>
 
-<div class="w-full h-full px-8 pt-8" transition:slide>
+<div class="w-full h-full px-2 pt-9 md:pt-14 md:px-12">
   {#if $gateKeepType === 'and'}
     <div class="flex items-center justify-between">
-      <p class="text-4xl pr-6">You need to own these!</p>
-      <span class="cursor-pointer" on:click={handleClose}><Icon path={closeIcon} size={2} /></span>
+      <p class="text-2xl pr-6 md:text-4xl">You need to own these!</p>
+      <span class="cursor-pointer" on:click={handleClose}><Icon path={closeIcon} size={1.5} /></span>
     </div>
     <p class="font-light text-base pt-6">
       In order to buy <span class="font-semibold">{$sku.name}</span> you need to buy and own these NFTs:
     </p>
   {:else}
     <div class="flex items-center justify-between">
-      <p class="text-4xl pr-6">You need to own this!</p>
-      <span class="cursor-pointer" on:click={handleClose}><Icon path={closeIcon} size={2} /></span>
+      <p class="text-2xl pr-6 md:text-4xl">You need to own this!</p>
+      <span class="cursor-pointer" on:click={handleClose}><Icon path={closeIcon} size={1.5} /></span>
     </div>
     <p class="font-light text-base pt-6">
       In order to buy <span class="font-semibold">{$sku.name}</span> you need to buy and own

@@ -4,7 +4,7 @@
   import { SkuItemGrid } from '$lib/sku-item';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
-  import NftGateKeepList from '$lib/features/gateKeeping/NftGateKeepList.svelte';
+  import NftGateKeepSidebar from '$lib/features/gateKeeping/sidebar/NftGateKeepSidebar.svelte';
   import { clearRequiredSkus, gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
@@ -37,31 +37,28 @@
   $: activeGateKeepSkus = $gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned');
 </script>
 
+<NftGateKeepSidebar show={activeGateKeepSkus} />
 <StickyColumn fitOnScreenContent --xl-split="0.55" --lg-split="0.51" class="sku">
   <div slot="onscreen-content" class="flex flex-col justify-between h-full">
     <Gallery items={$sku.nftPublicAssets} class="sku-gallery" />
   </div>
   <div slot="sticky-content" class="h-full sku-sticky-content">
-    {#if activeGateKeepSkus}
-      <NftGateKeepList />
-    {:else}
-      <div class="sku-name-block flex flex-col px-4 md:px-10 lg:px-12 gap-4 md:gap-8 pt-8 mb-8 md:mb-0">
-        <div class="name-info-wrapper flex flex-col gap-8">
-          <header
-            class="text-gradient-primary text-3xl md:text-4.5xl font-medium section-title {!$sku?.skuCollection &&
-              'name-mb'}"
+    <div class="sku-name-block flex flex-col px-4 md:px-10 lg:px-12 gap-4 md:gap-8 pt-8 mb-8 md:mb-0">
+      <div class="name-info-wrapper flex flex-col gap-8">
+        <header
+          class="text-gradient-primary text-3xl md:text-4.5xl font-medium section-title {!$sku?.skuCollection &&
+            'name-mb'}"
+        >
+          {$sku.name}
+        </header>
+        {#if $sku?.skuCollection}
+          <span class="text-gray-500 font-light text-base not-italic inline-block name-mb">
+            {$sku?.skuCollection.name}</span
           >
-            {$sku.name}
-          </header>
-          {#if $sku?.skuCollection}
-            <span class="text-gray-500 font-light text-base not-italic inline-block name-mb">
-              {$sku?.skuCollection.name}</span
-            >
-          {/if}
-          <SkuInfo sku={$sku} />
-        </div>
+        {/if}
+        <SkuInfo sku={$sku} />
       </div>
-    {/if}
+    </div>
   </div>
   <div slot="sticky-cta" class="custom-content-buttons">
     {#if !activeGateKeepSkus}
