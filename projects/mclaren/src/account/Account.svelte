@@ -127,7 +127,7 @@
           <div class="text-xs" style="color:rgba(40, 44, 47, 0.5);">{$data.tagline.length}/150</div>
           <FormElement label="Username *" name="username" />
           <FormElement label="Phone Number #" name="phoneNumber" />
-          <FormElement label="Email *" name="email" />
+          <FormElement label="Email *" name="email" disabled />
           <div class="text-xl my-4 second-font">Forgot your password?</div>
           <Button variant="outline-brand" on:click={onResetPassword} class="text-sm uppercase">Reset password</Button>
           <div class="flex flex-col gap-4 sm:pt-4 pt-5">
