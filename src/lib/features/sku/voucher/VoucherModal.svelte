@@ -108,6 +108,7 @@
         </p>
       {/if}
       <Input
+        --search-bar-text-transform="none"
         variant="base"
         type="text"
         data-testId="voucher-input"
