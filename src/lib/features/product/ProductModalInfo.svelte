@@ -11,7 +11,7 @@
 </script>
 
 <div class="flex flex-col border border-gray-100 rounded-xl w-full">
-  <div class="grid grid-cols-2 border-b border-gray-100 py-4 px-12 gap-4">
+  <div class="grid grid-cols-2 border-b border-gray-100 py-4 px-6 sm:px-12 gap-4">
     <div class="flex flex-col gap-2">
       <span class="text-sm text-gray-500">Item Name</span>
       <div class="flex items-center gap-2">
@@ -26,7 +26,7 @@
       <SkuEdition {sku} {product} />
     </div>
   </div>
-  <div class="flex  py-4 px-12 gap-4">
+  <div class="flex py-4 px-6 sm:px-12 gap-4">
     <div class="flex flex-col gap-2 flex-1 min-w-0">
       <span class="text-sm text-gray-500">Created by</span>
       <TalentLink profile={sku.issuer} />
