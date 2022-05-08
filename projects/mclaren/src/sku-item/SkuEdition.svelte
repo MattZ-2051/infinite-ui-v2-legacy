@@ -25,7 +25,7 @@
 </script>
 
 {#if supply}
-  <div class="block basis-[max-content] whitespace-nowrap truncate" use:tooltip={createTooltipMessage(supply.type)}>
+  <div class="block basis-[max-content] whitespace-nowrap" use:tooltip={createTooltipMessage(supply.type)}>
     {#if product}
       <span>{createProductMessage(supply.type, supply.quantity, product)}</span>
     {:else}
