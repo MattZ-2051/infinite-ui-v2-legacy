@@ -192,16 +192,11 @@
   };
 
   const handleCloseModal = () => {
-    if (stripeSucceded) {
-      goto(routes.sku(sku._id), { replaceState: true });
-    }
     closeModal();
   };
 
   const handleNavigation = (route: string) => {
-    if (stripeSucceded) {
-      goto(route, { replaceState: true });
-    }
+    goto(route, { replaceState: true });
     closeModal();
   };
 
