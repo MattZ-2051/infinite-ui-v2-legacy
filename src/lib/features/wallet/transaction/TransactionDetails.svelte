@@ -27,7 +27,7 @@
   function onCopy({ trx, str, node }: { trx: Transaction; str: string; node: string }) {
     if (trx && node === 'trxId') {
       copy(trx._id);
-    } else if (trx.transactionData && node === 'trxHash') {
+    } else if (trx?.transactionData && node === 'trxHash') {
       copy(generateTxHashURL());
     } else {
       copy(str);
@@ -114,7 +114,7 @@
           <div class="label mr-2">{ethDetail.label}</div>
           <div class="truncate ml-auto">{ethDetail.value}</div>
           {#if copyNode === ethDetail.label && copied}
-            <div in:fade>Copied</div>
+            <div class="ml-1" in:fade>Copied</div>
           {:else}
             <button
               type="button"
