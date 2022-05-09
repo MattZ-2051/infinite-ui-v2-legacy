@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { User } from '$lib/user/types';
   import type { WalletExtension } from './types';
+  import { ethers } from 'ethers';
+  import { page } from '$app/stores';
   import { Modal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
@@ -13,20 +15,38 @@
   } from '$lib/features/infinite-wallet/infinite-wallet.store';
   import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
 
+  const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
   const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED;
 
   export let isOpen: boolean;
   export let user: User;
 
+  const testMMNetwork = async () => {
+    if (typeof window?.ethereum !== 'undefined') {
+      const provider = new ethers.providers.Web3Provider(window?.ethereum, 'any');
+      const metamaskNetwork = await provider.getNetwork();
+
+      if (MM_TEST_NETWORK_ENABLED && metamaskNetwork.name !== 'goerli') {
+        throw new Error('You need to change your MetaMask network to "Goerli Test Network"');
+      } else if (!MM_TEST_NETWORK_ENABLED && metamaskNetwork.name !== 'homestead') {
+        throw new Error('You need to change your MetaMask network to "Ethereum Mainnet"');
+      }
+    }
+  };
+
   const handleWalletConnection = async () => {
     try {
+      await testMMNetwork();
       await connectWallet();
     } catch (error) {
       if (error?.code) {
         toast.danger(error?.message, { toastId: error?.code });
+      } else if (error?.message?.includes('You need to change your MetaMask network')) {
+        toast.warning(error?.message, { toastId: 'WRONG_NETWORK' });
       } else {
         toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
-        typeof window !== 'undefined' && window.open('https://metamask.io/download/', '_blank').focus();
+        typeof window !== 'undefined' &&
+          window.open(`https://metamask.app.link/dapp/${$page.url.href}`, '_blank').focus();
       }
     }
   };

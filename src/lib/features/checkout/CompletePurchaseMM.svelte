@@ -92,7 +92,7 @@
     if (checkValidETHAddress(sku.currency, isEthAddress(ethAddress)) && $walletConnected) {
       purchasing = true;
       const network = await checkNetwork();
-      if (network.name === 'homestead' || MM_TEST_NETWORK_ENABLED) {
+      if (network.name === 'homestead' || (MM_TEST_NETWORK_ENABLED && network.name === 'goerli')) {
         await (lazyMinting ? sendEthPurchasePaymentForLazyMinting : sendEthPurchasePaymentForImmediateMinting)(
           purchaseInfo.externalPurchaseAddressEth,
           priceWFee,
@@ -121,7 +121,9 @@
             purchasing = false;
           });
       } else {
-        toast.warning('You need to change to Ethereum Mainnet', { toastId: 'INVALID_NETWORK' });
+        toast.warning(`You need to change to ${MM_TEST_NETWORK_ENABLED ? 'Goerli Test Network' : 'Ethereum Mainnet'}`, {
+          toastId: 'INVALID_NETWORK',
+        });
       }
     }
   };

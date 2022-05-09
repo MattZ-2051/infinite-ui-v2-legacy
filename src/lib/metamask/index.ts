@@ -88,8 +88,10 @@ export async function handleWalletConnection() {
     } else if (error?.message === 'User is not logged in to MetaMask') {
       toast.danger(error?.message, { toastId: 'MM-NOT-LOGGED' });
     } else {
+      const url = window?.location?.href;
+
       toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
-      window.open('https://metamask.io/download/', '_blank').focus();
+      window.open(`https://metamask.app.link/dapp/${url}`, '_blank').focus();
     }
     return false;
   }
