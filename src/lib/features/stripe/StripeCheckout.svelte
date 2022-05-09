@@ -26,6 +26,7 @@
   export let mintToAddress: string | undefined;
   export let lazyMinting: boolean;
   export let conversionRate: number | undefined = undefined;
+  export let explorerLink: string | undefined = undefined;
 
   let acceptedTerms = false;
   let showPendingPage = false;
@@ -156,7 +157,7 @@
   {#if isLoading}
     <div class="flex justify-center">
       {#if showPendingPage}
-        <PendingCheckoutPage />
+        <PendingCheckoutPage etherscanLink={explorerLink} />
       {:else}
         <DualRingLoader />
       {/if}
