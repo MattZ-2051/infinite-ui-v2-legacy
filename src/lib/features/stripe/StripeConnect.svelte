@@ -14,7 +14,7 @@
       return_url: $page.url.toString(),
       refresh_url: $page.url.toString(),
     });
-    window.open(redirectUrl, '_blank').focus();
+    typeof window !== 'undefined' && window.open(redirectUrl, '_blank').focus();
     isLoading = false;
   }
 </script>

@@ -2,7 +2,7 @@
 import routes from '$lib/routes';
 
 const routesWithPhase = () => {
-  const phase = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('phase') : '';
+  const phase = typeof window !== 'undefined' ? new URLSearchParams(window?.location?.search).get('phase') : '';
   if (!phase) return routes;
 
   const routesEntries = Object.entries(routes);

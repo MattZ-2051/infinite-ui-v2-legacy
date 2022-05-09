@@ -26,7 +26,7 @@
         toast.danger(error?.message, { toastId: error?.code });
       } else {
         toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
-        window.open('https://metamask.io/download/', '_blank').focus();
+        typeof window !== 'undefined' && window.open('https://metamask.io/download/', '_blank').focus();
       }
     }
   };

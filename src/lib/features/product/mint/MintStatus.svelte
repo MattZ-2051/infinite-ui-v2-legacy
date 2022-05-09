@@ -36,7 +36,7 @@
   }
 
   const openTrx = () => {
-    window.open(`${variables.ethNetwork.nftExplorerUrl}${txHash}`, '_blank').focus();
+    typeof window !== 'undefined' && window.open(`${variables.ethNetwork.nftExplorerUrl}${txHash}`, '_blank').focus();
   };
 
   const onClick = () => {

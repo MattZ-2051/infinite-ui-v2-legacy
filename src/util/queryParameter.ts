@@ -21,7 +21,7 @@ export function gotoQueryParameters(
 }
 
 export function getQueryParameters(reset = false) {
-  return new URLSearchParams(reset ? '' : window.location.search);
+  return new URLSearchParams(reset ? '' : typeof window !== 'undefined' && window.location.search);
 }
 
 export function changeQueryParameters(options: QueryParameterOptions) {
