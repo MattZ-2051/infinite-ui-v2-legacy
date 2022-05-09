@@ -2,6 +2,7 @@
   import { browser } from '$app/env';
   import { session } from '$app/stores';
   import { Seo } from '$lib/seo';
+  import Button from '$lib/components/Button.svelte';
   import { getAuthToken, onSignIn, user } from '$lib/user';
   import { AUTH_PROVIDER_IS_AUTH0 } from '$project/variables';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
@@ -25,8 +26,15 @@
     <FullScreenLoader />
   {:then}
     <slot />
-  {:catch error}
-    {error.message}
+  {:catch}
+    <div class="bg-black text-white flex flex-grow items-center justify-center h-screen">
+      <div class="flex flex-col gap-2 items-center text-center">
+        <div class="text-5xl font-bold">You need to login to view this page.</div>
+        <div class="mt-10">
+          <Button type="button" variant="brand" on:click={() => onSignIn()} class="w-48">Login</Button>
+        </div>
+      </div>
+    </div>
   {/await}
 {:else if $session?.user}
   {#if !$user}
