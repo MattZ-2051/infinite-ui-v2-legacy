@@ -1,22 +1,26 @@
 <script lang="ts">
   import { Seo } from '$lib/seo';
+  import { CLIENT_COMPANY_NAME, CLIENT_SUPPORT_EMAIL } from '$project/variables';
+
+  const shortName = CLIENT_COMPANY_NAME.split(' ')[0].split('.')[0];
+  const lowerCaseShortName = shortName.toLowerCase();
 </script>
 
-<Seo title="ARIA Privacy Policy" />
+<Seo title={`${shortName} Privacy Policy`} />
 
-<h1 id="Aria" class="text-center pb-12 text-3xl font-bold">
-  ARIA Privacy Policy<a href="#top" class="text-sm ml-4 underline">top</a>
+<h1 id={shortName} class="text-center pb-12 text-3xl font-bold">
+  {shortName} Privacy Policy<a href="#top" class="text-sm ml-4 underline">top</a>
 </h1>
 <p>Effective date: March 23, 2022</p>
 <p>
-  At Virtual Rights Management, LLC (“we,” “us” or “ARIA”), we respect your privacy and are committed to protecting it.
-  References herein to “we”, “us”, “our”, or “ARIA”, “The ARIA Network” and “ARIA Exchange” refer to a suite of
-  websites, apps and software platforms operated under the brand name “ARIA” by Virtual Rights Management, LLC. This
-  privacy notice has been drafted to explain how ARIA collects, uses, discloses, and protects personal information that
-  we collect about you, and your rights with respect to that personal information.
+  At Virtual Rights Management, LLC (“we,” “us” or “{shortName}”), we respect your privacy and are committed to
+  protecting it. References herein to “we”, “us”, “our”, or “{shortName}”, “The {shortName} Network” and “{CLIENT_COMPANY_NAME}”
+  refer to a suite of websites, apps and software platforms operated under the brand name “{shortName}” by Virtual
+  Rights Management, LLC. This privacy notice has been drafted to explain how {shortName} collects, uses, discloses, and
+  protects personal information that we collect about you, and your rights with respect to that personal information.
 </p>
 <p />
-<ul id="aria-quick-links" class="pb-12">
+<ul id="{lowerCaseShortName}-quick-links" class="pb-12">
   <li>
     <a href="#scope">
       <p>1. Scope of this Privacy Notice</p>
@@ -28,7 +32,7 @@
     </a>
   </li>
   <li>
-    <a href="#how-we-collect-aria">
+    <a href="#how-we-collect-{lowerCaseShortName}">
       <p>3. How We Collect Your Information</p>
     </a>
   </li>
@@ -38,12 +42,12 @@
     </a>
   </li>
   <li>
-    <a href="#how-we-use-aria">
+    <a href="#how-we-use-{lowerCaseShortName}">
       <p>5. How We Use Your Information</p>
     </a>
   </li>
   <li>
-    <a href="#disclosure-aria">
+    <a href="#disclosure-{lowerCaseShortName}">
       <p>6. Disclosure of Your Information</p>
     </a>
   </li>
@@ -58,7 +62,7 @@
     </a>
   </li>
   <li>
-    <a href="#your-rights-aria">
+    <a href="#your-rights-{lowerCaseShortName}">
       <p>9. Your Rights and Choices</p>
     </a>
   </li>
@@ -73,7 +77,7 @@
     </a>
   </li>
   <li>
-    <a href="#data-security-aria">
+    <a href="#data-security-{lowerCaseShortName}">
       <p>12. Data Security</p>
     </a>
   </li>
@@ -99,22 +103,22 @@
   </li>
 </ul>
 
-<h2 id="scope"><a href="#aria-quick-links">1. Scope of this Privacy Notice</a></h2>
+<h2 id="scope"><a href="#{lowerCaseShortName}-quick-links">1. Scope of this Privacy Notice</a></h2>
 <p>
   This privacy notice covers personal information we collect from or about you when you give it to us, use any website
-  under the ARIA brand name, including The ARIA Network or the ARIA Exchange NFT marketplace, and any related services
-  and functionalities (collectively, the “Platform”) (whether through the website or any application or other service),
-  or interact with us or our advertisements in any other manner. It also covers personal information that we may receive
-  from other persons or companies who have received your information and can share it with us.
+  under the {shortName} brand name, including The {shortName} Network or the {CLIENT_COMPANY_NAME} NFT marketplace, and any
+  related services and functionalities (collectively, the “Platform”) (whether through the website or any application or
+  other service), or interact with us or our advertisements in any other manner. It also covers personal information that
+  we may receive from other persons or companies who have received your information and can share it with us.
 </p>
 <p>
-  ARIA is the controller of your personal information as described in this privacy notice, unless specified otherwise.
+  {shortName} is the controller of your personal information as described in this privacy notice, unless specified otherwise.
 </p>
 <p>
   Please note that by signing up to our services, you are also signing up with Infinite Assets, Inc. To understand how
   Infinite Assets, Inc. processes your information, please refer to the provider’s privacy policy.
 </p>
-<h2 id="personal-info"><a href="#aria-quick-links">2. What Personal Information We Collect</a></h2>
+<h2 id="personal-info"><a href="#{lowerCaseShortName}-quick-links">2. What Personal Information We Collect</a></h2>
 <p>We may collect the following types of personal information about you, which we have grouped together as follows:</p>
 <ul class="bullet-list">
   <li>
@@ -184,7 +188,9 @@
     </em>
   </li>
 </ul>
-<h2 id="how-we-collect-aria"><a href="#aria-quick-links">3. How we collect your information</a></h2>
+<h2 id="how-we-collect-{lowerCaseShortName}">
+  <a href="#{lowerCaseShortName}-quick-links">3. How we collect your information</a>
+</h2>
 <p>We collect personal information from and about you in the following ways:</p>
 <ul class="bullet-list">
   <li>
@@ -212,7 +218,9 @@
     >
   </li>
 </ul>
-<h2 id="cookies"><a href="#aria-quick-links">4. Cookies and Automatic Data Collection Technologies</a></h2>
+<h2 id="cookies">
+  <a href="#{lowerCaseShortName}-quick-links">4. Cookies and Automatic Data Collection Technologies</a>
+</h2>
 <p>
   The Platform uses automatic data collection technologies to distinguish you from other Platform users. This helps us
   deliver a better and more personalized service when you use the Platform. It also allows us to improve the Platform by
@@ -230,7 +238,7 @@
     <em
       ><strong>Cookies (or Browser Cookies).</strong> A cookie is a small file placed on the hard drive of your
       computer. For information about managing browser settings to refuse cookies, please see our
-      <a href="#your-rights-aria" class="italic">“Your Rights and Choices”</a> section.</em
+      <a href="#your-rights-{lowerCaseShortName}" class="italic">“Your Rights and Choices”</a> section.</em
     >
   </li>
   <li>
@@ -238,7 +246,7 @@
       ><strong>Flash Cookies.</strong> Certain features of the Platform may use Flash cookies (local stored objects)
       instead of browser cookies to collect and store information about your preferences and navigation to, from, and on
       the Platform. For information about managing Flash cookies, please see our
-      <a href="#your-rights-aria" class="italic">“Your Rights and Choices”</a> section</em
+      <a href="#your-rights-{lowerCaseShortName}" class="italic">“Your Rights and Choices”</a> section</em
     >
   </li>
   <li>
@@ -246,7 +254,7 @@
       ><strong>Flash Cookies.</strong> Certain features of the Platform may use Flash cookies (local stored objects)
       instead of browser cookies to collect and store information about your preferences and navigation to, from, and on
       the Platform. For information about managing Flash cookies, please see our
-      <a href="#your-rights-aria" class="italic">“Your Rights and Choices”</a> section</em
+      <a href="#your-rights-{lowerCaseShortName}" class="italic">“Your Rights and Choices”</a> section</em
     >
   </li>
   <li>
@@ -308,7 +316,9 @@
   </li>
 </ul>
 <p>To learn more about our use of cookies, please see our <a href="cookies" class="italic">Cookie Policy</a></p>
-<h2 id="how-we-use-aria"><a href="#aria-quick-links">5. How We Use Your Information</a></h2>
+<h2 id="how-we-use-{lowerCaseShortName}">
+  <a href="#{lowerCaseShortName}-quick-links">5. How We Use Your Information</a>
+</h2>
 <p>We may use your information to conduct our business operations including for the following purposes:</p>
 <ul class="bullet-list">
   <li>To create and manage your account.</li>
@@ -324,7 +334,7 @@
   <li>
     To notify you of special offers, discounts, updates, and products and services that we think may be of interest to
     you. To learn more about your choices with regards to these communications, please see our
-    <a href="#your-rights-aria" class="italic">“Your Rights and Choices”</a> section.
+    <a href="#your-rights-{lowerCaseShortName}" class="italic">“Your Rights and Choices”</a> section.
   </li>
   <li>
     To manage our relationship with you which may include notifying you about changes to our Terms of Use or privacy
@@ -343,7 +353,7 @@
     To make suggestions and recommendations to you about our own and third-parties’ products or services that may be of
     interest to you. If you do not want us to use your information in this way or for more information on how to adjust
     your preferences, please see our
-    <a href="#your-rights-aria" class="italic">“Your Rights and Choices”</a> section.
+    <a href="#your-rights-{lowerCaseShortName}" class="italic">“Your Rights and Choices”</a> section.
   </li>
   <li>
     To carry out our obligations and enforce our rights and to protect the Platform, our customers, and other
@@ -357,7 +367,9 @@
   aggregate usage data from many people in a way that does not identify any individuals to calculate the percentage of users
   accessing a feature on the Platform.
 </p>
-<h2 id="disclosure-aria"><a href="#aria-quick-links">6. Disclosure of Your Information</a></h2>
+<h2 id="disclosure-{lowerCaseShortName}">
+  <a href="#{lowerCaseShortName}-quick-links">6. Disclosure of Your Information</a>
+</h2>
 <p>We may share your personal information:</p>
 <ul class="bullet-list">
   <li>
@@ -401,7 +413,7 @@
     To investigate suspected violations of any law, rule or regulation, or the terms or policies for the Platform.
   </li>
 </ul>
-<h2 id="do-not-track"><a href="#aria-quick-links">7. Do-Not-Track Signals</a></h2>
+<h2 id="do-not-track"><a href="#{lowerCaseShortName}-quick-links">7. Do-Not-Track Signals</a></h2>
 <p>
   Some content or applications on the Platform, including advertisements, are served by third parties, including
   advertisers, ad networks, and servers, content partners, or application providers. These third parties may use cookies
@@ -412,7 +424,7 @@
   other targeted content. Our partners may use non-cookie technologies on which browser settings that block cookies
   might have no effect. Your browser may not permit you to block such technologies.
 </p>
-<h2 id="third-party"><a href="#aria-quick-links">8. Third Party Content, Apps, and Links</a></h2>
+<h2 id="third-party"><a href="#{lowerCaseShortName}-quick-links">8. Third Party Content, Apps, and Links</a></h2>
 <p>
   Some content or applications on our websites may be served by third parties, content providers and application
   providers including the following:
@@ -449,7 +461,9 @@
     and terms.
   </li>
 </ul>
-<h2 id="your-rights-aria"><a href="#aria-quick-links">9. Your Rights and Choices</a></h2>
+<h2 id="your-rights-{lowerCaseShortName}">
+  <a href="#{lowerCaseShortName}-quick-links">9. Your Rights and Choices</a>
+</h2>
 <ul class="bullet-list">
   <li>
     <strong>Marketing.</strong>
@@ -494,7 +508,9 @@
   </li>
 </ul>
 <h2 id="additional-disclosure-us">
-  <a href="#aria-quick-links">10. Additional Disclosures for California, Colorado, or Virginia Residents</a>
+  <a href="#{lowerCaseShortName}-quick-links"
+    >10. Additional Disclosures for California, Colorado, or Virginia Residents</a
+  >
 </h2>
 <p>
   We have listed the privacy rights for several U.S. state jurisdictions below, but we understand you may have
@@ -824,7 +840,7 @@
   included in the footer of our website.
 </p>
 <h2 id="additional-disclosure-eea-uk">
-  <a href="#aria-quick-links">11. Additional Disclosures for Residents in the EEA and the U.K.</a>
+  <a href="#{lowerCaseShortName}-quick-links">11. Additional Disclosures for Residents in the EEA and the U.K.</a>
 </h2>
 <p>
   <strong>Privacy Rights. </strong>If you are located in the European Economic Area or United Kingdom, you may have the
@@ -893,7 +909,7 @@
   We may use personal information about you in automated decision making or profiling to the extent consistent with the
   permitted uses described in this privacy notice.
 </p>
-<h2 id="data-security-aria"><a href="#aria-quick-links">12. Data Security</a></h2>
+<h2 id="data-security-{lowerCaseShortName}"><a href="#{lowerCaseShortName}-quick-links">12. Data Security</a></h2>
 <p>
   We have implemented measures designed to secure your personal information from accidental loss and from unauthorized
   access, use, alteration, and disclosure. The safety and security of your information also depends on you. Where we
@@ -906,14 +922,14 @@
   Platform. Any transmission of personal information is at your own risk. We are not responsible for circumvention of
   any privacy settings or security measures contained on the Platform.
 </p>
-<h2 id="data-retention"><a href="#aria-quick-links">13. Data Retention</a></h2>
+<h2 id="data-retention"><a href="#{lowerCaseShortName}-quick-links">13. Data Retention</a></h2>
 <p>
   We may retain your personal information for a period of time consistent with the original purpose of collection (see
-  the <a href="#how-we-use-aria" class="italic">"How We Use Your Information"</a> section above) or as long as required to
-  fulfill our legal obligations. We determine the appropriate retention period for personal information on the basis of the
-  amount, nature, and sensitivity of the personal information being processed, the potential risk of harm from unauthorized
-  use or disclosure of the personal information, whether we can achieve the purposes of the processing through other means,
-  and on the basis of applicable legal requirements (such as applicable statutes of limitation).
+  the <a href="#how-we-use-{lowerCaseShortName}" class="italic">"How We Use Your Information"</a> section above) or as long
+  as required to fulfill our legal obligations. We determine the appropriate retention period for personal information on
+  the basis of the amount, nature, and sensitivity of the personal information being processed, the potential risk of harm
+  from unauthorized use or disclosure of the personal information, whether we can achieve the purposes of the processing
+  through other means, and on the basis of applicable legal requirements (such as applicable statutes of limitation).
 </p>
 <p>
   After expiry of the applicable retention periods, your personal information will be deleted. If there is any data that
@@ -922,7 +938,7 @@
   by using the information in the <a href="#contact-us" class="italic">"Contact Us"</a> section, below.
 </p>
 
-<h2 id="childrens-policy"><a href="#aria-quick-links">14. Children’s Online Privacy</a></h2>
+<h2 id="childrens-policy"><a href="#{lowerCaseShortName}-quick-links">14. Children’s Online Privacy</a></h2>
 <p>
   The Platform is not intended for children under 16 years of age. No one under age 16 may provide any personal
   information to or on the Platform. We do not knowingly collect personal information from children under 16. If you are
@@ -933,7 +949,7 @@
   delete that information. If you believe we might have any information from or about a child under 16, please contact
   by using the information in the <a href="#contact-us" class="italic">"Contact Us"</a> section below.
 </p>
-<h2 id="changes-to-privacy"><a href="#aria-quick-links">15. Changes to Our Privacy Notice</a></h2>
+<h2 id="changes-to-privacy"><a href="#{lowerCaseShortName}-quick-links">15. Changes to Our Privacy Notice</a></h2>
 <p>
   We will post any changes we may make to our privacy notice on this page. If the changes materially alter how we use or
   treat your information we may notify you by email to the primary email address specified in your account (if you have
@@ -941,11 +957,11 @@
   identified at the top of the page. You are responsible for ensuring that we have an up-to-date email address for you
   and for periodically visiting the Platform and this page to check for any changes.
 </p>
-<h2 id="contact-us"><a href="#aria-quick-links">16. Contact Us</a></h2>
+<h2 id="contact-us"><a href="#{lowerCaseShortName}-quick-links">16. Contact Us</a></h2>
 <p>
   If you have any comments or questions about our privacy notice, please contact us at the following contact details:
 </p>
-<a href="mailto:support@ariaexchange.com">support@ariaexchange.com</a>
+<a href="mailto:{CLIENT_SUPPORT_EMAIL}">{CLIENT_SUPPORT_EMAIL}</a>
 
 <div class="w-full flex justify-center">
   <a href="#top" class="text-sm ml-4 underline">top</a>

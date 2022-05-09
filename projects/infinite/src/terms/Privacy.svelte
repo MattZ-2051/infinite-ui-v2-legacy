@@ -1,6 +1,22 @@
+<script lang="ts">
+  import { CLIENT_COMPANY_NAME_LEGAL } from '$project/variables';
+
+  export let declarativeHeader = false;
+  export let showToTopUpperButton = false;
+  export let showToTopLowerButton = true;
+
+  const infoLink = `mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information ${CLIENT_COMPANY_NAME_LEGAL}`;
+  const title = (declarativeHeader ? 'InfiniteWorld ' : '') + 'Privacy Policy';
+</script>
+
 <div class="container py-8">
-  <h3>Privacy Notice</h3>
-  <p>Effective date: May 19, 2021</p>
+  <h1 id="InfiniteWorld" class="mt-4 mb-16 text-center text-3xl font-bold">
+    {title}
+    {#if showToTopUpperButton}
+      <a href="#top" class="text-sm ml-4 underline">top</a>
+    {/if}
+  </h1>
+  <p>Effective date: March 30, 2022</p>
   <p>At Infinite Assets, Inc. dba/ “INFINITE”, we respect your privacy and are committed to protecting it.</p>
   <p>
     This privacy notice has been drafted to explain how INFINITE collects, uses, discloses, and protects information
@@ -15,8 +31,8 @@
     If in any case our privacy practices differ from those explained in this notice, we will let you know you at the
     time we ask for or collect your information.
   </p>
-  <p class="mb-2"><strong>Quick links</strong></p>
-  <ul>
+  <p class="mt-4"><strong>Quick links</strong></p>
+  <ul id="quick-links">
     <li>
       <a href="#what-information">
         <em>What information we collect about you</em>
@@ -94,7 +110,7 @@
     </li>
   </ul>
 
-  <h3 id="what-information">What information we collect</h3>
+  <h2 id="what-information"><a href="#quick-links">What information we collect</a></h2>
   <p>We may collect the following types of information about you, which we have grouped together as follows:</p>
   <ul>
     <li>
@@ -151,7 +167,7 @@
     considered personal information. Personal information does not include data where your identity has been removed so
     that we can no longer identify you (anonymous data), which we may use for any purpose.
   </p>
-  <h3 id="children">Children’s online privacy</h3>
+  <h2 id="children"><a href="#quick-links">Children’s online privacy</a></h2>
   <p>
     The Platform is not intended for children under 18 years of age. No one under age 18 may provide any personal
     information to or on the Platform. We do not knowingly collect personal information from children under 18. If you
@@ -162,7 +178,7 @@
     will delete that information. If you believe we might have any information from or about a child under 18, please
     contact us at abuse@goinfinite.io.
   </p>
-  <h3 id="how-we-collect">How we collect your information</h3>
+  <h2 id="how-we-collect"><a href="#quick-links">How we collect your information</a></h2>
   <p>We collect information from and about you in the following ways:</p>
   <ul>
     <li>
@@ -187,7 +203,7 @@
       commercially available sources such as data aggregators and public databases.
     </li>
   </ul>
-  <h3 id="cookies">Cookies and automatic data collection technologies</h3>
+  <h2 id="cookies"><a href="#quick-links">Cookies and automatic data collection technologies</a></h2>
   <p>
     The Platform uses automatic data collection technologies to distinguish you from other Platform users. This helps us
     deliver a better and more personalized service when you use the Platform. It also allows us to improve the Platform
@@ -244,7 +260,7 @@
   <p>
     We do not respond to or honor “do not track” (a/k/a DNT) signals or similar mechanisms transmitted by web browsers.
   </p>
-  <h3 id="how-we-use">How we use your information</h3>
+  <h2 id="how-we-use"><a href="#quick-links">How we use your information</a></h2>
   <p>We may use your information to conduct our business operations including for the following purposes:</p>
   <ul>
     <li>To create and manage your account.</li>
@@ -293,7 +309,7 @@
     from many people in a way that does not identify any individuals to calculate the percentage of users accessing a
     feature on the Platform.
   </p>
-  <h3 id="disclosure">Disclosure of Your Information</h3>
+  <h2 id="disclosure"><a href="#quick-links">Disclosure of Your Information</a></h2>
   <p>We may share non-personal information without restriction. We may share your personal information with:</p>
   <ul>
     <li>
@@ -344,7 +360,7 @@
     in your account profile or opt-out as directed when you receive such an email from us. For more information, see
     <em>Your rights and choices</em>.
   </p>
-  <h3 id="interest">Interest-based advertising</h3>
+  <h2 id="interest"><a href="#quick-links">Interest-based advertising</a></h2>
   <p>
     Some content or applications on the Platform, including advertisements, are served by third parties, including
     advertisers, ad networks, and servers, content partners, or application providers. These third parties may use
@@ -410,7 +426,7 @@
       and terms.
     </li>
   </ul>
-  <h3 id="your-rights">Your Rights and Choices</h3>
+  <h2 id="your-rights"><a href="#quick-links">Your Rights and Choices</a></h2>
   <p>
     Your rights may vary depending on where you are located. We have created mechanisms to provide you with the
     following control over your information.
@@ -465,7 +481,7 @@
       section below for more information our information practices.
     </li>
   </ul>
-  <h3 id="data-security">Data Security</h3>
+  <h2 id="data-security"><a href="#quick-links">Data Security</a></h2>
   <p>
     We have implemented measures designed to secure your personal information from accidental loss and from unauthorized
     access, use, alteration, and disclosure. The safety and security of your information also depends on you. Where we
@@ -478,7 +494,7 @@
     Platform. Any transmission of personal information is at your own risk. We are not responsible for circumvention of
     any privacy settings or security measures contained on the Platform.
   </p>
-  <h3 id="california">Your California privacy rights</h3>
+  <h2 id="california"><a href="#quick-links">Your California privacy rights</a></h2>
   <p>
     The <a
       href="https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5"
@@ -788,16 +804,12 @@
   <p>Contacting us at support@goinfinite.io.</p>
   <p>
     To exercise the right to opt-out of sale of your personal information, you can submit a request to us by visiting
-    the following link: <a href="mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information"
-      >Do Not Sell My Personal Information</a
-    >
+    the following link: <a href={infoLink} target="_blank">Do Not Sell My Personal Information</a>
   </p>
   <p>
     Once you make an opt-out request, we will wait at least twelve (12) months before asking you to reauthorize personal
     information sales. However, you may change your mind and opt back into personal information sales at any time by
-    visiting the following link: <a href="mailto:support@goinfinite.io?subject=Do Not Sell My Personal Information"
-      >Opt-in to Sales of My Personal Information</a
-    >
+    visiting the following link: <a href={infoLink} target="_blank">Opt-in to Sales of My Personal Information</a>
   </p>
   <ul>
     <li>How we verify requests and respond to requests</li>
@@ -882,7 +894,7 @@
     residents to request certain information regarding our disclosure of personal information to third parties for their
     direct marketing purposes. To make such a request, please send an email to support@goinfinite.io.
   </p>
-  <h3 id="nevada">Nevada privacy rights</h3>
+  <h2 id="nevada"><a href="#quick-links">Nevada privacy rights</a></h2>
   <p>
     Nevada residents have the right to opt out of the sale of certain “covered information” collected by operators of
     websites or online services. We currently do not sell covered information, as “sale” is defined by such law, and we
@@ -1039,7 +1051,7 @@
   <p>By Mail: 3250 NE 1st Avenue, Miami, FL 33137</p>
   <p>Attention: Privacy Officer</p>
 
-  <h3 id="privacy">Changes to our privacy notice</h3>
+  <h2 id="privacy"><a href="#quick-links">Changes to our privacy notice</a></h2>
   <p>
     We will post any changes we may make to our privacy notice on this page. If the changes materially alter how we use
     or treat your information we will notify you by email to the primary email address specified in your account (if you
@@ -1047,16 +1059,22 @@
     identified at the top of the page. You are responsible for ensuring that we have an up-to-date email address for you
     and for periodically visiting the Platform and this page to check for any changes.
   </p>
-  <h3 id="contact">Contact Us</h3>
+  <h2 id="contact"><a href="#quick-links">Contact Us</a></h2>
   <p>
     If you have any comments or questions about our privacy notice, please use our <em>Help</em> page to reach out to us.
   </p>
   <p>0146682.0741567 4815-2926-5383v1</p>
 </div>
 
+{#if showToTopLowerButton}
+  <div class="w-full flex justify-center to-top-lower-button">
+    <a href="#InfiniteWorld" class="text-sm ml-4 underline">top</a>
+  </div>
+{/if}
+
 <style lang="postcss">
-  h3 {
-    @apply text-3xl font-semibold mb-4 pt-6;
+  h2 {
+    @apply text-lg uppercase font-bold underline mt-4;
   }
 
   p {
@@ -1093,5 +1111,16 @@
 
   ul ul li {
     @apply list-circle;
+  }
+
+  .to-top-lower-button {
+    margin-bottom: var(--privacy-policy-to-top-lower-button-mb, theme('margin.10'));
+  }
+
+  :target:before {
+    content: '';
+    height: calc(var(--header-height) + 1rem);
+    display: block;
+    margin-top: calc((var(--header-height) + 1rem) * -1);
   }
 </style>

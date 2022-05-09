@@ -4,6 +4,7 @@ export const paths = {
   '$project/sku-item/*': 'projects/infinite/src/sku-item/*',
   '$project/Help.svelte': 'projects/infinite/src/Help.svelte',
   '$project/terms/TermsConditions.svelte': 'projects/infinite/src/terms/TermsConditions.svelte',
+  '$project/terms/InfiniteWorldPrivacy.svelte': 'projects/infinite/src/terms/Privacy.svelte',
   '$project/collection/*': 'projects/aria/src/collection/*',
   '$ui/pagination/assets/*': 'projects/seva/src/assets/ui/*',
   '$ui/accordion/assets/*': 'projects/seva/src/assets/ui/*',

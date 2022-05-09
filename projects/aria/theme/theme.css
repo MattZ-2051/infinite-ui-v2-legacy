@@ -177,6 +177,9 @@
   /* Titles */
   --title-font-family: Almarena Display Regular;
   --title-text-transform: uppercase;
+
+  /* Privacy Policy */
+  --privacy-policy-to-top-lower-button-mb: 0;
 }
 
 .theme-brand-wallet-buttons {

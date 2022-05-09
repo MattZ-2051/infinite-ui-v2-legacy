@@ -482,6 +482,9 @@
   --sku-item-border-color: transparent;
   --sku-item-status-border-color: var(--gray-50);
   --sku-item-img-border-radius: 0.6rem;
+
+  /* Privacy Policy */
+  --privacy-policy-to-top-lower-button-mb: 0;
 }
 
 .theme-dark-gradient-bg {
