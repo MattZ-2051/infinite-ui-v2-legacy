@@ -51,7 +51,7 @@ export async function getProductPrivateAssets({
     return {
       total: responseFileAssets?.total,
       assets: responseFileAssets?.data,
-      isOwner: ownerId ? responseProduct?.owner._id === ownerId : true,
+      isOwner: ownerId ? responseProduct?.owner._id === ownerId : false,
     };
   } catch (error) {
     // eslint-disable-next-line no-console
