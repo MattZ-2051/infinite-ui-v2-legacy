@@ -6,7 +6,7 @@
 </script>
 
 <ThemeContext id="error" class="flex flex-grow items-center justify-center" display>
-  <div class="container flex flex-col gap-5 md:gap-10 items-center text-center">
+  <div class="container flex flex-col gap-5 md:gap-10 items-center text-center md:pt-16 md:pb-14">
     {#if $user}
       <div class="text-xl md:text-3xl font-semibold">Your email was successfully verified and you are logged in!</div>
       <div><Button variant="brand" href={routes.marketplace}>Continue to marketplace</Button></div>
