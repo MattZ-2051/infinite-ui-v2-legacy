@@ -191,7 +191,7 @@
             />
           {:else if isOrdering}
             {#if orderingMm}
-              <CompletePurchaseMM {sku} {listing} {gasFee} {lazyMinting} conversionRate={rate} />
+              <CompletePurchaseMM {sku} {listing} {gasFee} lazyMinting={false} conversionRate={rate} />
             {:else if orderingStripe}
               <StripeCheckout mintToAddress={ethAddress} {listing} {lazyMinting} conversionRate={rate} />
             {/if}
