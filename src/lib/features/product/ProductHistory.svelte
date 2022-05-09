@@ -56,7 +56,11 @@
         {:else}
           <div class="highlight flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 py-4">
             <div class="flex gap-3 mr-auto">
-              <UserLink username={transaction.owner?.username} />
+              {#if transaction.type === 'nft_mint' && !transaction.owner?.username}
+                {transaction.transactionData?.mintWalletAddress}
+              {:else}
+                <UserLink username={transaction.owner?.username} />
+              {/if}
             </div>
 
             <div class="flex items-center">

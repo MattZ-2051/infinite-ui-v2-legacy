@@ -373,6 +373,7 @@ export type TransactionData = {
   saleType: 'fixed' | 'auction';
   mintToAddress?: string;
   wallet?: string;
+  mintWalletAddress?: string;
 };
 
 export type TransactionType =
