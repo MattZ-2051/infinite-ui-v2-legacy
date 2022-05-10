@@ -12,25 +12,9 @@
       </p>
     </div>
   </div>
-  <div class="pb-24 sm:pb-72 bg-black">
-    <video
-      class="content-height w-full relative container flex justify-center max-w-5xl hidden md:block"
-      autoplay
-      loop
-      muted
-      playsinline
-    >
-      <source src={bucketAssets.landing.comingSoon} type="video/mp4" class="h-full w-full" />
-    </video>
-    <video class="w-full object-cover h-full md:hidden" autoplay loop muted playsinline>
+  <div class="pb-24 sm:pb-64 bg-black">
+    <video class="w-full object-cover h-full md:h-[40rem] md:container md:max-w-5xl" autoplay loop muted playsinline>
       <source src={bucketAssets.landing.comingSoon} type="video/mp4" />
     </video>
   </div>
 </div>
-
-<style lang="postcss">
-  .content-height {
-    height: 40rem;
-    margin-bottom: -2.5rem;
-  }
-</style>
