@@ -65,10 +65,7 @@
         </Button>
       </div>
     </div>
-    <video class="absolute top-0 -z-1 h-full object-cover hidden md:block w-full" autoplay loop muted playsinline>
-      <source src={bucketAssets.landing.genesisVideo} type="video/mp4" />
-    </video>
-    <video class="w-full absolute top-0 -z-1 object-cover h-full md:hidden" autoplay loop muted playsinline>
+    <video class="absolute top-0 -z-1 w-full h-full object-cover" autoplay loop muted playsinline>
       <source src={bucketAssets.landing.genesisVideo} type="video/mp4" />
     </video>
   </div>
