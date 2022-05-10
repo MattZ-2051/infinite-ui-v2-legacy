@@ -2,6 +2,7 @@
   import type { User } from '$lib/user/types';
   import type { Link } from './types';
   import { createEventDispatcher } from 'svelte';
+  import clsx from 'clsx';
   import { onSignOut, onSignIn, onSignUp, isLoading, isIssuer } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import { page } from '$app/stores';
@@ -39,7 +40,7 @@
 </script>
 
 <!-- Header block -->
-{#each links as { type, location, id, label, excludeFor }}
+{#each links as { type, location, id, label, excludeFor, classes }}
   <!-- Menu items will be flattened for mobile menu -->
   {#if location === 'header' || (user && flatten && location === 'user-menu')}
     {#if type === 'route' || type === 'route-open-new'}
@@ -48,17 +49,19 @@
         href={routes[id]}
         target={type === 'route-open-new' ? '_blank' : ''}
         rel={type === 'route-open-new' ? 'noopener noreferrer' : ''}
-        class="header-link"
-        class:sidebar-link={flatten}
-        class:active={isRoute(routes[id])}
-        class:hidden={!isVisible(excludeFor, $page.url.pathname)}
+        class={clsx(classes, 'header-link', {
+          'sidebar-link': flatten,
+          hidden: !isVisible(excludeFor, $page.url.pathname),
+          active: isRoute(routes[id]),
+        })}
         on:click={() => flatten && dispatch('select')}>{label}</a
       >
     {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED)}
       <button
-        class="header-link"
-        class:sidebar-link={flatten}
-        class:hidden={!isVisible(excludeFor, $page.url.pathname)}
+        class={clsx(classes, 'header-link', {
+          'sidebar-link': flatten,
+          hidden: !isVisible(excludeFor, $page.url.pathname),
+        })}
         on:click={() => {
           flatten && dispatch('select');
           handleWalletModal();
@@ -70,9 +73,10 @@
         <a
           sveltekit:prefetch
           href={routes.collection(user.username)}
-          class="header-link"
-          class:sidebar-link={flatten}
-          class:active={isRoute(routes.collection(user.username))}
+          class={clsx(classes, 'header-link', {
+            'sidebar-link': flatten,
+            active: isRoute(routes[id]),
+          })}
           on:click={() => flatten && dispatch('select')}
         >
           {label}
@@ -84,15 +88,16 @@
             flatten && dispatch('select');
             onSignOut();
           }}
-          class="header-link"
+          class={clsx('header-link', classes)}
           class:sidebar-link={flatten}>Sign Out</button
         >
       {/if}
     {:else if type === 'sign-in'}
       <button
-        class="flex header-link"
-        class:hidden={!isVisible(excludeFor, $page.url.pathname)}
-        class:sidebar-link={flatten}
+        class={clsx(classes, 'flex header-link', {
+          'sidebar-link': flatten,
+          hidden: !isVisible(excludeFor, $page.url.pathname),
+        })}
         on:click={() => {
           flatten && dispatch('select');
           onSignIn();
@@ -112,14 +117,18 @@
           onSignUp();
         }}
         class={isVisible(excludeFor, $page.url.pathname)
-          ? `whitespace-nowrap header-link ${flatten ? 'sidebar-link' : ''}`
+          ? clsx(classes, 'whitespace-nowrap header-link', { 'sidebar-link': flatten })
           : 'hidden'}>{label}</Button
       >
     {/if}
   {/if}
 
   {#if id === 'marketplace' && ($tenantSettings?.skuCreationEnabled || isIssuer(user))}
-    <a sveltekit:prefetch class="header-link" href={routes.createSku} class:active={isRoute(routes.createSku)}>Create</a
+    <a
+      sveltekit:prefetch
+      class={clsx('header-link', classes)}
+      href={routes.createSku}
+      class:active={isRoute(routes.createSku)}>Create</a
     >
   {/if}
 {/each}

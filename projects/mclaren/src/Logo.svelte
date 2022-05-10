@@ -30,14 +30,14 @@
   />
 </svg>
 
-<style>
+<style lang="postcss">
   svg {
     width: 180px;
     height: 48px;
     margin-bottom: 2px;
     margin-left: -10px;
   }
-  @media (min-width: 768px) {
+  @screen lg {
     svg {
       width: 200px;
       margin-bottom: 0;

@@ -43,7 +43,7 @@
             class="md:hidden text-default"
           />
         </div>
-        <div class="hidden md:flex gap-1 md:gap-2 lg:gap-12 md:items-center min-w-0">
+        <div class="hidden md:flex gap-1 md:gap-2 lg:gap-8 xl:gap-12 md:items-center min-w-0">
           <Links {links} {user} {hideUserMenu} />
           <slot name="support" klass="header-link" size="1.25rem" />
         </div>

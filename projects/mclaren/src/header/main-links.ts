@@ -21,7 +21,7 @@ export const links = (phase: string, connectedWallet: boolean): Link[] => {
       label: 'COLLECTIONS',
       excludeFor: phase === '1' && ['/', '/privacy', '/help', '/cookies', '/terms'],
     },
-    { type: 'route-open-new', location: 'header', id: 'faq', label: 'F.A.Q.' },
+    { type: 'route-open-new', location: 'header', id: 'faq', label: 'F.A.Q.', classes: 'block md:hidden lg:block' },
     { type: 'route-open-new', location: 'header', id: 'discord', label: 'DISCORD' },
     { type: 'route-open-new', location: 'header', id: 'opensea', label: 'OPENSEA', excludeFor },
     { type: 'user-collection', location: 'user-menu', label: 'MY COLLECTION' },

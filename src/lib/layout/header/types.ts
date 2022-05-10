@@ -7,4 +7,5 @@ export type Link = {
   id?: string;
   icon?: Icon;
   excludeFor?: string[];
+  classes?: string;
 };
