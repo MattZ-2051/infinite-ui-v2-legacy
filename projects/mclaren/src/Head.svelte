@@ -22,20 +22,6 @@
   <link rel="preconnect" href={bucketAssets.baseBucketUrl} />
   <link rel="icon" href="/favicon.ico" />
   <meta name="google-site-verification" content={G_SITE_VERIFICATION} />
-  <link
-    rel="preload"
-    as="font"
-    href="/fonts/PlusJakarta_Sans/webfonts/PlusJakartaSans-Light.woff2"
-    type="font/woff2"
-    crossorigin="anonymous"
-  />
-  <link
-    rel="preload"
-    as="font"
-    href="/fonts/PlusJakarta_Sans/webfonts/PlusJakartaSans-Medium.woff2"
-    type="font/woff2"
-    crossorigin="anonymous"
-  />
   {#if $page.url.pathname === '/'}
     <link rel="preload" href={bucketAssets.landing.hero} as="video" />
   {/if}
