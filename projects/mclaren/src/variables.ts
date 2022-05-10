@@ -18,7 +18,7 @@ export const CLIENT_DOC_DESCRIPTION = {
 export const CLIENT_COMPANY_NAME = 'McLaren';
 export const CLIENT_COMPANY_NAME_LEGAL = 'McLaren Assets, Inc.';
 export const CLIENT_SOCIAL_IMAGE = {
-  url: 'https://mclaren-assets.s3.amazonaws.com/assets-web/MCL014_MSO_header_1400x400.png',
+  url: 'https://mclaren-assets.infiniteworld.com/assets-web/MCL014_MSO_header_1400x400.png',
   width: 1400,
   height: 400,
   alt: 'McLaren MSO LAB - Exclusive NFT Drops & Metaverse Roadmap',
