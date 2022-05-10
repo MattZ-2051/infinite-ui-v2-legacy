@@ -1,6 +1,6 @@
 <script lang="ts">
   import Image from '$ui/image/Image.svelte';
-  import futurePerformanceImg from '$project/assets/aws/landing/MSO_LAB Asset_1400x1120.png?w=800;600&format=avif;webp;jpg&metadata=src;format;width;height';
+  import futurePerformanceImg from '$project/assets/aws/landing/MSO_LAB_Asset_1400x1120.png?w=800;600&format=avif;webp;jpg&metadata=src;format;width;height';
 </script>
 
 <div class="w-full py-20 sm:py-48 flex justify-center align-center">
