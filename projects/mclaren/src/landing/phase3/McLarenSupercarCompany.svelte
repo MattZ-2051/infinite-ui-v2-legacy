@@ -1,7 +1,8 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
-  import bucketAssets from '$project/assets/aws-bucket-assets';
-  import supercarCompanyImgMobile from './images/supercar-company-bg-img-mobile.png';
+  import Image from '$ui/image/Image.svelte';
+  import supercarCompanyImg from '$project/assets/aws/landing/MCL014_MSO_Philosophy_Static_no_text_1800x3360.jpeg?w=1800&format=avif;webp;jpg&metadata=src;format;width;height';
+  import supercarCompanyImgMobile from './images/supercar-company-bg-img-mobile.png?w=400&format=avif;webp;jpg&metadata=src;format;width;height';
 </script>
 
 <div class="relative bg-black z-0">
@@ -29,14 +30,6 @@
       >
     </div>
   </div>
-  <img
-    alt="mclaren card supercar company"
-    src={bucketAssets.landing.supercarCompany}
-    class="w-full absolute object-cover top-0 -z-1 h-full hidden md:block"
-  />
-  <img
-    alt="mclaren card supercar company mobile"
-    src={supercarCompanyImgMobile}
-    class="w-full absolute object-cover top-0 -z-1 h-full md:hidden"
-  />
+  <Image src={supercarCompanyImg} class="w-full absolute object-cover top-0 -z-1 h-full hidden md:block" />
+  <Image src={supercarCompanyImgMobile} class="w-full absolute object-cover top-0 -z-1 h-full md:hidden" />
 </div>

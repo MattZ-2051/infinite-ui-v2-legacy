@@ -1,10 +1,11 @@
 <script lang="ts">
   import MarketoEmbeddedForm from '$project/common/MarketoEmbeddedForm.svelte';
-  import bucketAssets from '$project/assets/aws-bucket-assets';
+  import Image from '$ui/image/Image.svelte';
+  import communityImg from '$project/assets/aws/landing/MCL014_McLaren Family_Static_no text_1800x3360.jpeg?w=800;1600&format=avif;webp;jpg&metadata=src;format;width;height';
 </script>
 
 <div class="relative community-container w-full flex justify-center">
-  <img src={bucketAssets.landing.community} alt="" class="absolute z-0 w-full h-full object-cover" />
+  <Image src={communityImg} class="absolute z-0 w-full h-full object-cover" />
   <div class="max-w-7xl flex justify-start items-center h-full w-full container">
     <div class="z-10 sm:px-12 text-white">
       <p class="text-base sm:text-lg font-normal pb-4 uppercase second-font" style="letter-spacing: 0.2em;">JOIN THE</p>

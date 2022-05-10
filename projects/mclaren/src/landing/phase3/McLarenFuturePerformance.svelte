@@ -1,5 +1,6 @@
 <script lang="ts">
-  import bucketAssets from '$project/assets/aws-bucket-assets';
+  import Image from '$ui/image/Image.svelte';
+  import futurePerformanceImg from '$project/assets/aws/landing/MSO_LAB Asset_1400x1120.png?w=800;600&format=avif;webp;jpg&metadata=src;format;width;height';
 </script>
 
 <div class="w-full py-20 sm:py-48 flex justify-center align-center">
@@ -33,11 +34,10 @@
       </div>
     </div>
     <div class="justify-self-end img-card rounded-3xl z-1">
-      <img
-        src={bucketAssets.landing.futurePerformance}
-        width="100%"
+      <Image
+        src={futurePerformanceImg}
         alt="future performance"
-        class="img-card sm:object-cover rounded-3xl max-w-lg"
+        class="img-card sm:object-cover rounded-3xl max-w-lg w-full"
       />
     </div>
   </div>
