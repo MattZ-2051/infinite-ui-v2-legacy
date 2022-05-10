@@ -64,6 +64,9 @@
       if (error.data?.appCode === 'TRANSFER_WITH_PENDING_TRANSACTIONS') {
         titleMap['transfer-error'] = 'This product has pending transactions';
       }
+      if (error.data?.appCode === 'TRANSFER_WITH_GATE_KEEPING_RULES') {
+        titleMap['transfer-error'] = 'This NFT is non-transferable due to preset rules';
+      }
       status = 'transfer-error';
     }
   }
