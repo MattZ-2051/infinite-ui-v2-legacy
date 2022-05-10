@@ -48,6 +48,7 @@
     { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon, available: STRIPE_ENABLED },
   ];
 
+  let finalSelectedMethod: string;
   $: exitCheckout = $checkoutState === 'exit';
   $: processingOrder = $checkoutState === 'processing';
   $: orderSuccess = $checkoutState === 'success';
@@ -119,6 +120,7 @@
   };
 
   const handlePaymentButton = (id: string) => {
+    finalSelectedMethod = id;
     handlePayment({ id, user: $user, handleEthModalCallback, skuMintPolicy: sku?.mintPolicy });
   };
 
@@ -188,6 +190,7 @@
               {ethAddress}
               onExit={handleExitCheckout}
               {backButtonLabel}
+              {finalSelectedMethod}
             />
           {:else if isOrdering}
             {#if orderingMm}

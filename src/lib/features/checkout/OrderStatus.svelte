@@ -17,6 +17,7 @@
   export let ethAddress: string;
   export let onExit: () => void;
   export let backButtonLabel: string;
+  export let finalSelectedMethod: string;
 
   const orderSuccess = orderState === 'success';
   const orderFailed = orderState === 'error';
@@ -77,7 +78,13 @@
     {#if orderFailed}
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleRetry}>Try again</Button>
     {:else if orderSuccess}
-      <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleViewNFT}>View & Mint NFT</Button>
+      <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleViewNFT}>
+        {#if finalSelectedMethod === 'mm'}
+          View NFT
+        {:else}
+          View & Mint NFT
+        {/if}
+      </Button>
     {/if}
     <Button variant="outline-brand" class="border-none h-16 w-full text-xl mt-4" on:click={onExit}>
       Back to {backButtonLabel}
