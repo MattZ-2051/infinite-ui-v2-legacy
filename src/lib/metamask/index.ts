@@ -2,8 +2,11 @@ import { ethers } from 'ethers';
 import { writable } from 'svelte/store';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { AUTH_PROVIDER_IS_AUTH0 } from '$project/variables';
+import routes from '$project/routes';
+import { goto } from '$app/navigation';
 
 import { toast } from '$ui/toast';
+import { mobileAndTabletCheck } from '$util/detectMobile';
 
 let provider: ethers.providers.Web3Provider;
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -89,7 +92,7 @@ export async function handleWalletConnection() {
       toast.danger(error?.message, { toastId: 'MM-NOT-LOGGED' });
     } else {
       const url = window?.location?.href;
-
+      if (mobileAndTabletCheck()) goto(routes.index);
       toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
       window.open(`https://metamask.app.link/dapp/${url}`, '_blank').focus();
     }

@@ -14,6 +14,9 @@
     InfiniteExtensionStore,
   } from '$lib/features/infinite-wallet/infinite-wallet.store';
   import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
+  import { goto } from '$app/navigation';
+  import routes from '$project/routes';
+  import { mobileAndTabletCheck } from '$util/detectMobile';
 
   const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
   const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED;
@@ -45,6 +48,7 @@
         toast.warning(error?.message, { toastId: 'WRONG_NETWORK' });
       } else {
         toast.danger(error?.message, { toastId: 'MM-NOT-FOUND' });
+        if (typeof window !== 'undefined' && mobileAndTabletCheck()) goto(routes.index);
         typeof window !== 'undefined' &&
           window.open(`https://metamask.app.link/dapp/${$page.url.href}`, '_blank').focus();
       }
