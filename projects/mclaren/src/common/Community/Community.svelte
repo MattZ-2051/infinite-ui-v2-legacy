@@ -1,7 +1,7 @@
 <script lang="ts">
   import MarketoEmbeddedForm from '$project/common/MarketoEmbeddedForm.svelte';
   import Image from '$ui/image/Image.svelte';
-  import communityImg from '$project/assets/aws/landing/MCL014_McLaren_Family_Static_no text_1800x3360.jpeg?w=800;1600&format=avif;webp;jpg&metadata=src;format;width;height';
+  import communityImg from '$project/assets/aws/landing/MCL014_McLaren_Family_Static_no_text_1800x3360.jpeg?w=800;1600&format=avif;webp;jpg&metadata=src;format;width;height';
 </script>
 
 <div class="relative community-container w-full flex justify-center">
