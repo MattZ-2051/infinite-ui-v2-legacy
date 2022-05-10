@@ -1,10 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import IntersectionObserver from 'svelte-intersection-observer';
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import Button from '$lib/components/Button.svelte';
   import { loadAllSkuCollectionsFx, setAllSkuCollections } from '$lib/features/collections/collections.store';
   import bucketAssets from '$project/assets/aws-bucket-assets';
+  import { lazyLoadVideoSource } from '$util/lazyLoad';
 
   const collectionId = import.meta.env.VITE_DEFAULT_COLLECTION_ID;
 
@@ -12,6 +14,8 @@
   let skuId = undefined;
   const isPhase3 = phase === '3';
   let route = routes.skuCollections;
+
+  let videoElement: HTMLVideoElement;
 
   onMount(async () => {
     if (isPhase3) {
@@ -65,9 +69,23 @@
         </Button>
       </div>
     </div>
-    <video class="absolute top-0 -z-1 w-full h-full object-cover" autoplay loop muted playsinline>
-      <source src={bucketAssets.landing.genesisVideo} type="video/mp4" />
-    </video>
+    <IntersectionObserver
+      element={videoElement}
+      once
+      rootMargin={'150px'}
+      on:intersect={() => lazyLoadVideoSource(videoElement)}
+    >
+      <video
+        bind:this={videoElement}
+        class="absolute top-0 -z-1 w-full h-full object-cover"
+        autoplay
+        loop
+        muted
+        playsinline
+      >
+        <source data-src={bucketAssets.landing.genesisVideo} type="video/mp4" />
+      </video>
+    </IntersectionObserver>
   </div>
 </div>
 

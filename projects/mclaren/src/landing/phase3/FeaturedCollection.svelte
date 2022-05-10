@@ -1,6 +1,10 @@
 <script lang="ts">
+  import IntersectionObserver from 'svelte-intersection-observer';
+  import { lazyLoadVideoSource } from '$util/lazyLoad';
   import bucketAssets from '$project/assets/aws-bucket-assets';
   import Divider from '../common/Divider.svelte';
+
+  let videoElement: HTMLVideoElement;
 </script>
 
 <div class="w-full h-full relative">
@@ -13,8 +17,22 @@
     </div>
   </div>
   <div class="pb-24 sm:pb-64 bg-black">
-    <video class="w-full object-cover h-full md:h-[40rem] md:container md:max-w-5xl" autoplay loop muted playsinline>
-      <source src={bucketAssets.landing.comingSoon} type="video/mp4" />
-    </video>
+    <IntersectionObserver
+      element={videoElement}
+      once
+      rootMargin={'250px'}
+      on:intersect={() => lazyLoadVideoSource(videoElement)}
+    >
+      <video
+        bind:this={videoElement}
+        class="w-full object-cover h-full md:h-[40rem] md:container md:max-w-5xl"
+        autoplay
+        loop
+        muted
+        playsinline
+      >
+        <source data-src={bucketAssets.landing.comingSoon} type="video/mp4" />
+      </video>
+    </IntersectionObserver>
   </div>
 </div>
