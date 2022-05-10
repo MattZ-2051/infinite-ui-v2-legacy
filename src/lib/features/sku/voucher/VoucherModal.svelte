@@ -6,9 +6,10 @@
   import Input from '$lib/components/form/input/Input.svelte';
   import Button from '$lib/components/Button.svelte';
   import { VOUCHER_CODE_MODAL_TITLE } from '$project/variables';
-  import { onSignIn } from '$lib/user';
+  import { onSignIn, user } from '$lib/user';
   import routes from '$project/routes';
   import successIcon from '$lib/components/icons/success-mint';
+  import { goto } from '$app/navigation';
   import { validateVoucherCode } from './voucher.api';
 
   export let voucherCode = '';
@@ -65,7 +66,11 @@
         voucherCodeStatus = 'success';
         // this setTimeout is here so the user can see the success modal quickly before being redirected
         setTimeout(() => {
-          onSignIn(routes.checkoutSku(skuId, `?voucherCode=${voucherCode}`));
+          if (!$user) {
+            onSignIn(routes.checkoutSku(skuId, `?voucherCode=${voucherCode}`));
+          } else {
+            goto(routes.checkoutSku(skuId, `?voucherCode=${voucherCode}`));
+          }
         }, 500);
       } catch (apiError) {
         error = true;
