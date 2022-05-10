@@ -1,7 +1,6 @@
 <script lang="ts">
   import IntersectionObserver from 'svelte-intersection-observer';
   import { lazyLoadVideoSource } from '$util/lazyLoad';
-  import bucketAssets from '$project/assets/aws-bucket-assets';
   import Divider from '../common/Divider.svelte';
 
   let videoElement: HTMLVideoElement;
@@ -31,7 +30,7 @@
         muted
         playsinline
       >
-        <source data-src={bucketAssets.landing.comingSoon} type="video/mp4" />
+        <source data-src="/videos/FINAL_Collections001digital_dynamics_s.mp4" type="video/mp4" />
       </video>
     </IntersectionObserver>
   </div>

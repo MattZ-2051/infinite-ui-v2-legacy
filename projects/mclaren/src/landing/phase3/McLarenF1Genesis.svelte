@@ -5,7 +5,6 @@
   import routes from '$project/routes';
   import Button from '$lib/components/Button.svelte';
   import { loadAllSkuCollectionsFx, setAllSkuCollections } from '$lib/features/collections/collections.store';
-  import bucketAssets from '$project/assets/aws-bucket-assets';
   import { lazyLoadVideoSource } from '$util/lazyLoad';
 
   const collectionId = import.meta.env.VITE_DEFAULT_COLLECTION_ID;
@@ -83,7 +82,8 @@
         muted
         playsinline
       >
-        <source data-src={bucketAssets.landing.genesisVideo} type="video/mp4" />
+        <source data-src="/videos/mclarenTeaser_treatment01_v020.webm" type="video/webm" />
+        <source data-src="/videos/mclarenTeaser_treatment01_v020.mp4" type="video/mp4" />
       </video>
     </IntersectionObserver>
   </div>

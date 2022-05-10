@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { page } from '$app/stores';
   import { isCookiesAccepted } from '$lib/components/gdpr/gdpr.store';
   import { init } from '$lib/gtag';
   import injectScript from '$util/injectScript';
@@ -22,8 +21,5 @@
   <link rel="preconnect" href={bucketAssets.baseBucketUrl} />
   <link rel="icon" href="/favicon.ico" />
   <meta name="google-site-verification" content={G_SITE_VERIFICATION} />
-  {#if $page.url.pathname === '/'}
-    <link rel="preload" href={bucketAssets.landing.hero} as="video" />
-  {/if}
   <link rel="stylesheet" href="/fonts/stylesheet.css" />
 </svelte:head>
