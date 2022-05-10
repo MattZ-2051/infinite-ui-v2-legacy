@@ -58,7 +58,7 @@
       <span class="text-2xl section-title">CURRENCY</span>
       <div class="space-y-4 max-w-sm paragraph-content">
         <p>Your money is good here.</p>
-        <p>We accept a wide range of payment options, including Credit Cards, Bitcoin, Ether, HBAR, and USDC.</p>
+        <p>We accept a wide range of payment options, including Credit Cards, Bitcoin, Ether, and USDC.</p>
       </div>
     </div>
   </div>
