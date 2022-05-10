@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import routes from '$project/routes';
@@ -6,6 +7,11 @@
   export let etherscanLink = '';
 
   const DISABLED_MARKETPLACE = import.meta.env?.VITE_DISABLE_MARKETPLACE === 'true';
+
+  onMount(() => {
+    window.focus();
+    window.scrollTo(0, 0);
+  });
 </script>
 
 <div class="flex flex-col xl:max-w-sm justify-center justify-self-center">
