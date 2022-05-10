@@ -9,19 +9,20 @@
 </script>
 
 <div class="flex flex-col xl:max-w-sm justify-center justify-self-center">
-  <span class="text-2xl xl:text-3xl mb-10">We're processing your order...</span>
+  <span class="text-2xl xl:text-3xl mb-10">We’re processing your order and trying to avoid ‘gas wars’!</span>
   <span class="mb-4 text-gray-700 "
-    >It can take up to 10 minutes for the order to process and the NFT to appear on your wallet.</span
+    >It can take up to 7 minutes or 12 block confirmations for your order to process and the NFT to appear in your
+    wallet.</span
   >
-  <div class="mb-4 text-gray-700">
-    {#if DISABLED_MARKETPLACE}
-      <span>You can wait for the order to process or close this window</span>
-    {:else}
+  {#if !DISABLED_MARKETPLACE}
+    <div class="mb-4 text-gray-700">
       <span>You can wait for the order to process, close this window or</span>
       <a class="underline underline-offset-4" href={routes.marketplace}>go back to the Marketplace.</a>
-    {/if}
-  </div>
-  <span class="mb-10 font-bold">We'll send you an email when your purchase has been completed.</span>
+    </div>
+  {/if}
+  <span class="mb-10 font-bold"
+    >We’ll send you an email when your purchase has completed and when your NFT is minted.
+  </span>
   <Button class="h-16" variant="brand" disabled><DualRingLoader /></Button>
   {#if etherscanLink}
     <a
