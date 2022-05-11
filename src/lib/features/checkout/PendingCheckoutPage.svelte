@@ -8,6 +8,10 @@
   const handleRedirectToMarketPlace = () => {
     goto(routes.marketplace);
   };
+
+  const linkClass = `link pt-5 text-center text-gray-500 hover:underline cursor-pointer hover:text-gray-800 ${
+    !etherscanLink ? 'disabled' : ''
+  }`;
 </script>
 
 <div class="flex justify-center flex-col text-center">
@@ -18,14 +22,8 @@
   <Button variant="brand" class="h-16 w-full te../stripe/stripe.storermal  pb-10" on:click={handleRedirectToMarketPlace}
     >Back to Marketplace</Button
   >
-  {#if etherscanLink}
-    <a
-      href="http://"
-      target="_b../stripe/stripe.utilspener noreferrer"
-      class="link pt-5 text-center text-gray-500 hover:underline cursor-pointer hover:text-gray-800"
-      >View transaction on Etherscan</a
-    >
-  {/if}
+
+  <a href={etherscanLink} target="_blank" class={linkClass}>View transaction on Etherscan</a>
 </div>
 
 <style lang="postcss">
@@ -37,5 +35,9 @@
   .link {
     text-decoration: none;
     opacity: 0.5;
+  }
+  .disabled {
+    cursor: not-allowed;
+    pointer-events: none;
   }
 </style>
