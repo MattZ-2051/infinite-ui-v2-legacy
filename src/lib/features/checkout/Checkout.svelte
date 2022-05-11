@@ -25,9 +25,10 @@
   import CompletePurchaseMM from './CompletePurchaseMM.svelte';
   import { handlePayment, handleExit, handleStateChange } from './checkout.service';
   import { getCosts, validETHdirectPurchase } from './checkout.api';
-  import { checkoutState } from './checkout.store';
+  import { checkoutState, voucher } from './checkout.store';
   import StripeCheckout from '../stripe/StripeCheckout.svelte';
   import PendingCheckoutPage from './PendingCheckoutPage.svelte';
+  import { validateVoucherCode } from '../sku/voucher/voucher.api';
 
   export let sku: Sku = undefined;
   export let product: Product = undefined;
@@ -73,6 +74,18 @@
     }, MM_PENDING_TIMEOUT);
 
   onMount(async () => {
+    const isVoucherSku = listing.enabledNftPurchase;
+    const paymentIntent = $page.url.searchParams.get('payment_intent');
+    if (isVoucherSku && !($voucher.verified || paymentIntent)) {
+      try {
+        const voucherCode = $page.url.searchParams.get('voucherCode');
+        const skuId = $page.params.id;
+        await validateVoucherCode({ voucherCode, skuId });
+      } catch {
+        goto(routes.sku($page.params.id));
+        return;
+      }
+    }
     const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
     if (!clientSecret) {
       handleStateChange((localStorage.getItem('checkout-state') as CheckoutState) || 'method-select');

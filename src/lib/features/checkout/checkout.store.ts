@@ -19,6 +19,12 @@ export const productId = createStore<{ id: string }>({ id: '' }, { name: 'produc
   (_, newId) => newId
 );
 
+export const updateVoucher = createEvent<{ verified: boolean }>();
+export const voucher = createStore<{ verified: boolean }>({ verified: false }, { name: 'voucher' }).on(
+  updateVoucher,
+  (_, newVoucher) => newVoucher
+);
+
 interface Poll {
   start: Event<void>;
   stop: Event<void>;

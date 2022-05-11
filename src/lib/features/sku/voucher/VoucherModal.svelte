@@ -10,6 +10,7 @@
   import routes from '$project/routes';
   import successIcon from '$lib/components/icons/success-mint';
   import { goto } from '$app/navigation';
+  import { updateVoucher } from '$lib/features/checkout/checkout.store';
   import { validateVoucherCode } from './voucher.api';
 
   export let voucherCode = '';
@@ -63,6 +64,7 @@
     if (voucherCodeStatus === 'valid-length') {
       try {
         await validateVoucherCode({ voucherCode, skuId });
+        updateVoucher({ verified: true });
         voucherCodeStatus = 'success';
         // this setTimeout is here so the user can see the success modal quickly before being redirected
         setTimeout(() => {
