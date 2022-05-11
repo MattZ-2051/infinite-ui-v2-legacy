@@ -20,7 +20,7 @@
     };
   });
 
-  $: root && (root.style.paddingBottom = `${ctaHeight}px`);
+  $: root && (root.style.paddingBottom = `${ctaOffset}px`);
 </script>
 
 <div class="grid {_class}" class:reverse>
