@@ -86,7 +86,7 @@
         {/if}
       </Button>
     {/if}
-    <Button variant="outline-brand" class="border-none h-16 w-full text-xl mt-4" on:click={onExit}>
+    <Button variant="outline-brand" class="h-16 w-full text-xl mt-4" on:click={onExit}>
       Back to {backButtonLabel}
     </Button>
   </div>

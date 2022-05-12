@@ -170,6 +170,10 @@
   --button-outline-brand-border-color-hover: #a8c039;
 }
 
+.theme-checkout-variants {
+  --button-outline-brand-border-color: transparent;
+}
+
 .theme-brand-footer {
   /* Common */
   --separator-bg-color: rgba(0, 0, 0, 0.16);

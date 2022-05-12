@@ -2,6 +2,7 @@ const Theme = {
   Dark: 'theme-dark',
   Light: 'theme-light',
   BrandFooter: 'theme-brand-footer',
+  CheckoutVariants: 'theme-checkout-variants',
 };
 
 export const themeConfig = {
@@ -13,7 +14,7 @@ export const themeConfig = {
   '$u.$wallet.$deposit.root': Theme.Light,
   '$checkout.*': Theme.Light,
   '$help.*.root': Theme.Light,
-  '$checkout.*.root': Theme.Light,
+  '$checkout.*.root': [Theme.Light, Theme.CheckoutVariants],
   '*.sku-offsreen': Theme.Light,
   '*.wallet-list': Theme.Light,
   '*.modal': Theme.Light,

@@ -29,7 +29,7 @@
   {:else if tileInfo.status === 'active'}
     <span class:font-bold={!productStatus}>{tileInfo.saleTypeTitle}</span>
     {#if !forProductStatus}
-      <span>{formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice)}</span>
+      <span>{formatCurrencyWithOptionalFractionDigits(tileInfo.minPrice, { currency: sku.currency })}</span>
     {/if}
   {/if}
 </div>

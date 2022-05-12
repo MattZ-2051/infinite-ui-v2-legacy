@@ -25,7 +25,7 @@
         {`${formatCurrency(price * rate, { currency: 'USD' })} ≈`}
       </div>
     {/if}
-    <div class="text-right ml-1 text-black">
+    <div class="text-right ml-1 text-default">
       {formatCurrency(price, options)}
     </div>
   </div>
@@ -36,7 +36,7 @@
         {`${formatCurrency(absoluteFee * rate, { currency: 'USD' })} ≈`}
       </div>
     {/if}
-    <div class="text-right ml-1 text-black">
+    <div class="text-right ml-1 text-default">
       {formatCurrency(absoluteFee, options)}
     </div>
   </div>
@@ -48,7 +48,7 @@
           {`${formatCurrency(gasFee * rate, { currency: 'USD' })} ≈`}
         </div>
       {/if}
-      <div class="text-right ml-1 text-black">
+      <div class="text-right ml-1 text-default">
         {formatCurrency(gasFee, options)}
       </div>
     </div>

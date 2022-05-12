@@ -168,14 +168,15 @@
     </div>
     <SingleCheckbox class="mb-2" on:change={onCheckedTerms} checked={acceptedTerms}>
       <span class="text-gray-500">Read and agree to</span>
-      <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+      <a href={routes.terms} class="ml-1 text-default" target="_blank" rel="noopener noreferrer">Terms and Conditions</a
+      >
       <span class="text-gray-500">and</span>
-      <a href={routes.privacy} class="text-black" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
+      <a href={routes.privacy} class="text-default" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
     </SingleCheckbox>
     <div class="grid mt-8 grid-flow-row sm:grid-flow-col">
       <Button
         variant="outline-brand"
-        class="border-none sm:order-1 order-2 mr-0 mt-2 sm:mt-0 sm:mr-3"
+        class="sm:order-1 order-2 mr-0 mt-2 sm:mt-0 sm:mr-3"
         on:click={() => handleCheckoutStateChange('method-select')}
       >
         Back to Payment Method
