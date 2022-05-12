@@ -1,12 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { variables } from '$lib/variables';
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import routes from '$project/routes';
 
   export let etherscanLink = '';
 
-  const DISABLED_MARKETPLACE = import.meta.env?.VITE_DISABLE_MARKETPLACE === 'true';
+  const DISABLED_MARKETPLACE = variables.disabledMarketplace;
 
   onMount(() => {
     window.focus();

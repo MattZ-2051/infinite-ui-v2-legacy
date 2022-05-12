@@ -4,6 +4,7 @@ import type { User } from '$lib/user/types';
 import type { ApiError } from '$lib/api';
 import { get as getStoreValue } from 'svelte/store';
 import { toast } from '$ui/toast';
+import { variables } from '$lib/variables';
 import { user, onSignIn, isLoading } from '$lib/user';
 import { handleWalletConnection } from '$lib/metamask';
 import { openModal } from '$ui/modals';
@@ -17,7 +18,7 @@ import { validETHdirectPurchase } from './order.api';
 let validETHPurchase: ValidETHListingData;
 let canOpenModal = false;
 
-const ENABLE_CHECKOUT = import.meta.env?.VITE_ENABLE_CHECKOUT;
+const ENABLE_CHECKOUT = variables.checkoutEnabled;
 
 export const showLoginToast = (content = 'sign in', data = 'signIn') => {
   toast.danger(
@@ -50,7 +51,7 @@ export async function onOrderIntent({
     isLoading.set(false);
 
     if (validETHPurchase) {
-      if (ENABLE_CHECKOUT === 'true') {
+      if (ENABLE_CHECKOUT) {
         goto(`/checkout/sku/${sku._id}`);
         return;
       } else {

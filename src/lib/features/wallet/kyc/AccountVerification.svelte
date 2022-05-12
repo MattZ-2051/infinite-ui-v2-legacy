@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { mdiShieldOutline, mdiShieldCheckOutline, mdiShieldOffOutline } from '@mdi/js';
+  import { variables } from '$lib/variables';
   import shieldPlus from '$lib/features/wallet/assets/shield-plus';
   import ArrowRight from '$lib/features/wallet/kyc/assets/ArrowRight.svelte';
   import Icon from '$ui/icon/Icon.svelte';
@@ -9,7 +10,7 @@
   export let pending: boolean;
   export let level: number;
 
-  const disableKYC = import.meta.env?.VITE_DISABLED_KYC === 'true';
+  const disableKYC = variables.disabledKYC;
   const dispatch = createEventDispatcher();
 
   const LEVEL_ICONS = [mdiShieldOffOutline, mdiShieldCheckOutline, shieldPlus];

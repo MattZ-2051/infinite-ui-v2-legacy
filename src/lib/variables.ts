@@ -38,5 +38,14 @@ export const variables = {
     enabled: import.meta.env?.VITE_STRIPE_ENABLED === 'true',
     pubKey: import.meta.env.VITE_STRIPE_PUBKEY,
   },
+  metamask: {
+    walletEnabled: import.meta.env?.VITE_MM_WALLET_ENABLED === 'true',
+    testNetworkEnabled: import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED === 'true',
+  },
   hidePhoneConsent: import.meta.env.VITE_HIDE_PHONE_CONSENT === 'true',
+  checkoutEnabled: import.meta.env?.VITE_ENABLE_CHECKOUT === 'true',
+  issuerPageEnabled: import.meta.env?.VITE_ISSUER_PAGE_ENABLED === 'true',
+  disabledMarketplace: import.meta.env?.VITE_DISABLE_MARKETPLACE === 'true',
+  disabledMyWallet: import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED === 'true',
+  disabledKYC: import.meta.env?.VITE_DISABLED_KYC === 'true',
 };

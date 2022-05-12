@@ -1,6 +1,7 @@
 <script lang="ts">
   import imageError from '$util/imageError';
   import routes from '$project/routes';
+  import { variables } from '$lib/variables';
   import IconVerified from '$lib/components/talent/IconVerified.svelte';
 
   export let profile: { username: string; profilePhotoUrl: string; verified?: boolean };
@@ -10,7 +11,7 @@
   let _class = '';
   export { _class as class };
 
-  const ISSUER_PAGE_ENABLED = import.meta.env?.VITE_ISSUER_PAGE_ENABLED !== 'false';
+  const ISSUER_PAGE_ENABLED = variables.issuerPageEnabled;
   const link = ISSUER_PAGE_ENABLED ? routes.collection(profile?.username) : routes.index;
 </script>
 

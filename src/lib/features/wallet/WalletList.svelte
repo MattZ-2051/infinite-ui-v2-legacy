@@ -2,6 +2,7 @@
   import { Tabs, Tab } from '$ui/tabs';
   import { gotoQueryParameters } from '$util/queryParameter';
   import { user } from '$lib/user';
+  import { variables } from '$lib/variables';
   import Sort from '$lib/components/Sort.svelte';
   import TransactionList from './transaction/TransactionList.svelte';
   import BidList from './bid/BidList.svelte';
@@ -42,11 +43,11 @@
     redirect({ [event.detail.key]: `${event.detail.value}`, page: false });
   };
 
-  const MY_WALLET_SECTION_DISABLED = import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED;
+  const MY_WALLET_SECTION_DISABLED = variables.disabledMyWallet;
 
   const items = [
     { id: 'transactions', title: 'Transaction History' },
-    { id: 'bids', title: 'Active Bids', hidden: MY_WALLET_SECTION_DISABLED === 'true' },
+    { id: 'bids', title: 'Active Bids', hidden: MY_WALLET_SECTION_DISABLED },
   ];
 
   const itemsRender = items.filter((item) => !item?.hidden);

@@ -5,6 +5,7 @@
   import tooltip from '$ui/tooltip';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import { MY_WALLET_BUTTONS_DISABLED_MESSAGE } from '$project/variables';
+  import { variables } from '$lib/variables';
   import WithdrawNoticeModalBody from './WithdrawNoticeModalBody.svelte';
   import DepositNoticeModalBody from './DepositNoticeModalBody.svelte';
 
@@ -20,7 +21,7 @@
       },
     });
   }
-  const MY_WALLET_SECTION_DISABLED = import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED === 'true';
+  const MY_WALLET_SECTION_DISABLED = variables.disabledMyWallet;
 </script>
 
 <div

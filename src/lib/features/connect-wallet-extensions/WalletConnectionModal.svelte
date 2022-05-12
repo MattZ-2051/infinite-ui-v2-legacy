@@ -14,12 +14,13 @@
     InfiniteExtensionStore,
   } from '$lib/features/infinite-wallet/infinite-wallet.store';
   import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
+  import { variables } from '$lib/variables';
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import { mobileAndTabletCheck } from '$util/detectMobile';
 
-  const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
-  const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED;
+  const MM_TEST_NETWORK_ENABLED = variables.metamask.testNetworkEnabled;
+  const MM_WALLET_ENABLED = variables.metamask.walletEnabled;
 
   export let isOpen: boolean;
   export let user: User;
@@ -56,7 +57,7 @@
   };
 
   $: wallets = [
-    MM_WALLET_ENABLED === 'true' && {
+    MM_WALLET_ENABLED && {
       name: 'MetaMask',
       connected: $walletConnected,
       login: handleWalletConnection,

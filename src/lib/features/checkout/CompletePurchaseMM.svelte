@@ -10,6 +10,7 @@
   import Button from '$lib/components/Button.svelte';
   import { page } from '$app/stores';
   import { user, userId } from '$lib/user';
+  import { variables } from '$lib/variables';
   import {
     checkNetwork,
     getWalletInfo,
@@ -35,7 +36,7 @@
   import Information from './Information.svelte';
   import { pendingProductCreated, updateCheckoutState } from './checkout.store';
 
-  const MM_TEST_NETWORK_ENABLED = import.meta.env?.VITE_MM_TEST_NETWORK_ENABLED;
+  const MM_TEST_NETWORK_ENABLED = variables.metamask.testNetworkEnabled;
   const voucherCode = $page.url.searchParams.get('voucherCode');
 
   export let sku: Sku;

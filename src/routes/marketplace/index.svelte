@@ -4,16 +4,17 @@
   import debounce from 'p-debounce';
   import { browser } from '$app/env';
   import { loadMarketplaceFilters, loadMarketplaceItems } from '$lib/features/marketplace/marketplace.api';
+  import { variables } from '$lib/variables';
   import routes from '$project/routes';
 
-  const DISABLED_MARKETPLACE = import.meta.env?.VITE_DISABLE_MARKETPLACE;
+  const DISABLED_MARKETPLACE = variables.disabledMarketplace;
   const EXTERNAL_INDEX_URL = import.meta.env?.VITE_EXTERNAL_INDEX_URL as string;
 
   const index = EXTERNAL_INDEX_URL ? EXTERNAL_INDEX_URL : routes.index;
 
   export const load = debounce(
     <Load>(async ({ fetch, url }) => {
-      if (DISABLED_MARKETPLACE === 'true') {
+      if (DISABLED_MARKETPLACE) {
         return {
           status: 302,
           redirect: index,

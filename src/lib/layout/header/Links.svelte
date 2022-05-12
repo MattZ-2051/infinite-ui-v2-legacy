@@ -10,6 +10,7 @@
   import { openModal } from '$ui/modals';
   import routes from '$project/routes';
   import { INFINITE_EXTENSION_ENABLED } from '$project/variables';
+  import { variables } from '$lib/variables';
   import WalletConnectionModal from '$lib/features/connect-wallet-extensions/WalletConnectionModal.svelte';
   import { tenantSettings } from '$lib/tenant/settings.store';
   import { isVisible } from '$lib/layout/header/links.utils';
@@ -17,7 +18,7 @@
   import Button from '$lib/components/Button.svelte';
   import account from './assets/account';
 
-  const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED;
+  const MM_WALLET_ENABLED = variables.metamask.walletEnabled;
 
   export let flatten = false;
   export let user: User;
@@ -56,7 +57,7 @@
         })}
         on:click={() => flatten && dispatch('select')}>{label}</a
       >
-    {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED)}
+    {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED || INFINITE_EXTENSION_ENABLED)}
       <button
         class={clsx(classes, 'header-link', {
           'sidebar-link': flatten,
@@ -172,7 +173,7 @@
             {#if icon}<Icon path={icon} class="shrink-0 float-left mr-3" />{/if}
             {label}
           </MenuItem>
-        {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED === 'true' || INFINITE_EXTENSION_ENABLED)}
+        {:else if type === 'wallet-extensions' && (MM_WALLET_ENABLED || INFINITE_EXTENSION_ENABLED)}
           <MenuItem on:select={handleWalletModal}>
             {#if icon}<Icon path={icon} class="shrink-0 float-left mr-3" />{/if}
             {label}

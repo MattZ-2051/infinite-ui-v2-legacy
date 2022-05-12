@@ -1,5 +1,6 @@
 <script lang="ts">
   import mdiInformationVariant from '$lib/features/wallet/assets/info';
+  import { variables } from '$lib/variables';
   import { formatCurrency } from '$util/format';
   import Icon from '$ui/icon/Icon.svelte';
   import tooltip from '$ui/tooltip';
@@ -8,7 +9,7 @@
   export let withdrawableBalance: number = undefined;
   export let availableBalance: number = undefined;
 
-  const MY_WALLET_SECTION_DISABLED = import.meta.env?.VITE_MY_WALLET_SECTION_DISABLED === 'true';
+  const MY_WALLET_SECTION_DISABLED = variables.disabledMyWallet;
 </script>
 
 <div class="font-medium">

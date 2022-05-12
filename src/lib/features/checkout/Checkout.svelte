@@ -4,6 +4,7 @@
   import type { Product, Sku } from '$lib/sku-item/types';
   import { getActiveListings } from '$lib/features/sku/sku.service';
   import { user } from '$lib/user';
+  import { variables } from '$lib/variables';
   import { getWalletInfo } from '$lib/metamask';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
@@ -33,9 +34,9 @@
   export let sku: Sku = undefined;
   export let product: Product = undefined;
 
-  const DISABLED_MARKETPLACE = import.meta.env?.VITE_DISABLE_MARKETPLACE === 'true';
-  const MM_WALLET_ENABLED = import.meta.env?.VITE_MM_WALLET_ENABLED === 'true';
-  const STRIPE_ENABLED = import.meta.env?.VITE_STRIPE_ENABLED === 'true';
+  const DISABLED_MARKETPLACE = variables.disabledMarketplace;
+  const MM_WALLET_ENABLED = variables.metamask.walletEnabled;
+  const STRIPE_ENABLED = variables.stripe.enabled;
   const MM_PENDING_TIMEOUT = 600_000;
   const backButtonLabel = DISABLED_MARKETPLACE ? 'home' : 'marketplace';
 
