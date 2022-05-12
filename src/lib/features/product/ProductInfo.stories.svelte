@@ -8,12 +8,15 @@
     status: 'purchased',
     redeemedStatus: 'NA',
     nftSerial: '12234',
+    serialNumber: '123213123',
+    tokenId: '123123213',
     owner: {
       _id: '6048e601782c593a7c6dffc0',
       username: 'InfiniteWorld',
       role: 'admin',
       stripeConnectAccountId: 'acct_1KS042IrpbxidLMW',
       tenant: 'infinite',
+      profilePhotoUrl: 'https://infinite-digital-dev.s3.amazonaws.com/moonracer/1_preview_300.png',
     },
     listing: {
       _id: '62068f50c8fe0d7c639797ae',
@@ -36,6 +39,7 @@
         username: 'Roberto_Clemente',
       },
     },
+
     sku: {
       _id: '62068e31c8fe0d7c639797a9',
       nftTokenId: '1234567899',
@@ -193,6 +197,54 @@
     description: '<p>SKU INA TEST11_02</p>',
   };
 
+  const productMintLaterMinted = {
+    ...product,
+    status: 'minted',
+  };
+
+  const productMintLaterMintedNoSerialNumber = {
+    ...product,
+    status: 'minted',
+    serialNumber: undefined,
+  };
+
+  const productMintLaterPurchased = {
+    ...product,
+    status: 'purchased',
+  };
+
+  const producttMintLaterWithoutRedeemtionStatus = {
+    ...product,
+    sku: { ...product.sku, redeemable: false },
+  };
+
+  const mintNowProduct = {
+    ...product,
+    sku: {
+      ...product.sku,
+      mintPolicy: {
+        transaction: 'now',
+        chain: 'ethereum',
+      },
+    },
+  };
+
+  const mintPolityUserSelectedProduct = {
+    ...product,
+    sku: {
+      ...product.sku,
+      mintPolicy: {
+        transaction: 'user-selected',
+        chain: 'ethereum',
+      },
+    },
+  };
+
+  const usdProduct = {
+    ...product,
+    sku: { ...product.sku, currency: 'USD' },
+  };
+
   const transactions = [];
 </script>
 
@@ -200,8 +252,51 @@
 
 <Template let:args>
   <div class="max-w-5xl" style="height: min(500px, 100%);">
-    <ProductInfo {product} {transactions} {...args} />
+    <ProductInfo {...args} />
   </div>
 </Template>
 
-<Story name="Product Info" />
+<!-- ETH CASES -->
+
+<Story name="Product Info" args={{ product: productMintLaterPurchased, transactions }} />
+
+<Story
+  name="Product Without RedeemtionStatus"
+  args={{ product: producttMintLaterWithoutRedeemtionStatus, transactions }}
+/>
+
+<Story name="Product Mint later minted" args={{ product: productMintLaterMinted, transactions }} />
+
+<Story
+  name="Product Mint without serialNumber minted"
+  args={{ product: productMintLaterMintedNoSerialNumber, transactions }}
+/>
+
+<Story name="Product Mint later onsold" args={{ product: { ...product, status: 'unsold' }, transactions }} />
+
+<Story name="Product Mint now " args={{ product: { ...mintNowProduct }, transactions }} />
+
+<Story name="Product Mint user-seleted " args={{ product: { ...mintPolityUserSelectedProduct }, transactions }} />
+
+<!-- USD CASES -->
+
+<Story name="Product Hedeara not owner token " args={{ product: { ...usdProduct }, transactions }} />
+
+<Story
+  name="Product notProfileUrl"
+  args={{
+    product: {
+      ...usdProduct,
+      owner: {
+        ...usdProduct.owner,
+        profilePhotoUrl: undefined,
+      },
+    },
+    transactions,
+  }}
+/>
+
+<Story
+  name="Product Hedeara's Without RedeemtionStatus not owner token "
+  args={{ product: { ...usdProduct, sku: { ...usdProduct.sku, redeemable: false } }, transactions }}
+/>
