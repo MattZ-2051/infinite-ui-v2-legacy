@@ -81,4 +81,10 @@
   .modal-title {
     font-family: var(--modal-title-font);
   }
+
+  @media (max-width: 768px) {
+    .modal-title {
+      max-width: 85%;
+    }
+  }
 </style>
