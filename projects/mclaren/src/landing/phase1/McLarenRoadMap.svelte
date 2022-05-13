@@ -177,7 +177,7 @@
           {/if}
           <span class="uppercase">{selectedStep.title || selectedPhase.title}</span>
         </h4>
-        <p class="flex-grow text-gray-800 leading-7" in:fly={{ y: -50, duration: 1000 }}>
+        <p class="flex-grow font-light text-gray-800 leading-7" in:fly={{ y: -50, duration: 1000 }}>
           {@html selectedStep.description || selectedPhase.description}
         </p>
       {/key}
