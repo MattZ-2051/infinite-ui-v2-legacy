@@ -28,7 +28,7 @@
   import googlepay from '$lib/components/icons/googlepay';
   import StripeCheckoutModal from '../stripe/StripeCheckoutModal.svelte';
   import americanExpress from './assets/american-express.svg';
-  import { purchaseSkuListing, claimGiveawaySkuListing } from './order.api';
+  import { purchaseSkuListing, claimGiveawaySkuListing } from '../checkout/checkout.api';
   import { handleSkuClaimError } from './order.service';
   import OrderDetails from './OrderDetails.svelte';
 

@@ -20,7 +20,7 @@
     <Icon class="pb-6" path={iconSource} viewBox="0 0 72 73" size={4.5} />
     <span class="xl:text-2xl text-xl font-normal tracking-tight">{title}</span>
   </div>
-  {#if id === 'cc'}
+  {#if id.includes('cc')}
     <div class="flex flex-row gap-x-2 relative xl:-bottom-32 -bottom-28">
       <img src={visa} alt="visa" />
       <img src={mastercard} alt="mastercard" />

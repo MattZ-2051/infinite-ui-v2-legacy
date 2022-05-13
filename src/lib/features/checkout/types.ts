@@ -12,6 +12,7 @@ export type CheckoutState =
   | 'error'
   | 'ordering-mm'
   | 'ordering-stripe'
+  | 'ordering-balance'
   | 'method-select'
   | 'exit'
   | 'loading'

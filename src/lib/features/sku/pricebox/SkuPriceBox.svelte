@@ -3,7 +3,7 @@
   import type { ActionType } from '$lib/features/product/actions/types';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { onAction } from '$lib/features/product/actions/product-actions.service';
-  import { fetchRequiredSkus, gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
+  import { fetchRequiredSkus } from '$lib/features/gateKeeping/gateKeeping.store';
   import { onSignIn, user } from '$lib/user';
   import { openModal } from '$ui/modals';
   import routes from '$project/routes';
@@ -42,26 +42,20 @@
     try {
       if (redirectToLogin) {
         onSignIn();
+      } else if (hasGateKeepingRules) {
+        await fetchRequiredSkus({ skuId: sku._id });
+      } else if (isVoucherSku) {
+        openModal(VoucherModal, {
+          voucherCode,
+          skuId: sku._id,
+        });
+      } else if (goToSkuAuctionPage) {
+        goto(routes.skuAuction(sku._id));
+      } else if (activeListings[0].product) {
+        const product = await loadProduct({ id: activeListings[0].product });
+        return onOrderIntent({ sku, listing: activeListings[0], product });
       } else {
-        if (hasGateKeepingRules) {
-          await fetchRequiredSkus({ skuId: sku._id });
-          if ($gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned')) {
-            return;
-          }
-        }
-        if (isVoucherSku) {
-          openModal(VoucherModal, {
-            voucherCode,
-            skuId: sku._id,
-          });
-        } else if (goToSkuAuctionPage) {
-          goto(routes.skuAuction(sku._id));
-        } else if (activeListings[0].product) {
-          const product = await loadProduct({ id: activeListings[0].product });
-          return onOrderIntent({ sku, listing: activeListings[0], product });
-        } else {
-          return onOrderIntent({ sku, listing: activeListings[0] });
-        }
+        return onOrderIntent({ sku, listing: activeListings[0] });
       }
     } catch {
       toast.danger('Error completing purchase');

@@ -1,33 +1,37 @@
-import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
-import { patch, post, get } from '$lib/api';
-import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
+// The following logic has been moved to the checkout.api.ts file (Matt 05-17-22)
 
-export async function purchaseSkuListing(listingId: string, mintToAddress?: string): Promise<SkuPurchaseTransaction> {
-  const response = await patch<SkuPurchaseTransaction>(
-    `listings/${listingId}/purchase`,
-    mintToAddress ? { mintToAddress } : {}
-  );
+// import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
+// import { patch, post, get } from '$lib/api';
+// import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
 
-  return await processResponse(response);
-}
+// export async function purchaseSkuListing(listingId: string, mintToAddress?: string): Promise<SkuPurchaseTransaction> {
+//   const response = await patch<SkuPurchaseTransaction>(
+//     `listings/${listingId}/purchase`,
+//     mintToAddress ? { mintToAddress } : {}
+//   );
 
-export async function claimGiveawaySkuListing(listingId: string): Promise<void> {
-  await post<SkuPurchaseTransaction>(`listings/${listingId}/claim-giveaway`, {});
-}
+//   return await processResponse(response);
+// }
 
-async function processResponse(response: SkuPurchaseTransaction) {
-  if (response.status === 'success') {
-    const { transactions } = await loadMyTransactions({ page: 1 });
-    const currentTransaction = transactions.find((t) => t._id === response._id);
+// export async function claimGiveawaySkuListing(listingId: string): Promise<void> {
+//   await post<SkuPurchaseTransaction>(`listings/${listingId}/claim-giveaway`, {});
+// }
 
-    if (currentTransaction) {
-      response.product = currentTransaction.transactionData?.product?.[0];
-    }
-  }
+// async function processResponse(response: SkuPurchaseTransaction) {
+//   if (response.status === 'success') {
+//     const { transactions } = await loadMyTransactions({ page: 1 });
+//     const currentTransaction = transactions.find((t) => t._id === response._id);
 
-  return response;
-}
+//     if (currentTransaction) {
+//       response.product = currentTransaction.transactionData?.product?.[0];
+//     }
+//   }
 
-export async function validETHdirectPurchase(listingId: string) {
-  return await get<ValidETHListingData>(`listings/${listingId}/is-valid-direct-eth-purchase`, {});
-}
+//   return response;
+// }
+
+// export async function validETHdirectPurchase(listingId: string) {
+//   return await get<ValidETHListingData>(`listings/${listingId}/is-valid-direct-eth-purchase`, {});
+// }
+
+export {};

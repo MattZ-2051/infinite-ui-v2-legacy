@@ -7,7 +7,7 @@
   import { SUCCESS_PURCHASE_LAZY_MINT, SUCCESS_PURCHASE_INSTANT_MINT } from '$project/variables';
   import errorIcon from '$lib/features/checkout/assets/error-icon.svg';
   import successIcon from '$lib/features/checkout/assets/success-icon.svg';
-  import { handleStateChange } from './checkout.service';
+  import { handleCheckoutStateChange } from './checkout.service';
   import { productId, productState } from './checkout.store';
 
   export let product: Product = undefined;
@@ -23,7 +23,7 @@
   const orderFailed = orderState === 'error';
 
   const handleRetry = () => {
-    handleStateChange('method-select');
+    handleCheckoutStateChange('method-select');
   };
 
   const handleViewNFT = () => {
@@ -57,9 +57,9 @@
     {:else if orderSuccess}
       <p class="text-base px-6 pt-8 mb-10 gap-y-2">
         {#if lazyMinting}
-          {@html SUCCESS_PURCHASE_LAZY_MINT(sku.name)}
+          {@html SUCCESS_PURCHASE_LAZY_MINT(sku?.name || product?.sku?.name)}
         {:else}
-          {@html SUCCESS_PURCHASE_INSTANT_MINT(sku.name)}
+          {@html SUCCESS_PURCHASE_INSTANT_MINT(sku?.name || product?.sku?.name)}
           <br />
           <br />
           <span class="font-bold">{ethAddress ? ethAddress : ''}</span>
@@ -79,7 +79,7 @@
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleRetry}>Try again</Button>
     {:else if orderSuccess}
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleViewNFT}>
-        {#if finalSelectedMethod === 'mm'}
+        {#if finalSelectedMethod === 'mm' || !lazyMinting}
           View NFT
         {:else}
           View & Mint NFT

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { formatCurrency } from '$util/format';
 
-  export let conversionRate: number;
+  export let conversionRate: number = undefined;
 </script>
 
 <p class="text-xs text-black-opacity-50 font-normal pb-4">

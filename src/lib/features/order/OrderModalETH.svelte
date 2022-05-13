@@ -34,7 +34,7 @@
   import applepay from '$lib/components/icons/applepay';
   import googlepay from '$lib/components/icons/googlepay';
   import americanExpress from './assets/american-express.svg';
-  import { purchaseSkuListing, claimGiveawaySkuListing, validETHdirectPurchase } from './order.api';
+  import { purchaseSkuListing, claimGiveawaySkuListing, validETHdirectPurchase } from '../checkout/checkout.api';
   import { handleSkuClaimError } from './order.service';
   import OrderDetails from './OrderDetails.svelte';
 

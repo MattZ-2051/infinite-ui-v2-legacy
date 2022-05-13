@@ -5,11 +5,10 @@
   import { mdiContentCopy, mdiCheckCircle } from '@mdi/js';
   import type { ValidETHListingData } from './types';
   import type { Listing, Sku } from '$lib/sku-item/types';
-  import { formatCurrency } from '$util/format';
   import Input from '$lib/components/form/input/Input.svelte';
-  import Button from '$lib/components/Button.svelte';
   import { page } from '$app/stores';
   import { user, userId } from '$lib/user';
+  import { formatCurrency } from '$util/format';
   import { variables } from '$lib/variables';
   import {
     checkNetwork,
@@ -20,9 +19,8 @@
   } from '$lib/metamask';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
-  import routes from '$project/routes';
+  import Button from '$lib/components/Button.svelte';
   import { isEthAddress } from '$util/validateEthAddress';
-  import { SingleCheckbox } from '$ui/checkbox';
   import OrderDetails from '../order/OrderDetails.svelte';
   import { getSkuBuyingFee } from '../product/product.fee';
   import { wallet } from '../wallet/wallet.store';
@@ -30,14 +28,16 @@
     checkTerms,
     checkValidETHAddress,
     connectWallet,
-    handleStateChange,
+    handleCheckoutStateChange,
     validETHPurchase,
   } from './checkout.service';
   import Information from './Information.svelte';
-  import { pendingProductCreated, updateCheckoutState } from './checkout.store';
+  import { pendingProductCreated } from './checkout.store';
+  import Agreement from './Agreement.svelte';
 
   const MM_TEST_NETWORK_ENABLED = variables.metamask.testNetworkEnabled;
   const voucherCode = $page.url.searchParams.get('voucherCode');
+  const options = { currency: 'ETH', maximumFractionDigits: 5 };
 
   export let sku: Sku;
   export let listing: Listing;
@@ -53,18 +53,17 @@
   $: total = listing.price * (1 + marketplaceFee);
   $: insufficientFunds = total > +userBalance;
   $: priceWFee = Number.parseFloat((total + gasFee).toFixed(5));
+  $: acceptedTerms = false;
 
   let balance;
   let purchaseResult: providers.TransactionResponse;
-  let acceptedTerms = false;
   let purchaseInfo: ValidETHListingData;
 
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
-  const options = { currency: 'ETH', maximumFractionDigits: 5 };
 
   onMount(async () => {
     if (!$user && lazyMinting) {
-      handleStateChange('method-select');
+      handleCheckoutStateChange('method-select');
     } else {
       const isWalletConnected = await connectWallet();
       if (isWalletConnected) {
@@ -106,10 +105,8 @@
               toastId: 'TRX_SUCCESS',
             });
             purchasing = true;
-
-            updateCheckoutState('processing');
+            handleCheckoutStateChange('processing');
             pendingProductCreated({ txHash: purchaseResult.hash });
-
             return;
           })
           .catch((error) => {
@@ -174,20 +171,14 @@
   <div class="mt-6 sm:mt-24">
     <Information {conversionRate} />
     <div class="flex items-center justify-start mb-3">
-      <SingleCheckbox class="mb-2" on:change={onCheckedTerms} checked={acceptedTerms}>
-        <span class="text-gray-500">Read and agree to</span>
-        <a href={routes.terms} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Terms and Conditions</a
-        >
-        <span class="text-gray-500">and</span>
-        <a href={routes.privacy} class="ml-1 text-black" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-      </SingleCheckbox>
+      <Agreement {acceptedTerms} {onCheckedTerms} />
     </div>
     <div class="grid mt-12 grid-flow-row sm:grid-flow-col">
       <Button
         variant="outline-brand"
         --button-padding="20px 48px"
-        class="border-none sm:order-1 order-2 mr-0 mt-2 sm:mt-0 sm:mr-3"
-        on:click={() => handleStateChange('method-select')}
+        class="sm:order-1 order-2 mr-0 mt-2 sm:mt-0 sm:mr-3"
+        on:click={() => handleCheckoutStateChange('method-select')}
       >
         Back to Payment Method
       </Button>

@@ -14,7 +14,7 @@
   import { variables } from '$lib/variables';
   import routes from '$project/routes';
   import { stripeCreatePaymentIntentFx } from './stripe.store';
-  import { handleStateChange, showLoginToast } from '../checkout/checkout.service';
+  import { handleCheckoutStateChange, showLoginToast } from '../checkout/checkout.service';
   import Information from '../checkout/Information.svelte';
   import { errorTypes } from './stripe.utils';
   import PendingCheckoutPage from '../checkout/PendingCheckoutPage.svelte';
@@ -22,6 +22,7 @@
   const voucherCode = $page.url.searchParams.get('voucherCode');
   const stripePromise = loadStripe(variables.stripe.pubKey as string);
   const STRIPE_PENDING_TIMEOUT = 300_000;
+
   export let listing: Listing;
   export let mintToAddress: string | undefined;
   export let lazyMinting: boolean;
@@ -98,7 +99,7 @@
 
       paymentElement.on('ready', () => (isLoading = false));
     } catch {
-      handleStateChange('method-select');
+      handleCheckoutStateChange('method-select');
     }
   }
 
@@ -175,7 +176,7 @@
       <Button
         variant="outline-brand"
         class="border-none sm:order-1 order-2 mr-0 mt-2 sm:mt-0 sm:mr-3"
-        on:click={() => handleStateChange('method-select')}
+        on:click={() => handleCheckoutStateChange('method-select')}
       >
         Back to Payment Method
       </Button>

@@ -13,18 +13,20 @@
   export let insufficientFunds = false;
   export let hideProductInfo = false;
   export let gasFee: number = undefined;
+
+  const currency = sku ? sku?.currency : product?.sku?.currency;
 </script>
 
 {#if !hideProductInfo}
   <ProductModalInfo {sku} {product} />
 {/if}
 <div>
-  <OrderProductPricing price={listingPrice} {marketplaceFee} currency={sku.currency} {gasFee} />
+  <OrderProductPricing price={listingPrice} {marketplaceFee} {currency} {gasFee} />
   {#if !hideWalletBalance}
     <div class={`flex items-center justify-between pt-2 ${insufficientFunds ? 'text-red-500' : 'text-green-500'}`}>
       <span> Your current balance: </span>
       <span class="flex text-lg">
-        {formatCurrency(userBalance, { currency: sku.currency })}
+        {formatCurrency(userBalance, { currency })}
       </span>
     </div>
     <hr class="h-px w-full my-4 md:hidden" />

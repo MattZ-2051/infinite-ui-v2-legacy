@@ -24,12 +24,13 @@
   import ProcessingOrder from './ProcessingOrder.svelte';
   import OrderStatus from './OrderStatus.svelte';
   import CompletePurchaseMM from './CompletePurchaseMM.svelte';
-  import { handlePayment, handleExit, handleStateChange } from './checkout.service';
+  import { handlePayment, handleExit, handleCheckoutStateChange } from './checkout.service';
   import { getCosts, validETHdirectPurchase } from './checkout.api';
   import { checkoutState, voucher } from './checkout.store';
   import StripeCheckout from '../stripe/StripeCheckout.svelte';
   import PendingCheckoutPage from './PendingCheckoutPage.svelte';
   import { validateVoucherCode } from '../sku/voucher/voucher.api';
+  import CompletePurchaseUsd from './CompletePurchaseUsd.svelte';
 
   export let sku: Sku = undefined;
   export let product: Product = undefined;
@@ -39,15 +40,29 @@
   const STRIPE_ENABLED = variables.stripe.enabled;
   const MM_PENDING_TIMEOUT = 600_000;
   const backButtonLabel = DISABLED_MARKETPLACE ? 'home' : 'marketplace';
+  const listing = sku ? getActiveListings(sku)[0] : product?.listing;
+  const isEthListing = sku?.currency === 'ETH';
+  const isUsdListing = product?.sku?.currency === 'USD' || sku?.currency === 'USD';
+  const currency = sku ? sku?.currency : product?.sku?.currency;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _sku = sku ? sku : product.sku;
-  const [listing] = getActiveListings(sku);
-  let lazyMinting = sku?.mintPolicy?.transaction === 'later';
+  let lazyMinting = false;
   let showPendingPage = false;
+
   const paymentMethods = [
-    { id: 'cc', title: 'Credit Card', iconSource: creditCardIcon, available: MM_WALLET_ENABLED },
-    { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon, available: STRIPE_ENABLED },
+    {
+      id: 'cc-usd',
+      title: 'Credit Card',
+      iconSource: creditCardIcon,
+      available: STRIPE_ENABLED && isUsdListing && !product,
+    },
+    {
+      id: 'cc-eth',
+      title: 'Credit Card',
+      iconSource: creditCardIcon,
+      available: STRIPE_ENABLED && isEthListing && sku,
+    },
+    { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon, available: MM_WALLET_ENABLED && isEthListing },
+    { id: 'balance', title: 'Your Balance', iconSource: creditCardIcon, available: isUsdListing },
   ];
 
   let finalSelectedMethod: string;
@@ -57,6 +72,7 @@
   $: orderError = $checkoutState === 'error';
   $: orderingMm = $checkoutState === 'ordering-mm';
   $: orderingStripe = $checkoutState === 'ordering-stripe';
+  $: orderingBalance = $checkoutState === 'ordering-balance';
   $: paymentSelection = $checkoutState === 'method-select';
   $: isLoading = $checkoutState === 'loading';
   $: isOrdering = $checkoutState.startsWith('ordering');
@@ -74,8 +90,8 @@
       showPendingPage = true;
     }, MM_PENDING_TIMEOUT);
 
-  onMount(async () => {
-    const isVoucherSku = listing.enabledNftPurchase;
+  const validateVoucher = async (): Promise<void> => {
+    const isVoucherSku = listing?.enabledNftPurchase;
     const paymentIntent = $page.url.searchParams.get('payment_intent');
     if (isVoucherSku && !($voucher.verified || paymentIntent)) {
       try {
@@ -87,10 +103,9 @@
         return;
       }
     }
-    const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
-    if (!clientSecret) {
-      handleStateChange((localStorage.getItem('checkout-state') as CheckoutState) || 'method-select');
-    }
+  };
+
+  const getPaymentInfo = async (): Promise<void> => {
     try {
       const costs = await getCosts(listing._id);
 
@@ -100,10 +115,21 @@
       validETHPurchase = await validETHdirectPurchase(listing._id);
     } catch {
       validETHPurchase = undefined;
-      if (sku.currency === 'ETH') {
+      if (sku?.currency === 'ETH') {
         toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
         return;
       }
+    }
+  };
+
+  onMount(async () => {
+    validateVoucher();
+    const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
+    if (!clientSecret) {
+      handleCheckoutStateChange((localStorage.getItem('checkout-state') as CheckoutState) || 'method-select');
+    }
+    if (isEthListing) {
+      getPaymentInfo();
     }
   });
 
@@ -130,7 +156,7 @@
       }
     }
 
-    handleStateChange('ordering-stripe');
+    handleCheckoutStateChange('ordering-stripe');
   };
 
   const handlePaymentButton = (id: string) => {
@@ -186,14 +212,14 @@
           {#if exitCheckout}
             <ExitCheckout
               exitLabel={backButtonLabel}
-              onReturn={() => handleStateChange('method-select')}
+              onReturn={() => handleCheckoutStateChange('method-select')}
               onExit={handleExitCheckout}
             />
           {:else if processingOrder}
             {#if showPendingPage}
               <PendingCheckoutPage />
             {:else}
-              <ProcessingOrder />
+              <ProcessingOrder {currency} />
             {/if}
           {:else if orderSuccess || orderError}
             <OrderStatus
@@ -207,10 +233,12 @@
               {finalSelectedMethod}
             />
           {:else if isOrdering}
-            {#if orderingMm}
+            {#if orderingMm && isEthListing}
               <CompletePurchaseMM {sku} {listing} {gasFee} lazyMinting={false} conversionRate={rate} />
             {:else if orderingStripe}
               <StripeCheckout mintToAddress={ethAddress} {listing} {lazyMinting} conversionRate={rate} />
+            {:else if orderingBalance}
+              <CompletePurchaseUsd {listing} {sku} {product} />
             {/if}
           {:else if paymentSelection}
             <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center h-full">

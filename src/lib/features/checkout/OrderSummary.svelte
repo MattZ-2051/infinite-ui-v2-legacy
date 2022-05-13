@@ -6,10 +6,14 @@
   import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
   import { FilePreview } from '$ui/file';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
+  import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import OrderProductPricing from '$lib/features/order/OrderProductPricing.svelte';
   import { getBuyingFee, getSkuBuyingFee } from '$lib/features/product/product.fee';
   import { media } from '$lib/media-query.store';
   import Icon from '$ui/icon/Icon.svelte';
+  import { formatCurrency } from '$util/format';
+  import { wallet } from '../wallet/wallet.store';
+  import { checkoutState } from './checkout.store';
 
   let active: ActiveType = [];
   active.push('summary');
@@ -24,7 +28,10 @@
   const _sku = product ? product.sku : sku;
   const listingPrice = listing?.saleType === 'giveaway' ? 0 : listing?.price;
   const marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
-  $: nftPublicAsset = product?.nftPublicAssets[0] || _sku?.nftPublicAssets[0];
+  $: priceWFee = (1 + marketplaceFee) * listingPrice + gasFee;
+  $: nftPublicAsset = product?.nftPublicAssets?.[0] || _sku?.nftPublicAssets[0];
+  $: userBalance = $wallet?.balanceInfo?.[0]?.totalBalance;
+  $: insufficientFunds = Number(userBalance) < priceWFee;
 </script>
 
 <article class="py-6 mx-auto max-w-xl xl:max-w-md">
@@ -37,7 +44,7 @@
       <ProductModalInfo sku={_sku} />
     </section>
     <section class="mt-4 pt-6">
-      <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} {gasFee} />
+      <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku?.currency} {rate} {gasFee} />
     </section>
   {:else}
     <span on:click={handleClose} class="absolute close-icon"><Icon path={closeIcon} size={1.2} /></span>
@@ -54,6 +61,22 @@
     <section class="mt-4 pt-6">
       <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} {gasFee} />
     </section>
+  {/if}
+  {#if sku?.currency === 'USD' && $checkoutState === 'method-select'}
+    <div class="flex justify-between w-full pt-4" style={`${insufficientFunds ? 'color: #e83737' : 'color: #00b74d'}`}>
+      <div class="font-medium text-sm sm:text-lg">
+        {insufficientFunds ? 'Insufficient funds:' : 'Your current balance:'}
+      </div>
+      <div class="flex justify-end items-center">
+        <div class="text-right text-sm sm:text-lg ml-1">
+          {#if !userBalance}
+            <DualRingLoader --lds-size="1.8rem" />
+          {:else}
+            {formatCurrency(userBalance)}
+          {/if}
+        </div>
+      </div>
+    </div>
   {/if}
 </article>
 

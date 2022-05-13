@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Currency } from '$lib/sku-item/types';
   import { onMount } from 'svelte';
   import { variables } from '$lib/variables';
   import Button from '$lib/components/Button.svelte';
@@ -6,8 +7,20 @@
   import routes from '$project/routes';
 
   export let etherscanLink = '';
+  export let currency: Currency;
 
   const DISABLED_MARKETPLACE = variables.disabledMarketplace;
+  const messageMap = {
+    USD: {
+      title: "We're processing your order...",
+      description: 'It can take up to 30 minutes for the order to process and the NFT to appear on your wallet.',
+    },
+    ETH: {
+      title: 'We’re processing your order and trying to avoid ‘gas wars’!',
+      description:
+        'It can take up to 7 minutes or 12 block confirmations for your order to process and the NFT to appear in your wallet.',
+    },
+  };
 
   onMount(() => {
     window.focus();
@@ -16,12 +29,8 @@
 </script>
 
 <div class="flex flex-col xl:max-w-sm justify-center justify-self-center">
-  <span class="text-2xl xl:text-3xl mb-10 second-font">We’re processing your order and trying to avoid ‘gas wars’!</span
-  >
-  <span class="mb-4 text-gray-700 "
-    >It can take up to 7 minutes or 12 block confirmations for your order to process and the NFT to appear in your
-    wallet.</span
-  >
+  <span class="text-2xl xl:text-3xl mb-10">{messageMap[currency].title}</span>
+  <span class="mb-4 text-gray-700 ">{messageMap[currency].description}</span>
   {#if !DISABLED_MARKETPLACE}
     <div class="mb-4 text-gray-700">
       <span>You can wait for the order to process, close this window or</span>

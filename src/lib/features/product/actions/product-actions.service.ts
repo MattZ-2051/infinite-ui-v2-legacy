@@ -102,6 +102,7 @@ export function onAction(type: ActionType, product?: Product, sku?: Sku) {
 
 export function onBid(amount: number, product: Product) {
   loadWalletFx();
+
   openModal(BidModal, {
     product,
     amount,

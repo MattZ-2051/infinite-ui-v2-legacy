@@ -13,7 +13,8 @@ import { loadProduct, loadProductTransactions } from './product.api';
 import { hasActiveAuction, hasAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
 import { skuBought, sku, refetchSkuFx } from '../sku/sku.store';
-import { productBoughtCheckout, updateCheckoutState } from '../checkout/checkout.store';
+import { productBoughtCheckout } from '../checkout/checkout.store';
+import { handleCheckoutStateChange } from '../checkout/checkout.service';
 
 export const setProduct = createEvent<Awaited<ReturnType<typeof fetchProductFx>> & { oldProductId: string | null }>();
 export const setProductBids = createEvent<{ data: Bid[]; total: number; max: number }>();
@@ -230,9 +231,13 @@ pollTransactionFx.doneData.watch(async (response) => {
     if (product.getState() !== null) {
       //buying a product
       const $product = product.getState();
+
       const pendingTx = response.transactions.find((tx) => {
         return tx.transactionData.product._id === $product._id;
       });
+
+      console.log('pendingTX', pendingTx);
+      console.log('product', $product);
 
       if (pendingTx?.status === 'success') {
         const $polls = polls.getState();
@@ -240,13 +245,14 @@ pollTransactionFx.doneData.watch(async (response) => {
           //added check to avoid having more than one message due to race conditions (not best solution but will do for now.)
           $polls[$product._id].stop();
           productBoughtCheckout({ id: pendingTx.transactionData.product._id });
-          updateCheckoutState('success');
+          handleCheckoutStateChange('success');
           transactionSuccessMessage(pendingTx.transactionData);
           await productBoughtFx();
         }
       }
       if (pendingTx?.status === 'error') {
         const $polls = polls.getState();
+        handleCheckoutStateChange('error');
         if ($polls[$product._id].$isActive) {
           $polls[$product._id].stop();
           toast.danger(
@@ -260,7 +266,6 @@ pollTransactionFx.doneData.watch(async (response) => {
       const pendingTx = response.transactions.find((tx) => {
         return tx.transactionData.listing === $sku.activeSkuListings[0]._id;
       });
-
       if (pendingTx?.status === 'success') {
         const $polls = polls.getState();
         if ($polls[$sku._id].$isActive) {
@@ -268,12 +273,13 @@ pollTransactionFx.doneData.watch(async (response) => {
           skuBought();
           productBoughtCheckout({ id: pendingTx.transactionData.product._id });
           const transactionData = pendingTx.transactionData;
-          updateCheckoutState('success');
+          handleCheckoutStateChange('success');
           transactionSuccessMessage(transactionData);
         }
       }
       if (pendingTx?.status === 'error') {
         const $polls = polls.getState();
+        handleCheckoutStateChange('error');
         if ($polls[$sku._id].$isActive) {
           $polls[$sku._id].stop();
           toast.danger(

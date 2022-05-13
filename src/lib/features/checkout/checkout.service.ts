@@ -1,16 +1,22 @@
-import type { CheckoutState, ValidETHListingData } from './types';
-import type { Listing, MintPolicy } from '$lib/sku-item/types';
+import type { CheckoutState, SkuPurchaseTransaction, ValidETHListingData } from './types';
+import type { Listing, MintPolicy, Product, Sku } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
+import type { ApiError } from '$lib/api';
 import { handleWalletConnection } from '$lib/metamask';
 import { onSignIn } from '$lib/user';
-import { openModal } from '$ui/modals';
+import { closeModal, openModal } from '$ui/modals';
 import { toast } from '$ui/toast';
-import { validETHdirectPurchase } from './checkout.api';
-import { updateCheckoutState } from './checkout.store';
+import routes from '$project/routes';
+import { claimGiveawaySkuListing, purchaseSkuListing, validETHdirectPurchase } from './checkout.api';
 import EthAddressModal from './EthAddressModal.svelte';
+import { updateCheckoutState } from './checkout.store';
+import { skuBought } from '../sku/sku.store';
+import { pendingBuyCreated, productBought } from '../product/product.store';
 
 export let balance;
 export let ethAddress;
+
+const errorSupportMessage = `There was an error processing your purchase. Please, try again or <a href=${routes.help}>contact support</a> if this issue continues.`;
 
 export const connectWallet = async (): Promise<boolean> => {
   const response = await handleWalletConnection();
@@ -66,29 +72,109 @@ export const handlePayment = async ({
   const mintPolicy = skuMintPolicy?.transaction;
   if (!user && mintPolicy === 'later') {
     showLoginToast();
-  } else if (id === 'mm') {
-    const isWalletConnected = await connectWallet();
-    if (isWalletConnected && validETHPurchase) {
-      handleStateChange('ordering-mm');
-    }
     return id;
-  } else if (id === 'cc') {
-    if (!user) {
-      showLoginToast();
-    } else if (mintPolicy === 'later') {
-      handleStateChange('ordering-stripe');
-    } else {
-      openModal(EthAddressModal, { handleEthModalCallback, mintPolicy });
+  }
+
+  switch (id) {
+    case 'mm': {
+      const isWalletConnected = await connectWallet();
+      if (isWalletConnected && validETHPurchase) {
+        handleCheckoutStateChange('ordering-mm');
+      } else {
+        handleCheckoutStateChange('method-select');
+      }
+      break;
     }
+    case 'cc-eth':
+      if (!user) {
+        showLoginToast();
+      } else if (mintPolicy === 'later') {
+        handleCheckoutStateChange('ordering-stripe');
+      } else {
+        openModal(EthAddressModal, { handleEthModalCallback, mintPolicy });
+      }
+      break;
+    case 'cc-usd':
+      if (!user) {
+        showLoginToast();
+      } else {
+        handleCheckoutStateChange('ordering-stripe');
+      }
+      break;
+    case 'balance':
+      handleCheckoutStateChange('ordering-balance');
+      break;
+    default:
+      handleCheckoutStateChange('method-select');
   }
   return id;
 };
 
 export const handleExit = () => {
-  handleStateChange('exit');
+  handleCheckoutStateChange('exit');
 };
 
-export const handleStateChange = (value: CheckoutState) => {
+export const handleCheckoutStateChange = (value: CheckoutState) => {
   updateCheckoutState(value);
   localStorage.setItem('checkout-state', value);
+};
+
+export const claimGiveAway = async (listing: Listing): Promise<void> => {
+  try {
+    await claimGiveawaySkuListing(listing._id);
+    closeModal();
+    skuBought();
+    toast.success('Your request is being processed. Minting of your giveaway NFT may take up to two (2) minutes.');
+  } catch (error) {
+    toast.danger(handleSkuClaimError(error));
+  }
+};
+
+export const handlePurchaseResult = (result: SkuPurchaseTransaction, sku: Sku, product: Product): void => {
+  if (sku) {
+    if (result?.status === 'pending') {
+      handleCheckoutStateChange('processing');
+      pendingBuyCreated(sku._id);
+    } else if (result?.status === 'success') {
+      handleCheckoutStateChange('success');
+      skuBought();
+    }
+    if (!result || result.errorLog || result.status === 'error') {
+      toast.danger(errorSupportMessage);
+    }
+  } else if (product) {
+    if (result?.status === 'pending') {
+      handleCheckoutStateChange('processing');
+      pendingBuyCreated(product._id);
+    } else if (result?.status === 'success') {
+      handleCheckoutStateChange('success');
+      productBought({ product });
+    }
+  }
+
+  return;
+};
+
+export function handleSkuClaimError(error: ApiError) {
+  switch (error?.data?.appCode) {
+    case 'MAX_SKU_GIVEAWAY':
+      return `This NFT giveaway is limited to 1 per user.`;
+    case 'MAX_SKU_PURCHASE_PER_USER':
+      return `This NFT giveaway is limited to 1 per user for the inital sale.`;
+    default:
+      return errorSupportMessage;
+  }
+}
+
+export const purchaseItem = async (listing: Listing): Promise<SkuPurchaseTransaction> => {
+  try {
+    const result = await purchaseSkuListing(listing._id);
+    if (result?.status === 'error') {
+      toast.danger(errorSupportMessage);
+      return;
+    }
+    return result;
+  } catch (error) {
+    handleSkuClaimError(error);
+  }
 };

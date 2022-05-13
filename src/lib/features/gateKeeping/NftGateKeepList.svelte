@@ -53,7 +53,7 @@
   <div class="pt-12">
     {#each $gateKeepSkus as item}
       <NftDetails
-        name={item.sku.name}
+        name={item.sku?.name}
         sourceImg={item.sku.nftPublicAssets?.[0]}
         status={item.status}
         handleClick={() => handleBuyNowClick(item.sku._id)}
