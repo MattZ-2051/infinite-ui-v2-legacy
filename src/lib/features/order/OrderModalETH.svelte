@@ -335,7 +335,7 @@
         {#if _sku.currency === 'ETH'}
           <div class="text-2xl font-normal pr-8">2. Confirm your purchase</div>
         {/if}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} />
+        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} {listing} />
         <div class="flex flex-col gap-5 text-gray-500">
           {#if $walletConnected && !directPurchasing && directPurchaseResult?.hash}
             <span>

@@ -53,7 +53,7 @@
           skuId: sku._id,
         });
       } else if (goToSkuAuctionPage) {
-        goto(routes.skuAuction(sku._id));
+        goto(routes.checkoutSku(sku._id));
       } else if (activeListings[0].product) {
         const product = await loadProduct({ id: activeListings[0].product });
         return onOrderIntent({ sku, listing: activeListings[0], product });

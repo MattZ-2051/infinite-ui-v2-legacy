@@ -29,7 +29,7 @@
   const listingPrice = listing?.saleType === 'giveaway' ? 0 : listing?.price;
   const marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
   $: priceWFee = (1 + marketplaceFee) * listingPrice + gasFee;
-  $: nftPublicAsset = product?.nftPublicAssets?.[0] || _sku?.nftPublicAssets[0];
+  $: nftPublicAsset = product?.nftPublicAssets?.[0] || _sku?.nftPublicAssets?.[0];
   $: userBalance = $wallet?.balanceInfo?.[0]?.totalBalance;
   $: insufficientFunds = Number(userBalance) < priceWFee;
 </script>
@@ -43,9 +43,18 @@
     <section>
       <ProductModalInfo sku={_sku} />
     </section>
-    <section class="mt-4 pt-6">
-      <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku?.currency} {rate} {gasFee} />
-    </section>
+    {#if listing?.saleType !== 'auction'}
+      <section class="mt-4 pt-6 w-full">
+        <OrderProductPricing
+          price={listingPrice}
+          {marketplaceFee}
+          currency={_sku?.currency}
+          {rate}
+          {gasFee}
+          {listing}
+        />
+      </section>
+    {/if}
   {:else}
     <span on:click={handleClose} class="absolute close-icon"><Icon path={closeIcon} size={1.2} /></span>
     <AccordionGroup multiple bind:active>
@@ -58,11 +67,13 @@
         </section>
       </Accordion>
     </AccordionGroup>
-    <section class="mt-4 pt-6">
-      <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} {gasFee} />
-    </section>
+    {#if listing?.saleType !== 'auction'}
+      <section class="mt-4 pt-6 w-full">
+        <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} {gasFee} {listing} />
+      </section>
+    {/if}
   {/if}
-  {#if sku?.currency === 'USD' && $checkoutState === 'method-select'}
+  {#if sku?.currency === 'USD' && $checkoutState === 'method-select' && listing?.saleType !== 'auction'}
     <div class="flex justify-between w-full pt-4" style={`${insufficientFunds ? 'color: #e83737' : 'color: #00b74d'}`}>
       <div class="font-medium text-sm sm:text-lg">
         {insufficientFunds ? 'Insufficient funds:' : 'Your current balance:'}

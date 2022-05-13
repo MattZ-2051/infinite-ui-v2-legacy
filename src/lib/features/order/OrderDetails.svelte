@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Sku, Product } from '$lib/sku-item/types';
+  import type { Sku, Product, Listing } from '$lib/sku-item/types';
   import { formatCurrency } from '$util/format';
   import ProductModalInfo from '../product/ProductModalInfo.svelte';
   import OrderProductPricing from './OrderProductPricing.svelte';
@@ -13,6 +13,7 @@
   export let insufficientFunds = false;
   export let hideProductInfo = false;
   export let gasFee: number = undefined;
+  export let listing: Listing;
 
   const currency = sku ? sku?.currency : product?.sku?.currency;
 </script>
@@ -21,7 +22,7 @@
   <ProductModalInfo {sku} {product} />
 {/if}
 <div>
-  <OrderProductPricing price={listingPrice} {marketplaceFee} {currency} {gasFee} />
+  <OrderProductPricing price={listingPrice} {marketplaceFee} {currency} {gasFee} {listing} />
   {#if !hideWalletBalance}
     <div class={`flex items-center justify-between pt-2 ${insufficientFunds ? 'text-red-500' : 'text-green-500'}`}>
       <span> Your current balance: </span>

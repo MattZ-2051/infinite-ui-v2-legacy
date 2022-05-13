@@ -249,7 +249,15 @@
           >
         </div>
       {:else if isStripeAllowed && !paymentMethod}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} {product} />
+        <OrderDetails
+          {listingPrice}
+          {marketplaceFee}
+          sku={_sku}
+          {insufficientFunds}
+          {userBalance}
+          {product}
+          {listing}
+        />
         <div class="flex flex-col items-center">
           <Button
             variant="brand"
@@ -307,7 +315,15 @@
         {#if _sku.currency === 'ETH'}
           <div class="text-2xl font-normal pr-8">2. Confirm your purchase</div>
         {/if}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} {product} />
+        <OrderDetails
+          {listingPrice}
+          {marketplaceFee}
+          sku={_sku}
+          {insufficientFunds}
+          {userBalance}
+          {product}
+          {listing}
+        />
         <div class="flex flex-col gap-5 text-gray-500">
           {#if $walletConnected && !directPurchasing && directPurchaseResult?.hash}
             <span>
@@ -373,7 +389,7 @@
           {/if}
         </div>
       {:else if paymentMethod === 'stripe'}
-        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} hideWalletBalance {product} />
+        <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} hideWalletBalance {product} {listing} />
         <StripeCheckoutModal {listing} mintToAddress={ethAddress} />
       {/if}
       {#if isStripeAllowed && !!paymentMethod && result?.status !== 'pending' && result?.status !== 'success' && !purchasing && !stripeSucceded}

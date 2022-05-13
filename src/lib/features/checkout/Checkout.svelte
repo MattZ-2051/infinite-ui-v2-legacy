@@ -44,6 +44,11 @@
   const isEthListing = sku?.currency === 'ETH';
   const isUsdListing = product?.sku?.currency === 'USD' || sku?.currency === 'USD';
   const currency = sku ? sku?.currency : product?.sku?.currency;
+  const checkoutTitleMessageMap = {
+    fixed: 'Complete your purchase',
+    auction: 'Place your bid',
+    giveaway: 'Claim your giveaway',
+  };
 
   let lazyMinting = false;
   let showPendingPage = false;
@@ -53,7 +58,7 @@
       id: 'cc-usd',
       title: 'Credit Card',
       iconSource: creditCardIcon,
-      available: STRIPE_ENABLED && isUsdListing && !product,
+      available: STRIPE_ENABLED && isUsdListing && !product && listing?.saleType === 'fixed',
     },
     {
       id: 'cc-eth',
@@ -203,7 +208,7 @@
                 {#if paymentSelection}
                   Select your Payment Method
                 {:else if isOrdering}
-                  Complete your Purchase
+                  {checkoutTitleMessageMap[listing?.saleType]}
                 {/if}
               </h1>
               {#if $media.xl && !exitCheckout && !processingOrder && !showPendingPage}
@@ -226,6 +231,7 @@
           {:else if orderSuccess || orderError}
             <OrderStatus
               orderState={orderError ? 'error' : 'success'}
+              {listing}
               {product}
               {sku}
               {lazyMinting}

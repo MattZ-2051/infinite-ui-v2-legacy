@@ -12,6 +12,7 @@ import EthAddressModal from './EthAddressModal.svelte';
 import { updateCheckoutState } from './checkout.store';
 import { skuBought } from '../sku/sku.store';
 import { pendingBuyCreated, productBought } from '../product/product.store';
+import { placeBidFx } from '../product/auction/auction.store';
 
 export let balance;
 export let ethAddress;
@@ -177,4 +178,14 @@ export const purchaseItem = async (listing: Listing): Promise<SkuPurchaseTransac
   } catch (error) {
     handleSkuClaimError(error);
   }
+};
+
+export const placeCheckoutBid = async (listing: Listing, amount: number): Promise<void> => {
+  if (amount <= 0) {
+    toast.danger(
+      `The bid amount needs to be at least $${listing.auctionBidIncrement} more than the highest bid. Please place a higher bid.`
+    );
+    return;
+  }
+  await placeBidFx({ listing, amount });
 };

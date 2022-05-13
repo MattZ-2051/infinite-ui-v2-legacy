@@ -1,5 +1,8 @@
 import type { Product, Sku } from '$lib/sku-item/types';
 import type { ActionType } from './types';
+import { goto } from '$app/navigation';
+import { handleCheckoutStateChange } from '$lib/features/checkout/checkout.service';
+import { updateCheckoutBidAmount } from '$lib/features/checkout/checkout.store';
 import { openModal } from '$ui/modals';
 import ConfirmModal from '$lib/components/ConfirmModal.svelte';
 import { toast } from '$ui/toast';
@@ -11,7 +14,6 @@ import { loadWalletFx } from '$lib/features/wallet/wallet.store';
 import CreateSaleModal from '../CreateSaleModal.svelte';
 import RedeemModal from '../redeem/RedeemModal.svelte';
 import AuctionModal from '../auction/AuctionModal.svelte';
-import BidModal from '../auction/BidModal.svelte';
 import ProductTransferModal from '../transfer/ProductTransferModal.svelte';
 import ProductTransferInModal from '../transfer/ProductTransferInModal.svelte';
 
@@ -102,9 +104,7 @@ export function onAction(type: ActionType, product?: Product, sku?: Sku) {
 
 export function onBid(amount: number, product: Product) {
   loadWalletFx();
-
-  openModal(BidModal, {
-    product,
-    amount,
-  });
+  goto(routes.checkoutProduct(product._id));
+  updateCheckoutBidAmount(amount);
+  handleCheckoutStateChange('ordering-balance');
 }

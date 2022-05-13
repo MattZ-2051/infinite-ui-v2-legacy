@@ -13,6 +13,9 @@ export const checkoutState = createStore<CheckoutState>('loading', { name: 'chec
   (_, newState) => newState
 );
 
+export const updateCheckoutBidAmount = createEvent<number>('update-bid');
+export const checkoutBidAmount = createStore<number>(0).on(updateCheckoutBidAmount, (_, newAmount) => newAmount);
+
 export const productBoughtCheckout = createEvent<{ id: string }>();
 export const productId = createStore<{ id: string }>({ id: '' }, { name: 'product' }).on(
   productBoughtCheckout,

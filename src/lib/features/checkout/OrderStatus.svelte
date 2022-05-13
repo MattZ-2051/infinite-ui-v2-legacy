@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Sku, Product } from '$lib/sku-item/types';
+  import type { Sku, Product, Listing } from '$lib/sku-item/types';
   import Button from '$lib/components/Button.svelte';
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
@@ -12,6 +12,7 @@
 
   export let product: Product = undefined;
   export let sku: Sku = undefined;
+  export let listing: Listing;
   export let orderState: 'success' | 'error';
   export let lazyMinting: boolean;
   export let ethAddress: string;
@@ -21,13 +22,21 @@
 
   const orderSuccess = orderState === 'success';
   const orderFailed = orderState === 'error';
+  const isAuction = listing?.saleType === 'auction';
+  const titleMessageMap = {
+    auction: 'Bid successful!',
+    giveaway: 'Giveaway claimed!',
+    fixed: 'Payment successful!',
+  };
 
   const handleRetry = () => {
     handleCheckoutStateChange('method-select');
   };
 
   const handleViewNFT = () => {
-    if ($productId.id) {
+    if (isAuction) {
+      sku ? goto(routes.skuAuction(sku._id)) : goto(routes.product(product._id));
+    } else if ($productId.id) {
       goto(routes.product($productId.id));
     } else {
       window.open('https://opensea.io/account?tab=activity');
@@ -40,10 +49,10 @@
     <div class="flex items-center">
       {#if orderFailed}
         <img src={errorIcon} alt="error icon" class="w-12 sm:w-auto" />
-        <p class="title text-3xl sm:text-4xl font-normal pl-6">Order failed</p>
+        <p class="title text-3xl sm:text-4xl font-normal pl-6">Payment failed</p>
       {:else if orderSuccess}
         <img src={successIcon} alt="success icon" />
-        <p class="title text-4xl font-normal pl-6">Order successful!</p>
+        <p class="title text-4xl font-normal pl-6">{titleMessageMap[listing?.saleType]}</p>
       {/if}
     </div>
     {#if orderFailed}
@@ -79,8 +88,10 @@
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleRetry}>Try again</Button>
     {:else if orderSuccess}
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleViewNFT}>
-        {#if finalSelectedMethod === 'mm' || !lazyMinting}
+        {#if finalSelectedMethod === 'mm' || (!lazyMinting && !isAuction)}
           View NFT
+        {:else if isAuction}
+          View Bids
         {:else}
           View & Mint NFT
         {/if}

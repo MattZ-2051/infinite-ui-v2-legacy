@@ -166,7 +166,16 @@
     </svelte:fragment>
   </Input>
   <div>
-    <OrderDetails {sku} {listingPrice} {marketplaceFee} {userBalance} {insufficientFunds} {gasFee} hideProductInfo />
+    <OrderDetails
+      {sku}
+      {listingPrice}
+      {marketplaceFee}
+      {userBalance}
+      {insufficientFunds}
+      {gasFee}
+      {listing}
+      hideProductInfo
+    />
   </div>
   <div class="mt-6 sm:mt-24">
     <Information {conversionRate} />

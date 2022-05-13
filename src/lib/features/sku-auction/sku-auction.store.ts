@@ -37,6 +37,10 @@ export const loadSkuAuctionFx = createEffect(
   }
 );
 
+export const setCheckoutBidAmount = createEvent<number>();
+
+export const checkoutBidAmount = createStore<number>(0).on(setCheckoutBidAmount, (state, payload) => payload);
+
 // eslint-disable-next-line unicorn/no-null
 export const skuAuction = createStore<Sku>(null).on(setSkuAuction, (state, payload) => payload.sku);
 

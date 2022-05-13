@@ -16,12 +16,14 @@
     claimGiveAway,
     handleCheckoutStateChange,
     handlePurchaseResult,
+    placeCheckoutBid,
     purchaseItem,
   } from './checkout.service';
   import Information from './Information.svelte';
   import { isOwner } from '../product/product.service';
   import Agreement from './Agreement.svelte';
   import InsufficientFundsModal from './InsufficientFundsModal.svelte';
+  import { checkoutBidAmount } from './checkout.store';
 
   export let product: Product = undefined;
   export let sku: Sku = undefined;
@@ -39,6 +41,12 @@
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
   const LOW_KYC_LVL_DEPOSIT_LIMIT_USD = import.meta.env?.VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD;
   const currency = sku ? sku?.currency : product?.sku?.currency;
+  const listingSaleType = listing?.saleType;
+  const buttonTitleMessageMap = {
+    auction: 'Place bid',
+    giveaway: 'Buy now',
+    fixed: `Buy now for ${formatCurrency(priceWFee)}`,
+  };
 
   onMount(async () => {
     if (!$user) {
@@ -66,12 +74,17 @@
       return;
     }
 
-    const isGiveAway = listing?.saleType === 'giveaway';
-    if (isGiveAway) {
-      await claimGiveAway(listing);
-    } else {
-      result = await purchaseItem(listing);
-      handlePurchaseResult(result, sku, product);
+    switch (listing?.saleType) {
+      case 'auction':
+        placeCheckoutBid(listing, $checkoutBidAmount);
+        break;
+      case 'fixed':
+        result = await purchaseItem(listing);
+        handlePurchaseResult(result, sku, product);
+        break;
+      case 'giveaway':
+        await claimGiveAway(listing);
+        break;
     }
   };
 
@@ -97,14 +110,24 @@
       handleOtherPaymentMethod={() => handleCheckoutStateChange('method-select')}
       closeModal={() => {
         showInfficientFundsModal = false;
+        return;
       }}
     />
   {/if}
   <div>
-    <OrderDetails {sku} {listingPrice} {marketplaceFee} {userBalance} {insufficientFunds} hideProductInfo {product} />
+    <OrderDetails
+      {sku}
+      {listingPrice}
+      {marketplaceFee}
+      {userBalance}
+      {insufficientFunds}
+      hideProductInfo
+      {product}
+      {listing}
+    />
   </div>
   <div class="mt-6 sm:mt-24">
-    <Information />
+    <Information {listingSaleType} />
     <div class="flex items-center justify-start mb-3">
       <Agreement {acceptedTerms} {onCheckedTerms} />
     </div>
@@ -118,7 +141,7 @@
         Back to Payment Method
       </Button>
       <Button variant="brand" class="sm:order-2 order-1" on:click={submitOrder} disabled={!acceptedTerms}>
-        Buy now for {formatCurrency(priceWFee)}
+        {buttonTitleMessageMap[listingSaleType]}
       </Button>
     </div>
   </div>
