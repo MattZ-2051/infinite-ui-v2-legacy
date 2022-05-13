@@ -22,7 +22,7 @@
 </script>
 
 <div
-  class={(underlined ? 'border-b-2 ' : '') + 'cursor-pointer pb-8 border-black-100 mb-8 text-black-opacity-10'}
+  class={(underlined ? 'border-b-2 ' : '') + 'cursor-pointer pb-12 border-black-100 mb-12 text-black-opacity-10'}
   on:click={handleOpen}
 >
   <div style="color:{textColor};">

@@ -2,13 +2,11 @@
   import Button from '$lib/components/Button.svelte';
   import routes from '$project/routes';
   import SimpleAccordion from '$project/landing/faq/SimpleAccordion.svelte';
-  import Divider from '../common/Divider.svelte';
   import { FaqInfo } from './FAQInfo';
 </script>
 
 <div class="py-44 sm:py-72 relative">
   <div class="flex flex-col items-center">
-    <Divider class="max-w-full absolute top-10 md:top-32" />
     <div class="max-w-5xl relative z-10 w-full container">
       <div
         class="font-light text-[32px] mb-20 sm:text-5xl text-center tracking-widest uppercase second-font text-white"
