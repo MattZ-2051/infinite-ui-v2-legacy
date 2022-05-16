@@ -21,6 +21,7 @@
   export let isOpen: boolean;
   export let product: Product;
 
+  let showTryAgain = true;
   let transferType: 'user' | 'external-wallet';
   let status:
     | 'select-transfer-type'
@@ -61,11 +62,13 @@
       }
       status = 'transfer-success';
     } catch (error) {
+      showTryAgain = true;
       if (error.data?.appCode === 'TRANSFER_WITH_PENDING_TRANSACTIONS') {
         titleMap['transfer-error'] = 'This product has pending transactions';
       }
       if (error.data?.appCode === 'TRANSFER_WITH_GATE_KEEPING_RULES') {
         titleMap['transfer-error'] = 'This NFT is non-transferable due to preset rules';
+        showTryAgain = false;
       }
       status = 'transfer-error';
     }
@@ -207,7 +210,9 @@
           </div>
         {:else}
           <div class="grid grid-cols-1 gap-4">
-            <Button variant="brand" type="button" on:click={() => (status = 'select-recipient')}>Try Again</Button>
+            {#if showTryAgain}
+              <Button variant="brand" type="button" on:click={() => (status = 'select-recipient')}>Try Again</Button>
+            {/if}
             <Button variant="outline-brand" on:click={() => goto(routes.help)}>Help/Contact Support</Button>
           </div>
         {/if}
