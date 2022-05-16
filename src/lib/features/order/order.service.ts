@@ -45,56 +45,58 @@ export async function onOrderIntent({
   const currentUser = getStoreValue<User>(user);
   loadWalletFx();
 
-  try {
-    isLoading.set(true);
-    validETHPurchase = await validETHdirectPurchase(listing._id);
-    isLoading.set(false);
+  if (sku.currency === 'ETH') {
+    try {
+      isLoading.set(true);
+      validETHPurchase = await validETHdirectPurchase(listing._id);
+      isLoading.set(false);
 
-    if (validETHPurchase) {
-      if (ENABLE_CHECKOUT) {
-        goto(`/checkout/sku/${sku._id}`);
-        return;
-      } else {
-        openModal(OrderModalETH, {
-          sku,
-          product,
-          listing,
-          validETHPurchase,
-        });
-        return;
+      if (validETHPurchase) {
+        if (ENABLE_CHECKOUT) {
+          goto(`/checkout/sku/${sku._id}`);
+          return;
+        } else {
+          openModal(OrderModalETH, {
+            sku,
+            product,
+            listing,
+            validETHPurchase,
+          });
+          return;
+        }
       }
-    }
-  } catch {
-    isLoading.set(false);
-    validETHPurchase = undefined;
-    if (sku?.currency === 'ETH' && !validETHPurchase) {
-      canOpenModal = false;
-      toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
-      return;
-    }
-
-    if (currentUser) {
-      if (sku && sku.issuer?._id === currentUser._id && listing.saleType === 'giveaway') {
-        toast.danger('Whoops! You cannot claim your own SKU / NFT!');
-        return;
-      }
-      if (sku && sku.issuer?._id === currentUser._id) {
-        toast.danger('Whoops! You cannot purchase your own SKU / NFT.');
-        return;
-      }
-      if (product && product.owner?._id === currentUser._id) {
-        toast.danger('Cannot purchase your own product');
-        return;
-      }
-
-      canOpenModal = true;
-    } else {
-      canOpenModal = false;
-      showLoginToast();
-      return;
+    } catch {
+      isLoading.set(false);
+      validETHPurchase = undefined;
     }
   }
 
+  if (sku?.currency === 'ETH' && !validETHPurchase) {
+    canOpenModal = false;
+    toast.danger('Currently not available for purchase', { toastId: 'LISTING_UNAVAILABLE' });
+    return;
+  }
+
+  if (currentUser) {
+    if (sku && sku.issuer?._id === currentUser._id && listing.saleType === 'giveaway') {
+      toast.danger('Whoops! You cannot claim your own SKU / NFT!');
+      return;
+    }
+    if (sku && sku.issuer?._id === currentUser._id) {
+      toast.danger('Whoops! You cannot purchase your own SKU / NFT.');
+      return;
+    }
+    if (product && product.owner?._id === currentUser._id) {
+      toast.danger('Cannot purchase your own product');
+      return;
+    }
+
+    canOpenModal = true;
+  } else {
+    canOpenModal = false;
+    showLoginToast();
+    return;
+  }
   if (canOpenModal) {
     openModal(OrderModal, {
       sku,
