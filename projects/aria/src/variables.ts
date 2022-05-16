@@ -21,7 +21,7 @@ export const CLIENT_HEDERA_URL =
   'https://help.ariaexchange.com/s/article/What-blockchain-technology-is-used-to-mint-digital-collectibles';
 export const CLIENT_REDEEM_URL = 'https://help.ariaexchange.com/s/article/Can-I-redeem-an-NFT';
 export const CLIENT_AFTER_REDEEMED_URL = '';
-export const CLIENT_API_HEADER = 'aria';
+export const CLIENT_API_HEADER: 'aria' | 'mclaren' | 'infinite' | 'seva' = 'aria';
 export const ENABLE_ETH_CURRENCY = true;
 export const ENABLE_SINGLE_CURRENCY_WALLET = true;
 export const AUTH_PROVIDER_IS_AUTH0 = true;

@@ -9,9 +9,7 @@
 
   const handleRedirectToMarketPlace = () => goto(routes.marketplace);
 
-  const linkClass = `link pt-5 text-center text-gray-500 cursor-pointer hover:text-gray-800 ${
-    !txHash ? 'disabled' : ''
-  }`;
+  const linkClass = `link-custom pt-5 text-center text-gray-500 hover:text-gray-800 ${!txHash ? 'disabled' : ''}`;
 </script>
 
 <div class="flex justify-center flex-col text-center">
@@ -34,7 +32,7 @@
     font-weight: 500;
     line-height: 2.8rem;
   }
-  .link {
+  .link-custom {
     text-decoration: none;
     opacity: 0.5;
   }
