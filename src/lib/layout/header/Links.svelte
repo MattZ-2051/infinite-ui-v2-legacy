@@ -16,7 +16,7 @@
   import { isVisible } from '$lib/layout/header/links.utils';
 
   import Button from '$lib/components/Button.svelte';
-  import account from './assets/account';
+  import account from '$lib/layout/header/assets/account';
 
   const MM_WALLET_ENABLED = variables.metamask.walletEnabled;
 
