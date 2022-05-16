@@ -24,4 +24,10 @@
     color: #ffffff !important;
     background: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
   }
+
+  form:global(.mktoForm a),
+  form:global(.mktoForm label.mktoLabel),
+  form:global(.mktoForm ::placeholder) {
+    font-weight: theme('fontWeight.light') !important;
+  }
 </style>
