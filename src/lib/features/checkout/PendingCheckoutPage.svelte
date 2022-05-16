@@ -2,15 +2,15 @@
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import Button from '$lib/components/Button.svelte';
+  import { variables } from '$lib/variables';
+  import { productState } from './checkout.store';
 
-  export let etherscanLink = '';
+  const { txHash } = $productState.data;
 
-  const handleRedirectToMarketPlace = () => {
-    goto(routes.marketplace);
-  };
+  const handleRedirectToMarketPlace = () => goto(routes.marketplace);
 
-  const linkClass = `link pt-5 text-center text-gray-500 hover:underline cursor-pointer hover:text-gray-800 ${
-    !etherscanLink ? 'disabled' : ''
+  const linkClass = `link pt-5 text-center text-gray-500 cursor-pointer hover:text-gray-800 ${
+    !txHash ? 'disabled' : ''
   }`;
 </script>
 
@@ -23,7 +23,9 @@
     >Back to Marketplace</Button
   >
 
-  <a href={etherscanLink} target="_blank" class={linkClass}>View transaction on Etherscan</a>
+  <a href={`${variables.ethNetwork.explorerBaseUrl}${txHash}`} target="_blank" class={linkClass}
+    >View transaction on Etherscan</a
+  >
 </div>
 
 <style lang="postcss">

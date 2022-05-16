@@ -191,7 +191,7 @@
             />
           {:else if processingOrder}
             {#if showPendingPage}
-              <PendingCheckoutPage etherscanLink={product?.explorerLink} />
+              <PendingCheckoutPage />
             {:else}
               <ProcessingOrder />
             {/if}
@@ -210,13 +210,7 @@
             {#if orderingMm}
               <CompletePurchaseMM {sku} {listing} {gasFee} lazyMinting={false} conversionRate={rate} />
             {:else if orderingStripe}
-              <StripeCheckout
-                mintToAddress={ethAddress}
-                {listing}
-                {lazyMinting}
-                conversionRate={rate}
-                explorerLink={product?.explorerLink}
-              />
+              <StripeCheckout mintToAddress={ethAddress} {listing} {lazyMinting} conversionRate={rate} />
             {/if}
           {:else if paymentSelection}
             <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center h-full">
