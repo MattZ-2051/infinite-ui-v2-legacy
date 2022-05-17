@@ -9,10 +9,9 @@
   import { page } from '$app/stores';
   import Button from '$lib/components/Button.svelte';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
+  import Agreement from '$lib/features/checkout/Agreement.svelte';
   import { toast } from '$ui/toast';
-  import { SingleCheckbox } from '$ui/checkbox';
   import { variables } from '$lib/variables';
-  import routes from '$project/routes';
   import { stripeCreatePaymentIntentFx } from './stripe.store';
   import { handleCheckoutStateChange, showLoginToast } from '../checkout/checkout.service';
   import Information from '../checkout/Information.svelte';
@@ -166,13 +165,7 @@
     <div class="mt-10">
       <Information {conversionRate} />
     </div>
-    <SingleCheckbox class="mb-2" on:change={onCheckedTerms} checked={acceptedTerms}>
-      <span class="text-gray-500">Read and agree to</span>
-      <a href={routes.terms} class="ml-1 text-default" target="_blank" rel="noopener noreferrer">Terms and Conditions</a
-      >
-      <span class="text-gray-500">and</span>
-      <a href={routes.privacy} class="text-default" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
-    </SingleCheckbox>
+    <Agreement {acceptedTerms} {onCheckedTerms} />
     <div class="grid mt-8 grid-flow-row sm:grid-flow-col">
       <Button
         variant="outline-brand"
