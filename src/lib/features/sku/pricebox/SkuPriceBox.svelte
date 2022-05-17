@@ -7,7 +7,6 @@
   import { onSignIn, user } from '$lib/user';
   import { openModal } from '$ui/modals';
   import routes from '$project/routes';
-  import { CLIENT_API_HEADER } from '$project/variables';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { toast } from '$ui/toast';
@@ -37,10 +36,8 @@
   async function onBuy() {
     const goToSkuAuctionPage = active && activeListings?.[0]?.saleType === 'auction';
     const isVoucherSku = activeListings?.[0]?.enabledNftPurchase;
-    const mintLaterSku = sku?.mintPolicy?.transaction === 'later';
     const hasGateKeepingRules = !!sku?.gateKeepingRules;
-    const isAria = CLIENT_API_HEADER === 'aria';
-    const redirectToLogin = !$user && (mintLaterSku || hasGateKeepingRules || isAria);
+    const redirectToLogin = !$user;
 
     try {
       if (redirectToLogin) {
