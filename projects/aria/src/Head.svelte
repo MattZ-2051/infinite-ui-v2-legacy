@@ -130,7 +130,7 @@
     id="Cookiebot"
     type="text/javascript"
     src="https://consent.cookiebot.com/uc.js"
-    data-cbid={import.meta.env.VITE_COOKIEBOT_DOMAIN_ID}
-    data-blockingmode="auto"></script>
+    data-cbid={import.meta.env.VITE_COOKIEBOT_DOMAIN_ID}>
+  </script>
   <!-- End Cookiebot-->
 </svelte:head>
