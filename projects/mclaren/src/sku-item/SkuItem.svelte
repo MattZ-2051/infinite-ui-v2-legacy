@@ -78,12 +78,7 @@
       <div class="mt-5 mx-6 flex flex-row items-center text-lg font-light" aria-label="Product details">
         <SkuStatus {sku} {product} />
         <span class={`${isPhase3 ? 'item-link ml-auto -mr-6' : 'hidden'}`}>
-          <Icon
-            path={arrowRightCircle}
-            size={1.7}
-            color="var(--sku-item-color, var(--default-color))"
-            viewBox="0 -4 14 32"
-          />
+          <Icon path={arrowRightCircle} size={1.7} viewBox="0 -4 14 32" />
         </span>
       </div>
     </div>
@@ -99,6 +94,7 @@
     border-radius: var(--sku-item-border-radius, 0);
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
     transition: 0.5s;
+    font-family: var(--second-font);
   }
   article:hover {
     transition: 0.5s;
@@ -106,7 +102,8 @@
   }
 
   article:hover .item-link {
-    background: none black;
+    background: var(--sku-item-icon-bg-hover, var(--default-color));
+    color: var(--sku-item-icon-color-hover, var(--inverse-color));
   }
 
   .sku-collection-name {
@@ -124,6 +121,7 @@
   }
   .item-link {
     color: var(--sku-item-bg-color, var(--default-color));
+    background: var(--sku-item-icon-bg, var(--default-color));
   }
   .issuer-link {
     font-size: 1rem;

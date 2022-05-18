@@ -22,18 +22,18 @@
     <article
       class="featured-block md:shadow-[0_40px_80px_rgba(0, 0, 0, 0.3)] rounded-2xl relative flex flex-col md:flex-row backdrop-opacity-100"
     >
-      <div class="mt-20 md:mb-20 mx-6 md:mx-12 xl:mx-24 relative space-y-10 md:text-white basis-3/4">
+      <div class="mt-20 md:mb-20 mx-6 md:mx-12 xl:mx-24 relative space-y-8 md:text-white basis-3/4">
         <h3 class="second-font text-base md:text-lg tracking-widest">
           <span class="uppercase"
             >{collectionName} {collectionName.toLowerCase().includes('collection') ? '' : 'collection'}</span
           >
           <span class="block text-[32px] text-4xl md:text-5xl font-light mt-2">THE NFTs</span>
         </h3>
-        <p class="md:max-w-xl leading-7 text-gray-700 font-light md:text-white">
+        <p class="md:max-w-xl leading-7 text-gray-700 font-light md:text-white description">
           {@html $skuCollectionFeatured.description}
         </p>
         <Button
-          variant="outline-brand"
+          variant="brand"
           class={isPhase3 ? 'h-16 w-64 hidden md:block' : 'hidden'}
           on:click={() => goto(routes.sku($skuCollectionFeatured._id))}>Buy Now</Button
         >
@@ -56,5 +56,9 @@
     .featured-block {
       background: linear-gradient(253.57deg, rgba(0, 0, 0, 0.5) 6.96%, rgba(54, 63, 69, 0.5) 77.23%);
     }
+  }
+
+  .description :global(p) {
+    @apply my-8;
   }
 </style>

@@ -80,6 +80,9 @@
   --sku-name-block-2xl-pt: min(5vh, 4rem);
   --sku-name-wrapper-lg-gap: theme('gap.1');
   --sku-collection-name-xl-mb: theme('margin.6');
+  --sku-item-icon-bg-hover: black;
+  --sku-item-icon-color-hover: white;
+  --sku-item-icon-bg: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
 
   /* SkuItem */
   --sku-item-color: var(--default-color);
@@ -412,6 +415,9 @@
   --button-brand-border-color-hover: #ff5e17;
   --header-links-font: var(--second-font);
   --separator-bg-color: rgba(0, 0, 0, 0.05);
+  --sku-item-icon-bg-hover: linear-gradient(78.89deg, #ff8d1c 0%, #ff5e17 50%, #ff3414 100%);
+  --sku-item-icon-color-hover: white;
+  --sku-item-icon-bg: white;
 }
 
 .theme-brand-wallet-buttons {
