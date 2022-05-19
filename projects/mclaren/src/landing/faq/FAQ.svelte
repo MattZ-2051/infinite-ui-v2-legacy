@@ -9,7 +9,7 @@
   <div class="flex flex-col items-center">
     <div class="max-w-5xl relative z-10 w-full container">
       <div
-        class="font-light text-[32px] mb-20 sm:text-5xl text-center tracking-widest uppercase second-font text-white"
+        class="font-light text-[32px] mb-20 sm:text-5xl md:text-center tracking-widest uppercase second-font text-white"
       >
         frequently asked questions
       </div>
@@ -24,7 +24,7 @@
         <div class="flex flex-1 items-center justify-center mt-14">
           <Button
             variant="brand"
-            class="whitespace-nowrap h-16 w-full md:w-80 sm:w-64 py-12 md:py-0 tracking-widest font-bold text-xs uppercase"
+            class="whitespace-nowrap h-12 md:h-16 w-full md:w-80 sm:w-64 py-12 md:py-0 tracking-widest font-bold text-xs uppercase"
             type="submit"
             on:click={() => window.open(routes.faq)}
           >
