@@ -49,7 +49,7 @@
               An exclusive, invitation-only NFT mint that marks McLaren Automotive’s move into the metaverse.
             {/if}
           </p>
-          <p class="pt-10 text-base">
+          <p class="pt-6 md:pt-10 text-base">
             {#if phase === '1'}
               Unlock membership to MSO LAB through a pioneering collection of NFTs centred around one of the most
               desirable, most storied cars McLaren has ever produced – the McLaren P1™.
