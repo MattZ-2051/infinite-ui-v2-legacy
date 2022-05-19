@@ -171,7 +171,7 @@
         <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
           {#if !isFullScreenComponent}
             <div class="flex justify-between">
-              <h1 class={`text-2xl ${paymentSelection ? 'mb-14' : 'mb-10'} 2xl:text-3xl`}>
+              <h1 class={`text-2xl ${paymentSelection ? 'mb-14' : 'mb-10'} 2xl:text-3xl second-font`}>
                 {#if paymentSelection}
                   Select your Payment Method
                 {:else if isOrdering}

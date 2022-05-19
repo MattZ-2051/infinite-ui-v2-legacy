@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex flex-col text-center justify-center justify-self-center xl:max-w-sm xl:text-left">
-  <span class="text-xl mb-8 xl:text-3xl xl:mb-10">Exit checkout?</span>
+  <span class="text-xl mb-8 xl:text-3xl xl:mb-10 second-font">Exit checkout?</span>
   <span class="text-sm mb-8 xl:text-base xl:mb-10"
     >If you exit before the payment process is completed, any progress you made will be lost.</span
   >

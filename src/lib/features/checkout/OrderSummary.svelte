@@ -29,7 +29,7 @@
 
 <article class="py-6 mx-auto max-w-xl xl:max-w-md">
   {#if $media.xl}
-    <header><h3 class="text-2xl">Order Summary</h3></header>
+    <header><h3 class="text-2xl second-font">Order Summary</h3></header>
     <figure class="m-10">
       <FilePreview borderRadius={'var(--file-preview-border-radius, 0px)'} item={nftPublicAsset} preview />
     </figure>

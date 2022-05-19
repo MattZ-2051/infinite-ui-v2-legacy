@@ -16,7 +16,8 @@
 </script>
 
 <div class="flex flex-col xl:max-w-sm justify-center justify-self-center">
-  <span class="text-2xl xl:text-3xl mb-10">We’re processing your order and trying to avoid ‘gas wars’!</span>
+  <span class="text-2xl xl:text-3xl mb-10 second-font">We’re processing your order and trying to avoid ‘gas wars’!</span
+  >
   <span class="mb-4 text-gray-700 "
     >It can take up to 7 minutes or 12 block confirmations for your order to process and the NFT to appear in your
     wallet.</span
