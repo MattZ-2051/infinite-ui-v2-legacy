@@ -6,6 +6,7 @@
   import CollectionUser from '$project/collection/CollectionUser.svelte';
   import CollectionIssuerDefault from './CollectionIssuer.svelte';
   import CollectionTabs from './CollectionTabs.svelte';
+  import { productsTotal } from './collection.store';
 
   export let profile: Profile;
   export let own: boolean;
@@ -19,7 +20,7 @@
     {#if isIssuer && 'templateId' in profile}
       <CollectionIndex {profile} />
     {:else}
-      <div class="container mt-4 md:mt-8">
+      <div class="container mt-4 md:mt-8 {$productsTotal === 0 ? 'collection-container-no-products' : ''}">
         {#if isIssuer}
           <CollectionIssuerDefault {profile} />
         {:else}
@@ -30,3 +31,11 @@
     {/if}
   </div>
 </ThemeContext>
+
+<style lang="postcss">
+  @media screen(md) {
+    .collection-container-no-products {
+      padding-bottom: var(--collection-no-products-pb, theme('padding.4'));
+    }
+  }
+</style>
