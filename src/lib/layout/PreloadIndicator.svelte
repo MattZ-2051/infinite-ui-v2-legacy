@@ -38,7 +38,7 @@
     left: 0;
     top: 0;
     height: 100%;
-    background-color: var(--preload-color, #0575d7);
+    background: var(--preload-color, #0575d7);
     transition: width 0.4s;
   }
   .fade {

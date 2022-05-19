@@ -309,6 +309,9 @@
   --mobile-sidebar-close-icon-height: 20px;
   --mobile-sidebar-close-icon-margin-top: 5px;
   --mobile-sidebar-burger-svg-line-margin-top: 4px;
+
+  /*Preload indicator*/
+  --preload-color: linear-gradient(90deg, #ff8d1c 0%, #ff3414 100%);
 }
 
 @media (min-width: 768px) {
