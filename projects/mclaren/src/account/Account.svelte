@@ -50,7 +50,7 @@
       lastName: user.lastName || '',
       tagline: user.tagline || '',
       username: user.username || '',
-      phoneNumber: user.phoneNumber,
+      phoneNumber: user.phoneNumber || '',
       email: user.email || '',
     },
     onSubmit: async (values) => {
@@ -59,7 +59,6 @@
         let { username, ...rest } = values;
         values = rest;
       }
-      if (!values.phoneNumber) delete values.phoneNumber;
       try {
         submitting = true;
         await patchUser(values);

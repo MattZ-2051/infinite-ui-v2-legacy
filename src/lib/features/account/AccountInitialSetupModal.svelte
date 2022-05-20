@@ -52,7 +52,6 @@
         let { username, ...rest } = values;
         values = rest;
       }
-      if (!values.phoneNumber) delete values.phoneNumber;
       try {
         await patchUser(values);
         closeModal();
