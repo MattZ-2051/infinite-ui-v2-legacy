@@ -281,6 +281,8 @@
   --redemption-status-display: flex;
   --sku-info-button-case: uppercase;
   --sku-info-button-font-size: 12px;
+  --eth-disclaimer-icon-color: var(--gray-50);
+  --eth-disclaimer-weight: 300;
 
   /*Product page*/
   --product-tabs-bg: rgba(255, 255, 255, 0);
