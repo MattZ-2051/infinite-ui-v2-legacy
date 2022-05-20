@@ -59,7 +59,7 @@
 
 <Template let:args>
   <div class="max-w-xl">
-    <CollectorItem collector={cc(args)} redeemable={args.redeemable} currency="USD" />
+    <CollectorItem collector={cc(args)} redeemable={args.redeemable} currency={args.currency || 'USD'} />
   </div>
 </Template>
 
@@ -89,12 +89,40 @@
   }}
 />
 <Story
+  name="Not for sale - redeemable"
+  args={{
+    profilePhoto:
+      'https://www.looper.com/img/gallery/heres-where-you-can-watch-all-of-the-jumanji-movies/intro-1623157303.jpg',
+    redeemable: true,
+  }}
+/>
+<!-- Scenario when collector has no listing and is ETH" -->
+<Story
+  name="View Product"
+  args={{
+    profilePhoto:
+      'https://www.looper.com/img/gallery/heres-where-you-can-watch-all-of-the-jumanji-movies/intro-1623157303.jpg',
+    currency: 'ETH',
+  }}
+/>
+<Story
   name="Active sale"
   args={{
     serialNumber: '2',
     activeSale: '2000',
     redeemable: true,
     profilePhoto: 'https://images.loaded.gr/img/path/5a15998d-40f3-428e-99aa-441d7d1a9c86_sean-connery_faam.jpg',
+  }}
+/>
+
+<Story
+  name="Currency ETH"
+  args={{
+    serialNumber: '2',
+    activeSale: '2000',
+    redeemable: true,
+    profilePhoto: 'https://images.loaded.gr/img/path/5a15998d-40f3-428e-99aa-441d7d1a9c86_sean-connery_faam.jpg',
+    currency: 'ETH',
   }}
 />
 <Story

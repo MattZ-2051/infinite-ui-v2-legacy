@@ -17,7 +17,9 @@
 </script>
 
 <div class={'flex flex-col items-start sm:items-end md:items-start lg:items-end'} {...$$restProps}>
-  {#if !hasListing(collector)}
+  {#if !hasListing(collector) && currency === 'ETH'}
+    <div>View Product</div>
+  {:else if !hasListing(collector)}
     <div>Not for sale</div>
   {:else if hasUpcomingListing(collector)}
     <div>Upcoming</div>
