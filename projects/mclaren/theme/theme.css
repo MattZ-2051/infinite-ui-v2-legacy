@@ -198,6 +198,9 @@
   --collectors-title-font: var(--second-font);
   --modal-title-font: var(--second-font);
   --account-initial-modal-title-font: var(--second-font);
+  --accordion-title-font: var(--second-font);
+  --accordion-title-color: var(--primary-color);
+  --accordion-title-icon-color: var(--primary-color);
 
   /* File Thumbnail */
   --file-thumbnail-border-radius: 999px;

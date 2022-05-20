@@ -14,7 +14,7 @@
   class:cursor-pointer={collapsible}
   {...$$restProps}
 >
-  <span class="flex-1" style="color: var(--accordion-title-color, var(--gray-500))">
+  <span class="flex-1 accordion-title">
     <slot />
   </span>
   {#if collapsible}
@@ -29,3 +29,10 @@
     </button>
   {/if}
 </div>
+
+<style>
+  .accordion-title {
+    color: var(--accordion-title-color, var(--gray-500));
+    font-family: var(--accordion-title-font);
+  }
+</style>
