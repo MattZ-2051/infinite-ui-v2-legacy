@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Sku } from '$lib/sku-item/types';
   import { mdiBellOffOutline, mdiBellOutline } from '@mdi/js';
-  import { ENABLE_ETH_CURRENCY } from '$project/variables';
   import shareIcon from '$lib/features/sku/assets/share';
   import ethereum from '$lib/components/icons/ethereum';
   import hedera from '$lib/components/icons/hedera';
@@ -54,22 +53,21 @@
       <div class="text-gray-500 text-sm">Edition</div>
       <div><SkuEdition {sku} /></div>
     </div>
-    {#if ENABLE_ETH_CURRENCY}
-      <div class="flex flex-col gap-2">
-        <div class="text-gray-500 text-sm text-right">NFT Type</div>
-        {#if sku.currency === 'ETH'}
-          <div use:tooltip={'ERC721 NFT minted on Ethereum'} class="flex flex-row items-center space-x-1 justify-end">
-            <Icon path={ethereum} size="1em" class="inline align-baseline mx-0.5" />
-            <span>ERC721</span>
-          </div>
-        {:else if sku.currency === 'USD'}
-          <div use:tooltip={'HTS NFT minted on Hedera'} class="flex flex-row items-center space-x-1 justify-end">
-            <Icon path={hedera} size="0.75em" class="inline align-baseline mx-0.5" />
-            <span> HTS </span>
-          </div>
-        {/if}
-      </div>
-    {/if}
+
+    <div class="flex flex-col gap-2">
+      <div class="text-gray-500 text-sm text-right">NFT Type</div>
+      {#if sku.currency === 'ETH'}
+        <div use:tooltip={'ERC721 NFT minted on Ethereum'} class="flex flex-row items-center space-x-1 justify-end">
+          <Icon path={ethereum} size="1em" class="inline align-baseline mx-0.5" />
+          <span>ERC721</span>
+        </div>
+      {:else if sku.currency === 'USD'}
+        <div use:tooltip={'HTS NFT minted on Hedera'} class="flex flex-row items-center space-x-1 justify-end">
+          <Icon path={hedera} size="0.75em" class="inline align-baseline mx-0.5" />
+          <span> HTS </span>
+        </div>
+      {/if}
+    </div>
   </div>
   {#if isActiveSkuAuction}
     <div
