@@ -16,9 +16,9 @@
 </script>
 
 <Button on:click={() => onClick()} variant="brand" class={`flex flex-col xl:w-80 xl:h-80 w-72 h-72 ${classNames}`}>
-  <div class="xl:mb-16 mb-9 flex flex-col justify-evenly items-center absolute">
+  <div class="flex flex-col justify-evenly items-center absolute">
     <Icon class="pb-6" path={iconSource} viewBox="0 0 72 73" size={4.5} />
-    <span class="xl:text-2xl text-xl font-normal">{title}</span>
+    <span class="xl:text-2xl text-xl font-normal tracking-tight">{title}</span>
   </div>
   {#if id === 'cc'}
     <div class="flex flex-row gap-x-2 relative xl:-bottom-32 -bottom-28">
