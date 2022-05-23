@@ -7,10 +7,6 @@
   import CollectionAbout from './CollectionAbout.svelte';
   import CollectionFeatured from './CollectionFeatured.svelte';
 
-  const CURRENT_PHASE = import.meta.env.VITE_CURRENT_PHASE;
-
-  $: phase = CURRENT_PHASE ?? '1';
-
   const skuCollectionAboutFileAsset = { url: bucketAssets.collection.aboutSection } as FileAsset;
 </script>
 
@@ -22,11 +18,7 @@
     fileAssets={[skuCollectionAboutFileAsset]}
   />
   {#if $skuCollection?.featuredSkuId}
-    <CollectionFeatured
-      featuredSkuId={$skuCollection.featuredSkuId}
-      collectionName={$skuCollection.name}
-      isPhase3={phase === '3'}
-    />
+    <CollectionFeatured featuredSkuId={$skuCollection.featuredSkuId} collectionName={$skuCollection.name} />
   {/if}
   <Community />
 </div>

@@ -10,7 +10,6 @@
 
   export let featuredSkuId: SkuCollection['featuredSkuId'];
   export let collectionName = '';
-  export let isPhase3 = false;
 
   loadSkuCollectionFeaturedFx({ id: featuredSkuId });
 
@@ -34,15 +33,15 @@
         </div>
         <Button
           variant="brand"
-          class={isPhase3 ? 'h-16 w-64 hidden md:block' : 'hidden'}
+          class="h-16 w-64 hidden md:block"
           on:click={() => goto(routes.sku($skuCollectionFeatured._id))}>Buy Now</Button
         >
       </div>
       <div
         class="wrapper shadow-[0_4px_30px_rgba(0, 0, 0, 0.1)] relative max-w-md px-6 md:px-0 mx-auto md:max-w-sm md:mr-8 lg:mr-12 xl:mr-24 mt-10 md:-mt-24 mb-24 rounded-2xl"
       >
-        <SkuItem sku={{ ...$skuCollectionFeatured, nftPublicAssets: [skuItemFilePreview] }} {isPhase3} />
-        <div class={isPhase3 ? 'flex justify-center mt-10 md:hidden px-8' : 'hidden'}>
+        <SkuItem sku={{ ...$skuCollectionFeatured, nftPublicAssets: [skuItemFilePreview] }} />
+        <div class="flex justify-center mt-10 md:hidden px-8">
           <Button variant="brand" class="h-16 w-full" on:click={() => goto(routes.sku($skuCollectionFeatured._id))}
             >Buy Now</Button
           >

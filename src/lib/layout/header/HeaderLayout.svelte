@@ -15,7 +15,6 @@
   let showSidebar = false;
   export let user: User;
   export let links: Link[];
-  export let hideUserMenu = false;
 </script>
 
 <ThemeContext id="header">
@@ -44,7 +43,7 @@
           />
         </div>
         <div class="hidden md:flex gap-1 md:gap-2 lg:gap-8 xl:gap-12 md:items-center min-w-0">
-          <Links {links} {user} {hideUserMenu} />
+          <Links {links} {user} />
           <slot name="support" klass="header-link" size="1.25rem" />
         </div>
         {#if $$slots.credits}

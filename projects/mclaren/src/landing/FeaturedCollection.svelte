@@ -1,7 +1,7 @@
 <script lang="ts">
   import IntersectionObserver from 'svelte-intersection-observer';
   import { lazyLoadVideoSource } from '$util/lazyLoad';
-  import Divider from '../common/Divider.svelte';
+  import Divider from './common/Divider.svelte';
 
   let videoElement: HTMLVideoElement;
 </script>

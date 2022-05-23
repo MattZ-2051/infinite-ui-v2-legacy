@@ -17,17 +17,16 @@
 
   export { _sku as sku };
   export let product: Product = undefined;
-  export let isPhase3 = import.meta.env.VITE_CURRENT_PHASE === '3';
 
   $: sku = product ? product.sku : _sku;
   $: skuCollection = sku?.skuCollection;
   $: activeListing = product ? product.activeProductListings?.[0] : sku.activeSkuListings?.[0];
-  $: href = isPhase3 ? (product ? routes.product(product._id) : routes.sku(sku._id)) : '';
+  $: href = product ? routes.product(product._id) : routes.sku(sku._id);
   $: currency = product ? product.sku.currency : sku.currency;
 </script>
 
 <article id={sku._id} class="space-y-4 py-6" in:fade={{ duration: 300 }}>
-  <a sveltekit:prefetch {href} class={`space-y-4 py-6 ${isPhase3 ? 'cursor-pointer' : 'cursor-default'}`}>
+  <a sveltekit:prefetch {href} class="space-y-4 py-6 cursor-pointer">
     <figure class="relative mx-6 mb-0">
       <FilePreview
         item={product ? product.nftPublicAssets?.[0] || sku.nftPublicAssets?.[0] : sku.nftPublicAssets?.[0]}
@@ -77,7 +76,7 @@
     <div class="sku-status mr-6">
       <div class="mt-5 mx-6 flex flex-row items-center text-lg font-light" aria-label="Product details">
         <SkuStatus {sku} {product} />
-        <span class={`${isPhase3 ? 'item-link ml-auto -mr-6' : 'hidden'}`}>
+        <span class="item-link ml-auto -mr-6">
           <Icon path={arrowRightCircle} size={1.7} viewBox="0 -4 14 32" />
         </span>
       </div>

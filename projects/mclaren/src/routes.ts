@@ -1,27 +1,8 @@
 // eslint-disable-next-line no-restricted-imports
 import routes from '$lib/routes';
 
-const routesWithPhase = () => {
-  const phase = typeof window !== 'undefined' ? new URLSearchParams(window?.location?.search).get('phase') : '';
-  if (!phase) return routes;
-
-  const routesEntries = Object.entries(routes);
-  const routesEntriesWithPhase = routesEntries.map(([routeName, path]) => {
-    if (typeof path === 'string') return [routeName, `${path}?phase=${phase}`];
-
-    const functionPath = (argument1: string, argument2?: string) => {
-      const dynamicPath = path(argument1, argument2);
-      return `${dynamicPath}${dynamicPath.includes('?') ? '&' : '?'}phase=${phase}`;
-    };
-    return [routeName, functionPath];
-  }) as Iterable<readonly [unknown, unknown]>;
-
-  const remappedRoutesEntries = new Map(routesEntriesWithPhase);
-  return Object.fromEntries(remappedRoutesEntries);
-};
-
 export default {
-  ...routesWithPhase(),
+  ...routes,
   faq: 'https://cars.mclaren.com/gb-en/nft-faqs',
   discord: 'https://discord.com/invite/mclaren',
   opensea: 'https://opensea.io/collection/mclarenmsolabgenesis',

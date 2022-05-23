@@ -23,7 +23,6 @@
   export let flatten = false;
   export let user: User;
   export let links: Link[];
-  export let hideUserMenu = false;
 
   const handleWalletModal = () => {
     openModal(WalletConnectionModal, { user });
@@ -136,7 +135,7 @@
 
 <!-- User menu block -->
 <!-- Menu items will be nested for desktop view -->
-{#if user && flatten === false && !hideUserMenu}
+{#if user && flatten === false}
   <Menu placement="bottom-start" class="min-w-0">
     <MenuTrigger slot="trigger" class="header-link w-full">
       <div class="flex sm:gap-1 md:gap-1.5 w-full">

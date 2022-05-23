@@ -2,7 +2,7 @@
   import { fly } from 'svelte/transition';
   import Icon from '$ui/icon/Icon.svelte';
   import caretRight from '$project/assets/lib/caret-right';
-  import Divider from '../common/Divider.svelte';
+  import Divider from './common/Divider.svelte';
 
   type Step = {
     title: string;

@@ -3,18 +3,8 @@
   import type { Awaited } from 'ts-essentials';
   import ProductPage from '$lib/features/product/Product.svelte';
   import { product, fetchProductFx, setProduct } from '$lib/features/product/product.store';
-  import routes from '$project/routes';
-
-  const CHECKOUT_PHASE_ENABLED = import.meta.env?.VITE_CURRENT_PHASE;
 
   export const load: Load = async ({ url, params, fetch }) => {
-    if (CHECKOUT_PHASE_ENABLED && CHECKOUT_PHASE_ENABLED !== '3') {
-      return {
-        status: 302,
-        redirect: routes.index,
-      };
-    }
-
     const { id } = params;
     const page = +url.searchParams.get(`page`) || 1;
     const tab = url.searchParams.get(`tab`) as 'auction' | 'history' | 'owner';

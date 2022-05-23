@@ -9,21 +9,17 @@
 
   const collectionId = import.meta.env.VITE_DEFAULT_COLLECTION_ID;
 
-  export let phase: string;
   let skuId = undefined;
-  const isPhase3 = phase === '3';
   let route = routes.skuCollections;
 
   let videoElement: HTMLVideoElement;
 
   onMount(async () => {
-    if (isPhase3) {
-      const { collections } = await loadAllSkuCollectionsFx({ fetch });
-      setAllSkuCollections({ collections });
+    const { collections } = await loadAllSkuCollectionsFx({ fetch });
+    setAllSkuCollections({ collections });
 
-      skuId = collections.find((collection) => collection.id === collectionId)?.featuredSkuId;
-      route = routes.sku(skuId);
-    }
+    skuId = collections.find((collection) => collection.id === collectionId)?.featuredSkuId;
+    route = routes.sku(skuId);
   });
 </script>
 
@@ -43,20 +39,11 @@
         </p>
         <div class="text-lg text-left xl:text-center font-light max-w-8xl leading-9 pb-10">
           <p class="text-base">
-            {#if phase === '1'}
-              An exclusive, invitation-only mint that marks McLaren Automotive’s move into the metaverse.
-            {:else if phase === '2' || phase === '3'}
-              An exclusive, invitation-only NFT mint that marks McLaren Automotive’s move into the metaverse.
-            {/if}
+            An exclusive, invitation-only NFT mint that marks McLaren Automotive’s move into the metaverse.
           </p>
           <p class="pt-6 md:pt-10 text-base">
-            {#if phase === '1'}
-              Unlock membership to MSO LAB through a pioneering collection of NFTs centred around one of the most
-              desirable, most storied cars McLaren has ever produced – the McLaren P1™.
-            {:else if phase === '2' || phase === '3'}
-              Unlock membership to MSO LAB through a pioneering collection of rare supercar NFTs centred around one of
-              the most desirable, most storied cars McLaren has ever produced – the McLaren P1™.
-            {/if}
+            Unlock membership to MSO LAB through a pioneering collection of rare supercar NFTs centred around one of the
+            most desirable, most storied cars McLaren has ever produced – the McLaren P1™.
           </p>
         </div>
         <Button
@@ -64,7 +51,7 @@
           class="h-12 sm:h-16 w-full sm:w-fit font-bold text-xs tracking-widest uppercase"
           on:click={() => goto(route)}
         >
-          {isPhase3 ? 'buy now' : 'discover the collection'}
+          buy now
         </Button>
       </div>
     </div>
