@@ -147,6 +147,9 @@
   --collector-list-description-small-text-size-mobile: 0.8125rem;
   --collector-list-description-small-text-size: 0.875rem;
   --item-status-information-subtitle: rgba(0, 0, 0, 0.5);
+  --collector-display-short-separator-line: flex;
+  --collector-separator-border-bottom: 0;
+  --collector-separator-padding-bottom: 0;
 
   /* File Preview - Gallery */
   --gallery-display-file-preview: none;
@@ -352,7 +355,7 @@
 
 .theme-search-bar {
   --border-input-search: solid 1px;
-  --border-input-search-color: var(--gray-300);
+  --border-input-search-color: var(--gray-100);
   --border-radius-input-search: 2rem;
   --input-search-padding: 0.75rem;
   --base-element-border-bottom-width: 0px;

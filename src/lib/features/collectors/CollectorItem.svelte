@@ -17,8 +17,11 @@
 
 <a href={routes.product(collector._id)}>
   <div
-    class="flex flex-wrap justify-end items-center gap-1 border-b border-gray-100 p-4 md:px-8"
-    style="background-color: var(--collector-item-bg)"
+    class="flex flex-wrap justify-end items-center gap-1 px-4 pt-4 md:px-8"
+    style="background-color: var(--collector-item-bg); 
+            border-bottom: var(--collector-separator-border-bottom, 1px solid); 
+            border-color:var(--gray-100); 
+            padding-bottom: var(--collector-separator-padding-bottom, 1rem);"
   >
     <div class="flex gap-3 md:gap-5 mr-auto items-center">
       {#if collector?.nftPublicAssets && collector?.nftPublicAssets.length > 0}
@@ -66,6 +69,10 @@
       </div>
       <Icon path={mdiChevronRight} class="justify-self-center " size={RIGHT_ARROW_SIZE_ON_HISTORY} />
     </div>
+    <div
+      class="separator mt-3"
+      style="display: var(--collector-display-short-separator-line, none); background :var(--gray-100);"
+    />
   </div></a
 >
 

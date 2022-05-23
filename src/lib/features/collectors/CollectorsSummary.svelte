@@ -76,7 +76,7 @@
   <div class="flex w-full">
     <ThemeContext id="search-bar">
       <div class="flex-1 collector-custom-search-input">
-        <Search placeholder="Search an item" value={search} on:input={handleInput} />
+        <Search placeholder="Search item" value={search} on:input={handleInput} />
       </div>
     </ThemeContext>
   </div>
