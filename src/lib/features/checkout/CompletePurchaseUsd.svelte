@@ -6,6 +6,8 @@
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import { formatCurrency } from '$util/format';
+  import routes from '$project/routes';
+  import { goto } from '$app/navigation';
   import OrderDetails from '../order/OrderDetails.svelte';
   import { getBuyingFee, getSkuBuyingFee } from '../product/product.fee';
   import { wallet } from '../wallet/wallet.store';
@@ -19,12 +21,14 @@
   import Information from './Information.svelte';
   import { isOwner } from '../product/product.service';
   import Agreement from './Agreement.svelte';
+  import InsufficientFundsModal from './InsufficientFundsModal.svelte';
 
   export let product: Product = undefined;
   export let sku: Sku = undefined;
   export let listing: Listing;
 
   let result: SkuPurchaseTransaction;
+  let showInfficientFundsModal = false;
 
   $: userBalance = undefined;
   $: marketplaceFee = sku ? getSkuBuyingFee(sku) : getBuyingFee(product);
@@ -32,7 +36,6 @@
   $: insufficientFunds = total > +userBalance;
   $: priceWFee = Number.parseFloat(total.toFixed(5));
   $: acceptedTerms = false;
-
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
   const LOW_KYC_LVL_DEPOSIT_LIMIT_USD = import.meta.env?.VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD;
   const currency = sku ? sku?.currency : product?.sku?.currency;
@@ -46,6 +49,10 @@
   });
 
   const submitOrder = async () => {
+    if (insufficientFunds) {
+      showInfficientFundsModal = true;
+      return;
+    }
     if (!checkTerms(acceptedTerms)) {
       return;
     }
@@ -82,6 +89,17 @@
 </script>
 
 <div class="w-full h-full flex flex-col">
+  {#if showInfficientFundsModal}
+    <InsufficientFundsModal
+      totalCost={`${total}`}
+      insufficientFunds={`${total - userBalance}`}
+      handleDeposit={() => goto(routes.wallet)}
+      handleOtherPaymentMethod={() => handleCheckoutStateChange('method-select')}
+      closeModal={() => {
+        showInfficientFundsModal = false;
+      }}
+    />
+  {/if}
   <div>
     <OrderDetails {sku} {listingPrice} {marketplaceFee} {userBalance} {insufficientFunds} hideProductInfo {product} />
   </div>

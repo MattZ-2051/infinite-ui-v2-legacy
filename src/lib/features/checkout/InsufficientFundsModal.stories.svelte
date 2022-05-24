@@ -7,13 +7,16 @@
 
 <Template let:args>
   <InsufficientFundsModal
-    totalCost="'100'"
-    insufficientFunds="'10'"
+    totalCost={`${100}`}
+    insufficientFunds={`${10}`}
     handleDeposit={() => {
       alert('handleDeposit');
     }}
     handleOtherPaymentMethod={() => {
       alert('handleOtherPaymentMethod');
+    }}
+    closeModal={() => {
+      alert('handleClosed');
     }}
   />
 </Template>
