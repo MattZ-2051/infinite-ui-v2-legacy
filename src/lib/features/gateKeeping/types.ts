@@ -1,6 +1,6 @@
 import type { Product, Sku } from '$lib/sku-item/types';
 
-export type StatusGateKeeping = 'nowViewing' | 'notOwnedYet' | 'owned' | 'buyNow';
+export type StatusGateKeeping = 'nowViewing' | 'notOwnedYet' | 'owned' | 'buyNow' | 'soldOut';
 
 export type GateKeepingType = 'and' | 'lineal' | 'empty';
 interface Item {

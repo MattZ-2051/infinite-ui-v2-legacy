@@ -20,6 +20,10 @@ export const getStatusLabelAndColor = (
     statusLabel = 'Now Viewing';
     statusLabelColor = 'white';
   }
+  if (status === 'soldOut') {
+    statusLabel = 'Sold out';
+    statusLabelColor = 'white';
+  }
 
   hasButton = status === 'buyNow';
 

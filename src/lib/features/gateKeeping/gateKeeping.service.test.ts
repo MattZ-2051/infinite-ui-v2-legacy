@@ -22,6 +22,12 @@ describe('gateKeeping service', () => {
       expect(result).toStrictEqual(ownedStatusLabels);
     });
 
+    it('returns sold out status correctly', () => {
+      const ownedStatusLabels = { statusLabel: 'Sold out', statusLabelColor: 'white', hasButton: false };
+      const result = getStatusLabelAndColor('soldOut', '', '', false);
+      expect(result).toStrictEqual(ownedStatusLabels);
+    });
+
     it('returns buy now status correctly', () => {
       const ownedStatusLabels = { statusLabel: '', statusLabelColor: '', hasButton: true };
       const result = getStatusLabelAndColor('buyNow', '', '', false);

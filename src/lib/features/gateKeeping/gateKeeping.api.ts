@@ -20,7 +20,12 @@ export const checkRequiredSkus = async ({ skuId }: { skuId: string }): Promise<R
           status = (type === 'and' || !buyNow) && data.length > 1 ? 'buyNow' : 'notOwnedYet';
           buyNow = true;
         }
+
         const sku = await getSkuOnly({ id });
+
+        if (!hasProduct && sku.forSaleListingsCounter === 0) {
+          status = 'soldOut';
+        }
         return { sku, status };
       })
     );

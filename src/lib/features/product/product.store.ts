@@ -236,9 +236,6 @@ pollTransactionFx.doneData.watch(async (response) => {
         return tx.transactionData.product._id === $product._id;
       });
 
-      console.log('pendingTX', pendingTx);
-      console.log('product', $product);
-
       if (pendingTx?.status === 'success') {
         const $polls = polls.getState();
         if ($polls[$product._id].$isActive) {

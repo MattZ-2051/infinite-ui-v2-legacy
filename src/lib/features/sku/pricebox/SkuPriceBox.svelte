@@ -3,7 +3,7 @@
   import type { ActionType } from '$lib/features/product/actions/types';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { onAction } from '$lib/features/product/actions/product-actions.service';
-  import { fetchRequiredSkus } from '$lib/features/gateKeeping/gateKeeping.store';
+  import { fetchRequiredSkus, gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
   import { onSignIn, user } from '$lib/user';
   import { openModal } from '$ui/modals';
   import routes from '$project/routes';
@@ -44,6 +44,9 @@
         onSignIn();
       } else if (hasGateKeepingRules) {
         await fetchRequiredSkus({ skuId: sku._id });
+        if ($gateKeepSkus.every((gateKeepSku) => gateKeepSku.status === 'owned')) {
+          return onOrderIntent({ sku, listing: activeListings[0] });
+        }
       } else if (isVoucherSku) {
         openModal(VoucherModal, {
           voucherCode,
