@@ -56,7 +56,7 @@
   async function onBuy() {
     const { sku, activeProductListings } = product;
     const hasGateKeepingRules = !!sku.gateKeepingRules;
-    const redirectToLogin = !$user && hasGateKeepingRules;
+    const redirectToLogin = !$user;
     if (redirectToLogin) {
       onSignIn();
     } else {
