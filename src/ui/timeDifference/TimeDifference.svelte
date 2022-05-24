@@ -4,6 +4,7 @@
   import { timeRemainingFormat } from './time.service';
 
   export let date: Date | string;
+  export let compact = false;
 
   const dispatch = createEventDispatcher();
 
@@ -26,12 +27,23 @@
   }
 </script>
 
-<span class="tabular-nums">
-  {#if difference.days > 0}
-    {difference.days}d
-  {/if}
-  {difference.hours}h {`${difference.minutes}`.padStart(2, '0')}m
-  {#if difference.days < 1}
-    {`${difference.seconds}`.padStart(2, '0')}s
-  {/if}
-</span>
+{#if compact}
+  <span class="tabular-nums">
+    {#if difference.days > 0}
+      {difference.days}d
+    {/if}
+    {`${difference.hours}:${`${difference.minutes}`.padStart(2, '0')}${
+      difference.days < 1 ? `:${`${difference.seconds}`.padStart(2, '0')}` : ''
+    }`}
+  </span>
+{:else}
+  <span class="tabular-nums">
+    {#if difference.days > 0}
+      {difference.days}d
+    {/if}
+    {difference.hours}h {`${difference.minutes}`.padStart(2, '0')}m
+    {#if difference.days < 1}
+      {`${difference.seconds}`.padStart(2, '0')}s
+    {/if}
+  </span>
+{/if}

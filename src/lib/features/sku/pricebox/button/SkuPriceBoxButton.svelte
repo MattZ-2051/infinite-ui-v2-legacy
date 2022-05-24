@@ -22,51 +22,64 @@
   export let polling = false;
 
   $: classes = clsx(
-    'sticky-cta group block w-full text-left px-12 py-5 font-normal',
+    'sticky-cta group block w-full text-left px-[8%] py-5 font-normal',
     action || href ? 'flex items-center' : '',
     polling && 'opacity-50',
     _class
   );
+
+  // 400 as default scale to prevent too much abrupt scaling
+  let contentWidth = 400;
 </script>
 
 {#if href}
   <a {href} class={classes} {...$$restProps}
-    ><div class="flex-grow"><slot /></div>
+    ><div
+      class="grow shrink-0 basis-5/6"
+      bind:clientWidth={contentWidth}
+      style={`--price-box-container-width: ${contentWidth}`}
+    >
+      <slot {contentWidth} />
+    </div>
 
-    <div class="arrow-icon pl-5 flex-none">
+    <div class="pl-[5%] flex-1 basis-1/6">
       <Icon
         class="transform transition-transform duration-150 group-hover:-rotate-45"
         path={arrowRight}
-        size="var(--arrow-icon-size)"
+        size="clamp(2.5rem, 100%, 4rem)"
       />
     </div>
   </a>
 {:else if action}
   <button type="button" class={classes} {...$$restProps} on:click disabled={polling}
-    ><div class="flex-grow"><slot /></div>
+    ><div
+      class="grow shrink-0 basis-5/6"
+      bind:clientWidth={contentWidth}
+      style={`--price-box-container-width: ${contentWidth}`}
+    >
+      <slot {contentWidth} />
+    </div>
 
-    <div class="arrow-icon pl-5 flex-none">
+    <div class="pl-[5%] flex-1 basis-1/6">
       <Icon
         class="transform transition-transform duration-150 group-hover:-rotate-45"
         path={arrowRight}
-        size="var(--arrow-icon-size)"
+        size="clamp(2.5rem, 100%, 4rem)"
       />
     </div></button
   >
 {:else}
-  <div class={classes} {...$$restProps}><slot /></div>
+  <div
+    class={classes}
+    {...$$restProps}
+    bind:clientWidth={contentWidth}
+    style={`--price-box-container-width: ${contentWidth}`}
+  >
+    <slot {contentWidth} />
+  </div>
 {/if}
 
 <style lang="postcss">
-  .arrow-icon {
-    --arrow-icon-size: 4rem;
-  }
-
-  @media screen and (min-width: 768px) and (max-height: 920px) {
-    .arrow-icon {
-      --arrow-icon-size: 3rem;
-    }
-  }
   @media (max-width: 768px) {
     .from-creator-custom {
       border-radius: var(--from-creator-button-border-radius, 0px);

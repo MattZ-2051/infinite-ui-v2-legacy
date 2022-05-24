@@ -279,6 +279,16 @@
   --font-weight-from-collector: 300;
   --font-weight-from-creator: 300;
   --font-weight-view-collector: 300;
+  --font-family-from-creator: var(--second-font);
+  --font-family-from-collector: var(--second-font);
+  --subtext-font-family-from-collector: var(--second-font);
+  --subtext-font-transform-from-collector: uppercase;
+  --subtext-font-size-from-collector: 0.75rem;
+  --subtext-letter-spacing-from-collector: 0.1em;
+  --subtext-font-family-from-creator: var(--second-font);
+  --subtext-font-transform-from-creator: uppercase;
+  --subtext-font-size-from-creator: 0.75rem;
+  --subtext-letter-spacing-from-creator: 0.1em;
 
   /*Sku info*/
   --sku-info-border-color: rgba(0, 0, 0, 0.1);

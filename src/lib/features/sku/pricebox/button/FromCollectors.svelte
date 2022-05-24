@@ -51,19 +51,21 @@
   };
 </script>
 
-<SkuPriceBoxButton action={href !== undefined} polling={$isPolling} on:click={() => goto(href)}>
+<SkuPriceBoxButton action={href !== undefined} polling={$isPolling} on:click={() => goto(href)} let:contentWidth>
   <div class="flex justify-between gap-2">
     {#if status === 'activeSale'}
       <div>
-        <div class="text-2xl from-collector-text-custom">Active Sale</div>
-        <div class="text-gray-500 text-base">Started {formatDate(collectorListing.startDate)}</div>
+        <div class="text-2xl from-collector-text-custom scalable-title">Active Sale</div>
+        <div class="text-gray-500 text-base from-collector-subtext-custom scalable-subtitle">
+          Started {formatDate(collectorListing.startDate, contentWidth < 300 && 'M/D h:mmA')}
+        </div>
       </div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-2xl from-collector-text-custom text-right">
+          <div class="text-2xl from-collector-text-custom text-right scalable-title">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-base text-right text-gray-500 ">
+          <div class="text-base text-right text-gray-500 from-collector-subtext-custom scalable-subtitle">
             {isUniqueProductListing ? 'Listing price' : 'Lowest listing price'}
           </div>
         </div>
@@ -72,17 +74,21 @@
 
     {#if status === 'activeAuction'}
       <div>
-        <div class="text-2xl from-collector-text-custom">{isUniqueAuction ? 'Active Auction' : 'From Collector'}</div>
-        <div class="text-gray-500 text-base">
-          {isUniqueAuction ? `Ends ${formatDate(collectorListing.endDate)}` : 'Auction Active'}
+        <div class="text-2xl from-collector-text-custom scalable-title">
+          {isUniqueAuction ? 'Active Auction' : 'From Collector'}
+        </div>
+        <div class="text-gray-500 text-base from-collector-subtext-custom scalable-subtitle">
+          {isUniqueAuction
+            ? `Ends ${formatDate(collectorListing.endDate, contentWidth < 300 && 'M/D h:mmA')}`
+            : 'Auction Active'}
         </div>
       </div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-2xl from-collector-text-custom text-right">
+          <div class="text-2xl from-collector-text-custom text-right scalable-title">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-base">
+          <div class="text-gray-500 text-base from-collector-subtext-custom scalable-subtitle">
             {getAuctionLabelCollector('auction')}
           </div>
         </div>
@@ -91,39 +97,41 @@
 
     {#if status === 'upcomingAuction'}
       <div>
-        <div class="text-2xl from-collector-text-custom">Upcoming Auction</div>
-        <div class="text-gray-500 text-base">Starts {formatDate(collectorListing.startDate)}</div>
+        <div class="text-2xl from-collector-text-custom scalable-title">Upcoming Auction</div>
+        <div class="text-gray-500 text-base from-collector-subtext-custom scalable-subtitle">
+          Starts {formatDate(collectorListing.startDate, contentWidth < 300 && 'M/D h:mmA')}
+        </div>
       </div>
       <div class="flex items-center justify-end">
         <div>
-          <div class="text-2xl from-collector-text-custom text-right">
+          <div class="text-2xl from-collector-text-custom text-right scalable-title">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-base">Starting Bid</div>
+          <div class="text-gray-500 text-base from-collector-subtext-custom scalable-subtitle">Starting Bid</div>
         </div>
       </div>
     {/if}
 
     {#if status === 'noneForSale'}
-      <div class="text-2xl from-collector-text-custom">From Collector</div>
+      <div class="text-2xl from-collector-text-custom scalable-title">From Collector</div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-2xl from-collector-text-custom text-right">-</div>
-          <div class="text-gray-500 text-base">0 on Sale</div>
+          <div class="text-2xl from-collector-text-custom text-right scalable-title">-</div>
+          <div class="text-gray-500 text-base from-collector-subtext-custom scalable-subtitle">0 on Sale</div>
         </div>
       </div>
     {/if}
     {#if status === 'activeAuctionAndSale'}
       <div class="from-collector-text-custom">
-        <div class="text-2xl">From Collector</div>
-        <div class="text-gray-500 text-base">Buy Now / Auction</div>
+        <div class="text-2xl scalable-title">From Collector</div>
+        <div class="text-gray-500 text-base from-collector-subtext-custom scalable-subtitle">Buy Now / Auction</div>
       </div>
       <div class="flex justify-end items-center">
         <div>
-          <div class="text-2xl from-collector-text-custom text-right">
+          <div class="text-2xl from-collector-text-custom text-right scalable-title">
             {formatCurrencyWithOptionalFractionDigits(minPrice, { currency: sku.currency })}
           </div>
-          <div class="text-gray-500 text-base">
+          <div class="text-gray-500 text-base from-collector-subtext-custom scalable-subtitle">
             {getAuctionLabelCollector(collectorListing?.saleType)}
           </div>
         </div>
@@ -135,5 +143,29 @@
 <style lang="postcss">
   .from-collector-text-custom {
     font-weight: var(--font-weight-from-collector, 400);
+    font-family: var(--font-family-from-collector, inherit);
+  }
+  .from-collector-subtext-custom {
+    font-family: var(--subtext-font-family-from-collector, inherit);
+    text-transform: var(--subtext-font-transform-from-collector, none);
+    letter-spacing: var(--subtext-letter-spacing-from-collector, inherit);
+  }
+  .scalable-title {
+    /* 0.055 ratio will scale to 1.5rem when container is 400px */
+    --scale-ratio: 0.055;
+
+    font-size: clamp(0.875rem, calc((var(--price-box-container-width) * var(--scale-ratio)) * 1px), 1.5rem);
+    @apply transition-all duration-75;
+  }
+  .scalable-subtitle {
+    /* 0.04 ratio will scale to 1rem when container is 400px */
+    --scale-ratio: 0.04;
+
+    font-size: clamp(
+      0.625rem,
+      calc((var(--price-box-container-width) * var(--scale-ratio)) * 1px),
+      var(--subtext-font-size-from-collector, 1rem)
+    );
+    @apply transition-all duration-75;
   }
 </style>
