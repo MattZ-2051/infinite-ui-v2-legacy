@@ -1,4 +1,4 @@
-import { get } from '$lib/api';
+import { getNoContent } from '$lib/api';
 
 export const validateVoucherCode = async ({
   voucherCode,
@@ -9,5 +9,5 @@ export const validateVoucherCode = async ({
   skuId: string;
   fetch?: Fetch;
 }): Promise<boolean> => {
-  return get(`listings/${skuId}/${voucherCode}/is-valid-whitelist-code`, { fetch });
+  return getNoContent(`listings/${skuId}/${voucherCode}/is-valid-whitelist-code`, { fetch });
 };

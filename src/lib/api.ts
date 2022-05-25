@@ -18,7 +18,10 @@ type ApiOptions = RequestInit & {
   skipTenant?: boolean;
 };
 
-export async function send<T>(path: string, _options?: ApiOptions): Promise<{ headers: Headers; body: T }> {
+export async function send<T>(
+  path: string,
+  _options?: ApiOptions
+): Promise<{ headers: Headers; body: T; status: number }> {
   const isAbsolute = isAbsoluteURL(path);
   const {
     baseUrl = variables.apiUrl,
@@ -71,13 +74,22 @@ export async function send<T>(path: string, _options?: ApiOptions): Promise<{ he
       } catch {}
       throw <ApiError>{ status, statusText, url, data };
     }
+    if (status === 204) {
+      return { headers, body: undefined, status };
+    }
 
-    return { headers, body: await parseBody<T>(r, options) };
+    return { headers, body: await parseBody<T>(r, options), status };
   });
 }
 
 export async function get<T>(path: string, options?: ApiOptions): Promise<T> {
   return await send<T>(path, { ...options, method: 'GET' }).then((r) => r.body);
+}
+
+export async function getNoContent<T>(path: string, options?: ApiOptions): Promise<boolean> {
+  return await send<T>(path, { ...options, method: 'GET' }).then((r) => {
+    return r.status === 204;
+  });
 }
 
 export async function getPage<T>(path: string, options?: ApiOptions): Promise<{ data: T[]; total: number; headers }> {
