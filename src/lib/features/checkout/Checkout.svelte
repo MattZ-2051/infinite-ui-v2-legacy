@@ -65,6 +65,8 @@
     { id: 'balance', title: 'Your Balance', iconSource: creditCardIcon, available: isUsdListing },
   ];
 
+  const availablePaymentMethods = paymentMethods.filter((paymentMethod) => paymentMethod.available);
+
   let finalSelectedMethod: string;
   $: exitCheckout = $checkoutState === 'exit';
   $: processingOrder = $checkoutState === 'processing';
@@ -242,18 +244,17 @@
             {/if}
           {:else if paymentSelection}
             <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center h-full">
-              {#each paymentMethods as paymentMethod, i}
-                {#if paymentMethod.available}
-                  <ThemeContext id="payment-buttons">
-                    <PaymentButton
-                      onClick={() => handlePaymentButton(paymentMethod.id)}
-                      classNames={i === 0 && 'mb-6 md:mb-0 md:mr-6 xl:mr-0 xl:mb-6 2xl:mr-6 2xl:mb-0'}
-                      title={paymentMethod.title}
-                      iconSource={paymentMethod.iconSource}
-                      id={paymentMethod.id}
-                    />
-                  </ThemeContext>
-                {/if}
+              {#each availablePaymentMethods as paymentMethod, i}
+                <ThemeContext id="payment-buttons">
+                  <PaymentButton
+                    onClick={() => handlePaymentButton(paymentMethod.id)}
+                    classNames={i !== availablePaymentMethods.length - 1 &&
+                      'mb-6 md:mb-0 md:mr-6 xl:mr-0 xl:mb-6 2xl:mr-6 2xl:mb-0'}
+                    title={paymentMethod.title}
+                    iconSource={paymentMethod.iconSource}
+                    id={paymentMethod.id}
+                  />
+                </ThemeContext>
               {/each}
             </div>
           {/if}
