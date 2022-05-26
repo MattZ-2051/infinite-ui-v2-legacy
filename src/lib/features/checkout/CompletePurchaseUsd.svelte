@@ -92,7 +92,7 @@
   {#if showInfficientFundsModal}
     <InsufficientFundsModal
       totalCost={`${total}`}
-      insufficientFunds={`${total - userBalance}`}
+      insufficientFunds={`${userBalance}`}
       handleDeposit={() => goto(routes.wallet)}
       handleOtherPaymentMethod={() => handleCheckoutStateChange('method-select')}
       closeModal={() => {
