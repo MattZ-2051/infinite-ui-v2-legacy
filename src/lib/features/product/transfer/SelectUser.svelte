@@ -33,8 +33,9 @@
 
   async function handleInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
-    username = value && value.trim() !== '' ? value : undefined;
+    selectedUser = undefined;
     candidateUser = undefined;
+    username = value && value.trim() !== '' ? value : undefined;
     isMyself = false;
     await getUsers();
   }
