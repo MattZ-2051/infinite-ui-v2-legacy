@@ -1,26 +1,21 @@
 import type { User } from '$lib/user/types';
 import type { Product, Profile } from '$lib/sku-item/types';
 import type { AccountData, MirrorNodeBalanceResponse, TransferOutResponse } from '$lib/features/infinite-wallet/types';
-import { getPage, patch, post } from '$lib/api';
+import { get, patch, post } from '$lib/api';
 import { associateToken, dissociateToken, transferToken } from '$lib/features/infinite-wallet/infinite-wallet.service';
 
 export async function transferProduct(product: Product, to: string) {
   await patch(`products/${product._id}/transfer`, { to }, { skipTenant: true });
 }
 
-export async function getUsers({
+export async function getUserByUsername({
   username,
-  page = 1,
-  perPage = 10,
   skipTenant,
 }: {
   username: string;
-  page: number;
-  perPage?: number;
   skipTenant?: boolean;
-}): Promise<{ total: number; data: Profile[] }> {
-  return getPage<Profile>('users', {
-    params: { username, includeFunctions: 'true', page: `${page}`, per_page: `${perPage}` },
+}): Promise<Profile | null> {
+  return get<Profile>(`users/issuers/${username}`, {
     skipTenant: skipTenant,
   });
 }

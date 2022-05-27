@@ -6,26 +6,26 @@
   import { user } from '$lib/user';
   import Icon from '$ui/icon/Icon.svelte';
   import Search from '$lib/components/search/Search.svelte';
-  import { searchUsersFx } from './product-transfer.store';
+  import { getUserByUsernameFx } from './product-transfer.store';
 
-  export let selectedUser: Profile = undefined;
-
-  const perPage = 5;
-
-  let page = 1;
-  let users: Profile[] = undefined;
+  export let selectedUser: Profile | undefined = undefined;
+  let candidateUser: Profile | undefined = undefined;
   let username: string = undefined;
-  const loading = searchUsersFx.pending;
+  let isMyself = false;
+  const loading = getUserByUsernameFx.pending;
 
   const getUsers = debounce(
-    async (page_: number) => {
-      selectedUser = undefined;
-      page = page_ || 1;
+    async () => {
+      candidateUser = undefined;
 
-      ({ data: users } = username ? await searchUsersFx({ username, page, perPage, skipTenant: true }) : { data: [] });
+      // eslint-disable-next-line unicorn/no-null
+      candidateUser = username ? await getUserByUsernameFx({ username, skipTenant: true }) : null;
 
-      if (users.length > 0) {
-        selectUser(users[0]);
+      if (candidateUser) {
+        isMyself = candidateUser._id === $user._id;
+        if (!isMyself) {
+          selectedUser = candidateUser;
+        }
       }
     },
     browser ? 300 : 0
@@ -34,17 +34,9 @@
   async function handleInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     username = value && value.trim() !== '' ? value : undefined;
-    users = undefined;
-
-    await getUsers(1);
-  }
-
-  function selectUser(user_: Profile) {
-    if (user_._id === $user._id) {
-      return;
-    }
-
-    selectedUser = user_;
+    candidateUser = undefined;
+    isMyself = false;
+    await getUsers();
   }
 </script>
 
@@ -52,9 +44,9 @@
   <div>Please enter the exact username of the account you'd like to transfer this collectible to.</div>
   <Search placeholder="Search for a username to send the NFT" on:input={handleInput} data-initial-focus />
   <div class="absolute right-0 bottom-2">
-    {#if users && username}
-      {#if users.length > 0}
-        {#if users[0]._id === $user._id}
+    {#if candidateUser !== undefined && username}
+      {#if candidateUser !== null}
+        {#if isMyself}
           <Icon tooltip="Can't transfer to yourself!" class="text-red-600" path={mdiCloseCircle} />
         {:else}
           <Icon tooltip="Username Found!" class="text-green-600" path={mdiCheckCircle} />

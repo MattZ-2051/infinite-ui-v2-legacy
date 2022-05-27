@@ -3,7 +3,7 @@ import type { Product, Profile } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
 import { createEffect, forward } from 'effector';
 import { refetchProductFx, productTransferred } from '../product.store';
-import { transferProduct, getUsers, transferProductOut, transferProductIn } from './product-transfer.api';
+import { transferProduct, getUserByUsername, transferProductOut, transferProductIn } from './product-transfer.api';
 
 export const transferProductFx = createEffect(async ({ product, user }: { product: Product; user: Profile }) => {
   return await transferProduct(product, user._id);
@@ -14,19 +14,15 @@ forward({
   to: refetchProductFx,
 });
 
-export const searchUsersFx = createEffect(
-  async ({
-    username,
-    page,
-    perPage,
-    skipTenant,
-  }: {
-    username: string;
-    page: number;
-    perPage: number;
-    skipTenant?: boolean;
-  }): Promise<{ data: Profile[]; total: number }> => {
-    return await getUsers({ username, page, perPage, skipTenant });
+export const getUserByUsernameFx = createEffect(
+  async ({ username, skipTenant }: { username: string; skipTenant?: boolean }): Promise<Profile | null> => {
+    return getUserByUsername({ username, skipTenant }).catch((error) => {
+      if (error?.data?.appCode === 'USER_INVALID') {
+        // eslint-disable-next-line unicorn/no-null
+        return null;
+      }
+      throw error;
+    });
   }
 );
 
