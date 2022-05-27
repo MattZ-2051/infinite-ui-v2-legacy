@@ -4,8 +4,6 @@
   import { links } from '$project/header/main-links';
   import PureHeader from './PureHeader.svelte';
 
-  const phase1 = '1';
-  const phase3 = '3';
   const connectWallet = true;
 </script>
 
@@ -18,13 +16,13 @@
 />
 
 <Story name="Logged out">
-  <PureHeader links={links(phase1, connectWallet)} user={undefined} />
-  <PureHeader links={links(phase3, connectWallet)} user={undefined} />
+  <PureHeader links={links(connectWallet)} user={undefined} />
+  <PureHeader links={links(connectWallet)} user={undefined} />
 </Story>
 
 <Story name="Logged in">
-  <PureHeader links={links(phase1, connectWallet)} {user} />
-  <PureHeader links={links(phase1, connectWallet)} user={userWithProfilePhoto} />
-  <PureHeader links={links(phase3, connectWallet)} {user} />
-  <PureHeader links={links(phase3, !connectWallet)} user={userWithProfilePhoto} />
+  <PureHeader links={links(connectWallet)} {user} />
+  <PureHeader links={links(connectWallet)} user={userWithProfilePhoto} />
+  <PureHeader links={links(connectWallet)} {user} />
+  <PureHeader links={links(!connectWallet)} user={userWithProfilePhoto} />
 </Story>
