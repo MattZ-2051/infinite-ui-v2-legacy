@@ -28,6 +28,8 @@
   const _sku = product ? product.sku : sku;
   const listingPrice = listing?.saleType === 'giveaway' ? 0 : listing?.price;
   const marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
+  const showProductPricing = listing?.saleType !== 'auction' && listing?.saleType !== 'giveaway';
+
   $: priceWFee = (1 + marketplaceFee) * listingPrice + gasFee;
   $: nftPublicAsset = product?.nftPublicAssets?.[0] || _sku?.nftPublicAssets?.[0];
   $: userBalance = $wallet?.balanceInfo?.[0]?.totalBalance;
@@ -43,7 +45,7 @@
     <section>
       <ProductModalInfo sku={_sku} />
     </section>
-    {#if listing?.saleType !== 'auction'}
+    {#if showProductPricing}
       <section class="mt-4 pt-6 w-full">
         <OrderProductPricing
           price={listingPrice}
@@ -67,13 +69,13 @@
         </section>
       </Accordion>
     </AccordionGroup>
-    {#if listing?.saleType !== 'auction'}
+    {#if showProductPricing}
       <section class="mt-4 pt-6 w-full">
         <OrderProductPricing price={listingPrice} {marketplaceFee} currency={_sku.currency} {rate} {gasFee} {listing} />
       </section>
     {/if}
   {/if}
-  {#if sku?.currency === 'USD' && $checkoutState === 'method-select' && listing?.saleType !== 'auction'}
+  {#if sku?.currency === 'USD' && $checkoutState === 'method-select' && showProductPricing}
     <div class="flex justify-between w-full pt-4" style={`${insufficientFunds ? 'color: #e83737' : 'color: #00b74d'}`}>
       <div class="font-medium text-sm sm:text-lg">
         {insufficientFunds ? 'Insufficient funds:' : 'Your current balance:'}

@@ -4,7 +4,7 @@ import type { User } from '$lib/user/types';
 import type { ApiError } from '$lib/api';
 import { handleWalletConnection } from '$lib/metamask';
 import { onSignIn } from '$lib/user';
-import { closeModal, openModal } from '$ui/modals';
+import { openModal } from '$ui/modals';
 import { toast } from '$ui/toast';
 import routes from '$project/routes';
 import { claimGiveawaySkuListing, purchaseSkuListing, validETHdirectPurchase } from './checkout.api';
@@ -122,11 +122,12 @@ export const handleCheckoutStateChange = (value: CheckoutState) => {
 
 export const claimGiveAway = async (listing: Listing): Promise<void> => {
   try {
+    handleCheckoutStateChange('processing');
     await claimGiveawaySkuListing(listing._id);
-    closeModal();
+    handleCheckoutStateChange('success');
     skuBought();
-    toast.success('Your request is being processed. Minting of your giveaway NFT may take up to two (2) minutes.');
   } catch (error) {
+    handleCheckoutStateChange('ordering-balance');
     toast.danger(handleSkuClaimError(error));
   }
 };

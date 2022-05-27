@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Sku, CollectorProduct } from '$lib/sku-item/types';
   import type { ActionType } from '$lib/features/product/actions/types';
+  import { handleCheckoutStateChange } from '$lib/features/checkout/checkout.service';
   import { onOrderIntent } from '$lib/features/order/order.service';
   import { onAction } from '$lib/features/product/actions/product-actions.service';
   import { fetchRequiredSkus, gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
@@ -38,6 +39,10 @@
     const isVoucherSku = activeListings?.[0]?.enabledNftPurchase;
     const hasGateKeepingRules = !!sku?.gateKeepingRules;
     const redirectToLogin = !$user;
+
+    if (upcomingNftGiveAway || activeNftGiveAway) {
+      handleCheckoutStateChange('ordering-balance');
+    }
 
     try {
       if (redirectToLogin) {
