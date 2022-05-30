@@ -1,0 +1,17 @@
+export const paths = {
+  '$project/toast/*': 'projects/infinite/src/toast/*',
+  '$project/partner/*': 'projects/infinite/src/partner/*',
+  '$project/sku-item/*': 'projects/infinite/src/sku-item/*',
+  '$project/Help.svelte': 'projects/infinite/src/Help.svelte',
+  '$project/terms/TermsConditions.svelte': 'projects/infinite/src/terms/TermsConditions.svelte',
+  '$project/terms/InfiniteWorldPrivacy.svelte': 'projects/infinite/src/terms/Privacy.svelte',
+  '$project/collection/*': 'projects/aria/src/collection/*',
+  '$ui/pagination/assets/*': 'projects/seva/src/assets/ui/*',
+  '$ui/accordion/assets/*': 'projects/seva/src/assets/ui/*',
+  '$lib/features/sku/assets/*': 'projects/seva/src/assets/lib/*',
+  '$lib/features/wallet/assets/arrow-right': 'projects/seva/src/assets/lib/arrow-right',
+  '$lib/features/wallet/assets/chevron-right': 'projects/seva/src/assets/lib/arrow-right',
+  '$lib/features/product/assets/*': 'projects/seva/src/assets/lib/*',
+  '$project/terms/*': 'projects/aria/src/terms/*',
+  '$lib/components/gdpr/GdprBanner.svelte': 'projects/seva/src/gdpr/GdprBanner.svelte',
+};

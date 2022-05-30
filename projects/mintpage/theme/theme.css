@@ -1,0 +1,173 @@
+:root,
+.theme-dark {
+  /* Common */
+  --default-color: #ffffff;
+  --inverse-color: #000000;
+  --bg-color: #000000;
+  --primary-color: #ffffff;
+  --link-color: var(--default-color);
+  --no-results-link-color: var(--default-color);
+  --separator-bg-color: var(--gray-100);
+  --icon-bg-color: var(--default-color);
+  --edition-single-color: var(--default-color);
+  --edition-limited-color: var(--default-color);
+  --edition-open-color: var(--default-color);
+  --gradient-start-color: var(--default-color);
+  --gradient-end-color: var(--default-color);
+  --header-height: 88px;
+
+  /* Grayscale */
+  --gray-50: rgba(255, 255, 255, 0.05);
+  --gray-100: rgba(255, 255, 255, 0.1);
+  --gray-200: rgba(255, 255, 255, 0.2);
+  --gray-300: rgba(255, 255, 255, 0.3);
+  --gray-400: rgba(255, 255, 255, 0.4);
+  --gray-500: rgba(255, 255, 255, 0.5);
+  --gray-600: rgba(255, 255, 255, 0.6);
+  --gray-700: rgba(255, 255, 255, 0.7);
+  --gray-800: rgba(255, 255, 255, 0.8);
+  --gray-900: rgba(255, 255, 255, 0.9);
+
+  /* Footer */
+  --footer-bg-color: #000000;
+  --footer-color: #7c7c7c;
+  --footer-color-hover: #ffffff;
+  --footer-icon-bg-color: #2e2e2e;
+  --footer-icon-color: var(--icon-bg-color);
+  --footer-icon-bg-color-hover: #ffd54e;
+  --footer-icon-color-hover: #000000;
+  --footer-icon-border-radius: 50%;
+
+  /* Pagination */
+  --pagination-color: #9e9e9e;
+  --pagination-color-active: #000000;
+  --pagination-background-color-active: #ffffff;
+
+  /* SkuItem */
+  --sku-item-border-radius: 6px;
+  --sku-item-bg-color: var(--bg-color);
+  --sku-item-border-color: var(--gray-200);
+
+  /* Verified Icon */
+  --verify-icon-color: #7c7c7c;
+
+  /* Button */
+  --button-border-radius: 28px;
+  --button-padding: 9px 32px;
+  --button-brand-color: #000000;
+  --button-brand-bg-color: #ffffff;
+  --button-brand-border-color: #ffffff;
+  --button-brand-color-hover: #000000;
+  --button-brand-bg-color-hover: #ffd54e;
+  --button-brand-border-color-hover: #ffd54e;
+  --button-outline-brand-color: #ffffff;
+  --button-outline-brand-bg-color: #000000;
+  --button-outline-brand-border-color: #ffffff;
+  --button-outline-brand-color-hover: #ffd54e;
+  --button-outline-brand-bg-color-hover: #000000;
+  --button-outline-brand-border-color-hover: #ffd54e;
+  --button-marketplace-filter-color: transparent;
+
+  /* Menu */
+  --menu-item-background-selected: #ffd54e;
+  --menu-item-color: rgba(0, 0, 0, 0.5);
+  --menu-item-color-selected: #000000;
+  --menu-list-border-radius: 0px;
+  --text-route-selected-gradient-from: var(--inverse-color);
+  --text-route-selected-gradient-to: var(--inverse-color);
+  --text-route-selected-color: var(--inverse-color);
+
+  /* ButtonGroup */
+  --button-group-color-hover: #000000;
+  --button-group-bg-color-hover: #ffd54e;
+
+  /* WalletBalance */
+  --wallet-balance-content-bg-color: rgba(0, 0, 0, 0.95);
+  --wallet-balance-content-bg-color-secondary: rgba(255, 255, 255, 0.05);
+  --wallet-balance-heading-color: #ffd54e;
+  --wallet-balance-content-margin: 0;
+  --wallet-balance-content-border-radius: 0;
+  --wallet-balance-content-max-width: 100%;
+
+  /* WalletList */
+  --wallet-list-bg-color: #f7f9fc;
+
+  /* AccountInfo */
+  --account-info-bg-color: rgba(255, 255, 255, 0.05);
+
+  --red: #f87474;
+}
+
+.theme-light {
+  /* Common */
+  --default-color: #000000;
+  --inverse-color: #ffffff;
+  --bg-color: #f7f9fc;
+  --primary-color: #000000;
+  --link-color: var(--default-color);
+  --no-results-link-color: var(--default-color);
+  --separator-bg-color: var(--gray-100);
+  --icon-bg-color: #2d2d2d;
+  --edition-single-color: var(--default-color);
+  --edition-limited-color: var(--default-color);
+  --edition-open-color: var(--default-color);
+  --gradient-start-color: var(--default-color);
+  --gradient-end-color: var(--default-color);
+
+  /* Grayscale */
+  --gray-50: rgba(0, 0, 0, 0.05);
+  --gray-100: rgba(0, 0, 0, 0.1);
+  --gray-200: rgba(0, 0, 0, 0.2);
+  --gray-300: rgba(0, 0, 0, 0.3);
+  --gray-400: rgba(0, 0, 0, 0.4);
+  --gray-500: rgba(0, 0, 0, 0.5);
+  --gray-600: rgba(0, 0, 0, 0.6);
+  --gray-700: rgba(0, 0, 0, 0.7);
+  --gray-800: rgba(0, 0, 0, 0.8);
+  --gray-900: rgba(0, 0, 0, 0.9);
+
+  /* Footer */
+  --footer-bg-color: var(--bg-color);
+  --footer-color: theme('colors.gray.500');
+  --footer-color-hover: #000000;
+  --footer-icon-bg-color: rgba(0, 0, 0, 0.2);
+  --footer-icon-color: rgba(0, 0, 0, 0.5);
+  --footer-icon-bg-color-hover: #7852fd;
+  --footer-icon-color-hover: #ffffff;
+
+  /* Pagination */
+  --pagination-color: #9e9e9e;
+  --pagination-color-active: #ffffff;
+  --pagination-background-color-active: #000000;
+
+  /* Select */
+  --select-option-color: initial;
+  --select-option-bg-color: initial;
+
+  /* RangeSlider */
+  --range-slider-bg-color: theme('colors.black-opacity.20');
+  --range-slider-bg-color-selected: #000000;
+  --range-slider-thumb-bg-color: #ffffff;
+  --range-slider-thumb-active-color: #000000;
+
+  /* SkuItem */
+  --sku-item-bg-color: #ffffff;
+  --sku-item-border-color: var(--gray-200);
+
+  /* Verified Icon */
+  --verify-icon-color: #000;
+
+  /* Button */
+  --button-brand-color: #ffffff;
+  --button-brand-bg-color: #000000;
+  --button-brand-border-color: #000000;
+  --button-brand-color-hover: #ffffff;
+  --button-brand-bg-color-hover: #7852fd;
+  --button-brand-border-color-hover: #7852fd;
+  --button-outline-brand-color: #000000;
+  --button-outline-brand-bg-color: #ffffff;
+  --button-outline-brand-border-color: #000000;
+  --button-outline-brand-color-hover: #7852fd;
+  --button-outline-brand-bg-color-hover: #ffffff;
+  --button-outline-brand-border-color-hover: #7852fd;
+}

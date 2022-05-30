@@ -66,6 +66,7 @@ async function resolveProject() {
         { name: 'infinite', message: 'Infinite' },
         { name: 'seva', message: 'Seva' },
         { name: 'mclaren', message: 'McLaren' },
+        { name: 'mintpage', message: 'Mint Page Template' },
       ],
     },
   ];
