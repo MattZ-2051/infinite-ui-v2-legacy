@@ -135,10 +135,10 @@ export const claimGiveAway = async (listing: Listing): Promise<void> => {
 export const handlePurchaseResult = (result: SkuPurchaseTransaction, sku: Sku, product: Product): void => {
   if (sku) {
     if (result?.status === 'pending') {
-      handleCheckoutStateChange('processing');
+      updateCheckoutState('processing');
       pendingBuyCreated(sku._id);
     } else if (result?.status === 'success') {
-      handleCheckoutStateChange('success');
+      updateCheckoutState('success');
       skuBought();
     }
     if (!result || result.errorLog || result.status === 'error') {
@@ -146,10 +146,10 @@ export const handlePurchaseResult = (result: SkuPurchaseTransaction, sku: Sku, p
     }
   } else if (product) {
     if (result?.status === 'pending') {
-      handleCheckoutStateChange('processing');
+      updateCheckoutState('processing');
       pendingBuyCreated(product._id);
     } else if (result?.status === 'success') {
-      handleCheckoutStateChange('success');
+      updateCheckoutState('success');
       productBought({ product });
     }
   }

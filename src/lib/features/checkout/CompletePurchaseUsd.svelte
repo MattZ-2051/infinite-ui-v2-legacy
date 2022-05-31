@@ -42,10 +42,11 @@
   const LOW_KYC_LVL_DEPOSIT_LIMIT_USD = import.meta.env?.VITE_LOW_KYC_LVL_DEPOSIT_LIMIT_USD;
   const currency = sku ? sku?.currency : product?.sku?.currency;
   const listingSaleType = listing?.saleType;
+  const isFixed = listingSaleType === 'fixed';
   const buttonTitleMessageMap = {
     auction: 'Place bid',
     giveaway: 'Buy now',
-    fixed: `Buy now for ${formatCurrency(priceWFee)}`,
+    fixed: 'Buy now for',
   };
 
   onMount(async () => {
@@ -142,6 +143,7 @@
       </Button>
       <Button variant="brand" class="sm:order-2 order-1" on:click={submitOrder} disabled={!acceptedTerms}>
         {buttonTitleMessageMap[listingSaleType]}
+        {isFixed ? `${formatCurrency(priceWFee)}` : ''}
       </Button>
     </div>
   </div>

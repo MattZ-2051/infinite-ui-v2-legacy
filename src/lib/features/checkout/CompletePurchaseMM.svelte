@@ -32,7 +32,7 @@
     validETHPurchase,
   } from './checkout.service';
   import Information from './Information.svelte';
-  import { pendingProductCreated } from './checkout.store';
+  import { pendingProductCreated, updateCheckoutState } from './checkout.store';
   import Agreement from './Agreement.svelte';
 
   const MM_TEST_NETWORK_ENABLED = variables.metamask.testNetworkEnabled;
@@ -105,7 +105,7 @@
               toastId: 'TRX_SUCCESS',
             });
             purchasing = true;
-            handleCheckoutStateChange('processing');
+            updateCheckoutState('processing');
             pendingProductCreated({ txHash: purchaseResult.hash });
             return;
           })

@@ -10,6 +10,7 @@ import routes from '$project/routes';
 import { goto } from '$app/navigation';
 import { loadWalletFx } from '../wallet/wallet.store';
 import { validETHdirectPurchase } from '../checkout/checkout.api';
+import { handleCheckoutStateChange } from '../checkout/checkout.service';
 
 let validETHPurchase: ValidETHListingData;
 
@@ -67,13 +68,18 @@ export async function onOrderIntent({
       }
     }
 
+    if (sku.currency === 'USD') {
+      handleCheckoutStateChange('ordering-balance');
+    }
     goto(routes.checkoutSku(sku._id));
   } else if (product) {
     if (product && product.owner?._id === currentUser._id) {
       toast.danger('You cannot purchase your own product.');
       return;
     }
+    handleCheckoutStateChange('ordering-balance');
     goto(routes.checkoutProduct(product._id));
+    return;
   }
 }
 

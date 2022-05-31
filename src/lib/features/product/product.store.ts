@@ -13,8 +13,7 @@ import { loadProduct, loadProductTransactions } from './product.api';
 import { hasActiveAuction, hasAuction } from './product.service';
 import { loadProductBids } from './auction/auction.api';
 import { skuBought, sku, refetchSkuFx } from '../sku/sku.store';
-import { productBoughtCheckout } from '../checkout/checkout.store';
-import { handleCheckoutStateChange } from '../checkout/checkout.service';
+import { productBoughtCheckout, updateCheckoutState } from '../checkout/checkout.store';
 
 export const setProduct = createEvent<Awaited<ReturnType<typeof fetchProductFx>> & { oldProductId: string | null }>();
 export const setProductBids = createEvent<{ data: Bid[]; total: number; max: number }>();
@@ -242,14 +241,14 @@ pollTransactionFx.doneData.watch(async (response) => {
           //added check to avoid having more than one message due to race conditions (not best solution but will do for now.)
           $polls[$product._id].stop();
           productBoughtCheckout({ id: pendingTx.transactionData.product._id });
-          handleCheckoutStateChange('success');
+          updateCheckoutState('success');
           transactionSuccessMessage(pendingTx.transactionData);
           await productBoughtFx();
         }
       }
       if (pendingTx?.status === 'error') {
         const $polls = polls.getState();
-        handleCheckoutStateChange('error');
+        updateCheckoutState('error');
         if ($polls[$product._id].$isActive) {
           $polls[$product._id].stop();
           toast.danger(
@@ -270,13 +269,13 @@ pollTransactionFx.doneData.watch(async (response) => {
           skuBought();
           productBoughtCheckout({ id: pendingTx.transactionData.product._id });
           const transactionData = pendingTx.transactionData;
-          handleCheckoutStateChange('success');
+          updateCheckoutState('success');
           transactionSuccessMessage(transactionData);
         }
       }
       if (pendingTx?.status === 'error') {
         const $polls = polls.getState();
-        handleCheckoutStateChange('error');
+        updateCheckoutState('error');
         if ($polls[$sku._id].$isActive) {
           $polls[$sku._id].stop();
           toast.danger(
