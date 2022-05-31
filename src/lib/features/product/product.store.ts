@@ -1,13 +1,11 @@
 import type { Awaited } from 'ts-essentials';
-import type { Transaction, Product, Bid, TransactionData, Sku } from '$lib/sku-item/types';
+import type { Transaction, Product, Bid, Sku } from '$lib/sku-item/types';
 import { createEffect, createStore, createEvent, forward, Event, Store, merge } from 'effector';
 import type { TxStatus } from '$lib/payment/crypto/etherscan/types';
 import { browser } from '$app/env';
 import { getQueryParameters } from '$util/queryParameter';
 import { loadMyTransactions } from '$lib/features/wallet/wallet.api';
 import { createPolling } from '$util/effector';
-import routes from '$project/routes';
-import { toast } from '$ui/toast';
 import { getTxStatus } from '$lib/payment/crypto/etherscan';
 import { loadProduct, loadProductTransactions } from './product.api';
 import { hasActiveAuction, hasAuction } from './product.service';
@@ -242,7 +240,6 @@ pollTransactionFx.doneData.watch(async (response) => {
           $polls[$product._id].stop();
           productBoughtCheckout({ id: pendingTx.transactionData.product._id });
           updateCheckoutState('success');
-          transactionSuccessMessage(pendingTx.transactionData);
           await productBoughtFx();
         }
       }
@@ -251,9 +248,6 @@ pollTransactionFx.doneData.watch(async (response) => {
         updateCheckoutState('error');
         if ($polls[$product._id].$isActive) {
           $polls[$product._id].stop();
-          toast.danger(
-            `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help} class="font-bold">contact support</a> if the issue persists.`
-          );
         }
       }
     } else {
@@ -268,9 +262,7 @@ pollTransactionFx.doneData.watch(async (response) => {
           $polls[$sku._id].stop();
           skuBought();
           productBoughtCheckout({ id: pendingTx.transactionData.product._id });
-          const transactionData = pendingTx.transactionData;
           updateCheckoutState('success');
-          transactionSuccessMessage(transactionData);
         }
       }
       if (pendingTx?.status === 'error') {
@@ -278,39 +270,10 @@ pollTransactionFx.doneData.watch(async (response) => {
         updateCheckoutState('error');
         if ($polls[$sku._id].$isActive) {
           $polls[$sku._id].stop();
-          toast.danger(
-            `Unfortunately, there was an issue completing the purchase.  Please try again later or <a href=${routes.help} class="font-bold">contact support</a> if the issue persists.`,
-            { toastId: 'sku-purchase-error' }
-          );
         }
       }
     }
   }
-});
-
-const transactionSuccessMessage = (transactionData?: TransactionData) => {
-  const serialNumber = transactionData.product?.serialNumber;
-  const skuName = transactionData.sku?.name;
-  toast.success(
-    `Congrats! Your NFT purchase was processed successfully!` +
-      (!serialNumber
-        ? ` Click <a href=${routes.product(
-            transactionData.product._id
-          )} class="font-bold">here</a> to view your new collectible: ${skuName}`
-        : ` Click <a href=${routes.product(
-            transactionData.product._id
-          )} class="font-bold">here</a> to view your new collectible: ${skuName} #${serialNumber}.`),
-    { toastId: 'sku-purchase-success' }
-  );
-};
-
-const productBoughtSuccessFx = createEffect(() => {
-  toast.success('Your order has been completed.');
-});
-
-forward({
-  from: [productBought],
-  to: productBoughtSuccessFx,
 });
 
 export const pendingTxStatus = createEvent<string>();
