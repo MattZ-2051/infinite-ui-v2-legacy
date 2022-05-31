@@ -1,0 +1,3 @@
+<div>
+  Mint
+</div>

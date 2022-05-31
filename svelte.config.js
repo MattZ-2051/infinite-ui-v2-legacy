@@ -25,6 +25,7 @@ const config = {
     files: {
       assets: `static/${project}`,
       template: fs.existsSync(`projects/${project}/app.html`) ? `projects/${project}/app.html` : 'src/app.html',
+      routes: fs.existsSync(`projects/${project}/routes`) ? `projects/${project}/routes` : 'src/routes',
     },
 
     vite: {

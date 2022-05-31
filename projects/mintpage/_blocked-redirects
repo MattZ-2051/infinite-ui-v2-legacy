@@ -1,3 +1,0 @@
-# Redirect users in blocked countries to /no-access.
-# There CANNOT be spaces in the last parameter: Country=x,y,z
-/*      /no-access.html  403! Country=ru
