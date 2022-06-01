@@ -23,6 +23,7 @@
   const orderSuccess = orderState === 'success';
   const orderFailed = orderState === 'error';
   const isAuction = listing?.saleType === 'auction';
+  const isGiveaway = listing?.saleType === 'giveaway';
   const titleMessageMap = {
     auction: 'Bid successful!',
     giveaway: 'Giveaway claimed!',
@@ -34,7 +35,7 @@
   };
 
   const handleViewNFT = () => {
-    if (isAuction) {
+    if (isAuction || isGiveaway) {
       sku ? goto(routes.skuAuction(sku._id)) : goto(routes.product(product._id));
     } else if ($productId.id) {
       goto(routes.product($productId.id));
@@ -88,10 +89,12 @@
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleRetry}>Try again</Button>
     {:else if orderSuccess}
       <Button variant="brand" class="h-16 w-full text-2xl font-normal" on:click={handleViewNFT}>
-        {#if finalSelectedMethod === 'mm' || (!lazyMinting && !isAuction)}
-          View NFT
+        {#if isGiveaway}
+          View your product
         {:else if isAuction}
           View Bids
+        {:else if finalSelectedMethod === 'mm' || !lazyMinting}
+          View NFT
         {:else}
           View & Mint NFT
         {/if}
