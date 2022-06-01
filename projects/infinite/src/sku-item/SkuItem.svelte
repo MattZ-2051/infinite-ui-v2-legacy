@@ -20,7 +20,7 @@
   export let product: Product = undefined;
 
   $: sku = product ? product.sku : _sku;
-  $: activeListing = product ? product.activeProductListings?.[0] : sku.activeSkuListings?.[0];
+  $: activeListing = product ? product.activeProductListing : sku.activeSkuListings?.[0];
   $: href = product ? routes.product(product._id) : routes.sku(sku._id);
   $: currency = product ? product.sku.currency : sku.currency;
   $: hasCaption = activeListing?.endDate || sku.status === 'pending' || sku.status === 'rejected';

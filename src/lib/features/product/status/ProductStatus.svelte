@@ -54,7 +54,7 @@
   }
 
   async function onBuy() {
-    const { sku, activeProductListings } = product;
+    const { sku, activeProductListing: activeListing } = product;
     const hasGateKeepingRules = !!sku.gateKeepingRules;
     const redirectToLogin = !$user;
     if (redirectToLogin) {
@@ -66,7 +66,7 @@
           return;
         }
       }
-      onOrderIntent({ product: product, listing: activeProductListings[0] });
+      onOrderIntent({ product: product, listing: activeListing });
     }
   }
 
@@ -82,8 +82,8 @@
   $: showActiveAuction = hasActiveAuction(product);
   $: canCancelAuction = canCancelAuctionFunction(product, userId, $totalBids);
 
-  $: activeProductListing = product?.activeProductListings?.[0];
-  $: upcomingProductListing = product?.upcomingProductListings?.[0];
+  $: activeProductListing = product?.activeProductListing;
+  $: upcomingProductListing = product?.upcomingProductListing;
 
   $: isTransferredOut = transferredOut(product, transactions);
   $: isInExternalBalance = inExternalBalance(product, $QueryBalanceStore, $nftBalance);

@@ -86,13 +86,13 @@ export const productStatus = (product: Product, simpleTitle?: boolean): Status =
     if (product.productListings?.length === 0 || dayjs(minStartDate).diff(new Date(), 'day', true) > 3) {
       return { status: 'upcoming', minStartDate };
     }
-    if (product.upcomingProductListings?.length !== 0) {
+    if (product.upcomingProductListing) {
       return { status: 'upcoming-soon', minStartDate };
     }
   }
 
-  if (product?.totalSupplyLeft !== 0 && product?.activeProductListings?.length !== 0) {
-    const productListing = product?.activeProductListings[0]; // change to use the active product listing instead of first listing (product.listing).
+  if (product?.totalSupplyLeft !== 0 && product?.activeProductListing) {
+    const productListing = product?.activeProductListing; // change to use the active product listing instead of first listing (product.listing).
     const minPrice = productListing?.minBid ? productListing?.minBid : productListing?.price;
     const existsBid: boolean = productListing?.minBid !== productListing?.minHighestBid?.bidAmt;
     const saleTypeTitle = getActiveTileTitle(productListing?.saleType, true, simpleTitle, existsBid);
@@ -100,7 +100,7 @@ export const productStatus = (product: Product, simpleTitle?: boolean): Status =
     return { status: 'active', minPrice, saleTypeTitle };
   }
 
-  if (product?.activeProductListings?.length === 0 && product?.upcomingProductListings?.length === 0) {
+  if (!product?.activeProductListing && !product?.upcomingProductListing) {
     return { status: 'no-sale' };
   }
 };

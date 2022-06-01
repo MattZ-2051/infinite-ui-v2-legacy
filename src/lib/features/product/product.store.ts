@@ -48,19 +48,19 @@ export const fetchProductFx = createEffect(
     } = { product: product_, tab };
 
     if (tab === 'owner' && hasActiveAuction(product_)) {
-      const { max } = await fetchProductBidsFx({ id: product_.activeProductListings[0]._id, page, fetch });
+      const { max } = await fetchProductBidsFx({ id: product_.activeProductListing._id, page, fetch });
       response = { ...response, maxProductBid: max };
     }
     if (tab === 'history') {
       const { data, total } = await fetchProductTransactionsFx({ id, page, fetch });
       response = { ...response, productTransactions: data, totalProductTransactions: total };
       if (hasActiveAuction(product_)) {
-        const { max } = await fetchProductBidsFx({ id: product_.activeProductListings[0]._id, page, fetch });
+        const { max } = await fetchProductBidsFx({ id: product_.activeProductListing._id, page, fetch });
         response = { ...response, maxProductBid: max };
       }
     }
     if (tab === 'auction' && hasActiveAuction(product_)) {
-      const { data, total, max } = await fetchProductBidsFx({ id: product_.activeProductListings[0]._id, page, fetch });
+      const { data, total, max } = await fetchProductBidsFx({ id: product_.activeProductListing._id, page, fetch });
       response = { ...response, productBids: data, totalProductBids: total, maxProductBid: max };
     }
     return response;

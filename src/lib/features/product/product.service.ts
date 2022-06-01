@@ -28,11 +28,11 @@ export function hasListing(product: Product): boolean {
 }
 
 export function hasActiveListing(product: Product): boolean {
-  return product?.activeProductListings?.length > 0;
+  return !!product?.activeProductListing;
 }
 
 export function hasUpcomingListing(product: Product): boolean {
-  return product?.upcomingProductListings?.length > 0;
+  return !!product?.upcomingProductListing;
 }
 
 export function hasSale(product: Product): boolean {
@@ -40,12 +40,12 @@ export function hasSale(product: Product): boolean {
 }
 
 export function hasActiveSale(product: Product): boolean {
-  const saleType = product?.activeProductListings?.[0]?.saleType;
+  const saleType = product?.activeProductListing?.saleType;
   return !!saleType && saleType !== 'auction';
 }
 
 export function hasUpcomingSale(product: Product): boolean {
-  const saleType = product?.upcomingProductListings?.[0]?.saleType;
+  const saleType = product?.upcomingProductListing?.saleType;
   return !!saleType && saleType !== 'auction';
 }
 
@@ -54,11 +54,11 @@ export function hasAuction(product: Product): boolean {
 }
 
 export function hasActiveAuction(product: Product): boolean {
-  return product?.activeProductListings?.[0]?.saleType === 'auction';
+  return product?.activeProductListing?.saleType === 'auction';
 }
 
 export function hasUpcomingAuction(product: Product): boolean {
-  return product?.upcomingProductListings?.[0]?.saleType === 'auction';
+  return product?.upcomingProductListing?.saleType === 'auction';
 }
 
 export function canCreateSale(product: Product, userId: string) {

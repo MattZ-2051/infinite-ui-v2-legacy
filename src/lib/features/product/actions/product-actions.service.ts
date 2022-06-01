@@ -29,7 +29,7 @@ export function onAction(type: ActionType, product?: Product, sku?: Sku) {
     }
     case 'cancel-auction': {
       const listingId = product
-        ? (product.upcomingProductListings[0] || product.activeProductListings[0])._id
+        ? (product.upcomingProductListing || product.activeProductListing)._id
         : (sku.upcomingSkuListings[0] || sku.activeSkuListings[0])._id;
       openModal(ConfirmModal, {
         title: 'Cancel Auction!',
@@ -60,7 +60,7 @@ export function onAction(type: ActionType, product?: Product, sku?: Sku) {
       break;
     }
     case 'cancel-sale': {
-      const listingId = product ? product.activeProductListings[0]?._id : sku.activeSkuListings[0]?._id;
+      const listingId = product ? product.activeProductListing?._id : sku.activeSkuListings[0]?._id;
       openModal(ConfirmModal, {
         title: 'Cancel Sale!',
         message:
