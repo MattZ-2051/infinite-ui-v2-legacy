@@ -53,8 +53,11 @@
   .input-icon {
     color: theme('colors.gray.500');
   }
+  /* !important to prevent marketo form for mclaren from changing the placeholder color */
+  input::placeholder {
+    color: theme('colors.gray.500') !important;
+  }
   input {
-    @apply placeholder-gray-500;
     padding: 0;
     text-align: inherit;
     background-color: transparent;
