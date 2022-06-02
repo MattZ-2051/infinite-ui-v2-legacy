@@ -1,7 +1,9 @@
 <script lang="ts">
   import type { Profile, Edition, Series } from '$lib/sku-item/types';
+  import type { QueryParameterOptions } from '$util/queryParameter';
   import type { FilterType } from './types';
   import { createEventDispatcher } from 'svelte';
+  import debounce from 'just-debounce';
   import type { ActiveType } from '$ui/accordion/AccordionGroup.svelte';
   import AccordionGroup from '$ui/accordion/AccordionGroup.svelte';
   import Accordion from '$ui/accordion/Accordion.svelte';
@@ -19,19 +21,20 @@
   import AccordionCheckBox from './accordion-types/AccordionCheckBox.svelte';
 
   const dispatch = createEventDispatcher();
+  const debounceSetFilters = debounce((filterOptions: QueryParameterOptions) => setFilters(filterOptions), 500);
 
   const removeFilter = (filter: FilterType) => {
     // eslint-disable-next-line unicorn/prefer-switch
     if (filter.type === 'price') {
-      setFilters({
+      debounceSetFilters({
         params: { minPrice: false, maxPrice: false, page: 1 },
       });
     } else if (filter.type === 'date') {
-      setFilters({
+      debounceSetFilters({
         params: { startDate: false, endDate: false, page: 1 },
       });
     } else if (filter.type === 'search') {
-      setFilters({
+      debounceSetFilters({
         params: { search: '', page: 1 },
       });
     } else {
@@ -92,7 +95,7 @@
     id: string,
     value: boolean
   ) {
-    setFilters({
+    debounceSetFilters({
       params: { [`${type}:${id}`]: value, page: 1 },
     });
   }

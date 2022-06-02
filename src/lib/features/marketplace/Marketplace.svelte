@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Sku, Profile, Series } from '$lib/sku-item/types';
   import { mdiTuneVariant } from '@mdi/js';
+  import debounce from 'just-debounce';
   import { page } from '$app/stores';
   import Icon from '$ui/icon/Icon.svelte';
   import { SkuItemGrid } from '$lib/sku-item';
@@ -40,7 +41,7 @@
   };
 
   const handleOnSearch = (value: string) => setFilters({ params: { search: value } });
-  const handleInput = (event: Event) => handleOnSearch((event.target as HTMLInputElement).value);
+  const handleInput = debounce((event: Event) => handleOnSearch((event.target as HTMLInputElement).value), 500);
 
   const sortOptions = [
     {
