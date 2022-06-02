@@ -29,4 +29,6 @@ export type User = {
   lastName?: string;
   phoneNumber?: string;
   phoneNumberConsentGiven?: boolean;
+  activeLegalConsentIds?: string[];
+  acceptedLegalConsentIds?: string[];
 };

@@ -11,9 +11,13 @@
   import Button from '$lib/components/Button.svelte';
   import { variables } from '$lib/variables';
   import { accountDetailsValidation, handleUserApiError, phoneNumberConsentText } from './account.service';
+  import { addLegalConsent } from '../legalConsent/legalConsent.api';
+  import { getConsentsToAgree } from '../legalConsent/legalConsent.service';
 
   export let isOpen: boolean;
   export let user: User;
+
+  const consentsToAgree = getConsentsToAgree(user);
 
   const schema = yup.object({
     ...accountDetailsValidation,
@@ -54,6 +58,7 @@
       }
       try {
         await patchUser(values);
+        await Promise.all(consentsToAgree.map((c) => addLegalConsent(c)));
         closeModal();
       } catch (error) {
         handleUserApiError(error);

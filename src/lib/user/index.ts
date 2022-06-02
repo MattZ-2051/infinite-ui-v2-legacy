@@ -11,6 +11,7 @@ import AccountInitialSetupModal from '$lib/features/account/AccountInitialSetupM
 import { AUTH_PROVIDER_IS_AUTH0 } from '$project/variables';
 import { getClient } from '$lib/auth/auth0';
 import { localStorageWritable } from '$util/localstorage-store';
+import LegalConsentModal from '$lib/features/legalConsent/LegalConsentModal.svelte';
 
 const userIdExternalIdMap = localStorageWritable<Pick<User, '_id' | 'externalId'>>('user:id', undefined);
 const externalId = localStorageWritable<string>('user:externalId', undefined);
@@ -94,6 +95,24 @@ export function mustSetupAccount(me: User, path: string) {
     openModal(AccountInitialSetupModal, { user: me });
 
     accountSetupTriggered = true;
+  }
+}
+
+let termsAccepted = false;
+export async function mustAcceptTerms(me: User, path: string) {
+  if (termsAccepted) {
+    return;
+  }
+  const _mustAcceptTerms =
+    me &&
+    me?.activeLegalConsentIds.length !== me?.acceptedLegalConsentIds.length &&
+    path !== routes.terms &&
+    path !== routes.privacy &&
+    path !== routes.cookies;
+
+  if (_mustAcceptTerms) {
+    openModal(LegalConsentModal, { user: me });
+    termsAccepted = true;
   }
 }
 

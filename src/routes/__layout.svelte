@@ -3,7 +3,7 @@
   import { derived } from 'svelte/store';
   import { browser, mode } from '$app/env';
   import { loadTenantSettings } from '$lib/tenant/settings.service';
-  import { isLoading, initUserAuth, mustSetupAccount, user, isBanned, onSignOut } from '$lib/user';
+  import { isLoading, initUserAuth, mustSetupAccount, user, isBanned, onSignOut, mustAcceptTerms } from '$lib/user';
   import { variables } from '$lib/variables';
   import projectRedirects from '$project/redirects';
   import Maintenance from '$lib/components/maintenance/Maintenance.svelte';
@@ -90,6 +90,7 @@
   $: $user && pollPendingTransactions();
   $: $user && pollWallet();
   $: mustSetupAccount($user, $page.url.pathname);
+  $: mustAcceptTerms($user, $page.url.pathname);
   $: initializeSentry(mode, $user, CLIENT_API_HEADER);
 
   // Call lifecycle hooks from project
