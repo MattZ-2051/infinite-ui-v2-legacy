@@ -4,31 +4,28 @@
   --inverse-color: #000000;
   --bg-color: #ffffff;
   --primary-color: #d32600;
-  /* --primary-dark-color: #0c002f;
-  --edition-single-color: #ffa800;
-  --edition-limited-color: #e500ff;
-  --edition-open-color: #0077a6;
-  --gradient-start-color: #c000d6;
-  --gradient-end-color: #6734ff;
-  --link-color: var(--primary-color);
-  --no-results-link-color: #11d6ec;
-  --separator-bg-color: linear-gradient(90deg, var(--gradient-start-color) 0%, var(--gradient-end-color) 100%);
-  --icon-bg-color: #2d2d2d;
-  --header-height: 88px; */
-
-  --footer-icon-bg-color: var(--default-color);
-  --footer-icon-color: #000000;
-  --footer-icon-bg-color-hover: #000000;
-  --footer-icon-color-hover: var(--default-color);
-  --footer-icon-border-radius: 50%;
+  --hover-color: #aa1f00;
+  --header-height: 88px;
 
   /* Button */
-  --button-padding: 20px;
-  --button-border-radius: 0;
-  --button-brand-color: #000000;
+  --button-padding: 16px 48px;
+  --button-border-radius: 8px;
+  --button-brand-color: var(--primary-color);
   --button-brand-bg-color: var(--primary-color);
   --button-brand-border-color: var(--primary-color);
-  --button-brand-color-hover: var(--primary-color);
-  --button-brand-bg-color-hover: #000000;
-  --button-brand-border-color-hover: var(--primary-color);
+  --button-brand-color-hover: var(--hover-color);
+  --button-brand-bg-color-hover: var(--hover-color);
+  --button-brand-border-color-hover: var(--hover-color);
+
+  /* Mint page */
+  --mp-sub-headline-color: var(--primary-color);
+  --mp-headline-color: #000000;
+  --mp-hero-description-color: rgba(0, 0, 0, 0.8);
+  --mp-hero-secondary-text-color: #000000;
+  --mp-hero-highlight-color: var(--primary-color);
+  --mp-right-bg-color: linear-gradient(207.2deg, #1e1e1e 0%, #0b0b0b 100%);
+  --mp-left-bg-color: #ffffff;
+  --mp-join-discord-bg: rgba(255, 255, 255, 0.12);
+  --mp-join-discord-text: #ffffff;
+  --mp-join-discord-hover-color: rgba(255, 255, 255, 0.25);
 }

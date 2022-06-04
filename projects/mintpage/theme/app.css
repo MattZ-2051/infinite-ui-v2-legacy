@@ -1,9 +1,15 @@
 body {
-  font-family: 'Relative-Mono10Pitch', sans-serif;
-  letter-spacing: 0.05em;
+  font-family: 'Inter', sans-serif;
 }
 
-.font-baton {
-  font-family: 'Baton';
-  letter-spacing: 0.1em;
+.font-arvo {
+  font-family: 'Arvo', sans-serif;
+}
+
+.font-lora-serif {
+  font-family: 'Lora', serif;
+}
+
+.font-lora {
+  font-family: 'Lora', sans-serif;
 }

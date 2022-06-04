@@ -64,14 +64,14 @@
 
     {#if ENABLE_GDPR_BANNER}<GdprBanner />{/if}
 
-    <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col columns-2 min-h-screen overflow-x-hidden relative">
       <Header />
 
       <div class="{$modals.length > 0 ? 'fixed' : 'sticky'} top-0 left-0 right-0 z-toast">
         <Toast />
       </div>
 
-      <main class="relative flex flex-col flex-grow">
+      <main class="flex flex-col flex-grow">
         <slot />
       </main>
     </div>

@@ -1,41 +1,69 @@
-<script lang="ts">
+<script>
+  import {
+    MP_SUB_HEADLINE,
+    MP_HEADLINE,
+    MP_HERO_DESCRIPTION_1,
+    MP_HERO_DESCRIPTION_2,
+    MP_HERO_DESCRIPTION_2_HIGHLIGHT,
+    MP_HERO_DESCRIPTION_3,
+    MP_HERO_DESCRIPTION_3_HIGHLIGHT,
+    MP_HERO_DESCRIPTION_3_1,
+  } from '$project/variables';
   import Mint from '$project/mint/Mint.svelte';
+  import hero from './hero.png';
 </script>
 
-<div class="container flex flex-col lg:pl-24 pt-24 pb-60 gap-24">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-24">
-    <div class="flex flex-col">
-      <div class="text-primary font-baton font-bold text-4xl">EARN WITH PURPOSE</div>
-      <div class="font-baton font-bold flex flex-col mt-5 leading-none" style="font-size: clamp(6rem, 10vw, 9rem)">
-        <span>MADIBA</span>
-        <span>GENESIS</span>
-        <span>VOL I</span>
-      </div>
-      <div class="text-xl flex flex-col gap-12 mt-12 max-w-xl">
-        <p>
-          THE MADIBA GENESIS COLLECTION IS A MUST OWN VOLUME AS IT UNLOCKS AIRDROPS AND REWARDS AS WE CONTINUE TO
-          RELEASE VOLUMES IN OUR NFT PACK.
-        </p>
-        <p>
-          THIS TOKEN ALSO <span class="text-primary">ACTS AS A MINT PASS FOR THE MADIBA GENESIS 100</span> WHICH IS YOUR
-          EXCLUSIVE ENTRY TICKET INTO THE IMMERSIVE MANDELAVERSE GALA HELD ON JULY 18TH, 2022, BETTER KNOWN AS MANDELA DAY.
-        </p>
-      </div>
-    </div>
-    <div class="flex flex-col gap-4">
-      <video autoplay loop muted playsinline>
-        <source
-          src="https://mandelaverse.io/wp-content/themes/mandelaverse/assets/videos/collection-bronze.mp4"
-          type="video/mp4"
-        />
-      </video>
-      <div class="flex gap-8 justify-end text-xs mr-20 text-right">
-        <div>MANDIBA GENESIS<br />COLLECTION</div>
-        <div>MINTING STARTS<br />MAY 3, 2022</div>
-      </div>
+<div class="w-screen flex flex-col lg:flex-row">
+  <div
+    class="flex flex-col w-full p-4 mb-16 lg:mb-0 lg:w-[60%] lg:pl-36 lg:pr-32 lg:pt-4 lg:h-screen items-start left-container"
+  >
+    <div class="text-primary text-sm font-semibold uppercase sub-headline">{MP_SUB_HEADLINE}</div>
+    <span class="text-black font-bold font-lora-serif text-6xl lg:text-7xl mt-4 headline">{MP_HEADLINE}</span>
+    <p class="font-normal mt-8 hero-description">{MP_HERO_DESCRIPTION_1}</p>
+    <p class="mt-2 hero-description">
+      {MP_HERO_DESCRIPTION_2}
+      <span class="underline">{MP_HERO_DESCRIPTION_2_HIGHLIGHT}</span>
+    </p>
+    <p class="font-bold font-lora mt-4 hero-description-2">
+      {MP_HERO_DESCRIPTION_3}
+      <span class="hero-highlight">{MP_HERO_DESCRIPTION_3_HIGHLIGHT}</span>{MP_HERO_DESCRIPTION_3_1}
+    </p>
+    <Mint class="hidden lg:block" />
+  </div>
+  <div class="w-full lg:w-[40%] p-12 lg:p-0 lg:absolute lg:top-0 lg:right-0 lg:bottom-0 right-container">
+    <div class="flex lg:h-screen items-center justify-center">
+      <img src={hero} alt="hero" />
     </div>
   </div>
-  <div class="lg:mr-24 py-12 lg:py-24 flex justify-center" style="background-color: #171717;">
-    <Mint />
-  </div>
+  <Mint class="lg:hidden" />
 </div>
+
+<style>
+  .sub-headline {
+    color: var(--mp-sub-headline-color);
+  }
+
+  .headline {
+    color: var(--mp-headline-color);
+  }
+
+  .left-container {
+    background-color: var(--mp-left-bg-color);
+  }
+
+  .right-container {
+    background: var(--mp-right-bg-color);
+  }
+
+  .hero-description {
+    color: var(--mp-hero-description-color);
+  }
+
+  .hero-description-2 {
+    color: var(--mp-hero-secondary-text-color);
+  }
+
+  .hero-highlight {
+    color: var(--mp-hero-highlight-color);
+  }
+</style>
