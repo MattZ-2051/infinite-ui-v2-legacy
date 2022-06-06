@@ -9,7 +9,7 @@ import { toast } from '$ui/toast';
 import routes from '$project/routes';
 import { claimGiveawaySkuListing, purchaseSkuListing, validETHdirectPurchase } from './checkout.api';
 import EthAddressModal from './EthAddressModal.svelte';
-import { updateCheckoutState } from './checkout.store';
+import { productBoughtCheckout, updateCheckoutState } from './checkout.store';
 import { skuBought } from '../sku/sku.store';
 import { pendingBuyCreated, productBought } from '../product/product.store';
 import { placeBidFx } from '../product/auction/auction.store';
@@ -123,7 +123,8 @@ export const handleCheckoutStateChange = (value: CheckoutState) => {
 export const claimGiveAway = async (listing: Listing): Promise<void> => {
   try {
     handleCheckoutStateChange('processing');
-    await claimGiveawaySkuListing(listing._id);
+    const productId = await claimGiveawaySkuListing(listing._id);
+    productBoughtCheckout({ id: productId });
     handleCheckoutStateChange('success');
     skuBought();
   } catch (error) {

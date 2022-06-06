@@ -35,7 +35,7 @@
   };
 
   const handleViewNFT = () => {
-    if (isAuction || isGiveaway) {
+    if (isAuction) {
       sku ? goto(routes.skuAuction(sku._id)) : goto(routes.product(product._id));
     } else if ($productId.id) {
       goto(routes.product($productId.id));

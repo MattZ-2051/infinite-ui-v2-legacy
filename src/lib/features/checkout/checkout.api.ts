@@ -19,8 +19,9 @@ export async function purchaseSkuListing(listingId: string, mintToAddress?: stri
   return await processResponse(response);
 }
 
-export async function claimGiveawaySkuListing(listingId: string): Promise<void> {
-  await post<SkuPurchaseTransaction>(`listings/${listingId}/claim-giveaway`, {});
+export async function claimGiveawaySkuListing(listingId: string): Promise<string> {
+  const response = await post<SkuPurchaseTransaction>(`listings/${listingId}/claim-giveaway`, {});
+  return response._id;
 }
 
 async function processResponse(response: SkuPurchaseTransaction) {
