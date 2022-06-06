@@ -22,19 +22,19 @@ export class TestProduct {
     return this;
   }
   withActiveListings() {
-    this.product = { ...this.product, activeProductListing: { saleType: 'fixed' } as Listing };
+    this.product = { ...this.product, activeProductListings: [{ saleType: 'fixed' }] as Listing[] };
     return this;
   }
   withActiveAuctions() {
-    this.product = { ...this.product, activeProductListing: { saleType: 'auction' } as Listing };
+    this.product = { ...this.product, activeProductListings: [{ saleType: 'auction' }] as Listing[] };
     return this;
   }
   withUpcomingListings() {
-    this.product = { ...this.product, upcomingProductListing: { saleType: 'fixed' } as Listing };
+    this.product = { ...this.product, upcomingProductListings: [{ saleType: 'fixed' }] as Listing[] };
     return this;
   }
   withUpcomingAuctions() {
-    this.product = { ...this.product, upcomingProductListing: { saleType: 'auction' } as Listing };
+    this.product = { ...this.product, upcomingProductListings: [{ saleType: 'auction' }] as Listing[] };
     return this;
   }
   redeemable() {

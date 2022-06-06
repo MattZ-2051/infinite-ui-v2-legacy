@@ -212,8 +212,11 @@ export type ListingAuctionPayload = {
 
 export type Product = {
   serialNumber?: string;
+  activeProductListings?: Listing[];
   activeProductListing?: Listing;
+  upcomingProductListings?: Listing[];
   upcomingProductListing?: Listing;
+  expiredProductListings?: Listing[];
   soldProductListings?: Listing[];
   redeemedStatus?: 'NA' | 'pending' | 'redeemed';
   sku: Sku;

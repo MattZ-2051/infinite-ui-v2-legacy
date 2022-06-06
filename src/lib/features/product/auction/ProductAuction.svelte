@@ -13,7 +13,7 @@
 
   export let product: Product;
 
-  $: listing = hasAuction(product) && (product.activeProductListing || product.upcomingProductListing);
+  $: listing = hasAuction(product) && (product.activeProductListings?.[0] || product.upcomingProductListings?.[0]);
   $: p = +$page.url.searchParams.get(`page`) || 1;
 
   const gotoPage = (event: CustomEvent) => {

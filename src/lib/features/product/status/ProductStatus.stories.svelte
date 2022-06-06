@@ -6,22 +6,26 @@
   const dummyDate = dayjs(new Date()).add(7, 'days').add(7, 'hour').toDate();
 
   const activeProductSale = {
-    activeProductListing: {
-      saleType: 'fixed',
-      startDate: dummyDate,
-      price: 20,
-    },
+    activeProductListings: [
+      {
+        saleType: 'fixed',
+        startDate: dummyDate,
+        price: 20,
+      },
+    ],
     owner: {
       _id: '1',
     },
   };
 
   const upcomingProductSale = {
-    upcomingProductListing: {
-      saleType: 'fixed',
-      startDate: dummyDate,
-      price: 20,
-    },
+    upcomingProductListings: [
+      {
+        saleType: 'fixed',
+        startDate: dummyDate,
+        price: 20,
+      },
+    ],
     owner: {
       _id: '1',
     },
@@ -31,24 +35,28 @@
     sku: {
       currency: 'USD',
     },
-    activeProductListing: {
-      saleType: 'auction',
-      startDate: dummyDate,
-      endDate: dummyDate,
-      minBid: 20,
-    },
+    activeProductListings: [
+      {
+        saleType: 'auction',
+        startDate: dummyDate,
+        endDate: dummyDate,
+        minBid: 20,
+      },
+    ],
     owner: {
       _id: '1',
     },
   };
 
   const upcomingProductAuction = {
-    upcomingProductListing: {
-      saleType: 'auction',
-      startDate: dummyDate,
-      endDate: dummyDate,
-      minBid: 20,
-    },
+    upcomingProductListings: [
+      {
+        saleType: 'auction',
+        startDate: dummyDate,
+        endDate: dummyDate,
+        minBid: 20,
+      },
+    ],
     owner: {
       _id: '1',
     },
