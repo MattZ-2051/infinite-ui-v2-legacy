@@ -47,3 +47,4 @@ export const MP_MAX_SUPPLY = 1000;
 export const MP_MINT_PRICE = 0.07;
 export const MP_MAX_PER_WALLET = 5;
 export const MP_PREFERRED_WALLET = '* Preferred wallet metamask';
+export const MP_CLIENT_COMPANY_NAME_LEGAL = 'Mint Page';

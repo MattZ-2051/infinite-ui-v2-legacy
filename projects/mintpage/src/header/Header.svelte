@@ -5,11 +5,13 @@
   import { openModal } from '$ui/modals';
   import { links } from '$project/social/social-links';
   import { MP_CONNECT_WALLET } from '$project/variables';
+  import Sidebar from '$project/sidebar/Sidebar.svelte';
   import WalletConnectionModal from '$lib/features/connect-wallet-extensions/WalletConnectionModal.svelte';
   import Logo from '$project/assets/Logo.svelte';
   import Discord from '$project/social/Discord.svelte';
   import Hamburger from './Hamburger.svelte';
 
+  let showSidebar = false;
   export let user: User;
 
   const handleWalletModal = () => {
@@ -19,6 +21,13 @@
 
 <header class="z-1 border-b-[1px] border-[rgba(0,0,0,0.2)] lg:border-0">
   <div class="bg-transparent">
+    <Sidebar
+      visible={showSidebar}
+      closeSidebar={() => {
+        showSidebar = false;
+      }}
+      handleWallet={handleWalletModal}
+    />
     <div class="container flex justify-between">
       <div class="flex items-center text-black">
         <Logo />
@@ -31,7 +40,12 @@
         <div class="flex items-center gap-2 justify-end">
           <SocialLinks {links} />
         </div>
-        <Button class="block !p-0 lg:hidden">
+        <Button
+          on:click={() => {
+            showSidebar = true;
+          }}
+          class="block !p-0 lg:hidden"
+        >
           <Hamburger />
         </Button>
       </div>

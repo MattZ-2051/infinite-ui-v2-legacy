@@ -11,7 +11,7 @@
   class="text-xs flex items-center gap-3 border p-1.5 md:p-2.5 whitespace-nowrap font-light"
 >
   <Icon path={mdiDiscord} size={0.9} class="flex justify-center items-center" />
-  <span class="text-xs uppercase flex">{MP_JOIN_DISCORD} <span class="hidden md:contents">DISCORD</span></span>
+  <span class="text-xs uppercase flex gap-1">{MP_JOIN_DISCORD} <span>DISCORD</span></span>
 </a>
 
 <style lang="postcss">

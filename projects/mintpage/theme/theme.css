@@ -17,6 +17,13 @@
   --button-brand-bg-color-hover: var(--hover-color);
   --button-brand-border-color-hover: var(--hover-color);
 
+  /* Sidebar Menu */
+  --mobile-menu-background-color: #000;
+  --mobile-menu-width: 100%;
+  --mobile-menu-padding-top: 0;
+  --mobile-menu-header-border-color: rgba(255, 255, 255, 0.2);
+  --mobile-menu-footer-text-color: #6b6b6b;
+
   /* Mint page */
   --mp-sub-headline-color: var(--primary-color);
   --mp-headline-color: #000000;
