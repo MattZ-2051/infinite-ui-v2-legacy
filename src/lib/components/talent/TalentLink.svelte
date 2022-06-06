@@ -23,10 +23,11 @@
         src={profile.profilePhotoUrl}
         alt=""
         loading="lazy"
+        data-testid="talentlink-profile-photo"
         use:imageError={() => (hideImage = true)}
       />
     {/if}
-    <a href={link} sveltekit:prefetch class="truncate min-w-0"><slot>{profile?.username}</slot></a>
+    <a href={link} sveltekit:prefetch class="truncate min-w-0"><slot>{profile.username}</slot></a>
     {#if profile.verified}
       <IconVerified />
     {/if}
