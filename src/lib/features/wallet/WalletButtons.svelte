@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import Button from '$lib/components/Button.svelte';
-  import { openModal } from '$ui/modals';
+  import { openModal, closeModal } from '$ui/modals';
   import tooltip from '$ui/tooltip';
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import { MY_WALLET_BUTTONS_DISABLED_MESSAGE } from '$project/variables';
@@ -17,6 +17,7 @@
       message: option === 'deposit' ? DepositNoticeModalBody : WithdrawNoticeModalBody,
       labels: { cancel: 'Go back', confirm: 'I Agree & Continue' },
       onConfirm: () => {
+        closeModal();
         dispatch(option);
       },
     });
