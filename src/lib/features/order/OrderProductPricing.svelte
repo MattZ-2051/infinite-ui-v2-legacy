@@ -43,7 +43,7 @@
           {`${formatCurrency(price * rate, { currency: 'USD' })} ≈`}
         </div>
       {/if}
-      <div class="text-right ml-1 text-black">
+      <div class="text-right ml-1 text-default">
         {formatCurrency(price, options)}
       </div>
     </div>
