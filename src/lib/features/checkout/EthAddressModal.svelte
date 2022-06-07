@@ -29,7 +29,7 @@
   }
   let radioValue;
   let address;
-  let buttonText = 'Continue';
+  $: buttonText = 'Continue';
   let copiedLink = false;
 
   $: validEthAddress = undefined;
@@ -71,9 +71,11 @@
   $: if (radioValue === 'manual') {
     buttonText = 'Continue with ETH address';
   } else if (radioValue === 'metamask' && !$walletConnected) {
-    buttonText = 'Connect to MetaMask';
+    buttonText = 'Connect MetaMask';
   } else if (radioValue === 'metamask' && $walletConnected) {
     buttonText = 'Continue with MetaMask';
+  } else if (radioValue === 'later') {
+    buttonText = 'I dont have an ETH address';
   }
 </script>
 
