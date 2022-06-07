@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Sku, Product } from './types';
+  import type { Product } from './types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import SkuItem from '$project/sku-item/SkuItem.svelte';
 
@@ -19,7 +20,7 @@
   }
 
   export let products: Product[] = [];
-  export let skus: Sku[] = [];
+  export let skus: SkuV2[] = [];
   export let loading = false;
 
   $: productList = max > 0 ? (products || []).slice(0, max) : products || [];

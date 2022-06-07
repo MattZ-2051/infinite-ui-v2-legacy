@@ -1,25 +1,44 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import type { Sku, Product } from '$lib/sku-item/types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
+  import { isSkuV2 } from '$lib/infinite-api-sdk/guard.service';
   import { FilePreview } from '$ui/file';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
   import SkuStatus from '$project/sku-item/SkuStatus.svelte';
   import routes from '$project/routes';
+  import { checkItemAssets } from '$util/checkItemAssets';
   import { formatDate } from '$util/format';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import SkuDescription from './SkuDescription.svelte';
 
-  let _sku: Sku = undefined;
+  let _sku: Sku | SkuV2 = undefined;
   export { _sku as sku };
   export let product: Product = undefined;
 
   let clientWidth: number;
   let clientHeight: number;
   $: sku = product ? product.sku : _sku;
-  $: totalSupply = product ? product.totalSupply : _sku.totalSupply;
-  $: activeListing = product ? sku.activeProductListings?.[0] : sku.activeSkuListings?.[0];
   $: href = product ? routes.product(product._id) : routes.sku(sku._id);
+
+  let totalSupply = undefined;
+  $: if (product) {
+    totalSupply = product.totalSupply;
+  } else if (isSkuV2(sku)) {
+    totalSupply = sku?.tileMeta?.totalSupply;
+  } else {
+    totalSupply = sku.totalSupply;
+  }
+
+  let activeListing = undefined;
+  $: if (product) {
+    activeListing = product.activeProductListings?.[0];
+  } else if (isSkuV2(sku)) {
+    activeListing = sku.activeSkuListing;
+  } else {
+    activeListing = sku.activeSkuListings?.[0];
+  }
 </script>
 
 <div class="relative flex flex-col" in:fade={{ duration: 300 }}>
@@ -27,7 +46,7 @@
     <div class="card-img p-2">
       <div class="relative">
         <a sveltekit:prefetch {href} aria-label={sku.name}>
-          <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+          <FilePreview item={checkItemAssets(product, sku)} preview />
         </a>
         {#if activeListing?.endDate}
           <div class="card-end-label opacity-90 text-base font-medium absolute bottom-4 left-4 py-2 px-4 rounded-md">
@@ -51,13 +70,13 @@
           </div>
           <div class="mt-5 mb-10 flex justify-between items-start gap-2">
             <span class="text-2.5xl font-light">{sku.name}</span>
-            {#if sku.redeemable}
+            {#if sku?.redeemable}
               <IconRedeem size={32} />
             {/if}
           </div>
         </div>
         <div class="mb-4 flex items-center gap-2 justify-between">
-          <div>{sku.series?.name || ''}</div>
+          <div>{sku?.series?.name || ''}</div>
           {#if product?.serialNumber}
             <div>#{product.serialNumber}</div>
           {/if}

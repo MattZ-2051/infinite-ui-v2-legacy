@@ -33,6 +33,9 @@
   $: own = $user?._id === profile._id;
   $: tab = $page.url.searchParams.get('tab') as 'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens';
   $: _page = +$page.url.searchParams.get('page') || 1;
+  $: firstId = $page.url.searchParams.get('firstId');
+  $: lastId = $page.url.searchParams.get('lastId');
+  $: isReverse = $page.url.searchParams.get('isReverse') === 'true';
   $: sortBy = $page.url.searchParams.get('sortBy');
   $: skuStatus = authFinished && (((own ? $page.url.searchParams.get('status') : 'approved') || '') as SkuStatus);
 
@@ -41,6 +44,9 @@
       // If profile is passed directly, loadCollectionFx is getting called twice every time any other param changes. Weird.
       profile: _profile,
       page: _page,
+      firstId,
+      lastId,
+      isReverse,
       tab,
       sortBy,
       skuStatus,

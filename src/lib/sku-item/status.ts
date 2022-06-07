@@ -1,4 +1,5 @@
 import type { Product, SaleType, Sku, Status } from '$lib/sku-item/types';
+import type { SkuV2 } from '$lib/infinite-api-sdk/types';
 import dayjs from 'dayjs';
 
 const getActiveTileTitle = (
@@ -10,7 +11,7 @@ const getActiveTileTitle = (
 ): string => {
   switch (saleType) {
     case 'giveaway':
-      return simpleTitle ? 'Active Giveaway' : 'Active Giveaway:';
+      return 'Active Giveaway:';
     case 'fixed':
       if (simpleTitle) return 'Active Sale';
       if (product) return 'Selling For:';
@@ -22,6 +23,57 @@ const getActiveTileTitle = (
     default:
       return '';
   }
+};
+
+export const skuStatusForV2 = (sku: SkuV2, simpleTitle?: boolean): Status => {
+  let saleTypeTitle: string;
+  let minPrice: number;
+  const minStartDate = sku?.minStartDate;
+
+  const isOnlyBuyNowListing: boolean =
+    sku?.tileMeta?.countActiveSkuListings + sku?.tileMeta?.countActiveProductListings === 1 &&
+    sku?.minPriceListing?.saleType === 'fixed';
+  const isUniqueAuction: boolean = sku?.tileMeta?.countAuctionListings === 1; //ToDo change countAuctionListings for countActiveAuctionListings
+
+  if (sku?.activeSkuListing || sku?.activeAuctionProductListing || sku?.activeBuyNowProductListing) {
+    if (sku?.minPriceListing?.saleType === 'giveaway') {
+      minPrice = 0;
+      saleTypeTitle = getActiveTileTitle('giveaway', undefined, simpleTitle);
+    } else {
+      minPrice = sku?.minPriceListing?.minPriceOrBid;
+      switch (sku.minPriceListing.saleType) {
+        case 'auction':
+          saleTypeTitle = getActiveTileTitle(
+            sku.minPriceListing.saleType,
+            undefined,
+            simpleTitle,
+            !!sku.minPriceListing.highestBid?._id,
+            isUniqueAuction
+          );
+          break;
+        case 'fixed':
+          saleTypeTitle = getActiveTileTitle(
+            sku.minPriceListing.saleType,
+            undefined,
+            simpleTitle,
+            undefined,
+            isOnlyBuyNowListing
+          );
+          break;
+        default:
+          saleTypeTitle = '';
+          break;
+      }
+      return { status: 'active', minPrice, saleTypeTitle };
+    }
+  }
+  if (minStartDate !== undefined && dayjs(minStartDate).isAfter(dayjs())) {
+    if (dayjs(minStartDate).diff(new Date(), 'day', true) > 3) {
+      return { status: 'upcoming', minStartDate };
+    }
+    return { status: 'upcoming-soon', minStartDate };
+  }
+  return { status: 'no-sale' };
 };
 
 export const skuStatus = (sku: Sku, simpleTitle?: boolean): Status => {

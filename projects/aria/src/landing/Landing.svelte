@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Profile, Sku } from '$lib/sku-item/types';
+  import type { Profile } from '$lib/sku-item/types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
   import { Swiper, SwiperSlide } from 'swiper/svelte';
   import { Navigation } from 'swiper';
   import { user } from '$lib/user';
@@ -12,8 +13,8 @@
   import './swiper.css';
 
   export let talents: Profile[];
-  export let drops: Sku[];
-  export let upcomings: Sku[];
+  export let drops: SkuV2[];
+  export let upcomings: SkuV2[];
 
   const swiperConfig = {
     modules: [Navigation],

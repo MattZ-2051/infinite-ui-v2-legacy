@@ -67,7 +67,7 @@
   export let creators: Profile[];
   export let series: Series[];
   export let maxPrice: number;
-  export let total = 0;
+  export let hasResults = false;
 
   let active: ActiveType = [];
 
@@ -322,7 +322,7 @@
     class="self-center w-full py-3 text-center md:hidden order-4"
     style="font-size:var(--filter-button-font-size, 24px)"
   >
-    {total > 0 ? `View Matching Results (${total})` : 'No Matching Results'}
+    {hasResults ? `Matching Results` : 'No Matching Results'}
   </Button>
 </div>
 

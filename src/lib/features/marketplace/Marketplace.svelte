@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Sku, Profile, Series } from '$lib/sku-item/types';
+  import type { Profile, Series } from '$lib/sku-item/types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
   import { mdiTuneVariant } from '@mdi/js';
   import debounce from 'just-debounce';
   import { page } from '$app/stores';
@@ -10,14 +11,15 @@
   import Button from '$lib/components/Button.svelte';
   import Search from '$lib/components/search/Search.svelte';
   import { media } from '$lib/media-query.store';
-  import { Pagination } from '$ui/pagination';
+  import { PaginationCursor } from '$ui/pagination';
   import NoResults from '$lib/features/marketplace/NoResults.svelte';
   import Filters from './Filters.svelte';
-  import { loading, perPage } from './marketplace.api';
+  import { loading } from './marketplace.api';
   import { setFilters } from './marketplace.service';
 
-  export let skus: Sku[];
-  export let total: number;
+  export let skus: SkuV2[];
+  export let hasNext: boolean;
+  export let hasPrevious: boolean;
   export let maxPrice: number;
   export let categories: { _id: string; name: string }[];
   export let creators: Profile[];
@@ -32,8 +34,17 @@
     scrollY = 0;
   };
 
-  function gotoPage(event: CustomEvent) {
-    setFilters({ params: { page: event.detail.value } }, { noscroll: false });
+  function goNext() {
+    setFilters(
+      { params: { lastId: skus.slice(-1)[0]._id, firstId: skus[0]._id, isReverse: false } },
+      { noscroll: false }
+    );
+  }
+  function goPrevious() {
+    setFilters(
+      { params: { lastId: skus.slice(-1)[0]._id, firstId: skus[0]._id, isReverse: true } },
+      { noscroll: false }
+    );
   }
 
   const sort = (event: CustomEvent) => {
@@ -46,7 +57,7 @@
   const sortOptions = [
     {
       name: 'Release date',
-      value: 'startDate:asc',
+      value: 'minStartDate:asc',
     },
     {
       name: 'Price high to low',
@@ -57,8 +68,6 @@
       value: 'price:asc',
     },
   ];
-
-  $: p = +$page.url.searchParams.get('page') || 1;
 
   $: termInputSearch = $page.url.searchParams.get('search');
 
@@ -100,7 +109,7 @@
     </div>
   </div>
   <div class:hidden={!showFilters} class="lg:block">
-    <Filters {categories} {creators} {series} {total} {maxPrice} on:close={closeFilters} />
+    <Filters {categories} {creators} {series} hasResults={skus.length > 0} {maxPrice} on:close={closeFilters} />
   </div>
   <div class="inline" class:opacity-40={$loading}>
     {#if !$loading && skus.length === 0}
@@ -116,7 +125,13 @@
       </NoResults>
     {:else}
       <SkuItemGrid {skus} maxCols={3} />
-      <Pagination page={p} {total} {perPage} class="my-8 flex justify-center md:justify-end" on:change={gotoPage} />
+      <PaginationCursor
+        {hasNext}
+        {hasPrevious}
+        class="my-8 flex justify-center md:justify-end"
+        on:next={goNext}
+        on:prev={goPrevious}
+      />
     {/if}
   </div>
 </div>

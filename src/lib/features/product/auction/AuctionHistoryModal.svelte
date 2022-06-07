@@ -7,7 +7,7 @@
   import { FilePreview } from '$ui/file';
   import ProductModalInfo from '$lib/features/product/ProductModalInfo.svelte';
   import Icon from '$ui/icon/Icon.svelte';
-  import Pagination from '$ui/pagination/Pagination.svelte';
+  import { Pagination } from '$ui/pagination';
   import { fetchBidsFx } from './auction.store';
 
   export let isOpen = false;

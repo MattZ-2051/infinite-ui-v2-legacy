@@ -1,6 +1,8 @@
 <script lang="ts">
-  import type { Sku, Product } from '$lib/sku-item/types';
   import { fade } from 'svelte/transition';
+  import type { Sku, Product } from '$lib/sku-item/types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
+  import { isSkuV2 } from '$lib/infinite-api-sdk/guard.service';
   import arrowRightCircle from '$project/assets/lib/arrow-right-circle';
   import { FilePreview } from '$ui/file';
   import ethereum from '$lib/components/icons/ethereum';
@@ -9,30 +11,35 @@
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import routes from '$project/routes';
+  import { checkItemAssets } from '$util/checkItemAssets';
   import { formatDate } from '$util/format';
   import SkuEdition from './SkuEdition.svelte';
   import SkuStatus from './SkuStatus.svelte';
 
-  let _sku: Sku = undefined;
+  let _sku: Sku | SkuV2 = undefined;
 
   export { _sku as sku };
   export let product: Product = undefined;
 
   $: sku = product ? product.sku : _sku;
   $: skuCollection = sku?.skuCollection;
-  $: activeListing = product ? product.activeProductListings?.[0] : sku.activeSkuListings?.[0];
   $: href = product ? routes.product(product._id) : routes.sku(sku._id);
   $: currency = product ? product.sku.currency : sku.currency;
+
+  let activeListing = undefined;
+  $: if (product) {
+    activeListing = product.activeProductListings?.[0];
+  } else if (isSkuV2(sku)) {
+    activeListing = sku.activeSkuListing;
+  } else {
+    activeListing = sku.activeSkuListings?.[0];
+  }
 </script>
 
 <article id={sku._id} class="space-y-4 py-6" in:fade={{ duration: 300 }}>
   <a sveltekit:prefetch {href} class="space-y-4 py-6 cursor-pointer">
     <figure class="relative mx-6 mb-0">
-      <FilePreview
-        item={product ? product.nftPublicAssets?.[0] || sku.nftPublicAssets?.[0] : sku.nftPublicAssets?.[0]}
-        preview
-        borderRadius={'0.65rem'}
-      />
+      <FilePreview item={checkItemAssets(product, sku)} preview borderRadius={'0.65rem'} />
       {#if activeListing?.endDate}
         <figcaption
           class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold text-default bg-black-opacity-50 backdrop-blur-[2px]"
@@ -47,7 +54,7 @@
         <div class="issuer-link text-default">
           <TalentLink profile={sku.issuer} hideImage class="normal-case font-light" />
         </div>
-        {#if sku.redeemable}
+        {#if sku?.redeemable}
           <div class="flex flex-row items-center space-x-2 text-gray-700 font-normal text-base">
             <IconRedeem size={24}>Redeemable</IconRedeem>
           </div>

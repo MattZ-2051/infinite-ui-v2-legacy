@@ -1,6 +1,8 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import type { Sku, Product } from '$lib/sku-item/types';
+  import type { Product, Sku } from '$lib/sku-item/types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
+  import { isSkuV2 } from '$lib/infinite-api-sdk/guard.service';
   import arrowRightCircle from '$project/assets/lib/arrow-right-circle';
   import { FilePreview } from '$ui/file';
   import ethereum from '$lib/components/icons/ethereum';
@@ -14,22 +16,30 @@
   import SkuEdition from './SkuEdition.svelte';
   import SkuStatus from './SkuStatus.svelte';
 
-  let _sku: Sku = undefined;
+  let _sku: Sku | SkuV2 = undefined;
 
   export { _sku as sku };
   export let product: Product = undefined;
 
   $: sku = product ? product.sku : _sku;
-  $: activeListing = product ? product.activeProductListings?.[0] : sku.activeSkuListings?.[0];
   $: href = product ? routes.product(product._id) : routes.sku(sku._id);
   $: currency = product ? product.sku.currency : sku.currency;
-  $: hasCaption = activeListing?.endDate || sku.status === 'pending' || sku.status === 'rejected';
+
+  let activeListing = undefined;
+  $: if (product) {
+    activeListing = product.activeProductListings?.[0];
+  } else if (isSkuV2(sku)) {
+    activeListing = sku.activeSkuListing;
+  } else {
+    activeListing = sku.activeSkuListings?.[0];
+  }
+  $: hasCaption = activeListing?.endDate || sku?.status === 'pending' || sku?.status === 'rejected';
 </script>
 
 <article id={sku._id} class="space-y-4 py-6" in:fade={{ duration: 300 }}>
   <a sveltekit:prefetch {href} class="space-y-4 py-6">
     <figure class="relative mx-6 mb-0">
-      <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+      <FilePreview item={isSkuV2(sku) ? sku?.nftPublicAsset : sku?.nftPublicAssets?.[0]} preview />
       {#if hasCaption}
         <figcaption
           class="absolute bottom-4 left-4 px-4 py-2 space-x-1 text-base font-bold bg-white bg-opacity-80 text-black"
@@ -37,14 +47,14 @@
           {#if activeListing?.endDate}
             <span class="opacity-50">Ends</span>
             <span>{formatDate(activeListing.endDate)}</span>
-          {:else if sku.status === 'pending'}
+          {:else if sku?.status === 'pending'}
             <div class="flex gap-2">
               <div class="rounded-full text-white bg-warning w-min p-1">
                 <Icon path={information} size="0.9em" />
               </div>
               <span>Pending</span>
             </div>
-          {:else if sku.status === 'rejected'}
+          {:else if sku?.status === 'rejected'}
             <div class="flex gap-2">
               <div class="rounded-full text-white bg-error w-min p-1">
                 <Icon path={information} size="0.9em" tooltip={sku.rejectReason} />
@@ -60,7 +70,7 @@
         <div class="issuer-link">
           <TalentLink profile={sku.issuer} hideImage />
         </div>
-        {#if sku.redeemable}
+        {#if sku?.redeemable}
           <div class="flex flex-row items-center space-x-2 text-gray-700 font-normal text-base">
             <IconRedeem size={24}>Redeemable</IconRedeem>
           </div>

@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
-  import type { Sku, Profile, Series } from '$lib/sku-item/types';
+  import type { Profile, Series } from '$lib/sku-item/types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
   import debounce from 'p-debounce';
   import { browser } from '$app/env';
   import { loadMarketplaceFilters, loadMarketplaceItems } from '$lib/features/marketplace/marketplace.api';
@@ -21,17 +22,17 @@
         };
       }
 
-      const [filters, items] = await Promise.all([
+      const [filters, { results: data, hasNext, hasPrevious }] = await Promise.all([
         loadMarketplaceFilters({ fetch, query: url.searchParams }),
         loadMarketplaceItems({ fetch, query: url.searchParams }),
       ]);
-      const { data, total } = items;
 
       return {
         props: {
           ...filters,
           skus: data,
-          total,
+          hasNext,
+          hasPrevious,
         },
       };
     }),
@@ -43,8 +44,9 @@
   import { Seo } from '$lib/seo';
   import Marketplace from '$lib/features/marketplace/Marketplace.svelte';
 
-  export let skus: Sku[];
-  export let total: number;
+  export let skus: SkuV2[];
+  export let hasNext: boolean;
+  export let hasPrevious: boolean;
   export let maxPrice: number;
   export let categories: { _id: string; name: string }[];
   export let creators: Profile[];
@@ -53,4 +55,4 @@
 
 <Seo title="Marketplace" />
 
-<Marketplace {skus} {total} {maxPrice} {categories} {creators} {series} />
+<Marketplace {skus} {hasNext} {hasPrevious} {maxPrice} {categories} {creators} {series} />

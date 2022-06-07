@@ -1,5 +1,6 @@
 import type { Awaited } from 'ts-essentials';
 import type { Profile, Product, Sku, SkuStatus } from '$lib/sku-item/types';
+import type { SkuV2 } from '$lib/infinite-api-sdk/types';
 import { createEffect, createStore, createEvent, forward } from 'effector';
 import { get as getStoreValue } from 'svelte/store';
 import { tokenBalance, nftBalance } from '$lib/features/infinite-wallet/infinite-wallet.store';
@@ -10,6 +11,7 @@ import { loadSkus, loadProducts, loadFeaturedSku, loadExternalProducts } from '.
 
 export const changeTab = createEvent<'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens'>();
 export const changePage = createEvent<number>();
+export const changeNear = createEvent<boolean | undefined>();
 export const changeSort = createEvent<string>();
 export const changeStatus = createEvent<SkuStatus>();
 export const setCollection = createEvent<Awaited<ReturnType<typeof loadCollectionFx>>>();
@@ -23,18 +25,24 @@ export const loadCollectionFx = createEffect(
     profile,
     tab,
     page,
+    lastId,
+    firstId,
+    isReverse,
     sortBy,
     skuStatus,
   }: {
     profile: Profile;
     tab: 'Releases' | 'NFTs' | 'ExternalNFTs' | 'ExternalTokens';
+    lastId?: string;
+    firstId?: string;
+    isReverse?: boolean;
     page: number;
     sortBy: string;
-    forSale?: boolean;
     skuStatus?: SkuStatus;
   }): Promise<{
-    totalSkus?: number;
-    skus?: Sku[];
+    hasNext?: boolean;
+    hasPrevious?: boolean;
+    skus?: SkuV2[];
     totalProducts?: number;
     products?: Product[];
     featuredSku?: Sku;
@@ -44,75 +52,104 @@ export const loadCollectionFx = createEffect(
       : Promise.resolve(undefined);
 
     tab = tab || (profile.role === 'issuer' || getStoreValue(tenantSettings).skuCreationEnabled ? 'Releases' : 'NFTs');
-    const forSale = tab === 'Releases' && getStoreValue(user)?._id !== profile._id;
+    const isCurrentUserProfile = getStoreValue(user)?._id === profile._id;
+    const forSale = tab === 'Releases' && !isCurrentUserProfile;
 
     const parameters = {
-      page,
-      profileId: profile._id,
       sortBy,
       perPage: profile.role === 'issuer' ? perPageIssuer : perPageUser,
-      skuStatus,
       ...(forSale && { forSale }),
     };
 
     // eslint-disable-next-line unicorn/prefer-switch
     if (tab === 'Releases') {
-      const [{ skus, totalSkus }, featuredSku] = await Promise.all([loadSkusFx(parameters), featuredSkuPromise]);
-      return { skus, totalSkus, featuredSku };
-    } else if (tab === 'NFTs') {
-      const [{ products, totalProducts }, featuredSku] = await Promise.all([
-        loadProductsFx(parameters),
+      const [{ results: skus, hasNext, hasPrevious }, featuredSku] = await Promise.all([
+        loadSkusFx({
+          ...parameters,
+          lastId,
+          firstId,
+          isReverse,
+          skuStatus,
+          issuerId: isCurrentUserProfile ? undefined : profile._id,
+        }),
         featuredSkuPromise,
       ]);
-      return { products, totalProducts, featuredSku };
-    } else if (tab === 'ExternalNFTs' || tab === 'ExternalTokens') {
-      let ids: string[];
-      if (tab === 'ExternalNFTs') {
-        nftBalance.watch((store) => (ids = store));
-      } else {
-        tokenBalance.watch((store) => (ids = store));
+      return { skus, hasNext, hasPrevious, featuredSku };
+    } else {
+      const productParameters = { ...parameters, page, profileId: profile._id };
+      if (tab === 'NFTs') {
+        const [{ products, totalProducts }, featuredSku] = await Promise.all([
+          loadProductsFx(productParameters),
+          featuredSkuPromise,
+        ]);
+        return { products, totalProducts, featuredSku };
+      } else if (tab === 'ExternalNFTs' || tab === 'ExternalTokens') {
+        let ids: string[];
+        if (tab === 'ExternalNFTs') {
+          nftBalance.watch((store) => (ids = store));
+        } else {
+          tokenBalance.watch((store) => (ids = store));
+        }
+
+        const { products, totalProducts } = await loadExternalProductsFx({
+          ...productParameters,
+          ids,
+        });
+
+        return { products, totalProducts };
       }
-
-      const { products, totalProducts } = await loadExternalProductsFx({
-        ...parameters,
-        ids,
-      });
-
-      return { products, totalProducts };
     }
   }
 );
 
 const loadSkusFx = createEffect(
   async ({
-    page,
-    profileId,
+    lastId,
+    firstId,
+    isReverse,
     sortBy,
     perPage,
     forSale,
     skuStatus,
+    issuerId,
   }: {
-    page: number;
-    profileId: string;
+    lastId?: string;
+    firstId?: string;
+    isReverse?: boolean;
     sortBy: string;
     perPage: number;
     forSale?: boolean;
     skuStatus: SkuStatus;
+    issuerId?: string;
   }): Promise<{
-    totalSkus: number;
-    skus: Sku[];
+    hasNext: boolean;
+    hasPrevious: boolean;
+    results: SkuV2[];
   }> => {
-    return await loadSkus({ profileId, page, sortBy, perPage, forSale, skuStatus });
+    return loadSkus({
+      lastId,
+      firstId,
+      isReverse,
+      sortBy,
+      perPage,
+      forSale,
+      skuStatus,
+      issuerId,
+    });
   }
 );
 
-export const skus = createStore<Sku[]>([]).on(setCollection, (state, payload) =>
+export const skus = createStore<SkuV2[]>([]).on(setCollection, (state, payload) =>
   'skus' in payload ? payload.skus : state
 );
 
 // eslint-disable-next-line unicorn/no-null
-export const skusTotal = createStore<number>(null)
-  .on(setCollection, (state, payload) => ('totalSkus' in payload ? payload.totalSkus : state))
+export const hasNear = createStore<{ hasNext; hasPrevious }>(null)
+  .on(setCollection, (state, payload) =>
+    'hasNext' in payload && 'hasPrevious' in payload
+      ? { hasNext: payload.hasNext, hasPrevious: payload.hasPrevious }
+      : state
+  )
   .on(changeTab, (state, payload) => {
     // eslint-disable-next-line unicorn/no-null
     return payload === 'Releases' ? null : state;
@@ -187,6 +224,9 @@ forward({
     tab,
     page: false,
     status: '',
+    lastId: '',
+    firstId: '',
+    isReverse: false,
   })),
   to: changeTabfx,
 });
@@ -199,9 +239,21 @@ forward({
 });
 
 forward({
+  from: changeNear.map((isReverse) => ({
+    lastId: skus.getState().slice(-1)[0]._id,
+    firstId: skus.getState()[0]._id,
+    isReverse,
+  })),
+  to: changeTabfx,
+});
+
+forward({
   from: changeSort.map((sortBy) => ({
     sortBy,
     page: false,
+    lastId: '',
+    firstId: '',
+    isReverse: false,
   })),
   to: changeTabfx,
 });
@@ -210,6 +262,9 @@ forward({
   from: changeStatus.map((status) => ({
     status,
     page: false,
+    lastId: '',
+    firstId: '',
+    isReverse: false,
   })),
   to: changeTabfx,
 });

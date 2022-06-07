@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Pagination } from '$ui/pagination';
+  import { Pagination, PaginationCursor } from '$ui/pagination';
   import { page } from '$app/stores';
   import { Tabs, Tab } from '$ui/tabs';
   import { SkuItemGrid } from '$lib/sku-item';
@@ -16,7 +16,7 @@
     products,
     productsTotal,
     skus,
-    skusTotal,
+    hasNear,
     changeTab,
     changePage,
     changeSort,
@@ -24,6 +24,7 @@
     perPageIssuer,
     perPageUser,
     loadCollectionFx,
+    changeNear,
   } from './collection.store';
 
   export let isIssuer = false;
@@ -91,6 +92,16 @@
     changePage(event.detail.value);
   }
 
+  function onNext() {
+    tabContainer.scrollIntoView();
+    changeNear(false);
+  }
+
+  function onPrevious() {
+    tabContainer.scrollIntoView();
+    changeNear(true);
+  }
+
   const onSort = (event: CustomEvent) => {
     changeSort(event.detail.value);
   };
@@ -108,13 +119,20 @@
     on:select={onSelectTab}
   >
     <Tab id="Releases">
-      {#if $skusTotal === 0}
+      {#if $skus.length === 0}
         <div class="text-gray-500  text-center mt-12 text-2xl ">No releases found.</div>
-      {:else if $skusTotal === null}
+      {:else if $hasNear === null}
         <FullScreenLoader class="text-gray-500 italic text-center my-12 text-2xl font-light" />
       {:else}
         <SkuItemGrid skus={$skus} loading={$pending} />
-        <Pagination {perPage} total={$skusTotal} page={p} class="my-8 flex justify-end" on:change={onChangePage} />
+        <PaginationCursor
+          hasNext={$hasNear?.hasNext}
+          hasPrevious={$hasNear?.hasPrevious}
+          class="my-8 flex justify-end"
+          on:change={onChangePage}
+          on:next={onNext}
+          on:prev={onPrevious}
+        />
       {/if}
     </Tab>
     <Tab id="NFTs">

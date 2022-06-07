@@ -1,10 +1,11 @@
 <script lang="ts">
   import type { Profile, Sku } from '$lib/sku-item/types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import routes from '$project/routes';
 
   export let issuer: Profile;
-  export let sku: Sku = undefined;
+  export let sku: Sku | SkuV2 = undefined;
   export let hideTalentImage = false;
 
   $: link = sku ? routes.sku(sku._id) : routes.collection(issuer.username);

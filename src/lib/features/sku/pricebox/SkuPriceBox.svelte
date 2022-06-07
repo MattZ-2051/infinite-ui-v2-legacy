@@ -98,7 +98,7 @@
   $: isUpcomingAuction =
     lowestUpcomingPriceListing?.saleType === 'auction' && lowestUpcomingPriceListing?.status === 'upcoming';
 
-  $: notMinted = sku.circulatingSupply === 0;
+  $: notMinted = sku?.circulatingSupply === 0;
   $: hasActiveAuctionListing = sku.activeProductListings?.some((listing) => {
     return listing?.saleType === 'auction' && listing?.status === 'active';
   });
@@ -114,8 +114,8 @@
   $: hasProductListings =
     hasActiveAuctionListing || hasActiveFixedListing || hasUpcomingAuctionListing || hasUpcomingFixedListing;
   $: hasSoldSkuListings = sku.soldSkuListings?.length > 0;
-  $: isPending = sku.status === 'pending';
-  $: isRejected = sku.status === 'rejected';
+  $: isPending = sku?.status === 'pending';
+  $: isRejected = sku?.status === 'rejected';
 </script>
 
 <div class="sku-price-box flex flex-col sticky-content-button">

@@ -1,35 +1,49 @@
 import type { Profile, Product, Sku, SkuStatus } from '$lib/sku-item/types';
 import { get, getPage } from '$lib/api';
-import { skuTiles } from '$lib/infinite-api-sdk';
+import { skuIssuedByMeWithLookAhead, skuTilesWithLookAhead } from '$lib/infinite-api-sdk';
 
 export async function loadProfile({ username, fetch }: { username: string; fetch?: Fetch }): Promise<Profile> {
   return get<Profile>(`users/issuers/${username}`, { fetch, skipTenant: true });
 }
 
 export async function loadSkus({
-  profileId,
-  page,
+  lastId,
+  firstId,
+  isReverse,
   sortBy,
   perPage,
   forSale,
   skuStatus,
+  issuerId,
 }: {
-  profileId: string;
-  page: number;
+  lastId?: string;
+  firstId?: string;
+  isReverse?: boolean;
   sortBy: string;
   perPage: number;
   forSale?: boolean;
   skuStatus?: SkuStatus;
+  issuerId?: string;
 }) {
-  const { docs: skus, count: totalSkus } = await skuTiles(fetch)({
-    page,
-    per_page: perPage,
-    sortBy,
-    forSale,
-    issuerId: profileId,
-    skuStatus,
-  });
-  return { skus, totalSkus };
+  return issuerId
+    ? skuTilesWithLookAhead(fetch)({
+        lastId,
+        firstId,
+        isReverse: isReverse,
+        per_page: perPage,
+        sortBy,
+        condition: forSale ? 'available' : 'all',
+        issuerId,
+      })
+    : skuIssuedByMeWithLookAhead(fetch)({
+        lastId,
+        firstId,
+        isReverse: isReverse,
+        per_page: perPage,
+        sortBy,
+        condition: forSale ? 'available' : 'all',
+        skuStatus,
+      });
 }
 
 export async function loadProducts({

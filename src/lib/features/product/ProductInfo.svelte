@@ -101,7 +101,7 @@
     {/if}
     <div class={cellClass}>
       <div class={headerClass}>Redemption Status</div>
-      {#if sku.redeemable}
+      {#if sku?.redeemable}
         <IconRedeem>
           <span class="pl-2 block truncate">{product.redeemedStatus === 'redeemed' ? 'Redeemed' : 'Redeemable'}</span>
         </IconRedeem>

@@ -1,14 +1,21 @@
 <script lang="ts">
-  import type { Sku, Product } from '$lib/sku-item/types';
   import type { SupplyInfo } from '$lib/features/sku/sku.service';
+  import type { Sku, Product } from '$lib/sku-item/types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
+  import { isSkuV2 } from '$lib/infinite-api-sdk/guard.service';
   import tooltip from '$ui/tooltip';
-  import { createSkuMessageType, createSkuMessage, createProductMessage } from '$lib/features/sku/sku.service';
+  import {
+    createSkuMessageType,
+    createSkuMessage,
+    createProductMessage,
+    createSkuMessageTypeForV2,
+  } from '$lib/features/sku/sku.service';
 
-  export let sku: Sku;
+  export let sku: Sku | SkuV2;
   export let product: Product = undefined;
 
   let supply: SupplyInfo;
-  $: supply = sku && createSkuMessageType(sku);
+  $: supply = sku && (isSkuV2(sku) ? createSkuMessageTypeForV2(sku) : createSkuMessageType(sku));
 
   const createTooltipMessage = (supplyType: string | undefined) => {
     switch (supplyType) {

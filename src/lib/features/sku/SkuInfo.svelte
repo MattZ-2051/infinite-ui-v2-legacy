@@ -106,7 +106,7 @@
       <TalentLink profile={sku.issuer} />
     </div>
     <div class="flex flex-col gap-2 text-right">
-      {#if sku.redeemable}
+      {#if sku?.redeemable}
         <div class="text-gray-500 text-sm">Redemption Status</div>
         <IconRedeem>Redeemable</IconRedeem>
       {:else}

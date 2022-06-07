@@ -1,4 +1,5 @@
 import type { Sku, Listing, CollectorProduct, Product } from '$lib/sku-item/types';
+import type { SkuV2 } from '$lib/infinite-api-sdk/types';
 import { formatInteger } from '$util/format';
 
 export type SupplyInfo = { type: 'unique' | 'limited' | 'released'; quantity: number } | undefined;
@@ -71,6 +72,45 @@ const limitedEditions = (quantity: number): SupplyInfo => {
   return { type: 'limited', quantity: quantity };
 };
 
+// ToDo we should refactor this function once we have integrated the new enpoint for getting a tile (v2/sku/tile/{id})
+export const createSkuMessageTypeForV2 = (sku: SkuV2): SupplyInfo => {
+  if (!sku) {
+    return;
+  }
+
+  const isFixed = sku.supplyType === 'fixed';
+  const hasListings = sku?.tileMeta?.countSkuListings > 0;
+  const hasExpiredListings = sku?.tileMeta?.totalExpiredSkuListingsSupply > 0;
+  const isVariable = sku.supplyType === 'variable';
+  if (sku.maxSupply === 1) return { type: 'unique', quantity: sku.maxSupply };
+
+  if (isFixed && sku?.tileMeta?.totalUpcomingSkuListingsSupply > 0) {
+    if (hasListings) return limitedEditions(sku?.tileMeta?.totalUpcomingSkuListingsSupply + sku?.tileMeta?.totalSupply);
+    return limitedEditions(sku?.tileMeta?.totalUpcomingSkuListingsSupply);
+  }
+
+  if (isFixed && sku?.tileMeta?.totalSupply > 0) {
+    if (hasListings) return limitedEditionMessageSelector(sku?.tileMeta?.totalSupply);
+    return limitedEditions(sku?.tileMeta?.totalSupply);
+  }
+
+  if (isFixed && hasListings && hasExpiredListings) {
+    if (sku?.circulatingSupply === 0) return undefined;
+    return limitedEditionMessageSelector(sku?.circulatingSupply);
+  }
+
+  if (isFixed && !hasListings) {
+    return limitedEditionMessageSelector(sku.maxSupply);
+  }
+
+  if (isVariable) {
+    return sku?.minStartDate > new Date()
+      ? { type: 'released', quantity: sku?.tileMeta?.totalUpcomingSkuListingsSupply }
+      : { type: 'released', quantity: sku?.circulatingSupply };
+  }
+};
+
+// ToDo we should refactor this function once we have integrated the new enpoint for getting a tile (v2/sku/tile/{id})
 export const createSkuMessageType = (sku: Sku): SupplyInfo => {
   if (!sku) {
     return;
@@ -93,8 +133,8 @@ export const createSkuMessageType = (sku: Sku): SupplyInfo => {
   }
 
   if (isFixed && hasListings && hasExpiredListings) {
-    if (sku.circulatingSupply === 0) return undefined;
-    return limitedEditionMessageSelector(sku.circulatingSupply);
+    if (sku?.circulatingSupply === 0) return undefined;
+    return limitedEditionMessageSelector(sku?.circulatingSupply);
   }
 
   if (isFixed && !hasListings) {
@@ -102,12 +142,13 @@ export const createSkuMessageType = (sku: Sku): SupplyInfo => {
   }
 
   if (isVariable) {
-    return sku.minStartDate > new Date()
+    return sku?.minStartDate > new Date()
       ? { type: 'released', quantity: sku.totalUpcomingSupply }
-      : { type: 'released', quantity: sku.circulatingSupply };
+      : { type: 'released', quantity: sku?.circulatingSupply };
   }
 };
 
+// ToDo we should refactor this function once we have integrated the new enpoint for getting a tile (v2/sku/tile/{id})
 export const createProductMessageType = (product: Product): SupplyInfo => {
   if (!product) {
     return;
@@ -146,13 +187,13 @@ export const createProductMessageType = (product: Product): SupplyInfo => {
 export const createSkuMessage = (
   messageType: SupplyInfo['type'],
   quantity: SupplyInfo['quantity'],
-  sku: Sku
+  sku: Sku | SkuV2
 ): string | undefined => {
   switch (messageType) {
     case 'limited':
       return `Limited to ${formatInteger(quantity)}`;
     case 'released':
-      return sku.minStartDate > new Date()
+      return sku?.minStartDate > new Date()
         ? `${formatInteger(quantity)} to be released`
         : `${formatInteger(quantity)} released`;
     case 'unique':

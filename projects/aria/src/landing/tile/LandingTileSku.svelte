@@ -1,22 +1,22 @@
 <script lang="ts">
-  import type { Sku } from '$lib/sku-item/types';
+  import type { SkuV2 } from '$lib/infinite-api-sdk/types';
   import { FilePreview } from '$ui/file';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import TalentLink from '$lib/components/talent/TalentLink.svelte';
   import SkuEdition from '$project/sku-item/SkuEdition.svelte';
   import routes from '$project/routes';
-  import { skuStatus } from '$lib/sku-item/status';
+  import { skuStatusForV2 } from '$lib/sku-item/status';
   import { formatCurrencyWithOptionalFractionDigits } from '$util/format';
 
-  export let sku: Sku;
-  $: status = skuStatus(sku).status;
+  export let sku: SkuV2;
+  $: status = skuStatusForV2(sku).status;
   $: href = routes.sku(sku._id);
 </script>
 
 <div class="flex flex-col gap-4">
   <div class="relative">
     <a sveltekit:prefetch {href}>
-      <FilePreview item={sku.nftPublicAssets?.[0]} preview />
+      <FilePreview item={sku?.nftPublicAsset} preview />
       <span class="sr-only">{sku.name}</span>
     </a>
     <div
@@ -35,12 +35,12 @@
               {#if status === 'active'}
                 <div class="flex items-center gap-4 my-4" style="color: #636363">
                   <div class="font-bold">Starting Price:</div>
-                  <div>{formatCurrencyWithOptionalFractionDigits(sku.minPrice)}</div>
+                  <div>{formatCurrencyWithOptionalFractionDigits(sku?.minPriceListing?.price)}</div>
                 </div>
               {/if}
 
-              {#if sku.series?.name}
-                <div class="mt-4 md:mt-8" style="color: #636363">Series #{sku.series.name}</div>
+              {#if sku?.series?.name}
+                <div class="mt-4 md:mt-8" style="color: #636363">Series #{sku?.series.name}</div>
               {/if}
 
               <div class="flex-1 overflow-hidden mb-2.5 text-black-opacity-70">
@@ -49,7 +49,7 @@
             </div>
             <div class="flex justify-between">
               <div class="flex items-center gap-2 font-medium text-lg">
-                {#if sku.redeemable}<IconRedeem size={32} />{/if}
+                {#if sku?.redeemable}<IconRedeem size={32} />{/if}
               </div>
               <a {href} class="text-primary text-lg font-medium"
                 >Learn more <span class="sr-only">for {sku.name}</span></a
@@ -63,7 +63,7 @@
 
   <div class="flex gap-4">
     <a {href}>{sku.name}</a>
-    {#if sku.redeemable}<IconRedeem />{/if}
+    {#if sku?.redeemable}<IconRedeem />{/if}
   </div>
 </div>
 

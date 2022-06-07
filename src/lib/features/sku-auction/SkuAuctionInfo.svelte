@@ -21,7 +21,7 @@
     <div class={headerClass}>Status</div>
     <SkuStatus {sku} product={undefined} forProductStatus />
   </div>
-  {#if sku.redeemable}
+  {#if sku?.redeemable}
     <div class={cellClass}>
       <div class={headerClass}>Redemption Status</div>
       <div class="flex gap-2">
