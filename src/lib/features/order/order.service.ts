@@ -68,7 +68,7 @@ export async function onOrderIntent({
       }
     }
 
-    if (sku.currency === 'USD') {
+    if (sku.currency === 'USD' && listing.saleType === 'auction') {
       handleCheckoutStateChange('ordering-balance');
     }
     goto(routes.checkoutSku(sku._id));
