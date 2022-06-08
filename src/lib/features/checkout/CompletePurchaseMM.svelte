@@ -16,7 +16,7 @@
     sendEthPurchasePaymentForImmediateMinting,
     walletConnected,
     sendEthPurchasePaymentForLazyMinting,
-  } from '$lib/metamask';
+  } from '$lib/web3';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';

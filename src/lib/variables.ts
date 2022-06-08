@@ -7,6 +7,7 @@ export const variables = {
     environment: import.meta.env.VITE_KYC_PERSONA_ENVIRONMENT,
   },
   ethNetwork: {
+    mmNetwork: import.meta.env.VITE_ETH_NETWORK,
     apiUrl: import.meta.env.VITE_ETHERSCAN_API_URL,
     explorerBaseUrl: import.meta.env.VITE_ETH_EXPLORER_BASE_URL,
     apiKey: import.meta.env.VITE_ETHERSCAN_API_KEY,

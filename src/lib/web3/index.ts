@@ -1,3 +1,4 @@
+import type { EtherscanResponse } from '$lib/payment/crypto/etherscan/types';
 import { ethers } from 'ethers';
 import { writable } from 'svelte/store';
 import detectEthereumProvider from '@metamask/detect-provider';
@@ -7,6 +8,17 @@ import { goto } from '$app/navigation';
 
 import { toast } from '$ui/toast';
 import { mobileAndTabletCheck } from '$util/detectMobile';
+import { get } from '$lib/api';
+import { variables } from '$lib/variables';
+
+interface EthersContract {
+  contractAddress: string;
+  contractAbi?: ethers.ContractInterface;
+}
+
+const apiUrl = `${variables.ethNetwork.nftTransactionApiUrl}/`;
+const apiKey = variables.ethNetwork.apiKey as string;
+const isProduction = variables.ethNetwork.mmNetwork === 'mainnet';
 
 let provider: ethers.providers.Web3Provider;
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -84,6 +96,14 @@ export async function connectWallet() {
 export async function handleWalletConnection() {
   try {
     await connectWallet();
+    if (isProduction) {
+      const network = await checkNetwork();
+      if (network.chainId !== 1) {
+        toast.danger('Please connect to Ethereum Mainnet.', { toastId: 'WRONG_NETWORK' });
+        walletConnected.set(false);
+        return;
+      }
+    }
     return true;
   } catch (error) {
     if (error?.code) {
@@ -104,6 +124,7 @@ export async function disconnectWallet() {
   provider = undefined;
   signer = undefined;
   walletConnected.set(false);
+  window.location.reload();
 }
 
 export async function getWalletInfo() {
@@ -158,4 +179,42 @@ export async function sendTransaction(destinationAddress: string, totalCost: num
 export async function checkNetwork() {
   const chainId = await signer.getChainId();
   return ethers.providers.getNetwork(chainId);
+}
+
+export async function mintTo({
+  contractAddress,
+  contractAbi,
+  amount,
+  price,
+}: EthersContract & { amount: number; price: string }) {
+  const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  return await contract.mintTo(amount, { value: ethers.utils.parseEther(price) });
+}
+
+export async function getSaleStatus({ contractAddress, contractAbi }: EthersContract) {
+  const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  return await contract.saleStarted();
+}
+
+export async function getNumberOfTokensOwned({ contractAddress, contractAbi }: EthersContract) {
+  const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  return await contract.getTokenCount();
+}
+
+export async function getPendingTransaction(tx: string) {
+  const { transactionHash } = await provider.waitForTransaction(tx);
+  return transactionHash;
+}
+
+export async function getTotalSupply({ contractAddress }: EthersContract) {
+  const result = await get<EtherscanResponse<string>>(apiUrl, {
+    params: {
+      module: 'stats',
+      action: 'tokensupply',
+      contractaddress: `${contractAddress}`,
+      apikey: apiKey,
+    },
+  });
+
+  return result;
 }

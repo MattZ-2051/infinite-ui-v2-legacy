@@ -10,7 +10,7 @@
   /* Button */
   --button-padding: 16px 48px;
   --button-border-radius: 8px;
-  --button-brand-color: var(--primary-color);
+  --button-brand-color: white;
   --button-brand-bg-color: var(--primary-color);
   --button-brand-border-color: var(--primary-color);
   --button-brand-color-hover: var(--hover-color);

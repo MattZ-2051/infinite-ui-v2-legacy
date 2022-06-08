@@ -2,7 +2,7 @@ import type { CheckoutState, SkuPurchaseTransaction, ValidETHListingData } from 
 import type { Listing, MintPolicy, Product, Sku } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
 import type { ApiError } from '$lib/api';
-import { handleWalletConnection } from '$lib/metamask';
+import { handleWalletConnection } from '$lib/web3';
 import { onSignIn } from '$lib/user';
 import { openModal } from '$ui/modals';
 import { toast } from '$ui/toast';

@@ -6,7 +6,7 @@
   import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
   import type { Listing, Sku, Product, PaymentMethod } from '$lib/sku-item/types';
   import { userId } from '$lib/user';
-  import { walletConnected, getWalletInfo, sendEthPurchasePaymentForImmediateMinting } from '$lib/metamask';
+  import { walletConnected, getWalletInfo, sendEthPurchasePaymentForImmediateMinting } from '$lib/web3';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';

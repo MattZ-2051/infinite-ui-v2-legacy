@@ -6,7 +6,7 @@
   import { links } from '$project/social/social-links';
   import { MP_CONNECT_WALLET } from '$project/variables';
   import Sidebar from '$project/sidebar/Sidebar.svelte';
-  import WalletConnectionModal from '$lib/features/connect-wallet-extensions/WalletConnectionModal.svelte';
+  import ConnectWalletModal from '$lib/components/mintPage/ConnectWalletModal/ConnectWalletModal.svelte';
   import Logo from '$project/assets/Logo.svelte';
   import Discord from '$project/social/Discord.svelte';
   import Hamburger from './Hamburger.svelte';
@@ -15,7 +15,7 @@
   export let user: User;
 
   const handleWalletModal = () => {
-    openModal(WalletConnectionModal, { user });
+    openModal(ConnectWalletModal, { user });
   };
 </script>
 

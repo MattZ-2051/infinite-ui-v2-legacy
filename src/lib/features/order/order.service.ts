@@ -5,7 +5,7 @@ import type { ApiError } from '$lib/api';
 import { get as getStoreValue } from 'svelte/store';
 import { toast } from '$ui/toast';
 import { user, onSignIn, isLoading } from '$lib/user';
-import { handleWalletConnection } from '$lib/metamask';
+import { handleWalletConnection } from '$lib/web3';
 import routes from '$project/routes';
 import { goto } from '$app/navigation';
 import { loadWalletFx } from '../wallet/wallet.store';

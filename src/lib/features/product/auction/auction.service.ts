@@ -1,5 +1,5 @@
 import type { Listing } from '$lib/sku-item/types';
-import { handleWalletConnection } from '$lib/metamask';
+import { handleWalletConnection } from '$lib/web3';
 import { onSignIn } from '$lib/user';
 import routes from '$project/routes';
 import { toast } from '$ui/toast';

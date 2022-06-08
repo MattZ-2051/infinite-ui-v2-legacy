@@ -11,7 +11,7 @@
     walletConnected,
     handleWalletConnection,
     sendEthPurchasePaymentForImmediateMinting,
-  } from '$lib/metamask';
+  } from '$lib/web3';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';

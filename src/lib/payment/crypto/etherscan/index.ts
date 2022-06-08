@@ -10,7 +10,7 @@ export async function waitForTx(waiterOptions: CryptoAddressWaiterOptions) {
 }
 
 const apiUrl = `${variables.ethNetwork.nftTransactionApiUrl}/`;
-const apiKey = variables.ethNetwork.apiKey;
+const apiKey = variables.ethNetwork.apiKey as string;
 
 async function getCurrentBlock() {
   const rr = await get<EtherscanResponse<string>>(apiUrl, {

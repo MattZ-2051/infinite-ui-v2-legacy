@@ -5,7 +5,7 @@
   import { getActiveListings } from '$lib/features/sku/sku.service';
   import { user } from '$lib/user';
   import { variables } from '$lib/variables';
-  import { getWalletInfo } from '$lib/metamask';
+  import { getWalletInfo } from '$lib/web3';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
