@@ -14,7 +14,7 @@ export const CLIENT_SOCIAL_IMAGE = {
   height: 740,
   alt: 'ARIA Exchange',
 };
-export const CLIENT_SUPPORT_EMAIL = 'support@ARIAExchange.com';
+export const CLIENT_SUPPORT_EMAIL = 'compliance@theARIAnetwork.com';
 export const CLIENT_SUPPORT_URL = 'https://help.ariaexchange.com/s/';
 export const CLIENT_BIDDING_URL = '';
 export const CLIENT_HEDERA_URL =

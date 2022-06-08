@@ -836,8 +836,10 @@
   to provide you with personalized ads may be considered a “sale,” even if no money is exchanged.
 </p>
 <p>
-  To opt out of such personalized ads or targeting cookies, please click the “Do Not Sell My Personal Information” link
-  included in the footer of our website.
+  To opt out of such personalized ads or targeting cookies, you can change your cookie settings at any time by clicking
+  the Cookie toggle in the bottom left corner of the marketplace. In order to request “Do Not Sell My Personal
+  Information” click the link included in the footer of our website or email compliance@theARIAnetwork.com to submit
+  your request.
 </p>
 <h2 id="additional-disclosure-eea-uk">
   <a href="#{lowerCaseShortName}-quick-links">11. Additional Disclosures for Residents in the EEA and the U.K.</a>
