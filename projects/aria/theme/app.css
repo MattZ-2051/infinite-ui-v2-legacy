@@ -34,5 +34,5 @@ button.sticky-cta:hover {
 
 .section-title {
   font-family: var(--title-font-family);
-  text-transform: var(--title-text-transform);
+  text-transform: capitalize;
 }
