@@ -31,4 +31,5 @@ export type User = {
   phoneNumberConsentGiven?: boolean;
   activeLegalConsentIds?: string[];
   acceptedLegalConsentIds?: string[];
+  tenant?: string;
 };

@@ -123,7 +123,7 @@
     {/if}
   {/if}
 
-  {#if id === 'marketplace' && ($tenantSettings?.skuCreationEnabled || isIssuer(user))}
+  {#if id === 'marketplace' && ($tenantSettings?.skuCreationEnabled || isIssuer(user)) && user?.tenant === 'infinite'}
     <a
       sveltekit:prefetch
       class={clsx('header-link', classes)}
