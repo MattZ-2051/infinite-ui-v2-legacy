@@ -4,9 +4,6 @@
   import Icon from '$ui/icon/Icon.svelte';
   import { user, onSignUp } from '$lib/user';
   import Button from '$lib/components/Button.svelte';
-  import trust from './assets/trust.png?w=184&format=avif;webp;png&metadata=src;format;width;height';
-  import carbon from './assets/carbon.png?w=135&format=avif;webp;png&metadata=src;format;width;height';
-  import currency from './assets/currency.png?w=283&format=avif;webp;png&metadata=src;format;width;height';
   import deposit from './assets/deposit.png?w=173&format=avif;webp;png&metadata=src;format;width;height';
   import purchase from './assets/purchase.png?w=173&format=avif;webp;png&metadata=src;format;width;height';
   import social from './assets/social.png?w=173&format=avif;webp;png&metadata=src;format;width;height';
@@ -20,47 +17,6 @@
       the rarest mix of collectibles in the world. Our community platform allows you to discover, buy, and sell highly
       covetable crypto collectibles, with ease.
     </p>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-x-24 gap-y-8 text-center text-lg">
-    <div class="flex flex-col gap-8 items-center">
-      <div class="h-44 flex items-center">
-        <Image src={trust} />
-      </div>
-      <span class="text-2xl section-title">TRUST</span>
-      <div class="space-y-4 max-w-sm paragraph-content">
-        <p>Your privacy is our priority.</p>
-        <p>
-          We’ve created a marketplace that is 100% safe and secure so you can buy and sell your collectibles with peace
-          of mind. All sellers and transactions are verified.
-        </p>
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-8 items-center">
-      <div class="h-44 flex items-center">
-        <Image src={carbon} />
-      </div>
-      <span class="text-2xl section-title">CARBON NEGATIVE</span>
-      <div class="space-y-4 max-w-sm paragraph-content">
-        <p>We love our planet.</p>
-        <p>
-          With the goal to be the most environmentally responsible NFT marketplace on Earth, we redeposit 2X the energy
-          we consume via carbon offsets.
-        </p>
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-8 items-center">
-      <div class="h-44 flex items-center">
-        <Image src={currency} />
-      </div>
-      <span class="text-2xl section-title">CURRENCY</span>
-      <div class="space-y-4 max-w-sm paragraph-content">
-        <p>Your money is good here.</p>
-        <p>We accept a wide range of payment options, including Credit Cards, Bitcoin, Ether, and USDC.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -81,7 +37,7 @@
           <Image src={deposit} />
         </div>
         <div class="flex flex-col text-center ">
-          <p>Create your ARIA Exchange account & fund your wallet with a currency of your choosing.</p>
+          <p>Create your ARIA Exchange account & fund your wallet.</p>
         </div>
       </div>
       <div class="flex items-center justify-center transform rotate-90 md:transform-none text-gray-800">
@@ -103,7 +59,7 @@
           <Image src={social} />
         </div>
         <div class="flex flex-col text-center ">
-          <p>Share what you’re loving on social & tag us @TheARIAexchange</p>
+          <p>Share what you’re loving on social & tag us @TheARIAExchange</p>
         </div>
       </div>
     </div>
@@ -111,10 +67,6 @@
 </section>
 
 <style lang="postcss">
-  .paragraph-content {
-    font-family: 'Space Mono', monospace;
-  }
-
   .intro-grid {
     font-size: 27px;
     grid-template-columns: repeat(1, minmax(0, 1fr));
