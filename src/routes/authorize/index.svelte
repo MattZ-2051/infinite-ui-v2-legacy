@@ -1,24 +1,44 @@
 <script lang="ts" context="module">
   import type { Load } from '@sveltejs/kit';
 
+  const EMAIL_NOT_VERIFIED = 'Email not verified';
+  const REMOVE_EMAIL_FIELD = 'user_email=';
+  interface LoadErrorResponseValue {
+    status: number;
+    props?: {
+      url: string;
+      returnUrl: string;
+    };
+    error?: string;
+  }
+
   export const load: Load = async ({ url }) => {
     let urlString: string = undefined;
 
-    if (url.searchParams.has('code') && url.searchParams.has('state')) {
-      urlString = `://${url.hostname}${url.pathname}?${url.searchParams}`;
-    } else if (url.searchParams.has('error')) {
-      return {
-        status: 401,
-        error: url.searchParams.get('error_description') || 'Unknown authorization error',
-      };
-    }
-    return {
+    let loadErrorResponseValue: LoadErrorResponseValue = {
       status: 200,
       props: {
         url: urlString,
         returnUrl: url.searchParams.get('returnUrl'),
       },
     };
+
+    if (url.searchParams.has('code') && url.searchParams.has('state')) {
+      loadErrorResponseValue.props.url = `://${url.hostname}${url.pathname}?${url.searchParams}`;
+    } else if (url.searchParams.has('error')) {
+      const errors = url.searchParams.get('error_description').split('#');
+
+      if (errors[0] === EMAIL_NOT_VERIFIED) {
+        const email = errors[1].replace(REMOVE_EMAIL_FIELD, '');
+        loadErrorResponseValue.props.returnUrl = `${url.origin}${routes.verficationEmail(email)}`;
+      } else {
+        loadErrorResponseValue = {
+          status: 401,
+          error: url.searchParams.get('error_description') || 'Unknown authorization error',
+        };
+      }
+    }
+    return loadErrorResponseValue;
   };
 </script>
 
@@ -27,6 +47,7 @@
   import { goto } from '$app/navigation';
   import { initUserAuth, handleRedirectCallback } from '$lib/user';
   import FullScreenLoader from '$lib/components/FullScreenLoader.svelte';
+  import routes from '$project/routes';
 
   export let url: string;
   export let returnUrl: string;

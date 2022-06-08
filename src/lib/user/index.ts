@@ -278,3 +278,15 @@ export async function handleRedirectCallback(callbackUrl: string) {
   const client = await getClient();
   await client.handleRedirectCallback(callbackUrl);
 }
+
+export async function handleResentEmail(email: string) {
+  let success = false;
+  let isError = false;
+  try {
+    await post(`users/resend-email-verification`, { email });
+    success = true;
+  } catch {
+    isError = true;
+  }
+  return { success, isError };
+}
