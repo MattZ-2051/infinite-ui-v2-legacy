@@ -37,7 +37,7 @@
     >
       <div class="sidebar-content pt-20 text-xl flex flex-col items-center">
         <div class="flex items-center justify-between w-full p-4 header">
-          <Logo />
+          <svelte:component this={Logo} />
           <Button on:click={onClose} class="!p-0">
             <Icon path={mdiWindowClose} />
           </Button>

@@ -1,3 +1,3 @@
 export const paths = {
-  '$project/toast/*': 'projects/infinite/src/toast/*',
+  '$lib/toast/*': 'projects/mintpage/src/toast/*',
 };

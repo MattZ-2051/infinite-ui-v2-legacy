@@ -17,10 +17,6 @@
   $: total = tokenCount * MP_MINT_PRICE;
   $: userTokenCount = 0;
 
-  const onClickMint = () => {
-    console.log(MP_MINT_PRICE * tokenCount);
-  };
-
   function add(diff: 1 | -1) {
     tokenCount = Math.max(1, Math.min(tokenCount + diff, MP_MAX_PER_WALLET - userTokenCount));
   }
@@ -55,7 +51,7 @@
         <div class="text-black"><strong>{formatCurrency(total, { currency: 'ETH' })}</strong></div>
       </div>
     </div>
-    <Button variant="brand" on:click={onClickMint}>
+    <Button variant="brand">
       <span class="capitalize text-white font-lora-serif font-bold text-lg">{MP_MINT_BUTTON}</span>
     </Button>
   </div>
