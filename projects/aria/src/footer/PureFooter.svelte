@@ -11,7 +11,7 @@
 
   export let user: User;
 
-  const infoLink = `mailto:support@ariaexchange.com?subject=Do Not Sell My Personal Information (ARIA Exchange)`;
+  const infoLink = `https://docs.google.com/forms/d/e/1FAIpQLSekhe2OtaSMlA66aFNb1i4M-AnYdfV2f9dtb0JXzfQINfrYcg/viewform`;
 </script>
 
 <div class="container">
