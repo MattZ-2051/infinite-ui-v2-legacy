@@ -163,7 +163,7 @@ export function handleSkuClaimError(error: ApiError) {
     case 'MAX_SKU_GIVEAWAY':
       return `This NFT giveaway is limited to 1 per user.`;
     case 'MAX_SKU_PURCHASE_PER_USER':
-      return `This NFT giveaway is limited to 1 per user for the inital sale.`;
+      return `This NFT giveaway is limited to 1 per user for the initial sale.`;
     default:
       return errorSupportMessage;
   }
