@@ -22,5 +22,5 @@ export default {
   about: '/about',
   careers: '/careers',
   partner: '/partner',
-  verficationEmail: (email) => `/verfication-email/${email}`,
+  verficationEmail: (email) => `/auth/verfication-email/${email}`,
 };

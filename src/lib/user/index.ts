@@ -218,7 +218,9 @@ async function login(returnUrl = window.location.pathname + window.location.sear
 
   const client = await getClient();
   let redirectUri = `${window.location.origin}/authorize`;
-  if (returnUrl !== '/' && returnUrl !== '/authorize') {
+  if (returnUrl.includes(routes.verficationEmail(''))) {
+    redirectUri += `?returnUrl=${routes.marketplace}`;
+  } else if (returnUrl !== '/' && returnUrl !== '/authorize') {
     redirectUri += `?returnUrl=${returnUrl}${window.location.search.replace('?', '&')}`;
   }
   await client.loginWithRedirect({
