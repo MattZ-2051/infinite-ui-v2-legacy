@@ -46,7 +46,7 @@
       <div class="px-6 pt-2 pb-10 rounded-b-3xl flex flex-col flex-grow justify-between">
         <div>
           <div class="flex flex-wrap justify-between card-name">
-            <TalentLink profile={sku.issuer} hideImage />
+            <TalentLink profile={sku.issuer} hideImage applyLink={true} />
             <SkuEdition {sku} {product} />
           </div>
           <div class="mt-5 mb-10 flex justify-between items-start gap-2">

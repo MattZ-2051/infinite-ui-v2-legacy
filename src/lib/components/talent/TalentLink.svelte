@@ -7,6 +7,7 @@
   export let profile: { username: string; profilePhotoUrl: string; verified?: boolean };
   export let hideImage = false;
   export let imageClass = 'w-6 h-6';
+  export let applyLink = true;
 
   let _class = '';
   export { _class as class };
@@ -27,7 +28,11 @@
         use:imageError={() => (hideImage = true)}
       />
     {/if}
-    <a href={link} sveltekit:prefetch class="truncate min-w-0"><slot>{profile.username}</slot></a>
+    {#if applyLink}
+      <a href={link} sveltekit:prefetch class="truncate min-w-0"><slot>{profile.username}</slot></a>
+    {:else}
+      <slot>{profile.username}</slot>
+    {/if}
     {#if profile.verified}
       <IconVerified />
     {/if}

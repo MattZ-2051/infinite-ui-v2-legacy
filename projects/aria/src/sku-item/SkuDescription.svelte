@@ -11,28 +11,28 @@
   $: description = sku ? sku.descriptionShort : issuer.descriptionShort;
 </script>
 
-<div
-  class="hidden md:block bg-white-opacity-75 absolute inset-0 p-2 md:p-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
->
-  <div class="card-description-inner p-2 md:p-4 text-white h-full flex flex-col font-medium">
-    <TalentLink
-      profile={issuer}
-      hideImage={hideTalentImage}
-      class="text-primary text-xl md:text-2xl mb-2"
-      imageClass="w-10 h-10"
-    />
-    <div class="scrollbox">
-      <div class="flex-1 overflow-hidden mb-2 md:mb-4">
-        <div class="text-sm md:text-base text-black-opacity-70">
-          {description || ''}
+<a href={link} sveltekit:prefetch>
+  <div
+    class="hidden md:block bg-white-opacity-75 absolute inset-0 p-2 md:p-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
+  >
+    <div class="card-description-inner p-2 md:p-4 text-white h-full flex flex-col font-medium">
+      <TalentLink
+        profile={issuer}
+        hideImage={hideTalentImage}
+        class="text-primary text-xl md:text-2xl mb-2"
+        imageClass="w-10 h-10"
+        applyLink={false}
+      />
+      <div class="scrollbox">
+        <div class="flex-1 overflow-hidden mb-2 md:mb-4">
+          <div class="text-sm md:text-base text-black-opacity-70">
+            {description || ''}
+          </div>
         </div>
       </div>
     </div>
-    <a href={link} class="text-primary font-medium text-lg mt-2 self-end"
-      >Learn more <span class="sr-only">for {sku ? sku.name : issuer.username} </span></a
-    >
   </div>
-</div>
+</a>
 
 <style lang="postcss">
   .card-description-inner {
