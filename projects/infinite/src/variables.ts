@@ -36,4 +36,4 @@ export const COOKIE_URL = 'www.goinfinite.io';
 export const ENABLE_RELATED_SKUS = true;
 export const ENABLE_GDPR_BANNER = true;
 export const PRODUCT_GALLERY_LIMIT = false;
-export const ENABLE_ASSET_FILE_SIZE = true;
+export const ENABLE_ASSET_FILE_SIZE = false;
