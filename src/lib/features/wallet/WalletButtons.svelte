@@ -6,8 +6,10 @@
   import ConfirmModal from '$lib/components/ConfirmModal.svelte';
   import { MY_WALLET_BUTTONS_DISABLED_MESSAGE } from '$project/variables';
   import { variables } from '$lib/variables';
+  import { user } from '$lib/user';
   import WithdrawNoticeModalBody from './WithdrawNoticeModalBody.svelte';
   import DepositNoticeModalBody from './DepositNoticeModalBody.svelte';
+  import DisableWithdrawalModalBody from './withdraw/DisableWithdrawalModalBody.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -22,6 +24,22 @@
       },
     });
   }
+
+  const chooseModalToShowInWithdraw = () => {
+    if ($user.allowWithdrawal) {
+      showInfoModal('withdraw');
+    } else {
+      openModal(ConfirmModal, {
+        title: 'Withdrawals suspended',
+        message: DisableWithdrawalModalBody,
+        labels: { cancel: 'Go back', confirm: 'Contact Support' },
+        onConfirm: () => {
+          closeModal();
+        },
+      });
+    }
+  };
+
   const MY_WALLET_SECTION_DISABLED = variables.disabledMyWallet;
 </script>
 
@@ -44,7 +62,7 @@
       variant="brand"
       disabled={MY_WALLET_SECTION_DISABLED}
       class="text-xl font-medium w-full"
-      on:click={() => showInfoModal('withdraw')}
+      on:click={chooseModalToShowInWithdraw}
       --button-padding="22px 40px"
       sveltekit:noscroll>WITHDRAW</Button
     >

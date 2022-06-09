@@ -32,4 +32,5 @@ export type User = {
   activeLegalConsentIds?: string[];
   acceptedLegalConsentIds?: string[];
   tenant?: string;
+  allowWithdrawal?: boolean;
 };
