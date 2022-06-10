@@ -14,4 +14,5 @@ export const SUCCESS_PURCHASE_INSTANT_MINT = (skuName: string) =>
 
 export const VOUCHER_CODE_MODAL_TITLE = 'Exclusive Access Code';
 
-export const MY_WALLET_BUTTONS_DISABLED_MESSAGE = '';
+export const MY_WALLET_BUTTONS_DISABLED_MESSAGE =
+  'The ability to deposit or withdraw funds on ariaexchange.com is currently disabled until secondary sales become available on this platform.';
