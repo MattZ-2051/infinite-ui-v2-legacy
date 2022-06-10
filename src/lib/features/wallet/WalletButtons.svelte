@@ -36,6 +36,8 @@
         onConfirm: () => {
           closeModal();
         },
+        titleClass: 'text-[32px]',
+        class: 'max-w-lg',
       });
     }
   };

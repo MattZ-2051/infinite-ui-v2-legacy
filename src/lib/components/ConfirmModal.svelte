@@ -10,6 +10,13 @@
   export let onConfirm: () => unknown;
   export let onCancel: () => unknown = undefined;
   export let labels = { cancel: 'Cancel', confirm: 'OK' };
+  /**
+   * Class to be added on the title.
+   */
+  export let titleClass = '';
+
+  let _class = '';
+  export { _class as class };
 
   let disabled = false;
 
@@ -41,8 +48,10 @@
 </script>
 
 {#if isOpen}
-  <Modal class="max-w-md" {...$$restProps}>
-    <svelte:fragment slot="title"><span class="text-2xl text-left w-full modal-title">{title}</span></svelte:fragment>
+  <Modal class="max-w-md {_class}" {...$$restProps}>
+    <svelte:fragment slot="title"
+      ><span class="text-2xl text-left w-full modal-title {titleClass}">{title}</span></svelte:fragment
+    >
     <div class="px-10 py-4">
       <slot name="message">
         {#if typeof message === 'string'}
