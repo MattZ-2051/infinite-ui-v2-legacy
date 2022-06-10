@@ -28,12 +28,16 @@
   const _sku = product ? product.sku : sku;
   const listingPrice = listing?.saleType === 'giveaway' ? 0 : listing?.price;
   const marketplaceFee = product ? getBuyingFee(product) : getSkuBuyingFee(sku);
-  const showProductPricing = listing?.saleType !== 'auction' && listing?.saleType !== 'giveaway';
 
+  $: orderingMm = $checkoutState === 'ordering-mm';
+  $: orderingBalance = $checkoutState === 'ordering-balance';
   $: priceWFee = (1 + marketplaceFee) * listingPrice + gasFee;
   $: nftPublicAsset = product?.nftPublicAssets?.[0] || _sku?.nftPublicAssets?.[0];
   $: userBalance = $wallet?.balanceInfo?.[0]?.totalBalance;
   $: insufficientFunds = Number(userBalance) < priceWFee;
+
+  $: showProductPricing =
+    listing?.saleType !== 'auction' && listing?.saleType !== 'giveaway' && !orderingBalance && !orderingMm;
 </script>
 
 <article class="py-6 mx-auto max-w-xl xl:max-w-md">
