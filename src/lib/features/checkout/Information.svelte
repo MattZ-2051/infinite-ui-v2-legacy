@@ -9,7 +9,7 @@
   const isAuctionSale = listingSaleType === 'auction';
 </script>
 
-<p class="text-xs text-black-opacity-50 font-normal pb-4">
+<p class="text-xs text-default-opacity-50 font-normal pb-4">
   {#if isAuctionSale}
     Placing a bid will freeze the associated funds from your wallet until the auction ends. Bids cannot be canceled but
     can be increased as the auction progresses.

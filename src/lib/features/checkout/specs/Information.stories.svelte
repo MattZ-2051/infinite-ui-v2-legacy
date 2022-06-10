@@ -8,7 +8,7 @@
 <Meta title="Lib / Checkout / Information" component={Information} />
 
 <Template let:args>
-  <div class="bg-white max-w-3xl p-20">
+  <div class="max-w-3xl p-20">
     <Information {...args} />
   </div>
 </Template>
