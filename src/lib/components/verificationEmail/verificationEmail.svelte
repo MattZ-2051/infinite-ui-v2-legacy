@@ -1,7 +1,9 @@
 <script lang="ts">
   import { handleResentEmail } from '$lib/user';
+  import Button from '$lib/components/Button.svelte';
 
   export let email = '';
+  export let expiredLink = false;
 
   let seconds = 60;
   let disabledButton = false;
@@ -33,19 +35,27 @@
 <div
   class="container flex flex-col font-medium justify-center justify-items-center content-center main-container text-primary-dark"
 >
-  <h2 class="text-4xl py-4 title">Please verify your email address to continue</h2>
-  <p class="text-base">
-    We've sent and email to <span class="font-bold">{email}</span> with instructions to verify your account.
-  </p>
-  {#if seconds === 60}
-    <p class="text-sm py-4">
-      Didn't receive an email yet?
-      <button
-        class="font-bold cursor-pointer resend-button"
-        disabled={disabledButton}
-        on:click={() => handleResendEmail()}>Resend email</button
-      >
+  {#if expiredLink}
+    <h2 class="text-4xl py-4 title">Your verification code expired. <br /> Please try again</h2>
+  {:else}
+    <h2 class="text-4xl py-4 title">Please verify your email address to continue</h2>
+    <p class="text-base">
+      We've sent and email to <span class="font-bold">{email}</span> with instructions to verify your account.
     </p>
+  {/if}
+  {#if seconds === 60}
+    {#if expiredLink}
+      <Button variant="brand" disabled={disabledButton} on:click={() => handleResendEmail()}>Resend email</Button>
+    {:else}
+      <p class="text-sm py-4">
+        Didn't receive an email yet?
+        <button
+          class="font-bold cursor-pointer resend-button"
+          disabled={disabledButton}
+          on:click={() => handleResendEmail()}>Resend email</button
+        >
+      </p>
+    {/if}
   {:else}
     <p class="text-sm py-4">
       Check your inbox ({seconds}s)
