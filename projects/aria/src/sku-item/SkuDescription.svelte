@@ -12,7 +12,7 @@
   $: description = sku ? sku.descriptionShort : issuer.descriptionShort;
 </script>
 
-<a href={link} sveltekit:prefetch>
+<a href={link}>
   <div
     class="hidden md:block bg-white-opacity-75 absolute inset-0 p-2 md:p-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
   >

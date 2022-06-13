@@ -45,7 +45,7 @@
   <div bind:clientWidth bind:clientHeight class="card flex flex-col h-full tracking-tighter relative z-30 mb-5">
     <div class="card-img p-2">
       <div class="relative">
-        <a sveltekit:prefetch {href} aria-label={sku.name}>
+        <a {href} aria-label={sku.name}>
           <FilePreview item={checkItemAssets(product, sku)} preview />
         </a>
         {#if activeListing?.endDate}
@@ -61,7 +61,7 @@
         {/if}
       </div>
     </div>
-    <a sveltekit:prefetch {href} class="flex flex-grow">
+    <a {href} class="flex flex-grow">
       <div class="px-6 pt-2 pb-10 rounded-b-3xl flex flex-col flex-grow justify-between">
         <div>
           <div class="flex flex-wrap justify-between card-name">
