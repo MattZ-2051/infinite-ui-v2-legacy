@@ -7,7 +7,7 @@
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
 
   export let bid: Bid;
-  $: bidExceed = bid.listing.highestBid.bidAmt > bid.bidAmt;
+  $: bidExceed = bid.listing.highestBid?.bidAmt > bid.bidAmt;
   $: href = bid.listing.type === 'sku' ? routes.skuAuction(bid.listing.sku) : routes.product(bid.listing.product._id);
   $: title = bid.listing.type === 'sku' ? bid.sku.name : `${bid.sku.name} (#${bid.listing.product.serialNumber})`;
 </script>
