@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import type { Listing } from '$lib/sku-item/types';
   import { page } from '$app/stores';
   import Input from '$lib/components/form/input/Input.svelte';
@@ -27,6 +28,12 @@
     maximumFractionDigits: currency === 'ETH' ? 5 : 4,
     eth_currency_symbol: 'ETH',
   };
+
+  onMount(() => {
+    if (isAuction && $checkoutBidAmount !== 0 && !isProduct) {
+      updateCheckoutBidAmount(0);
+    }
+  });
 
   const onBidInput = (event) => {
     const { value } = event.target as HTMLInputElement;
