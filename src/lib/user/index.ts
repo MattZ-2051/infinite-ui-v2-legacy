@@ -100,7 +100,9 @@ export function mustSetupAccount(me: User, path: string) {
 
 let termsAccepted = false;
 export async function mustAcceptTerms(me: User, path: string) {
-  if (termsAccepted) {
+  /* When terms have been already accepted, User info has not been setup(firstName, lastName, username, etc) or the Modal for AccountInitialSetup has been opened
+  it should not open the LegalConsentModal */
+  if (termsAccepted || !me?.firstName || !me?.lastName || accountSetupTriggered) {
     return;
   }
   const _mustAcceptTerms =

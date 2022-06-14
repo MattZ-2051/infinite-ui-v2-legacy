@@ -57,8 +57,9 @@
         values = rest;
       }
       try {
-        await patchUser(values);
+        // First legal consent(s) must be accepted otherwise the patch user is going to fail
         await Promise.all(consentsToAgree.map((c) => addLegalConsent(c)));
+        await patchUser(values);
         closeModal();
       } catch (error) {
         handleUserApiError(error);
