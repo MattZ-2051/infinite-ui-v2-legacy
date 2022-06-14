@@ -9,7 +9,7 @@
   import social from './assets/social.png?w=173&format=avif;webp;png&metadata=src;format;width;height';
 </script>
 
-<section class="container py-0 flex flex-col gap-6 md:gap-12">
+<section class="container mt-10 py-0 flex flex-col gap-6 md:gap-12">
   <div class="flex justify-center flex-col items-center text-center gap-8 max-w-4xl mx-auto">
     <h2 class="text-4xl text-gradient-primary section-title">What is ARIA Exchange?</h2>
     <p class="text-lg">
@@ -20,7 +20,7 @@
   </div>
 </section>
 
-<section class="mt-8 md:mt-20 lg:mt-32 bg-primary-dark">
+<section class="mt-20 bg-primary-dark">
   <div class="container p-12 flex flex-col gap-10">
     <h2 class="text-2xl lg:text-4xl text-center">
       Stay ahead of all the hottest trends. Join our growing community of buyers and sellers, and start curating your
