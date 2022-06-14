@@ -73,10 +73,6 @@
     bannedToastShown = bannedToastOpen;
   }
 
-  $: if ($isBanned && !bannedToastShown) {
-    toast.danger('Your account has been disabled by the administrator.', { toastId: 'BANNED_USER' });
-  }
-
   $: if (browser && INFINITE_EXTENSION_ENABLED && $user) {
     InfiniteExtensionLoadFx();
     document.addEventListener('hederaWalletLoaded', () => InfiniteExtensionLoadFx());

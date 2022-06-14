@@ -20,11 +20,16 @@
 
 <script lang="ts">
   import { dev } from '$app/env';
+  import { isBanned, onSignOut } from '$lib/user';
 
   export let status: number = undefined;
 
   // `frame` is populated by Svelte in its CompileError and is a Rollup/Vite convention
   export let error: Error & { frame?: string } = undefined;
+
+  $: if ($isBanned && typeof window !== 'undefined') {
+    onSignOut();
+  }
 </script>
 
 <ThemeContext
