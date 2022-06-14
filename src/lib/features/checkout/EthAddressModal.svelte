@@ -75,7 +75,7 @@
   } else if (radioValue === 'metamask' && $walletConnected) {
     buttonText = 'Continue with MetaMask';
   } else if (radioValue === 'later') {
-    buttonText = 'I dont have an ETH address';
+    buttonText = `I don't have an ETH address`;
   }
 </script>
 
@@ -83,7 +83,7 @@
   <svelte:fragment slot="title"><span class="font-medium text-2xl">{title}</span></svelte:fragment>
   <div class="px-10 flex flex-col gap-6 pb-10">
     <span class="text-base" style="color: var(--gray-500)">
-      In order to receive this NFT you need a wallet with an ETH address. You can enter one manually or connect your
+      In order to receive this NFT, you need a wallet with an ETH address. You can enter one manually or connect your
       MetaMask.
     </span>
     <span class="text-base" style="color: var(--gray-500)"
