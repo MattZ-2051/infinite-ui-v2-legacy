@@ -3,6 +3,7 @@ import { handleWalletConnection } from '$lib/metamask';
 import { onSignIn } from '$lib/user';
 import routes from '$project/routes';
 import { toast } from '$ui/toast';
+import { formatCurrency } from '$util/format';
 
 export const placeBidFxErrorHandler = (error, listing: Listing) => {
   switch (error.data.appCode) {
@@ -14,6 +15,11 @@ export const placeBidFxErrorHandler = (error, listing: Listing) => {
     case 'NO_ENOUGH_BALANCE':
       toast.danger(
         `Whoops! You don't have sufficient funds in your wallet! Your available balance is not enough to cover the bid and marketplace fee. <a href=${routes.wallet} class="font-bold">Click here</a> to deposit more funds.`
+      );
+      break;
+    case 'SMALL_BID':
+      toast.danger(
+        `Please place a higher bid than ${formatCurrency(listing.auctionBidIncrement)} to participate in this auction.`
       );
       break;
     default:
