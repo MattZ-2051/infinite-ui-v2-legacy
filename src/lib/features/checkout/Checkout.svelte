@@ -130,6 +130,10 @@
   };
 
   onMount(async () => {
+    if (listing?.saleType) {
+      toast.danger('Whoops! We were not able to load the page. Try again, please.');
+      goToItemPage();
+    }
     validateVoucher();
     const clientSecret = $page.url.searchParams.get('payment_intent_client_secret');
     if (!clientSecret) {
@@ -175,6 +179,11 @@
     DISABLED_MARKETPLACE ? goto(routes.index) : goto(routes.marketplace);
   };
 
+  const goToItemPage = () => {
+    const route = product ? routes.product(product._id) : routes.sku(sku._id);
+    goto(route);
+  };
+
   $: gridContainerClass =
     ($media.xl || (!exitCheckout && !processingOrder)) && !isFullScreenComponent
       ? 'grid grid-flow-row xl:divide-x xl:divide-gray-200'
@@ -207,8 +216,8 @@
               <h1 class={`text-2xl ${paymentSelection ? 'mb-14' : 'mb-10'} 2xl:text-3xl second-font`}>
                 {#if paymentSelection}
                   Select your Payment Method
-                {:else if isOrdering}
-                  {checkoutTitleMessageMap[listing?.saleType]}
+                {:else if isOrdering && listing?.saleType && checkoutTitleMessageMap[listing.saleType]}
+                  {checkoutTitleMessageMap[listing.saleType]}
                 {/if}
               </h1>
               {#if $media.xl && !exitCheckout && !processingOrder && !showPendingPage}
