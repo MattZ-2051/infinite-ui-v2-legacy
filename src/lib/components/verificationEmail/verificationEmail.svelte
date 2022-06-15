@@ -36,9 +36,9 @@
   class="container flex flex-col font-medium justify-center justify-items-center content-center main-container text-primary-dark"
 >
   {#if expiredLink}
-    <h2 class="text-4xl py-4 title">Your verification code expired. <br /> Please try again</h2>
+    <h2 class="py-4 title">Your verification code expired. <br /> Please try again</h2>
   {:else}
-    <h2 class="text-4xl py-4 title">Please verify your email address to continue</h2>
+    <h2 class="py-4 title">Please verify your email address to continue</h2>
     <p class="text-base">
       We've sent and email to <span class="font-bold">{email}</span> with instructions to verify your account.
     </p>
@@ -73,9 +73,10 @@
     color: #000000;
   }
   .title {
+    font-size: 2.5rem;
+    line-height: 2.5rem;
     max-width: 40%;
   }
-
   .resend-button {
     all: unset;
     cursor: pointer;
