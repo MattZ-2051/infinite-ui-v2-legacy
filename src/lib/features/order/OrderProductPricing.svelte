@@ -56,7 +56,7 @@
     </div>
   {:else if isAuction}
     <div class="flex col-span-2 mb-4">
-      <div class="mb-2 text-black mr-6 mt-2 whitespace-nowrap">Bid Amount:</div>
+      <div class="mb-2 text-default mr-6 mt-2 whitespace-nowrap">Bid Amount:</div>
       <div class="w-full">
         <Input
           name="eth-address"
