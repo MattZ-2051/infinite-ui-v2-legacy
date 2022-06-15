@@ -1,12 +1,14 @@
 <script lang="ts">
+  import type { Sku } from '$lib/sku-item/types';
   import closeIcon from '$lib/components/icons/close';
   import Icon from '$ui/icon/Icon.svelte';
   import { clearRequiredSkus, gateKeepSkus, gateKeepType } from './gateKeeping.store';
   import NftDetails from './NftDetails.svelte';
   import { getActiveListings } from '../sku/sku.service';
   import FromCreator from '../sku/pricebox/button/FromCreator.svelte';
-  import { sku } from '../sku/sku.store';
   import { redirectToMarketplace } from './gateKeeping.service';
+
+  export let sku: Sku;
 
   $: singleGateKeepSku = $gateKeepSkus?.[0] && $gateKeepSkus.length === 1 ? $gateKeepSkus[0].sku : undefined;
   $: activeListings = singleGateKeepSku && getActiveListings(singleGateKeepSku);
@@ -37,7 +39,7 @@
       <span class="cursor-pointer" on:click={handleClose}><Icon path={closeIcon} size={1.5} /></span>
     </div>
     <p class="font-light text-base pt-6">
-      In order to buy <span class="font-semibold">{$sku.name}</span> you need to buy and own these NFTs:
+      In order to buy <span class="font-semibold">{sku?.name}</span> you need to buy and own these NFTs:
     </p>
   {:else}
     <div class="flex items-center justify-between">
@@ -45,7 +47,7 @@
       <span class="cursor-pointer" on:click={handleClose}><Icon path={closeIcon} size={1.5} /></span>
     </div>
     <p class="font-light text-base pt-6">
-      In order to buy <span class="font-semibold">{$sku.name}</span> you need to buy and own
+      In order to buy <span class="font-semibold">{sku?.name}</span> you need to buy and own
       <span class="font-semibold">{nextSkuBuy?.sku.name}</span> first.
     </p>
   {/if}
@@ -62,10 +64,10 @@
     {/each}
     {#if $gateKeepSkus.length > 1 && $gateKeepType !== 'and'}
       <NftDetails
-        name={$sku.name}
-        sourceImg={$sku.nftPublicAssets?.[0]}
+        name={sku?.name}
+        sourceImg={sku?.nftPublicAssets?.[0]}
         status="nowViewing"
-        handleClick={() => handleBuyNowClick($sku._id)}
+        handleClick={() => handleBuyNowClick(sku?._id)}
       />
     {/if}
   </div>

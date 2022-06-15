@@ -32,7 +32,7 @@
   $: activeGateKeepSkus = $gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned');
 </script>
 
-<NftGateKeepSidebar show={activeGateKeepSkus} />
+<NftGateKeepSidebar show={activeGateKeepSkus} sku={$product.sku} />
 <StickyColumn reverse>
   <div slot="sticky-content" class="sticky-content">
     <Gallery items={PRODUCT_GALLERY_LIMIT ? nftPublicAssets?.slice(0, PRODUCT_GALLERY_LIMIT) : nftPublicAssets} />

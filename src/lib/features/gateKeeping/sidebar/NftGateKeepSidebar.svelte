@@ -1,13 +1,15 @@
 <script lang="ts">
+  import type { Sku } from '$lib/sku-item/types';
   import { fly } from 'svelte/transition';
   import NftGateKeepList from '$lib/features/gateKeeping/NftGateKeepList.svelte';
 
   export let show = false;
+  export let sku: Sku;
 </script>
 
 {#if show}
   <nav class="nav md:w-128" transition:fly={{ x: 560, opacity: 1 }}>
-    <NftGateKeepList />
+    <NftGateKeepList {sku} />
   </nav>
 {/if}
 
