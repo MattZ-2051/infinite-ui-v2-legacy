@@ -101,7 +101,7 @@ export async function handleWalletConnection() {
       if (network.chainId !== 1) {
         toast.danger('Please connect to Ethereum Mainnet.', { toastId: 'WRONG_NETWORK' });
         walletConnected.set(false);
-        return;
+        return false;
       }
     }
     return true;

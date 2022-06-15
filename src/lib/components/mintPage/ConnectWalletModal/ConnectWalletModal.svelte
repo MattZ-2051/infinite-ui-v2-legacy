@@ -15,7 +15,10 @@
       await disconnectWallet();
     } else {
       try {
-        await handleWalletConnection();
+        const result = await handleWalletConnection();
+        if (result) {
+          toast.success('MetaMask Connected', { toastId: 'walletConnect' });
+        }
       } catch (error) {
         if (error?.code) {
           toast.danger(error?.message, { toastId: error?.code });
