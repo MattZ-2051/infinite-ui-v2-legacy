@@ -1,34 +1,29 @@
 import type { ModeFilterStatus } from '$lib/features/marketplace/types';
 
-export const CLIENT_DOC_TITLE = 'Mint Page';
-export const CLIENT_DOC_DESCRIPTION = 'The most dynamic, original, transparent, secure and sustainable NFT Exchange';
-export const CLIENT_COMPANY_NAME = 'Mint Page';
+export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'available';
+export const SENTRY_DNS = 'https://b93ec290c306467f812048e6bc22db15@o734225.ingest.sentry.io/6132955';
+export const AVAILABLE_DEPOSIT_TYPES = 'eth';
+export const CLIENT_API_HEADER: 'aria' | 'mclaren' | 'infinite' | 'seva' = 'infinite';
+export const AUTH_PROVIDER_IS_AUTH0 = false;
+export const CLIENT_DOC_TITLE = 'Infinite Mint Page';
+export const CLIENT_DOC_DESCRIPTION = 'Infinite Mint Page template';
+export const CLIENT_COMPANY_NAME = 'Infinite Mint Page';
 export const CLIENT_SOCIAL_IMAGE = {
-  url: 'https://mandelaverse.s3.amazonaws.com/madiba-social.jpg',
+  url: 'https://infinite-digital-dev.s3.amazonaws.com/assets-web/InfiniteWorld-1080x1080.png',
   width: 800,
   height: 900,
-  alt: 'Mandelaverse',
+  alt: 'Infinite',
 };
-export const CLIENT_SUPPORT_EMAIL = 'support@ARIAExchange.com';
-export const CLIENT_SUPPORT_URL = 'https://help.ariaexchange.com/s/';
-export const CLIENT_BIDDING_URL = '';
-export const CLIENT_HEDERA_URL =
-  'https://help.ariaexchange.com/s/article/What-blockchain-technology-is-used-to-mint-digital-collectibles';
-export const AUTH_PROVIDER_IS_AUTH0 = true;
-export const CLIENT_API_HEADER = 'mandela';
-export const AVAILABLE_DEPOSIT_TYPES = 'usdc,btc,hbar,suku';
-export const SENTRY_DNS = 'https://b93ec290c306467f812048e6bc22db15@o734225.ingest.sentry.io/6132955';
-export const MARKETPLACE_INITIAL_MODE_FILTER: ModeFilterStatus = 'all';
-export const ENABLE_RELATED_SKUS = true;
+export const ENABLE_RELATED_SKUS = false;
 export const ENABLE_GDPR_BANNER = false;
 export const INFINITE_EXTENSION_ENABLED = false;
 
 // Mint page exclusive
 export const MP_CONNECT_WALLET = 'Connect Wallet';
 export const MP_JOIN_DISCORD = 'Join';
-export const MP_DISCORD_LINK = 'https://discord.gg/mintpage';
-export const MP_INSTAGRAM_LINK = 'https://instagram.com/mintpage';
-export const MP_TWITTER_LINK = 'https://twitter.com/mintpage';
+export const MP_DISCORD_LINK = 'https://infinite-template-1.netlify.app/';
+export const MP_INSTAGRAM_LINK = 'https://infinite-template-1.netlify.app/';
+export const MP_TWITTER_LINK = 'https://infinite-template-1.netlify.app/';
 export const MP_SUB_HEADLINE = 'This is a subheadline';
 export const MP_HEADLINE = 'This is just a very long headline!';
 export const MP_HERO_DESCRIPTION_1 =
