@@ -7,6 +7,8 @@
   import { MY_WALLET_BUTTONS_DISABLED_MESSAGE } from '$project/variables';
   import { variables } from '$lib/variables';
   import { user } from '$lib/user';
+  import routes from '$project/routes';
+  import { goto } from '$app/navigation';
   import WithdrawNoticeModalBody from './WithdrawNoticeModalBody.svelte';
   import DepositNoticeModalBody from './DepositNoticeModalBody.svelte';
   import DisableWithdrawalModalBody from './withdraw/DisableWithdrawalModalBody.svelte';
@@ -34,6 +36,7 @@
         message: DisableWithdrawalModalBody,
         labels: { cancel: 'Go back', confirm: 'Contact Support' },
         onConfirm: () => {
+          goto(routes.help);
           closeModal();
         },
         titleClass: 'text-[32px]',
