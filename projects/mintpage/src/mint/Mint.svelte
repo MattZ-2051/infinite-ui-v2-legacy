@@ -128,7 +128,7 @@
 </script>
 
 <div class="flex flex-col items-center lg:flex-row {$$props.class}">
-  <div class="font-bold text-black font-lora-serif text-2xl mt-12 capitalize">
+  <div class="font-bold text-black secondary-font text-2xl mt-12 capitalize">
     {MP_MINT_TITLE}
   </div>
   <div class="flex flex-col items-center mt-3 lg:flex-row">
@@ -146,7 +146,7 @@
         <button type="button" class="h-8 px-4" on:click={() => add(-1)}>
           <Minus />
         </button>
-        <span class="text-black text-3xl font-lora-serif font-bold">{tokenCount}</span>
+        <span class="text-black text-3xl secondary-font font-bold">{tokenCount}</span>
         <button type="button" class="h-8 px-4" on:click={() => add(1)}>
           <Plus />
         </button>
@@ -157,7 +157,7 @@
       </div>
     </div>
     <Button variant="brand" on:click={mintHandler}>
-      <span class="capitalize text-white font-lora-serif font-bold text-lg">Mint now</span>
+      <span class="capitalize text-white secondary-font font-bold text-lg">Mint now</span>
     </Button>
   </div>
   <div class="flex items-center mt-6 mb-12 pr-4 pl-4 lg:pr-0 lg:pl-0 lg:mb-0">

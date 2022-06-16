@@ -67,17 +67,3 @@
   font-weight: 700;
   src: url('Lora/Lora-Bold.ttf');
 }
-
-/* Arvo */
-@font-face {
-  font-family: 'Arvo';
-  font-style: normal;
-  font-weight: 500;
-  src: url('Arvo/Arvo-Regular.ttf');
-}
-@font-face {
-  font-family: 'Arvo';
-  font-style: normal;
-  font-weight: 700;
-  src: url('Arvo/Arvo-Bold.ttf');
-}

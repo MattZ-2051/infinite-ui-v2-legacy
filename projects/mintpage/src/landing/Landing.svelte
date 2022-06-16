@@ -18,13 +18,13 @@
     class="flex flex-col w-full p-4 mb-16 lg:mb-0 lg:w-[60%] lg:pl-36 lg:pr-32 lg:pt-4 lg:h-screen items-start left-container"
   >
     <div class="text-primary text-sm font-semibold uppercase sub-headline">{MP_SUB_HEADLINE}</div>
-    <span class="text-black font-bold font-lora-serif text-6xl lg:text-7xl mt-4 headline">{MP_HEADLINE}</span>
+    <span class="text-black font-bold secondary-font text-6xl lg:text-7xl mt-4 headline">{MP_HEADLINE}</span>
     <p class="font-normal mt-8 hero-description">{MP_HERO_DESCRIPTION_1}</p>
     <p class="mt-2 hero-description">
       {MP_HERO_DESCRIPTION_2}
       <span class="underline">{MP_HERO_DESCRIPTION_2_HIGHLIGHT}</span>
     </p>
-    <p class="font-bold font-lora mt-4 hero-description-2">
+    <p class="font-bold secondary-font mt-4 hero-description-2">
       {MP_HERO_DESCRIPTION_3}
       <span class="hero-highlight">{MP_HERO_DESCRIPTION_3_HIGHLIGHT}</span>{MP_HERO_DESCRIPTION_3_1}
     </p>
