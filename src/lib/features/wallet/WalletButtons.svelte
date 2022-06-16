@@ -26,7 +26,7 @@
   }
 
   const chooseModalToShowInWithdraw = () => {
-    if ($user.allowWithdrawal) {
+    if (!$user.withdrawalsDisabled) {
       showInfoModal('withdraw');
     } else {
       openModal(ConfirmModal, {
