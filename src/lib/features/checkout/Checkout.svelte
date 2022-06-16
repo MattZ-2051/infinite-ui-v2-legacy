@@ -130,7 +130,7 @@
   };
 
   onMount(async () => {
-    if (listing?.saleType) {
+    if (!listing?.saleType) {
       toast.danger('Whoops! We were not able to load the page. Try again, please.');
       goToItemPage();
     }
