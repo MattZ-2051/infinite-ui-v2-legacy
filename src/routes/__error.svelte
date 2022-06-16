@@ -21,14 +21,28 @@
 <script lang="ts">
   import { dev } from '$app/env';
   import { isBanned, onSignOut } from '$lib/user';
+  import { toast } from '$ui/toast';
 
   export let status: number = undefined;
-
   // `frame` is populated by Svelte in its CompileError and is a Rollup/Vite convention
   export let error: Error & { frame?: string } = undefined;
 
-  $: if ($isBanned && typeof window !== 'undefined') {
-    onSignOut();
+  const BANNER_LABEL = `Your account has been disabled by the administrator, Please <a href=${routes.help}>contact support</a>`;
+  const TOAST_ID = 'BANNED_USER';
+
+  let bannedToastShown: boolean;
+
+  $: if ($isBanned) {
+    const bannedToastOpen = $toast.some(({ toastId }) => toastId === TOAST_ID);
+
+    if (!bannedToastOpen && bannedToastShown) {
+      onSignOut();
+    }
+    bannedToastShown = bannedToastOpen;
+  }
+
+  $: if (!bannedToastShown) {
+    toast.danger(BANNER_LABEL, { toastId: TOAST_ID });
   }
 </script>
 
