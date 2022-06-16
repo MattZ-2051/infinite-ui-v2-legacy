@@ -35,11 +35,10 @@
   export let sku: Sku = undefined;
   export let product: Product = undefined;
 
-  const DISABLED_MARKETPLACE = variables.disabledMarketplace;
   const MM_WALLET_ENABLED = variables.metamask.walletEnabled;
   const STRIPE_ENABLED = variables.stripe.enabled;
   const MM_PENDING_TIMEOUT = 600_000;
-  const backButtonLabel = DISABLED_MARKETPLACE ? 'home' : 'marketplace';
+  const backButtonLabel = 'Return to NFT Listing';
   const listing = sku ? getActiveListings(sku)[0] : product?.productListings?.[0];
   const isEthListing = sku?.currency === 'ETH';
   const isUsdListing = product?.sku?.currency === 'USD' || sku?.currency === 'USD';
@@ -175,10 +174,6 @@
     handlePayment({ id, user: $user, handleEthModalCallback, skuMintPolicy: sku?.mintPolicy });
   };
 
-  const handleExitCheckout = () => {
-    DISABLED_MARKETPLACE ? goto(routes.index) : goto(routes.marketplace);
-  };
-
   const goToItemPage = () => {
     const route = product ? routes.product(product._id) : routes.sku(sku._id);
     goto(route);
@@ -229,7 +224,7 @@
             <ExitCheckout
               exitLabel={backButtonLabel}
               onReturn={() => handleCheckoutStateChange('method-select')}
-              onExit={handleExitCheckout}
+              onExit={goToItemPage}
             />
           {:else if processingOrder}
             {#if showPendingPage}
@@ -245,7 +240,7 @@
               {sku}
               {lazyMinting}
               {ethAddress}
-              onExit={handleExitCheckout}
+              onExit={goToItemPage}
               {backButtonLabel}
               {finalSelectedMethod}
             />

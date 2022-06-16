@@ -13,6 +13,6 @@
   >
   <Button variant="brand" on:click={onReturn}>Return to checkout</Button>
   <span class="mt-6 text-center text-gray-500 hover:underline cursor-pointer hover:text-gray-800" on:click={onExit}
-    >Exit and back to {exitLabel}</span
+    >{exitLabel}</span
   >
 </div>
