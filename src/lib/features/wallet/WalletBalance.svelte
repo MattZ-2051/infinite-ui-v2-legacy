@@ -18,7 +18,7 @@
     {#if balance === undefined}
       <div class="animate-pulse bg-gray-300 rounded h-10 w-52" />
     {:else}
-      {MY_WALLET_SECTION_DISABLED ? '0,00' : formatCurrency(balance)}
+      {formatCurrency(balance)}
     {/if}
   </div>
 </div>
@@ -31,7 +31,7 @@
         {#if Number.isNaN(availableBalance) || availableBalance === undefined}
           <div class="inline-block animate-pulse bg-gray-300 rounded h-4 w-24" />
         {:else}
-          {MY_WALLET_SECTION_DISABLED ? '0,00' : formatCurrency(availableBalance)}
+          {formatCurrency(availableBalance)}
         {/if}
         <div
           tabindex="0"
