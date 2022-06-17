@@ -27,15 +27,15 @@
     // eslint-disable-next-line unicorn/prefer-switch
     if (filter.type === 'price') {
       debounceSetFilters({
-        params: { minPrice: false, maxPrice: false, page: 1 },
+        params: { minPrice: false, maxPrice: false, page: 1, firstId: '', lastId: '', isReverse: false },
       });
     } else if (filter.type === 'date') {
       debounceSetFilters({
-        params: { startDate: false, endDate: false, page: 1 },
+        params: { startDate: false, endDate: false, page: 1, firstId: '', lastId: '', isReverse: false },
       });
     } else if (filter.type === 'search') {
       debounceSetFilters({
-        params: { search: '', page: 1 },
+        params: { search: '', page: 1, firstId: '', lastId: '', isReverse: false },
       });
     } else {
       toggleCheckboxFilter(filter.type, filter.id, false);
@@ -52,6 +52,9 @@
         minPrice: +minPrice_ > 0 ? minPrice_ : false,
         maxPrice: +maxPrice_ < maxPrice ? maxPrice_ : false,
         page: 1,
+        firstId: '',
+        lastId: '',
+        isReverse: false,
       },
     });
   };
@@ -96,7 +99,7 @@
     value: boolean
   ) {
     debounceSetFilters({
-      params: { [`${type}:${id}`]: value, page: 1 },
+      params: { [`${type}:${id}`]: value, page: 1, firstId: '', lastId: '', isReverse: false },
     });
   }
 
@@ -214,6 +217,9 @@
               maxPrice: '',
               startDate: '',
               endDate: '',
+              firstId: '',
+              lastId: '',
+              isReverse: false,
             },
           }}
           class="text-gray-500 hover:text-gray-400 flex gap-2 items-center py-1 cursor-pointer text-lg"
