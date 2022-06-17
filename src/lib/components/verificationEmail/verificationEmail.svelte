@@ -6,7 +6,9 @@
   export let expiredLink = false;
 
   let seconds = 60;
-  let disabledButton = false;
+
+  let showCounter = false;
+  let showLoader = false;
 
   const TIME_OUT_SECONDS = 1000;
 
@@ -17,12 +19,14 @@
   const removeTimer = () => {
     clearInterval(startTimer);
     seconds = 60;
+    showCounter = false;
   };
 
   const handleResendEmail = async () => {
-    disabledButton = true;
+    showCounter = true;
+    showLoader = true;
     const { success } = await handleResentEmail(email);
-    disabledButton = !success;
+    showLoader = !success;
     if (success) {
       startTimer = setInterval(() => {
         seconds > 0 && subtractSeconds();
@@ -43,22 +47,35 @@
       We've sent and email to <span class="font-bold">{email}</span> with instructions to verify your account.
     </p>
   {/if}
-  {#if seconds === 60}
+  {#if !showCounter}
     {#if expiredLink}
-      <Button variant="brand" disabled={disabledButton} on:click={() => handleResendEmail()}>Resend email</Button>
+      <Button variant="brand" on:click={() => handleResendEmail()}>Resend email</Button>
     {:else}
       <p class="text-sm py-4">
         Didn't receive an email yet?
-        <button
-          class="font-bold cursor-pointer resend-button"
-          disabled={disabledButton}
-          on:click={() => handleResendEmail()}>Resend email</button
+        <button class="font-bold cursor-pointer resend-button" on:click={() => handleResendEmail()}>Resend email</button
         >
       </p>
     {/if}
   {:else}
-    <p class="text-sm py-4">
-      Check your inbox ({seconds}s)
+    <p class="text-sm py-4 flex">
+      Check your inbox (
+      {#if showLoader}
+        <div class="flex justify-items-center justify-center items-center dot-container">
+          <span class="flex dot animate-ping mr-1">
+            <span class="relative inline-flex rounded-full h-1 w-1 bg-black" />
+          </span>
+          <span class="flex dot animate-ping mr-1">
+            <span class="relative inline-flex rounded-full h-1 w-1 bg-black" />
+          </span>
+          <span class="flex dot animate-ping mr-1">
+            <span class="relative inline-flex rounded-full h-1 w-1 bg-black" />
+          </span>
+        </div>
+      {:else}
+        {seconds}s
+      {/if}
+      )
     </p>
   {/if}
 </div>
@@ -81,5 +98,12 @@
     all: unset;
     cursor: pointer;
     font-weight: 600;
+  }
+  .dot-container {
+    margin: 0.625rem 0px 0.625rem 0.3rem;
+  }
+  .dot {
+    width: 0.3rem;
+    height: 0.3rem;
   }
 </style>
