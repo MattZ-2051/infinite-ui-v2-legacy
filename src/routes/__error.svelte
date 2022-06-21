@@ -26,23 +26,25 @@
   export let status: number = undefined;
   // `frame` is populated by Svelte in its CompileError and is a Rollup/Vite convention
   export let error: Error & { frame?: string } = undefined;
-
   const BANNER_LABEL = `Your account has been disabled by the administrator, Please <a href=${routes.help}>contact support</a>`;
-  const TOAST_ID = 'BANNED_USER';
-
-  let bannedToastShown: boolean;
-
+  const TOAST_ID = 'BANNED_USER_TOAST_ID';
+  const BANNER_USER_ERROR_MESSAGE = 'Banned user';
+  let bannedToastShown = false;
+  let showToastBanner = false;
   $: if ($isBanned) {
     const bannedToastOpen = $toast.some(({ toastId }) => toastId === TOAST_ID);
-
     if (!bannedToastOpen && bannedToastShown) {
       onSignOut();
     }
     bannedToastShown = bannedToastOpen;
   }
-
-  $: if (!bannedToastShown) {
+  $: if (error.message === BANNER_USER_ERROR_MESSAGE) showToastBanner = true;
+  $: if (showToastBanner) {
     toast.danger(BANNER_LABEL, { toastId: TOAST_ID });
+    setTimeout(() => {
+      toast.remove(TOAST_ID);
+      showToastBanner = false;
+    }, 3000);
   }
 </script>
 
