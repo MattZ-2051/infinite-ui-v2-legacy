@@ -19,27 +19,41 @@
   import Minus from './Minus.svelte';
   import Plus from './Plus.svelte';
   import metamaskLogo from '../assets/metamask-logo.png';
-  import {
-    MP_MINT_TITLE,
-    MP_MAX_SUPPLY,
-    MP_MINT_PRICE,
-    MP_MAX_PER_WALLET,
-    MP_PREFERRED_WALLET,
-    MP_CONTRACT_ADDRESS,
-  } from '../variables';
+  import { MP_MINT_TITLE, MP_MAX_SUPPLY, MP_MINT_PRICE, MP_MAX_PER_WALLET, MP_PREFERRED_WALLET } from '../variables';
 
   const etherscanUrl = variables.ethNetwork.nftExplorerUrl;
   const isProduction = variables.ethNetwork.mmNetwork === 'mainnet';
-  const contractAddress = MP_CONTRACT_ADDRESS;
+  const contractAddress = import.meta.env.VITE_NFT_CONTRACT_ADDRESS as string;
   const contractAbi = MintPageABI;
   const contractParamaters = {
-    contractAddress: MP_CONTRACT_ADDRESS,
+    contractAddress,
     contractAbi: MintPageABI,
   };
 
   let saleStatus = false;
   let tokenCount = 1;
   let supplyLeft = undefined;
+
+  $: buttonTitle = 'Connect Wallet';
+  $: $walletConnected,
+    getWalletInfo,
+    (async () => {
+      if (!$walletConnected) {
+        buttonTitle = 'Connect Wallet';
+        return;
+      }
+      if ($walletConnected) {
+        getUserTokensNumber();
+        saleStatus = await getSaleStatus(contractParamaters);
+        if (saleStatus) {
+          buttonTitle = userTokenCount >= MP_MAX_PER_WALLET ? 'Max number minted' : 'Mint Now';
+        } else if (!saleStatus) {
+          buttonTitle = 'Sale has not started';
+        }
+        return;
+      }
+    })();
+
   $: total = (tokenCount * MP_MINT_PRICE).toFixed(2);
   $: userTokenCount = 0;
 
@@ -136,6 +150,10 @@
     <div class="border-l-2 border-black mr-4 ml-4 h-4 rotate-90 lg:rotate-0" />
     <span class="font-normal text-black">Max: {MP_MAX_PER_WALLET} per wallet</span>
     <div class="border-l-2 border-black mr-4 ml-4 h-4 rotate-90 lg:rotate-0" />
+    {#if userTokenCount}
+      <span class="font-normal text-black">You own: {userTokenCount}</span>
+      <div class="border-l-2 border-black mr-4 ml-4 h-4 rotate-90 lg:rotate-0" />
+    {/if}
     <span class="font-normal text-black">
       Mint price: <strong>{MP_MINT_PRICE} ETH</strong>
     </span>
@@ -157,7 +175,7 @@
       </div>
     </div>
     <Button variant="brand" on:click={mintHandler}>
-      <span class="capitalize text-white secondary-font font-bold text-lg">Mint now</span>
+      <span class="capitalize text-white secondary-font font-bold text-lg">{buttonTitle}</span>
     </Button>
   </div>
   <div class="flex items-center mt-6 mb-12 pr-4 pl-4 lg:pr-0 lg:pl-0 lg:mb-0">
