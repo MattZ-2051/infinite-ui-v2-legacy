@@ -35,11 +35,11 @@ function handleFilterParameters({
     series,
     minPrice: minPrice && Number(minPrice).toString(10),
     maxPrice: maxPrice && Number(maxPrice).toString(10),
+    currencies: currency,
     startDate,
     endDate,
     search,
     saleType,
-    currency,
   });
 }
 
