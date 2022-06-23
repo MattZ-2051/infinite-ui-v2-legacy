@@ -37,7 +37,7 @@
           <Image src={deposit} />
         </div>
         <div class="flex flex-col text-center ">
-          <p>Create your ARIA Exchange account & fund your wallet.</p>
+          <p>Create your ARIA Exchange account.</p>
         </div>
       </div>
       <div class="flex items-center justify-center transform rotate-90 md:transform-none text-gray-800">
@@ -48,7 +48,7 @@
           <Image src={purchase} />
         </div>
         <div class="flex flex-col text-center ">
-          <p>Purchase or place bids on your favorite collectibles.</p>
+          <p>Purchase your favorite collectibles.</p>
         </div>
       </div>
       <div class="flex items-center justify-center transform rotate-90 md:transform-none text-gray-800">
