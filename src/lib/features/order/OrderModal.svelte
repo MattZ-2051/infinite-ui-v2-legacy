@@ -6,7 +6,8 @@
   import type { SkuPurchaseTransaction, ValidETHListingData } from './types';
   import type { Listing, Sku, Product, PaymentMethod } from '$lib/sku-item/types';
   import { userId } from '$lib/user';
-  import { walletConnected, getWalletInfo, sendEthPurchasePaymentForImmediateMinting } from '$lib/web3';
+  import { web3User } from '$lib/web3/web3.stores';
+  import { getWalletInfo, sendEthPurchasePaymentForImmediateMinting } from '$lib/web3/web3.service';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';
@@ -47,9 +48,10 @@
   $: ethAddress = '';
   $: validEthAddress = undefined;
   $: directPurchasing = false;
+  $: walletConnected = $web3User.walletConnected;
 
   onMount(async () => {
-    if ($walletConnected && validETHPurchase) {
+    if (walletConnected && validETHPurchase) {
       const data = await getWalletInfo();
       balance = data.balance;
       ethAddress = data.address;
@@ -84,7 +86,7 @@
 
   async function submitOrder() {
     if (checkTerms() && checkValidETHAddress()) {
-      if ($walletConnected) {
+      if (walletConnected) {
         directPurchasing = true;
         await sendEthPurchasePaymentForImmediateMinting(
           validETHPurchase.externalPurchaseAddressEth,
@@ -325,7 +327,7 @@
           {listing}
         />
         <div class="flex flex-col gap-5 text-gray-500">
-          {#if $walletConnected && !directPurchasing && directPurchaseResult?.hash}
+          {#if walletConnected && !directPurchasing && directPurchaseResult?.hash}
             <span>
               You can check the status of the transaction on the
               <a

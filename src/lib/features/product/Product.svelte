@@ -7,6 +7,8 @@
   import routes from '$project/routes';
   import { PRODUCT_GALLERY_LIMIT } from '$project/variables';
   import NftGateKeepSidebar from '$lib/features/gateKeeping/sidebar/NftGateKeepSidebar.svelte';
+  import { web3User } from '$lib/web3/web3.stores';
+  import { isExternalOwner } from '$lib/web3/web3.service';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
   import { gateKeepSkus } from '$lib/features/gateKeeping/gateKeeping.store';
@@ -19,8 +21,15 @@
   import { isOwner } from './product.service';
 
   export let tab: 'auction' | 'history' | 'owner';
+  let isSecondaryOwner = false;
 
-  $: isProductOwner = isOwner($product, $userId);
+  $: isSecondaryOwner =
+    $web3User.walletConnected && isExternalOwner({ product: $product, internalOwner: isOwner($product, $userId) });
+
+  $: isProductOwner = $web3User.walletConnected
+    ? isOwner($product, $userId) && isSecondaryOwner
+    : isOwner($product, $userId);
+
   $: isTransactionLater = false;
   const hasCloseButton = browser && history.length > 1;
 

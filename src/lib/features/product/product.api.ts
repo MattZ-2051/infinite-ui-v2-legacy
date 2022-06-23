@@ -1,5 +1,5 @@
 import type { Product, Transaction, ListingSalePayload } from '$lib/sku-item/types';
-import type { EthMintTransaction } from './types';
+import type { EthMintTransaction, ProductPayloadV2 } from './types';
 import { get, patch, post, getPage, fetchTracker } from '$lib/api';
 
 export const loadingTransactions = fetchTracker();
@@ -65,4 +65,10 @@ export async function getProductPaymentIntent(paymentIntent: string) {
 
 export async function getProductTxHash(txHash: string) {
   return await get<Product>(`products/${txHash}/by-transaction-hash`, {});
+}
+
+export async function getProductsV2(parameters: { [key: string]: string }): Promise<ProductPayloadV2> {
+  return await get<ProductPayloadV2>('/v2/products', {
+    params: parameters,
+  });
 }

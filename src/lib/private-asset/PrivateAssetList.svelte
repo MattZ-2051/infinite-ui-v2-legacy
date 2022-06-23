@@ -6,6 +6,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import { formatBytes } from '$util/format';
   import { ENABLE_ASSET_FILE_SIZE } from '$project/variables';
+  import { web3User } from '$lib/web3/web3.stores';
   import { getPreSignedUrl } from './private-asset.api';
 
   const privateAssets: Writable<PrivateAssets> = getContext('PrivateAssets');
@@ -13,7 +14,7 @@
   export let isProductOwner = false;
 
   $: assets = $privateAssets?.assets || [];
-  $: isOwner = $privateAssets?.isOwner || isProductOwner;
+  $: isOwner = $web3User.walletConnected ? isProductOwner : $privateAssets?.isOwner;
   $: productId = $privateAssets?.productId;
 
   async function download(key: string, filename: string) {

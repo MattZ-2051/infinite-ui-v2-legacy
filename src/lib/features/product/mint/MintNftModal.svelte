@@ -2,7 +2,8 @@
   import type { Product } from '$lib/sku-item/types';
   import { Modal } from '$ui/modals';
   import { toast } from '$ui/toast';
-  import { connectWallet, getWalletInfo, walletConnected } from '$lib/web3';
+  import { connectWallet, getWalletInfo } from '$lib/web3/web3.service';
+  import { web3User } from '$lib/web3/web3.stores';
   import MintStatus from './MintStatus.svelte';
   import MintEthAddress from './MintEthAddress.svelte';
   import { pendingTxStatus, txState } from '../product.store';
@@ -35,7 +36,7 @@
   };
 
   const handleSubmit = async ({ radioValue, address }) => {
-    if (radioValue === 'metamask' && !$walletConnected) {
+    if (radioValue === 'metamask' && $web3User.walletConnected) {
       try {
         await connectWallet();
         const data = await getWalletInfo();

@@ -8,10 +8,10 @@
   import { isAuthenticated, onSignIn, userId } from '$lib/user';
   import {
     getWalletInfo,
-    walletConnected,
     handleWalletConnection,
     sendEthPurchasePaymentForImmediateMinting,
-  } from '$lib/web3';
+  } from '$lib/web3/web3.service';
+  import { setWalletConnected, web3User } from '$lib/web3/web3.stores';
   import { closeModal, Modal } from '$ui/modals';
   import Icon from '$ui/icon/Icon.svelte';
   import { formatCurrency } from '$util/format';
@@ -55,6 +55,7 @@
   $: validEthAddress = undefined;
   $: directPurchasing = false;
   $: shortenEthAddress = `${ethAddress.slice(0, 21)}...${ethAddress.slice(36, 42)}`;
+  $: walletConnected = $web3User.walletConnected;
 
   onMount(async () => {
     try {
@@ -69,7 +70,7 @@
       if (!validETHPurchase) {
         goto(routes.sku(sku._id), { replaceState: true });
       } else {
-        walletConnected.set(false);
+        setWalletConnected(false);
       }
     }
   });
@@ -109,7 +110,7 @@
 
   async function submitOrder() {
     if (checkTerms() && checkValidETHAddress()) {
-      if ($walletConnected) {
+      if (walletConnected) {
         directPurchasing = true;
         await sendEthPurchasePaymentForImmediateMinting(
           validETHPurchase.externalPurchaseAddressEth,
@@ -252,7 +253,7 @@
     title === 'Yeah! Payment successful.';
   } else if (result?.status === 'pending' || purchasing || stripeSucceded) {
     title = `We're processing your order`;
-  } else if (!$walletConnected) {
+  } else if (!walletConnected) {
     title = 'Connect your wallet';
   } else if (isStripeAllowed && !paymentMethod) {
     title = 'Select Payment Method';
@@ -283,7 +284,7 @@
             >View Pending Transactions</Button
           >
         </div>
-      {:else if !$walletConnected}
+      {:else if !walletConnected}
         <span class="text-gray-400"
           >In order to purchase this NFT you need to be connected with MetaMask and an ERC20 address.</span
         >
@@ -337,7 +338,7 @@
         {/if}
         <OrderDetails {listingPrice} {marketplaceFee} sku={_sku} {insufficientFunds} {userBalance} {listing} />
         <div class="flex flex-col gap-5 text-gray-500">
-          {#if $walletConnected && !directPurchasing && directPurchaseResult?.hash}
+          {#if walletConnected && !directPurchasing && directPurchaseResult?.hash}
             <span>
               You can check the status of the transaction on the
               <a

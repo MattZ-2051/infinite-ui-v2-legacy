@@ -5,16 +5,17 @@
   import Radiobutton from '$ui/radiobutton/Radiobutton.svelte';
   import Button from '$lib/components/Button.svelte';
   import { Input } from '$lib/components/form';
+  import { web3User } from '$lib/web3/web3.stores';
   import Icon from '$ui/icon/Icon.svelte';
-  import { walletConnected } from '$lib/web3';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
 
   export let handleSubmit: ({ address, radioValue }) => void;
   export let isLoading: boolean;
 
+  $: walletConnected = $web3User.walletConnected;
   const options = [
     { id: 1, value: 'manual', label: 'Enter ETH address' },
-    { id: 2, value: 'metamask', label: $walletConnected ? 'Continue with MetaMask' : 'Connect MetaMask' },
+    { id: 2, value: 'metamask', label: walletConnected ? 'Continue with MetaMask' : 'Connect MetaMask' },
   ];
 
   let radioValue;
@@ -40,9 +41,9 @@
 
   $: if (radioValue === 'manual') {
     buttonText = 'Mint NFT to ETH address';
-  } else if (radioValue === 'metamask' && !$walletConnected) {
+  } else if (radioValue === 'metamask' && !walletConnected) {
     buttonText = 'Mint NFT to MetaMask';
-  } else if (radioValue === 'metamask' && $walletConnected) {
+  } else if (radioValue === 'metamask' && walletConnected) {
     buttonText = 'Mint NFT to MetaMask';
   }
 </script>

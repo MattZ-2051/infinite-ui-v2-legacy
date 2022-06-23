@@ -1,4 +1,4 @@
-import type { TenantSettings } from './settings.types';
+import type { TenantContracts, TenantSettings } from './settings.types';
 import { get } from '$lib/api';
 
 export async function fetchTenantSettings({
@@ -9,4 +9,8 @@ export async function fetchTenantSettings({
   fetch: Fetch;
 }): Promise<TenantSettings> {
   return await get<TenantSettings>(`settings/${tenant}`, { fetch });
+}
+
+export async function fetchTenantContracts(): Promise<TenantContracts> {
+  return await get<TenantContracts>('settings/contracts');
 }

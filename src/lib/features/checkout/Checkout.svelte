@@ -5,7 +5,7 @@
   import { getActiveListings } from '$lib/features/sku/sku.service';
   import { user } from '$lib/user';
   import { variables } from '$lib/variables';
-  import { getWalletInfo } from '$lib/web3';
+  import { getWalletInfo } from '$lib/web3/web3.service';
   import metamaskIcon from '$lib/features/checkout/assets/metamask-icon.svg';
   import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon.svg';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
@@ -48,9 +48,7 @@
     auction: 'Place your bid',
     giveaway: 'Claim your giveaway',
   };
-
   let showPendingPage = false;
-
   const paymentMethods = [
     {
       id: 'cc-usd',
@@ -67,9 +65,7 @@
     { id: 'mm', title: 'MetaMask', iconSource: metamaskIcon, available: MM_WALLET_ENABLED && isEthListing },
     { id: 'balance', title: 'Your Balance', iconSource: creditCardIcon, available: isUsdListing },
   ];
-
   const availablePaymentMethods = paymentMethods.filter((paymentMethod) => paymentMethod.available);
-
   $: exitCheckout = $checkoutState === 'exit';
   $: processingOrder = $checkoutState === 'processing';
   $: orderSuccess = $checkoutState === 'success';
@@ -80,20 +76,16 @@
   $: paymentSelection = $checkoutState === 'method-select';
   $: isLoading = $checkoutState === 'loading';
   $: isOrdering = $checkoutState.startsWith('ordering');
-
   $: isFullScreenComponent = orderSuccess || orderError;
   $: processingOrder && intervalToShowPendingPage();
   let gasFee: number;
   let rate: number;
-
   let validETHPurchase: ValidETHListingData;
   let ethAddress = undefined;
-
   const intervalToShowPendingPage = () =>
     setTimeout(() => {
       showPendingPage = true;
     }, MM_PENDING_TIMEOUT);
-
   const validateVoucher = async (): Promise<void> => {
     const isVoucherSku = listing?.enabledNftPurchase;
     const paymentIntent = $page.url.searchParams.get('payment_intent');
@@ -108,14 +100,11 @@
       }
     }
   };
-
   const getPaymentInfo = async (): Promise<void> => {
     try {
       const costs = await getCosts(listing._id);
-
       gasFee = +costs.networkFee.gas;
       rate = +costs.rate.amount;
-
       validETHPurchase = await validETHdirectPurchase(listing._id);
     } catch {
       validETHPurchase = undefined;
@@ -125,7 +114,6 @@
       }
     }
   };
-
   onMount(async () => {
     if (!listing?.saleType) {
       toast.danger('Whoops! We were not able to load the page. Try again, please.');
@@ -140,13 +128,11 @@
       getPaymentInfo();
     }
   });
-
   onDestroy(async () => {
     if (browser) {
       localStorage.removeItem('checkout-state');
     }
   });
-
   const handleEthModalCallback = async ({ address, option }: { address: string; option: string }): Promise<void> => {
     switch (option) {
       case 'metamask': {
@@ -163,27 +149,21 @@
         break;
       }
     }
-
     handleCheckoutStateChange('ordering-stripe');
   };
-
   const handlePaymentButton = (id: string) => {
     handlePayment({ id, user: $user, handleEthModalCallback });
   };
-
   const goToItemPage = () => {
     const route = product ? routes.product(product._id) : routes.sku(sku._id);
     goto(route);
   };
-
   $: gridContainerClass =
     ($media.xl || (!exitCheckout && !processingOrder)) && !isFullScreenComponent
       ? 'grid grid-flow-row xl:divide-x xl:divide-gray-200'
       : 'grid-flow-row xl:divide-gray-200';
-
   $: orderSummaryContainerClass =
     exitCheckout || processingOrder ? 'hidden xl:grid xl:col-start-1 xl:col-end-3' : 'xl:col-start-1 xl:col-end-3';
-
   $: orderArticleContainerClass = `${
     exitCheckout || processingOrder ? 'flex items-center' : ''
   } xl:col-start-4 xl:col-span-4 divide-x-4`;

@@ -37,6 +37,7 @@ export interface TokenTxResponse {
   tokenSymbol: string;
   transactionIndex: string;
   value: string;
+  tokenID: string;
 }
 
 export interface TxReceiptStatusResponse {

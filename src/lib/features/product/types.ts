@@ -14,3 +14,8 @@ export interface EthMintTransaction {
   product: Product;
   transaction: Transaction;
 }
+
+export interface ProductPayloadV2 {
+  count: number;
+  resource: Product[];
+}

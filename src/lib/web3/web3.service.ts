@@ -1,4 +1,6 @@
-import type { EtherscanResponse } from '$lib/payment/crypto/etherscan/types';
+import type { TokenTxResponse } from '$lib/payment/crypto/etherscan/types';
+import type { Product, Sku } from '$lib/sku-item/types';
+import type { EthersContract } from './web3.types';
 import { ethers } from 'ethers';
 import { writable } from 'svelte/store';
 import detectEthereumProvider from '@metamask/detect-provider';
@@ -8,23 +10,16 @@ import { goto } from '$app/navigation';
 
 import { toast } from '$ui/toast';
 import { mobileAndTabletCheck } from '$util/detectMobile';
-import { get } from '$lib/api';
 import { variables } from '$lib/variables';
+import { getProductFromToken, getTokenTransactions } from './web3.api';
+import { fetchUserProducts, setEthAddress, setEthBalance, setWalletConnected, web3User } from './web3.stores';
 
-interface EthersContract {
-  contractAddress: string;
-  contractAbi?: ethers.ContractInterface;
-}
-
-const apiUrl = `${variables.ethNetwork.nftTransactionApiUrl}/`;
-const apiKey = variables.ethNetwork.apiKey as string;
 const isProduction = variables.ethNetwork.mmNetwork === 'mainnet';
 
 let provider: ethers.providers.Web3Provider;
 /* eslint-disable @typescript-eslint/no-unused-vars */
 let signer: ethers.providers.JsonRpcSigner;
 
-export const walletConnected = writable<boolean>(false);
 export const isLoading = writable<boolean>(AUTH_PROVIDER_IS_AUTH0);
 
 // I am managing the error in this way as we don't know if the code -32002 are included in other errors.
@@ -52,7 +47,7 @@ export async function checkWalletInstalled() {
     if (metamaskProvider) {
       metamaskProvider.on('accountsChanged', (accounts) => {
         if (accounts.length === 0) {
-          walletConnected.set(false);
+          setWalletConnected(false);
         }
       });
     }
@@ -61,9 +56,9 @@ export async function checkWalletInstalled() {
     const addresses = await provider.listAccounts();
     if (addresses.length > 0) {
       signer = provider.getSigner();
-      walletConnected.set(true);
+      setEthAddress(await signer.getAddress());
     } else {
-      walletConnected.set(false);
+      setWalletConnected(false);
     }
     return;
   }
@@ -78,17 +73,19 @@ export async function connectWallet() {
       try {
         await provider.send('eth_requestAccounts', []);
         signer = provider.getSigner();
-        walletConnected.set(true);
+        setWalletConnected(true);
+        setEthAddress(await signer.getAddress());
+        fetchUserProducts();
         isLoading.set(false);
       } catch (error) {
         isLoading.set(false);
-        walletConnected.set(false);
+        setWalletConnected(false);
         throw error;
       }
     })
     .catch((error) => {
       isLoading.set(false);
-      walletConnected.set(false);
+      setWalletConnected(false);
       throw error;
     });
 }
@@ -100,10 +97,11 @@ export async function handleWalletConnection() {
       const network = await checkNetwork();
       if (network.chainId !== 1) {
         toast.danger('Please connect to Ethereum Mainnet.', { toastId: 'WRONG_NETWORK' });
-        walletConnected.set(false);
+        setWalletConnected(false);
         return false;
       }
     }
+    await getWalletInfo();
     return true;
   } catch (error) {
     if (error?.code) {
@@ -123,7 +121,7 @@ export async function handleWalletConnection() {
 export async function disconnectWallet() {
   provider = undefined;
   signer = undefined;
-  walletConnected.set(false);
+  setWalletConnected(false);
   window.location.reload();
 }
 
@@ -131,6 +129,8 @@ export async function getWalletInfo() {
   const address = await signer.getAddress();
   const response = await provider.getBalance(address);
   const balance = ethers.utils.formatEther(response);
+  setEthAddress(address);
+  setEthBalance(balance);
   return { balance, address };
 }
 
@@ -206,15 +206,79 @@ export async function getPendingTransaction(tx: string) {
   return transactionHash;
 }
 
-export async function getTotalSupply({ contractAddress }: EthersContract) {
-  const result = await get<EtherscanResponse<string>>(apiUrl, {
-    params: {
-      module: 'stats',
-      action: 'tokensupply',
-      contractaddress: `${contractAddress}`,
-      apikey: apiKey,
-    },
+export async function getTokenTransfers(contracts: string[], userAddress: string) {
+  return await Promise.all(
+    contracts.map(async (contractAddress): Promise<TokenTxResponse> => {
+      const response = await getTokenTransactions({ contractAddress, userAddress });
+      return response.result;
+    })
+  );
+}
+
+export async function tokenToProduct(tokens: TokenTxResponse[], userAddress: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const tokenMap: Record<string, any> = {};
+  tokens.flat().map((token): void => {
+    const tokenID = token?.tokenID;
+    const toAddress = token?.to?.toLocaleLowerCase();
+    const timeStamp = Number.parseInt(token?.timeStamp, 10);
+
+    if (!tokenMap[tokenID]) {
+      const tokenInfo = {
+        to: toAddress,
+        timeStamp,
+      };
+      tokenMap[tokenID] = tokenInfo;
+    } else {
+      if (timeStamp > tokenMap[tokenID].timeStamp) {
+        tokenMap[tokenID].to = toAddress;
+      }
+    }
+    return;
   });
 
-  return result;
+  return await Promise.all(
+    tokens.flat().map(async (token): Promise<Product> => {
+      if (tokenMap[token.tokenID].to === userAddress?.toLowerCase()) {
+        const result = await getProductFromToken({
+          serialNumber: token?.tokenID,
+          mintingContractAddress: token?.contractAddress,
+        });
+        if (result.length > 0) {
+          return result[0];
+        }
+      }
+    })
+  );
+}
+
+export function isExternalOwner({
+  product,
+  sku,
+  internalOwner,
+}: {
+  product?: Product;
+  sku?: Sku;
+  internalOwner: boolean;
+}): boolean {
+  const externalProducts = web3User.getState().products;
+  if (externalProducts) {
+    const hasExternalProduct = !!externalProducts.some((currentProduct) => {
+      if (sku) {
+        return currentProduct.sku?._id === sku._id;
+      }
+
+      if (product) {
+        return currentProduct._id === product._id;
+      }
+    });
+
+    if (hasExternalProduct && internalOwner) {
+      return true;
+    }
+
+    if (!hasExternalProduct && internalOwner) {
+      return false;
+    }
+  }
 }

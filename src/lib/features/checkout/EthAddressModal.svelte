@@ -5,18 +5,20 @@
   import { Modal, closeModal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import Radiobutton from '$ui/radiobutton/Radiobutton.svelte';
+  import { web3User } from '$lib/web3/web3.stores';
   import Button from '$lib/components/Button.svelte';
   import { Input } from '$lib/components/form';
   import Icon from '$ui/icon/Icon.svelte';
-  import { walletConnected } from '$lib/web3';
   import { connectWallet } from './checkout.service';
 
   export let handleEthModalCallback: ({ address, option }) => void;
 
+  $: walletConnected = $web3User.walletConnected;
+
   const title = 'NFT destination';
   const options = [
     { id: 1, value: 'manual', label: 'Enter ETH address' },
-    { id: 2, value: 'metamask', label: $walletConnected ? 'Continue with MetaMask' : 'Connect MetaMask' },
+    { id: 2, value: 'metamask', label: walletConnected ? 'Continue with MetaMask' : 'Connect MetaMask' },
     {
       id: 3,
       value: 'later',
@@ -46,7 +48,7 @@
   };
 
   const handleSubmit = async () => {
-    if (radioValue === 'metamask' && !$walletConnected) {
+    if (radioValue === 'metamask' && !walletConnected) {
       try {
         await connectWallet();
         handleEthModalCallback({ address, option: radioValue });
@@ -67,9 +69,9 @@
 
   $: if (radioValue === 'manual') {
     buttonText = 'Continue with ETH address';
-  } else if (radioValue === 'metamask' && !$walletConnected) {
+  } else if (radioValue === 'metamask' && !walletConnected) {
     buttonText = 'Connect MetaMask';
-  } else if (radioValue === 'metamask' && $walletConnected) {
+  } else if (radioValue === 'metamask' && walletConnected) {
     buttonText = 'Continue with MetaMask';
   } else if (radioValue === 'later') {
     buttonText = `I don't have an ETH address`;

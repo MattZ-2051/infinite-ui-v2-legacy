@@ -3,15 +3,18 @@
   import { Modal } from '$ui/modals';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
-  import { walletConnected, disconnectWallet, handleWalletConnection } from '$lib/web3';
+  import { web3User } from '$lib/web3/web3.stores';
+  import { disconnectWallet, handleWalletConnection } from '$lib/web3/web3.service';
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import { mobileAndTabletCheck } from '$util/detectMobile';
 
   export let isOpen: boolean;
 
+  $: walletConnected = $web3User.walletConnected;
+
   const handleMetaMaskButton = async () => {
-    if ($walletConnected) {
+    if (walletConnected) {
       await disconnectWallet();
     } else {
       try {
@@ -40,7 +43,7 @@
     <div class="px-10 pb-10 flex flex-col">
       <p class="text-gray-400 mt-8">Connect with one of our available wallet providers or create a new one.</p>
       <Button variant={'brand'} on:click={handleMetaMaskButton} class="relative mt-8">
-        <span>{$walletConnected ? 'Disconnect MetaMask' : 'Connect MetaMask'}</span>
+        <span>{walletConnected ? 'Disconnect MetaMask' : 'Connect MetaMask'}</span>
       </Button>
     </div>
   </Modal>

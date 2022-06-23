@@ -8,13 +8,13 @@
     getNumberOfTokensOwned,
     getPendingTransaction,
     getSaleStatus,
-    getTotalSupply,
     getWalletInfo,
     handleWalletConnection,
     mintTo,
-    walletConnected,
-  } from '$lib/web3';
+  } from '$lib/web3/web3.service';
   import { variables } from '$lib/variables';
+  import { web3User } from '$lib/web3/web3.stores';
+  import { getTotalSupply } from '$lib/web3/web3.api';
   import { toast } from '$ui/toast';
   import Minus from './Minus.svelte';
   import Plus from './Plus.svelte';
@@ -35,23 +35,21 @@
   let supplyLeft = undefined;
 
   $: buttonTitle = 'Connect Wallet';
-  $: $walletConnected,
+  $: $web3User.walletConnected,
     getWalletInfo,
     (async () => {
-      if (!$walletConnected) {
+      if (!$web3User.walletConnected) {
         buttonTitle = 'Connect Wallet';
         return;
       }
-      if ($walletConnected) {
-        getUserTokensNumber();
-        saleStatus = await getSaleStatus(contractParamaters);
-        if (saleStatus) {
-          buttonTitle = userTokenCount >= MP_MAX_PER_WALLET ? 'Max number minted' : 'Mint Now';
-        } else if (!saleStatus) {
-          buttonTitle = 'Sale has not started';
-        }
-        return;
+      getUserTokensNumber();
+      saleStatus = await getSaleStatus(contractParamaters);
+      if (saleStatus) {
+        buttonTitle = userTokenCount >= MP_MAX_PER_WALLET ? 'Max number minted' : 'Mint Now';
+      } else if (!saleStatus) {
+        buttonTitle = 'Sale has not started';
       }
+      return;
     })();
 
   $: total = (tokenCount * MP_MINT_PRICE).toFixed(2);
@@ -103,7 +101,7 @@
   }
 
   async function mintHandler() {
-    if (!$walletConnected) {
+    if (!$web3User.walletConnected) {
       const result = await handleWalletConnection();
       if (isProduction) {
         const network = await checkNetwork();
@@ -116,13 +114,11 @@
         toast.success('MetaMask Connected', { toastId: 'walletConnect' });
       }
     } else {
-      if ($walletConnected) {
-        await getUserInfo();
-        if (userTokenCount >= MP_MAX_SUPPLY) {
-          return;
-        } else {
-          await mint();
-        }
+      await getUserInfo();
+      if (userTokenCount >= MP_MAX_SUPPLY) {
+        return;
+      } else {
+        await mint();
       }
     }
   }

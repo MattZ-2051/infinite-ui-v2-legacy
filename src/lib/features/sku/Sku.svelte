@@ -9,12 +9,15 @@
   import { PrivateAsset, PrivateAssetList } from '$lib/private-asset';
   import StickyColumn from '$lib/layout/StickyColumn.svelte';
   import { userId } from '$lib/user';
+  import { isExternalOwner } from '$lib/web3/web3.service';
+  import { web3User } from '$lib/web3/web3.stores';
   import HederaDisclaimer from './HederaDisclaimer.svelte';
   import EthDisclaimer from './EthDisclaimer.svelte';
   import SkuPriceBox from './pricebox/SkuPriceBox.svelte';
   import SkuInfo from './SkuInfo.svelte';
   import SkuDescription from './SkuDescription.svelte';
   import { sku, collectors, totalCollectors, related } from './sku.store';
+  import { isOwner } from './sku.service';
 
   function getItems(totalPrivateAssets: number) {
     let items = [{ id: 'description', title: 'Description' }];
@@ -35,6 +38,9 @@
   });
 
   $: activeGateKeepSkus = $gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned');
+
+  $: isProductOwner =
+    $web3User.walletConnected && isExternalOwner({ sku: $sku, internalOwner: isOwner($sku, $userId) });
 </script>
 
 <NftGateKeepSidebar show={activeGateKeepSkus} sku={$sku} />
@@ -86,7 +92,7 @@
 
         <Tab id="owner">
           {#if totalPrivateAssets > 0}
-            <PrivateAssetList />
+            <PrivateAssetList {isProductOwner} />
           {/if}
         </Tab>
       </Tabs>

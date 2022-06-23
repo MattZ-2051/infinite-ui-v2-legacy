@@ -7,7 +7,8 @@
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
   import { onSignIn, onSignUp, isLoading } from '$lib/user';
-  import { connectWallet, walletConnected, disconnectWallet } from '$lib/web3';
+  import { web3User } from '$lib/web3/web3.stores';
+  import { connectWallet, disconnectWallet } from '$lib/web3/web3.service';
   import {
     InfiniteExtensionLoginFx,
     InfiniteExtensionLogoutFx,
@@ -59,7 +60,7 @@
   $: wallets = [
     MM_WALLET_ENABLED && {
       name: 'MetaMask',
-      connected: $walletConnected,
+      connected: $web3User.walletConnected,
       login: handleWalletConnection,
       logout: disconnectWallet,
       disabled: $isLoading,

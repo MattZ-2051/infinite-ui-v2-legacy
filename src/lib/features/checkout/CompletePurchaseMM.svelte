@@ -10,7 +10,8 @@
   import { user, userId } from '$lib/user';
   import { formatCurrency } from '$util/format';
   import { variables } from '$lib/variables';
-  import { checkNetwork, getWalletInfo, sendEthPurchasePaymentForImmediateMinting, walletConnected } from '$lib/web3';
+  import { checkNetwork, getWalletInfo, sendEthPurchasePaymentForImmediateMinting } from '$lib/web3/web3.service';
+  import { web3User } from '$lib/web3/web3.stores';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
@@ -47,13 +48,10 @@
   $: insufficientFunds = total > +userBalance;
   $: priceWFee = Number.parseFloat((total + gasFee).toFixed(5));
   $: acceptedTerms = false;
-
   let balance;
   let purchaseResult: providers.TransactionResponse;
   let purchaseInfo: ValidETHListingData;
-
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
-
   onMount(async () => {
     if (!$user) {
       handleCheckoutStateChange('method-select');
@@ -70,19 +68,16 @@
       }
     }
   });
-
   const onEthAddressInput = (event) => {
     const { value } = event.target as HTMLInputElement;
     ethAddress = value;
     validEthAddress = isEthAddress(ethAddress);
   };
-
   const submitOrder = async () => {
     if (!checkTerms(acceptedTerms)) {
       return;
     }
-
-    if (checkValidETHAddress(sku.currency, isEthAddress(ethAddress)) && $walletConnected) {
+    if (checkValidETHAddress(sku.currency, isEthAddress(ethAddress)) && $web3User.walletConnected) {
       purchasing = true;
       const network = await checkNetwork();
       if (network.name === 'homestead' || (MM_TEST_NETWORK_ENABLED && network.name === 'goerli')) {
@@ -118,9 +113,7 @@
       }
     }
   };
-
   let copiedLink = false;
-
   const onCopyLink = async () => {
     await copy(ethAddress);
     copiedLink = true;
@@ -128,7 +121,6 @@
       copiedLink = false;
     }, 5000);
   };
-
   const onCheckedTerms = (event: Event) => {
     acceptedTerms = (event.target as HTMLInputElement).checked;
   };
