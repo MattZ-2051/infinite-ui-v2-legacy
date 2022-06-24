@@ -14,6 +14,7 @@ const getSaleType = (saleType, mintStatus) => {
 const getMintStatus = (mintStatus) => {
   if (mintStatus === 'all') return '';
   if (mintStatus === 'minted') return { mintStatus: 'minted' };
+  if (mintStatus === 'notMinted') return { mintStatus: 'purchased' };
 };
 export async function loadCollectorProducts({
   id,

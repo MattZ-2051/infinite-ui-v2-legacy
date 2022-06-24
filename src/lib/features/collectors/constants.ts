@@ -47,6 +47,10 @@ export const INITIAL_MINT_STATUS_OPTIONS: SortOption[] = [
     name: 'Minted',
     value: 'minted',
   },
+  {
+    name: 'Not Minted',
+    value: 'notMinted',
+  },
 ];
 
 export const INITIAL_SALE_TYPE_OPTIONS: SortOption[] = [
