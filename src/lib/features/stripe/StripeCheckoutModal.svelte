@@ -45,7 +45,6 @@
     } = await stripeCreatePaymentIntentFx({
       listingId: listing._id,
       mintToAddress,
-      lazyMinting: false,
     });
 
     const total = new Big(cost.finalPayout).add(cost.serviceEarnings).add(networkFee.gas).times(rateUSD.amount);

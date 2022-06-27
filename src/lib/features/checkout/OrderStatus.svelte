@@ -4,7 +4,7 @@
   import { goto } from '$app/navigation';
   import routes from '$project/routes';
   import { FilePreview } from '$ui/file';
-  import { SUCCESS_PURCHASE_LAZY_MINT, SUCCESS_PURCHASE_INSTANT_MINT } from '$project/variables';
+  import { SUCCESS_PURCHASE_INSTANT_MINT } from '$project/variables';
   import errorIcon from '$lib/features/checkout/assets/error-icon.svg';
   import successIcon from '$lib/features/checkout/assets/success-icon.svg';
   import { handleCheckoutStateChange } from './checkout.service';
@@ -14,11 +14,9 @@
   export let sku: Sku = undefined;
   export let listing: Listing;
   export let orderState: 'success' | 'error';
-  export let lazyMinting: boolean;
   export let ethAddress: string;
   export let onExit: () => void;
   export let backButtonLabel: string;
-  export let finalSelectedMethod: string;
 
   const orderSuccess = orderState === 'success';
   const orderFailed = orderState === 'error';
@@ -66,14 +64,10 @@
       </p>
     {:else if orderSuccess}
       <p class="text-base px-6 pt-8 mb-10 gap-y-2">
-        {#if lazyMinting}
-          {@html SUCCESS_PURCHASE_LAZY_MINT(sku?.name || product?.sku?.name)}
-        {:else}
-          {@html SUCCESS_PURCHASE_INSTANT_MINT(sku?.name || product?.sku?.name)}
-          <br />
-          <br />
-          <span class="font-bold">{ethAddress ? ethAddress : ''}</span>
-        {/if}
+        {@html SUCCESS_PURCHASE_INSTANT_MINT(sku?.name || product?.sku?.name)}
+        <br />
+        <br />
+        <span class="font-bold">{ethAddress ? ethAddress : ''}</span>
       </p>
     {/if}
     <figure class="px-10 pb-6 sm:px-20">
@@ -93,10 +87,8 @@
           View your product
         {:else if isAuction}
           View Bids
-        {:else if finalSelectedMethod === 'mm' || !lazyMinting}
-          View NFT
         {:else}
-          View & Mint NFT
+          View NFT
         {/if}
       </Button>
     {/if}

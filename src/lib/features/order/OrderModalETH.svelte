@@ -420,7 +420,7 @@
             placeholder="ERC20 Wallet address"
             disabled
           />
-          <StripeCheckout {listing} mintToAddress={ethAddress} lazyMinting={false} />
+          <StripeCheckout {listing} mintToAddress={ethAddress} />
         {/if}
       {/if}
       {#if isStripeAllowed && !!paymentMethod}

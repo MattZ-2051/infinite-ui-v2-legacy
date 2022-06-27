@@ -24,7 +24,6 @@
 
   export let listing: Listing;
   export let mintToAddress: string | undefined;
-  export let lazyMinting: boolean;
   export let conversionRate: number | undefined = undefined;
 
   let acceptedTerms = false;
@@ -59,7 +58,6 @@
       } = await stripeCreatePaymentIntentFx({
         listingId: listing._id,
         mintToAddress,
-        lazyMinting,
         whitelistCode: voucherCode,
       });
 
@@ -95,7 +93,7 @@
   };
 
   async function handleSubmit() {
-    if (!user && lazyMinting) {
+    if (!user) {
       showLoginToast();
     }
     if (!acceptedTerms) {

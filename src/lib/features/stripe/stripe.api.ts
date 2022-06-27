@@ -40,20 +40,17 @@ export async function stripeCreatePaymentIntent({
   listingId,
   fetch,
   mintToAddress,
-  lazyMinting,
   whitelistCode,
 }: {
   listingId: string;
   fetch?: Fetch;
   mintToAddress?: string;
-  lazyMinting: boolean;
   whitelistCode?: string;
 }) {
   return post<PaymentIntentProperties>(
     `listings/${listingId}/stripe/payment`,
     {
       mintToAddress,
-      lazyMinting,
       whitelistCode,
     },
     { fetch }

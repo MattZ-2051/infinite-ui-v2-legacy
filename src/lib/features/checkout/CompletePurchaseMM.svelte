@@ -10,13 +10,7 @@
   import { user, userId } from '$lib/user';
   import { formatCurrency } from '$util/format';
   import { variables } from '$lib/variables';
-  import {
-    checkNetwork,
-    getWalletInfo,
-    sendEthPurchasePaymentForImmediateMinting,
-    walletConnected,
-    sendEthPurchasePaymentForLazyMinting,
-  } from '$lib/web3';
+  import { checkNetwork, getWalletInfo, sendEthPurchasePaymentForImmediateMinting, walletConnected } from '$lib/web3';
   import Icon from '$ui/icon/Icon.svelte';
   import { toast } from '$ui/toast';
   import Button from '$lib/components/Button.svelte';
@@ -42,7 +36,6 @@
   export let sku: Sku;
   export let listing: Listing;
   export let gasFee = 0;
-  export let lazyMinting: boolean;
   export let conversionRate: number;
 
   $: validEthAddress = undefined;
@@ -62,7 +55,7 @@
   const listingPrice = listing.saleType === 'giveaway' ? 0 : listing.price;
 
   onMount(async () => {
-    if (!$user && lazyMinting) {
+    if (!$user) {
       handleCheckoutStateChange('method-select');
     } else {
       const isWalletConnected = await connectWallet();
@@ -93,7 +86,7 @@
       purchasing = true;
       const network = await checkNetwork();
       if (network.name === 'homestead' || (MM_TEST_NETWORK_ENABLED && network.name === 'goerli')) {
-        await (lazyMinting ? sendEthPurchasePaymentForLazyMinting : sendEthPurchasePaymentForImmediateMinting)(
+        await sendEthPurchasePaymentForImmediateMinting(
           purchaseInfo.externalPurchaseAddressEth,
           priceWFee,
           $userId,

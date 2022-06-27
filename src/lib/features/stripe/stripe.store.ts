@@ -23,16 +23,14 @@ export const stripeCreatePaymentIntentFx = createEffect(
     listingId,
     fetch,
     mintToAddress,
-    lazyMinting,
     whitelistCode,
   }: {
     listingId: string;
     fetch?: Fetch;
     mintToAddress?: string;
-    lazyMinting: boolean;
     whitelistCode?: string;
   }) => {
-    return stripeCreatePaymentIntent({ listingId, fetch, mintToAddress, lazyMinting, whitelistCode });
+    return stripeCreatePaymentIntent({ listingId, fetch, mintToAddress, whitelistCode });
   }
 );
 

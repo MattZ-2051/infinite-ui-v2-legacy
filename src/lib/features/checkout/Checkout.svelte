@@ -49,7 +49,6 @@
     giveaway: 'Claim your giveaway',
   };
 
-  let lazyMinting = false;
   let showPendingPage = false;
 
   const paymentMethods = [
@@ -71,7 +70,6 @@
 
   const availablePaymentMethods = paymentMethods.filter((paymentMethod) => paymentMethod.available);
 
-  let finalSelectedMethod: string;
   $: exitCheckout = $checkoutState === 'exit';
   $: processingOrder = $checkoutState === 'processing';
   $: orderSuccess = $checkoutState === 'success';
@@ -161,7 +159,7 @@
         break;
       }
       case 'later': {
-        lazyMinting = true;
+        ethAddress = undefined;
         break;
       }
     }
@@ -170,7 +168,6 @@
   };
 
   const handlePaymentButton = (id: string) => {
-    finalSelectedMethod = id;
     handlePayment({ id, user: $user, handleEthModalCallback, skuMintPolicy: sku?.mintPolicy });
   };
 
@@ -238,17 +235,15 @@
               {listing}
               {product}
               {sku}
-              {lazyMinting}
               {ethAddress}
               onExit={goToItemPage}
               {backButtonLabel}
-              {finalSelectedMethod}
             />
           {:else if isOrdering}
             {#if orderingMm && isEthListing}
-              <CompletePurchaseMM {sku} {listing} {gasFee} lazyMinting={false} conversionRate={rate} />
+              <CompletePurchaseMM {sku} {listing} {gasFee} conversionRate={rate} />
             {:else if orderingStripe}
-              <StripeCheckout mintToAddress={ethAddress} {listing} {lazyMinting} conversionRate={rate} />
+              <StripeCheckout mintToAddress={ethAddress} {listing} conversionRate={rate} />
             {:else if orderingBalance}
               <CompletePurchaseUsd {listing} {sku} {product} />
             {/if}
