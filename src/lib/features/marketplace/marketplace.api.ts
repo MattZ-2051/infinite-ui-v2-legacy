@@ -1,6 +1,6 @@
 import type { Sku, Profile, Series } from '$lib/sku-item/types';
 import type { ModeFilterStatus } from './types';
-import type { SkuV2, MarketplaceCondition } from '$lib/infinite-api-sdk/types';
+import type { MarketplaceCondition, SkuV2 } from '$lib/infinite-api-sdk/types';
 import { skuCategories, skuCreators, skuEditions, skuMaxPrice, skuTilesWithLookAhead } from '$lib/infinite-api-sdk';
 import { fetchTracker } from '$lib/api';
 import { modeFilters } from './marketplace.service';

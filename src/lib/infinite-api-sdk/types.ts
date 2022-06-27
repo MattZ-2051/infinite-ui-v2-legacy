@@ -111,7 +111,7 @@ export type TileMeta = {
   totalUpcomingSkuListingsSupply?: number;
 };
 
-// Partial Type, nowadays have the attrbutes nedeed for /v2/skus/tiles/{condition}
+// Partial Type, nowadays have the attributes needed for /v2/skus/tiles/{condition}
 export type SkuV2 = {
   _id: string;
   activeAuctionProductListing?: Listing;
@@ -143,4 +143,9 @@ export type SkuV2 = {
   rejectReason?: string;
   upcomingSkuListing?: Listing;
   version: '2';
+};
+
+export type SkuV2Page = {
+  count: number;
+  resource: SkuV2[];
 };
