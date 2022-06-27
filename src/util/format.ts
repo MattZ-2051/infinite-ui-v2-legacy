@@ -18,9 +18,9 @@ export function formatCurrency(value: number | string, options?: FormatNumberOpt
   if (options?.currency === 'ETH') {
     return formatEthCurrency(value, options);
   }
-  if (value >= maxCompleteNumber && value <= maxCompactNumber)
+  if (+value >= maxCompleteNumber && +value <= maxCompactNumber)
     options = { notation: 'compact', maximumSignificantDigits: 7, ...options };
-  if (value > maxCompactNumber) options = { notation: 'engineering', maximumSignificantDigits: 7, ...options };
+  if (+value > maxCompactNumber) options = { notation: 'engineering', maximumSignificantDigits: 7, ...options };
   return numberFormat(value, { ...options, style: 'currency', currency: 'USD' });
 }
 

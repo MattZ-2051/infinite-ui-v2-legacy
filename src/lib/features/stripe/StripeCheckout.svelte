@@ -1,9 +1,9 @@
 <script lang="ts">
+  import Big from 'big.js';
   import { onMount } from 'svelte';
   import type { Listing } from '$lib/sku-item/types';
   import type { StripeElements, StripePaymentElement } from '@stripe/stripe-js';
   import { loadStripe } from '@stripe/stripe-js';
-  import type { CurrencyType } from '../wallet/types';
   import { user } from '$lib/user';
   import { formatCurrency } from '$util/format';
   import { page } from '$app/stores';
@@ -34,13 +34,7 @@
   let elements: StripeElements;
   let paymentElementNode: HTMLElement;
 
-  let currency: CurrencyType;
   let totalCost: string;
-  let sellerPrice: number;
-  let buyerFee: number;
-  let marketplaceFee: number;
-  let gasFee: number;
-  let rate: number;
 
   onMount(initialize);
 
@@ -69,15 +63,8 @@
         whitelistCode: voucherCode,
       });
 
-      currency = cost.currency;
-      sellerPrice = cost.finalPayout + cost.initialSellersFee;
-      buyerFee = cost.initialBuyersFee;
-      marketplaceFee = cost.initialBuyersFeePercentage / 100;
-      gasFee = +networkFee.gas;
-      rate = +rateUSD.amount;
-
-      const total = sellerPrice + buyerFee + gasFee;
-      totalCost = formatCurrency(total * rate, { currency: 'USD' });
+      const total = new Big(cost.finalPayout).add(cost.serviceEarnings).add(networkFee.gas).times(rateUSD.amount);
+      totalCost = formatCurrency(total.toFixed(2), { currency: 'USD' });
 
       const style = getComputedStyle(paymentElementNode);
       const theme: 'flat' | 'stripe' | 'night' | 'none' = 'stripe';
