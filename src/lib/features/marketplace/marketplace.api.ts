@@ -1,4 +1,4 @@
-import type { Sku, Profile, Series } from '$lib/sku-item/types';
+import type { Sku, Profile, Series, Currency } from '$lib/sku-item/types';
 import type { ModeFilterStatus } from './types';
 import type { MarketplaceCondition, SkuV2 } from '$lib/infinite-api-sdk/types';
 import { skuCategories, skuCreators, skuEditions, skuMaxPrice, skuTilesWithLookAhead } from '$lib/infinite-api-sdk';
@@ -72,7 +72,7 @@ export async function loadMarketplaceItems({
   const endDate: string = query.get('endDate') || undefined;
   const search: string = query.get('search') || undefined;
   const saleType: string = query.get('saleType') || undefined;
-  const currency: string = query.get('currency') || undefined;
+  const currency: Currency = (query.get('currency') || undefined) as Currency;
 
   const invocationArguments = {
     sortBy,

@@ -33,7 +33,7 @@ export const skuStatusForV2 = (sku: SkuV2, simpleTitle?: boolean): Status => {
   const isOnlyBuyNowListing: boolean =
     sku?.tileMeta?.countActiveSkuListings + sku?.tileMeta?.countActiveProductListings === 1 &&
     sku?.minPriceListing?.saleType === 'fixed';
-  const isUniqueAuction: boolean = sku?.tileMeta?.countAuctionListings === 1; //ToDo change countAuctionListings for countActiveAuctionListings
+  const isUniqueAuction: boolean = sku?.tileMeta?.countActiveAuctionListings === 1;
 
   if (sku?.activeSkuListing || sku?.activeAuctionProductListing || sku?.activeBuyNowProductListing) {
     if (sku?.minPriceListing?.saleType === 'giveaway') {

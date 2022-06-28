@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CollectorProduct } from '$lib/sku-item/types';
+  import type { CollectorProductV2 } from '$lib/infinite-api-sdk/types';
   import { mdiChevronRight } from '@mdi/js';
   import Icon from '$ui/icon/Icon.svelte';
   import TimeDifference from '$ui/timeDifference/TimeDifference.svelte';
@@ -12,7 +12,7 @@
     getActiveAuctionMinAllowedBid,
   } from './collectors.service';
 
-  export let collector: CollectorProduct;
+  export let collector: CollectorProductV2;
   export let currency: 'USD' | 'ETH';
 </script>
 

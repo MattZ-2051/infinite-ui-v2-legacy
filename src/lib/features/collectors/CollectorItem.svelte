@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CollectorProduct } from '$lib/sku-item/types';
+  import type { CollectorProductV2 } from '$lib/infinite-api-sdk/types';
   import { mdiAccountCircle } from '@mdi/js';
   import mdiChevronRight from '$lib/components/icons/arrow-right';
   import Icon from '$ui/icon/Icon.svelte';
@@ -10,7 +10,7 @@
   import { RIGHT_ARROW_SIZE_ON_HISTORY } from '$project/variables';
   import CollectorItemStatus from './CollectorItemStatus.svelte';
 
-  export let collector: CollectorProduct;
+  export let collector: CollectorProductV2;
   export let redeemable: boolean;
   export let currency: 'USD' | 'ETH';
 </script>

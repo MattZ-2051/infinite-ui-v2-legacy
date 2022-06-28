@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Sku, CollectorProduct } from '$lib/sku-item/types';
+  import type { Sku } from '$lib/sku-item/types';
+  import type { CollectorProductV2 } from '$lib/infinite-api-sdk/types';
   import routes from '$project/routes';
   import { PRODUCT_GALLERY_LIMIT } from '$project/variables';
   import arrowLeft from '$lib/features/product/assets/arrow-left';
@@ -11,11 +12,10 @@
   import CollectorsSummary from './CollectorsSummary.svelte';
 
   export let sku: Sku;
-  export let collectors: CollectorProduct[];
-  export let page: number;
+  export let collectors: CollectorProductV2[];
   export let search: string;
-  export let total: number;
-  export let perPage: number;
+  export let hasNext: boolean;
+  export let hasPrevious: boolean;
 
   const hasCloseButton = browser && history.length > 1;
 
@@ -55,7 +55,7 @@
       </div>
 
       <div class="mt-20">
-        <CollectorsSummary {sku} {collectors} {page} {search} {total} {perPage} />
+        <CollectorsSummary {sku} {collectors} {search} {hasNext} {hasPrevious} />
       </div>
     </div>
   </StickyColumn>

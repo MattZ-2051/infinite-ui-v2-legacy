@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { CollectorProduct } from '$lib/sku-item/types';
+  import type { CollectorProductV2 } from '$lib/infinite-api-sdk/types';
   import routes from '$project/routes';
   import SkuPriceBoxButton from './SkuPriceBoxButton.svelte';
 
-  export let collector: CollectorProduct;
+  export let collector: CollectorProductV2;
 </script>
 
 <SkuPriceBoxButton href={routes.product(collector?.listing?.product)}>

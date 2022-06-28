@@ -1,6 +1,7 @@
 import type { CurrencyType } from '$lib/features/wallet/types';
 import type { User } from '$lib/user/types';
 import type { FileAsset } from '$ui/file/types';
+import type { CollectorProductV2 } from '$lib/infinite-api-sdk/types';
 
 export type Rarity = 'uncommon' | 'common' | 'rare' | 'epic' | 'legendary';
 export type Edition = 'single' | 'limited' | 'open';
@@ -45,7 +46,7 @@ export type Sku = {
   minCurrentBid: number;
   mintPolicy?: MintPolicy;
   circulatingSupply: number;
-  products: CollectorProduct[];
+  products: CollectorProductV2[];
   totalSupply: number;
   totalSupplyLeft: number;
   totalSkuSupplyLeft: number;
@@ -402,23 +403,6 @@ export type Transaction = {
   createdAt: Date;
   updatedAt?: Date;
   status: TransactionStatus;
-};
-
-export type CollectorProduct = {
-  _id: string;
-  serialNumber: string;
-  redeemedStatus?: 'NA' | 'pending' | 'redeemed';
-  createdAt: Date;
-  sku: string;
-  status?: ProductStatus;
-  owner: Partial<Profile>;
-  activeProductListing?: Listing;
-  upcomingProductListing?: Listing;
-  listing?: Listing;
-  tokenId?: string;
-  explorerLink?: string;
-  highestBid?: Bid;
-  nftPublicAssets?: FileAsset[];
 };
 
 export type Series = {

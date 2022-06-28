@@ -9,6 +9,7 @@ import type {
   SaleType,
   PurchasePolicyMetaData,
   Bid,
+  ProductStatus,
 } from '$lib/sku-item/types';
 
 type SkuBaseFilterParameters = {
@@ -21,7 +22,7 @@ type SkuBaseFilterParameters = {
   endDate?: string;
   search?: string;
   saleType?: string;
-  currency?: string;
+  currency?: Currency;
   featured?: boolean;
   condition?: MarketplaceCondition;
 };
@@ -94,7 +95,7 @@ export type Listing = {
   auctionBidIncrement?: number;
   highestBid?: Bid;
   auctionProcess?: 'unset' | 'processing' | 'closed';
-  currency: 'ETH' | 'USD'; //todo create a type currency to be used everywhere.
+  currency: Currency;
   purchasePolicy?: PurchasePolicyMetaData;
   enabledNftPurchase: boolean;
   minPriceOrBid?: number;
@@ -149,3 +150,40 @@ export type SkuV2Page = {
   count: number;
   resource: SkuV2[];
 };
+
+export type CollectorProductV2 = {
+  _id: string;
+  activeProductListing?: Listing;
+  createdAt: Date;
+  listing?: Listing;
+  nftPublicAssets?: FileAsset[];
+  ownedByExternalWallet?: boolean;
+  owner: Partial<Profile>;
+  redeemedStatus?: 'NA' | 'pending' | 'redeemed';
+  serialNumber: string;
+  sku: SkuV2;
+  status?: ProductStatus;
+  tenant?: string;
+  tokenId?: string;
+  upcomingProductListing?: Listing;
+  updatedAt: Date;
+};
+
+export type CollectorProductV2Page = {
+  count: number;
+  resource: CollectorProductV2[];
+};
+
+export type CollectorProductBaseFilterParameters = {
+  search?: string;
+  saleType?: string;
+  mintStatus?: string;
+  owner?: string;
+};
+
+export type CollectorProductRequestParameters = {
+  sortBy?: string;
+  startId?: string;
+  isReverse?: boolean;
+  per_page?: number;
+} & CollectorProductBaseFilterParameters;

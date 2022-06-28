@@ -24,8 +24,9 @@
     _id: 'saad4hajbnv46',
     serialNumber: '5',
     createdAt: new Date(),
+    updatedAt: new Date(),
     owner: owner,
-    sku: '',
+    sku: undefined,
   };
 
   function cc(options) {

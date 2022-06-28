@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Sku, CollectorProduct } from '$lib/sku-item/types';
+  import type { Sku } from '$lib/sku-item/types';
+  import type { CollectorProductV2 } from '$lib/infinite-api-sdk/types';
   import type { ActionType } from '$lib/features/product/actions/types';
   import { handleCheckoutStateChange } from '$lib/features/checkout/checkout.service';
   import { onOrderIntent } from '$lib/features/order/order.service';
@@ -29,7 +30,7 @@
 
   export let sku: Sku;
   export let totalCollectors: number;
-  export let collectors: CollectorProduct[];
+  export let collectors: CollectorProductV2[];
   export let userId: string;
 
   const voucherCode = $page.url.searchParams.get('voucherCode') || '';

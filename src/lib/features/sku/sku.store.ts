@@ -1,5 +1,5 @@
-import type { Sku, CollectorProduct } from '$lib/sku-item/types';
-import type { SkuV2 } from '$lib/infinite-api-sdk/types';
+import type { Sku } from '$lib/sku-item/types';
+import type { SkuV2, CollectorProductV2 } from '$lib/infinite-api-sdk/types';
 import type { Awaited } from 'ts-essentials';
 import { createEffect, createStore, createEvent, forward } from 'effector';
 import { loadSku } from './sku.api';
@@ -13,7 +13,7 @@ export const loadSkuFx = createEffect(async ({ id, fetch }: { id: string; fetch?
 // eslint-disable-next-line unicorn/no-null
 export const sku = createStore<Sku>(null).on(setSku, (state, payload) => payload.sku);
 
-export const collectors = createStore<CollectorProduct[]>([]).on(setSku, (state, payload) => payload.sku.products);
+export const collectors = createStore<CollectorProductV2[]>([]).on(setSku, (state, payload) => payload.sku.products);
 
 export const totalCollectors = createStore<number>(0).on(setSku, (state, payload) => payload.sku?.circulatingSupply);
 

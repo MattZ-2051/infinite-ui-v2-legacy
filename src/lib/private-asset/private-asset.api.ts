@@ -1,6 +1,7 @@
 import type { FileAsset } from '$ui/file';
-import type { CollectorProduct, Product } from '$lib/sku-item/types';
+import type { Product } from '$lib/sku-item/types';
 import { get, getPage, post } from '$lib/api';
+import { collectorProducts } from '$lib/infinite-api-sdk';
 
 export async function getPrivateAssets({
   skuId,
@@ -13,17 +14,14 @@ export async function getPrivateAssets({
   try {
     const [responseFileAssets, responseCollectors] = await Promise.all([
       getPage<FileAsset>(`skus/${skuId}/private-assets`),
-      ownerId &&
-        getPage<CollectorProduct>(`products/collectors/${skuId}`, {
-          params: { page: '1', per_page: '1', includeFunctions: 'true', ownerId },
-        }),
+      ownerId && collectorProducts(fetch)(skuId, { per_page: 1, owner: ownerId }),
     ]);
 
     return {
       total: responseFileAssets?.total,
       assets: responseFileAssets?.data,
-      isOwner: responseCollectors?.data.length > 0,
-      productId: responseCollectors?.data[0]?._id,
+      isOwner: responseCollectors?.resource.length > 0,
+      productId: responseCollectors?.resource?.[0]?._id,
     };
   } catch (error) {
     // eslint-disable-next-line no-console

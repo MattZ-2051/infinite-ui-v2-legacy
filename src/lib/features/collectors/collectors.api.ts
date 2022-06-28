@@ -1,5 +1,6 @@
-import type { CollectorProduct, Sku } from '$lib/sku-item/types';
-import { get, getPage, fetchTracker } from '$lib/api';
+import type { Sku } from '$lib/sku-item/types';
+import { get, fetchTracker } from '$lib/api';
+import { collectorsProductsWithLookAhead } from '$lib/infinite-api-sdk';
 
 export const loading = fetchTracker();
 
@@ -23,26 +24,29 @@ export async function loadCollectorProducts({
   fetch?: Fetch;
   query: URLSearchParams;
 }) {
-  const page: number = +query.get('page') || 1;
   const perPage: number = +query.get('perPage') || 6;
   const sortBy: string = query.get('sortBy') || 'serialNumber:asc';
   const search: string = query.get('search') || '';
   const saleType: string = query.get('saleType') || '';
   const mintStatus: string = query.get('mintStatus') || '';
+  const lastId = query.get('lastId') || undefined;
+  const firstId = query.get('firstId') || undefined;
+  const isReverseIn = query.get('isReverse');
+  const isReverse: boolean = isReverseIn === 'true';
 
-  const [sku, { data: collectors, total }] = await Promise.all([
+  id = '6128014df885a1741f1903a9';
+  const productsCollectorsCaller = collectorsProductsWithLookAhead(fetch, id, { tracker: loading });
+  const [sku, { results: collectors, hasNext, hasPrevious }] = await Promise.all([
     get<Sku>(`skus/${id}?includeFunctions=true`, { fetch }),
-    getPage<CollectorProduct>(`products/collectors/${id}?includeFunctions=true`, {
-      fetch,
-      tracker: loading,
-      params: {
-        page: `${page}`,
-        per_page: `${perPage}`,
-        sortBy,
-        ...getMintStatus(mintStatus),
-        ...getSaleType(saleType, mintStatus),
-        ...(search && { search }),
-      },
+    productsCollectorsCaller({
+      lastId,
+      firstId,
+      isReverse,
+      per_page: perPage,
+      sortBy,
+      ...getMintStatus(mintStatus),
+      ...getSaleType(saleType, mintStatus),
+      ...(search && { search }),
     }),
   ]);
 
@@ -50,8 +54,7 @@ export async function loadCollectorProducts({
     sku,
     collectors,
     search,
-    page,
-    total,
-    perPage,
+    hasNext,
+    hasPrevious,
   };
 }

@@ -1,5 +1,5 @@
-import type { Sku, Listing, CollectorProduct, Product } from '$lib/sku-item/types';
-import type { SkuV2 } from '$lib/infinite-api-sdk/types';
+import type { Sku, Listing, Product } from '$lib/sku-item/types';
+import type { SkuV2, CollectorProductV2 } from '$lib/infinite-api-sdk/types';
 import { formatInteger } from '$util/format';
 
 export type SupplyInfo = { type: 'unique' | 'limited' | 'released'; quantity: number } | undefined;
@@ -20,7 +20,10 @@ const isLimited = (sku: Sku): boolean => {
   return getActiveListings(sku).length === 0 && getUpcomingListings(sku).length === 0 && sku.totalSupply === 1;
 };
 
-export const getLimitedAuctionCollector = (sku: Sku, collectors: CollectorProduct[]): CollectorProduct | undefined => {
+export const getLimitedAuctionCollector = (
+  sku: Sku,
+  collectors: CollectorProductV2[]
+): CollectorProductV2 | undefined => {
   if (
     isLimited(sku) &&
     collectors?.length > 0 &&

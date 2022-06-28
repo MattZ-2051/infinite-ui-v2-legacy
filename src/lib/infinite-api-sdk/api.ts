@@ -6,6 +6,10 @@ import type {
   SkuTileRequestParameters,
   SkuV2,
   SkuV2Page,
+  CollectorProductV2,
+  CollectorProductBaseFilterParameters,
+  CollectorProductRequestParameters,
+  CollectorProductV2Page,
 } from './types';
 import { send } from '$lib/api';
 
@@ -258,4 +262,97 @@ export function skuTile(fetch, options?) {
     return body;
   }
   return skuTileCall;
+}
+
+// ************* COLLECTORS *************
+
+function handleFilterParametersCollectorsProduct({
+  search,
+  saleType,
+  mintStatus,
+  owner,
+}: {
+  search?: string;
+  saleType?: string;
+  mintStatus?: string;
+  owner?: string;
+}) {
+  return wipeEmptyParameters({
+    search,
+    saleType,
+    mintStatus,
+    owner,
+  });
+}
+
+function handleRequestParametersCollectorProducts({
+  startId,
+  isReverse,
+  per_page,
+  sortBy,
+  ...more
+}: CollectorProductRequestParameters) {
+  return wipeEmptyParameters({
+    ...handleFilterParametersCollectorsProduct(more),
+    startId,
+    isReverse,
+    limit: per_page && Number(per_page).toString(10),
+    sortBy,
+  });
+}
+
+export function collectorProducts(fetch, options?) {
+  async function collectorProductsCall(
+    id: string,
+    collectorProductRequestParameters: CollectorProductRequestParameters
+  ): Promise<CollectorProductV2Page> {
+    const parameters = handleRequestParametersCollectorProducts(collectorProductRequestParameters);
+    const { body } = await send<CollectorProductV2Page>(`/v2/products/collectors/${id}`, {
+      ...options,
+      method: 'GET',
+      fetch,
+      params: parameters,
+    });
+    return body;
+  }
+  return collectorProductsCall;
+}
+
+export function collectorsProductsWithLookAhead(fetch, collectorId, options?) {
+  const apiCall = collectorProducts(fetch, options);
+  async function wrapApiCall({
+    lastId,
+    firstId,
+    isReverse,
+    per_page,
+    ...collectorProductFilterParameters
+  }: CollectorProductBaseFilterParameters & {
+    lastId?: string;
+    firstId?: string;
+    isReverse?: boolean;
+    per_page?: number;
+    sortBy?: string;
+  }): Promise<{
+    results: CollectorProductV2[];
+    count: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+  }> {
+    const startId = isReverse ? firstId : lastId;
+    const { count, resource } = await apiCall(collectorId, {
+      ...collectorProductFilterParameters,
+      per_page: per_page + 1,
+      startId,
+      isReverse,
+    });
+    const hasF = resource.length > per_page;
+    const hasR = Boolean(startId);
+    return {
+      results: isReverse ? resource.slice(-per_page) : resource.slice(0, per_page),
+      count,
+      hasNext: isReverse ? hasR : hasF,
+      hasPrevious: isReverse ? hasF : hasR,
+    };
+  }
+  return wrapApiCall;
 }

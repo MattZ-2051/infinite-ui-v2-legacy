@@ -1,6 +1,7 @@
 <script lang="ts">
-  import type { CollectorProduct, Sku, SortOption } from '$lib/sku-item/types';
-  import { Pagination } from '$ui/pagination';
+  import type { Sku, SortOption } from '$lib/sku-item/types';
+  import type { CollectorProductV2 } from '$lib/infinite-api-sdk/types';
+  import { PaginationCursor } from '$ui/pagination';
   import Sort from '$lib/components/Sort.svelte';
   import { page as pageState } from '$app/stores';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
@@ -16,11 +17,10 @@
   } from './constants';
 
   export let sku: Sku;
-  export let collectors: CollectorProduct[];
-  export let page: number;
+  export let collectors: CollectorProductV2[];
   export let search: string;
-  export let total: number;
-  export let perPage: number;
+  export let hasNext: boolean;
+  export let hasPrevious: boolean;
 
   const isMintLaterSku = sku?.mintPolicy?.transaction === 'later';
   const isEthCurrency = sku.currency === 'ETH';
@@ -58,10 +58,17 @@
       [key]: value,
     };
   };
-  const gotoPage = (event: CustomEvent) => {
-    navigate({ page: +event.detail.value });
-  };
+
+  function goNext() {
+    navigate({ lastId: collectors.slice(-1)[0]._id, firstId: collectors[0]._id, isReverse: false });
+  }
+
+  function goPrevious() {
+    navigate({ lastId: collectors.slice(-1)[0]._id, firstId: collectors[0]._id, isReverse: true });
+  }
+
   const handleInput = (event: Event) => navigate({ search: (event.target as HTMLInputElement).value });
+
   function navigate(parameters): void {
     gotoQueryParameters(
       {
@@ -102,7 +109,13 @@
     <div class="no-results">No collector editions found</div>
   {/each}
 </div>
-<Pagination {page} {total} {perPage} class="flex justify-end my-5 pr-4 md:pr-8" on:change={gotoPage} />
+<PaginationCursor
+  {hasNext}
+  {hasPrevious}
+  class="flex justify-end my-5 pr-4 md:pr-8"
+  on:next={goNext}
+  on:prev={goPrevious}
+/>
 
 <style lang="postcss">
   .collector-custom-search-input {
