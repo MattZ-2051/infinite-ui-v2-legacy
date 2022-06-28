@@ -61,8 +61,4 @@
       background: linear-gradient(253.57deg, rgba(0, 0, 0, 0.5) 6.96%, rgba(54, 63, 69, 0.5) 77.23%);
     }
   }
-
-  .description :global(p) {
-    @apply my-6;
-  }
 </style>
