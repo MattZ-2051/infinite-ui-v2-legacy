@@ -169,7 +169,7 @@
           <Plus />
         </button>
       </div>
-      <div class="flex flex-col items-center justify-center lg:mr-6 pl-10 pr-10 border-l-0 rounded-r-xl stepper">
+      <div class="flex flex-col items-start justify-center lg:mr-6 pl-10 pr-10 border-l-0 rounded-r-xl stepper">
         <div class="text-black opacity-80">Total:</div>
         <div class="text-black"><strong>{formatCurrency(total, { currency: 'ETH' })}</strong></div>
       </div>

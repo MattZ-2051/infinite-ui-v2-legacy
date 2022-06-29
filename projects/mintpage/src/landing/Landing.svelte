@@ -18,7 +18,7 @@
     class="flex flex-col w-full p-4 mb-16 lg:mb-0 lg:w-[60%] lg:pl-36 lg:pr-32 lg:pt-4 lg:h-screen items-start left-container"
   >
     <div class="text-primary text-sm font-semibold uppercase sub-headline">{MP_SUB_HEADLINE}</div>
-    <span class="text-black font-bold secondary-font text-6xl lg:text-7xl mt-4 headline">{MP_HEADLINE}</span>
+    <span class="text-black font-bold secondary-font text-6xl mt-4 lg:text-7xl headline">{MP_HEADLINE}</span>
     <p class="font-normal mt-8 hero-description">{MP_HERO_DESCRIPTION_1}</p>
     <p class="mt-2 hero-description">
       {MP_HERO_DESCRIPTION_2}
@@ -45,6 +45,7 @@
 
   .headline {
     color: var(--mp-headline-color);
+    line-height: 5rem;
   }
 
   .left-container {
@@ -57,10 +58,13 @@
 
   .hero-description {
     color: var(--mp-hero-description-color);
+    line-height: 1.75rem;
   }
 
   .hero-description-2 {
     color: var(--mp-hero-secondary-text-color);
+    font-size: 1.125rem;
+    line-height: 1.6rem;
   }
 
   .hero-highlight {

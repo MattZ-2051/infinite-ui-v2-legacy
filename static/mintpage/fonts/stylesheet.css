@@ -1,7 +1,7 @@
 /* Inter */
 @font-face {
   font-family: 'Inter';
-  src: url('Inter/Inter-Light.ttf');
+  src: url('Inter/Inter-Light.ttf') format('truetype');
   font-style: normal;
   font-weight: 200;
 }
@@ -9,31 +9,31 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 300;
-  src: url('Inter/Inter-Medium.ttf');
+  src: url('Inter/Inter-Medium.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  src: url('Inter/Inter-Medium.ttf');
+  src: url('Inter/Inter-Medium.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
-  src: url('Inter/Inter-Regular.ttf');
+  src: url('Inter/Inter-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-  src: url('Inter/Inter-SemiBold.ttf');
+  src: url('Inter/Inter-SemiBold.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
-  src: url('Inter/Inter-Bold.ttf');
+  src: url('Inter/Inter-Bold.ttf') format('truetype');
 }
 
 /* Lora */
@@ -41,29 +41,29 @@
   font-family: 'Lora';
   font-style: normal;
   font-weight: 300;
-  src: url('Lora/Lora-Medium.ttf');
+  src: url('Lora/Lora-Medium.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Lora';
   font-style: normal;
   font-weight: 400;
-  src: url('Lora/Lora-Medium.ttf');
+  src: url('Lora/Lora-Medium.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Lora';
   font-style: normal;
   font-weight: 500;
-  src: url('Lora/Lora-Regular.ttf');
+  src: url('Lora/Lora-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Lora';
   font-style: normal;
   font-weight: 600;
-  src: url('Lora/Lora-SemiBold.ttf');
+  src: url('Lora/Lora-SemiBold.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Lora';
   font-style: normal;
   font-weight: 700;
-  src: url('Lora/Lora-Bold.ttf');
+  src: url('Lora/Lora-Bold.ttf') format('truetype');
 }
