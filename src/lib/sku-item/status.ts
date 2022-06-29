@@ -64,8 +64,8 @@ export const skuStatusForV2 = (sku: SkuV2, simpleTitle?: boolean): Status => {
           saleTypeTitle = '';
           break;
       }
-      return { status: 'active', minPrice, saleTypeTitle };
     }
+    return { status: 'active', minPrice, saleTypeTitle };
   }
   if (minStartDate !== undefined && dayjs(minStartDate).isAfter(dayjs())) {
     if (dayjs(minStartDate).diff(new Date(), 'day', true) > 3) {
