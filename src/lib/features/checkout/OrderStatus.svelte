@@ -64,10 +64,14 @@
       </p>
     {:else if orderSuccess}
       <p class="text-base px-6 pt-8 mb-10 gap-y-2">
-        {@html SUCCESS_PURCHASE_INSTANT_MINT(sku?.name || product?.sku?.name)}
-        <br />
-        <br />
-        <span class="font-bold">{ethAddress ? ethAddress : ''}</span>
+        {#if isAuction}
+          Your bid was placed successfully. You will receive an email if you are outbid or if you win the auction.
+        {:else}
+          {@html SUCCESS_PURCHASE_INSTANT_MINT(sku?.name || product?.sku?.name)}
+          <br />
+          <br />
+          <span class="font-bold">{ethAddress ? ethAddress : ''}</span>
+        {/if}
       </p>
     {/if}
     <figure class="px-10 pb-6 sm:px-20">
