@@ -6,8 +6,8 @@
   import { user } from '$lib/user';
   import { variables } from '$lib/variables';
   import { getWalletInfo } from '$lib/web3';
-  import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
-  import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
+  import metamaskIcon from '$lib/features/checkout/assets/metamask-icon.svg';
+  import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon.svg';
   import DualRingLoader from '$lib/components/DualRingLoader.svelte';
   import closeIcon from '$lib/components/icons/close';
   import { media } from '$lib/media-query.store';
@@ -20,7 +20,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import OrderSummary from './OrderSummary.svelte';
   import ExitCheckout from './ExitCheckout.svelte';
-  import PaymentButton from './PaymentButton.svelte';
+  import PaymentButton from './PaymentButton/PaymentButton.svelte';
   import ProcessingOrder from './ProcessingOrder.svelte';
   import OrderStatus from './OrderStatus.svelte';
   import CompletePurchaseMM from './CompletePurchaseMM.svelte';
@@ -202,7 +202,7 @@
         {/if}
       </div>
       <div class={orderArticleContainerClass}>
-        <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl">
+        <article class="py-6 col-span-2 mx-auto max-w-xl xl:max-w-lg 2xl:max-w-3xl relative">
           {#if !isFullScreenComponent}
             <div class="flex justify-between">
               <h1 class={`text-2xl ${paymentSelection ? 'mb-14' : 'mb-10'} 2xl:text-3xl second-font`}>
@@ -248,13 +248,12 @@
               <CompletePurchaseUsd {listing} {sku} {product} />
             {/if}
           {:else if paymentSelection}
-            <div class="items-center flex flex-col md:flex-row xl:flex-col 2xl:flex-row 2xl:justify-center h-full">
+            <div class="items-center flex flex-col xl:w-full xl:h-full xl:absolute">
               {#each availablePaymentMethods as paymentMethod, i}
                 <ThemeContext id="payment-buttons">
                   <PaymentButton
                     onClick={() => handlePaymentButton(paymentMethod.id)}
-                    classNames={i !== availablePaymentMethods.length - 1 &&
-                      'mb-6 md:mb-0 md:mr-6 xl:mr-0 xl:mb-6 2xl:mr-6 2xl:mb-0'}
+                    classNames={i !== availablePaymentMethods.length - 1 && 'mb-6'}
                     title={paymentMethod.title}
                     iconSource={paymentMethod.iconSource}
                     id={paymentMethod.id}

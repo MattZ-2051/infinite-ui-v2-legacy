@@ -58,6 +58,7 @@
   --button-outline-brand-bg-color-hover: #000000;
   --button-outline-brand-border-color-hover: #5e29ff;
   --button-marketplace-filter-color: #f0f0f0;
+  --button-payment-method-active-color: var(--primary-color);
   --button-confirm-modal-radius: 32px;
 
   /* ButtonGroup */
@@ -123,6 +124,7 @@
 
   /* CreditCard */
   --credit-card-background-color: theme('colors.gray.200');
+  --credit-card-icons-color-invert: invert(100%);
 
   /* Titles */
   --title-font-family: Almarena Display Regular;

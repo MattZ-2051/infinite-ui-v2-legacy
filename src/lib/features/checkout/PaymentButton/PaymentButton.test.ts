@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/svelte';
-import metamaskIcon from '$lib/features/checkout/assets/metamask-icon';
-import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon';
+import metamaskIcon from '$lib/features/checkout/assets/metamask-icon.svg';
+import creditCardIcon from '$lib/features/checkout/assets/creditcard-icon.svg';
 import PaymentButton from './PaymentButton.svelte';
 
 const paymentMethods = [
@@ -30,9 +30,9 @@ describe('PaymentButton', () => {
     });
 
     const button = getByRole('button');
-    const svg = container.querySelector('svg');
+    const img = container.querySelector('img');
 
-    expect(svg).toBeDefined();
+    expect(img).toBeDefined();
 
     component.$on('click', mock);
 
@@ -75,16 +75,5 @@ describe('PaymentButton', () => {
     expect(amexIcon).toBeInTheDocument();
     expect(applePayIcon).toBeInTheDocument();
     expect(gPayIcon).toBeInTheDocument();
-  });
-
-  it('should support brand variant', () => {
-    const { getByRole } = setup({
-      title: paymentMethods[1].title,
-      id: paymentMethods[1].id,
-      iconSource: metamaskIcon,
-    });
-
-    const button = getByRole('button');
-    expect(button).toHaveClass('brand');
   });
 });
