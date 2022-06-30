@@ -23,19 +23,6 @@ interface PaymentIntentProperties {
   };
 }
 
-export async function connectStripeAccount({
-  refresh_url,
-  return_url,
-  fetch,
-}: {
-  refresh_url?: string;
-  return_url?: string;
-  fetch?: Fetch;
-}) {
-  const response = await post<{ url: string }>(`users/connect-stripe-account`, { refresh_url, return_url }, { fetch });
-  return response.url;
-}
-
 export async function stripeCreatePaymentIntent({
   listingId,
   fetch,

@@ -2,7 +2,7 @@ import { createEffect } from 'effector';
 import { loadStripe } from '@stripe/stripe-js';
 import { toast } from '$ui/toast';
 import { variables } from '$lib/variables';
-import { connectStripeAccount, stripeCreatePaymentIntent } from './stripe.api';
+import { stripeCreatePaymentIntent } from './stripe.api';
 import { pendingProductCreated, updateCheckoutState } from '../checkout/checkout.store';
 
 const stripePromise = loadStripe(variables.stripe.pubKey as string);
@@ -11,12 +11,6 @@ interface VerifyStripeStatusFxProperties {
   clientSecret: string;
   oldCheckout?: boolean;
 }
-
-export const connectStripeAccountFx = createEffect(
-  async ({ refresh_url, return_url, fetch }: { refresh_url?: string; return_url?: string; fetch?: Fetch }) => {
-    return connectStripeAccount({ refresh_url, return_url, fetch });
-  }
-);
 
 export const stripeCreatePaymentIntentFx = createEffect(
   async ({
