@@ -12,6 +12,35 @@ const getModeParameters = (status: ModeFilterStatus): MarketplaceCondition => {
   return parameters.status;
 };
 
+function getFilterArguments(query: URLSearchParams) {
+  const category: string = query.get('category') || undefined;
+  const typeEdition: string = query.get('typeEdition') || undefined;
+  const series: string = query.get('series') || undefined;
+  const issuerId: string = query.get('issuerId') || undefined;
+  const minPrice: string = query.get('minPrice') || undefined;
+  const maxPrice: string = query.get('maxPrice') || undefined;
+  const startDate: string = query.get('startDate') || undefined;
+  const endDate: string = query.get('endDate') || undefined;
+  const search: string = query.get('search') || undefined;
+  const saleType: string = query.get('saleType') || undefined;
+  const currency: Currency = (query.get('currency') as Currency) || undefined;
+
+  return {
+    condition: getModeParameters(query.get('mode') as ModeFilterStatus),
+    category,
+    typeEdition,
+    series,
+    issuerId,
+    minPrice: minPrice && Number.parseFloat(minPrice),
+    maxPrice: maxPrice && Number.parseFloat(maxPrice),
+    startDate,
+    endDate,
+    search,
+    saleType,
+    currency,
+  };
+}
+
 export async function loadMarketplaceFilters({
   fetch,
   query,
@@ -19,9 +48,7 @@ export async function loadMarketplaceFilters({
   fetch: Fetch;
   query: URLSearchParams;
 }): Promise<{ maxPrice: number; creators: Profile[]; series: Series[]; categories: Sku[] }> {
-  const apiFilter = {
-    condition: getModeParameters(query.get('mode') as ModeFilterStatus),
-  };
+  const apiFilter = getFilterArguments(query);
   const [categories, creators, series, maxPrices] = await Promise.all([
     skuCategories(fetch)(apiFilter),
     skuCreators(fetch)(apiFilter),
@@ -61,33 +88,9 @@ export async function loadMarketplaceItems({
   const isReverseIn = query.get('isReverse');
   const isReverse: boolean = isReverseIn === 'true';
   const sortBy: string = query.get('sortBy') || 'minStartDate:1';
-
-  const category: string = query.get('category') || undefined;
-  const typeEdition: string = query.get('typeEdition') || undefined;
-  const series: string = query.get('series') || undefined;
-  const issuerId: string = query.get('issuerId') || undefined;
-  const minPrice: string = query.get('minPrice') || undefined;
-  const maxPrice: string = query.get('maxPrice') || undefined;
-  const startDate: string = query.get('startDate') || undefined;
-  const endDate: string = query.get('endDate') || undefined;
-  const search: string = query.get('search') || undefined;
-  const saleType: string = query.get('saleType') || undefined;
-  const currency: Currency = (query.get('currency') || undefined) as Currency;
-
   const invocationArguments = {
+    ...getFilterArguments(query),
     sortBy,
-    condition: getModeParameters(query.get('mode') as ModeFilterStatus),
-    category,
-    typeEdition,
-    series,
-    issuerId,
-    minPrice: minPrice && Number.parseFloat(minPrice),
-    maxPrice: maxPrice && Number.parseFloat(maxPrice),
-    startDate,
-    endDate,
-    search,
-    saleType,
-    currency,
   };
   return skuTilesWithLookAhead(fetch, { tracker: loading })({
     ...invocationArguments,
