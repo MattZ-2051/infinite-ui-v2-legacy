@@ -118,6 +118,11 @@
   --button-text-transform: uppercase;
   --button-font-weight: 700;
   --button-letter-spacing: 0.2em;
+  --button-payment-method-active-bg-color: linear-gradient(225deg, #181c20 0%, #363f45 100%);
+  --button-payment-method-active-font-color: var(--bg-color);
+  --button-payment-method-border-radius: 1rem;
+  --button-payment-method-icon-bg: rgba(255, 255, 255, 0.1);
+
   /* Gradient definition for svg icons (in $project/assets/IconDefs.svelte) */
   --icons-fill: currentColor;
   --icons-fill-hover: url(#mclarenOrangeVertical);
@@ -257,6 +262,9 @@
   --search-bar-height: 3rem;
   --filter-button-font-size: 10px;
   --search-bar-min-size: 1rem;
+
+  /* Checkout */
+  --payment-btn-credit-card-icons-active-color-invert: invert(100%);
 
   /*Sku page buttons from collector from creator*/
   --padding-sku-buttons: 8px 16px 0 16px;

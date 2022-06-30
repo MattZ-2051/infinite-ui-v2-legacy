@@ -58,7 +58,9 @@
   --button-outline-brand-bg-color-hover: #000000;
   --button-outline-brand-border-color-hover: #5e29ff;
   --button-marketplace-filter-color: #f0f0f0;
-  --button-payment-method-active-color: var(--primary-color);
+  --button-payment-method-active-bg-color: var(--primary-color);
+  --button-payment-method-border-color: var(--primary-color);
+  --button-payment-method-icon-bg: var(--bg-color);
   --button-confirm-modal-radius: 32px;
 
   /* ButtonGroup */
@@ -109,6 +111,10 @@
     var(--gradient-end-color) 79.51%
   );
 
+  /* Checkout */
+  --payment-btn-credit-card-icons-color-invert: invert(100%);
+  --payment-btn-credit-card-icons-active-color-invert: invert(100%);
+
   /* WalletBalance */
   --wallet-balance-content-bg-color: #1d1a54;
   --wallet-balance-heading-color: var(--default-color);
@@ -124,7 +130,6 @@
 
   /* CreditCard */
   --credit-card-background-color: theme('colors.gray.200');
-  --credit-card-icons-color-invert: invert(100%);
 
   /* Titles */
   --title-font-family: Almarena Display Regular;
