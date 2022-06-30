@@ -20,19 +20,17 @@ export const loadSkuAuctionFx = createEffect(
       maxProductBid?: number;
     } = { sku: sku_ };
 
-    let data;
-    let total;
-    let max;
-    if (sku_.activeSkuListings[0]) {
-      const rr = await fetchSkuBidsFx({ id: sku_.activeSkuListings[0]._id, page, fetch });
-      data = rr.data;
-      total = rr.total;
-      max = rr.max;
-    } else {
-      data = [];
-      total = 0;
-      max = 0;
+    let data: Bid[] = [];
+    let total = 0;
+    let max = 0;
+    const activeListing = sku_.activeSkuListings[0];
+    if (activeListing) {
+      const skuBids = await fetchSkuBidsFx({ id: activeListing._id, page, fetch });
+      data = skuBids.data;
+      total = skuBids.total;
+      max = activeListing.highestBid ? activeListing.highestBid.bidAmt : activeListing.minBid;
     }
+
     return { ...response, productBids: data, totalProductBids: total, maxProductBid: max };
   }
 );
