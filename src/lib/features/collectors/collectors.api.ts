@@ -35,7 +35,6 @@ export async function loadCollectorProducts({
   const isReverseIn = query.get('isReverse');
   const isReverse: boolean = isReverseIn === 'true';
 
-  id = '6128014df885a1741f1903a9';
   const productsCollectorsCaller = collectorsProductsWithLookAhead(fetch, id, { tracker: loading });
   const [sku, { results: collectors, hasNext, hasPrevious }] = await Promise.all([
     get<Sku>(`skus/${id}?includeFunctions=true`, { fetch }),
