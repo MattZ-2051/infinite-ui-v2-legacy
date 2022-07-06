@@ -31,14 +31,9 @@
       return transaction;
     }
   };
-  $: transactionShow =
-    $product.sku?.mintPolicy?.transaction === 'later'
-      ? $transactions.reverse().filter((transaction) => {
-          return filterTransaction(transaction);
-        })
-      : $transactions.filter((transaction) => {
-          return filterTransaction(transaction);
-        });
+  $: transactionShow = $transactions.filter((transaction) => {
+    return filterTransaction(transaction);
+  });
   async function showAuctionHistory(listingId: string) {
     openModal(AuctionHistoryModal, {
       product: $product,

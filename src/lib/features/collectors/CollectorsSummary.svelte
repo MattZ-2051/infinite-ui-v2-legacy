@@ -22,9 +22,7 @@
   export let hasNext: boolean;
   export let hasPrevious: boolean;
 
-  const isMintLaterSku = sku?.mintPolicy?.transaction === 'later';
   const isEthCurrency = sku.currency === 'ETH';
-  const hasMintLater = collectors.some((c) => c.status === 'purchased' || c.status === 'unsold');
 
   const onFilter = (event: CustomEvent) => {
     const { key, value } = event.detail;
@@ -34,7 +32,8 @@
       page: false,
     });
   };
-  let sortOptions: SortOption[] = isMintLaterSku ? INITIAL_SORT_OPTIONS_MINT_LATER : INITIAL_SORT_OPTIONS;
+
+  let sortOptions: SortOption[] = isEthCurrency ? INITIAL_SORT_OPTIONS_MINT_LATER : INITIAL_SORT_OPTIONS;
   let saleTypeOptions: SortOption[] = INITIAL_SALE_TYPE_OPTIONS;
   let statusOptions: SortOption[] = INITIAL_MINT_STATUS_OPTIONS;
 
@@ -90,9 +89,7 @@
   <div class="flex gap-8">
     <div class="flex gap-2 items-end">
       {#if isEthCurrency}
-        {#if isMintLaterSku || hasMintLater}
-          <Sort sortOptions={statusOptions} on:select={onFilter} key="mintStatus" label="Status:" iconType="filter" />
-        {/if}
+        <Sort sortOptions={statusOptions} on:select={onFilter} key="mintStatus" label="Status:" iconType="filter" />
       {:else}
         <Sort sortOptions={saleTypeOptions} on:select={onFilter} key="saleType" label="Sale Type:" iconType="filter" />
       {/if}

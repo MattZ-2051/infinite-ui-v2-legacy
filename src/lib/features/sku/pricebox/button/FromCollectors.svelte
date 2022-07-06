@@ -29,8 +29,7 @@
   const isUniqueAuction = isOnlyAuction && isNoBuyNows;
   const isUniqueBuyNow = isOnlyBuyNow && isNoAuctions;
   const isUniqueProductListing = isUniqueAuction || isUniqueBuyNow;
-  const isMintLaterSku = sku?.mintPolicy?.transaction === 'later';
-  const collectorRouteParamater = isMintLaterSku ? '?mintStatus=all&sortBy=serialNumber:desc' : '?saleType=all';
+  const collectorRouteParamater = '?saleType=all';
   const href = isUniqueProductListing
     ? routes.product(collectorListing.product)
     : routes.collectors(sku._id, collectorRouteParamater);

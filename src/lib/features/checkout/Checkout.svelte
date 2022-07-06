@@ -168,7 +168,7 @@
   };
 
   const handlePaymentButton = (id: string) => {
-    handlePayment({ id, user: $user, handleEthModalCallback, skuMintPolicy: sku?.mintPolicy });
+    handlePayment({ id, user: $user, handleEthModalCallback });
   };
 
   const goToItemPage = () => {

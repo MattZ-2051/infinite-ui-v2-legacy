@@ -56,10 +56,6 @@
       maxSupply: 10,
       tenant: 'aria',
       currency: 'ETH',
-      mintPolicy: {
-        transaction: 'later',
-        chain: 'ethereum',
-      },
       category: {
         _id: '61f41548d34aac2dd93329df',
         name: 'Cat Test',
@@ -222,10 +218,6 @@
     ...product,
     sku: {
       ...product.sku,
-      mintPolicy: {
-        transaction: 'now',
-        chain: 'ethereum',
-      },
     },
   };
 
@@ -233,10 +225,6 @@
     ...product,
     sku: {
       ...product.sku,
-      mintPolicy: {
-        transaction: 'user-selected',
-        chain: 'ethereum',
-      },
     },
   };
 

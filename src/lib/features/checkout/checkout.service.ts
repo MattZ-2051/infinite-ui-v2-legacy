@@ -1,5 +1,5 @@
 import type { CheckoutState, SkuPurchaseTransaction, ValidETHListingData } from './types';
-import type { Listing, MintPolicy, Product, Sku } from '$lib/sku-item/types';
+import type { Listing, Product, Sku } from '$lib/sku-item/types';
 import type { User } from '$lib/user/types';
 import type { ApiError } from '$lib/api';
 import { handleWalletConnection } from '$lib/web3';
@@ -63,15 +63,12 @@ export const handlePayment = async ({
   id,
   user,
   handleEthModalCallback,
-  skuMintPolicy,
 }: {
   id: string;
   user: User;
   handleEthModalCallback: ({ address, option }: { address: string; option: string }) => void;
-  skuMintPolicy: MintPolicy;
 }) => {
-  const mintPolicy = skuMintPolicy?.transaction;
-  if (!user && mintPolicy === 'later') {
+  if (!user) {
     showLoginToast();
     return id;
   }
@@ -89,10 +86,8 @@ export const handlePayment = async ({
     case 'cc-eth':
       if (!user) {
         showLoginToast();
-      } else if (mintPolicy === 'later') {
-        handleCheckoutStateChange('ordering-stripe');
       } else {
-        openModal(EthAddressModal, { handleEthModalCallback, mintPolicy });
+        openModal(EthAddressModal, { handleEthModalCallback });
       }
       break;
     case 'cc-usd':

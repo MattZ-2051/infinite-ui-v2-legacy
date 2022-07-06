@@ -28,12 +28,12 @@
   $: isTransferredOut = transactions.length > 0 ? transferredOut(product, transactions) : false;
   $: isTransferInUnresolved = transactions.length > 0 ? transferInUnresolved(product, transactions) : false;
   $: isProductOwner = isOwner(product, $userId);
-  $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
-  $: isTransactionUserSelect = product.sku?.mintPolicy?.transaction === 'user-selected';
+  $: isTransactionLater = product.status === 'purchased';
   $: mintStatus = getMintStatus(product, $txState.status);
-  $: mintLaterLabel = product.status === 'purchased' ? 'Owner' : 'Minted by';
+  $: mintLaterLabel = isTransactionLater ? 'Owner' : 'Minted by';
   $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
   $: !product.serialNumber && product.mintingTrxHash && refetchProduct();
+  $: isCurrencyETH = product?.sku?.currency === 'ETH';
 
   const refetchProduct = async () => {
     setTimeout(async () => {
@@ -67,7 +67,7 @@
   };
 
   const handleChangeModalToMint = () => {
-    if (!$user && product.sku?.mintPolicy?.transaction === 'later') {
+    if (!$user) {
       onSignIn();
     }
     if (product.status !== 'minted' || $txState.status === 'pending') {
@@ -164,10 +164,10 @@
       </div>
       <TalentLink profile={sku.issuer} />
     </div>
-    <div class={`${cellClass} token-cell`} style="">
+    <div class={`${cellClass} token-cell`}>
       {#if sku.currency === 'ETH'}
         <div class={`${headerClass}`}>ERC721 Transaction</div>
-        {#if mintStatus !== 'processed' && (sku?.mintPolicy?.transaction === 'later' || sku?.mintPolicy?.transaction === 'user-selected')}
+        {#if mintStatus !== 'processed'}
           <span>Not Minted</span>
         {:else}
           <div class="flex items-center gap-2 whitespace-nowrap">
@@ -196,12 +196,12 @@
         </div>
       {/if}
     </div>
-    {#if isProductOwner && product.sku.currency !== 'ETH' && !isTransactionLater}
+    {#if isProductOwner && !isCurrencyETH && !isTransactionLater}
       <div class="action-cell">
         <ProductActions {product} userId={$userId} />
       </div>
     {/if}
-    {#if (isProductOwner && isTransactionLater) || (isTransactionLater && product.status === 'minted') || (isTransactionUserSelect && (product.status === 'purchased' || product.status === 'minted' || $txState.status === 'pending'))}
+    {#if ((isProductOwner && mintStatus !== 'processed') || mintStatus === 'processed') && isCurrencyETH}
       <div class="action-cell">
         <MintButton status={mintStatus} toMint={handleChangeModalToMint} processed={redirectToOpenSea} />
       </div>

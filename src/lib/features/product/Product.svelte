@@ -21,7 +21,7 @@
   export let tab: 'auction' | 'history' | 'owner';
 
   $: isProductOwner = isOwner($product, $userId);
-  $: isTransactionLater = $product.sku?.mintPolicy?.transaction === 'later';
+  $: isTransactionLater = false;
   const hasCloseButton = browser && history.length > 1;
 
   function onClose() {

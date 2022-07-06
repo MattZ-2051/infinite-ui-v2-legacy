@@ -36,7 +36,7 @@
     return visibleItems;
   }
 
-  $: isTransactionLater = product.sku?.mintPolicy?.transaction === 'later';
+  $: isTransactionLater = false;
   $: initialItems = isTransactionLater ? initialItems.filter((item) => item.id !== 'auction') : initialItems;
 </script>
 

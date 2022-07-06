@@ -27,7 +27,7 @@
             padding-bottom: var(--collector-separator-padding-bottom, 1rem);"
   >
     <div class="flex gap-3 md:gap-5 mr-auto items-center">
-      {#if collector?.nftPublicAssets && collector?.nftPublicAssets.length > 0 && collectorImage}
+      {#if collector?.nftPublicAssets && collector?.nftPublicAssets?.length > 0 && collectorImage}
         <img
           class="w-12 h-12 object-cover rounded-md"
           src={collectorImage.url}
@@ -49,7 +49,7 @@
       {/if}
       <div class="flex flex-col">
         <div class="flex items-center gap-2 collection-big-text">
-          {collector?.status === 'purchased' ? 'Not Minted' : `#${collector.serialNumber}`}
+          {collector?.status === 'purchased' || !collector?.serialNumber ? 'Not Minted' : `#${collector.serialNumber}`}
           {#if redeemable}
             <IconRedeem disabled={collector.redeemedStatus === 'redeemed'} size={20} />
           {/if}
