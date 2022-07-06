@@ -5,6 +5,7 @@
   import Icon from '$ui/icon/Icon.svelte';
   import IconRedeem from '$lib/sku-item/IconRedeem.svelte';
   import imageError from '$util/imageError';
+  import getImageElement from '$util/getImageElement';
   import routes from '$project/routes';
   import UserLink from '$lib/components/UserLink.svelte';
   import { RIGHT_ARROW_SIZE_ON_HISTORY } from '$project/variables';
@@ -13,6 +14,8 @@
   export let collector: CollectorProductV2;
   export let redeemable: boolean;
   export let currency: 'USD' | 'ETH';
+
+  $: collectorImage = getImageElement(collector?.nftPublicAssets);
 </script>
 
 <a href={routes.product(collector._id)}>
@@ -24,12 +27,12 @@
             padding-bottom: var(--collector-separator-padding-bottom, 1rem);"
   >
     <div class="flex gap-3 md:gap-5 mr-auto items-center">
-      {#if collector?.nftPublicAssets && collector?.nftPublicAssets.length > 0}
+      {#if collector?.nftPublicAssets && collector?.nftPublicAssets.length > 0 && collectorImage}
         <img
           class="w-12 h-12 object-cover rounded-md"
-          src={collector.nftPublicAssets[0].url}
+          src={collectorImage.url}
           alt="collector img"
-          use:imageError={() => (collector.nftPublicAssets[0].url = undefined)}
+          use:imageError={() => (collectorImage = undefined)}
           loading="lazy"
           style="box-shadow:0px 4px 8px 0px rgba(0, 0, 0, 0.25);"
         />
