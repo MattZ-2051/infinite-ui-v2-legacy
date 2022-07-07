@@ -14,7 +14,7 @@
   class={`payment-btn flex items-center py-5 px-8 h-72 min-h-[88px] max-w-[110%] w-full xl:w-[40vw] h-[88px] lg:h-[10vh] border-[1px] rounded-lg justify-between ${classNames}`}
 >
   <div class="w-full flex items-center">
-    <div class="icon-container h-12 w-12 rounded-full bg-gray-50 mr-4 flex justify-center items-center">
+    <div class="icon-container h-12 w-12 rounded-full mr-4 flex justify-center items-center">
       <img src={iconSource} alt={title} class="w-7 h-7" />
     </div>
 
@@ -36,8 +36,12 @@
     background: var(--button-payment-method-active-bg-color, rgb(243 244 246)); /* tailwind bg-gray-100 */
   }
 
+  .payment-btn .icon-container {
+    background: var(--button-payment-method-icon-bg, rgba(0, 0, 0, 0.04));
+  }
+
   .payment-btn:hover .icon-container {
-    background: var(--button-payment-method-icon-bg, white);
+    background: var(--button-payment-method-active-icon-bg, white);
   }
 
   .payment-btn:hover .title,

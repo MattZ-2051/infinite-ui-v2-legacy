@@ -58,9 +58,14 @@
   --button-outline-brand-bg-color-hover: #000000;
   --button-outline-brand-border-color-hover: #5e29ff;
   --button-marketplace-filter-color: #f0f0f0;
-  --button-payment-method-active-bg-color: var(--primary-color);
-  --button-payment-method-border-color: var(--primary-color);
-  --button-payment-method-icon-bg: var(--bg-color);
+  --button-payment-method-active-bg-color: linear-gradient(
+    90deg,
+    rgba(192, 0, 214, 0.2) 7.48%,
+    rgba(103, 52, 255, 0.2) 79.51%
+  );
+  --button-payment-method-border-color: rgba(255, 255, 255, 0.2);
+  --button-payment-method-icon-bg: rgba(255, 255, 255, 0.1);
+  --button-payment-method-active-icon-bg: rgba(255, 255, 255, 0.1);
   --button-confirm-modal-radius: 32px;
 
   /* ButtonGroup */

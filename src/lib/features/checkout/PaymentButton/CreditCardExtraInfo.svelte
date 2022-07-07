@@ -10,16 +10,15 @@
 </script>
 
 <div class="flex flex-row gap-x-2 {_class}">
-  <img src={applePay} alt="applePay" class="w-7" />
-  <img src={gPay} alt="gpay" class="w-7" />
+  <img src={applePay} alt="applePay" class="w-7 dark-color-inversion" />
+  <img src={gPay} alt="gpay" class="w-7 dark-color-inversion" />
   <img src={visa} alt="visa" class="w-7" />
   <img src={mastercard} alt="mastercard" class="w-7" />
   <img src={amex} alt="amex" class="w-7" />
 </div>
 
 <style>
-  img:first-child,
-  img:nth-child(2) {
+  .dark-color-inversion {
     filter: var(--payment-btn-credit-card-icons-color-invert); /* icons color inversion for dark backgrounds */
   }
 </style>
