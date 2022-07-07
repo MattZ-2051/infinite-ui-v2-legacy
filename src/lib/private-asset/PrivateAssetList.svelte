@@ -55,4 +55,6 @@
       </div>
     {/each}
   </div>
+{:else}
+  <div class="text-lg py-4">No content available yet.</div>
 {/if}
