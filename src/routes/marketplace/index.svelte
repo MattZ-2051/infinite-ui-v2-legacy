@@ -22,7 +22,7 @@
         };
       }
 
-      const [filters, { results: data, hasNext, hasPrevious }] = await Promise.all([
+      const [filters, { results: data, hasNext, hasPrevious, total }] = await Promise.all([
         loadMarketplaceFilters({ fetch, query: url.searchParams }),
         loadMarketplaceItems({ fetch, query: url.searchParams }),
       ]);
@@ -31,6 +31,7 @@
         props: {
           ...filters,
           skus: data,
+          total,
           hasNext,
           hasPrevious,
         },
@@ -45,6 +46,7 @@
   import Marketplace from '$lib/features/marketplace/Marketplace.svelte';
 
   export let skus: SkuV2[];
+  export let total: number;
   export let hasNext: boolean;
   export let hasPrevious: boolean;
   export let maxPrice: number;
@@ -55,4 +57,4 @@
 
 <Seo title="Marketplace" />
 
-<Marketplace {skus} {hasNext} {hasPrevious} {maxPrice} {categories} {creators} {series} />
+<Marketplace {skus} {hasNext} {hasPrevious} {total} {maxPrice} {categories} {creators} {series} />

@@ -5,11 +5,11 @@ import type {
   SkuTileFilterParameters,
   SkuTileRequestParameters,
   SkuV2,
-  SkuV2Page,
   CollectorProductV2,
   CollectorProductBaseFilterParameters,
   CollectorProductRequestParameters,
   CollectorProductV2Page,
+  PaginatedV2,
 } from './types';
 import { send } from '$lib/api';
 
@@ -151,15 +151,21 @@ export function skuMaxPrice(fetch, options?) {
 }
 
 export function skuTiles(fetch, options?) {
-  async function skuTilesCall(requestParameters: SkuTileRequestParameters): Promise<SkuV2[]> {
+  async function skuTilesCall(requestParameters: SkuTileRequestParameters): Promise<{
+    body: SkuV2[];
+    total: number;
+  }> {
     const parameters = handleRequestParameters(requestParameters);
-    const { body } = await send<SkuV2Page>(`/v2/skus/tiles/${requestParameters.condition}`, {
+    const { body } = await send<PaginatedV2<SkuV2>>(`/v2/skus/tiles/${requestParameters.condition}`, {
       ...options,
       method: 'GET',
       fetch,
       params: parameters,
     });
-    return body.resource.map((value) => ({ ...value, version: '2' }));
+    return {
+      body: body.resource.map((value) => ({ ...value, version: '2' })),
+      total: body.count,
+    };
   }
   return skuTilesCall;
 }
@@ -182,9 +188,10 @@ export function skuTilesWithLookAhead(fetch, options?) {
     results: SkuV2[];
     hasNext: boolean;
     hasPrevious: boolean;
+    total: number;
   }> {
     const startId = isReverse ? firstId : lastId;
-    const results = await apiCall({
+    const { body: results, total } = await apiCall({
       ...skuTileFilterParameters,
       per_page: per_page + 1,
       startId,
@@ -194,6 +201,7 @@ export function skuTilesWithLookAhead(fetch, options?) {
     const hasR = Boolean(startId);
     return {
       results: isReverse ? results.slice(-per_page) : results.slice(0, per_page),
+      total,
       hasNext: isReverse ? hasR : hasF,
       hasPrevious: isReverse ? hasF : hasR,
     };
@@ -202,15 +210,20 @@ export function skuTilesWithLookAhead(fetch, options?) {
 }
 
 export function skuIssuedByMe(fetch, options?) {
-  async function skuTilesCall(requestParameters: SkuIssuedRequestParameters): Promise<SkuV2[]> {
+  async function skuTilesCall(
+    requestParameters: SkuIssuedRequestParameters
+  ): Promise<{ body: SkuV2[]; total: number }> {
     const parameters = handleIssuedParameters(requestParameters);
-    const { body } = await send<SkuV2Page>(`/v2/skus/issued-by-me/${requestParameters.condition}`, {
+    const { body } = await send<PaginatedV2<SkuV2>>(`/v2/skus/issued-by-me/${requestParameters.condition}`, {
       ...options,
       method: 'GET',
       fetch,
       params: parameters,
     });
-    return body.resource.map((value) => ({ ...value, version: '2' }));
+    return {
+      body: body.resource.map((value) => ({ ...value, version: '2' })),
+      total: body.count,
+    };
   }
   return skuTilesCall;
 }
@@ -233,9 +246,10 @@ export function skuIssuedByMeWithLookAhead(fetch, options?) {
     results: SkuV2[];
     hasNext: boolean;
     hasPrevious: boolean;
+    total: number;
   }> {
     const startId = isReverse ? firstId : lastId;
-    const results = await apiCall({
+    const { body: results, total } = await apiCall({
       ...skuIssuedFilterParameters,
       per_page: per_page + 1,
       startId,
@@ -245,6 +259,7 @@ export function skuIssuedByMeWithLookAhead(fetch, options?) {
     const hasR = Boolean(startId);
     return {
       results: isReverse ? results.slice(-per_page) : results.slice(0, per_page),
+      total,
       hasNext: isReverse ? hasR : hasF,
       hasPrevious: isReverse ? hasF : hasR,
     };

@@ -13,11 +13,13 @@
   import { media } from '$lib/media-query.store';
   import { PaginationCursor } from '$ui/pagination';
   import NoResults from '$lib/features/marketplace/NoResults.svelte';
+  import { getQueryParameters } from '$util/queryParameter';
   import Filters from './Filters.svelte';
   import { loading } from './marketplace.api';
   import { setFilters } from './marketplace.service';
 
   export let skus: SkuV2[];
+  export let total: number;
   export let hasNext: boolean;
   export let hasPrevious: boolean;
   export let maxPrice: number;
@@ -28,21 +30,56 @@
   let showFilters = false;
   let scrollY: number;
   let termInputSearch: string;
+  let perPage = 9;
 
   const closeFilters = (): void => {
     showFilters = false;
     scrollY = 0;
   };
 
-  function goNext() {
+  $: currentPage = +getQueryParameters().get('page') || 1;
+
+  function goNext(event: CustomEvent) {
+    currentPage = event.detail.page;
     setFilters(
-      { params: { lastId: skus.slice(-1)[0]._id, firstId: skus[0]._id, isReverse: false } },
+      {
+        params: {
+          lastId: skus.slice(-1)[0]?._id,
+          firstId: skus[0]?._id,
+          isReverse: false,
+          page: currentPage,
+        },
+      },
       { noscroll: false }
     );
   }
-  function goPrevious() {
+
+  function goPrevious(event: CustomEvent) {
+    currentPage = event.detail.page;
     setFilters(
-      { params: { lastId: skus.slice(-1)[0]._id, firstId: skus[0]._id, isReverse: true } },
+      {
+        params: {
+          lastId: skus.slice(-1)[0]?._id,
+          firstId: skus[0]?._id,
+          isReverse: true,
+          page: currentPage,
+        },
+      },
+      { noscroll: false }
+    );
+  }
+
+  function goToFirstPage() {
+    currentPage = 1;
+    setFilters(
+      {
+        params: {
+          lastId: undefined,
+          firstId: undefined,
+          page: currentPage,
+          isReverse: undefined,
+        },
+      },
       { noscroll: false }
     );
   }
@@ -128,9 +165,14 @@
       <PaginationCursor
         {hasNext}
         {hasPrevious}
-        class="my-8 flex justify-center md:justify-end"
+        {total}
+        page={currentPage}
+        {perPage}
+        loading={$loading}
+        class="my-8 flex justify-center"
         on:next={goNext}
         on:prev={goPrevious}
+        on:firstPage={goToFirstPage}
       />
     {/if}
   </div>

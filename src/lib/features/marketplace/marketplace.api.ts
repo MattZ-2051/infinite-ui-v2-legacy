@@ -82,7 +82,7 @@ export async function loadMarketplaceItems({
 }: {
   fetch: Fetch;
   query: URLSearchParams;
-}): Promise<{ results: SkuV2[]; hasNext: boolean; hasPrevious: boolean }> {
+}): Promise<{ results: SkuV2[]; hasNext: boolean; hasPrevious: boolean; total: number }> {
   const lastId = query.get('lastId') || undefined;
   const firstId = query.get('firstId') || undefined;
   const isReverseIn = query.get('isReverse');

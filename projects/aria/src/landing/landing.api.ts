@@ -9,7 +9,7 @@ export async function loadData({
   fetch: Fetch;
 }): Promise<{ talents: Profile[]; drops: SkuV2[]; upcomings: SkuV2[] }> {
   const skuTilesCaller = skuTiles(fetch);
-  const [{ data: talents }, drops, upcomings] = await Promise.all([
+  const [{ data: talents }, { body: drops }, { body: upcomings }] = await Promise.all([
     getPage<Profile>(`users/issuers?page=1&per_page=6`, { fetch }),
     skuTilesCaller({
       per_page: 6,

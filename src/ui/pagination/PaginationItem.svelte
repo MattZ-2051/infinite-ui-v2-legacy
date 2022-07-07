@@ -4,7 +4,7 @@
 </script>
 
 <li
-  class="text-base w-8 h-8 relative"
+  class="text-base p-1.5 h-8 relative"
   style="border-radius: var(--pagination-active-border-radius, 0px);"
   class:disabled
   class:active

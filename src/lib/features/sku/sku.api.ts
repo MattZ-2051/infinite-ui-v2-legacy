@@ -22,7 +22,7 @@ async function getSkuRelated({ sku, fetch }: { sku: Sku; fetch?: Fetch }): Promi
     return [];
   }
 
-  const related = await skuTiles(fetch, { tracker: loading })({
+  const { body: related } = await skuTiles(fetch, { tracker: loading })({
     per_page: 8,
     sortBy: 'startDate:1',
     issuerId: sku.issuer._id,

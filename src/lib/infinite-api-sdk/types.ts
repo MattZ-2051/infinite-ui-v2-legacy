@@ -146,9 +146,9 @@ export type SkuV2 = {
   version: '2';
 };
 
-export type SkuV2Page = {
+export type PaginatedV2<KK> = {
+  resource: KK[];
   count: number;
-  resource: SkuV2[];
 };
 
 export type CollectorProductV2 = {
