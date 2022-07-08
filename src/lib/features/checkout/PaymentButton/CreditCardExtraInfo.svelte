@@ -1,24 +1,200 @@
 <script lang="ts">
-  import visa from '../assets/visa-icon.svg';
-  import mastercard from '../assets/mastercard-icon.svg';
   import amex from '../assets/amex-icon.svg';
-  import applePay from '../assets/applepay-icon.svg';
-  import gPay from '../assets/gpay-icon.svg';
 
   let _class = '';
   export { _class as class };
 </script>
 
-<div class="flex flex-row gap-x-2 {_class}">
-  <img src={applePay} alt="applePay" class="w-7 dark-color-inversion" />
-  <img src={gPay} alt="gpay" class="w-7 dark-color-inversion" />
-  <img src={visa} alt="visa" class="w-7" />
-  <img src={mastercard} alt="mastercard" class="w-7" />
-  <img src={amex} alt="amex" class="w-7" />
+<div class="flex flex-row gap-x-2 items-center {_class}">
+  <!-- ApplePay Icon -->
+  <svg
+    class="creditcard-icon applepay w-8 h-6 px-[2px] rounded-sm"
+    version="1.1"
+    baseProfile="tiny"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    viewBox="0 0 512 210.2"
+    xml:space="preserve"
+    data-testid="applepay"
+  >
+    <path
+      id="XMLID_34_"
+      d="M93.6,27.1C87.6,34.2,78,39.8,68.4,39c-1.2-9.6,3.5-19.8,9-26.1c6-7.3,16.5-12.5,25-12.9
+	C103.4,10,99.5,19.8,93.6,27.1 M102.3,40.9c-13.9-0.8-25.8,7.9-32.4,7.9c-6.7,0-16.8-7.5-27.8-7.3c-14.3,0.2-27.6,8.3-34.9,21.2
+	c-15,25.8-3.9,64,10.6,85c7.1,10.4,15.6,21.8,26.8,21.4c10.6-0.4,14.8-6.9,27.6-6.9c12.9,0,16.6,6.9,27.8,6.7
+	c11.6-0.2,18.9-10.4,26-20.8c8.1-11.8,11.4-23.3,11.6-23.9c-0.2-0.2-22.4-8.7-22.6-34.3c-0.2-21.4,17.5-31.6,18.3-32.2
+	C123.3,42.9,107.7,41.3,102.3,40.9 M182.6,11.9v155.9h24.2v-53.3h33.5c30.6,0,52.1-21,52.1-51.4c0-30.4-21.1-51.2-51.3-51.2H182.6z
+	 M206.8,32.3h27.9c21,0,33,11.2,33,30.9c0,19.7-12,31-33.1,31h-27.8V32.3z M336.6,169c15.2,0,29.3-7.7,35.7-19.9h0.5v18.7h22.4V90.2
+	c0-22.5-18-37-45.7-37c-25.7,0-44.7,14.7-45.4,34.9h21.8c1.8-9.6,10.7-15.9,22.9-15.9c14.8,0,23.1,6.9,23.1,19.6v8.6l-30.2,1.8
+	c-28.1,1.7-43.3,13.2-43.3,33.2C298.4,155.6,314.1,169,336.6,169z M343.1,150.5c-12.9,0-21.1-6.2-21.1-15.7c0-9.8,7.9-15.5,23-16.4
+	l26.9-1.7v8.8C371.9,140.1,359.5,150.5,343.1,150.5z M425.1,210.2c23.6,0,34.7-9,44.4-36.3L512,54.7h-24.6l-28.5,92.1h-0.5
+	l-28.5-92.1h-25.3l41,113.5l-2.2,6.9c-3.7,11.7-9.7,16.2-20.4,16.2c-1.9,0-5.6-0.2-7.1-0.4v18.7C417.3,210,423.3,210.2,425.1,210.2z
+	"
+    />
+  </svg>
+
+  <!-- GPay Icon -->
+  <svg
+    class="creditcard-icon gpay w-8 h-6 px-[2px] rounded-sm"
+    version="1.1"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    viewBox="0 0 2387.3 948"
+    style="enable-background:new 0 0 2387.3 948;"
+    xml:space="preserve"
+    data-testid="gpay"
+  >
+    <style type="text/css">
+      .st1 {
+        fill: #4285f4;
+      }
+      .st2 {
+        fill: #34a853;
+      }
+      .st3 {
+        fill: #fbbc04;
+      }
+      .st4 {
+        fill: #ea4335;
+      }
+    </style>
+    <g>
+      <path
+        class="st0"
+        d="M1129.1,463.2V741h-88.2V54.8h233.8c56.4-1.2,110.9,20.2,151.4,59.4c41,36.9,64.1,89.7,63.2,144.8
+   c1.2,55.5-21.9,108.7-63.2,145.7c-40.9,39-91.4,58.5-151.4,58.4L1129.1,463.2L1129.1,463.2z M1129.1,139.3v239.6h147.8
+   c32.8,1,64.4-11.9,87.2-35.5c46.3-45,47.4-119.1,2.3-165.4c-0.8-0.8-1.5-1.6-2.3-2.3c-22.5-24.1-54.3-37.3-87.2-36.4L1129.1,139.3
+   L1129.1,139.3z M1692.5,256.2c65.2,0,116.6,17.4,154.3,52.2c37.7,34.8,56.5,82.6,56.5,143.2V741H1819v-65.2h-3.8
+   c-36.5,53.7-85.1,80.5-145.7,80.5c-51.7,0-95-15.3-129.8-46c-33.8-28.5-53-70.7-52.2-115c0-48.6,18.4-87.2,55.1-115.9
+   c36.7-28.7,85.7-43.1,147.1-43.1c52.3,0,95.5,9.6,129.3,28.7v-20.2c0.2-30.2-13.2-58.8-36.4-78c-23.3-21-53.7-32.5-85.1-32.1
+   c-49.2,0-88.2,20.8-116.9,62.3l-77.6-48.9C1545.6,286.8,1608.8,256.2,1692.5,256.2L1692.5,256.2z M1578.4,597.3
+   c-0.1,22.8,10.8,44.2,29.2,57.5c19.5,15.3,43.7,23.5,68.5,23c37.2-0.1,72.9-14.9,99.2-41.2c29.2-27.5,43.8-59.7,43.8-96.8
+   c-27.5-21.9-65.8-32.9-115-32.9c-35.8,0-65.7,8.6-89.6,25.9C1590.4,550.4,1578.4,571.7,1578.4,597.3L1578.4,597.3z M2387.3,271.5
+   L2093,948h-91l109.2-236.7l-193.6-439.8h95.8l139.9,337.3h1.9l136.1-337.3L2387.3,271.5z"
+      />
+    </g>
+    <path
+      class="st1"
+      d="M772.8,403.2c0-26.9-2.2-53.7-6.8-80.2H394.2v151.8h212.9c-8.8,49-37.2,92.3-78.7,119.8v98.6h127.1
+ C729.9,624.7,772.8,523.2,772.8,403.2L772.8,403.2z"
+    />
+    <path
+      class="st2"
+      d="M394.2,788.5c106.4,0,196-34.9,261.3-95.2l-127.1-98.6c-35.4,24-80.9,37.7-134.2,37.7
+ c-102.8,0-190.1-69.3-221.3-162.7H42v101.6C108.9,704.5,245.2,788.5,394.2,788.5z"
+    />
+    <path class="st3" d="M172.9,469.7c-16.5-48.9-16.5-102,0-150.9V217.2H42c-56,111.4-56,242.7,0,354.1L172.9,469.7z" />
+    <path
+      class="st4"
+      d="M394.2,156.1c56.2-0.9,110.5,20.3,151.2,59.1L658,102.7C586.6,35.7,492.1-1.1,394.2,0
+ C245.2,0,108.9,84.1,42,217.2l130.9,101.6C204.1,225.4,291.4,156.1,394.2,156.1z"
+    />
+  </svg>
+
+  <!-- Visa Icon -->
+  <svg
+    class="creditcard-icon visa w-8 h-6 px-[2px] rounded-sm"
+    width="25"
+    height="9"
+    viewBox="0 0 25 9"
+    xmlns="http://www.w3.org/2000/svg"
+    data-testid="visa"
+  >
+    <path
+      d="M16.2834 0.5C14.5083 0.5 12.922 1.40869 12.922 3.08755C12.922 5.0129 15.7354 5.14588 15.7354 6.11312C15.7354 6.52038 15.2628 6.88495 14.4557 6.88495C13.3102 6.88495 12.4541 6.37554 12.4541 6.37554L12.0878 8.06971C12.0878 8.06971 13.074 8.5 14.3834 8.5C16.3241 8.5 17.8513 7.5467 17.8513 5.83912C17.8513 3.80465 15.0262 3.67562 15.0262 2.77786C15.0262 2.45883 15.4141 2.10926 16.2189 2.10926C17.127 2.10926 17.8679 2.47974 17.8679 2.47974L18.2264 0.843464C18.2264 0.843464 17.4203 0.5 16.2834 0.5ZM0.0429822 0.623493L0 0.870478C0 0.870478 0.746787 1.00546 1.41939 1.27472C2.28542 1.58349 2.34711 1.76323 2.49297 2.32151L4.08233 8.37265H6.21288L9.49515 0.623493H7.36949L5.26043 5.89219L4.39981 1.42619C4.32089 0.915065 3.9211 0.623493 3.43174 0.623493H0.0429822ZM10.3499 0.623493L8.6824 8.37265H10.7094L12.3711 0.623493H10.3499ZM21.6552 0.623493C21.1664 0.623493 20.9074 0.881942 20.7174 1.33357L17.7477 8.37265H19.8734L20.2847 7.19947H22.8743L23.1244 8.37265H25L23.3637 0.623493H21.6552ZM21.9317 2.71708L22.5617 5.62494H20.8737L21.9317 2.71708Z"
+      fill="white"
+    />
+  </svg>
+
+  <!-- MasterCard Icon -->
+  <svg
+    class="creditcard-icon mastercard w-8 h-6 px-[2px] rounded-sm"
+    version="1.1"
+    id="svg3409"
+    viewBox="0 0 1000.008 618.03103"
+    data-testid="mastercard"
+  >
+    <sodipodi:namedview
+      pagecolor="#ffffff"
+      bordercolor="#666666"
+      borderopacity="1"
+      objecttolerance="10"
+      gridtolerance="10"
+      guidetolerance="10"
+      inkscape:pageopacity="0"
+      inkscape:pageshadow="2"
+      inkscape:window-width="1680"
+      inkscape:window-height="931"
+      showgrid="false"
+      inkscape:zoom="0.35355339"
+      inkscape:cx="-105.47882"
+      inkscape:cy="270.06961"
+      inkscape:window-x="0"
+      inkscape:window-y="1"
+      inkscape:window-maximized="1"
+      inkscape:current-layer="g13"
+    />
+    <defs id="defs3411" />
+    <metadata id="metadata3414">
+      <rdf:RDF>
+        <cc:Work rdf:about="">
+          <dc:format>image/svg+xml</dc:format>
+          <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+          <dc:title />
+        </cc:Work>
+      </rdf:RDF>
+    </metadata>
+    <g transform="matrix(3.3557321,0,0,3.3557321,-1551.7864,-2007.0469)" id="layer1">
+      <g transform="matrix(2.5579399,0,0,2.5579399,884.90115,-11.427398)" id="g13">
+        <g transform="translate(-502.86126,-22.613497)" id="XMLID_328_">
+          <rect
+            style="fill:#ff5f00"
+            id="rect19"
+            height="56.599998"
+            width="31.5"
+            class="st1"
+            y="268.60001"
+            x="380.20001"
+          />
+          <path
+            style="fill:#eb001b"
+            d="m 382.2,296.9 c 0,-11.5 5.4,-21.7 13.7,-28.3 -6.1,-4.8 -13.8,-7.7 -22.2,-7.7 -19.9,0 -36,16.1 -36,36 0,19.9 16.1,36 36,36 8.4,0 16.1,-2.9 22.2,-7.7 -8.3,-6.5 -13.7,-16.8 -13.7,-28.3 z"
+            class="st2"
+            id="XMLID_330_"
+            inkscape:connector-curvature="0"
+          />
+          <path
+            style="fill:#f79e1b"
+            id="path22"
+            d="m 454.2,296.9 c 0,19.9 -16.1,36 -36,36 -8.4,0 -16.1,-2.9 -22.2,-7.7 8.4,-6.6 13.7,-16.8 13.7,-28.3 0,-11.5 -5.4,-21.7 -13.7,-28.3 6.1,-4.8 13.8,-7.7 22.2,-7.7 19.9,0 36,16.2 36,36 z"
+            class="st3"
+            inkscape:connector-curvature="0"
+          />
+        </g>
+      </g>
+    </g>
+  </svg>
+
+  <!-- Amex Icon -->
+  <img src={amex} alt="amex" class="w-9 h-6 rounded-sm" data-testid="amex" />
 </div>
 
 <style>
-  .dark-color-inversion {
-    filter: var(--payment-btn-credit-card-icons-color-invert); /* icons color inversion for dark backgrounds */
+  svg,
+  .st0 {
+    background: var(--payment-btn-credit-card-icons-bg, black);
+    fill: var(--payment-btn-credit-card-icons-color);
+  }
+
+  svg.applepay,
+  svg.gpay {
+    background: var(--payment-btn-credit-card-icons-bg, transparent);
+    border: var(--payment-btn-credit-card-apple-gpay-icons-border, 1px solid #ebebeb);
   }
 </style>

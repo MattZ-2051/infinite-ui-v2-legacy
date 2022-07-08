@@ -265,6 +265,10 @@
 
   /* Checkout */
   --payment-btn-credit-card-icons-active-color-invert: invert(100%);
+  --payment-btn-credit-card-icons-active-bg: rgba(255, 255, 255, 0.1);
+  --payment-btn-credit-card-apple-gpay-icons-active-bg: rgba(255, 255, 255, 0.1);
+  --payment-btn-credit-card-apple-gpay-icons-active-color: white;
+  --payment-btn-credit-card-apple-gpay-icons-active-border-color: transparent;
 
   /*Sku page buttons from collector from creator*/
   --padding-sku-buttons: 8px 16px 0 16px;

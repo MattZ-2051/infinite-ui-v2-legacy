@@ -8,17 +8,21 @@ const paymentMethods = [
   { id: 'mm', title: 'MetaMask', iconSource: creditCardIcon, available: true },
 ];
 
+jest.mock('$lib/variables', () => {
+  return { variables: { persona: { tenantName: 'ARIA' } } };
+});
+
 const mock = jest.fn();
 
 const setup = ({ title, id, iconSource }) => {
-  const { getByAltText, getByRole, component, container } = render(PaymentButton, {
+  const { getByTestId, getByAltText, getByRole, component, container } = render(PaymentButton, {
     title,
     id,
     iconSource,
     onClick: mock,
   });
 
-  return { getByAltText, getByRole, component, container };
+  return { getByTestId, getByAltText, getByRole, component, container };
 };
 
 describe('PaymentButton', () => {
@@ -58,17 +62,17 @@ describe('PaymentButton', () => {
   });
 
   it('should render icons when credit card', () => {
-    const { getByAltText } = setup({
+    const { getByTestId } = setup({
       title: paymentMethods[0].title,
       id: paymentMethods[0].id,
       iconSource: creditCardIcon,
     });
 
-    const visaIcon = getByAltText('visa');
-    const mastercardIcon = getByAltText('mastercard');
-    const amexIcon = getByAltText('amex');
-    const applePayIcon = getByAltText('applePay');
-    const gPayIcon = getByAltText('gpay');
+    const visaIcon = getByTestId('visa');
+    const mastercardIcon = getByTestId('mastercard');
+    const amexIcon = getByTestId('amex');
+    const applePayIcon = getByTestId('applepay');
+    const gPayIcon = getByTestId('gpay');
 
     expect(visaIcon).toBeInTheDocument();
     expect(mastercardIcon).toBeInTheDocument();

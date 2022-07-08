@@ -119,6 +119,13 @@
   /* Checkout */
   --payment-btn-credit-card-icons-color-invert: invert(100%);
   --payment-btn-credit-card-icons-active-color-invert: invert(100%);
+  --payment-btn-credit-card-icons-color: white;
+  --payment-btn-credit-card-icons-bg: rgba(255, 255, 255, 0.15);
+  --payment-btn-credit-card-icons-active-bg: rgba(255, 255, 255, 0.15);
+  --payment-btn-credit-card-apple-gpay-icons-active-bg: rgba(255, 255, 255, 0.15);
+  --payment-btn-credit-card-apple-gpay-icons-border: none;
+  --payment-btn-credit-card-apple-gpay-icons-active-border-color: transparent;
+  --payment-btn-credit-card-apple-gpay-icons-active-color: white;
 
   /* WalletBalance */
   --wallet-balance-content-bg-color: #1d1a54;
