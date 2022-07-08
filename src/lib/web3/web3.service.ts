@@ -252,18 +252,10 @@ export async function tokenToProduct(tokens: TokenTxResponse[], userAddress: str
   );
 }
 
-export function isExternalOwner({
-  product,
-  sku,
-  internalOwner,
-}: {
-  product?: Product;
-  sku?: Sku;
-  internalOwner: boolean;
-}): boolean {
+export function isExternalOwner({ product, sku }: { product?: Product; sku?: Sku }): boolean {
   const externalProducts = web3User.getState().products;
   if (externalProducts) {
-    const hasExternalProduct = !!externalProducts.some((currentProduct) => {
+    return !!externalProducts.some((currentProduct) => {
       if (sku) {
         return currentProduct.sku?._id === sku._id;
       }
@@ -272,13 +264,5 @@ export function isExternalOwner({
         return currentProduct._id === product._id;
       }
     });
-
-    if (hasExternalProduct && internalOwner) {
-      return true;
-    }
-
-    if (!hasExternalProduct && internalOwner) {
-      return false;
-    }
   }
 }

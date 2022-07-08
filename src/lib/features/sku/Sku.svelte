@@ -17,7 +17,6 @@
   import SkuInfo from './SkuInfo.svelte';
   import SkuDescription from './SkuDescription.svelte';
   import { sku, collectors, totalCollectors, related } from './sku.store';
-  import { isOwner } from './sku.service';
 
   function getItems(totalPrivateAssets: number) {
     let items = [{ id: 'description', title: 'Description' }];
@@ -39,8 +38,7 @@
 
   $: activeGateKeepSkus = $gateKeepSkus.some((gateKeepSku) => gateKeepSku.status !== 'owned');
 
-  $: isProductOwner =
-    $web3User.walletConnected && isExternalOwner({ sku: $sku, internalOwner: isOwner($sku, $userId) });
+  $: isProductOwner = $web3User.walletConnected && isExternalOwner({ sku: $sku });
 </script>
 
 <NftGateKeepSidebar show={activeGateKeepSkus} sku={$sku} />

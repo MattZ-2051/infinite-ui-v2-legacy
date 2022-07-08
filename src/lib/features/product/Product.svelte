@@ -23,12 +23,9 @@
   export let tab: 'auction' | 'history' | 'owner';
   let isSecondaryOwner = false;
 
-  $: isSecondaryOwner =
-    $web3User.walletConnected && isExternalOwner({ product: $product, internalOwner: isOwner($product, $userId) });
+  $: isSecondaryOwner = $web3User.walletConnected && isExternalOwner({ product: $product });
 
-  $: isProductOwner = $web3User.walletConnected
-    ? isOwner($product, $userId) && isSecondaryOwner
-    : isOwner($product, $userId);
+  $: isProductOwner = $web3User.walletConnected ? isSecondaryOwner : isOwner($product, $userId);
 
   $: isTransactionLater = false;
   const hasCloseButton = browser && history.length > 1;
