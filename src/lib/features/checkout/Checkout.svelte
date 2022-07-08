@@ -26,7 +26,7 @@
   import CompletePurchaseMM from './CompletePurchaseMM.svelte';
   import { handlePayment, handleExit, handleCheckoutStateChange } from './checkout.service';
   import { getCosts, validETHdirectPurchase } from './checkout.api';
-  import { checkoutState, voucher } from './checkout.store';
+  import { checkoutState, voucher, productId } from './checkout.store';
   import StripeCheckout from '../stripe/StripeCheckout.svelte';
   import PendingCheckoutPage from './PendingCheckoutPage.svelte';
   import { validateVoucherCode } from '../sku/voucher/voucher.api';
@@ -100,6 +100,31 @@
       }
     }
   };
+  const validateStep = () => {
+    switch (localStorage.getItem('checkout-state')) {
+      case 'success':
+        if (!$productId.id) {
+          handleCheckoutStateChange('method-select');
+        }
+        break;
+      case 'processing':
+        if (!$page.url.searchParams.get('payment_intent')) {
+          handleCheckoutStateChange('method-select');
+        }
+        break;
+      case 'ordering-mm':
+      case 'ordering-stripe':
+      case 'ordering-balance':
+      case 'method-select':
+      case 'loading':
+      case 'error':
+      case 'exit':
+        return;
+      default:
+        //unkonwn step
+        handleCheckoutStateChange('method-select');
+    }
+  };
   const getPaymentInfo = async (): Promise<void> => {
     try {
       const costs = await getCosts(listing._id);
@@ -115,6 +140,7 @@
     }
   };
   onMount(async () => {
+    validateStep();
     if (!listing?.saleType) {
       toast.danger('Whoops! We were not able to load the page. Try again, please.');
       goToItemPage();
