@@ -50,20 +50,6 @@
     xml:space="preserve"
     data-testid="gpay"
   >
-    <style type="text/css">
-      .st1 {
-        fill: #4285f4;
-      }
-      .st2 {
-        fill: #34a853;
-      }
-      .st3 {
-        fill: #fbbc04;
-      }
-      .st4 {
-        fill: #ea4335;
-      }
-    </style>
     <g>
       <path
         class="st0"
@@ -196,5 +182,18 @@
   svg.gpay {
     background: var(--payment-btn-credit-card-icons-bg, transparent);
     border: var(--payment-btn-credit-card-apple-gpay-icons-border, 1px solid #ebebeb);
+  }
+
+  svg.gpay .st1 {
+    fill: #4285f4;
+  }
+  svg.gpay .st2 {
+    fill: #34a853;
+  }
+  svg.gpay .st3 {
+    fill: #fbbc04;
+  }
+  svg.gpay .st4 {
+    fill: #ea4335;
   }
 </style>
