@@ -39,7 +39,7 @@
   const STRIPE_ENABLED = variables.stripe.enabled;
   const MM_PENDING_TIMEOUT = 600_000;
   const backButtonLabel = 'Return to NFT Listing';
-  const listing = sku ? getActiveListings(sku)[0] : product?.listing;
+  const listing = sku ? getActiveListings(sku)[0] : product?.productListings?.[0];
   const isEthListing = sku?.currency === 'ETH';
   const isUsdListing = product?.sku?.currency === 'USD' || sku?.currency === 'USD';
   const currency = sku ? sku?.currency : product?.sku?.currency;
