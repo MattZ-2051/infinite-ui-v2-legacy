@@ -62,12 +62,17 @@ export async function getPreSignedUrl({
   productId,
   key,
   filename,
+  ethAddress,
 }: {
   productId: string;
   key: string;
   filename: string;
+  ethAddress?: string;
 }): Promise<string> {
-  const { presignedUrl } = await post<{ presignedUrl: string }>(`/products/${productId}/private-link`, { key });
+  const { presignedUrl } = await post<{ presignedUrl: string }>(`/products/${productId}/private-link`, {
+    key,
+    ethAddress,
+  });
 
   const a = document.createElement('a');
   a.href = presignedUrl;

@@ -16,9 +16,10 @@
   $: assets = $privateAssets?.assets || [];
   $: isOwner = $web3User.walletConnected ? isProductOwner : $privateAssets?.isOwner;
   $: productId = $privateAssets?.productId;
+  $: ethAddress = $web3User?.walletConnected && $web3User?.ethAddress;
 
   async function download(key: string, filename: string) {
-    await getPreSignedUrl({ productId, key, filename });
+    await getPreSignedUrl({ productId, key, filename, ethAddress });
   }
 
   $: assetList = assets.map((asset) => {
