@@ -4,9 +4,10 @@
   import { PaginationCursor } from '$ui/pagination';
   import Sort from '$lib/components/Sort.svelte';
   import { page as pageState } from '$app/stores';
+  import { setFilters } from '$lib/features/marketplace/marketplace.service';
   import ThemeContext from '$lib/theme/ThemeContext.svelte';
   import Search from '$lib/components/search/Search.svelte';
-  import { gotoQueryParameters } from '$util/queryParameter';
+  import { getQueryParameters, gotoQueryParameters } from '$util/queryParameter';
   import CollectorItem from './CollectorItem.svelte';
   import { loading } from './collectors.api';
   import {
@@ -19,6 +20,7 @@
   export let sku: Sku;
   export let collectors: CollectorProductV2[];
   export let search: string;
+  export let total: number;
   export let hasNext: boolean;
   export let hasPrevious: boolean;
 
@@ -36,6 +38,9 @@
   let sortOptions: SortOption[] = isEthCurrency ? INITIAL_SORT_OPTIONS_MINT_LATER : INITIAL_SORT_OPTIONS;
   let saleTypeOptions: SortOption[] = INITIAL_SALE_TYPE_OPTIONS;
   let statusOptions: SortOption[] = INITIAL_MINT_STATUS_OPTIONS;
+  let perPage = 6;
+
+  $: currentPage = +getQueryParameters().get('page') || 1;
 
   const handleChangeSortLists = (value: string, key: string) => {
     let sortBy = $pageState.url.searchParams.get('sortBy') || '';
@@ -58,12 +63,29 @@
     };
   };
 
-  function goNext() {
-    navigate({ lastId: collectors.slice(-1)[0]._id, firstId: collectors[0]._id, isReverse: false });
+  function goNext(event: CustomEvent) {
+    currentPage = event.detail.page;
+    navigate({ lastId: collectors.slice(-1)[0]._id, firstId: collectors[0]._id, isReverse: false, page: currentPage });
   }
 
-  function goPrevious() {
-    navigate({ lastId: collectors.slice(-1)[0]._id, firstId: collectors[0]._id, isReverse: true });
+  function goPrevious(event: CustomEvent) {
+    currentPage = event.detail.page;
+    navigate({ lastId: collectors.slice(-1)[0]._id, firstId: collectors[0]._id, isReverse: true, page: currentPage });
+  }
+
+  function goToFirstPage() {
+    currentPage = 1;
+    setFilters(
+      {
+        params: {
+          lastId: undefined,
+          firstId: undefined,
+          page: currentPage,
+          isReverse: undefined,
+        },
+      },
+      { noscroll: false }
+    );
   }
 
   const handleInput = (event: Event) => navigate({ search: (event.target as HTMLInputElement).value });
@@ -109,9 +131,14 @@
 <PaginationCursor
   {hasNext}
   {hasPrevious}
-  class="flex justify-end my-5 pr-4 md:pr-8"
+  {total}
+  page={currentPage}
+  {perPage}
+  loading={$loading}
+  class="flex justify-center my-5 pr-4 md:pr-8"
   on:next={goNext}
   on:prev={goPrevious}
+  on:firstPage={goToFirstPage}
 />
 
 <style lang="postcss">

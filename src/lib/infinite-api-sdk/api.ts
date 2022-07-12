@@ -349,7 +349,7 @@ export function collectorsProductsWithLookAhead(fetch, collectorId, options?) {
     sortBy?: string;
   }): Promise<{
     results: CollectorProductV2[];
-    count: number;
+    total: number;
     hasNext: boolean;
     hasPrevious: boolean;
   }> {
@@ -364,7 +364,7 @@ export function collectorsProductsWithLookAhead(fetch, collectorId, options?) {
     const hasR = Boolean(startId);
     return {
       results: isReverse ? resource.slice(-per_page) : resource.slice(0, per_page),
-      count,
+      total: count,
       hasNext: isReverse ? hasR : hasF,
       hasPrevious: isReverse ? hasF : hasR,
     };

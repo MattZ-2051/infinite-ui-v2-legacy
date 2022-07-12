@@ -14,6 +14,7 @@
   export let sku: Sku;
   export let collectors: CollectorProductV2[];
   export let search: string;
+  export let total: number;
   export let hasNext: boolean;
   export let hasPrevious: boolean;
 
@@ -55,7 +56,7 @@
       </div>
 
       <div class="mt-20">
-        <CollectorsSummary {sku} {collectors} {search} {hasNext} {hasPrevious} />
+        <CollectorsSummary {sku} {collectors} {total} {search} {hasNext} {hasPrevious} />
       </div>
     </div>
   </StickyColumn>

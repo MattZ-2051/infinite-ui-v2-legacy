@@ -24,10 +24,11 @@
   export let sku: Sku;
   export let collectors: CollectorProductV2[];
   export let search: string;
+  export let total: number;
   export let hasNext: boolean;
   export let hasPrevious: boolean;
 </script>
 
 <Seo title={sku.name} image={chooseSkuSocialImage(sku)} />
 
-<Collectors {sku} {collectors} {search} {hasNext} {hasPrevious} />
+<Collectors {sku} {collectors} {search} {total} {hasNext} {hasPrevious} />
