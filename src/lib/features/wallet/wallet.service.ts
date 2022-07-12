@@ -25,3 +25,15 @@ export function handleWalletDepositError(error: ApiError) {
       return 'We couldn’t process your payment and the transaction was cancelled.';
   }
 }
+
+export const transactionTypes = {
+  all: { value: '', name: 'All types' },
+  deposit: { value: 'deposit', name: 'Deposit' },
+  withdrawal: { value: 'withdrawal', name: 'Withdrawal' },
+  purchase: { value: 'purchase', name: 'Purchase' },
+  sale: { value: 'sale', name: 'Sale' },
+  claim: { value: 'claim', name: 'Claim' },
+  nft_redeem: { value: 'nft_redeen', name: 'NFT redeem' },
+  royalty_fee: { value: 'royalty_fee', name: 'Royalty fee' },
+  nft_claim_giveaway: { value: 'nft_claim_giveaway', name: 'Giveaway' },
+};

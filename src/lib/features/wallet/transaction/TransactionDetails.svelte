@@ -6,11 +6,12 @@
   import Icon from '$ui/icon/Icon.svelte';
   import { formatDate, capitalizeFirstLetter } from '$util/format';
   import { getExplorerBaseUrl } from '$lib/payment/crypto';
+  import { transactionTypes } from '../wallet.service';
 
   export let transaction: Transaction;
 
   const details = [
-    { label: 'Transaction Type', value: capitalizeFirstLetter(transaction.type) },
+    { label: 'Transaction Type', value: transactionTypes[transaction.type].name },
     { label: 'Transaction Status', value: capitalizeFirstLetter(transaction.status) },
     { label: 'Date', value: formatDate(transaction.createdAt, `MMM D, YYYY`) },
     { label: 'Time', value: formatDate(transaction.createdAt, `hh:mm A`) },

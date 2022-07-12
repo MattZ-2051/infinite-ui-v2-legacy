@@ -25,6 +25,8 @@
     <WithdrawalSentence {transaction} />
   {:else if type === 'deposit'}
     <DepositSentence {transaction} />
+  {:else if type === 'nft_claim_giveaway'}
+    <PurchaseSentence {transaction} />
   {:else if type === 'nft_redeem'}
     <NFTRedeem {transaction} />
   {/if}

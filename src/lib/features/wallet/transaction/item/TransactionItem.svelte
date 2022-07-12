@@ -1,14 +1,15 @@
 <script lang="ts">
   import type { Transaction } from '$lib/sku-item/types';
-  import { formatDate, formatCurrency, capitalizeFirstLetter } from '$util/format';
+  import { formatDate, formatCurrency } from '$util/format';
 
+  import { transactionTypes } from '../../wallet.service';
   import TransactionItemLogo from './TransactionItemLogo.svelte';
   import TransactionItemSentence from './TransactionItemSentence.svelte';
 
   export let transaction: Transaction;
 
   $: ({ type, status, transactionData } = transaction);
-  $: typeText = capitalizeFirstLetter(type);
+  $: typeText = transactionTypes[type].name;
 
   const getCurrencyFormatted = (): string => {
     const depositAmount = transactionData.deposit
@@ -40,6 +41,8 @@
           transactionData.withdraw?.amount,
           transactionData?.withdraw?.type === 'eth' ? { currency: 'ETH' } : {}
         )}`;
+      case 'nft_claim_giveaway':
+        return `$0.00`;
     }
     return '';
   };

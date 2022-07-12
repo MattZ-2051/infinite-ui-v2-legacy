@@ -33,6 +33,7 @@ export const selectLogo = (transaction: Transaction): [string, string] => {
     case 'sale':
       return [nftPublicAsset?.url || soldNormal, 'sold'];
 
+    case 'nft_claim_giveaway':
     case 'purchase':
       return [nftPublicAsset?.url || boughtNormal, 'bought'];
 

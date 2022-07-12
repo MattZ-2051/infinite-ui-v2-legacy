@@ -9,7 +9,7 @@
   component={TransactionItem}
   argTypes={{
     type: {
-      options: ['royalty_fee', 'purchase', 'withdrawal', 'deposit', 'nft_redeem'],
+      options: ['royalty_fee', 'purchase', 'withdrawal', 'deposit', 'nft_redeem', 'nft_claim_giveaway'],
       control: { type: 'select' },
     },
     withdrawType: {
@@ -67,6 +67,7 @@
 <Story name="Deposit coinbase" args={{ type: 'deposit', depositType: 'coinbase' }} />
 <Story name="Deposit hbar" args={{ type: 'deposit', depositType: 'hbar', amountUnrated: '10' }} />
 <Story name="NFT reedem" args={{ type: 'nft_redeem' }} />
+<Story name="Giveaway" args={{ type: 'nft_claim_giveaway' }} />
 <Story name="RoyaltyFee with error" args={{ type: 'royalty_fee', status: 'error' }} />
 <Story name="Purchase with error" args={{ type: 'purchase', status: 'error' }} />
 <Story name="Sale with error" args={{ type: 'sale', status: 'error' }} />
@@ -89,5 +90,6 @@
 <Story name="Deposit coinbase with error" args={{ type: 'deposit', depositType: 'coinbase', status: 'error' }} />
 <Story name="Deposit hbar with error" args={{ type: 'deposit', depositType: 'hbar', status: 'error' }} />
 <Story name="NFT reedem with error" args={{ type: 'nft_redeem', status: 'error' }} />
+<Story name="Giveaway with error" args={{ type: 'nft_claim_giveaway', status: 'error' }} />
 
 <Story name="Deposit coinbase ETH" args={{ type: 'deposit', depositType: 'coinbase' }} />

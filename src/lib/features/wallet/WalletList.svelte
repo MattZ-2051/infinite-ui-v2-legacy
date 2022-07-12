@@ -3,6 +3,7 @@
   import { gotoQueryParameters } from '$util/queryParameter';
   import { user } from '$lib/user';
   import Sort from '$lib/components/Sort.svelte';
+  import { transactionTypes } from './wallet.service';
   import TransactionList from './transaction/TransactionList.svelte';
   import BidList from './bid/BidList.svelte';
 
@@ -13,17 +14,10 @@
     { name: 'Oldest', value: 'createdAt:asc' },
   ];
 
-  let transactionTypes = [
-    { name: 'All types', value: '' },
-    { name: 'Deposit', value: 'deposit' },
-    { name: 'Withdrawal', value: 'withdrawal' },
-    { name: 'Purchase', value: 'purchase' },
-    { name: 'Sale', value: 'sale' },
-    { name: 'Claim', value: 'claim' },
-    { name: 'NFT redeem', value: 'nft_redeem' },
-  ];
-
-  if ($user && $user.role !== 'user') transactionTypes.push({ name: 'Royalty fee', value: 'royalty_fee' });
+  function getTransactionTypes() {
+    let types = Object.values(transactionTypes);
+    return $user && $user.role !== 'user' ? types : types.filter((type) => type.value !== 'royalty_fee');
+  }
 
   function redirect(parameters) {
     gotoQueryParameters(
@@ -63,7 +57,7 @@
       {#if tab === 'transactions'}
         <Sort
           on:select={onFilter}
-          sortOptions={transactionTypes}
+          sortOptions={getTransactionTypes()}
           key="type"
           label="Transaction type:"
           iconType="filter"
