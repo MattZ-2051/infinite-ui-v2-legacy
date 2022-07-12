@@ -7,6 +7,8 @@
   import { formatBytes } from '$util/format';
   import { ENABLE_ASSET_FILE_SIZE } from '$project/variables';
   import { web3User } from '$lib/web3/web3.stores';
+  import { onSignIn, user } from '$lib/user';
+  import { toast } from '$ui/toast';
   import { getPreSignedUrl } from './private-asset.api';
 
   const privateAssets: Writable<PrivateAssets> = getContext('PrivateAssets');
@@ -19,6 +21,16 @@
   $: ethAddress = $web3User?.walletConnected && $web3User?.ethAddress;
 
   async function download(key: string, filename: string) {
+    if (!$user) {
+      toast.danger(
+        'You need to be <a data-toast="signIn" class="cursor-pointer font-bold" on:click={signIn}>logged in</a> to download the asset!',
+        {
+          onClick: {
+            signIn: () => onSignIn(),
+          },
+        }
+      );
+    }
     await getPreSignedUrl({ productId, key, filename, ethAddress });
   }
 

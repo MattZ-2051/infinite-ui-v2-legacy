@@ -30,8 +30,8 @@
   $: isProductOwner = isOwner(product, $userId);
   $: isTransactionLater = product.status === 'purchased';
   $: mintStatus = getMintStatus(product, $txState.status);
-  $: mintLaterLabel = isTransactionLater ? 'Owner' : 'Minted by';
-  $: mintByLabel = isTransactionLater ? mintLaterLabel : 'Owned by';
+  $: currencyLabel = isCurrencyETH ? 'Minted by' : 'Owner';
+  $: mintByLabel = isTransactionLater ? 'Owner' : currencyLabel;
   $: !product.serialNumber && product.mintingTrxHash && refetchProduct();
   $: isCurrencyETH = product?.sku?.currency === 'ETH';
 
@@ -41,7 +41,6 @@
     }, 8000);
   };
 
-  const MINT_OWNER_LABEL = isTransactionLater ? 'Owned by' : 'Owner';
   const cellClass =
     'flex flex-col gap-1.5 text-sm sm:text-base py-4 px-3 sm:px-6 overflow-hidden flex-1 basis-[178px] lg:basis-[max-content] xl:basis-auto min-w-min whitespace-nowrap';
   const headerClass = 'text-gray-500 text-sm';
@@ -113,7 +112,7 @@
     </div>
     <div class={cellClass}>
       {#if sku.currency === 'USD'}
-        <div class={headerClass}>{MINT_OWNER_LABEL}</div>
+        <div class={headerClass}>{mintByLabel}</div>
         <div class="flex flex-row">
           {#if product?.owner?.profilePhotoUrl}
             <img
